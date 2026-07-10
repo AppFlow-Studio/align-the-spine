@@ -35,6 +35,11 @@
 
   /* Design tokens: grid (condition-page-spec §E) */
   --container-max: 1568px;
+
+  /* Design tokens: fonts (condition-page-spec §A) */
+  --font-display: var(--font-newsreader);
+  --font-sans: var(--font-poppins);
+  --font-alt: var(--font-geist);
 }
 
 @theme inline {
