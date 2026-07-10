@@ -1,26 +1,48 @@
 @import "tailwindcss";
+@config "../tailwind.config.ts";
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Design tokens: colors (condition-page-spec §A) */
+  --color-navy-900: #253067;
+  --color-navy-800: #2b3565;
+  --color-navy-700: #374690; /* hero gradient end */
+  --color-teal-500: #58a0a0;
+  --color-ink-900: #1a1a1a;
+  --color-ink-500: #777777;
+  --color-mute-300: #cdcdcd;
+  --color-mute-400: #8e9597;
+  --color-mute-350: #ababb3;
+  --color-panel-100: #f6f6f6;
+
+  /* Design tokens: overlays (condition-page-spec §A2, partial) */
+  --overlay-navy-20: rgba(37, 48, 103, 0.2);
+
+  /* Design tokens: radius */
+  --radius-6: 6px;
+  --radius-15: 15px;
+  --radius-20: 20px;
+  --radius-30: 30px;
+  --radius-40: 40px;
+  --radius-50: 50px;
+  --radius-80: 80px;
+
+  /* Design tokens: shadow */
+  --shadow-card: 0 4px 50px rgba(0, 0, 0, 0.15);
+  --shadow-comparison: 0 10px 30px rgba(0, 0, 0, 0.04);
+
+  /* Design tokens: grid (condition-page-spec §E) */
+  --container-max: 1568px;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-panel-100);
+  color: var(--color-ink-900);
 }
