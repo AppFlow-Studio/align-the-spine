@@ -14,7 +14,7 @@
 - Path alias is `@/*` → repo root (`tsconfig.json:21-23`).
 - Do not redesign `app/page.tsx`. It is create-next-app boilerplate that will be replaced by real content in later tickets. Each task below temporarily adds a hidden probe element to `app/page.tsx` to force Tailwind to generate the utility classes under test, verifies, then reverts `app/page.tsx` to its original content — mirroring the pattern used in ATS-001.
 - Design token values are sourced from the Figma file `7p8hHjzZVy6MgpP6RAnmU1`, node `1:884` ("neck-imagesfocused" / the Neck condition page), per `docs/superpowers/specs/2026-07-10-design-tokens-design.md`. Do not add colors, sizes, or weights beyond what that spec lists — gaps (rest of §A2 glass values, additional type-scale roles, exact breakpoint data) are explicitly out of scope for this ticket.
-- Keep the existing `--background` / `--foreground` vars and their `@theme inline` mapping in `globals.css` as-is — `app/page.tsx`'s `bg-foreground` / `text-background` / `dark:` classes depend on them and page.tsx is not being touched beyond the probe/revert cycle.
+- The `prefers-color-scheme: dark` override for `--background` / `--foreground` is intentionally dropped (this design system has no dark palette). This causes a known, accepted cosmetic regression on `app/page.tsx`'s boilerplate "Deploy Now" button (`bg-foreground` / `text-background` / `dark:hover:` classes) in dark-mode browsers — acceptable since that button is disposable create-next-app scaffolding, not part of the design system, and will be replaced by real content in later tickets. (Corrected 2026-07-10 — the original draft of this constraint said the opposite; the human confirmed dropping the block is correct after Task 1's review flagged the contradiction.)
 
 ---
 
