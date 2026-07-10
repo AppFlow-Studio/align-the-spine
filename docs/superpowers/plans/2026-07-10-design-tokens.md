@@ -155,22 +155,22 @@ Add this line as the first child inside the outer `<div>` in `app/page.tsx` (rig
 Run: `npm run build`
 Expected: exits 0.
 
-Run: `grep -r "color-navy-900" .next/static/css/`
+Run: `grep -r "color-navy-900" .next/static/chunks/`
 Expected: at least one match (confirms the CSS var declaration reached the compiled output).
 
-Run: `grep -r "253067" .next/static/css/`
+Run: `grep -r "253067" .next/static/chunks/`
 Expected: at least one match (confirms the raw hex value is present).
 
-Run: `grep -r "bg-navy-900" .next/static/css/`
+Run: `grep -r "bg-navy-900" .next/static/chunks/`
 Expected: at least one match (confirms Tailwind generated the utility class, proving `tailwind.config.ts` + `@config` wiring works end to end).
 
-Run: `grep -r "shadow-card\|4px 50px" .next/static/css/`
+Run: `grep -r "shadow-card\|4px 50px" .next/static/chunks/`
 Expected: at least one match.
 
-Run: `grep -r "rounded-6\b" .next/static/css/`
+Run: `grep -r "rounded-6\b" .next/static/chunks/`
 Expected: at least one match (confirms a second radius scale entry, not just `rounded-30`).
 
-Run: `grep -r "overlay-navy-20" .next/static/css/`
+Run: `grep -r "overlay-navy-20" .next/static/chunks/`
 Expected: at least one match (confirms the glass overlay var reached compiled output, even though no utility consumes it yet).
 
 - [ ] **Step 5: Revert the probe**
@@ -271,13 +271,13 @@ In the `:root` block added in Task 1, add these three lines directly below the `
 Run: `npm run build`
 Expected: exits 0. (`next/font` fails the build at compile time if a requested weight isn't available for a font — a clean exit confirms the weight arrays from Step 1 are valid, which was already cross-checked against `node_modules/next/dist/compiled/@next/font/dist/google/font-data.json`.)
 
-Run: `grep -ril "Newsreader" .next/static/css/`
+Run: `grep -ril "Newsreader" .next/static/chunks/`
 Expected: at least one match.
 
-Run: `grep -ril "Poppins" .next/static/css/`
+Run: `grep -ril "Poppins" .next/static/chunks/`
 Expected: at least one match.
 
-Run: `grep -ril "Geist" .next/static/css/`
+Run: `grep -ril "Geist" .next/static/chunks/`
 Expected: at least one match.
 
 - [ ] **Step 4: Verify typecheck and lint still pass**
@@ -348,19 +348,19 @@ Add this line as the first child inside the outer `<div>` in `app/page.tsx` (sam
 Run: `npm run build`
 Expected: exits 0.
 
-Run: `grep -r "text-hero" .next/static/css/`
+Run: `grep -r "text-hero" .next/static/chunks/`
 Expected: at least one match.
 
-Run: `grep -r "87px" .next/static/css/`
+Run: `grep -r "87px" .next/static/chunks/`
 Expected: at least one match (hero font-size).
 
-Run: `grep -r "90px" .next/static/css/`
+Run: `grep -r "90px" .next/static/chunks/`
 Expected: at least one match (hero line-height).
 
-Run: `grep -r "text-nav" .next/static/css/`
+Run: `grep -r "text-nav" .next/static/chunks/`
 Expected: at least one match.
 
-Run: `grep -r "0.85px" .next/static/css/`
+Run: `grep -r "0.85px" .next/static/chunks/`
 Expected: at least one match (nav letter-spacing).
 
 - [ ] **Step 4: Revert the probe**
@@ -503,13 +503,13 @@ Add this line as the first child inside the outer `<div>` in `app/page.tsx` (sam
 Run: `npm run build`
 Expected: exits 0.
 
-Run: `grep -r "container-max" .next/static/css/`
+Run: `grep -r "container-max" .next/static/chunks/`
 Expected: at least one match.
 
-Run: `grep -r "clamp(24px" .next/static/css/`
+Run: `grep -r "clamp(24px" .next/static/chunks/`
 Expected: at least one match.
 
-Run: `grep -r "1568px" .next/static/css/`
+Run: `grep -r "1568px" .next/static/chunks/`
 Expected: at least one match.
 
 - [ ] **Step 4: Revert the probe**
