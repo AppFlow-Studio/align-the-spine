@@ -44,6 +44,22 @@ const config: Config = {
         card: "var(--shadow-card)",
         comparison: "var(--shadow-comparison)",
       },
+      fontFamily: {
+        display: ["var(--font-display)", "serif"],
+        sans: ["var(--font-sans)", "sans-serif"],
+        alt: ["var(--font-alt)", "sans-serif"],
+      },
+      fontSize: {
+        hero: ["87px", { lineHeight: "90px", fontWeight: "300" }],
+        h2: ["35px", { lineHeight: "66px", fontWeight: "600" }],
+        eyebrow: ["25px", { lineHeight: "40px", letterSpacing: "1.25px", fontWeight: "500" }],
+        "body-lg": ["25px", { lineHeight: "40px", fontWeight: "400" }],
+        button: ["20px", { lineHeight: "40px", fontWeight: "400" }],
+        nav: ["17px", { lineHeight: "40px", letterSpacing: "0.85px", fontWeight: "400" }],
+        "faq-q": ["25px", { lineHeight: "40px", fontWeight: "600" }],
+        "faq-a": ["25px", { lineHeight: "40px", fontWeight: "400" }],
+        "alt-label": ["22px", { lineHeight: "40px", fontWeight: "400" }],
+      },
     },
   },
 };
