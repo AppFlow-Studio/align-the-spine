@@ -22,6 +22,11 @@ export interface SocialLink {
   url: string;
 }
 
+export interface Stat {
+  label: string;
+  value: string;
+}
+
 export interface SiteConfig {
   business: {
     name: string;
@@ -41,6 +46,7 @@ export interface SiteConfig {
   };
   serviceAreas: string[];
   social: SocialLink[];
+  stats: Stat[];
 }
 
 const businessHours: DayHours[] = [
@@ -90,5 +96,12 @@ export const siteConfig: SiteConfig = {
   social: [
     { platform: "Facebook", url: "#" },
     { platform: "Instagram", url: "#" },
+  ],
+  stats: [
+    { label: "Reviews", value: "152" },
+    { label: "Visits", value: "Same-day" },
+    { label: "When it applies", value: "Home visits" },
+    { label: "Bilingual care", value: "EN/ES" },
+    { label: "Insurance", value: "$0 with PIP" },
   ],
 };
