@@ -57,6 +57,7 @@ const config: Config = {
       },
       fontSize: {
         hero: ["87px", { lineHeight: "90px", fontWeight: "300" }],
+        display: ["65px", { lineHeight: "68px", fontWeight: "500" }],
         h2: ["35px", { lineHeight: "66px", fontWeight: "600" }],
         eyebrow: ["25px", { lineHeight: "40px", letterSpacing: "1.25px", fontWeight: "500" }],
         "body-lg": ["25px", { lineHeight: "40px", fontWeight: "400" }],
