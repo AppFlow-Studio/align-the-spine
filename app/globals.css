@@ -19,6 +19,11 @@
 
   /* Design tokens: overlays (condition-page-spec §A2, partial) */
   --overlay-navy-20: rgba(37, 48, 103, 0.2);
+  --overlay-white-15: rgba(255, 255, 255, 0.15);
+  --overlay-white-16: rgba(255, 255, 255, 0.16); /* dark-form field fill (§A7) */
+
+  /* Design tokens: feedback */
+  --color-error: #dc2626;
 
   /* Design tokens: radius */
   --radius-6: 6px;

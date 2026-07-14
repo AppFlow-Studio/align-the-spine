@@ -30,6 +30,12 @@ const config: Config = {
         panel: {
           100: "var(--color-panel-100)",
         },
+        overlay: {
+          "navy-20": "var(--overlay-navy-20)",
+          "white-15": "var(--overlay-white-15)",
+          "white-16": "var(--overlay-white-16)",
+        },
+        error: "var(--color-error)",
       },
       borderRadius: {
         6: "var(--radius-6)",
@@ -51,6 +57,7 @@ const config: Config = {
       },
       fontSize: {
         hero: ["87px", { lineHeight: "90px", fontWeight: "300" }],
+        display: ["65px", { lineHeight: "68px", fontWeight: "500" }],
         h2: ["35px", { lineHeight: "66px", fontWeight: "600" }],
         eyebrow: ["25px", { lineHeight: "40px", letterSpacing: "1.25px", fontWeight: "500" }],
         "body-lg": ["25px", { lineHeight: "40px", fontWeight: "400" }],
@@ -59,6 +66,12 @@ const config: Config = {
         "faq-q": ["25px", { lineHeight: "40px", fontWeight: "600" }],
         "faq-a": ["25px", { lineHeight: "40px", fontWeight: "400" }],
         "alt-label": ["22px", { lineHeight: "40px", fontWeight: "400" }],
+        "stat-label": ["18px", { lineHeight: "28px", fontWeight: "500" }],
+        "stat-value": ["32px", { lineHeight: "40px", fontWeight: "500" }],
+        "btn-lg": ["35px", { lineHeight: "40px", fontWeight: "400" }],
+        "btn-eyebrow": ["20px", { lineHeight: "24px", fontWeight: "400" }],
+        field: ["20px", { lineHeight: "30px", fontWeight: "400" }],
+        "field-error": ["15px", { lineHeight: "22px", fontWeight: "400" }],
         "footer-tagline": ["23px", { lineHeight: "39px", fontWeight: "400" }],
         "footer-heading": [
           "25px",
