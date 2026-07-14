@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Newsreader, Poppins } from "next/font/google";
 
 import { Footer } from "@/components/layout/footer";
+import { Navbar } from "@/components/layout/navbar";
 
 import "./globals.css";
 
@@ -39,6 +40,7 @@ export default function RootLayout({
       className={`${newsreader.variable} ${poppins.variable} ${geist.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
       </body>
