@@ -30,6 +30,10 @@ const config: Config = {
         panel: {
           100: "var(--color-panel-100)",
         },
+        overlay: {
+          "navy-20": "var(--overlay-navy-20)",
+          "white-15": "var(--overlay-white-15)",
+        },
       },
       borderRadius: {
         6: "var(--radius-6)",
@@ -61,6 +65,8 @@ const config: Config = {
         "alt-label": ["22px", { lineHeight: "40px", fontWeight: "400" }],
         "stat-label": ["18px", { lineHeight: "28px", fontWeight: "500" }],
         "stat-value": ["32px", { lineHeight: "40px", fontWeight: "500" }],
+        "btn-lg": ["35px", { lineHeight: "40px", fontWeight: "400" }],
+        "btn-eyebrow": ["20px", { lineHeight: "24px", fontWeight: "400" }],
       },
     },
   },

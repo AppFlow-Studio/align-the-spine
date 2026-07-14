@@ -19,6 +19,7 @@
 
   /* Design tokens: overlays (condition-page-spec §A2, partial) */
   --overlay-navy-20: rgba(37, 48, 103, 0.2);
+  --overlay-white-15: rgba(255, 255, 255, 0.15);
 
   /* Design tokens: radius */
   --radius-6: 6px;
