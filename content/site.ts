@@ -75,7 +75,7 @@ export const siteConfig: SiteConfig = {
     { label: "Reviews", href: "/reviews" },
     { label: "Auto Accidents", href: "/auto-accidents" },
   ],
-  bookingCta: { label: "Book Appointment", href: "#" },
+  bookingCta: { label: "Book Appointment", href: "/book" },
   footer: {
     tagline:
       "Premium chiropractic care delivered with medical excellence and patient-first convenience across South Florida.",
