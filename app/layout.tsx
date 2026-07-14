@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Newsreader, Poppins } from "next/font/google";
 
+import { Footer } from "@/components/layout/footer";
+
 import "./globals.css";
 
 const newsreader = Newsreader({
@@ -36,7 +38,10 @@ export default function RootLayout({
       lang="en"
       className={`${newsreader.variable} ${poppins.variable} ${geist.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }
