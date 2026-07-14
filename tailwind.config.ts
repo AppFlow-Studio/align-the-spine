@@ -59,6 +59,12 @@ const config: Config = {
         "faq-q": ["25px", { lineHeight: "40px", fontWeight: "600" }],
         "faq-a": ["25px", { lineHeight: "40px", fontWeight: "400" }],
         "alt-label": ["22px", { lineHeight: "40px", fontWeight: "400" }],
+        "footer-tagline": ["23px", { lineHeight: "39px", fontWeight: "400" }],
+        "footer-heading": [
+          "25px",
+          { lineHeight: "40px", letterSpacing: "1.25px", fontWeight: "500" },
+        ],
+        "footer-copy": ["20px", { lineHeight: "32px", fontWeight: "400" }],
       },
     },
   },
