@@ -22,15 +22,16 @@ hero-eval variant when `fields` is omitted):
 
 ## `LeadFormProps`
 
-| Prop             | Type                                        | Required | Notes                                                                                              |
-| ---------------- | ------------------------------------------- | -------- | -------------------------------------------------------------------------------------------------- |
-| `heading`        | `string`                                    | yes      | Rendered as an `<h2>` above the fields.                                                            |
-| `fields`         | `LeadFieldConfig[]`                         | yes      | Drives both rendering and the derived zod schema.                                                  |
-| `submitLabel`    | `string`                                    | yes      | CTA text on the submit button.                                                                     |
-| `onSubmit`       | `(values: LeadFormValues) => Promise<void>` | no       | ATS-031 injects the real endpoint + success route here. Without it, submit simulates a 400ms call. |
-| `successMessage` | `string`                                    | no       | Defaults to "Thanks — we'll be in touch shortly."                                                  |
-| `fieldVariant`   | `"dark" \| "light"`                         | no       | Field styling surface; defaults to `"dark"` (hero panels).                                         |
-| `className`      | `string`                                    | no       | Merged onto the `<form>`.                                                                          |
+| Prop             | Type                                        | Required | Notes                                                                                                   |
+| ---------------- | ------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------- |
+| `heading`        | `string`                                    | yes      | Rendered as an `<h2>` above the fields.                                                                 |
+| `variant`        | `string`                                    | no       | Variant key for server-side validation in `/api/lead`; defaults to `"heroEval"`. Presets include it.    |
+| `fields`         | `LeadFieldConfig[]`                         | yes      | Drives both rendering and the derived zod schema.                                                       |
+| `submitLabel`    | `string`                                    | yes      | CTA text on the submit button.                                                                          |
+| `onSubmit`       | `(values: LeadFormValues) => Promise<void>` | no       | Overrides the default submission (POST `/api/lead` → redirect `/thank-you`). Success then shows inline. |
+| `successMessage` | `string`                                    | no       | Inline success text for the `onSubmit`-override path. Defaults to "Thanks — we'll be in touch shortly." |
+| `fieldVariant`   | `"dark" \| "light"`                         | no       | Field styling surface; defaults to `"dark"` (hero panels).                                              |
+| `className`      | `string`                                    | no       | Merged onto the `<form>`.                                                                               |
 
 `LeadFormValues` is `Record<string, string>` keyed by each field's `name`.
 
@@ -69,7 +70,25 @@ Each preset is `{ fields, submitLabel }`; spread it into `<LeadForm />`.
   failed `onSubmit` renders a retryable error line, success resets the form and
   shows `successMessage`.
 
+## Submission pipeline (ATS-031)
+
+Without an `onSubmit` override, a valid submit POSTs
+`{ variant, values, website }` to `/api/lead`, fires the ATS-132 conversion
+hook (`trackLeadConversion` pushes a `lead_form_submit` event to
+`window.dataLayer`), and routes to `/thank-you`. Failures surface as an inline
+retryable error.
+
+The route re-validates server-side with the same `buildLeadFormSchema`
+(`lib/lead-form-schema.ts`) keyed by `variant` and re-checks the honeypot. It
+responds `{ ok: true }` as soon as validation passes; the Resend email to
+`LEAD_TO_EMAIL` (defaults to `siteConfig.business.email`) is sent lazily after
+the response via `after()`, so visitors never wait on — or see errors from —
+the email provider (delivery failures are logged server-side). Without
+`RESEND_API_KEY` it logs the lead to the server console so local dev stays
+demoable — see `.env.example`.
+
 ## Spam guard
 
 A visually hidden "website" honeypot input sits outside react-hook-form. If a
-bot fills it, the form fakes success and never calls `onSubmit`.
+bot fills it, the client fakes success without POSTing, and `/api/lead`
+independently fakes success (200) for direct POSTs with a filled honeypot.

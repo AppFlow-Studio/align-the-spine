@@ -11,7 +11,7 @@ import { siteConfig } from "@/content/site";
 import { NavbarDrawer } from "./navbar-drawer";
 import { NavbarLinks } from "./navbar-links";
 
-export const SOLID_NAV_ROUTES = ["/book", "/privacy", "/home-visits"];
+export const SOLID_NAV_ROUTES = ["/book", "/privacy", "/home-visits", "/thank-you"];
 
 const SCROLL_THRESHOLD = 40;
 

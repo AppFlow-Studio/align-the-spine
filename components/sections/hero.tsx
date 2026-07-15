@@ -16,6 +16,8 @@ export interface HeroCta {
 export interface HeroFormConfig {
   heading: string;
   submitLabel: string;
+  /** Variant key for server-side validation; defaults to "heroEval". */
+  variant?: string;
   /** Defaults to the hero-eval variant (First/Last/Phone/Email). */
   fields?: LeadFieldConfig[];
   footerNote?: string;
@@ -114,6 +116,7 @@ export function Hero({
           <div className="rounded-15 bg-overlay-white-15 p-8 shadow-card">
             <LeadForm
               heading={form.heading}
+              variant={form.variant}
               fields={form.fields ?? leadFormVariants.heroEval.fields}
               submitLabel={form.submitLabel}
               onSubmit={form.onSubmit}

@@ -1,6 +1,8 @@
-import type { LeadFieldConfig } from "@/components/ui/lead-form";
+import type { LeadFieldConfig } from "@/lib/lead-form-schema";
 
 export interface LeadFormVariantConfig {
+  /** Key the server uses to pick the validation schema in /api/lead. */
+  variant: string;
   fields: LeadFieldConfig[];
   submitLabel: string;
 }
@@ -26,10 +28,12 @@ const zipField: LeadFieldConfig = {
  */
 export const leadFormVariants = {
   heroEval: {
+    variant: "heroEval",
     fields: baseFields,
     submitLabel: "Schedule My Evaluation",
   },
   carAccident: {
+    variant: "carAccident",
     fields: [
       ...baseFields,
       { name: "claimNumber", label: "Claim # (if available)", required: false },
@@ -37,6 +41,7 @@ export const leadFormVariants = {
     submitLabel: "Schedule My Car Accident Evaluation",
   },
   contact: {
+    variant: "contact",
     fields: [
       ...baseFields,
       zipField,
@@ -56,6 +61,7 @@ export const leadFormVariants = {
     submitLabel: "Contact Us",
   },
   eligibility: {
+    variant: "eligibility",
     fields: [...baseFields, zipField],
     submitLabel: "Check Eligibility",
   },

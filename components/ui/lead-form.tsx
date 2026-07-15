@@ -1,78 +1,43 @@
 "use client";
 
 import { useState, type BaseSyntheticEvent } from "react";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type Resolver } from "react-hook-form";
-import { z } from "zod";
 
 import { Button } from "@/components/ui/button";
 import { type FieldVariant } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Select, type SelectOption } from "@/components/ui/select";
+import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { trackLeadConversion } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
+import {
+  buildLeadFormSchema,
+  type LeadFieldConfig,
+  type LeadFieldType,
+} from "@/lib/lead-form-schema";
 
 export type LeadFormValues = Record<string, string>;
 
-export type LeadFieldType = "text" | "tel" | "email" | "zip" | "select" | "textarea";
-
-export interface LeadFieldConfig {
-  /** Key in the submitted values object. */
-  name: string;
-  label: string;
-  /** Defaults to "text". "zip" renders a numeric text input with ZIP validation. */
-  type?: LeadFieldType;
-  /** Defaults to true. */
-  required?: boolean;
-  /** Half-width fields pair up side by side in the two-column grid. */
-  half?: boolean;
-  /** Options for `type: "select"`. */
-  options?: SelectOption[];
-  placeholder?: string;
-  autoComplete?: string;
-}
+export type { LeadFieldConfig, LeadFieldType };
+export { buildLeadFormSchema };
 
 export interface LeadFormProps {
   heading: string;
+  /** Variant key sent to /api/lead so the server re-validates against the
+   * matching schema. Comes for free when spreading a leadFormVariants preset. */
+  variant?: string;
   /** Field config driving both rendering and the zod validation schema. */
   fields: LeadFieldConfig[];
   submitLabel: string;
-  /** Wired to the real endpoint + success route by ATS-031; falls back to a
-   * simulated delay so forms are demoable before then. */
+  /** Overrides the default submission (POST /api/lead + redirect to
+   * /thank-you). When provided, success shows `successMessage` inline instead. */
   onSubmit?: (values: LeadFormValues) => Promise<void>;
   successMessage?: string;
   /** Field styling for dark (hero) vs light surfaces. */
   fieldVariant?: FieldVariant;
   className?: string;
-}
-
-const PHONE_PATTERN = /^[\d\s().+-]{7,}$/;
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const ZIP_PATTERN = /^\d{5}(-\d{4})?$/;
-
-const PATTERN_RULES: Partial<Record<LeadFieldType, { pattern: RegExp; message: string }>> = {
-  tel: { pattern: PHONE_PATTERN, message: "Enter a valid phone number" },
-  email: { pattern: EMAIL_PATTERN, message: "Enter a valid email" },
-  zip: { pattern: ZIP_PATTERN, message: "Enter a valid ZIP code" },
-};
-
-/** Each variant's schema is derived from its fields config: required fields
- * must be non-empty, and tel/email/zip enforce a format when filled in. */
-export function buildLeadFormSchema(fields: LeadFieldConfig[]) {
-  const shape: Record<string, z.ZodType<string>> = {};
-  for (const field of fields) {
-    const rule = PATTERN_RULES[field.type ?? "text"];
-    if (field.required === false) {
-      shape[field.name] = rule
-        ? z.literal("").or(z.string().regex(rule.pattern, rule.message))
-        : z.string();
-    } else {
-      let schema = z.string().min(1, "Required");
-      if (rule) schema = schema.regex(rule.pattern, rule.message);
-      shape[field.name] = schema;
-    }
-  }
-  return z.object(shape);
 }
 
 function inputType(type: LeadFieldType) {
@@ -85,6 +50,7 @@ function inputType(type: LeadFieldType) {
  * variant presets and docs/lead-form-contract.md for the props contract. */
 export function LeadForm({
   heading,
+  variant = "heroEval",
   fields,
   submitLabel,
   onSubmit,
@@ -92,6 +58,7 @@ export function LeadForm({
   fieldVariant = "dark",
   className,
 }: LeadFormProps) {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -110,17 +77,33 @@ export function LeadForm({
     const honeypot = (event?.target as HTMLFormElement | undefined)?.elements.namedItem(
       "website",
     ) as HTMLInputElement | null;
-    try {
-      // Spam guard: a filled honeypot fakes success without submitting.
-      if (!honeypot?.value) {
-        if (onSubmit) {
-          await onSubmit(values);
-        } else {
-          await new Promise((resolve) => setTimeout(resolve, 400));
-        }
-      }
+
+    // Spam guard: a filled honeypot fakes success without submitting anything.
+    if (honeypot?.value) {
       setSubmitted(true);
       reset();
+      return;
+    }
+
+    try {
+      if (onSubmit) {
+        await onSubmit(values);
+        trackLeadConversion(variant);
+        setSubmitted(true);
+        reset();
+        return;
+      }
+
+      const response = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ variant, values, website: honeypot?.value ?? "" }),
+      });
+      if (!response.ok) {
+        throw new Error(`Lead submission failed with status ${response.status}`);
+      }
+      trackLeadConversion(variant);
+      router.push("/thank-you");
     } catch {
       setSubmitError("Something went wrong. Please try again.");
     }
