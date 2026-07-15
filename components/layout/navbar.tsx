@@ -45,7 +45,7 @@ export function Navbar({ variant }: { variant?: NavbarVariant } = {}) {
   }, [resolvedVariant]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 flex h-[100px] items-center">
+    <header className="sticky top-0 z-50 flex h-[100px] items-center">
       <div className="container flex items-center justify-between">
         <Link href="/" className="shrink-0">
           <Image
