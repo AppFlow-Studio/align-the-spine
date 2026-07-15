@@ -65,6 +65,7 @@ const config: Config = {
         nav: ["17px", { lineHeight: "40px", letterSpacing: "0.85px", fontWeight: "400" }],
         "faq-q": ["25px", { lineHeight: "40px", fontWeight: "600" }],
         "faq-a": ["25px", { lineHeight: "40px", fontWeight: "400" }],
+        "faq-toggle": ["33px", { lineHeight: "40px", fontWeight: "400" }],
         "alt-label": ["22px", { lineHeight: "40px", fontWeight: "400" }],
         "stat-label": ["18px", { lineHeight: "28px", fontWeight: "500" }],
         "stat-value": ["32px", { lineHeight: "40px", fontWeight: "500" }],
