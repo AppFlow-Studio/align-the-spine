@@ -58,6 +58,11 @@ Each preset is `{ fields, submitLabel }`; spread it into `<LeadForm />`.
 | `carAccident` | hero-eval + Claim # (optional)                                     | Schedule My Car Accident Evaluation |
 | `contact`     | hero-eval + Zip, Best Time to Contact (select), Message (textarea) | Contact Us                          |
 | `eligibility` | hero-eval + Zip                                                    | Check Eligibility                   |
+| `booking`     | First, Phone, Last, Reason for Visit (select), Notes (optional)    | Schedule My Evaluation              |
+
+The `booking` variant is consumed by the two-step `BookingForm`
+(`components/sections/booking-form.tsx`) on /book rather than `<LeadForm />` —
+same schema, same `/api/lead` pipeline.
 
 ## Validation & states
 

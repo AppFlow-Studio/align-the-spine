@@ -3,6 +3,26 @@ export interface FAQ {
   answer: string;
 }
 
+/** "Before you call / Quick answers" block on /book (ATS-100), per the
+ * Book-appt artboard: walk-ins, PIP coverage, home-visit travel. */
+export const bookFaqs: FAQ[] = [
+  {
+    question: "Do you take walk-ins or same-day appointments?",
+    answer:
+      "We recommend booking ahead so we can hold time for a full exam, but we keep same-day slots open for urgent cases — call the office and we'll fit you in when we can.",
+  },
+  {
+    question: "How does PIP coverage work for my visit?",
+    answer:
+      "Florida PIP covers care after an auto accident when treatment begins within 14 days, and it often reduces your out-of-pocket cost to $0. Bring your claim number if you have one and we'll verify your coverage before your first visit.",
+  },
+  {
+    question: "How far do you travel for home visits?",
+    answer:
+      "We serve Deerfield Beach, Boca Raton, Fort Lauderdale, and the surrounding South Florida communities. If you're nearby but not sure you're in range, call us — we'll let you know right away.",
+  },
+];
+
 export const faqs: FAQ[] = [
   {
     question: "Do you accept insurance?",

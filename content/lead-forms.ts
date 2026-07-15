@@ -65,6 +65,37 @@ export const leadFormVariants = {
     fields: [...baseFields, zipField],
     submitLabel: "Check Eligibility",
   },
+  /** Two-step /book hero form per the Book-appt artboard: step 1 collects
+   * first name + phone, step 2 the rest. No email field by design. */
+  booking: {
+    variant: "booking",
+    fields: [
+      { name: "firstName", label: "First Name", autoComplete: "given-name" },
+      { name: "phone", label: "Phone", type: "tel", autoComplete: "tel" },
+      { name: "lastName", label: "Last Name", autoComplete: "family-name" },
+      {
+        name: "reason",
+        label: "Reason for Visit",
+        type: "select",
+        placeholder: "Select a reason",
+        options: [
+          { label: "Back pain", value: "back-pain" },
+          { label: "Neck pain", value: "neck-pain" },
+          { label: "Sciatica", value: "sciatica" },
+          { label: "Accident", value: "accident" },
+          { label: "Home visit", value: "home-visit" },
+          { label: "Other", value: "other" },
+        ],
+      },
+      {
+        name: "notes",
+        label: "Anything else we should know? (optional)",
+        type: "textarea",
+        required: false,
+      },
+    ],
+    submitLabel: "Schedule My Evaluation",
+  },
 } satisfies Record<string, LeadFormVariantConfig>;
 
 export type LeadFormVariant = keyof typeof leadFormVariants;

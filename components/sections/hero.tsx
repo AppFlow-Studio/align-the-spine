@@ -36,7 +36,10 @@ export interface HeroProps {
   ctas?: HeroCta[];
   callPill?: { eyebrow: string; phone: string };
   bilingualNote?: string;
-  form: HeroFormConfig;
+  form?: HeroFormConfig;
+  /** Replaces the default LeadForm card entirely (e.g. the /book two-step
+   * BookingForm, which brings its own card styling). */
+  formSlot?: ReactNode;
 }
 
 function HeroChip({ children }: { children: ReactNode }) {
@@ -65,6 +68,7 @@ export function Hero({
   callPill,
   bilingualNote,
   form,
+  formSlot,
 }: HeroProps) {
   return (
     // Margins = TopStatsBar's worst-case rendered height per breakpoint tier, +16px buffer.
@@ -113,16 +117,19 @@ export function Hero({
         </div>
 
         <div className="flex flex-col gap-6">
-          <div className="rounded-15 bg-overlay-white-15 p-8 shadow-card">
-            <LeadForm
-              heading={form.heading}
-              variant={form.variant}
-              fields={form.fields ?? leadFormVariants.heroEval.fields}
-              submitLabel={form.submitLabel}
-              onSubmit={form.onSubmit}
-            />
-          </div>
-          {form.footerNote && (
+          {formSlot ??
+            (form && (
+              <div className="rounded-15 bg-overlay-white-15 p-8 shadow-card">
+                <LeadForm
+                  heading={form.heading}
+                  variant={form.variant}
+                  fields={form.fields ?? leadFormVariants.heroEval.fields}
+                  submitLabel={form.submitLabel}
+                  onSubmit={form.onSubmit}
+                />
+              </div>
+            ))}
+          {form?.footerNote && (
             <p className="font-sans text-body-lg text-white">{form.footerNote}</p>
           )}
         </div>
