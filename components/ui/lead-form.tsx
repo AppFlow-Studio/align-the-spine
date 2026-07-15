@@ -59,7 +59,7 @@ export function LeadForm({ heading, submitLabel, onSubmit, className }: LeadForm
     <form
       onSubmit={handleSubmit(onValid)}
       noValidate
-      className={cn("flex flex-col gap-5", className)}
+      className={cn("flex flex-col gap-5 backdrop-blur-md", className)}
     >
       <h2 className="font-sans text-button font-medium text-white">{heading}</h2>
 

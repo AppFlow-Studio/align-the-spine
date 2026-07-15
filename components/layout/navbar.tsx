@@ -45,8 +45,12 @@ export function Navbar({ variant }: { variant?: NavbarVariant } = {}) {
   }, [resolvedVariant]);
 
   return (
-    <header className="sticky top-0 z-50 flex h-[100px] items-center">
-      <div className="container flex items-center justify-between">
+    <header className="fixed inset-x-0 top-0 z-50 flex h-[100px] items-center">
+      <div
+        className={`container flex items-center justify-between rounded-full px-2 ${
+          isGlass ? "bg-white/[13%] backdrop-blur-md" : "bg-transparent"
+        }`}
+      >
         <Link href="/" className="shrink-0">
           <Image
             src="/figma-exports/logo_blue.png"

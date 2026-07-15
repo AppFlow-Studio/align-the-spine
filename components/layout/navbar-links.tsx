@@ -10,9 +10,7 @@ export function NavbarLinks({ isGlass, className = "" }: { isGlass: boolean; cla
 
   return (
     <ul
-      className={`items-center gap-10 rounded-40 px-8 py-2 transition-colors duration-300 ${
-        isGlass ? "bg-white/[13%] backdrop-blur-md" : "bg-transparent"
-      } ${className}`}
+      className={`items-center gap-10 rounded-40 px-8 py-2 transition-colors duration-300  ${className}`}
     >
       {siteConfig.nav.map((link) => {
         const active = pathname === link.href;

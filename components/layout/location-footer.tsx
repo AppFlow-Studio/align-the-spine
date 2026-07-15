@@ -1,8 +1,11 @@
+"use client";
+
 import Link from "next/link";
 
-import { Eyebrow } from "@/components/ui/eyebrow";
 import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
+import { InfoIcon } from "@/components/ui/icons/info";
 import { siteConfig } from "@/content/site";
+import { cn } from "@/lib/cn";
 
 function buildMapEmbedSrc(): string {
   const { line1, suite, city, state, zip } = siteConfig.business.address;
@@ -10,66 +13,84 @@ function buildMapEmbedSrc(): string {
   return `https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}&output=embed`;
 }
 
-/** Larger location/contact block per ATS-013: map + address + hours table +
- * dual CTAs. Used as the "location" footer variant on Home, Services, About. */
+/** Larger location/contact block per ATS-013: map with a floating glass
+ * address card + an hours table (today's row highlighted) + dual CTAs.
+ * Used as the "location" footer variant on Home, Services, About. */
 export function LocationFooter() {
-  return (
-    <footer className="border-t border-white/10 bg-navy-900">
-      <div className="container flex flex-col gap-14 py-20 lg:flex-row lg:items-start lg:justify-between">
-        <div className="flex flex-col gap-6 lg:max-w-md">
-          <Eyebrow>Location</Eyebrow>
-          <h2 className="font-display text-display text-white">Our Location</h2>
-          <p className="text-footer-copy text-mute-300">
-            Find us inside Palm Plaza, just off Southeast 8th Avenue in Deerfield Beach.
-          </p>
-          <address className="text-footer-copy not-italic text-mute-300">
-            {siteConfig.business.address.line1}, {siteConfig.business.address.suite}
-            <br />
-            {siteConfig.business.address.city}, {siteConfig.business.address.state}{" "}
-            {siteConfig.business.address.zip}
-          </address>
+  const today = new Date().toLocaleDateString("en-US", { weekday: "long" });
 
-          <table className="w-full text-footer-copy text-mute-300">
+  return (
+    <footer className=" bg-white">
+      <div className="container flex flex-col lg:flex-row lg:items-stretch">
+        <div className="relative min-h-[420px] flex-1 lg:min-h-[560px]">
+          <iframe
+            title={`Map to ${siteConfig.business.name}`}
+            src={buildMapEmbedSrc()}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="absolute inset-0 h-full w-full border-0"
+          />
+          <div className="absolute inset-x-4 bottom-4 rounded-20 bg-overlay-white-16 p-6 backdrop-blur-md sm:inset-x-8 sm:bottom-8 sm:p-8">
+            <h2 className="font-display text-h2 text-navy-900">Our Location</h2>
+            <address className="mt-2 font-alt text-footer-copy not-italic text-navy-900">
+              {siteConfig.business.address.line1}, {siteConfig.business.address.suite}
+              <br />
+              {siteConfig.business.address.city}, {siteConfig.business.address.state}{" "}
+              {siteConfig.business.address.zip}
+            </address>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-6 px-6 py-10 lg:w-[420px] lg:shrink-0 lg:py-16 lg:pl-14">
+          <div>
+            <h3 className="font-display text-h2 text-navy-900">Hours of operation</h3>
+            <div className="mt-2 h-px w-full bg-mute-300" />
+          </div>
+
+          <table className="w-full font-alt text-footer-copy">
             <tbody>
-              {siteConfig.hours.map((hours) => (
-                <tr key={hours.day} className="border-t border-white/10">
-                  <th scope="row" className="py-2 text-left font-normal text-white">
-                    {hours.day}
-                  </th>
-                  <td className="py-2 text-right">
-                    {hours.open} – {hours.close}
-                  </td>
-                </tr>
-              ))}
+              {siteConfig.hours.map((hours) => {
+                const isToday = hours.day === today;
+                return (
+                  <tr key={hours.day} className="border-t border-mute-300 first:border-t-0">
+                    <th
+                      scope="row"
+                      className={cn(
+                        "py-2 text-left font-normal text-navy-900",
+                        isToday && "text-teal-500",
+                      )}
+                    >
+                      {hours.day}
+                    </th>
+                    <td
+                      className={cn(
+                        "py-2 text-right font-medium text-navy-900",
+                        isToday && "text-teal-500",
+                      )}
+                    >
+                      {hours.open} – {hours.close}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
-          <p className="text-footer-copy text-mute-300">{siteConfig.hoursNote}</p>
 
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+          <p className="flex items-center gap-2 font-alt text-footer-copy text-mute-400">
+            <InfoIcon className="h-4 w-4 shrink-0" />
+            {siteConfig.hoursNote}
+          </p>
+
+          <div className=" gap-4 pt-4 sm:flex-row sm:items-center">
             <Link
               href={siteConfig.bookingCta.href}
-              className="flex h-16 items-center justify-center gap-3 rounded-40 bg-white px-8 font-sans text-button text-navy-900 transition-colors hover:bg-mute-300"
+              className="flex h-16 items-center justify-center gap-3 bg-navy-900 px-8 font-sans text-button text-white transition-colors hover:bg-navy-700"
             >
               Book Your Visit
               <ArrowRightIcon className="h-5 w-5" />
             </Link>
-            <Link
-              href="/#contact"
-              className="flex items-center gap-2 font-alt text-alt-label text-white transition-colors hover:text-mute-300"
-            >
-              Send Message
-              <ArrowRightIcon className="h-5 w-5" />
-            </Link>
           </div>
         </div>
-
-        <iframe
-          title={`Map to ${siteConfig.business.name}`}
-          src={buildMapEmbedSrc()}
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          className="h-[360px] w-full rounded-20 border-0 lg:w-[560px]"
-        />
       </div>
     </footer>
   );

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 
 import { Footer } from "./footer";
 import { LocationFooter } from "./location-footer";
+import { LocationIntro } from "./location-intro";
 import { Navbar } from "./navbar";
 import { TopStatsBar } from "./top-stats-bar";
 
@@ -37,7 +38,14 @@ export function RootShell({ children, footerVariant }: RootShellProps) {
       <main id="main-content" className="flex-1">
         {children}
       </main>
-      {resolvedVariant === "location" ? <LocationFooter /> : <Footer />}
+      {resolvedVariant === "location" ? (
+        <>
+          <LocationIntro />
+          <LocationFooter />
+        </>
+      ) : (
+        <Footer />
+      )}
     </>
   );
 }

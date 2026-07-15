@@ -36,7 +36,7 @@ export interface HeroProps {
 
 function HeroChip({ children }: { children: ReactNode }) {
   return (
-    <span className="w-fit rounded-6 bg-teal-500 px-6 py-3 font-sans text-button text-white">
+    <span className=" absolute left-[-265px] top-[-370px] w-[480px] z-10 flex justify-end bg-teal-500 px-6 py-3 font-sans text-button text-white">
       {children}
     </span>
   );
@@ -69,16 +69,7 @@ export function Hero({
     <section className="relative -mt-[516px] min-h-[975px] overflow-hidden sm:-mt-[304px] md:-mt-[240px] lg:-mt-[176px]">
       <Image src={background.src} alt={background.alt} fill priority className="object-cover" />
       <div className="absolute inset-0 bg-black/[.47]" />
-      <div className="absolute inset-0 bg-gradient-to-b from-navy-900/0 to-navy-700/80" />
-      {spineOverlay && (
-        <Image
-          src="/figma-exports/spine-skeloton.png"
-          alt=""
-          aria-hidden="true"
-          fill
-          className="object-contain opacity-30"
-        />
-      )}
+
       <div className="absolute inset-x-0 bottom-0 h-20 rounded-t-[50px] bg-white" />
 
       <div className="container relative z-10 grid gap-10 pb-32 pt-[220px] lg:grid-cols-2 lg:items-center lg:gap-16 lg:pt-[260px]">
@@ -86,7 +77,7 @@ export function Hero({
           {variant === "condition" && conditionChip && <HeroChip>{conditionChip}</HeroChip>}
           {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
 
-          <h1 className="font-display text-hero text-white">{title}</h1>
+          <h1 className="font-display text-hero text-white mb-20">{title}</h1>
           <p className="font-sans text-body-lg text-mute-300">{subhead}</p>
 
           {callPill && (
@@ -105,7 +96,7 @@ export function Hero({
           )}
 
           {variant === "home" && (Boolean(badge) || Boolean(ctas?.length)) && (
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap items-center gap-4 relative">
               {badge && <HeroChip>{badge}</HeroChip>}
               {ctas?.map((cta) => (
                 <Button key={cta.label} href={cta.href} variant={cta.variant ?? "primary"}>
