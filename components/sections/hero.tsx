@@ -3,7 +3,8 @@ import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { LeadForm, type LeadFormValues } from "@/components/ui/lead-form";
+import { LeadForm, type LeadFieldConfig, type LeadFormValues } from "@/components/ui/lead-form";
+import { leadFormVariants } from "@/content/lead-forms";
 import { siteConfig } from "@/content/site";
 
 export interface HeroCta {
@@ -15,6 +16,8 @@ export interface HeroCta {
 export interface HeroFormConfig {
   heading: string;
   submitLabel: string;
+  /** Defaults to the hero-eval variant (First/Last/Phone/Email). */
+  fields?: LeadFieldConfig[];
   footerNote?: string;
   onSubmit?: (values: LeadFormValues) => Promise<void>;
 }
@@ -111,6 +114,7 @@ export function Hero({
           <div className="rounded-15 bg-overlay-white-15 p-8 shadow-card">
             <LeadForm
               heading={form.heading}
+              fields={form.fields ?? leadFormVariants.heroEval.fields}
               submitLabel={form.submitLabel}
               onSubmit={form.onSubmit}
             />
