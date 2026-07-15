@@ -97,6 +97,7 @@ Content grid (`container grid gap-10 lg:grid-cols-2 lg:items-center`) renders in
 ## Layout
 
 - **Left column** (`from left: 64` → `pl-16` equivalent via the existing `.container` fluid padding, not a literal magic number):
+  - `eyebrow` (when passed): reuses the existing `Eyebrow` UI primitive (`text-eyebrow`, teal-500, uppercase), directly above the H1 — not variant-scoped, since the acceptance criteria list `eyebrow` as a prop-driven field generically, not tied to Condition.
   - `H1`: `font-display text-hero text-white` (87/90/300)
   - Subhead: `font-sans text-body-lg text-mute-300` (25/40, `#cdcdcd`)
   - `Button variant="glass"` call-pill (`eyebrow` + phone), only when `callPill` is passed
