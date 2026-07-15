@@ -36,15 +36,23 @@ export function LeadForm({ heading, submitLabel, onSubmit, className }: LeadForm
     formState: { errors, isSubmitting },
   } = useForm<LeadFormValues>();
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const onValid = async (values: LeadFormValues) => {
-    if (onSubmit) {
-      await onSubmit(values);
-    } else {
-      await new Promise((resolve) => setTimeout(resolve, 400));
+    setSubmitted(false);
+    setSubmitError(null);
+    try {
+      if (onSubmit) {
+        await onSubmit(values);
+      } else {
+        await new Promise((resolve) => setTimeout(resolve, 400));
+      }
+      setSubmitted(true);
+      setSubmitError(null);
+      reset();
+    } catch {
+      setSubmitError("Something went wrong. Please try again.");
     }
-    setSubmitted(true);
-    reset();
   };
 
   return (
@@ -95,6 +103,12 @@ export function LeadForm({ heading, submitLabel, onSubmit, className }: LeadForm
       <Button type="submit" variant="primary" loading={isSubmitting} className="w-full">
         {submitLabel}
       </Button>
+
+      {submitError && (
+        <p role="alert" className="font-sans text-field text-error">
+          {submitError}
+        </p>
+      )}
 
       {submitted && (
         <p role="status" className="font-sans text-field text-white">

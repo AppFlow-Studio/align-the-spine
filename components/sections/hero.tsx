@@ -62,6 +62,10 @@ export function Hero({
   form,
 }: HeroProps) {
   return (
+    // Margins = TopStatsBar's worst-case rendered height per breakpoint tier, +16px buffer.
+    // Recompute (real-browser measurement, not guessed) if siteConfig.stats content changes
+    // enough to alter label wrapping/row-count — see derivation in
+    // docs/superpowers/specs/2026-07-15-hero-section-design.md.
     <section className="relative -mt-[516px] min-h-[975px] overflow-hidden sm:-mt-[304px] md:-mt-[240px] lg:-mt-[176px]">
       <Image src={background.src} alt={background.alt} fill priority className="object-cover" />
       <div className="absolute inset-0 bg-black/[.47]" />
@@ -100,7 +104,7 @@ export function Hero({
             <p className="font-alt text-alt-label text-mute-300">{bilingualNote}</p>
           )}
 
-          {variant === "home" && (badge || ctas?.length) && (
+          {variant === "home" && (Boolean(badge) || Boolean(ctas?.length)) && (
             <div className="flex flex-wrap items-center gap-4">
               {badge && <HeroChip>{badge}</HeroChip>}
               {ctas?.map((cta) => (
