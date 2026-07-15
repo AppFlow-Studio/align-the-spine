@@ -72,6 +72,8 @@ const config: Config = {
         "btn-lg": ["35px", { lineHeight: "40px", fontWeight: "400" }],
         "btn-eyebrow": ["20px", { lineHeight: "24px", fontWeight: "400" }],
         field: ["20px", { lineHeight: "30px", fontWeight: "400" }],
+        "calc-heading": ["25px", { lineHeight: "40px", fontWeight: "500" }],
+        "calc-helper": ["15px", { lineHeight: "23px", fontWeight: "400" }],
         "field-error": ["15px", { lineHeight: "22px", fontWeight: "400" }],
         "footer-tagline": ["23px", { lineHeight: "39px", fontWeight: "400" }],
         "footer-heading": [
