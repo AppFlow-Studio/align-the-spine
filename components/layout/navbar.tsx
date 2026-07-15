@@ -60,11 +60,11 @@ export function Navbar({ variant }: { variant?: NavbarVariant } = {}) {
           />
         </Link>
 
-        <NavbarLinks isGlass={isGlass} className="hidden md:flex" />
+        <NavbarLinks isGlass={isGlass} className="hidden lg:flex" />
 
         <Link
           href={siteConfig.bookingCta.href}
-          className={`hidden h-[52px] items-center rounded-40 px-6 text-button text-white transition-colors duration-300 md:flex ${
+          className={`hidden h-[52px] items-center rounded-40 px-6 text-button text-white transition-colors duration-300 lg:flex ${
             isGlass ? "bg-navy-900" : "bg-navy-900/20"
           }`}
         >
@@ -76,7 +76,7 @@ export function Navbar({ variant }: { variant?: NavbarVariant } = {}) {
           aria-label="Open menu"
           aria-expanded={drawerOpen}
           onClick={() => setDrawerOpen(true)}
-          className="flex h-10 w-10 items-center justify-center text-white md:hidden"
+          className="flex h-10 w-10 items-center justify-center text-white lg:hidden"
         >
           <MenuIcon className="h-6 w-6" />
         </button>

@@ -15,7 +15,7 @@ const variants = {
   cta: "h-[99px] gap-6 rounded-80 bg-navy-900 px-10 font-sans text-btn-lg text-white hover:bg-navy-700 focus-visible:outline-navy-900",
   /* Glass call-pill: white 15% overlay, h112, r80, phone icon + eyebrow + Poppins 35 white */
   glass:
-    "h-28 gap-5 rounded-80 bg-overlay-white-15 px-10 font-sans text-btn-lg text-white backdrop-blur-sm hover:bg-white/25 focus-visible:outline-white",
+    "h-20 gap-4 rounded-80 bg-overlay-white-15 px-6 font-sans text-[26px] leading-8 text-white backdrop-blur-sm hover:bg-white/25 focus-visible:outline-white xl:h-28 xl:gap-5 xl:px-10 xl:text-btn-lg",
   /* Ghost link ("Book now"): Geist 22 #253067, trailing arrow */
   ghost:
     "gap-2 font-alt text-alt-label text-navy-900 hover:text-navy-700 focus-visible:outline-navy-900",
@@ -91,10 +91,14 @@ export function Button({
           </span>
         ))}
       {variant === "glass" &&
-        (loading ? <Spinner className="h-8 w-8" /> : <PhoneIcon className="h-9 w-9 shrink-0" />)}
+        (loading ? (
+          <Spinner className="h-8 w-8" />
+        ) : (
+          <PhoneIcon className="h-7 w-7 shrink-0 xl:h-9 xl:w-9" />
+        ))}
       {variant === "glass" && eyebrow ? (
         <span className="flex flex-col items-start text-left">
-          <span className="font-alt text-btn-eyebrow text-mute-300">{eyebrow}</span>
+          <span className="font-alt text-[16px] text-mute-300 xl:text-btn-eyebrow">{eyebrow}</span>
           <span>{children}</span>
         </span>
       ) : (

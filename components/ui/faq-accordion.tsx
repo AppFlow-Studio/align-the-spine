@@ -39,7 +39,9 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
                 <span
                   aria-hidden="true"
                   className={cn(
-                    "font-alt text-faq-toggle text-navy-900 transition-transform duration-300",
+                    // Fixed square keeps the rotated glyph's bounding box from
+                    // spilling past the viewport edge (ATS-101).
+                    "flex h-10 w-10 shrink-0 items-center justify-center font-alt text-faq-toggle text-navy-900 transition-transform duration-300",
                     open && "-rotate-45",
                   )}
                 >

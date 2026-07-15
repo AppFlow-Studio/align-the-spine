@@ -86,7 +86,9 @@ export function Hero({
           {variant === "condition" && conditionChip && <HeroChip>{conditionChip}</HeroChip>}
           {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
 
-          <h1 className="font-display text-hero text-white mb-20">{title}</h1>
+          <h1 className="mb-8 font-display text-[44px] leading-[48px] text-white sm:text-[64px] sm:leading-[68px] lg:mb-20 lg:text-hero">
+            {title}
+          </h1>
           <p className="font-sans text-body-lg text-mute-300">{subhead}</p>
 
           {callPill && (

@@ -43,7 +43,7 @@ export function LocationIntro() {
 
             <a
               href={`mailto:${siteConfig.business.email}`}
-              className="flex items-center gap-3 font-alt text-footer-copy text-navy-900 transition-colors hover:text-navy-700"
+              className="flex min-w-0 items-center gap-3 break-all font-alt text-footer-copy text-navy-900 transition-colors hover:text-navy-700"
             >
               <MailIcon className="h-5 w-5 shrink-0" />
               {siteConfig.business.email}

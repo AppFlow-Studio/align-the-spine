@@ -93,7 +93,7 @@ export function BookingForm() {
     <form
       onSubmit={handleSubmit(onValid)}
       noValidate
-      className="relative flex flex-col gap-4 bg-overlay-white-15 p-12 shadow-card backdrop-blur-md"
+      className="relative flex flex-col gap-4 bg-overlay-white-15 p-6 shadow-card backdrop-blur-md sm:p-12"
     >
       <h2 className="font-sans text-calc-heading text-white">Request an appointment</h2>
 
