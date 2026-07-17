@@ -11,7 +11,7 @@ import { siteConfig } from "@/content/site";
 import { NavbarDrawer } from "./navbar-drawer";
 import { NavbarLinks } from "./navbar-links";
 
-export const SOLID_NAV_ROUTES = ["/book", "/privacy", "/home-visits"];
+export const SOLID_NAV_ROUTES = ["/privacy", "/home-visits", "/thank-you"];
 
 const SCROLL_THRESHOLD = 40;
 
@@ -46,7 +46,11 @@ export function Navbar({ variant }: { variant?: NavbarVariant } = {}) {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 flex h-[100px] items-center">
-      <div className="container flex items-center justify-between">
+      <div
+        className={`container flex items-center justify-between rounded-full px-2 ${
+          isGlass ? "bg-white/[13%] backdrop-blur-md" : "bg-transparent"
+        }`}
+      >
         <Link href="/" className="shrink-0">
           <Image
             src="/figma-exports/logo_blue.png"
@@ -56,11 +60,11 @@ export function Navbar({ variant }: { variant?: NavbarVariant } = {}) {
           />
         </Link>
 
-        <NavbarLinks isGlass={isGlass} className="hidden md:flex" />
+        <NavbarLinks isGlass={isGlass} className="hidden lg:flex" />
 
         <Link
           href={siteConfig.bookingCta.href}
-          className={`hidden h-[52px] items-center rounded-40 px-6 text-button text-white transition-colors duration-300 md:flex ${
+          className={`hidden h-[52px] items-center rounded-40 px-6 text-button text-white transition-colors duration-300 lg:flex ${
             isGlass ? "bg-navy-900" : "bg-navy-900/20"
           }`}
         >
@@ -72,7 +76,7 @@ export function Navbar({ variant }: { variant?: NavbarVariant } = {}) {
           aria-label="Open menu"
           aria-expanded={drawerOpen}
           onClick={() => setDrawerOpen(true)}
-          className="flex h-10 w-10 items-center justify-center text-white md:hidden"
+          className="flex h-10 w-10 items-center justify-center text-white lg:hidden"
         >
           <MenuIcon className="h-6 w-6" />
         </button>

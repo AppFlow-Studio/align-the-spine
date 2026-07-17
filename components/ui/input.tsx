@@ -26,7 +26,10 @@ export function Input({ label, error, variant = "dark", className, id, ...rest }
         id={fieldId}
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? errorId(fieldId) : undefined}
-        className={cn("h-[41px]", fieldControlClasses(variant, Boolean(error)))}
+        className={cn(
+          "h-[41px] outline-1px outline-gray-200 border-gray-200",
+          fieldControlClasses(variant, Boolean(error)),
+        )}
         {...rest}
       />
     </FieldWrapper>
