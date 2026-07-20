@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { LeadForm, type LeadFormValues } from "@/components/ui/lead-form";
+import { StatChipRow } from "@/components/ui/stat-chip-row";
 import { siteConfig } from "@/content/site";
 
 export interface HeroCta {
@@ -105,6 +106,8 @@ export function Hero({
               ))}
             </div>
           )}
+
+          <StatChipRow />
         </div>
 
         <div className="flex flex-col gap-6">
