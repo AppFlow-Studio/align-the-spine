@@ -11,8 +11,9 @@ const variants = {
     "h-16 gap-3 rounded-40 bg-navy-900 px-8 font-sans text-button text-white hover:bg-navy-700 focus-visible:outline-navy-900",
   /* Teal/calc: #58a0a0, h64, r40, Poppins Medium 20 white, trailing arrow */
   teal: "h-16 gap-3 rounded-40 bg-teal-500 px-8 font-sans text-button font-medium text-white hover:brightness-110 focus-visible:outline-teal-500",
-  /* Big CTA: #253067, h99, r80, Poppins 35 white, circular arrow badge left */
-  cta: "h-[99px] gap-6 rounded-80 bg-navy-900 px-10 font-sans text-btn-lg text-white hover:bg-navy-700 focus-visible:outline-navy-900",
+  /* Big CTA: #253067, h99, r80, Poppins 35 white, circular arrow badge left.
+   * Scales down below sm so it can't outgrow a 375px viewport (ATS-112). */
+  cta: "h-16 gap-4 rounded-40 bg-navy-900 px-6 font-sans text-button text-white hover:bg-navy-700 focus-visible:outline-navy-900 sm:h-[99px] sm:gap-6 sm:rounded-80 sm:px-10 sm:text-btn-lg",
   /* Glass call-pill: white 15% overlay, h112, r80, phone icon + eyebrow + Poppins 35 white */
   glass:
     "h-20 gap-4 rounded-80 bg-overlay-white-15 px-6 font-sans text-[26px] leading-8 text-white backdrop-blur-sm hover:bg-white/25 focus-visible:outline-white xl:h-28 xl:gap-5 xl:px-10 xl:text-btn-lg",
@@ -81,13 +82,13 @@ export function Button({
     <>
       {variant === "cta" &&
         (loading ? (
-          <Spinner className="h-8 w-8" />
+          <Spinner className="h-6 w-6 sm:h-8 sm:w-8" />
         ) : (
           <span
             aria-hidden="true"
-            className="inline-flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-white text-navy-900"
+            className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-navy-900 sm:h-16 sm:w-16"
           >
-            <ArrowRightIcon className="h-6 w-6" />
+            <ArrowRightIcon className="h-5 w-5 sm:h-6 sm:w-6" />
           </span>
         ))}
       {variant === "glass" &&
