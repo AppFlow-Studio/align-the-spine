@@ -27,7 +27,7 @@ export function ServiceListRow({ item, className }: ServiceListRowProps) {
         <h3 className="font-display text-card-title text-navy-900">{item.name}</h3>
         <p className="font-sans text-card-body">
           <span className="text-ink-500">
-            {item.duration} | Contact us ({siteConfig.business.phone})
+            {item.duration} | Contact us {siteConfig.business.phone}
           </span>
           <br />
           <span className="text-ink-900">{item.summary}</span>
