@@ -23,6 +23,31 @@ export const bookFaqs: FAQ[] = [
   },
 ];
 
+/** "Everything you need to know about home visits" block on /home-visits
+ * (ATS-110), per the Home-visits-v2 artboard. */
+export const homeVisitFaqs: FAQ[] = [
+  {
+    question: "Is there an extra fee for a home visit?",
+    answer:
+      "For PIP/accident cases, home visits are typically billed the same as an office visit — in most cases $0 out-of-pocket. For non-accident cases, ask when you call; it depends on distance and scheduling.",
+  },
+  {
+    question: "What should I do to prepare?",
+    answer:
+      "Just have a bit of open space to move around in and wear comfortable clothing. Dr. Abe brings everything needed for the exam and treatment — no equipment or setup required on your end.",
+  },
+  {
+    question: "What areas do you cover?",
+    answer:
+      "Deerfield Beach, Boca Raton, Boynton Beach, Fort Lauderdale, Aventura, and North Miami. If you're nearby but not sure you're in range, call us and we'll let you know right away.",
+  },
+  {
+    question: "How is this different from a regular chiropractic visit?",
+    answer:
+      "Same exam, hands-on treatment, and documentation as an office visit — just delivered at your address when it's the right fit for your case and location.",
+  },
+];
+
 export const faqs: FAQ[] = [
   {
     question: "Do you accept insurance?",

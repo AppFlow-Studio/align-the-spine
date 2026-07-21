@@ -133,11 +133,12 @@ export function LeadForm({
         const type = field.type ?? "text";
         const spanClass = field.half ? undefined : "col-span-2";
         const error = errors[field.name]?.message;
+        const label = field.label.toUpperCase();
         if (type === "select") {
           return (
             <Select
               key={field.name}
-              label={field.label}
+              label={label}
               variant={fieldVariant}
               options={field.options ?? []}
               placeholder={field.placeholder}
@@ -151,7 +152,7 @@ export function LeadForm({
           return (
             <Textarea
               key={field.name}
-              label={field.label}
+              label={label}
               variant={fieldVariant}
               placeholder={field.placeholder}
               error={error}
@@ -163,7 +164,7 @@ export function LeadForm({
         return (
           <Input
             key={field.name}
-            label={field.label}
+            label={label}
             type={inputType(type)}
             inputMode={type === "zip" ? "numeric" : undefined}
             variant={fieldVariant}

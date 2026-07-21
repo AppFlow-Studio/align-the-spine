@@ -60,9 +60,11 @@ export const leadFormVariants = {
     ],
     submitLabel: "Contact Us",
   },
+  /** No email field by design — the home-visits eligibility check (ATS-110)
+   * only asks for name, phone, and zip. */
   eligibility: {
     variant: "eligibility",
-    fields: [...baseFields, zipField],
+    fields: [...baseFields.filter((field) => field.name !== "email"), zipField],
     submitLabel: "Check Eligibility",
   },
   /** Two-step /book hero form per the Book-appt artboard: step 1 collects

@@ -57,7 +57,7 @@ Each preset is `{ fields, submitLabel }`; spread it into `<LeadForm />`.
 | `heroEval`    | First, Last, Phone, Email                                          | Schedule My Evaluation              |
 | `carAccident` | hero-eval + Claim # (optional)                                     | Schedule My Car Accident Evaluation |
 | `contact`     | hero-eval + Zip, Best Time to Contact (select), Message (textarea) | Contact Us                          |
-| `eligibility` | hero-eval + Zip                                                    | Check Eligibility                   |
+| `eligibility` | First, Last, Phone, Zip (no email)                                 | Check Eligibility                   |
 | `booking`     | First, Phone, Last, Reason for Visit (select), Notes (optional)    | Schedule My Evaluation              |
 
 The `booking` variant is consumed by the two-step `BookingForm`
