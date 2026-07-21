@@ -1,5 +1,6 @@
 import { FaqSection } from "@/components/sections/faq-section";
 import { Hero } from "@/components/sections/hero";
+import { ServicesSection } from "@/components/sections/services-section";
 import { siteConfig } from "@/content/site";
 
 export default function Home() {
@@ -30,6 +31,7 @@ export default function Home() {
             "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
         }}
       />
+      <ServicesSection />
       <FaqSection pageKey="home" />
     </>
   );
