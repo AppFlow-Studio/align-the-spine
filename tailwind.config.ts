@@ -79,6 +79,8 @@ const config: Config = {
           { lineHeight: "40px", letterSpacing: "1.25px", fontWeight: "500" },
         ],
         "footer-copy": ["20px", { lineHeight: "32px", fontWeight: "400" }],
+        "card-title": ["35px", { lineHeight: "42px", fontWeight: "500" }],
+        "card-body": ["22px", { lineHeight: "38px", fontWeight: "400" }],
       },
     },
   },
