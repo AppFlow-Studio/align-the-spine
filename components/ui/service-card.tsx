@@ -8,6 +8,7 @@ import { cn } from "@/lib/cn";
 export interface ServiceCardItem {
   slug: string;
   name: string;
+  duration: string;
   summary: string;
   image: { src: string; alt: string };
 }
