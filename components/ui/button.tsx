@@ -22,6 +22,8 @@ const variants = {
   /* Nav pill: navy 20% overlay, h52, r40 */
   "nav-pill":
     "h-[52px] gap-2 rounded-40 bg-overlay-navy-20 px-6 font-sans text-nav text-white hover:bg-navy-900 focus-visible:outline-white",
+  /* Services-row "Book": solid navy rectangle, h58, Poppins 20 white, no arrow, no radius (per Figma) */
+  book: "h-[58px] px-10 font-sans text-button text-white bg-navy-900 hover:bg-navy-700 focus-visible:outline-navy-900",
 } as const;
 
 const arrowSize = {
