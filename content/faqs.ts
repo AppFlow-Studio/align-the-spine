@@ -9,7 +9,7 @@ export interface PageFaqs {
   items: FAQ[];
 }
 
-export const faqsByPage: Record<string, PageFaqs> = {
+export const faqsByPage = {
   home: {
     tail: "your spine health",
     items: [
@@ -45,4 +45,4 @@ export const faqsByPage: Record<string, PageFaqs> = {
       },
     ],
   },
-};
+} satisfies Record<string, PageFaqs>;

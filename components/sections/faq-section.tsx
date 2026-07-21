@@ -1,3 +1,4 @@
+import { Container } from "@/components/ui/container";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -28,19 +29,23 @@ export function FaqSection({ pageKey }: FaqSectionProps) {
 
   return (
     <Section>
-      <SectionHeading
-        eyebrow="Frequently asked questions"
-        className="mx-auto max-w-2xl items-center text-center"
-      >
-        Everything you need to know about {tail}
-      </SectionHeading>
-      <FaqAccordion items={items} />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-        }}
-      />
+      <Container className="flex flex-col gap-8">
+        <SectionHeading
+          eyebrow="Frequently asked questions"
+          className="mx-auto max-w-2xl items-center text-center"
+        >
+          Everything you need to know about {tail}
+        </SectionHeading>
+        <div className="mx-auto w-full max-w-3xl">
+          <FaqAccordion items={items} />
+        </div>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
+      </Container>
     </Section>
   );
 }
