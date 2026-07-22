@@ -1,6 +1,6 @@
 import type { SVGProps } from "react";
 
-export function CheckIcon(props: SVGProps<SVGSVGElement>) {
+export function ClockIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -12,7 +12,8 @@ export function CheckIcon(props: SVGProps<SVGSVGElement>) {
       aria-hidden="true"
       {...props}
     >
-      <path d="M20 6L9 17l-5-5" />
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 6v6l4 2" />
     </svg>
   );
 }

@@ -1,6 +1,6 @@
 import type { SVGProps } from "react";
 
-export function CheckIcon(props: SVGProps<SVGSVGElement>) {
+export function PlusIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -12,7 +12,8 @@ export function CheckIcon(props: SVGProps<SVGSVGElement>) {
       aria-hidden="true"
       {...props}
     >
-      <path d="M20 6L9 17l-5-5" />
+      <path d="M12 5v14" />
+      <path d="M5 12h14" />
     </svg>
   );
 }
