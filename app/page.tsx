@@ -1,6 +1,9 @@
+import { CtaBand } from "@/components/sections/cta-band";
 import { FaqSection } from "@/components/sections/faq-section";
 import { Hero } from "@/components/sections/hero";
 import { ServicesSection } from "@/components/sections/services-section";
+import { StillHaveQuestions } from "@/components/sections/still-have-questions";
+import { ctaBandContent, stillHaveQuestionsContent } from "@/content/cta-bands";
 import { siteConfig } from "@/content/site";
 
 export default function Home() {
@@ -33,6 +36,8 @@ export default function Home() {
       />
       <ServicesSection />
       <FaqSection pageKey="home" />
+      <StillHaveQuestions content={stillHaveQuestionsContent} />
+      <CtaBand content={ctaBandContent} />
     </>
   );
 }
