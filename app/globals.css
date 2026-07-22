@@ -62,5 +62,20 @@ body {
     width: 100%;
     max-width: var(--container-max);
     margin-inline: auto;
+    /* Gutters so content never touches the viewport edge below the
+     * max-width breakpoints (ATS-101 responsive pass). */
+    padding-inline: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      padding-inline: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding-inline: 2rem;
+    }
   }
 }

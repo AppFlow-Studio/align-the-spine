@@ -92,7 +92,14 @@ export const siteConfig: SiteConfig = {
     ],
     copyrightName: "Align the Spine Chiropractic",
   },
-  serviceAreas: ["Deerfield Beach", "Boca Raton", "Pompano Beach", "Coconut Creek"],
+  serviceAreas: [
+    "Deerfield Beach",
+    "Boca Raton",
+    "Boynton Beach",
+    "Fort Lauderdale",
+    "Aventura",
+    "North Miami",
+  ],
   social: [
     { platform: "Facebook", url: "#" },
     { platform: "Instagram", url: "#" },

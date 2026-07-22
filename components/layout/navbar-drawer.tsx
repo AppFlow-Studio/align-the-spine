@@ -28,7 +28,7 @@ export function NavbarDrawer({ open, onClose }: { open: boolean; onClose: () => 
   }, [open, onClose]);
 
   return (
-    <div className="md:hidden" aria-hidden={!open} inert={!open}>
+    <div className="lg:hidden" aria-hidden={!open} inert={!open}>
       <div
         onClick={onClose}
         className={`fixed inset-0 z-50 bg-navy-900/60 transition-opacity duration-300 ${

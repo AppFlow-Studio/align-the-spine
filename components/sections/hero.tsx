@@ -3,8 +3,8 @@ import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { LeadForm, type LeadFormValues } from "@/components/ui/lead-form";
-import { StatChipRow } from "@/components/ui/stat-chip-row";
+import { LeadForm, type LeadFieldConfig, type LeadFormValues } from "@/components/ui/lead-form";
+import { leadFormVariants } from "@/content/lead-forms";
 import { siteConfig } from "@/content/site";
 
 export interface HeroCta {
@@ -16,6 +16,10 @@ export interface HeroCta {
 export interface HeroFormConfig {
   heading: string;
   submitLabel: string;
+  /** Variant key for server-side validation; defaults to "heroEval". */
+  variant?: string;
+  /** Defaults to the hero-eval variant (First/Last/Phone/Email). */
+  fields?: LeadFieldConfig[];
   footerNote?: string;
   onSubmit?: (values: LeadFormValues) => Promise<void>;
 }
@@ -32,7 +36,10 @@ export interface HeroProps {
   ctas?: HeroCta[];
   callPill?: { eyebrow: string; phone: string };
   bilingualNote?: string;
-  form: HeroFormConfig;
+  form?: HeroFormConfig;
+  /** Replaces the default LeadForm card entirely (e.g. the /book two-step
+   * BookingForm, which brings its own card styling). */
+  formSlot?: ReactNode;
 }
 
 function HeroChip({ children }: { children: ReactNode }) {
@@ -61,6 +68,7 @@ export function Hero({
   callPill,
   bilingualNote,
   form,
+  formSlot,
 }: HeroProps) {
   return (
     // Margins = TopStatsBar's worst-case rendered height per breakpoint tier, +16px buffer.
@@ -78,7 +86,9 @@ export function Hero({
           {variant === "condition" && conditionChip && <HeroChip>{conditionChip}</HeroChip>}
           {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
 
-          <h1 className="font-display text-hero text-white mb-20">{title}</h1>
+          <h1 className="mb-8 font-display text-[44px] leading-[48px] text-white sm:text-[64px] sm:leading-[68px] lg:mb-20 lg:text-hero">
+            {title}
+          </h1>
           <p className="font-sans text-body-lg text-mute-300">{subhead}</p>
 
           {callPill && (
@@ -106,19 +116,22 @@ export function Hero({
               ))}
             </div>
           )}
-
-          <StatChipRow />
         </div>
 
         <div className="flex flex-col gap-6">
-          <div className="rounded-15 bg-overlay-white-15 p-8 shadow-card">
-            <LeadForm
-              heading={form.heading}
-              submitLabel={form.submitLabel}
-              onSubmit={form.onSubmit}
-            />
-          </div>
-          {form.footerNote && (
+          {formSlot ??
+            (form && (
+              <div className="rounded-15 bg-overlay-white-15 p-8 shadow-card">
+                <LeadForm
+                  heading={form.heading}
+                  variant={form.variant}
+                  fields={form.fields ?? leadFormVariants.heroEval.fields}
+                  submitLabel={form.submitLabel}
+                  onSubmit={form.onSubmit}
+                />
+              </div>
+            ))}
+          {form?.footerNote && (
             <p className="font-sans text-body-lg text-white">{form.footerNote}</p>
           )}
         </div>

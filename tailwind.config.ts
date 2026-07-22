@@ -57,8 +57,19 @@ const config: Config = {
       },
       fontSize: {
         hero: ["87px", { lineHeight: "90px", fontWeight: "300" }],
-        display: ["65px", { lineHeight: "68px", fontWeight: "500" }],
-        h2: ["35px", { lineHeight: "66px", fontWeight: "600" }],
+        // Fluid clamp() per condition-page-spec §E (ATS-112), same 375→1728px
+        // interpolation the .container fluid gutter already uses (globals.css).
+        // Minimums (36px / 24px) are a judgment call, not spec-confirmed — no
+        // breakpoint frames exist in Figma to sample, per the ATS-002 design
+        // doc's own note on this same gap.
+        display: [
+          "clamp(36px, 2.14vw + 27.96px, 65px)",
+          { lineHeight: "clamp(38px, 2.22vw + 29.69px, 68px)", fontWeight: "500" },
+        ],
+        h2: [
+          "clamp(24px, 0.81vw + 20.95px, 35px)",
+          { lineHeight: "clamp(45px, 1.55vw + 39.18px, 66px)", fontWeight: "600" },
+        ],
         eyebrow: ["25px", { lineHeight: "40px", letterSpacing: "1.25px", fontWeight: "500" }],
         "body-lg": ["25px", { lineHeight: "40px", fontWeight: "400" }],
         button: ["20px", { lineHeight: "40px", fontWeight: "400" }],
@@ -72,6 +83,8 @@ const config: Config = {
         "btn-lg": ["35px", { lineHeight: "40px", fontWeight: "400" }],
         "btn-eyebrow": ["20px", { lineHeight: "24px", fontWeight: "400" }],
         field: ["20px", { lineHeight: "30px", fontWeight: "400" }],
+        "calc-heading": ["25px", { lineHeight: "40px", fontWeight: "500" }],
+        "calc-helper": ["15px", { lineHeight: "23px", fontWeight: "400" }],
         "field-error": ["15px", { lineHeight: "22px", fontWeight: "400" }],
         "footer-tagline": ["23px", { lineHeight: "39px", fontWeight: "400" }],
         "footer-heading": [
