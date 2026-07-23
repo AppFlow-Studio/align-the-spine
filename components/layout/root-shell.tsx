@@ -16,7 +16,7 @@ export const LOCATION_FOOTER_ROUTES = ["/", "/services", "/about"];
  * Operation, per the artboard, instead of being mounted mid-page. Home
  * still mounts its own ContactSection inline (ATS-071) — revisit if/when
  * that's brought in line with this same layout. */
-const CONTACT_AFTER_FOOTER_ROUTES = ["/services"];
+const CONTACT_AFTER_FOOTER_ROUTES = ["/services", "/about"];
 
 type FooterVariant = "standard" | "location";
 
