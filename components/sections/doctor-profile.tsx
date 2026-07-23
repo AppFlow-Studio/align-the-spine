@@ -1,0 +1,55 @@
+import type { ReactNode } from "react";
+import Image from "next/image";
+
+import { Button } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import { StarIcon } from "@/components/ui/icons/star";
+import { Section } from "@/components/ui/section";
+import type { DoctorProfileContent } from "@/content/doctor-profile";
+
+export interface DoctorProfileProps {
+  variant: "short" | "long";
+  content: DoctorProfileContent;
+  /** Rendered below the profile block only when variant is "long" — reserved
+   * for ATS-091's History + HOW HE PRACTICES cards, unused today. */
+  extended?: ReactNode;
+}
+
+/** "THE DOCTOR BEHIND YOUR CARE" block per condition-page-spec §B6: portrait
+ * (r30) with an overlaid rating chip (stars + count + location, r20, dark
+ * 20%-opacity overlay) on the left, eyebrow/name/bio/CTA on the right.
+ * Portrait-left matches the actual Figma layout (file NHwBqbGepOspY0GrCnECnj,
+ * nodes 96:471–96:495), not the ticket text's stated left/right order. */
+export function DoctorProfile({ variant, content, extended }: DoctorProfileProps) {
+  const { eyebrow, name, bio, cta, rating, portrait } = content;
+  return (
+    <Section spacing="lg">
+      <Container className="flex flex-col gap-10 md:flex-row md:items-center md:gap-16">
+        <div className="relative aspect-[639/833] w-full shrink-0 md:w-[45%]">
+          <Image src={portrait.src} alt={portrait.alt} fill className="rounded-30 object-cover" />
+          <div className="absolute inset-x-6 bottom-6 flex items-center justify-between gap-3 rounded-20 bg-overlay-ink-20 px-6 py-4 backdrop-blur-sm">
+            <span className="font-sans text-stat-label text-white">{rating.location}</span>
+            <span className="inline-flex items-center gap-2">
+              <span className="inline-flex gap-1">
+                {Array.from({ length: rating.value }, (_, i) => (
+                  <StarIcon key={i} className="h-5 w-5 text-white" />
+                ))}
+              </span>
+              <span className="font-sans text-stat-label text-white">{rating.count}</span>
+            </span>
+          </div>
+        </div>
+        <div className="flex flex-1 flex-col items-start gap-6">
+          <Eyebrow>{eyebrow}</Eyebrow>
+          <h2 className="font-display text-doctor-name text-navy-900">{name}</h2>
+          <p className="font-sans text-body-lg text-ink-900">{bio}</p>
+          <Button variant="cta" href={cta.href}>
+            {cta.label}
+          </Button>
+        </div>
+      </Container>
+      {variant === "long" && extended}
+    </Section>
+  );
+}
