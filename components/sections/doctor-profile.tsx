@@ -30,13 +30,19 @@ export function DoctorProfile({ variant, content, extended }: DoctorProfileProps
           <Image src={portrait.src} alt={portrait.alt} fill className="rounded-30 object-cover" />
           <div className="absolute inset-x-6 bottom-6 flex items-center justify-between gap-3 rounded-20 bg-overlay-ink-20 px-6 py-4 backdrop-blur-sm">
             <span className="font-sans text-stat-label text-white">{rating.location}</span>
-            <span className="inline-flex items-center gap-2">
+            <span
+              className="inline-flex items-center gap-2"
+              role="img"
+              aria-label={`Rated ${rating.value} out of 5 stars from ${rating.count} reviews`}
+            >
               <span className="inline-flex gap-1">
                 {Array.from({ length: rating.value }, (_, i) => (
                   <StarIcon key={i} className="h-5 w-5 text-white" />
                 ))}
               </span>
-              <span className="font-sans text-stat-label text-white">{rating.count}</span>
+              <span aria-hidden="true" className="font-sans text-stat-label text-white">
+                {rating.count}
+              </span>
             </span>
           </div>
         </div>
