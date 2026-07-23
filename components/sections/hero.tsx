@@ -6,6 +6,7 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { LeadForm, type LeadFieldConfig, type LeadFormValues } from "@/components/ui/lead-form";
 import { leadFormVariants } from "@/content/lead-forms";
 import { siteConfig } from "@/content/site";
+import { cn } from "@/lib/cn";
 
 export interface HeroCta {
   label: string;
@@ -42,9 +43,22 @@ export interface HeroProps {
   formSlot?: ReactNode;
 }
 
-function HeroChip({ children }: { children: ReactNode }) {
+/** Renders in normal flow (not absolutely offset) so it reflows with the
+ * headline at every breakpoint — see the ATS-073 responsive-pass note on
+ * why this replaced a fixed-pixel `absolute` offset that only lined up
+ * with the headline at the 1728px desktop canvas width and overlapped the
+ * headline/subhead text at 375–1023px. Bleeds to the container's true left
+ * edge via a negative margin matching `.container`'s own gutter per
+ * breakpoint (globals.css), and overlaps up into the headline's reserved
+ * bottom margin via a small negative top margin. */
+function HeroChip({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <span className=" absolute left-[-265px] top-[-370px] w-[480px] z-10 flex justify-end bg-teal-500 px-6 py-3 font-sans text-button text-white">
+    <span
+      className={cn(
+        "-ml-4 -mt-3 flex w-fit items-center bg-teal-500 px-6 py-3 font-sans text-button text-white sm:-ml-6 sm:-mt-4 lg:-ml-8 lg:-mt-6",
+        className,
+      )}
+    >
       {children}
     </span>
   );
@@ -83,12 +97,20 @@ export function Hero({
 
       <div className="container relative z-10 grid gap-10 pb-32 pt-[220px] lg:grid-cols-2 lg:items-center lg:gap-16 lg:pt-[260px]">
         <div className="flex flex-col gap-6">
-          {variant === "condition" && conditionChip && <HeroChip>{conditionChip}</HeroChip>}
+          {variant === "condition" && conditionChip && (
+            <HeroChip className="mt-0">{conditionChip}</HeroChip>
+          )}
           {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
 
-          <h1 className="mb-8 font-display text-[44px] leading-[48px] text-white sm:text-[64px] sm:leading-[68px] lg:mb-20 lg:text-hero">
+          <h1
+            className={cn(
+              "font-display text-[44px] leading-[48px] text-white sm:text-[64px] sm:leading-[68px] lg:text-hero",
+              variant === "home" && badge ? "mb-2" : "mb-8 lg:mb-20",
+            )}
+          >
             {title}
           </h1>
+          {variant === "home" && badge && <HeroChip>{badge}</HeroChip>}
           <p className="font-sans text-body-lg text-mute-300">{subhead}</p>
 
           {callPill && (
@@ -106,9 +128,8 @@ export function Hero({
             <p className="font-alt text-alt-label text-mute-300">{bilingualNote}</p>
           )}
 
-          {variant === "home" && (Boolean(badge) || Boolean(ctas?.length)) && (
-            <div className="flex flex-wrap items-center gap-4 relative">
-              {badge && <HeroChip>{badge}</HeroChip>}
+          {variant === "home" && Boolean(ctas?.length) && (
+            <div className="flex flex-wrap items-center gap-4">
               {ctas?.map((cta) => (
                 <Button key={cta.label} href={cta.href} variant={cta.variant ?? "primary"}>
                   {cta.label}

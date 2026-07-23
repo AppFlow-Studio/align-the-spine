@@ -29,7 +29,7 @@ export function ServiceCard({ item, className }: ServiceCardProps) {
         <Image src={item.image.src} alt={item.image.alt} fill className="rounded-15 object-cover" />
       </div>
       <div className="flex flex-1 flex-col gap-3 p-8">
-        <h3 className="font-display text-card-title text-navy-800">{item.name}</h3>
+        <h3 className="break-words font-display text-card-title text-navy-800">{item.name}</h3>
         <p className="font-sans text-card-body text-ink-900">{item.summary}</p>
         <Button variant="ghost" href={siteConfig.bookingCta.href} className="mt-auto w-fit">
           Book now

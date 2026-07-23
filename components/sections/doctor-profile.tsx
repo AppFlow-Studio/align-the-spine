@@ -46,7 +46,7 @@ export function DoctorProfile({ variant, content, extended }: DoctorProfileProps
             </span>
           </div>
         </div>
-        <div className="flex flex-1 flex-col items-start gap-6">
+        <div className="flex min-w-0 flex-1 flex-col items-start gap-6">
           <Eyebrow>{eyebrow}</Eyebrow>
           <h2 className="font-display text-doctor-name text-navy-900">{name}</h2>
           <p className="font-sans text-body-lg text-ink-900">{bio}</p>

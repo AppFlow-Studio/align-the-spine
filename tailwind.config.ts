@@ -93,7 +93,15 @@ const config: Config = {
           { lineHeight: "40px", letterSpacing: "1.25px", fontWeight: "500" },
         ],
         "footer-copy": ["20px", { lineHeight: "32px", fontWeight: "400" }],
-        "card-title": ["35px", { lineHeight: "37px", fontWeight: "500" }],
+        // Fluid clamp() per condition-page-spec §E (ATS-073 responsive pass):
+        // was a fixed 35px, which overflowed narrow flex columns at 375px
+        // (one-word service names like "Traction/Decompression" in
+        // ServiceListRow) and 768px (SpineAnatomy's 3-column grid). Same
+        // 375→1728px interpolation as the display/h2 tokens above.
+        "card-title": [
+          "clamp(24px, 0.81vw + 20.95px, 35px)",
+          { lineHeight: "clamp(25px, 0.89vw + 21.67px, 37px)", fontWeight: "500" },
+        ],
         "card-body": ["22px", { lineHeight: "40px", fontWeight: "400" }],
         "doctor-name": ["65px", { lineHeight: "100px", fontWeight: "500" }],
       },

@@ -24,8 +24,8 @@ export function ServiceListRow({ item, className }: ServiceListRowProps) {
       <div className="relative aspect-[670/374] w-full shrink-0 md:w-[45%]">
         <Image src={item.image.src} alt={item.image.alt} fill className="rounded-15 object-cover" />
       </div>
-      <div className="flex flex-1 flex-col items-start gap-4">
-        <h3 className="font-display text-card-title text-navy-900">{item.name}</h3>
+      <div className="flex min-w-0 flex-1 flex-col items-start gap-4">
+        <h3 className="break-words font-display text-card-title text-navy-900">{item.name}</h3>
         <Divider />
         <p className="font-sans text-card-body">
           <span className="text-ink-500">

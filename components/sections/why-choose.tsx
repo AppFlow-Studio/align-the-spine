@@ -18,7 +18,7 @@ export function WhyChoose({ content }: WhyChooseProps) {
   return (
     <Section spacing="lg">
       <Container className="flex flex-col gap-10 md:flex-row md:items-center md:gap-16">
-        <div className="flex flex-1 flex-col items-start gap-6">
+        <div className="flex min-w-0 flex-1 flex-col items-start gap-6">
           <h2 className="font-display text-h2 text-navy-800">{heading}</h2>
           <p className="font-sans text-body-lg text-ink-900">{body}</p>
           <Button variant="cta" href={cta.href}>
