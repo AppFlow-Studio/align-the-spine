@@ -1,9 +1,11 @@
 import { CtaBand } from "@/components/sections/cta-band";
+import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { FaqSection } from "@/components/sections/faq-section";
 import { Hero } from "@/components/sections/hero";
 import { ServicesSection } from "@/components/sections/services-section";
 import { StillHaveQuestions } from "@/components/sections/still-have-questions";
 import { ctaBandContent, stillHaveQuestionsContent } from "@/content/cta-bands";
+import { doctorProfileContent } from "@/content/doctor-profile";
 import { siteConfig } from "@/content/site";
 
 export default function Home() {
@@ -35,6 +37,7 @@ export default function Home() {
         }}
       />
       <ServicesSection />
+      <DoctorProfile variant="short" content={doctorProfileContent} />
       <FaqSection pageKey="home" />
       <StillHaveQuestions content={stillHaveQuestionsContent} />
       <CtaBand content={ctaBandContent} />
