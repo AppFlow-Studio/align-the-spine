@@ -20,13 +20,19 @@ export interface DoctorProfileProps {
  * (r30) with an overlaid rating chip (stars + count + location, r20, dark
  * 20%-opacity overlay) on the left, eyebrow/name/bio/CTA on the right.
  * Portrait-left matches the actual Figma layout (file NHwBqbGepOspY0GrCnECnj,
- * nodes 96:471–96:495), not the ticket text's stated left/right order. */
+ * nodes 96:471–96:495), not the ticket text's stated left/right order.
+ * Row split is `xl:`, not `md:` — the "cta" Button variant jumps to its
+ * big 35px label + 64px icon badge at `sm:` and up, which doesn't fit the
+ * 45/55 columns' text side until the column itself is wide enough (tested
+ * clean at 1280/1440; 768–1024 wrapped the "Book with Dr. Abe" label and
+ * clipped against the button's fixed height — ATS-092 responsive pass,
+ * same class of tablet-cramping bug SpineAnatomy had in ATS-073). */
 export function DoctorProfile({ variant, content, extended }: DoctorProfileProps) {
   const { eyebrow, name, bio, cta, rating, portrait } = content;
   return (
     <Section spacing="lg">
-      <Container className="flex flex-col gap-10 md:flex-row md:items-center md:gap-16">
-        <div className="relative aspect-[639/833] w-full shrink-0 md:w-[45%]">
+      <Container className="flex flex-col gap-10 xl:flex-row xl:items-center xl:gap-16">
+        <div className="relative aspect-[639/833] w-full shrink-0 xl:w-[45%]">
           <Image src={portrait.src} alt={portrait.alt} fill className="rounded-30 object-cover" />
           <div className="absolute inset-x-6 bottom-6 flex items-center justify-between gap-3 rounded-20 bg-overlay-ink-20 px-6 py-4 backdrop-blur-sm">
             <span className="font-sans text-stat-label text-white">{rating.location}</span>
