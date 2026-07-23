@@ -7,7 +7,6 @@ import { RedFlagCard } from "@/components/ui/red-flag-card";
 import { Section } from "@/components/ui/section";
 import { TypeCard } from "@/components/ui/type-card";
 import type { Condition } from "@/content/conditions/types";
-import { cn } from "@/lib/cn";
 
 export interface UnderstandingConditionProps {
   condition: Condition;
