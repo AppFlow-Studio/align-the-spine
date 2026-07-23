@@ -54,6 +54,13 @@
   --color-foreground: var(--foreground);
 }
 
+html {
+  /* Prevents fixed/translated off-canvas elements (e.g. the mobile nav
+   * drawer, closed via translate-x-full) from expanding the document's
+   * horizontal scroll area below lg — ATS-073 responsive pass. */
+  overflow-x: hidden;
+}
+
 body {
   background: var(--color-panel-100);
   color: var(--color-ink-900);

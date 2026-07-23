@@ -12,8 +12,11 @@ const variants = {
   /* Teal/calc: #58a0a0, h64, r40, Poppins Medium 20 white, trailing arrow */
   teal: "h-16 gap-3 rounded-40 bg-teal-500 px-8 font-sans text-button font-medium text-white hover:brightness-110 focus-visible:outline-teal-500",
   /* Big CTA: #253067, h99, r80, Poppins 35 white, circular arrow badge left.
-   * Scales down below sm so it can't outgrow a 375px viewport (ATS-112). */
-  cta: "h-16 gap-4 rounded-40 bg-navy-900 px-6 font-sans text-button text-white hover:bg-navy-700 focus-visible:outline-navy-900 sm:h-[99px] sm:gap-6 sm:rounded-80 sm:px-10 sm:text-btn-lg",
+   * Scales down below sm so it can't outgrow a 375px viewport (ATS-112).
+   * min-h, not h, so a label that wraps in a narrow column (e.g.
+   * DoctorProfile's tablet-width text column, ATS-092) grows the pill
+   * instead of clipping the wrapped lines against a fixed height. */
+  cta: "min-h-16 gap-4 rounded-40 bg-navy-900 px-6 font-sans text-button text-white hover:bg-navy-700 focus-visible:outline-navy-900 sm:min-h-[99px] sm:gap-6 sm:rounded-80 sm:px-10 sm:text-btn-lg",
   /* Glass call-pill: white 15% overlay, h112, r80, phone icon + eyebrow + Poppins 35 white */
   glass:
     "h-20 gap-4 rounded-80 bg-overlay-white-15 px-6 font-sans text-[26px] leading-8 text-white backdrop-blur-sm hover:bg-white/25 focus-visible:outline-white xl:h-28 xl:gap-5 xl:px-10 xl:text-btn-lg",
