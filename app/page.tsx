@@ -1,13 +1,34 @@
+import type { Metadata } from "next";
+
+import { AccidentInjuries } from "@/components/sections/accident-injuries";
+import { ContactSection } from "@/components/sections/contact-section";
 import { CtaBand } from "@/components/sections/cta-band";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { FaqSection } from "@/components/sections/faq-section";
 import { Hero } from "@/components/sections/hero";
+import { PatientReviews } from "@/components/sections/patient-reviews";
 import { ServicesSection } from "@/components/sections/services-section";
+import { SpineAnatomy } from "@/components/sections/spine-anatomy";
 import { StillHaveQuestions } from "@/components/sections/still-have-questions";
+import { WhyChoose } from "@/components/sections/why-choose";
 import { ctaBandContent, stillHaveQuestionsContent } from "@/content/cta-bands";
 import { doctorProfileContent } from "@/content/doctor-profile";
 import { siteConfig } from "@/content/site";
+import { spineAnatomyContent } from "@/content/spine-anatomy";
+import { homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
+import { whyChooseContent } from "@/content/why-choose";
 
+export const metadata: Metadata = {
+  title: `${siteConfig.business.name} | South Florida's Chiropractor`,
+  description:
+    "Elite spinal health care in Deerfield Beach, FL — office visits from $50, same-day car accident evaluations, and home visits when it fits your case. Call (954) 573-7192.",
+};
+
+/** / (Home) page assembly (ATS-071) per the homepage-1-col artboard:
+ * HomeHero → ServiceGrid/ListRow → WhyChoose/SpineAnatomy (ATS-072) →
+ * DoctorBio → accident-injury grid → patient reviews → FAQ/CTA bands →
+ * contact LeadForm. LocationIntro/LocationFooter come from RootShell, which
+ * already swaps in the "location" footer variant for "/". */
 export default function Home() {
   return (
     <>
@@ -37,10 +58,15 @@ export default function Home() {
         }}
       />
       <ServicesSection />
+      <WhyChoose content={whyChooseContent} />
+      <AccidentInjuries />
+      <SpineAnatomy content={spineAnatomyContent} />
       <DoctorProfile variant="short" content={doctorProfileContent} />
+      <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews} />
       <FaqSection pageKey="home" />
       <StillHaveQuestions content={stillHaveQuestionsContent} />
       <CtaBand content={ctaBandContent} />
+      <ContactSection />
     </>
   );
 }
