@@ -45,7 +45,15 @@ function useRovingRadioGroup(
   return { containerRef, handleKeyDown };
 }
 
-function RegionLabel({ region, side }: { region: BodyRegion; side: "left" | "right" }) {
+function RegionLabel({
+  region,
+  side,
+  isSelected,
+}: {
+  region: BodyRegion;
+  side: "left" | "right";
+  isSelected: boolean;
+}) {
   return (
     <div
       className={cn(
@@ -55,32 +63,40 @@ function RegionLabel({ region, side }: { region: BodyRegion; side: "left" | "rig
     >
       <span aria-hidden="true" className="flex shrink-0 items-center gap-2">
         <span className="h-px w-12 bg-mute-300" />
-        <span className="h-2 w-2 shrink-0 rounded-full bg-teal-500" />
+        <span
+          className={cn(
+            "h-2 w-2 shrink-0 rounded-full",
+            isSelected ? "bg-teal-500" : "bg-mute-300",
+          )}
+        />
       </span>
-      <span className="font-sans text-body-lg text-navy-800">{region.name}</span>
+      <span
+        className={cn("font-sans text-body-lg", isSelected ? "text-teal-500" : "text-navy-800")}
+      >
+        {region.name}
+      </span>
     </div>
   );
 }
 
+/** Detail panel for the selected region. Always rendered in one dedicated slot — beside the
+ * diagram on desktop, below the list on mobile — rather than floating next to the selected
+ * hotspot: with real copy the panel (~400px+ tall) dwarfs the 56-130px gaps between hotspots,
+ * so a per-region floating position overlaps neighboring labels and the section heading. */
 function SelectedPanel({
   region,
   ctaLabel,
-  layout,
-  side,
+  className,
 }: {
   region: BodyRegion;
   ctaLabel: string;
-  layout: "floating" | "static";
-  side?: "left" | "right";
+  className?: string;
 }) {
   return (
     <div
       className={cn(
         "rounded-20 border-2 border-teal-500 bg-white p-6 text-left shadow-card",
-        layout === "floating" && "absolute top-1/2 w-[300px] -translate-y-1/2",
-        layout === "floating" && side === "left" && "right-full mr-4",
-        layout === "floating" && side === "right" && "left-full ml-4",
-        layout === "static" && "mt-2 w-full",
+        className,
       )}
     >
       <p className="font-sans text-selected-label uppercase text-teal-500">Selected</p>
@@ -98,9 +114,10 @@ function SelectedPanel({
 }
 
 /** "Point to where it hurts" interactive body diagram (Epic 4). Replaces SpineAnatomy on the
- * Home page. 6 hotspots over a shared body illustration; selecting one swaps that region's
- * label for a detail panel in place. Below md, the diagram is replaced by a tappable list
- * (mobile fallback per spec) sharing the same selection state. */
+ * Home page. 6 hotspots over a shared body illustration; selecting one updates a single
+ * dedicated detail panel beside the diagram (see SelectedPanel doc comment for why it's not
+ * positioned per-region). Below md, the diagram is replaced by a tappable list (mobile
+ * fallback per spec) sharing the same selection state. */
 export function PointToWhereItHurts({ content }: PointToWhereItHurtsProps) {
   const { eyebrow, heading, instruction, image, regions, ctaLabel } = content;
   const [selectedId, setSelectedId] = useState(regions[0].id);
@@ -118,57 +135,52 @@ export function PointToWhereItHurts({ content }: PointToWhereItHurtsProps) {
           {heading}
         </SectionHeading>
 
-        <div
-          ref={desktopContainerRef}
-          role="radiogroup"
-          aria-label="Body regions"
-          onKeyDown={desktopHandleKeyDown}
-          className="relative mx-auto hidden aspect-square w-full max-w-[560px] md:block"
-        >
-          <Image src={image.src} alt={image.alt} fill className="object-contain" />
+        <div className="hidden w-full items-center justify-center gap-10 md:flex">
+          <div
+            ref={desktopContainerRef}
+            role="radiogroup"
+            aria-label="Body regions"
+            onKeyDown={desktopHandleKeyDown}
+            className="relative aspect-square w-full max-w-[560px] shrink-0"
+          >
+            <Image src={image.src} alt={image.alt} fill className="object-contain" />
 
-          {regions.map((region) => {
-            const isSelected = region.id === selectedId;
-            return (
-              <div
-                key={region.id}
-                className="absolute -translate-x-1/2 -translate-y-1/2"
-                style={{ top: `${region.position.y}%`, left: `${region.position.x}%` }}
-              >
-                <button
-                  type="button"
-                  role="radio"
-                  aria-checked={isSelected}
-                  aria-label={region.name}
-                  tabIndex={isSelected ? 0 : -1}
-                  onClick={() => setSelectedId(region.id)}
-                  style={{ width: region.size, height: region.size }}
-                  className={cn(
-                    "relative rounded-full bg-white/25 ring-1 ring-white/50 transition-colors hover:bg-white/40",
-                    "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500",
-                  )}
+            {regions.map((region) => {
+              const isSelected = region.id === selectedId;
+              return (
+                <div
+                  key={region.id}
+                  className="absolute -translate-x-1/2 -translate-y-1/2"
+                  style={{ top: `${region.position.y}%`, left: `${region.position.x}%` }}
                 >
-                  {isSelected && (
-                    <span
-                      aria-hidden="true"
-                      className="absolute inset-0 rounded-full ring-2 ring-teal-500 ring-offset-2 motion-safe:animate-pulse motion-reduce:animate-none"
-                    />
-                  )}
-                </button>
+                  <button
+                    type="button"
+                    role="radio"
+                    aria-checked={isSelected}
+                    aria-label={region.name}
+                    tabIndex={isSelected ? 0 : -1}
+                    onClick={() => setSelectedId(region.id)}
+                    style={{ width: region.size, height: region.size }}
+                    className={cn(
+                      "relative rounded-full bg-white/25 ring-1 ring-white/50 transition-colors hover:bg-white/40",
+                      "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500",
+                    )}
+                  >
+                    {isSelected && (
+                      <span
+                        aria-hidden="true"
+                        className="absolute inset-0 rounded-full ring-2 ring-teal-500 ring-offset-2 motion-safe:animate-pulse motion-reduce:animate-none"
+                      />
+                    )}
+                  </button>
 
-                {isSelected ? (
-                  <SelectedPanel
-                    region={region}
-                    ctaLabel={ctaLabel}
-                    layout="floating"
-                    side={region.labelSide}
-                  />
-                ) : (
-                  <RegionLabel region={region} side={region.labelSide} />
-                )}
-              </div>
-            );
-          })}
+                  <RegionLabel region={region} side={region.labelSide} isSelected={isSelected} />
+                </div>
+              );
+            })}
+          </div>
+
+          <SelectedPanel region={selected} ctaLabel={ctaLabel} className="w-[300px] shrink-0" />
         </div>
 
         <div
@@ -198,7 +210,7 @@ export function PointToWhereItHurts({ content }: PointToWhereItHurtsProps) {
               </button>
             );
           })}
-          <SelectedPanel region={selected} ctaLabel={ctaLabel} layout="static" />
+          <SelectedPanel region={selected} ctaLabel={ctaLabel} className="mt-2 w-full" />
         </div>
       </Container>
     </Section>
