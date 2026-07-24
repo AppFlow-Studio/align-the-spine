@@ -57,7 +57,7 @@ function RegionLabel({
   return (
     <div
       className={cn(
-        "absolute top-1/2 flex -translate-y-1/2 items-center gap-2 whitespace-nowrap",
+        "absolute top-1/2 flex -translate-y-1/2 items-center gap-2 whitespace-nowrap ",
         side === "left" ? "right-full flex-row-reverse pr-2" : "left-full pl-2",
       )}
     >
@@ -94,10 +94,7 @@ function SelectedPanel({
 }) {
   return (
     <div
-      className={cn(
-        "rounded-20 border-2 border-teal-500 bg-white p-6 text-left shadow-card",
-        className,
-      )}
+      className={cn(" border-l-4 border-teal-500 bg-white p-6 text-left shadow-card", className)}
     >
       <p className="font-sans text-selected-label uppercase text-teal-500">Selected</p>
       <h3 className="mt-2 font-display text-card-title text-navy-800">{region.name}</h3>
