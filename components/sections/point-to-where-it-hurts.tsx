@@ -183,33 +183,36 @@ export function PointToWhereItHurts({ content }: PointToWhereItHurtsProps) {
           <SelectedPanel region={selected} ctaLabel={ctaLabel} className="w-[300px] shrink-0" />
         </div>
 
-        <div
-          ref={mobileContainerRef}
-          role="radiogroup"
-          aria-label="Body regions"
-          onKeyDown={mobileHandleKeyDown}
-          className="flex w-full flex-col gap-3 md:hidden"
-        >
-          {regions.map((region) => {
-            const isSelected = region.id === selectedId;
-            return (
-              <button
-                key={region.id}
-                type="button"
-                role="radio"
-                aria-checked={isSelected}
-                tabIndex={isSelected ? 0 : -1}
-                onClick={() => setSelectedId(region.id)}
-                className={cn(
-                  "rounded-20 border-2 px-6 py-4 text-left font-sans text-body-lg transition-colors",
-                  "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500",
-                  isSelected ? "border-teal-500 text-teal-500" : "border-mute-300 text-ink-900",
-                )}
-              >
-                {region.name}
-              </button>
-            );
-          })}
+        <div className="flex w-full flex-col gap-3 md:hidden">
+          <div
+            ref={mobileContainerRef}
+            role="radiogroup"
+            aria-label="Body regions"
+            onKeyDown={mobileHandleKeyDown}
+            className="flex flex-col gap-3"
+          >
+            {regions.map((region) => {
+              const isSelected = region.id === selectedId;
+              return (
+                <button
+                  key={region.id}
+                  type="button"
+                  role="radio"
+                  aria-checked={isSelected}
+                  tabIndex={isSelected ? 0 : -1}
+                  onClick={() => setSelectedId(region.id)}
+                  className={cn(
+                    "rounded-20 border-2 px-6 py-4 text-left font-sans text-body-lg transition-colors",
+                    "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500",
+                    isSelected ? "border-teal-500 text-teal-500" : "border-mute-300 text-ink-900",
+                  )}
+                >
+                  {region.name}
+                </button>
+              );
+            })}
+          </div>
+
           <SelectedPanel region={selected} ctaLabel={ctaLabel} className="mt-2 w-full" />
         </div>
       </Container>
