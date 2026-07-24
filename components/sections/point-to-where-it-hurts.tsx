@@ -106,8 +106,10 @@ export function PointToWhereItHurts({ content }: PointToWhereItHurtsProps) {
   const [selectedId, setSelectedId] = useState(regions[0].id);
   const selected = regions.find((region) => region.id === selectedId) ?? regions[0];
 
-  const desktop = useRovingRadioGroup(regions, selectedId, setSelectedId);
-  const mobile = useRovingRadioGroup(regions, selectedId, setSelectedId);
+  const { containerRef: desktopContainerRef, handleKeyDown: desktopHandleKeyDown } =
+    useRovingRadioGroup(regions, selectedId, setSelectedId);
+  const { containerRef: mobileContainerRef, handleKeyDown: mobileHandleKeyDown } =
+    useRovingRadioGroup(regions, selectedId, setSelectedId);
 
   return (
     <Section spacing="lg">
@@ -117,12 +119,10 @@ export function PointToWhereItHurts({ content }: PointToWhereItHurtsProps) {
         </SectionHeading>
 
         <div
-          // eslint-disable-next-line react-hooks/refs -- ref object passed to the `ref` prop, not a `.current` read
-          ref={desktop.containerRef}
+          ref={desktopContainerRef}
           role="radiogroup"
           aria-label="Body regions"
-          // eslint-disable-next-line react-hooks/refs -- event handler reference, not a ref read during render
-          onKeyDown={desktop.handleKeyDown}
+          onKeyDown={desktopHandleKeyDown}
           className="relative mx-auto hidden aspect-square w-full max-w-[560px] md:block"
         >
           <Image src={image.src} alt={image.alt} fill className="object-contain" />
@@ -172,12 +172,10 @@ export function PointToWhereItHurts({ content }: PointToWhereItHurtsProps) {
         </div>
 
         <div
-          // eslint-disable-next-line react-hooks/refs -- ref object passed to the `ref` prop, not a `.current` read
-          ref={mobile.containerRef}
+          ref={mobileContainerRef}
           role="radiogroup"
           aria-label="Body regions"
-          // eslint-disable-next-line react-hooks/refs -- event handler reference, not a ref read during render
-          onKeyDown={mobile.handleKeyDown}
+          onKeyDown={mobileHandleKeyDown}
           className="flex w-full flex-col gap-3 md:hidden"
         >
           {regions.map((region) => {
