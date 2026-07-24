@@ -108,6 +108,11 @@ const config: Config = {
         "understanding-intro": ["50px", { lineHeight: "62px", fontWeight: "400" }],
         "type-name": ["30px", { lineHeight: "40px", fontWeight: "600" }],
         "redflag-bullet": ["23px", { lineHeight: "36px", fontWeight: "400" }],
+        "selected-label": [
+          "25px",
+          { lineHeight: "40px", letterSpacing: "1.25px", fontWeight: "600" },
+        ],
+        "panel-body": ["22px", { lineHeight: "38px", fontWeight: "400" }],
       },
     },
   },
