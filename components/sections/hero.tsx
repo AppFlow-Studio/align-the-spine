@@ -85,11 +85,24 @@ export function Hero({
   formSlot,
 }: HeroProps) {
   return (
-    // Margins = TopStatsBar's worst-case rendered height per breakpoint tier, +16px buffer.
-    // Recompute (real-browser measurement, not guessed) if siteConfig.stats content changes
-    // enough to alter label wrapping/row-count — see derivation in
+    // Margins pull Hero up to bleed behind TopStatsBar/Navbar. TopStatsBar's
+    // rendered height isn't constant within a breakpoint tier — it shrinks a
+    // lot (460px -> 312px) as its 5-stat grid-cols-2 text stops wrapping
+    // between ~320-428px, well before the sm tier boundary at 640px. The
+    // base -mt was originally sized to the *tallest* case (320px, 460px
+    // bar) and applied all the way to 639px, which overlapped the fixed
+    // Navbar by up to ~84px at wider still-mobile widths (~412-639px) where
+    // the bar is actually only 312px tall — ATS-093 (mobile hero overlaps
+    // header). Split into two sub-steps matching where the bar's height
+    // actually drops (measured, not guessed): 460px up to 399px viewport
+    // width, 392px from 400-639px (the tallest bar in that sub-range, so
+    // TopStatsBar still fully disappears behind Hero with no visible sliver
+    // at either step, unlike a single worst-case-for-the-whole-tier value).
+    // sm/md/lg unchanged — already safe. Recompute (real-browser
+    // measurement, not guessed) if siteConfig.stats content changes enough
+    // to alter wrapping — see
     // docs/superpowers/specs/2026-07-15-hero-section-design.md.
-    <section className="relative -mt-[516px] min-h-[975px] overflow-hidden sm:-mt-[304px] md:-mt-[240px] lg:-mt-[176px]">
+    <section className="relative -mt-[460px] min-h-[975px] overflow-hidden min-[400px]:-mt-[392px] sm:-mt-[304px] md:-mt-[240px] lg:-mt-[176px]">
       <Image src={background.src} alt={background.alt} fill priority className="object-cover" />
       <div className="absolute inset-0 bg-black/[.47]" />
 
