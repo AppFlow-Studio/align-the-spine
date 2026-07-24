@@ -20,7 +20,7 @@ export function LocationFooter() {
   const today = new Date().toLocaleDateString("en-US", { weekday: "long" });
 
   return (
-    <footer className=" bg-white">
+    <section className=" bg-white">
       <div className="container flex flex-col lg:flex-row lg:items-stretch">
         <div className="relative min-h-[420px] flex-1 lg:min-h-[560px]">
           <iframe
@@ -92,6 +92,6 @@ export function LocationFooter() {
           </div>
         </div>
       </div>
-    </footer>
+    </section>
   );
 }

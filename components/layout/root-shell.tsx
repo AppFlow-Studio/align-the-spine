@@ -45,15 +45,14 @@ export function RootShell({ children, footerVariant }: RootShellProps) {
       <main id="main-content" className="flex-1">
         {children}
       </main>
-      {resolvedVariant === "location" ? (
+      {resolvedVariant === "location" && (
         <>
           <LocationIntro />
           <LocationFooter />
           {CONTACT_AFTER_FOOTER_ROUTES.includes(pathname) && <ContactSection />}
         </>
-      ) : (
-        <Footer />
       )}
+      <Footer />
     </>
   );
 }
