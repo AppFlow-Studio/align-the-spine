@@ -7,14 +7,14 @@ import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { FaqSection } from "@/components/sections/faq-section";
 import { Hero } from "@/components/sections/hero";
 import { PatientReviews } from "@/components/sections/patient-reviews";
+import { PointToWhereItHurts } from "@/components/sections/point-to-where-it-hurts";
 import { ServicesSection } from "@/components/sections/services-section";
-import { SpineAnatomy } from "@/components/sections/spine-anatomy";
 import { StillHaveQuestions } from "@/components/sections/still-have-questions";
 import { WhyChoose } from "@/components/sections/why-choose";
 import { ctaBandContent, stillHaveQuestionsContent } from "@/content/cta-bands";
 import { doctorProfileContent } from "@/content/doctor-profile";
+import { pointToWhereItHurtsContent } from "@/content/point-to-where-it-hurts";
 import { siteConfig } from "@/content/site";
-import { spineAnatomyContent } from "@/content/spine-anatomy";
 import { homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
 import { whyChooseContent } from "@/content/why-choose";
 
@@ -25,7 +25,8 @@ export const metadata: Metadata = {
 };
 
 /** / (Home) page assembly (ATS-071) per the homepage-1-col artboard:
- * HomeHero → ServiceGrid/ListRow → WhyChoose/SpineAnatomy (ATS-072) →
+ * HomeHero → ServiceGrid/ListRow → WhyChoose/PointToWhereItHurts (Epic 4, replaces
+ * the ATS-072 SpineAnatomy quadrant section with an interactive hotspot diagram) →
  * DoctorBio → accident-injury grid → patient reviews → FAQ/CTA bands →
  * contact LeadForm. LocationIntro/LocationFooter come from RootShell, which
  * already swaps in the "location" footer variant for "/". */
@@ -60,7 +61,7 @@ export default function Home() {
       <ServicesSection />
       <WhyChoose content={whyChooseContent} />
       <AccidentInjuries />
-      <SpineAnatomy content={spineAnatomyContent} />
+      <PointToWhereItHurts content={pointToWhereItHurtsContent} />
       <DoctorProfile variant="short" content={doctorProfileContent} />
       <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews} />
       <FaqSection pageKey="home" />
