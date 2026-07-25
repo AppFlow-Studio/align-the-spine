@@ -16,9 +16,15 @@ export interface ConditionUnderstanding {
   redFlags: ConditionRedFlags;
 }
 
+export interface ConditionAccidentBanner {
+  headline: string;
+  body: string;
+}
+
 export interface Condition {
   slug: string;
   name: string;
   summary: string;
   understanding: ConditionUnderstanding;
+  accidentBanner: ConditionAccidentBanner;
 }
