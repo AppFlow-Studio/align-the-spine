@@ -39,4 +39,8 @@ export const neckPainCondition: Condition = {
       ],
     },
   },
+  accidentBanner: {
+    headline: "If a collision triggered this, Florida gives you 14 days",
+    body: "Neck pain after an accident usually traces back to whiplash — sudden strain on the muscles and ligaments supporting your cervical spine. If a collision is anywhere in this story, Florida law gives you 14 days to get evaluated and protect your PIP benefits.",
+  },
 };
