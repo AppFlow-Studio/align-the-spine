@@ -21,6 +21,8 @@
   --overlay-navy-20: rgba(37, 48, 103, 0.2);
   --overlay-white-15: rgba(255, 255, 255, 0.15);
   --overlay-white-16: rgba(255, 255, 255, 0.16); /* dark-form field fill (§A7) */
+  --overlay-ink-20: rgba(26, 26, 26, 0.2); /* doctor-profile rating chip overlay (§B6) */
+  --overlay-teal-12: rgba(88, 160, 160, 0.12); /* RedFlagCard box background (§B3) */
 
   /* Design tokens: feedback */
   --color-error: #dc2626;
@@ -50,6 +52,13 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+}
+
+html {
+  /* Prevents fixed/translated off-canvas elements (e.g. the mobile nav
+   * drawer, closed via translate-x-full) from expanding the document's
+   * horizontal scroll area below lg — ATS-073 responsive pass. */
+  overflow-x: hidden;
 }
 
 body {

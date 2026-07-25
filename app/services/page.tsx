@@ -1,0 +1,55 @@
+import type { Metadata } from "next";
+
+import { DoctorProfile } from "@/components/sections/doctor-profile";
+import { Hero } from "@/components/sections/hero";
+import { PatientReviews } from "@/components/sections/patient-reviews";
+import { ServiceCatalog } from "@/components/sections/service-catalog";
+import { doctorProfileContent } from "@/content/doctor-profile";
+import { leadFormVariants } from "@/content/lead-forms";
+import { siteConfig } from "@/content/site";
+import { homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
+
+export const metadata: Metadata = {
+  title: `Chiropractic Services in Deerfield Beach, FL | ${siteConfig.business.name}`,
+  description:
+    "Adjustments, sports injury care, posture correction, spinal decompression, headache relief, and massage/soft-tissue therapy — same doctor, every visit. Call (954) 573-7192.",
+};
+
+/** /services page assembly (ATS-081) per the services artboard (frame
+ * 96:2185 — the ticket's node ref 1:2583 no longer resolves in the file):
+ * Hero (reusing the artboard's actual car-accident-themed copy/form, not
+ * the ticket's "Comprehensive care" line, which belongs to the About page's
+ * Hero) → ServiceCatalog intro+grid (the ticket's "Comprehensive care,
+ * tailored to you" line lives here as the section heading) → DoctorBio →
+ * PatientReviews ("Patient Success" band, same placeholder copy as the
+ * artboard's Group 10). The contact LeadForm sits below Hours of Operation
+ * per the artboard, so RootShell renders it after LocationFooter for this
+ * route instead of this page mounting it directly — see root-shell.tsx. */
+export default function ServicesPage() {
+  return (
+    <>
+      <Hero
+        variant="home"
+        background={{
+          src: "/figma-exports/dr-abe-neck.png",
+          alt: "Dr. Abe Nasser treating a patient's neck",
+        }}
+        eyebrow="Every treatment built around your accident"
+        title="Chiropractic Services in Deerfield Beach, FL"
+        subhead="From routine adjustments to specialized recovery care — same doctor, every visit, at the office or your home when it applies."
+        callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
+        form={{
+          heading: "Schedule Your Car Accident Evaluation",
+          submitLabel: leadFormVariants.carAccident.submitLabel,
+          variant: leadFormVariants.carAccident.variant,
+          fields: leadFormVariants.carAccident.fields,
+          footerNote:
+            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
+        }}
+      />
+      <ServiceCatalog />
+      <DoctorProfile variant="short" content={doctorProfileContent} />
+      <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews} />
+    </>
+  );
+}

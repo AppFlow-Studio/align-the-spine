@@ -34,6 +34,8 @@ const config: Config = {
           "navy-20": "var(--overlay-navy-20)",
           "white-15": "var(--overlay-white-15)",
           "white-16": "var(--overlay-white-16)",
+          "ink-20": "var(--overlay-ink-20)",
+          "teal-12": "var(--overlay-teal-12)",
         },
         error: "var(--color-error)",
       },
@@ -57,8 +59,19 @@ const config: Config = {
       },
       fontSize: {
         hero: ["87px", { lineHeight: "90px", fontWeight: "300" }],
-        display: ["65px", { lineHeight: "68px", fontWeight: "500" }],
-        h2: ["35px", { lineHeight: "66px", fontWeight: "600" }],
+        // Fluid clamp() per condition-page-spec §E (ATS-112), same 375→1728px
+        // interpolation the .container fluid gutter already uses (globals.css).
+        // Minimums (36px / 24px) are a judgment call, not spec-confirmed — no
+        // breakpoint frames exist in Figma to sample, per the ATS-002 design
+        // doc's own note on this same gap.
+        display: [
+          "clamp(36px, 2.14vw + 27.96px, 65px)",
+          { lineHeight: "clamp(38px, 2.22vw + 29.69px, 68px)", fontWeight: "500" },
+        ],
+        h2: [
+          "clamp(24px, 0.81vw + 20.95px, 35px)",
+          { lineHeight: "clamp(45px, 1.55vw + 39.18px, 66px)", fontWeight: "600" },
+        ],
         eyebrow: ["25px", { lineHeight: "40px", letterSpacing: "1.25px", fontWeight: "500" }],
         "body-lg": ["25px", { lineHeight: "40px", fontWeight: "400" }],
         button: ["20px", { lineHeight: "40px", fontWeight: "400" }],
@@ -81,6 +94,20 @@ const config: Config = {
           { lineHeight: "40px", letterSpacing: "1.25px", fontWeight: "500" },
         ],
         "footer-copy": ["20px", { lineHeight: "32px", fontWeight: "400" }],
+        // Fluid clamp() per condition-page-spec §E (ATS-073 responsive pass):
+        // was a fixed 35px, which overflowed narrow flex columns at 375px
+        // (one-word service names like "Traction/Decompression" in
+        // ServiceListRow) and 768px (SpineAnatomy's 3-column grid). Same
+        // 375→1728px interpolation as the display/h2 tokens above.
+        "card-title": [
+          "clamp(24px, 0.81vw + 20.95px, 35px)",
+          { lineHeight: "clamp(25px, 0.89vw + 21.67px, 37px)", fontWeight: "500" },
+        ],
+        "card-body": ["22px", { lineHeight: "40px", fontWeight: "400" }],
+        "doctor-name": ["65px", { lineHeight: "100px", fontWeight: "500" }],
+        "understanding-intro": ["50px", { lineHeight: "62px", fontWeight: "400" }],
+        "type-name": ["30px", { lineHeight: "40px", fontWeight: "600" }],
+        "redflag-bullet": ["23px", { lineHeight: "36px", fontWeight: "400" }],
       },
     },
   },
