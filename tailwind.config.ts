@@ -113,6 +113,7 @@ const config: Config = {
           { lineHeight: "40px", letterSpacing: "1.25px", fontWeight: "600" },
         ],
         "panel-body": ["22px", { lineHeight: "38px", fontWeight: "400" }],
+        "small-print": ["18px", { lineHeight: "30px", fontWeight: "400" }],
       },
     },
   },
