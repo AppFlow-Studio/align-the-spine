@@ -4,6 +4,11 @@ export interface ComparisonRow {
   traditionalClinic: string;
 }
 
+export const comparisonTableEyebrow = "A Better Way to Recover";
+export const comparisonTableHeading = "Why struggle to a clinic while you're in pain?";
+export const comparisonTableSubheading =
+  "Dr. Abe Nasser builds the plan around your recovery — including home visits when they're the right fit.";
+
 /** Base "Align the Spine vs Traditional Clinic" rows per condition-page-spec
  * §B5, §C. Shared across every condition page (and /auto-accidents once
  * built) — not condition-specific, so this lives standalone rather than on
@@ -11,28 +16,18 @@ export interface ComparisonRow {
 export const comparisonTableRows: ComparisonRow[] = [
   {
     label: "Travel",
-    alignTheSpine: "We come to you — home, office, or hospital visits",
-    traditionalClinic: "You drive to them, every appointment",
+    alignTheSpine: "In-home visits, when eligible",
+    traditionalClinic: "You drive in pain",
   },
   {
     label: "Availability",
-    alignTheSpine: "Same-day and evening appointments, real flexibility",
-    traditionalClinic: "Book weeks out, fixed clinic hours",
+    alignTheSpine: "Same Day Appointment",
+    traditionalClinic: "Wait list 2-3 weeks",
   },
   {
     label: "Comfort",
-    alignTheSpine: "Treated in your own space, no waiting room",
-    traditionalClinic: "Waiting rooms and rushed visit slots",
-  },
-  {
-    label: "Continuity of Care",
-    alignTheSpine: "One dedicated doctor who knows your case",
-    traditionalClinic: "A different provider almost every visit",
-  },
-  {
-    label: "Cost & Insurance",
-    alignTheSpine: "Transparent pricing — PIP and insurance handled for you",
-    traditionalClinic: "Surprise billing, you navigate insurance yourself",
+    alignTheSpine: "Your living Room",
+    traditionalClinic: "Clinical Waiting Room",
   },
 ];
 
@@ -41,15 +36,15 @@ export const comparisonTableRows: ComparisonRow[] = [
 export const autoAccidentComparisonRows: ComparisonRow[] = [
   {
     label: "Your Doctor",
-    alignTheSpine: "The same doctor treats you from first visit to last",
-    traditionalClinic: "Rotating providers — retell your story every visit",
+    alignTheSpine: "Same doctor, every visit",
+    traditionalClinic: "Different provider each time",
   },
   {
     label: "Attorney Referrals",
-    alignTheSpine: "No referral needed — we work directly with your case",
-    traditionalClinic: "Often requires an outside attorney referral to begin care",
+    alignTheSpine: "No referral needed",
+    traditionalClinic: "Outside referral required",
   },
 ];
 
 export const comparisonTableFootnote =
-  "Care Benefits reflect typical patient experience and may vary by location, insurance, and individual case.";
+  "Home visits are offered based on your case and location — we'll confirm eligibility when you call.";

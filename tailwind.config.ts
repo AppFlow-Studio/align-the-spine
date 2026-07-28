@@ -114,8 +114,6 @@ const config: Config = {
         ],
         "panel-body": ["22px", { lineHeight: "38px", fontWeight: "400" }],
         "small-print": ["18px", { lineHeight: "30px", fontWeight: "400" }],
-        "comparison-label": ["30px", { lineHeight: "40px", fontWeight: "500" }],
-        "comparison-cell": ["23px", { lineHeight: "36px", fontWeight: "500" }],
       },
     },
   },
