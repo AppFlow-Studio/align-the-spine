@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 
+import { LocationFooter } from "@/components/layout/location-footer";
+import { LocationIntro } from "@/components/layout/location-intro";
+import { ContactSection } from "@/components/sections/contact-section";
 import { DoctorHistory } from "@/components/sections/doctor-history";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { Hero } from "@/components/sections/hero";
@@ -21,9 +24,9 @@ export const metadata: Metadata = {
  * eyebrow + bilingual note) → DoctorProfile long variant (short profile
  * block + HISTORY long bio in the `extended` slot) → HowHePractices
  * (ATS-091, built here since /about's acceptance criteria required it) →
- * PhotoGallery. Contact LeadForm sits below Hours of Operation per the
- * artboard, same as /services — see root-shell.tsx's
- * CONTACT_AFTER_FOOTER_ROUTES. */
+ * PhotoGallery → LocationIntro/LocationFooter (shared with Home/Services/
+ * Book) → contact LeadForm, which sits below Hours of Operation per the
+ * artboard, same as /services. */
 export default function AboutPage() {
   return (
     <>
@@ -46,6 +49,9 @@ export default function AboutPage() {
       />
       <HowHePractices />
       <PhotoGallery />
+      <LocationIntro />
+      <LocationFooter />
+      <ContactSection />
     </>
   );
 }

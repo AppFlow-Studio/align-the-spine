@@ -30,7 +30,7 @@ export function LocationFooter() {
             referrerPolicy="no-referrer-when-downgrade"
             className="absolute inset-0 h-full w-full border-0"
           />
-          <div className="absolute inset-x-4 bottom-4 rounded-20 bg-overlay-white-16 p-6 backdrop-blur-md sm:inset-x-8 sm:bottom-8 sm:p-8">
+          <div className="absolute inset-x-4 bottom-4 bg-overlay-white-16 p-6 backdrop-blur-md backdrop-brightness-85 border border-white sm:inset-x-8 sm:bottom-8 sm:p-8">
             <h2 className="font-display text-h2 text-navy-900">Our Location</h2>
             <address className="mt-2 font-alt text-footer-copy not-italic text-navy-900">
               {siteConfig.business.address.line1}, {siteConfig.business.address.suite}
@@ -52,7 +52,7 @@ export function LocationFooter() {
               {siteConfig.hours.map((hours) => {
                 const isToday = hours.day === today;
                 return (
-                  <tr key={hours.day} className="border-t border-mute-300 first:border-t-0">
+                  <tr key={hours.day} className="border-t border-gray-200 first:border-t-0">
                     <th
                       scope="row"
                       className={cn(
@@ -64,7 +64,7 @@ export function LocationFooter() {
                     </th>
                     <td
                       className={cn(
-                        "py-2 text-right font-medium text-navy-900",
+                        "py-2 text-right font-bold text-navy-900",
                         isToday && "text-teal-500",
                       )}
                     >
@@ -84,7 +84,7 @@ export function LocationFooter() {
           <div className=" gap-4 pt-4 sm:flex-row sm:items-center">
             <Link
               href={siteConfig.bookingCta.href}
-              className="flex h-16 items-center justify-center gap-3 bg-navy-900 px-8 font-sans text-button text-white transition-colors hover:bg-navy-700"
+              className="flex h-12 items-center justify-center gap-3 bg-navy-900 px-8 font-sans text-button text-white transition-colors hover:bg-navy-700"
             >
               Book Your Visit
               <ArrowRightIcon className="h-5 w-5" />

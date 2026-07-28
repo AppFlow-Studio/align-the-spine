@@ -88,7 +88,7 @@ export default function HomeVisitsPage() {
       </Section>
 
       <Section spacing="none" className="container">
-        <div className="flex flex-col gap-6 rounded-30 bg-navy-900 p-8 sm:flex-row sm:items-center sm:justify-between sm:p-14">
+        <div className="flex flex-col gap-6 bg-navy-900 p-8 sm:flex-row sm:items-center sm:justify-between sm:p-14">
           <div className="flex flex-col gap-2">
             <h2 className="font-display text-h2 text-white">Ready to check eligibility</h2>
             <p className="font-sans text-body-lg text-mute-300">

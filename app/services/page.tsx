@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 
+import { LocationFooter } from "@/components/layout/location-footer";
+import { LocationIntro } from "@/components/layout/location-intro";
+import { ContactSection } from "@/components/sections/contact-section";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { Hero } from "@/components/sections/hero";
 import { PatientReviews } from "@/components/sections/patient-reviews";
@@ -22,9 +25,9 @@ export const metadata: Metadata = {
  * Hero) → ServiceCatalog intro+grid (the ticket's "Comprehensive care,
  * tailored to you" line lives here as the section heading) → DoctorBio →
  * PatientReviews ("Patient Success" band, same placeholder copy as the
- * artboard's Group 10). The contact LeadForm sits below Hours of Operation
- * per the artboard, so RootShell renders it after LocationFooter for this
- * route instead of this page mounting it directly — see root-shell.tsx. */
+ * artboard's Group 10) → LocationIntro/LocationFooter (shared with
+ * Home/About/Book) → contact LeadForm, which sits below Hours of Operation
+ * per the artboard. */
 export default function ServicesPage() {
   return (
     <>
@@ -50,6 +53,9 @@ export default function ServicesPage() {
       <ServiceCatalog />
       <DoctorProfile variant="short" content={doctorProfileContent} />
       <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews} />
+      <LocationIntro />
+      <LocationFooter />
+      <ContactSection />
     </>
   );
 }

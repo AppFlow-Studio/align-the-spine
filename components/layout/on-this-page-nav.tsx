@@ -94,7 +94,7 @@ export function OnThisPageNav({ sections }: OnThisPageNavProps) {
 
   return (
     <nav aria-label="On this page">
-      <details className="group rounded-20 border border-mute-300 px-5 py-4 lg:hidden">
+      <details className="group border border-mute-300 px-5 py-4 lg:hidden">
         <summary className="flex cursor-pointer list-none items-center justify-between font-sans text-eyebrow uppercase text-teal-500">
           On This Page
           <ChevronDownIcon className="h-5 w-5 shrink-0 transition-transform group-open:rotate-180" />

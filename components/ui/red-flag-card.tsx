@@ -10,7 +10,7 @@ export interface RedFlagCardProps {
  * title Geist SemiBold 25 navy-900, teal-dot bullets Geist 23. */
 export function RedFlagCard({ title, bullets, className }: RedFlagCardProps) {
   return (
-    <div className={cn("rounded-20 bg-overlay-teal-12 p-8", className)}>
+    <div className={cn("bg-overlay-teal-12 p-8", className)}>
       <p className="font-alt text-faq-q text-navy-900">{title}</p>
       <ul className="mt-4 flex flex-col gap-3">
         {bullets.map((bullet) => (

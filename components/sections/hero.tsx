@@ -106,7 +106,7 @@ export function Hero({
       <Image src={background.src} alt={background.alt} fill priority className="object-cover" />
       <div className="absolute inset-0 bg-black/[.47]" />
 
-      <div className="absolute inset-x-0 bottom-0 h-20 rounded-t-[50px] bg-white" />
+      <div className="absolute inset-x-0 bottom-0 h-20 bg-white" />
 
       <div className="container relative z-10 grid gap-10 pb-32 pt-[220px] lg:grid-cols-2 lg:items-center lg:gap-16 lg:pt-[260px]">
         <div className="flex flex-col gap-6">
@@ -117,7 +117,7 @@ export function Hero({
 
           <h1
             className={cn(
-              "font-display text-[44px] leading-[48px] text-white sm:text-[64px] sm:leading-[68px] lg:text-hero",
+              "font-display text-[32px] leading-[38px] text-white sm:text-[44px] sm:leading-[50px] lg:text-hero",
               variant === "home" && badge ? "mb-2" : "mb-8 lg:mb-20",
             )}
           >
@@ -152,10 +152,10 @@ export function Hero({
           )}
         </div>
 
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col items-end gap-6">
           {formSlot ??
             (form && (
-              <div className="rounded-15 bg-overlay-white-15 p-8 shadow-card">
+              <div className="w-full bg-overlay-white-15 p-8 shadow-card sm:w-4/5">
                 <LeadForm
                   heading={form.heading}
                   variant={form.variant}
@@ -166,7 +166,7 @@ export function Hero({
               </div>
             ))}
           {form?.footerNote && (
-            <p className="font-sans text-body-lg text-white">{form.footerNote}</p>
+            <p className="font-sans text-body-lg text-white sm:w-4/5">{form.footerNote}</p>
           )}
         </div>
       </div>
