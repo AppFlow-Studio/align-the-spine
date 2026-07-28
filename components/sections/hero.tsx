@@ -118,7 +118,7 @@ export function Hero({
           <h1
             className={cn(
               "font-display text-[32px] leading-[38px] text-white sm:text-[44px] sm:leading-[50px] lg:text-hero",
-              variant === "home" && badge ? "mb-2" : "mb-8 lg:mb-20",
+              variant === "home" && badge ? "mb-10" : "mb-8 lg:mb-20",
             )}
           >
             {title}

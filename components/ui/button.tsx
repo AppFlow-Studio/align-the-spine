@@ -103,7 +103,7 @@ export function Button({
         (loading ? (
           <Spinner className="h-6 w-6" />
         ) : (
-          <PhoneIcon className="h-4 w-4 shrink-0 sm:h-5 sm:w-5 xl:h-6 xl:w-6" />
+          <PhoneIcon className="size-7 shrink-0 rounded-full bg-teal-500 p-1.5 text-white sm:size-9 sm:p-2 xl:size-11 xl:p-2.5" />
         ))}
       {variant === "glass" && eyebrow ? (
         <span className="flex flex-col items-start text-left">
