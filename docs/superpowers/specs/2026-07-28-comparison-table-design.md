@@ -5,6 +5,8 @@
 
 ## Summary
 
+> **Superseded.** This section describes the original ticket-text-only design, before the reference screenshot arrived. It is kept for historical context only — see "Post-implementation correction" below for what actually shipped (column 2 highlighted, not column 1; no icon on column 3; different tokens; different heading/copy).
+
 `ComparisonTable`: the "Align the Spine vs Traditional Clinic" 3-column comparison — one rounded (r30) shell with a navy "Care Benefits" column of row labels, a white highlighted "Align the Spine" column, and a light-grey "Traditional Clinic" column, each row carrying a check/close icon plus cell copy. Rows are data-driven from a new standalone content file; an `auto-accident` variant appends 2 extra rows.
 
 Both this ticket's own dependencies (ATS-022, the condition-page route) and ATS-025 (this component) don't exist elsewhere in the repo yet — same gap every prior Epic 4/Dev A ticket (`AccidentBanner`, `UnderstandingCondition`, `PointToWhereItHurts`) has hit. Built and verified in isolation via a temporary, reverted mount on Home, following that exact precedent.
@@ -38,6 +40,8 @@ _(The decisions below reflect the ticket-text-only reading, before the reference
 - **Heading above the card:** the ticket's Specs section jumps straight to column details with no eyebrow/heading called out, but every sibling section (`AccidentBanner`, `UnderstandingCondition`) has one. Adding a centered `Eyebrow` ("The Difference") + `h2` ("Align the Spine vs. Traditional Clinic") above the card for rhythm consistency with the rest of the page — flagged as an assumption, not a spec-confirmed requirement.
 - **"Highlighted" middle column:** interpreted literally as the white background reading as visually distinct against its navy and `panel-100` neighbors — no added elevation/scale/overlap, since the ticket gives no further detail and no Figma reference exists to confirm one.
 - **New fontSize tokens:** neither "Poppins Medium 30" nor "Poppins Medium 23" has an exact existing match. `type-name` (30px/40/**600**) and `redflag-bullet` (23px/36/**400**) are close but wrong weight (ticket calls for Medium/500 on both). Two new tokens, `comparison-label` and `comparison-cell`, rather than reusing a mismatched weight.
+
+> **Superseded.** The "Architecture" section below (including the `content/comparison-table.ts`, `tailwind.config.ts` additions, and `ComparisonTable` props and markup sections that follow it) documents the original ticket-text-only design. See "Post-implementation correction" above for what actually shipped.
 
 ## Architecture
 
@@ -229,9 +233,11 @@ Notes:
 
 ## Acceptance criteria mapping
 
-- [ ] Rows/labels from data; supports extra auto-accident rows — `comparisonTableRows` / `autoAccidentComparisonRows` in `content/comparison-table.ts`; `variant="auto-accident"` appends the extra 2.
-- [ ] 3-col layout + icons per spec — navy/white/panel-100 columns, teal `CheckIcon` in column 2, muted `CloseIcon` in column 3.
-- [ ] Mobile: stacked cards or horizontal scroller — horizontal scroller (`overflow-x-auto snap-x snap-mandatory`), per user decision above.
+_(Reflects what actually shipped, per "Post-implementation correction" above — not the original ticket-text reading.)_
+
+- [x] Rows/labels from data; supports extra auto-accident rows — `comparisonTableRows` / `autoAccidentComparisonRows` in `content/comparison-table.ts` (3 terser base rows: Travel/Availability/Comfort); `variant="auto-accident"` appends the 2 extra rows ("Your Doctor", "Attorney Referrals").
+- [x] 3-col layout + icons per reference screenshot — column 2 ("Align the Spine") is the navy, highlighted column with a `font-display` header and a plain teal `CheckIcon` per row; columns 1 ("Care Benefits") and 3 ("Traditional Clinic") are plain/light with `font-display` headers and no icons at all.
+- [x] Mobile: stacked cards or horizontal scroller — horizontal scroller (`overflow-x-auto snap-x snap-mandatory`), per user decision above.
 
 ## Out of scope
 

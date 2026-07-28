@@ -48,3 +48,9 @@ export const autoAccidentComparisonRows: ComparisonRow[] = [
 
 export const comparisonTableFootnote =
   "Home visits are offered based on your case and location — we'll confirm eligibility when you call.";
+
+export const comparisonTableColumnHeadings = {
+  careBenefits: "Care Benefits",
+  alignTheSpine: "Align the Spine",
+  traditionalClinic: "Traditional Clinic",
+} as const;
