@@ -106,8 +106,6 @@ export function Hero({
       <Image src={background.src} alt={background.alt} fill priority className="object-cover" />
       <div className="absolute inset-0 bg-black/[.47]" />
 
-      <div className="absolute inset-x-0 bottom-0 h-20 bg-white" />
-
       <div className="container relative z-10 grid gap-10 pb-32 pt-[220px] lg:grid-cols-2 lg:items-center lg:gap-16 lg:pt-[260px]">
         <div className="flex flex-col gap-6">
           {variant === "condition" && conditionChip && (

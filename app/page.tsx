@@ -7,6 +7,7 @@ import { ContactSection } from "@/components/sections/contact-section";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { FaqSection } from "@/components/sections/faq-section";
 import { Hero } from "@/components/sections/hero";
+import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { ServicesSection } from "@/components/sections/services-section";
 import { SpineAnatomy } from "@/components/sections/spine-anatomy";
@@ -14,7 +15,7 @@ import { WhyChoose } from "@/components/sections/why-choose";
 import { doctorProfileContent } from "@/content/doctor-profile";
 import { siteConfig } from "@/content/site";
 import { spineAnatomyContent } from "@/content/spine-anatomy";
-import { homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
+import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
 import { whyChooseContent } from "@/content/why-choose";
 
 export const metadata: Metadata = {
@@ -56,6 +57,7 @@ export default function Home() {
             "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
         }}
       />
+      <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
       <ServicesSection />
       <WhyChoose content={whyChooseContent} />
       <AccidentInjuries />
