@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
 
+import { LocationFooter } from "@/components/layout/location-footer";
+import { LocationIntro } from "@/components/layout/location-intro";
 import { AccidentInjuries } from "@/components/sections/accident-injuries";
 import { ContactSection } from "@/components/sections/contact-section";
-import { CtaBand } from "@/components/sections/cta-band";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { FaqSection } from "@/components/sections/faq-section";
 import { Hero } from "@/components/sections/hero";
+import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { ServicesSection } from "@/components/sections/services-section";
 import { SpineAnatomy } from "@/components/sections/spine-anatomy";
-import { StillHaveQuestions } from "@/components/sections/still-have-questions";
 import { WhyChoose } from "@/components/sections/why-choose";
-import { ctaBandContent, stillHaveQuestionsContent } from "@/content/cta-bands";
 import { doctorProfileContent } from "@/content/doctor-profile";
 import { siteConfig } from "@/content/site";
 import { spineAnatomyContent } from "@/content/spine-anatomy";
-import { homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
+import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
 import { whyChooseContent } from "@/content/why-choose";
 
 export const metadata: Metadata = {
@@ -27,8 +27,8 @@ export const metadata: Metadata = {
 /** / (Home) page assembly (ATS-071) per the homepage-1-col artboard:
  * HomeHero → ServiceGrid/ListRow → WhyChoose/SpineAnatomy (ATS-072) →
  * DoctorBio → accident-injury grid → patient reviews → FAQ/CTA bands →
- * contact LeadForm. LocationIntro/LocationFooter come from RootShell, which
- * already swaps in the "location" footer variant for "/". */
+ * contact LeadForm → LocationIntro/LocationFooter (shared with
+ * Services/About/Book — see app/book/page.tsx). */
 export default function Home() {
   return (
     <>
@@ -57,15 +57,16 @@ export default function Home() {
             "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
         }}
       />
+      <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
       <ServicesSection />
       <WhyChoose content={whyChooseContent} />
       <AccidentInjuries />
       <SpineAnatomy content={spineAnatomyContent} />
       <DoctorProfile variant="short" content={doctorProfileContent} />
       <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews} />
-      <FaqSection pageKey="home" />
-      <StillHaveQuestions content={stillHaveQuestionsContent} />
-      <CtaBand content={ctaBandContent} />
+      {/* <FaqSection pageKey="home" /> */}
+      <LocationIntro />
+      <LocationFooter />
       <ContactSection />
     </>
   );

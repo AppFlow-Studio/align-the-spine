@@ -16,7 +16,7 @@ export function LocationIntro() {
     <section className="bg-white">
       <div className="container grid gap-10 py-20 lg:grid-cols-2 lg:items-center lg:gap-16">
         <div className="flex flex-col gap-8">
-          <h2 className="font-display text-h2 text-navy-900">
+          <h2 className="font-display text-h2 text-navy-900 leading-12">
             Serving
             <br />
             South Florida
@@ -24,7 +24,7 @@ export function LocationIntro() {
 
           <div className="flex flex-col gap-5">
             <div className="flex items-start gap-3">
-              <PinIcon className="mt-1 h-5 w-5 shrink-0 text-navy-900" />
+              <PinIcon className="size-8 shrink-0 bg-[#58A0A0] rounded-full px-2 text-white" />
               <address className="font-alt text-footer-copy not-italic text-navy-900">
                 {siteConfig.business.address.line1} {siteConfig.business.address.suite}
                 <br />
@@ -37,7 +37,7 @@ export function LocationIntro() {
               href={siteConfig.business.phoneHref}
               className="flex items-center gap-3 font-alt text-footer-copy text-navy-900 transition-colors hover:text-navy-700"
             >
-              <PhoneIcon className="h-5 w-5 shrink-0" />
+              <PhoneIcon className="size-8 shrink-0 bg-[#58A0A0] rounded-full px-2 text-white" />
               {siteConfig.business.phone}
             </a>
 
@@ -45,28 +45,28 @@ export function LocationIntro() {
               href={`mailto:${siteConfig.business.email}`}
               className="flex min-w-0 items-center gap-3 break-all font-alt text-footer-copy text-navy-900 transition-colors hover:text-navy-700"
             >
-              <MailIcon className="h-5 w-5 shrink-0" />
+              <MailIcon className="size-8 shrink-0 bg-[#58A0A0] rounded-full px-2 text-white" />
               {siteConfig.business.email}
             </a>
           </div>
 
           <Link
             href="/#contact"
-            className="flex h-16 w-fit items-center justify-center gap-3  bg-navy-900 px-8 font-sans text-button text-white transition-colors hover:bg-navy-700"
+            className="flex h-12 w-fit items-center justify-center gap-3  bg-navy-900 px-8 font-sans text-button text-white transition-colors hover:bg-navy-700"
           >
-            Send Message
+            <span className="pr-10">Send</span>
             <ArrowRightIcon className="h-5 w-5" />
           </Link>
         </div>
 
-        <div className="relative h-[420px] overflow-hidden  lg:h-[480px]">
+        <div className="relative h-105 overflow-hidden  lg:h-130">
           <Image
             src="/figma-exports/exterior-img.png"
             alt="Palm Plaza exterior, home of Align the Spine Chiropractic"
             fill
             className="object-cover"
           />
-          <div className="absolute p-7 w-[90%] mx-auto  inset-x-0 bottom-7 bg-overlay-white-16 backdrop-blur-md">
+          <div className="absolute p-7 w-[90%] mx-auto  inset-x-0 bottom-7 bg-overlay-white-16 backdrop-brightness-75 backdrop-blur-md border border-white">
             <h2 className="font-display text-3xl text-button text-white">Palm Plaza</h2>
             <p className="mt-1 font-alt text-footer-copy text-white text-lg">
               After you enter the plaza, we are the building on the far-right corner.

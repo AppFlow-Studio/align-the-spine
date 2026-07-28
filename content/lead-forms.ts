@@ -43,20 +43,12 @@ export const leadFormVariants = {
   contact: {
     variant: "contact",
     fields: [
-      ...baseFields,
-      zipField,
-      {
-        name: "bestTime",
-        label: "Best Time to Contact",
-        type: "select",
-        placeholder: "Select a time",
-        options: [
-          { label: "Morning", value: "morning" },
-          { label: "Afternoon", value: "afternoon" },
-          { label: "Evening", value: "evening" },
-        ],
-      },
-      { name: "message", label: "Message", type: "textarea" },
+      { name: "firstName", label: "First Name", half: true, autoComplete: "given-name" },
+      { name: "lastName", label: "Last Name", half: true, autoComplete: "family-name" },
+      { name: "email", label: "Email", type: "email", autoComplete: "email" },
+      { name: "phone", label: "Phone", type: "tel", half: true, autoComplete: "tel" },
+      { ...zipField, half: true },
+      { name: "bestTime", label: "Best Time to Contact", required: false },
     ],
     submitLabel: "Contact Us",
   },

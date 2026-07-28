@@ -22,7 +22,7 @@ export function HowWeHelpSteps({ heading, steps, cta }: HowWeHelpStepsProps) {
       <div className="grid gap-10 sm:grid-cols-3 sm:gap-6">
         {steps.map((step) => (
           <div key={step.title} className="flex flex-col gap-6 text-left">
-            <div className="relative h-[246px] overflow-hidden rounded-20">
+            <div className="relative h-[246px] overflow-hidden">
               <Image src={step.image} alt={step.alt} fill className="object-cover" />
             </div>
             <div className="flex flex-col gap-3 border-t border-mute-300 pt-6">

@@ -30,7 +30,7 @@ export function PipCalculator({ className }: PipCalculatorProps) {
   return (
     <div
       className={cn(
-        "flex flex-col gap-5 rounded-15 bg-overlay-white-15 p-8 shadow-card backdrop-blur-md",
+        "flex flex-col gap-5 bg-overlay-white-15 p-8 shadow-card backdrop-blur-md",
         className,
       )}
     >
@@ -43,7 +43,7 @@ export function PipCalculator({ className }: PipCalculatorProps) {
         onChange={(event) => setValue(event.target.value)}
       />
 
-      <div className="rounded-6 bg-white/10 px-4 py-3">
+      <div className="bg-white/10 px-4 py-3">
         <p role="status" className="font-sans text-calc-helper text-white">
           {helper}
         </p>

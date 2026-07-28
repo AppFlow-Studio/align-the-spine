@@ -13,7 +13,7 @@ export function PhotoGallery() {
       <Container className="grid grid-cols-1 gap-6 sm:grid-cols-3">
         {interiorGalleryPhotos.map((photo) => (
           <div key={photo.src} className="relative aspect-[507/378] w-full">
-            <Image src={photo.src} alt={photo.alt} fill className="rounded-15 object-cover" />
+            <Image src={photo.src} alt={photo.alt} fill className="object-cover" />
           </div>
         ))}
       </Container>
