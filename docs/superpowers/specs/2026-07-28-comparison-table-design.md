@@ -11,7 +11,23 @@ Both this ticket's own dependencies (ATS-022, the condition-page route) and ATS-
 
 Strong existing scaffolding confirms this component was anticipated: `Card` already has a `shadow="comparison"` option (`components/ui/card.tsx`) wired to a `--shadow-comparison` token that otherwise has no consumer, and every hex color the ticket names already has a matching Tailwind token (`navy-900` `#253067`, `teal-500` `#58a0a0`, `panel-100` `#f6f6f6`, `mute-350` `#ababb3`, `mute-400` `#8e9597`, `ink-900` `#1a1a1a`).
 
+## Post-implementation correction (reference screenshot)
+
+After the initial build (matching the ticket text literally), the user supplied an actual reference screenshot of the design. It diverges from the ticket text in several load-bearing ways, and per the user's explicit instruction ("it should be same [as the photo]") the screenshot supersedes the ticket text as ground truth:
+
+- **Highlighted column is column 2, not column 1.** The reference shows "Align the Spine" (the middle column) as the navy, visually-raised card — not "Care Benefits" (column 1). Columns 1 and 3 are both plain/light with no distinct background of their own.
+- **Column headers are serif** (`font-display`, matching the site's Newsreader headings), not Poppins. Row labels and cell text are a smaller sans-serif.
+- **Column 3 ("Traditional Clinic") has no icon at all** — plain text, no check or close glyph. This supersedes the earlier "muted CloseIcon" decision above.
+- **Column 2's check icon is a small plain teal glyph**, not a filled circular badge.
+- **A heading block precedes the table**: eyebrow "A Better Way to Recover", h2 "Why struggle to a clinic while you're in pain?", and a subhead about Dr. Abe Nasser/home visits — replacing the originally-assumed "The Difference" / "Align the Spine vs. Traditional Clinic" heading.
+- **Row copy is terser** ("In-home visits, when eligible" vs. the original "We come to you — home, office, or hospital visits") and the base row count is 3 (Travel/Availability/Comfort only) — the 2 extra rows this doc originally invented ("Continuity of Care", "Cost & Insurance") aren't in the reference and were dropped from the base set; the auto-accident variant's 2 extra rows were kept (no reference contradicts them) but shortened to match the terser tone.
+- **Footnote copy** changed to "Home visits are offered based on your case and location — we'll confirm eligibility when you call."
+- **New tokens dropped:** `comparison-label`/`comparison-cell` (added for the ticket-text version) are unused in the corrected design and were removed from `tailwind.config.ts`. Headers reuse the existing `h2` token; row labels and cell text reuse the existing `stat-label` token (18px/28px/500) — both closer matches to the reference's actual proportions than the invented 30px/23px tokens.
+- **Layout mechanics unchanged:** still one CSS Grid (3 columns × rows) for row-height sync, still a horizontal-scroll wrapper for mobile with `snap-start` on all 3 columns (per the Task 3 fix-round finding below) — only the visual treatment and copy changed, not the underlying structure.
+
 ## Resolved open decisions
+
+_(The decisions below reflect the ticket-text-only reading, before the reference screenshot arrived. Superseded points are noted; layout/architecture decisions — data source, mobile scroller, variant prop — still stand.)_
 
 - **Row data source:** per user decision, a standalone `content/comparison-table.ts` (matching the `content/home-visits.ts` / `FitChecklist` pattern), not a field on `Condition`. The table's rows describe general practice benefits, not condition-specific narrative — the same table renders on every condition page and (once built) `/auto-accidents`.
 - **Column 3 icon:** per user decision, a muted `CloseIcon` (mute-350) rather than a muted checkmark — mirrors `FitChecklist`'s existing check-vs-close convention (`components/sections/fit-checklist.tsx`) for a clear visual contrast against column 2's teal checks.
