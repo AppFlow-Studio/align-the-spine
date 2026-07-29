@@ -13,19 +13,23 @@ export interface UnderstandingConditionProps {
   className?: string;
 }
 
+/** Static per condition-page-spec §B3 — the red-flag card's call-to-action
+ * title never varies by condition, only its bullet list does. */
+const RED_FLAGS_TITLE = "See a doctor promptly if you notice:";
+
 /** "Understanding [condition]" educational block per condition-page-spec §B3, §C:
  * eyebrow + intro + supporting image, then a hairline-divided Types/Common Causes
  * split, then a RedFlagCard callout. Fully data-driven off Condition.understanding
  * so every condition page can reuse this one component. */
 export function UnderstandingCondition({ condition, className }: UnderstandingConditionProps) {
-  const { name, understanding } = condition;
-  const { intro, image, types, causes, redFlags } = understanding;
+  const { understanding } = condition;
+  const { eyebrow, intro, image, types, causes, redFlags } = understanding;
 
   return (
     <Section className={className}>
       <Container className="flex flex-col gap-10">
         <div className="flex flex-col gap-6">
-          <Eyebrow>Understanding {name}</Eyebrow>
+          <Eyebrow>{eyebrow}</Eyebrow>
           <p className="font-display text-understanding-intro text-navy-900">{intro}</p>
         </div>
 
@@ -39,7 +43,7 @@ export function UnderstandingCondition({ condition, className }: UnderstandingCo
             <h3 className="font-display text-h2 text-navy-900">Types</h3>
             <div className="flex flex-col gap-6">
               {types.map((type) => (
-                <TypeCard key={type.name} name={type.name} description={type.description} />
+                <TypeCard key={type.name} name={type.name} description={type.desc} />
               ))}
             </div>
           </div>
@@ -65,7 +69,7 @@ export function UnderstandingCondition({ condition, className }: UnderstandingCo
           </div>
         </div>
 
-        <RedFlagCard title={redFlags.title} bullets={redFlags.bullets} />
+        <RedFlagCard title={RED_FLAGS_TITLE} bullets={redFlags} />
       </Container>
     </Section>
   );

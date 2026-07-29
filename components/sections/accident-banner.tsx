@@ -9,15 +9,12 @@ export interface AccidentBannerProps {
   className?: string;
 }
 
-const WARNING =
-  "Missing this window means you may have to pay thousands for medical care out of your own pocket.";
-
 /** "Was this from an accident?" band per condition-page-spec §B4, §C:
- * navy rounded card, condition-driven headline/body on the left, PIPCalculator
- * (ATS-032) on the right. Eyebrow and warning small-print are static —
- * only headline/body vary per condition. */
+ * navy rounded card, condition-driven headline/body/smallprint on the left,
+ * PIPCalculator (ATS-032) on the right. Eyebrow is static — everything else
+ * varies per condition via Condition.accident. */
 export function AccidentBanner({ condition, className }: AccidentBannerProps) {
-  const { accidentBanner } = condition;
+  const { accident } = condition;
 
   return (
     <Section className={className}>
@@ -27,9 +24,9 @@ export function AccidentBanner({ condition, className }: AccidentBannerProps) {
             <div className="flex flex-col gap-6">
               <Eyebrow>Was this from an accident?</Eyebrow>
               <h2 className="font-display text-h2 md:text-understanding-intro text-white">
-                {accidentBanner.headline}
+                {accident.headline}
               </h2>
-              <p className="font-sans text-body-lg text-mute-300">{accidentBanner.body}</p>
+              <p className="font-sans text-body-lg text-mute-300">{accident.body}</p>
 
               <div className="flex items-start gap-4 rounded-30 bg-overlay-white-15 px-5 py-4 lg:items-center lg:rounded-full">
                 <span
@@ -38,7 +35,7 @@ export function AccidentBanner({ condition, className }: AccidentBannerProps) {
                 >
                   !
                 </span>
-                <p className="font-sans text-small-print text-mute-300">{WARNING}</p>
+                <p className="font-sans text-small-print text-mute-300">{accident.smallprint}</p>
               </div>
             </div>
 
