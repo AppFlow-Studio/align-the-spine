@@ -5,6 +5,7 @@ import { Hero } from "@/components/sections/hero";
 import { HowWeHelpSteps } from "@/components/sections/how-we-help-steps";
 import { ReviewsStrip } from "@/components/sections/reviews-strip";
 import { ServiceAreas } from "@/components/sections/service-areas";
+import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { Button } from "@/components/ui/button";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { Section } from "@/components/ui/section";
@@ -120,6 +121,7 @@ export default function HomeVisitsPage() {
             Everything you need to know about home visits
           </SectionHeading>
           <FaqAccordion items={homeVisitFaqs} />
+          <FaqJsonLd items={homeVisitFaqs} />
         </div>
       </Section>
     </>

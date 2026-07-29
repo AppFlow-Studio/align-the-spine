@@ -1,3 +1,4 @@
+import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { Container } from "@/components/ui/container";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { Section } from "@/components/ui/section";
@@ -9,23 +10,10 @@ export interface FaqSectionProps {
 }
 
 /** FAQ section per condition-page-spec §B11/§C: eyebrow + centered heading +
- * FaqAccordion, fed by a per-page faqsByPage entry, with an inline FAQPage
- * JSON-LD script derived from the same items shown on screen. */
+ * FaqAccordion, fed by a per-page faqsByPage entry, with a FAQPage JSON-LD
+ * script (ATS-131) derived from the same items shown on screen. */
 export function FaqSection({ pageKey }: FaqSectionProps) {
   const { tail, items } = faqsByPage[pageKey];
-
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: items.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: item.answer,
-      },
-    })),
-  };
 
   return (
     <Section>
@@ -39,12 +27,7 @@ export function FaqSection({ pageKey }: FaqSectionProps) {
         <div className="mx-auto w-full max-w-3xl">
           <FaqAccordion items={items} />
         </div>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
-          }}
-        />
+        <FaqJsonLd items={items} />
       </Container>
     </Section>
   );

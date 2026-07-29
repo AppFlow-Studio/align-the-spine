@@ -4,6 +4,7 @@ import { LocationFooter } from "@/components/layout/location-footer";
 import { LocationIntro } from "@/components/layout/location-intro";
 import { BookingForm } from "@/components/sections/booking-form";
 import { Hero } from "@/components/sections/hero";
+import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -45,6 +46,7 @@ export default function BookPage() {
             Quick answers
           </SectionHeading>
           <FaqAccordion items={bookFaqs} />
+          <FaqJsonLd items={bookFaqs} />
         </div>
       </Section>
     </>

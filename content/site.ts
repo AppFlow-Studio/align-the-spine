@@ -27,13 +27,25 @@ export interface Stat {
   value: string;
 }
 
+export interface Geo {
+  latitude: number;
+  longitude: number;
+}
+
 export interface SiteConfig {
+  /** Canonical production origin (no trailing slash) — used for the
+   * sitemap, robots.txt, metadataBase, and JSON-LD `url` fields. */
+  siteUrl: string;
   business: {
     name: string;
     phone: string;
     phoneHref: string;
     email: string;
     address: Address;
+    /** Rooftop geocode for 811 SE 8th Ave Suite #101, Deerfield Beach, FL
+     * 33441, via OpenStreetMap Nominatim. Re-verify against the Google
+     * Business Profile listing if precision ever matters (e.g. a map embed). */
+    geo: Geo;
   };
   hours: DayHours[];
   hoursNote: string;
@@ -60,6 +72,7 @@ const businessHours: DayHours[] = [
 ].map((day) => ({ day: day as DayHours["day"], open: "9:00 AM", close: "7:00 PM" }));
 
 export const siteConfig: SiteConfig = {
+  siteUrl: "https://alignthespinechiropractic.com",
   business: {
     name: "Align the Spine Chiropractic",
     phone: "(954) 573-7192",
@@ -72,6 +85,7 @@ export const siteConfig: SiteConfig = {
       state: "FL",
       zip: "33441",
     },
+    geo: { latitude: 26.3061477, longitude: -80.0940209 },
   },
   hours: businessHours,
   hoursNote: "Priority for emergency cases",
