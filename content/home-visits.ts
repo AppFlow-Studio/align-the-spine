@@ -1,9 +1,4 @@
-export interface HowWeHelpStep {
-  image: string;
-  alt: string;
-  title: string;
-  description: string;
-}
+import type { HowWeHelpStep } from "@/components/sections/how-we-help-steps";
 
 /** "Three steps, no waiting room" on /home-visits (ATS-110), per the
  * Home-visits-v2 artboard. */
