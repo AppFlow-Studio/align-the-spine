@@ -74,6 +74,19 @@ html {
 }
 
 body {
+  /* ATS-135: the html-only rule above doesn't actually stop horizontal
+   * scroll, since the CSS overflow spec propagates BODY's (not HTML's)
+   * overflow to the viewport when both exist — verified with Playwright
+   * across Chromium/WebKit/Firefox, `documentElement`'s computed
+   * overflow-x was "hidden" but `body`'s was still "visible", and the
+   * closed mobile drawer's real (pre-transform) geometry was reachable via
+   * window.scrollTo at <lg widths in all three engines. `clip`, not
+   * `hidden`: `overflow-x: hidden` here forces the coupled overflow-y to
+   * compute as "auto" (per spec, non-clip axis values pair up), which
+   * turns body into a scroll container and breaks OnThisPageNav's
+   * `position: sticky` (verified — it stopped sticking once tested).
+   * `overflow-x: clip` closes the same leak without that coupling. */
+  overflow-x: clip;
   background: var(--color-panel-100);
   color: var(--color-ink-900);
 }
