@@ -48,7 +48,7 @@ export const sciaticaCondition: Condition = {
   },
   accident: {
     headline: "Sciatic pain after a crash traces back to spinal impact, not just soreness",
-    body: "A collision can jolt the lower spine enough to compress the sciatic nerve, even if the pain doesn't start until days later. Florida law gives you 14 days after the accident to get evaluated and protect your PIP benefits.",
+    body: "A collision can jolt the lower spine enough to compress the sciatic nerve, even if the pain doesn't start until days later. To protect your PIP benefits under Florida law, you must get evaluated for your sciatic nerve compression within 14 days of the accident.",
     smallprint:
       "Missing this window means you may have to pay thousands for medical care out of your own pocket.",
   },
