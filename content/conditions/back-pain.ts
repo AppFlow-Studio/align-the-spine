@@ -1,5 +1,5 @@
 import { comparisonTableRows } from "@/content/comparison-table";
-import type { Condition } from "@/content/conditions/types";
+import { DEFAULT_ACCIDENT_SMALLPRINT, type Condition } from "@/content/conditions/types";
 
 /** Back Pain condition content per condition-page-spec §B, §C. */
 export const backPainCondition: Condition = {
@@ -12,7 +12,7 @@ export const backPainCondition: Condition = {
       "Whether it's a stubborn ache or a sharp, sudden pain, Dr. Abe Nasser gets to the cause instead of just calming the symptom.",
     backgroundImage: {
       src: "/figma-exports/drabe-backpain-front.png",
-      alt: "Man holding his lower back in pain",
+      alt: "Hands-on lower-back soft-tissue treatment",
     },
   },
   understanding: {
@@ -49,8 +49,7 @@ export const backPainCondition: Condition = {
   accident: {
     headline: "Back pain after a crash needs documentation, not just rest",
     body: "A sudden impact can strain the discs and joints of the lower back in ways that don't show up until days later. Florida law gives you 14 days after the accident to get evaluated and protect your PIP benefits.",
-    smallprint:
-      "Missing this window means you may have to pay thousands for medical care out of your own pocket.",
+    smallprint: DEFAULT_ACCIDENT_SMALLPRINT,
   },
   comparisonRows: comparisonTableRows,
   faq: {

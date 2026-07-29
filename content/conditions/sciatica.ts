@@ -1,5 +1,5 @@
 import { comparisonTableRows } from "@/content/comparison-table";
-import type { Condition } from "@/content/conditions/types";
+import { DEFAULT_ACCIDENT_SMALLPRINT, type Condition } from "@/content/conditions/types";
 
 /** Sciatica condition content per condition-page-spec §B, §C. */
 export const sciaticaCondition: Condition = {
@@ -12,7 +12,7 @@ export const sciaticaCondition: Condition = {
       "Sciatica isn't something to just push through. Dr. Abe Nasser targets the nerve compression causing it, not just the pain it sends down your leg.",
     backgroundImage: {
       src: "/figma-exports/align-thespine-back.png",
-      alt: "Man experiencing sciatic nerve pain radiating down his leg",
+      alt: "Dr. Abe adjusting a patient's low back",
     },
   },
   understanding: {
@@ -49,8 +49,7 @@ export const sciaticaCondition: Condition = {
   accident: {
     headline: "Sciatic pain after a crash traces back to spinal impact, not just soreness",
     body: "A collision can jolt the lower spine enough to compress the sciatic nerve, even if the pain doesn't start until days later. To protect your PIP benefits under Florida law, you must get evaluated for your sciatic nerve compression within 14 days of the accident.",
-    smallprint:
-      "Missing this window means you may have to pay thousands for medical care out of your own pocket.",
+    smallprint: DEFAULT_ACCIDENT_SMALLPRINT,
   },
   comparisonRows: comparisonTableRows,
   faq: {

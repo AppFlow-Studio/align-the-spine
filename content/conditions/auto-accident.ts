@@ -1,5 +1,5 @@
 import { autoAccidentComparisonRows, comparisonTableRows } from "@/content/comparison-table";
-import type { Condition } from "@/content/conditions/types";
+import { DEFAULT_ACCIDENT_SMALLPRINT, type Condition } from "@/content/conditions/types";
 
 /** Auto Accident condition content per condition-page-spec §B, §C. The
  * accident-variant flags below (extra comparison rows, $10k Florida PIP
@@ -55,8 +55,7 @@ export const autoAccidentCondition: Condition = {
   accident: {
     headline: "Florida law gives you 14 days to protect your PIP benefits",
     body: "It doesn't matter who was at fault — Florida's no-fault insurance law requires treatment to begin within 14 days of the accident for your PIP benefits to cover it. We handle the exam, the documentation, and the billing directly.",
-    smallprint:
-      "Missing this window means you may have to pay thousands for medical care out of your own pocket.",
+    smallprint: DEFAULT_ACCIDENT_SMALLPRINT,
   },
   comparisonRows: [...comparisonTableRows, ...autoAccidentComparisonRows],
   faq: {
@@ -64,7 +63,7 @@ export const autoAccidentCondition: Condition = {
     items: [
       {
         q: "I feel fine — do I really need to be seen?",
-        a: "Yes. Adrenaline and swelling can mask injuries for days. An early evaluation both protects your health and creates the documentation your PIP claim needs, even if you feel okay right now.",
+        a: "Yes. Adrenaline and swelling can mask injuries for days, so feeling okay right now isn't proof you're in the clear. Getting checked promptly catches problems while they're easiest to treat, and it puts a timestamped exam on record in case your claim needs it later.",
       },
       {
         q: "Will this cost me anything out of pocket?",

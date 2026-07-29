@@ -1,5 +1,5 @@
 import { comparisonTableRows } from "@/content/comparison-table";
-import type { Condition } from "@/content/conditions/types";
+import { DEFAULT_ACCIDENT_SMALLPRINT, type Condition } from "@/content/conditions/types";
 
 /** Neck Pain condition content per condition-page-spec §B, §C. */
 export const neckPainCondition: Condition = {
@@ -21,7 +21,7 @@ export const neckPainCondition: Condition = {
       "Neck pain can range from a dull, nagging stiffness to sharp pain that limits how far you can turn your head. Left untreated, it often radiates into the shoulders and upper back.",
     image: {
       src: "/figma-exports/align-thespne-neck.png",
-      alt: "Illustration of the cervical spine",
+      alt: "Dr. Abe examining a seated patient's neck",
     },
     types: [
       {
@@ -48,9 +48,8 @@ export const neckPainCondition: Condition = {
   },
   accident: {
     headline: "If a collision triggered this, Florida gives you 14 days",
-    body: "Neck pain after an accident usually traces back to whiplash — sudden strain on the muscles and ligaments supporting your cervical spine. If a collision is anywhere in this story, Florida law gives you 14 days to get evaluated and protect your PIP benefits.",
-    smallprint:
-      "Missing this window means you may have to pay thousands for medical care out of your own pocket.",
+    body: "Neck pain after an accident usually traces back to whiplash — sudden strain on the muscles and ligaments supporting your cervical spine. Florida's PIP rules only cover treatment if you're seen within 14 days of the crash, so don't wait for the stiffness to get worse before booking an exam.",
+    smallprint: DEFAULT_ACCIDENT_SMALLPRINT,
   },
   comparisonRows: comparisonTableRows,
   faq: {

@@ -1,5 +1,5 @@
 import { comparisonTableRows } from "@/content/comparison-table";
-import type { Condition } from "@/content/conditions/types";
+import { DEFAULT_ACCIDENT_SMALLPRINT, type Condition } from "@/content/conditions/types";
 
 /** Whiplash condition content per condition-page-spec §B, §C. */
 export const whiplashCondition: Condition = {
@@ -12,7 +12,7 @@ export const whiplashCondition: Condition = {
       "Soft-tissue injuries from a collision can stay quiet for days. Dr. Abe Nasser documents and treats whiplash early, before it becomes a long-term problem.",
     backgroundImage: {
       src: "/figma-exports/drabe-whiplash-man.png",
-      alt: "Man holding his neck after a car accident, showing signs of whiplash",
+      alt: "Dr. Abe treating a patient's neck",
     },
   },
   understanding: {
@@ -21,7 +21,7 @@ export const whiplashCondition: Condition = {
       "Whiplash happens when a sudden impact snaps the neck forward and back faster than the muscles and ligaments can brace for it. Symptoms often don't appear until 24–72 hours after the accident, which is why early evaluation matters even if you feel fine.",
     image: {
       src: "/figma-exports/drabe-whiplash.png",
-      alt: "Illustration of whiplash neck injury mechanics",
+      alt: "Close-up of neck treatment for whiplash",
     },
     types: [
       {
@@ -48,8 +48,7 @@ export const whiplashCondition: Condition = {
   accident: {
     headline: "The 14-day window starts the day of the crash — not the day it starts to hurt",
     body: "Whiplash symptoms are notorious for showing up late, but Florida's PIP clock doesn't wait for the pain to catch up. Getting evaluated within 14 days of the accident is what keeps your benefits — and your claim — intact.",
-    smallprint:
-      "Missing this window means you may have to pay thousands for medical care out of your own pocket.",
+    smallprint: DEFAULT_ACCIDENT_SMALLPRINT,
   },
   comparisonRows: comparisonTableRows,
   faq: {
