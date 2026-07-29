@@ -18,7 +18,7 @@ export function PatientReviews({ featured, reviews }: PatientReviewsProps) {
     <Section spacing="lg" className="bg-navy-900">
       <Container className="flex flex-col items-center gap-14">
         <div className="flex max-w-3xl flex-col items-center gap-6 text-center">
-          <Eyebrow>Patient success</Eyebrow>
+          <Eyebrow variant="onDark">Patient success</Eyebrow>
           <p className="font-sans leading-12 text-h2 text-white">{featured.quote}</p>
           <div className="flex flex-col items-center gap-1">
             <span className="inline-flex items-center gap-2 font-sans text-stat-label uppercase text-white">

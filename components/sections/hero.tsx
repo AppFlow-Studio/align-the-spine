@@ -111,7 +111,7 @@ export function Hero({
           {variant === "condition" && conditionChip && (
             <HeroChip className="mt-0">{conditionChip}</HeroChip>
           )}
-          {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+          {eyebrow && <Eyebrow variant="onDark">{eyebrow}</Eyebrow>}
 
           <h1
             className={cn(

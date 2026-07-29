@@ -22,7 +22,7 @@ export function AccidentBanner({ condition, className }: AccidentBannerProps) {
         <div className="rounded-30 bg-navy-900 p-10 md:p-16">
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center">
             <div className="flex flex-col gap-6">
-              <Eyebrow>Was this from an accident?</Eyebrow>
+              <Eyebrow variant="onDark">Was this from an accident?</Eyebrow>
               <h2 className="font-display text-h2 md:text-understanding-intro text-white">
                 {accident.headline}
               </h2>

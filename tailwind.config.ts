@@ -16,6 +16,8 @@ const config: Config = {
           700: "var(--color-navy-700)",
         },
         teal: {
+          /* Light tint for use on navy/dark surfaces — see globals.css. */
+          300: "var(--color-teal-300)",
           500: "var(--color-teal-500)",
         },
         ink: {
