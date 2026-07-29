@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Newsreader, Poppins } from "next/font/google";
 
+import { AnalyticsScripts } from "@/components/analytics/analytics-scripts";
 import { RootShell } from "@/components/layout/root-shell";
 import { JsonLdScript } from "@/components/seo/json-ld-script";
 import { siteConfig } from "@/content/site";
@@ -49,6 +50,7 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col">
         <JsonLdScript data={localBusinessJsonLd} />
+        <AnalyticsScripts />
         <RootShell>{children}</RootShell>
       </body>
     </html>
