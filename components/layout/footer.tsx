@@ -8,8 +8,8 @@ export function Footer() {
 
   return (
     <footer className="border-t border-white/10 bg-navy-900">
-      <div className="container flex flex-col gap-16 py-20 md:flex-row md:justify-between">
-        <div className="flex flex-col gap-6 md:max-w-sm">
+      <div className="container flex flex-col gap-16 py-20 lg:flex-row lg:justify-between">
+        <div className="flex flex-col gap-6 lg:max-w-xs xl:max-w-lg">
           <Image
             src="/figma-exports/logo_blue.png"
             alt={siteConfig.business.name}
@@ -20,7 +20,7 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col gap-12 sm:flex-row sm:gap-24">
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 sm:w-80 sm:shrink-0">
             <h2 className="text-footer-heading uppercase text-white">Contact</h2>
             <a
               href={siteConfig.business.phoneHref}
@@ -36,7 +36,7 @@ export function Footer() {
             </address>
           </div>
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 sm:w-40 sm:shrink-0">
             <h2 className="text-footer-heading uppercase text-white">Site</h2>
             <nav className="flex flex-col gap-2">
               {siteConfig.footer.links.map((link) => (

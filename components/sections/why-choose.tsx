@@ -27,8 +27,8 @@ export function WhyChoose({ content }: WhyChooseProps) {
         </div>
 
         <div className="relative aspect-[913/685] w-full shrink-0 md:w-[45%]">
-          <Image src={image.src} alt={image.alt} fill className="rounded-30 object-cover" />
-          <div className="absolute inset-x-6 bottom-6 flex items-center justify-between gap-3 rounded-20 bg-overlay-ink-20 px-6 py-4 backdrop-blur-sm">
+          <Image src={image.src} alt={image.alt} fill className="object-cover" />
+          <div className="absolute inset-x-6 bottom-6 flex items-center justify-between gap-3 bg-overlay-ink-20 px-6 py-4 backdrop-blur-sm">
             <span className="font-sans text-stat-label text-white">{rating.location}</span>
             <span
               className="inline-flex items-center gap-2"

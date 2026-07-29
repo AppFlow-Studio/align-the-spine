@@ -12,11 +12,11 @@ export interface ServiceAreasProps {
 export function ServiceAreas({ image }: ServiceAreasProps) {
   return (
     <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
-      <div className="relative h-[300px] overflow-hidden rounded-20 lg:h-auto">
+      <div className="relative h-[300px] overflow-hidden lg:h-auto">
         <Image src={image.src} alt={image.alt} fill className="object-cover" />
       </div>
 
-      <div className="rounded-20 bg-[#e4f9f4] p-8 lg:p-10">
+      <div className="bg-[#e4f9f4] p-8 lg:p-10">
         <h3 className="font-sans text-body-lg uppercase tracking-[1.25px] text-ink-900">
           Service Areas
         </h3>

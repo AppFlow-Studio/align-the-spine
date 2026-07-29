@@ -33,8 +33,12 @@ export function DoctorProfile({ variant, content, extended }: DoctorProfileProps
     <Section spacing="lg">
       <Container className="flex flex-col gap-10 xl:flex-row xl:items-center xl:gap-16">
         <div className="relative aspect-[639/833] w-full shrink-0 xl:w-[45%]">
-          <Image src={portrait.src} alt={portrait.alt} fill className="rounded-30 object-cover" />
-          <div className="absolute inset-x-6 bottom-6 flex items-center justify-between gap-3 rounded-20 bg-overlay-ink-20 px-6 py-4 backdrop-blur-sm">
+          <Image src={portrait.src} alt={portrait.alt} fill className="object-cover" />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -bottom-11 -right-11 hidden h-35 w-58 border-b-[2px] border-r-[2px] border-[#9397B1] xl:block"
+          />
+          <div className="absolute inset-x-6 bottom-6 flex items-center justify-between gap-3 bg-overlay-ink-20 px-6 py-4 backdrop-blur-sm">
             <span className="font-sans text-stat-label text-white">{rating.location}</span>
             <span
               className="inline-flex items-center gap-2"
@@ -43,7 +47,7 @@ export function DoctorProfile({ variant, content, extended }: DoctorProfileProps
             >
               <span className="inline-flex gap-1">
                 {Array.from({ length: rating.value }, (_, i) => (
-                  <StarIcon key={i} className="h-5 w-5 text-white" />
+                  <StarIcon key={i} className="h-5 w-5 text-[#EFBD3F]" />
                 ))}
               </span>
               <span aria-hidden="true" className="font-sans text-stat-label text-white">
@@ -55,6 +59,7 @@ export function DoctorProfile({ variant, content, extended }: DoctorProfileProps
         <div className="flex min-w-0 flex-1 flex-col items-start gap-6">
           <Eyebrow>{eyebrow}</Eyebrow>
           <h2 className="font-display text-doctor-name text-navy-900">{name}</h2>
+          <span aria-hidden="true" className="h-24 w-0.5 bg-[#9397B1]" />
           <p className="font-sans text-body-lg text-ink-900">{bio}</p>
           <Button variant="cta" href={cta.href}>
             {cta.label}

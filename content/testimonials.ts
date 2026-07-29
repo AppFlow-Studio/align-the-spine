@@ -26,3 +26,13 @@ export const homeReviews: Testimonial[] = [
   featuredTestimonial,
   featuredTestimonial,
 ];
+
+/** Rotation for the floating review-card carousel under Hero
+ * (HeroReviewsCarousel). Four dots per the homepage artboard — placeholder
+ * copy repeats the same review until real ones are available. */
+export const heroReviewsCarousel: Testimonial[] = [
+  featuredTestimonial,
+  featuredTestimonial,
+  featuredTestimonial,
+  featuredTestimonial,
+];

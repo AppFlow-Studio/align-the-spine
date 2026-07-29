@@ -47,8 +47,8 @@ export function Navbar({ variant }: { variant?: NavbarVariant } = {}) {
   return (
     <header className="fixed inset-x-0 top-0 z-50 flex h-[100px] items-center">
       <div
-        className={`container flex items-center justify-between rounded-full px-2 ${
-          isGlass ? "bg-white/[13%] backdrop-blur-md" : "bg-transparent"
+        className={`container flex items-center justify-between rounded-full px-2 transition-colors duration-300 ${
+          isGlass ? "bg-navy-900 backdrop-blur-md" : "bg-transparent"
         }`}
       >
         <Link href="/" className="shrink-0">
@@ -65,7 +65,7 @@ export function Navbar({ variant }: { variant?: NavbarVariant } = {}) {
         <Link
           href={siteConfig.bookingCta.href}
           className={`hidden h-[52px] items-center rounded-40 px-6 text-button text-white transition-colors duration-300 lg:flex ${
-            isGlass ? "bg-navy-900" : "bg-navy-900/20"
+            isGlass ? "bg-navy-900 border border-white" : "bg-navy-900/50"
           }`}
         >
           {siteConfig.bookingCta.label}
