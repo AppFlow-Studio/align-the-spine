@@ -23,17 +23,28 @@ const AUTO_ADVANCE_MS = 6000;
  * sliding viewport so they never move. */
 export function HeroReviewsCarousel({ testimonials }: HeroReviewsCarouselProps) {
   const [index, setIndex] = useState(0);
+  // WCAG 2.2.2 (Pause, Stop, Hide): auto-advance stops while a pointer or
+  // keyboard focus is anywhere in the carousel, and never starts at all for
+  // prefers-reduced-motion (ATS-134).
+  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
-    if (testimonials.length <= 1) return;
+    if (testimonials.length <= 1 || paused) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const id = setInterval(() => {
       setIndex((i) => (i + 1) % testimonials.length);
     }, AUTO_ADVANCE_MS);
     return () => clearInterval(id);
-  }, [testimonials.length]);
+  }, [testimonials.length, paused]);
 
   return (
-    <div className="bg-white py-5 relative">
+    <div
+      className="bg-white py-5 relative"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-panel-100 via-panel-100/80 to-transparent"
@@ -88,6 +99,7 @@ export function HeroReviewsCarousel({ testimonials }: HeroReviewsCarouselProps) 
                     onClick={() => setIndex(i)}
                     className={cn(
                       "h-1.5 w-1.5 rounded-full transition-colors",
+                      "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500",
                       i === index ? "bg-navy-900" : "bg-mute-300",
                     )}
                   />

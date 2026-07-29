@@ -48,7 +48,7 @@ export function NavbarDrawer({ open, onClose }: { open: boolean; onClose: () => 
           type="button"
           aria-label="Close menu"
           onClick={onClose}
-          className="self-end text-white"
+          className="self-end text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
         >
           <CloseIcon className="h-6 w-6" />
         </button>
@@ -56,7 +56,11 @@ export function NavbarDrawer({ open, onClose }: { open: boolean; onClose: () => 
         <ul className="flex flex-col gap-6">
           {siteConfig.nav.map((link) => (
             <li key={link.href}>
-              <Link href={link.href} onClick={onClose} className="text-nav uppercase text-white">
+              <Link
+                href={link.href}
+                onClick={onClose}
+                className="text-nav uppercase text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
                 {link.label}
               </Link>
             </li>
@@ -66,7 +70,7 @@ export function NavbarDrawer({ open, onClose }: { open: boolean; onClose: () => 
         <Link
           href={siteConfig.bookingCta.href}
           onClick={onClose}
-          className="mt-auto flex h-[52px] items-center justify-center rounded-40 bg-white px-6 text-button text-navy-900"
+          className="mt-auto flex h-[52px] items-center justify-center rounded-40 bg-white px-6 text-button text-navy-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-900"
         >
           {siteConfig.bookingCta.label}
         </Link>

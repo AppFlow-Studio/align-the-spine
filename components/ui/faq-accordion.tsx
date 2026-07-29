@@ -33,7 +33,7 @@ export function FaqAccordion({ items }: FaqAccordionProps) {
                 aria-expanded={open}
                 aria-controls={panelId}
                 onClick={() => setOpenIndex(open ? null : index)}
-                className="flex w-full items-center justify-between gap-6 text-left"
+                className="flex w-full items-center justify-between gap-6 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500"
               >
                 <span className="font-alt text-faq-q text-navy-900">{item.question}</span>
                 <span

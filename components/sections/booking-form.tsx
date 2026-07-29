@@ -23,7 +23,7 @@ function SquareButton({
 }: { children: ReactNode } & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
-      className="relative flex h-12 w-full items-center justify-center bg-navy-900 px-8 font-sans text-button text-white transition-colors hover:bg-navy-700 disabled:pointer-events-none disabled:opacity-70"
+      className="relative flex h-12 w-full items-center justify-center bg-navy-900 px-8 font-sans text-button text-white transition-colors hover:bg-navy-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:pointer-events-none disabled:opacity-70"
       {...rest}
     >
       {children}
