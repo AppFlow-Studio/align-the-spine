@@ -3,6 +3,7 @@ import { Geist, Newsreader, Poppins } from "next/font/google";
 
 import { AnalyticsListeners } from "@/components/analytics/analytics-listeners";
 import { AnalyticsScripts } from "@/components/analytics/analytics-scripts";
+import { GtmNoscript, GtmScript } from "@/components/analytics/gtm-scripts";
 import { RootShell } from "@/components/layout/root-shell";
 import { JsonLdScript } from "@/components/seo/json-ld-script";
 import { siteConfig } from "@/content/site";
@@ -50,7 +51,9 @@ export default function RootLayout({
       className={`${newsreader.variable} ${poppins.variable} ${geist.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <GtmNoscript />
         <JsonLdScript data={localBusinessJsonLd} />
+        <GtmScript />
         <AnalyticsScripts />
         <AnalyticsListeners />
         <RootShell>{children}</RootShell>

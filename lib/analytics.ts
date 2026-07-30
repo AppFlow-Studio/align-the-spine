@@ -11,6 +11,11 @@ declare global {
 export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 export const GOOGLE_ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
 export const GOOGLE_ADS_CONVERSION_LABEL = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL;
+/** Separate from GA4/Ads above — the client's own GTM container, installed
+ * verbatim per their install instructions (ATS-132). Kept independent so
+ * whoever manages the GTM container can add other tags (ad-platform pixels,
+ * etc.) without touching the direct GA4/Ads gtag.js install below. */
+export const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
 function gtag(...args: unknown[]) {
   if (typeof window === "undefined" || typeof window.gtag !== "function") return;
