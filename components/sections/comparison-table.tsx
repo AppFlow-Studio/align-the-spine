@@ -23,10 +23,10 @@ export interface ComparisonTableProps {
 /** "Align the Spine vs Traditional Clinic" 3-column comparison per
  * condition-page-spec §B5, §C. Rows are data-driven (content/comparison-table.ts);
  * the "auto-accident" variant appends 2 extra rows (continuity-of-doctor,
- * attorney-referral note) for the not-yet-built /auto-accidents page. The
- * middle "Align the Spine" column is a navy inset card against the two plain
- * light columns either side of it — this is the "highlighted" column the
- * reference design calls for. */
+ * attorney-referral note) for the /auto-accident page. The middle "Align the
+ * Spine" column is a navy inset card against the two plain light columns
+ * either side of it — this is the "highlighted" column the reference design
+ * calls for. */
 export function ComparisonTable({ variant = "default", className }: ComparisonTableProps) {
   const rows =
     variant === "auto-accident"

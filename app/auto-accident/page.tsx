@@ -5,7 +5,7 @@ import { autoAccidentCondition } from "@/content/conditions/auto-accident";
 import { siteConfig } from "@/content/site";
 
 const condition = autoAccidentCondition;
-const title = `${condition.hero.h1} | ${siteConfig.business.name}`;
+const title = `Auto Accident Chiropractor in Deerfield Beach, FL | ${siteConfig.business.name}`;
 const description = condition.hero.subhead;
 const url = `${siteConfig.siteUrl}/auto-accident`;
 

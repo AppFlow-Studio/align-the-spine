@@ -17,9 +17,9 @@ export interface HowWeHelpStepsProps {
 }
 
 /** "HOW WE HELP" 3-step section, reused across pages with variant copy —
- * originally built for Home-visits (ATS-110), now also seeded for the
- * not-yet-built /auto-accidents page (Epic 4): photo + title + copy per
- * step, plus a closing booking CTA. */
+ * originally built for Home-visits (ATS-110), now also used on the
+ * /auto-accident page (Epic 4): photo + title + copy per step, plus a
+ * closing booking CTA. */
 export function HowWeHelpSteps({ heading, steps, cta }: HowWeHelpStepsProps) {
   return (
     <div className="flex flex-col items-center gap-14 text-center">

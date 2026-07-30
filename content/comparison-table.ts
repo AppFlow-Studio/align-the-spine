@@ -10,9 +10,8 @@ export const comparisonTableSubheading =
   "Dr. Abe Nasser builds the plan around your recovery — including home visits when they're the right fit.";
 
 /** Base "Align the Spine vs Traditional Clinic" rows per condition-page-spec
- * §B5, §C. Shared across every condition page (and /auto-accidents once
- * built) — not condition-specific, so this lives standalone rather than on
- * `Condition`. */
+ * §B5, §C. Shared across every condition page (and /auto-accident) — not
+ * condition-specific, so this lives standalone rather than on `Condition`. */
 export const comparisonTableRows: ComparisonRow[] = [
   {
     label: "Travel",
@@ -31,8 +30,8 @@ export const comparisonTableRows: ComparisonRow[] = [
   },
 ];
 
-/** Extra rows for the "auto-accident" variant (/auto-accidents, once built)
- * per the ticket's ⚠️ Variant note. */
+/** Extra rows for the "auto-accident" variant (/auto-accident) per the
+ * ticket's ⚠️ Variant note. */
 export const autoAccidentComparisonRows: ComparisonRow[] = [
   {
     label: "Your Doctor",

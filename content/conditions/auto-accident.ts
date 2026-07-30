@@ -10,7 +10,7 @@ import { DEFAULT_ACCIDENT_SMALLPRINT, type Condition } from "@/content/condition
  * autoAccidentSteps) behind this same `flags.isAccidentVariant`, rather
  * than adding a redundant 4th flag key. */
 export const autoAccidentCondition: Condition = {
-  slug: "auto-accidents",
+  slug: "auto-accident",
   name: "Auto Accident Injuries",
   hero: {
     eyebrowChip: "AUTO ACCIDENT CARE",

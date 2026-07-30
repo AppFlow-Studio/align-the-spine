@@ -1,7 +1,7 @@
 import type { HowWeHelpStep } from "@/components/sections/how-we-help-steps";
 
-/** "HOW WE HELP" steps for the not-yet-built /auto-accidents page (Epic 4),
- * claim/PIP-framed copy per the ticket's scope. Reuses the Home-visits step
+/** "HOW WE HELP" steps for the /auto-accident page (Epic 4), claim/PIP-framed
+ * copy per the ticket's scope. Reuses the Home-visits step
  * images (call/clipboard/notebook) since no auto-accident-specific Figma
  * assets exist yet — the Figma MCP tool hit its call limit this session, so
  * Frame 13/14/12's dev-mode specs were never pulled. */
