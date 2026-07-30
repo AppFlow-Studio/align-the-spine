@@ -93,14 +93,14 @@ export const siteConfig: SiteConfig = {
     { label: "Services", href: "/services" },
     { label: "About", href: "/about" },
     { label: "Reviews", href: "/reviews" },
-    { label: "Auto Accidents", href: "/auto-accidents" },
+    { label: "Auto Accidents", href: "/auto-accident" },
   ],
   bookingCta: { label: "Book Appointment", href: "/book" },
   footer: {
     tagline:
       "Premium chiropractic care delivered with medical excellence and patient-first convenience across South Florida.",
     links: [
-      { label: "Accident Care", href: "/auto-accidents" },
+      { label: "Accident Care", href: "/auto-accident" },
       { label: "About Dr. Abe", href: "/about" },
       { label: "Reviews", href: "/reviews" },
     ],
