@@ -14,7 +14,7 @@ export interface AccidentBannerProps {
  * PIPCalculator (ATS-032) on the right. Eyebrow is static — everything else
  * varies per condition via Condition.accident. */
 export function AccidentBanner({ condition, className }: AccidentBannerProps) {
-  const { accident } = condition;
+  const { accident, flags } = condition;
 
   return (
     <Section className={className}>
@@ -23,6 +23,14 @@ export function AccidentBanner({ condition, className }: AccidentBannerProps) {
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center">
             <div className="flex flex-col gap-6">
               <Eyebrow variant="onDark">Was this from an accident?</Eyebrow>
+              {flags.pipStat && (
+                <dl className="flex w-fit flex-col gap-0.5 bg-overlay-white-15 px-4 py-2">
+                  <dt className="font-sans text-stat-label uppercase text-mute-300">
+                    {flags.pipStat.label}
+                  </dt>
+                  <dd className="font-sans text-stat-value text-white">{flags.pipStat.value}</dd>
+                </dl>
+              )}
               <h2 className="font-display text-h2 md:text-understanding-intro text-white">
                 {accident.headline}
               </h2>
