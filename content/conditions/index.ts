@@ -8,7 +8,7 @@ import { whiplashCondition } from "@/content/conditions/whiplash";
  * is intentionally excluded — /auto-accidents is a separate top-level route
  * for a future ticket, not part of this dynamic [slug] group (see
  * docs/superpowers/specs/2026-07-30-condition-page-template-design.md). */
-export const conditionsBySlug: Record<string, Condition> = {
+export const conditionsBySlug: Record<string, Condition | undefined> = {
   [neckPainCondition.slug]: neckPainCondition,
   [whiplashCondition.slug]: whiplashCondition,
   [backPainCondition.slug]: backPainCondition,

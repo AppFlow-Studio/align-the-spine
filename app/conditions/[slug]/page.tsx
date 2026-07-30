@@ -44,7 +44,9 @@ export async function generateMetadata({ params }: ConditionPageProps): Promise<
       title,
       description,
       url,
-      images: [{ url: condition.hero.backgroundImage.src }],
+      images: [
+        { url: condition.hero.backgroundImage.src, alt: condition.hero.backgroundImage.alt },
+      ],
     },
   };
 }
