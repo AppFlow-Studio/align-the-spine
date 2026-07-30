@@ -14,7 +14,7 @@ export const autoAccidentCondition: Condition = {
   name: "Auto Accident Injuries",
   hero: {
     eyebrowChip: "AUTO ACCIDENT CARE",
-    h1: "Injured In A Crash? You Have 14 Days.",
+    h1: "Injured in an Accident?",
     subhead:
       "Same-day evaluations, PIP billed directly, and documentation your claim can stand on — Dr. Abe Nasser handles the whole thing so you don't have to.",
     backgroundImage: {
@@ -59,7 +59,7 @@ export const autoAccidentCondition: Condition = {
   },
   comparisonRows: [...comparisonTableRows, ...autoAccidentComparisonRows],
   faq: {
-    headerTail: "car accident injuries",
+    headerTail: "accident care and PIP",
     items: [
       {
         q: "I feel fine — do I really need to be seen?",
