@@ -38,7 +38,7 @@ export function UnderstandingCondition({ condition, className }: UnderstandingCo
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-b from-transparent to-white" />
         </div>
 
-        <div className="flex flex-col gap-10 md:flex-row md:items-stretch">
+        <div className="flex flex-col gap-10 lg:flex-row lg:items-stretch">
           <div className="flex flex-1 flex-col gap-6">
             <h3 className="font-display text-h2 text-navy-900">Types</h3>
             <div className="flex flex-col gap-6">
@@ -48,7 +48,7 @@ export function UnderstandingCondition({ condition, className }: UnderstandingCo
             </div>
           </div>
 
-          <Divider orientation="vertical" className="hidden md:block" />
+          <Divider orientation="vertical" className="hidden lg:block" />
 
           <div className="flex flex-1 flex-col gap-6">
             <h3 className="font-display text-h2 text-navy-900">Common Causes</h3>
