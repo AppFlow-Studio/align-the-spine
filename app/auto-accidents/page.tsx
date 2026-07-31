@@ -11,6 +11,7 @@ import { PatientReviews } from "@/components/sections/patient-reviews";
 import { PointToWhereItHurts } from "@/components/sections/point-to-where-it-hurts";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { Button } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -96,14 +97,14 @@ export default function AutoAccidentsPage() {
         />
       </Section>
 
-      <Section spacing="md" className="bg-overlay-teal-12">
+      <Section spacing="sm" className="bg-[#E4F9F4]">
         <p className="container text-center font-sans text-body-lg text-navy-900">
           {autoAccidentAttorneyQuote}
         </p>
       </Section>
 
-      <Section spacing="none" className="container">
-        <div className="flex flex-col gap-6 bg-navy-900 p-8 sm:flex-row sm:items-center sm:justify-between sm:p-14">
+      <Section spacing="none" className="bg-navy-900">
+        <Container className="flex flex-col gap-6 py-8 sm:flex-row sm:items-center sm:justify-between sm:py-14">
           <div className="flex flex-col gap-2">
             <h2 className="font-display text-h2 text-white">Ready when you are</h2>
             <p className="font-sans text-body-lg text-mute-300">
@@ -113,14 +114,14 @@ export default function AutoAccidentsPage() {
           <Button
             variant="teal"
             href={siteConfig.bookingCta.href}
-            className="w-fit shrink-0 rounded-40"
+            className="w-fit shrink-0 rounded-none!"
           >
             Schedule my Evaluation
           </Button>
-        </div>
+        </Container>
       </Section>
 
-      <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews} />
+      <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews} variant="light" />
 
       <DoctorProfile variant="short" content={doctorProfileContent} />
 
@@ -128,8 +129,8 @@ export default function AutoAccidentsPage() {
 
       <AccidentInjuries />
 
-      <Section spacing="none" className="container">
-        <div className="flex flex-col gap-6 bg-navy-900 p-8 sm:flex-row sm:items-center sm:justify-between sm:p-14">
+      <Section spacing="none" className="bg-navy-900">
+        <Container className="flex flex-col gap-6 py-8 sm:flex-row sm:items-center sm:justify-between sm:py-14">
           <div className="flex flex-col gap-2">
             <h2 className="font-display text-h2 text-white">Still have questions? Just Call</h2>
             <p className="font-sans text-body-lg text-mute-300">
@@ -144,7 +145,7 @@ export default function AutoAccidentsPage() {
           >
             Call {siteConfig.business.phone}
           </Button>
-        </div>
+        </Container>
       </Section>
 
       <Section spacing="lg" className="container">
