@@ -96,12 +96,16 @@ function SelectedPanel({
     <div
       className={cn(" border-l-4 border-teal-500 bg-white p-6 text-left shadow-card", className)}
     >
-      <p className="font-sans text-selected-label uppercase text-teal-500">Selected</p>
-      <h3 className="mt-2 font-display text-card-title text-navy-800">{region.name}</h3>
-      <p className="mt-2 font-sans text-panel-body text-ink-500">{region.description}</p>
+      <p className="font-sans text-[13px] font-semibold uppercase tracking-[1.25px] text-teal-500">
+        Selected
+      </p>
+      <h3 className="mt-2 font-display text-[20px] leading-[26px] font-medium text-navy-800">
+        {region.name}
+      </h3>
+      <p className="mt-2 font-sans text-[15px] leading-[24px] text-ink-500">{region.description}</p>
       <Link
         href={region.href ?? siteConfig.bookingCta.href}
-        className="mt-4 inline-flex items-center gap-2 font-sans text-body-lg uppercase tracking-[1.25px] text-teal-500 transition-colors hover:text-teal-500/80"
+        className="mt-4 inline-flex items-center gap-2 font-sans text-[13px] uppercase tracking-[1.25px] text-teal-500 transition-colors hover:text-teal-500/80"
       >
         {ctaLabel}
         <ArrowRightIcon className="h-4 w-4" />
@@ -132,7 +136,7 @@ export function PointToWhereItHurts({ content }: PointToWhereItHurtsProps) {
           {heading}
         </SectionHeading>
 
-        <div className="hidden w-full items-center justify-center gap-10 md:flex">
+        <div className="hidden w-full items-center justify-center gap-20 md:flex">
           <div
             ref={desktopContainerRef}
             role="radiogroup"
@@ -177,7 +181,7 @@ export function PointToWhereItHurts({ content }: PointToWhereItHurtsProps) {
             })}
           </div>
 
-          <SelectedPanel region={selected} ctaLabel={ctaLabel} className="w-[300px] shrink-0" />
+          <SelectedPanel region={selected} ctaLabel={ctaLabel} className="w-[380px] shrink-0" />
         </div>
 
         <div className="flex w-full flex-col gap-3 md:hidden">
