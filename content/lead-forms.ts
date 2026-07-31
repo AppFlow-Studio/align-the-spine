@@ -39,6 +39,18 @@ export const leadFormVariants = {
     fields: baseFields.filter((field) => field.name !== "email"),
     submitLabel: "Schedule My Evaluation",
   },
+  /** /contact-us hero form: single Name field (not First/Last), Phone,
+   * Email, and a Message textarea — matches the Figma hero card exactly. */
+  contactUs: {
+    variant: "contactUs",
+    fields: [
+      { name: "name", label: "Name", half: true, autoComplete: "name" },
+      { name: "phone", label: "Phone", type: "tel", half: true, autoComplete: "tel" },
+      { name: "email", label: "Email", type: "email", autoComplete: "email" },
+      { name: "message", label: "Message", type: "textarea" },
+    ],
+    submitLabel: "Send Message",
+  },
   carAccident: {
     variant: "carAccident",
     fields: [

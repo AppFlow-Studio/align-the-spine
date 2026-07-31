@@ -16,6 +16,7 @@ const routes: Route[] = [
   { path: "/auto-accidents", changeFrequency: "monthly", priority: 0.9 },
   { path: "/home-visits", changeFrequency: "monthly", priority: 0.8 },
   { path: "/about", changeFrequency: "monthly", priority: 0.7 },
+  { path: "/contact-us", changeFrequency: "monthly", priority: 0.6 },
   { path: "/privacy-policy", changeFrequency: "yearly", priority: 0.3 },
 ];
 
