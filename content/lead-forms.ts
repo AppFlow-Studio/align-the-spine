@@ -32,6 +32,13 @@ export const leadFormVariants = {
     fields: baseFields,
     submitLabel: "Schedule My Evaluation",
   },
+  /** /auto-accidents hero form: First/Last/Phone only, no email — matches
+   * the Figma hero card exactly (unlike heroEval, which includes email). */
+  accidentEval: {
+    variant: "accidentEval",
+    fields: baseFields.filter((field) => field.name !== "email"),
+    submitLabel: "Schedule My Evaluation",
+  },
   carAccident: {
     variant: "carAccident",
     fields: [

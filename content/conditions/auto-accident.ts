@@ -13,13 +13,13 @@ export const autoAccidentCondition: Condition = {
   slug: "auto-accidents",
   name: "Auto Accident Injuries",
   hero: {
-    eyebrowChip: "AUTO ACCIDENT CARE",
-    h1: "Injured In A Crash? You Have 14 Days.",
+    eyebrowChip: "AUTO ACCIDENT CHIROPRACTOR IN DEERFIELD BEACH, FL",
+    h1: "Injured in an Accident?",
     subhead:
-      "Same-day evaluations, PIP billed directly, and documentation your claim can stand on — Dr. Abe Nasser handles the whole thing so you don't have to.",
+      "Complete chiropractic care — full exam, treatment, and documentation for your claim. Covered entirely by Florida PIP insurance. In-home visits available across South Florida when it's the right fit for your case.",
     backgroundImage: {
-      src: "/figma-exports/drabe-xray-newpt.png",
-      alt: "X-ray review during a new patient accident evaluation",
+      src: "/figma-exports/interior-corridor.png",
+      alt: "Align the Spine reception hallway",
     },
   },
   understanding: {
@@ -53,8 +53,8 @@ export const autoAccidentCondition: Condition = {
     ],
   },
   accident: {
-    headline: "Florida law gives you 14 days to protect your PIP benefits",
-    body: "It doesn't matter who was at fault — Florida's no-fault insurance law requires treatment to begin within 14 days of the accident for your PIP benefits to cover it. We handle the exam, the documentation, and the billing directly.",
+    headline: "Florida gives you 14 days from the accident",
+    body: "Florida law requires treatment within 14 days of an auto accident. Miss that window and you may forfeit your Personal Injury Protection (PIP) benefits entirely — even if the accident wasn't your fault.",
     smallprint: DEFAULT_ACCIDENT_SMALLPRINT,
   },
   comparisonRows: [...comparisonTableRows, ...autoAccidentComparisonRows],
@@ -111,6 +111,10 @@ export const autoAccidentCondition: Condition = {
   flags: {
     isAccidentVariant: true,
     extraComparisonRows: true,
-    pipStat: { label: "Florida PIP Coverage", value: "$10,000" },
+    pipStat: {
+      value: "$10,000",
+      description:
+        "in PIP coverage available with an Emergency Medical Condition determination — $2,500 without one",
+    },
   },
 };

@@ -1,30 +1,34 @@
 import type { HowWeHelpStep } from "@/components/sections/how-we-help-steps";
 
-/** "HOW WE HELP" steps for the not-yet-built /auto-accidents page (Epic 4),
- * claim/PIP-framed copy per the ticket's scope. Reuses the Home-visits step
- * images (call/clipboard/notebook) since no auto-accident-specific Figma
- * assets exist yet — the Figma MCP tool hit its call limit this session, so
- * Frame 13/14/12's dev-mode specs were never pulled. */
+/** "HOW WE HELP" steps for /auto-accidents, copy pulled directly from the
+ * Figma frame's dev-mode screenshots. Reuses the Home-visits step images
+ * (call/clipboard/notebook) — no auto-accident-specific photography exists
+ * in this Figma file either. */
 export const autoAccidentSteps: HowWeHelpStep[] = [
   {
     image: "/figma-exports/home-visits-step-call.png",
     alt: "Phone showing an incoming call",
-    title: "Call or request your evaluation",
+    title: "Call or request online",
     description:
-      "Tell us about your accident and when it happened. Most requests get a same-day answer, and we'll walk you through what a PIP-covered evaluation includes.",
+      "Tell us what happened. Most requests get a same-day answer, no call center, no hold music.",
   },
   {
     image: "/figma-exports/home-visits-step-eligibility.png",
     alt: "Clipboard with an evaluation form",
-    title: "Full accident evaluation",
+    title: "Full evaluation",
     description:
-      "A complete exam that documents your injuries the way your claim — and your attorney, if you have one — needs.",
+      "A complete exam and the documentation your claim actually needs — at the office or your home.",
   },
   {
     image: "/figma-exports/home-visits-step-visit.png",
     alt: "Notebook and pen ready for a treatment plan",
-    title: "Your treatment plan, handled",
+    title: "Your plan, fully handled",
     description:
-      "We build and manage your care plan and bill PIP directly, so you're not stuck fronting costs or chasing paperwork.",
+      "Treatment tied to your case — billed directly to PIP, with your attorney or insurer coordinated for you.",
   },
 ];
+
+/** Attorney-referral quote strip between the HOW WE HELP steps and the
+ * "Ready when you are" CTA band, per the Figma frame. */
+export const autoAccidentAttorneyQuote =
+  "Attorneys across South Florida refer their clients to Dr. Abe Nasser because he's one of the few providers doing PIP-covered home visits.";
