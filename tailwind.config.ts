@@ -60,7 +60,16 @@ const config: Config = {
         alt: ["var(--font-alt)", "sans-serif"],
       },
       fontSize: {
-        hero: ["64px", { lineHeight: "68px", fontWeight: "300" }],
+        // Fluid clamp() per condition-page-spec §E: same 375->1728px
+        // interpolation as display/h2/card-title below. Endpoints are the
+        // real values this token already shipped with — 32px was Hero's
+        // own hand-rolled mobile override, 64px was (and remains) the
+        // desktop value — so this only smooths the curve between them,
+        // it doesn't invent new sizes at either extreme.
+        hero: [
+          "clamp(32px, 2.37vw + 23.13px, 64px)",
+          { lineHeight: "clamp(38px, 2.22vw + 29.69px, 68px)", fontWeight: "300" },
+        ],
         // Fluid clamp() per condition-page-spec §E (ATS-112), same 375→1728px
         // interpolation the .container fluid gutter already uses (globals.css).
         // Minimums (36px / 24px) are a judgment call, not spec-confirmed — no
@@ -106,8 +115,22 @@ const config: Config = {
           { lineHeight: "clamp(25px, 0.89vw + 21.67px, 37px)", fontWeight: "500" },
         ],
         "card-body": ["16px", { lineHeight: "26px", fontWeight: "400" }],
-        "doctor-name": ["40px", { lineHeight: "48px", fontWeight: "500" }],
-        "understanding-intro": ["30px", { lineHeight: "40px", fontWeight: "400" }],
+        // Fluid clamp() per condition-page-spec §E. 40px/48px is the
+        // existing (desktop-sourced) value, kept as the max; 28px/34px is
+        // a judgment-call mobile minimum, not spec-confirmed — no
+        // breakpoint frames exist in Figma to sample (same caveat as the
+        // display token above).
+        "doctor-name": [
+          "clamp(28px, 0.89vw + 24.67px, 40px)",
+          { lineHeight: "clamp(34px, 1.03vw + 30.12px, 48px)", fontWeight: "500" },
+        ],
+        // Fluid clamp() per condition-page-spec §E. 30px/40px is the
+        // existing (desktop-sourced) value, kept as the max; 22px/30px is
+        // a judgment-call mobile minimum (same caveat as doctor-name above).
+        "understanding-intro": [
+          "clamp(22px, 0.59vw + 19.78px, 30px)",
+          { lineHeight: "clamp(30px, 0.74vw + 27.23px, 40px)", fontWeight: "400" },
+        ],
         "type-name": ["22px", { lineHeight: "28px", fontWeight: "600" }],
         "redflag-bullet": ["17px", { lineHeight: "26px", fontWeight: "400" }],
         "selected-label": [
