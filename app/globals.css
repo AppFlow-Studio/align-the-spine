@@ -73,6 +73,19 @@ html {
   overflow-x: hidden;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    /* Smooth-scrolls in-page anchor jumps — OnThisPageNav's section links
+     * on /privacy-policy, and the "Florida PIP insurance" hero link on
+     * /auto-accidents. Honors each target's own scroll-margin-top (e.g.
+     * LegalContent's scroll-mt-[120px]), so the fixed Navbar still clears
+     * correctly. Scoped out of prefers-reduced-motion instead of the usual
+     * motion-safe: utility, since this is a native CSS property, not a
+     * Tailwind-animated one. */
+    scroll-behavior: smooth;
+  }
+}
+
 body {
   /* ATS-135: the html-only rule above doesn't actually stop horizontal
    * scroll, since the CSS overflow spec propagates BODY's (not HTML's)
