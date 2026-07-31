@@ -151,7 +151,7 @@ export default function AutoAccidentsPage() {
       <Section spacing="lg" className="container">
         <div className="flex flex-col gap-10">
           <SectionHeading eyebrow="Frequently asked questions" className="items-center text-center">
-            Everything you need to know about {faq.headerTail}
+            Everything you need to know about <br /> {faq.headerTail}
           </SectionHeading>
           <FaqAccordion items={faqItems} />
           <FaqJsonLd items={faqItems} />
