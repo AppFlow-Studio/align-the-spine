@@ -8,5 +8,8 @@ export interface LegalSection {
    * separate since the artboard's HIPAA nav label differs from its section heading. */
   navLabel: string;
   heading: string;
-  body: string;
+  /** One or more paragraphs, rendered as separate <p> tags per the artboard
+   * (each section's copy is visually split into distinct paragraphs, not
+   * one run-on block). */
+  body: string[];
 }

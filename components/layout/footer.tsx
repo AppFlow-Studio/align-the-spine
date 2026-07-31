@@ -53,10 +53,13 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="container border-t border-white/10 py-6">
+      <div className="container flex flex-col gap-2 border-t border-white/10 py-6 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-footer-copy text-mute-300">
           {year} {siteConfig.footer.copyrightName}. Licensed in the State of Florida.
         </p>
+        <Link href="/privacy-policy" className="text-footer-copy text-mute-300 hover:text-white">
+          Privacy Policy
+        </Link>
       </div>
     </footer>
   );

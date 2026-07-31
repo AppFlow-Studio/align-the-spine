@@ -103,6 +103,7 @@ export const siteConfig: SiteConfig = {
       { label: "Accident Care", href: "/auto-accident" },
       { label: "About Dr. Abe", href: "/about" },
       { label: "Reviews", href: "/reviews" },
+      { label: "Contact Us", href: "/contact-us" },
     ],
     copyrightName: "Align the Spine Chiropractic",
   },

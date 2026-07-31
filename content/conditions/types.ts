@@ -68,8 +68,12 @@ export interface ConditionFlags {
    * `ComparisonTable`'s own `variant` prop currently overlap and should
    * be reconciled by whichever template consumes this schema. */
   extraComparisonRows: boolean;
-  /** Florida PIP coverage stat, shown only on the auto-accident page. */
-  pipStat?: { label: string; value: string };
+  /** Florida PIP coverage stat, shown in Hero's left column on the
+   * auto-accident page only (Hero's `stat` prop) — value + the full
+   * descriptive sentence per the Figma hero, e.g. "$10,000" / "in PIP
+   * coverage available with an Emergency Medical Condition determination —
+   * $2,500 without one". */
+  pipStat?: { value: string; description: string };
 }
 
 export interface Condition {

@@ -13,13 +13,15 @@ export interface HowWeHelpStep {
 export interface HowWeHelpStepsProps {
   heading: string;
   steps: HowWeHelpStep[];
-  cta: { label: string; href: string };
+  /** Omit when the page has its own CTA band directly after this section
+   * (e.g. /auto-accidents) — the closing booking CTA button is optional,
+   * not every page's design wants one directly under the steps. */
+  cta?: { label: string; href: string };
 }
 
 /** "HOW WE HELP" 3-step section, reused across pages with variant copy —
- * originally built for Home-visits (ATS-110), now also used on the
- * /auto-accident page (Epic 4): photo + title + copy per step, plus a
- * closing booking CTA. */
+ * originally built for Home-visits (ATS-110), also used on /auto-accidents:
+ * photo + title + copy per step, plus an optional closing booking CTA. */
 export function HowWeHelpSteps({ heading, steps, cta }: HowWeHelpStepsProps) {
   return (
     <div className="flex flex-col items-center gap-14 text-center">
@@ -41,9 +43,11 @@ export function HowWeHelpSteps({ heading, steps, cta }: HowWeHelpStepsProps) {
         ))}
       </div>
 
-      <Button variant="cta" href={cta.href}>
-        {cta.label}
-      </Button>
+      {cta && (
+        <Button variant="cta" href={cta.href}>
+          {cta.label}
+        </Button>
+      )}
     </div>
   );
 }

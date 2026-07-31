@@ -39,7 +39,7 @@ export function AccidentBanner({ condition, className }: AccidentBannerProps) {
               <div className="flex items-start gap-4 rounded-30 bg-overlay-white-15 px-5 py-4 lg:items-center lg:rounded-full">
                 <span
                   aria-hidden="true"
-                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal-500 font-sans text-sm font-bold text-white"
+                  className="flex size-12 shrink-0 items-center justify-center rounded-full bg-teal-500 font-sans text-xl font-bold text-white"
                 >
                   !
                 </span>

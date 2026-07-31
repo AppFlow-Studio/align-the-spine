@@ -31,12 +31,16 @@ export interface HeroProps {
   spineOverlay?: boolean;
   eyebrow?: string;
   title: ReactNode;
-  subhead: string;
+  subhead: ReactNode;
   conditionChip?: string;
   badge?: string;
   ctas?: HeroCta[];
   callPill?: { eyebrow: string; phone: string };
   bilingualNote?: string;
+  /** Condition-variant-only stat callout below the bilingual note (e.g. the
+   * /auto-accidents Florida PIP coverage figure) — a divider line, a large
+   * value, and a descriptive line next to it. */
+  stat?: { value: string; description: string };
   form?: HeroFormConfig;
   /** Replaces the default LeadForm card entirely (e.g. the /book two-step
    * BookingForm, which brings its own card styling). */
@@ -81,6 +85,7 @@ export function Hero({
   ctas,
   callPill,
   bilingualNote,
+  stat,
   form,
   formSlot,
 }: HeroProps) {
@@ -137,6 +142,15 @@ export function Hero({
 
           {variant === "condition" && bilingualNote && (
             <p className="font-alt text-alt-label text-mute-300">{bilingualNote}</p>
+          )}
+
+          {variant === "condition" && stat && (
+            <div className="flex flex-col gap-4 border-t border-white/30 pt-6">
+              <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <span className="font-display text-h2 text-white">{stat.value}</span>
+                <span className="font-sans text-body-lg text-mute-300">{stat.description}</span>
+              </p>
+            </div>
           )}
 
           {variant === "home" && Boolean(ctas?.length) && (
