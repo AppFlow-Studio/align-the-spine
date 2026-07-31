@@ -11,12 +11,15 @@ import { doctorProfileContent } from "@/content/doctor-profile";
 import { leadFormVariants } from "@/content/lead-forms";
 import { siteConfig } from "@/content/site";
 import { homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
+import { buildMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: `Chiropractic Services in Deerfield Beach, FL | ${siteConfig.business.name}`,
   description:
     "Adjustments, sports injury care, posture correction, spinal decompression, headache relief, and massage/soft-tissue therapy — same doctor, every visit. Call (954) 573-7192.",
-};
+  path: "/services",
+  image: { src: "/figma-exports/dr-abe-neck.png", alt: "Dr. Abe Nasser treating a patient's neck" },
+});
 
 /** /services page assembly (ATS-081) per the services artboard (frame
  * 96:2185 — the ticket's node ref 1:2583 no longer resolves in the file):

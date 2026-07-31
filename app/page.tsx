@@ -17,12 +17,15 @@ import { pointToWhereItHurtsContent } from "@/content/point-to-where-it-hurts";
 import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
 import { whyChooseContent } from "@/content/why-choose";
+import { buildMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: `${siteConfig.business.name} | South Florida's Chiropractor`,
   description:
     "Elite spinal health care in Deerfield Beach, FL — office visits from $50, same-day car accident evaluations, and home visits when it fits your case. Call (954) 573-7192.",
-};
+  path: "",
+  image: { src: "/figma-exports/interior-reception.png", alt: "Align the Spine reception area" },
+});
 
 /** / (Home) page assembly (ATS-071) per the homepage-1-col artboard:
  * HomeHero → ServiceGrid/ListRow → WhyChoose/PointToWhereItHurts (Epic 4, replaces

@@ -10,12 +10,15 @@ import { HowHePractices } from "@/components/sections/how-he-practices";
 import { PhotoGallery } from "@/components/sections/photo-gallery";
 import { doctorHistoryContent, doctorProfileContent } from "@/content/doctor-profile";
 import { siteConfig } from "@/content/site";
+import { buildMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: `About Dr. Abe Nasser | ${siteConfig.business.name}`,
   description:
     "One doctor, every visit. Meet Dr. Abe Nasser — bilingual, transparent pricing, and the same provider from your first exam through recovery. Call (954) 573-7192.",
-};
+  path: "/about",
+  image: { src: "/figma-exports/dr-abe-neck.png", alt: "Dr. Abe Nasser treating a patient's neck" },
+});
 
 /** /about page assembly (ATS-090) per the about-drabe artboard (frame
  * 96:2442 — the ticket's node refs 1:3379/1:3512 don't resolve in the file,

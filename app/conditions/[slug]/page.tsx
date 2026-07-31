@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ConditionPage } from "@/components/templates/condition-page";
 import { conditionsBySlug } from "@/content/conditions";
 import { siteConfig } from "@/content/site";
+import { buildMetadata } from "@/lib/seo/metadata";
 
 type PageProps = { params: Promise<{ slug: string }> };
 
@@ -18,23 +19,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const condition = conditionsBySlug[slug];
   if (!condition) return {};
 
-  const title = `${condition.hero.h1} | ${siteConfig.business.name}`;
-  const description = condition.hero.subhead;
-  const url = `${siteConfig.siteUrl}/conditions/${condition.slug}`;
-
-  return {
-    title,
-    description,
-    alternates: { canonical: url },
-    openGraph: {
-      title,
-      description,
-      url,
-      images: [
-        { url: condition.hero.backgroundImage.src, alt: condition.hero.backgroundImage.alt },
-      ],
-    },
-  };
+  return buildMetadata({
+    title: `${condition.hero.h1} | ${siteConfig.business.name}`,
+    description: condition.hero.subhead,
+    path: `/conditions/${condition.slug}`,
+    image: condition.hero.backgroundImage,
+  });
 }
 
 /** /conditions/[slug] route (ATS-061): resolves the slug against
