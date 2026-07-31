@@ -18,20 +18,33 @@ export interface ServiceCardProps {
   className?: string;
 }
 
-/** Service card per condition-page-spec §B9: image (r15), title (Newsreader
- * Medium 35 navy-800), description (Poppins 22/38 ink-900), "Book now" ghost
- * link. Card r20, ~507×618 proportions via aspect-ratio (not hardcoded px)
- * so ServiceGrid can collapse responsively. */
+/** Service card per condition-page-spec §B9: image (r15, desaturated per the
+ * reference design), title (Newsreader Medium 35 navy-800), description
+ * (Poppins 22/38 ink-900), "Book now" ghost link. Flush against the page
+ * background — no card shadow/elevation — per the reference design.
+ * ~507×618 proportions via aspect-ratio (not hardcoded px) so ServiceGrid
+ * can collapse responsively. */
 export function ServiceCard({ item, className }: ServiceCardProps) {
   return (
-    <Card radius={20} shadow="card" className={cn("flex flex-col overflow-hidden", className)}>
+    <Card shadow="none" className={cn("flex flex-col overflow-hidden", className)}>
       <div className="relative aspect-[507/360] w-full shrink-0">
-        <Image src={item.image.src} alt={item.image.alt} fill className="object-cover" />
+        <Image
+          src={item.image.src}
+          alt={item.image.alt}
+          fill
+          className="object-cover grayscale contrast-110 brightness-90"
+        />
       </div>
-      <div className="flex flex-1 flex-col gap-3 p-8">
-        <h3 className="break-words font-display text-card-title text-navy-800">{item.name}</h3>
-        <p className="font-sans text-card-body text-ink-900">{item.summary}</p>
-        <Button variant="ghost" href={siteConfig.bookingCta.href} className="mt-auto w-fit">
+      <div className="flex flex-1 flex-col gap-6 p-8">
+        <div className="flex flex-col gap-3">
+          <h3 className="break-words font-display text-card-title text-navy-800">{item.name}</h3>
+          <p className="font-sans text-card-body text-ink-900">{item.summary}</p>
+        </div>
+        <Button
+          variant="ghost"
+          href={siteConfig.bookingCta.href}
+          className="mt-auto w-fit text-body-lg"
+        >
           Book now
         </Button>
       </div>
