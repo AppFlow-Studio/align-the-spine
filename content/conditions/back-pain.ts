@@ -32,11 +32,13 @@ export const backPainCondition: Condition = {
   },
   understanding: {
     eyebrow: "Understanding Back Pain",
+    heading:
+      "Back pain has a lot of possible causes. Finding yours is the first step to fixing it.",
     intro:
-      "Back pain has a lot of possible causes — finding yours is the first step to fixing it. If a car accident is involved, Florida gives you 14 days to get evaluated and protect your PIP benefits, since sudden impact can cause the same herniated disc or muscle strain that shows up in everyday cases — sometimes with pain that radiates down the leg, a distinct pattern worth reading about on our Sciatica page. Everyday back pain follows a similar pattern: sudden strain from lifting or a bad movement, or pain that's been building for months from structural wear.",
+      "If a car accident is involved, Florida gives you 14 days to get evaluated and protect your PIP benefits, since sudden impact can cause the same herniated disc or muscle strain that shows up in everyday cases — sometimes with pain that radiates down the leg, a distinct pattern worth reading about on our Sciatica page. Everyday back pain follows a similar pattern: sudden strain from lifting or a bad movement, or pain that's been building for months from structural wear.",
     image: {
-      src: "/figma-exports/drabe-backpain.png",
-      alt: "Dr. Abe examining a patient's lower back",
+      src: "/figma-exports/back-pain-anatomy-diagram.png",
+      alt: "Illustration of the lower back highlighting the lumbar spine and lumbar nerve as common sources of back pain",
     },
     types: [
       {

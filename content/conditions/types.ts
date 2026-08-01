@@ -28,6 +28,13 @@ export interface ConditionType {
 export interface ConditionUnderstanding {
   /** Full eyebrow line, e.g. "Understanding Neck Pain" — rendered as-is. */
   eyebrow: string;
+  /** Short H2, e.g. "Back pain has a lot of possible causes. Finding yours
+   * is the first step to fixing it." Optional — when present, the top of
+   * UnderstandingCondition switches to the fuller Figma layout (heading +
+   * body two-up against a labeled anatomy diagram, plus an "UNDERSTAND X"
+   * jump link) instead of the older single `intro` paragraph standing in
+   * as both heading and body. */
+  heading?: string;
   intro: string;
   image: { src: string; alt: string };
   types: ConditionType[];
