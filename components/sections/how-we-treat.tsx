@@ -5,6 +5,7 @@ import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
 import type { ConditionTreatmentItem } from "@/content/conditions/types";
+import { siteConfig } from "@/content/site";
 
 export interface HowWeTreatProps {
   items: ConditionTreatmentItem[];
@@ -41,8 +42,12 @@ export function HowWeTreat({ items, className }: HowWeTreatProps) {
               </div>
               <div className="flex flex-col gap-3 border-t border-mute-300 pt-6">
                 <h3 className="font-display text-h2 text-navy-900">{item.title}</h3>
-                <p className="font-sans text-body-lg text-ink-500">
-                  <span className="text-ink-900">{item.meta}</span> — {item.desc}
+                <p className="font-sans text-card-body">
+                  <span className="text-ink-500">
+                    {item.meta} | Contact us {siteConfig.business.phone}
+                  </span>
+                  <br />
+                  <span className="text-ink-900">{item.desc}</span>
                 </p>
               </div>
               <Button variant="ghost" href={item.ctaHref} className="w-fit">

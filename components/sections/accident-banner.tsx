@@ -2,20 +2,21 @@ import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { PipCalculator } from "@/components/ui/pip-calculator";
 import { Section } from "@/components/ui/section";
-import type { Condition } from "@/content/conditions/types";
+import type { ConditionAccident } from "@/content/conditions/types";
 
 export interface AccidentBannerProps {
-  condition: Condition;
+  accident: ConditionAccident;
   className?: string;
 }
 
 /** "Was this from an accident?" band per condition-page-spec §B4, §C:
- * navy rounded card, condition-driven headline/body/smallprint on the left,
+ * navy rounded card, caller-driven headline/body/smallprint on the left,
  * PIPCalculator (ATS-032) on the right. Eyebrow is static — everything else
- * varies per condition via Condition.accident. */
-export function AccidentBanner({ condition, className }: AccidentBannerProps) {
-  const { accident } = condition;
-
+ * varies per caller. Takes the accident fields directly (not a whole
+ * Condition) so both the shared [slug] template and bespoke per-condition
+ * pages (e.g. /conditions/back-pain, ATS-137 full-fidelity pass) can use it
+ * without depending on the Condition schema. */
+export function AccidentBanner({ accident, className }: AccidentBannerProps) {
   return (
     <Section className={className}>
       <Container>

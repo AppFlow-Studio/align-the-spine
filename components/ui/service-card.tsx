@@ -26,7 +26,11 @@ export interface ServiceCardProps {
  * can collapse responsively. */
 export function ServiceCard({ item, className }: ServiceCardProps) {
   return (
-    <Card shadow="none" className={cn("flex flex-col overflow-hidden", className)}>
+    <Card
+      id={item.slug}
+      shadow="none"
+      className={cn("scroll-mt-[120px] flex flex-col overflow-hidden", className)}
+    >
       <div className="relative aspect-[507/360] w-full shrink-0">
         <Image
           src={item.image.src}

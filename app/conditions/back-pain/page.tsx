@@ -1,0 +1,268 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+
+import { AccidentBanner } from "@/components/sections/accident-banner";
+import { AccidentInjuries } from "@/components/sections/accident-injuries";
+import { CausesAndWhenToSee } from "@/components/sections/causes-and-when-to-see";
+import { ComparisonTable } from "@/components/sections/comparison-table";
+import { ConditionFaq } from "@/components/sections/condition-faq";
+import { DoctorProfile } from "@/components/sections/doctor-profile";
+import { FeelsLike } from "@/components/sections/feels-like";
+import { Hero } from "@/components/sections/hero";
+import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
+import { HowWeTreat } from "@/components/sections/how-we-treat";
+import { PatientReviews } from "@/components/sections/patient-reviews";
+import { PointToWhereItHurts } from "@/components/sections/point-to-where-it-hurts";
+import { RelatedConditions } from "@/components/sections/related-conditions";
+import { TypesGrid } from "@/components/sections/types-grid";
+import { Button } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
+import { Section } from "@/components/ui/section";
+import {
+  backPainAccident,
+  backPainCauses,
+  backPainFaq,
+  backPainFeelsLike,
+  backPainHero,
+  backPainHowWeTreat,
+  backPainRelatedBottom,
+  backPainRelatedMidPage,
+  backPainWarning,
+  backPainWhenToSee,
+} from "@/content/back-pain-page";
+import { doctorProfileContent } from "@/content/doctor-profile";
+import { leadFormVariants } from "@/content/lead-forms";
+import { pointToWhereItHurtsContent } from "@/content/point-to-where-it-hurts";
+import { siteConfig } from "@/content/site";
+import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
+import { buildMetadata } from "@/lib/seo/metadata";
+
+export const metadata: Metadata = buildMetadata({
+  title: `${backPainHero.h1} | ${siteConfig.business.name}`,
+  description: backPainHero.subhead,
+  path: "/conditions/back-pain",
+  image: backPainHero.backgroundImage,
+});
+
+const backPainTypes = [
+  {
+    name: "Accident-related",
+    description: (
+      <>
+        Back pain following a car accident or sudden impact, sometimes delayed in onset like{" "}
+        <Link href="/conditions/whiplash" className="underline">
+          whiplash
+        </Link>
+        . Florida gives you{" "}
+        <Link href="/auto-accidents" className="underline">
+          14 days
+        </Link>{" "}
+        to get evaluated and protect your{" "}
+        <Link href="/auto-accidents" className="underline">
+          PIP benefits
+        </Link>
+        .
+      </>
+    ),
+  },
+  {
+    name: "Mechanical / Muscular",
+    description:
+      "The most common type — strain from posture, lifting, or overuse rather than nerve or disc involvement. Responds well to adjustment and soft-tissue work.",
+  },
+  {
+    name: "Disc-related",
+    description: (
+      <>
+        Pain originating from a bulging or herniated disc pressing on surrounding structures — may
+        stay localized or radiate depending on severity. See{" "}
+        <Link href="/services#spinal-decompression" className="underline">
+          Spinal Decompression
+        </Link>{" "}
+        for how we treat it conservatively.
+      </>
+    ),
+  },
+  {
+    name: "Acute",
+    description:
+      "Sudden onset from a specific strain, sprain, or impact. Usually resolves within a few weeks with the right treatment.",
+  },
+  {
+    name: "Radicular (nerve-related)",
+    description: (
+      <>
+        Pain that radiates from the lower back into the hip or leg, caused by a nerve being
+        compressed or irritated — often from a{" "}
+        <Link href="/services#spinal-decompression" className="underline">
+          herniated disc
+        </Link>
+        . This pattern is specifically{" "}
+        <Link href="/conditions/sciatica" className="underline">
+          Sciatica
+        </Link>
+        .
+      </>
+    ),
+  },
+  {
+    name: "Chronic",
+    description:
+      "Pain that persists beyond three months, often from degenerative changes, repeated strain, or an old injury that never fully healed — needs an ongoing management plan, not a single fix.",
+    highlighted: true,
+  },
+];
+
+/** /conditions/back-pain — dedicated, hand-built page (ATS-137 full-fidelity
+ * rework) replacing the generic [slug] + Condition-schema template for this
+ * route, per direct user request: every condition page gets its own set of
+ * design screenshots and its own bespoke page (mirroring the /auto-accidents
+ * pattern), instead of forcing every condition through one shared template.
+ * neck-pain/whiplash/sciatica stay on the old [slug] template until their
+ * own screenshots arrive.
+ *
+ * Section order per the Figma `back-pain` frame (file 4mb4VDHszsaj2KEZzyjOjf,
+ * node 96:3517), verified against 10 design screenshots: Hero →
+ * HeroReviewsCarousel → Understanding intro (heading/body/diagram) →
+ * TypesGrid → ComparisonTable → CausesAndWhenToSee → HowWeTreat → FeelsLike
+ * (+ warning card) → AccidentBanner → PatientReviews → DoctorProfile →
+ * PointToWhereItHurts → AccidentInjuries → "Still have questions?" band →
+ * RelatedConditions → FAQ. No LocationIntro/LocationFooter/ContactSection —
+ * same as /auto-accidents, the Figma frame goes straight to the standard
+ * footer (rendered by RootShell). */
+export default function BackPainPage() {
+  return (
+    <>
+      <Hero
+        variant="condition"
+        background={backPainHero.backgroundImage}
+        eyebrow={backPainHero.eyebrowChip}
+        title={backPainHero.h1}
+        subhead={backPainHero.subhead}
+        callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
+        bilingualNote="¿Habla español? Dr. Abe habla su idioma."
+        form={{
+          heading: "Schedule Your Evaluation",
+          submitLabel: leadFormVariants.heroEval.submitLabel,
+          variant: leadFormVariants.heroEval.variant,
+          fields: leadFormVariants.heroEval.fields,
+          footerNote:
+            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
+        }}
+      />
+
+      <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
+
+      <Section>
+        <Container className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
+          <div className="flex flex-col gap-6">
+            <Eyebrow>Understanding Back Pain</Eyebrow>
+            <h2 className="font-display text-h2 text-navy-900">
+              Back pain has a lot of possible causes. Finding yours is the first step to fixing it.
+            </h2>
+            <p className="max-w-md font-sans text-body-lg text-ink-500">
+              Back pain has a lot of possible causes — finding yours is the first step to fixing it.
+              If a car accident is involved, Florida gives you{" "}
+              <Link href="/auto-accidents" className="underline">
+                14 days
+              </Link>{" "}
+              to get evaluated and protect your{" "}
+              <Link href="/auto-accidents" className="underline">
+                PIP benefits
+              </Link>
+              , since sudden impact can cause the same{" "}
+              <Link href="/services#spinal-decompression" className="underline">
+                herniated disc
+              </Link>{" "}
+              or{" "}
+              <Link href="/services#massage-soft-tissue" className="underline">
+                muscle strain
+              </Link>{" "}
+              that shows up in everyday cases — sometimes with pain that radiates down the leg, a
+              distinct pattern worth reading about on our{" "}
+              <Link href="/conditions/sciatica" className="underline">
+                Sciatica page
+              </Link>
+              . Everyday back pain follows a similar pattern: sudden strain from lifting or a bad
+              movement, or pain that&rsquo;s been building for months from structural wear.
+            </p>
+            <a
+              href="#types-of-back-pain"
+              className="inline-flex w-fit items-center gap-2 border-t border-mute-300 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors hover:text-navy-700"
+            >
+              Understand Back Pain
+              <ArrowRightIcon className="h-4 w-4" />
+            </a>
+          </div>
+          <div className="relative mx-auto aspect-[551/660] w-full max-w-md overflow-hidden lg:mx-0">
+            <Image
+              src="/figma-exports/back-pain-anatomy-diagram.png"
+              alt="Illustration of the lower back highlighting the lumbar spine and lumbar nerve as common sources of back pain"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-contain"
+            />
+          </div>
+        </Container>
+      </Section>
+
+      <div id="types-of-back-pain" className="scroll-mt-[120px]">
+        <TypesGrid heading="Types of Back Pain" items={backPainTypes} />
+      </div>
+
+      <ComparisonTable />
+
+      <CausesAndWhenToSee
+        causesHeading="Common Causes"
+        causes={backPainCauses}
+        relatedHeading="Related Back Pain Conditions"
+        relatedLinks={backPainRelatedMidPage}
+        whenToSee={backPainWhenToSee}
+      />
+
+      <HowWeTreat items={backPainHowWeTreat} />
+
+      <FeelsLike
+        items={backPainFeelsLike}
+        heading="Not all back pain feels the same"
+        warning={backPainWarning}
+      />
+
+      <AccidentBanner accident={backPainAccident} />
+
+      <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews} />
+
+      <DoctorProfile variant="short" content={doctorProfileContent} />
+
+      <PointToWhereItHurts content={pointToWhereItHurtsContent} />
+
+      <AccidentInjuries />
+
+      <Section spacing="none" className="bg-navy-900">
+        <Container className="flex flex-col gap-6 py-8 sm:flex-row sm:items-center sm:justify-between sm:py-14">
+          <div className="flex flex-col gap-2">
+            <h2 className="font-display text-h2 text-white">Still have questions? Just Call</h2>
+            <p className="font-sans text-body-lg text-mute-300">
+              Dr. Abe Answers the phone. No call center, no hold music.
+            </p>
+          </div>
+          <Button
+            variant="glass"
+            href={siteConfig.business.phoneHref}
+            eyebrow="Speak with us today"
+            className="w-fit shrink-0"
+          >
+            Call {siteConfig.business.phone}
+          </Button>
+        </Container>
+      </Section>
+
+      <RelatedConditions items={backPainRelatedBottom} />
+
+      <ConditionFaq faq={backPainFaq} />
+    </>
+  );
+}

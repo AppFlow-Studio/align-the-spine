@@ -72,6 +72,22 @@ export interface ConditionWhatWeTreatItem {
 export interface ConditionFeelsLikeItem {
   title: string;
   desc: string;
+  /** Optional "LEARN MORE →" jump/link target under the card. */
+  learnMoreHref?: string;
+}
+
+export interface ConditionWarningBullet {
+  label: string;
+  /** Omitted for the most severe bullet (e.g. "seek emergency care") —
+   * rendered as plain text with no link, matching the Figma treatment
+   * where only the non-emergency symptoms are clickable. */
+  href?: string;
+}
+
+export interface ConditionWarning {
+  heading: string;
+  image: { src: string; alt: string };
+  bullets: ConditionWarningBullet[];
 }
 
 export interface ConditionWhenToSee {
@@ -93,6 +109,11 @@ export interface ConditionTreatmentItem {
 export interface ConditionRelatedLink {
   label: string;
   href: string;
+  /** Renders the solid navy pill instead of the bordered default — the
+   * Figma related-conditions row highlights one link per page (e.g. "Auto
+   * Accident Injuries" on /conditions/back-pain) rather than styling them
+   * all identically. */
+  highlighted?: boolean;
 }
 
 export interface ConditionFlags {

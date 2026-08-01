@@ -87,7 +87,7 @@ export function ConditionPage({ condition }: ConditionPageProps) {
         />
       )}
 
-      <AccidentBanner condition={condition} />
+      <AccidentBanner accident={condition.accident} />
 
       {condition.flags.isAccidentVariant && (
         <Section spacing="lg" className="container">
@@ -128,7 +128,7 @@ export function ConditionPage({ condition }: ConditionPageProps) {
 
       {condition.relatedConditions && <RelatedConditions items={condition.relatedConditions} />}
 
-      <ConditionFaq condition={condition} />
+      <ConditionFaq faq={condition.faq} />
       <LocationIntro />
       <LocationFooter />
       <ContactSection />

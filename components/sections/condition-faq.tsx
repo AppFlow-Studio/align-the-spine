@@ -3,23 +3,25 @@ import { Container } from "@/components/ui/container";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
-import type { Condition } from "@/content/conditions/types";
+import type { ConditionFaq as ConditionFaqData } from "@/content/conditions/types";
 import type { FAQ } from "@/content/faqs";
 
 export interface ConditionFaqProps {
-  condition: Condition;
+  faq: ConditionFaqData;
   className?: string;
 }
 
-/** FAQ section per condition-page-spec §B11/§C, condition-data-driven
- * counterpart to FaqSection: FaqSection is keyed by a static pageKey
- * lookup with {question, answer} items, while Condition.faq.items is
- * {q, a} — mapped inline here rather than widening FaqSection's prop union
- * for one caller. Ships its own FAQPage JSON-LD from the same items shown
- * on screen, per Google's requirement that structured data match visible
- * content (same pairing FaqSection already establishes). */
-export function ConditionFaq({ condition, className }: ConditionFaqProps) {
-  const items: FAQ[] = condition.faq.items.map(({ q, a }) => ({ question: q, answer: a }));
+/** FAQ section per condition-page-spec §B11/§C. Takes the faq fields
+ * directly (not a whole Condition) so both the shared [slug] template and
+ * bespoke per-condition pages can use it. Counterpart to FaqSection:
+ * FaqSection is keyed by a static pageKey lookup with {question, answer}
+ * items, while ConditionFaqData.items is {q, a} — mapped inline here rather
+ * than widening FaqSection's prop union for one caller. Ships its own
+ * FAQPage JSON-LD from the same items shown on screen, per Google's
+ * requirement that structured data match visible content (same pairing
+ * FaqSection already establishes). */
+export function ConditionFaq({ faq, className }: ConditionFaqProps) {
+  const items: FAQ[] = faq.items.map(({ q, a }) => ({ question: q, answer: a }));
 
   return (
     <Section className={className}>
@@ -28,7 +30,7 @@ export function ConditionFaq({ condition, className }: ConditionFaqProps) {
           eyebrow="Frequently asked questions"
           className="mx-auto max-w-2xl items-center text-center"
         >
-          Everything you need to know about {condition.faq.headerTail}
+          Everything you need to know about {faq.headerTail}
         </SectionHeading>
         <div className="mx-auto w-full max-w-3xl">
           <FaqAccordion items={items} />
