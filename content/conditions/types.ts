@@ -8,7 +8,12 @@ export const DEFAULT_ACCIDENT_SMALLPRINT =
   "Missing this window means you may have to pay thousands for medical care out of your own pocket.";
 
 export interface ConditionHero {
-  /** Small uppercase chip above the H1 (Hero's `conditionChip`), e.g. "NECK PAIN". */
+  /** Plain-text eyebrow line above the H1 (Hero's `eyebrow` prop — not the
+   * colored `conditionChip` badge, despite the field's name; the actual
+   * Figma condition-page heroes render this as a full sentence, e.g. "Back
+   * pain after a car accident?", matching the same Eyebrow treatment
+   * /auto-accidents and /about already use). Field name kept for backward
+   * compatibility with existing condition content. */
   eyebrowChip: string;
   h1: string;
   subhead: string;
@@ -57,6 +62,32 @@ export interface ConditionWhatWeTreatItem {
   href: string;
 }
 
+export interface ConditionFeelsLikeItem {
+  title: string;
+  desc: string;
+}
+
+export interface ConditionWhenToSee {
+  heading: string;
+  body: string;
+  image: { src: string; alt: string };
+}
+
+export interface ConditionTreatmentItem {
+  title: string;
+  desc: string;
+  image: { src: string; alt: string };
+  /** Short session/logistics note, e.g. "1 hr" or "Check eligibility". */
+  meta: string;
+  ctaLabel: string;
+  ctaHref: string;
+}
+
+export interface ConditionRelatedLink {
+  label: string;
+  href: string;
+}
+
 export interface ConditionFlags {
   /** True only for the auto-accident page — gates the extra comparison
    * rows, the PIP stat, and (in the future ConditionPage template,
@@ -93,4 +124,16 @@ export interface Condition {
   faq: ConditionFaq;
   whatWeTreat: ConditionWhatWeTreatItem[];
   flags: ConditionFlags;
+  /** The following 4 are optional additions (ATS-137) matching the fuller
+   * Figma condition-page frames — undefined on conditions that haven't been
+   * authored to this depth yet (neck-pain, whiplash, sciatica), whose
+   * sections are conditionally skipped by ConditionPage in that case. */
+  feelsLike?: ConditionFeelsLikeItem[];
+  whenToSee?: ConditionWhenToSee;
+  /** Condition-specific detailed treatment cards ("HOW WE TREAT" in Figma —
+   * distinct from `whatWeTreat`, which ConditionPage no longer renders
+   * directly now that the generic "Common accident injuries we treat" grid
+   * is just the shared AccidentInjuries component). */
+  howWeTreat?: ConditionTreatmentItem[];
+  relatedConditions?: ConditionRelatedLink[];
 }
