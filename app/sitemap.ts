@@ -9,7 +9,8 @@ import { siteConfig } from "@/content/site";
  * (ATS-061) are derived from conditionsBySlug so a new condition added
  * there doesn't also need a manual sitemap entry; /conditions/back-pain is
  * listed explicitly since ATS-137's full-fidelity pass moved it off that
- * dynamic route onto its own dedicated page. */
+ * dynamic route onto its own dedicated page; /conditions/neck-pain moved
+ * the same way. */
 type Route = Pick<MetadataRoute.Sitemap[number], "changeFrequency" | "priority"> & { path: string };
 
 const routes: Route[] = [
@@ -18,6 +19,7 @@ const routes: Route[] = [
   { path: "/book", changeFrequency: "monthly", priority: 0.9 },
   { path: "/auto-accidents", changeFrequency: "monthly", priority: 0.9 },
   { path: "/conditions/back-pain", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/conditions/neck-pain", changeFrequency: "monthly", priority: 0.8 },
   { path: "/home-visits", changeFrequency: "monthly", priority: 0.8 },
   { path: "/about", changeFrequency: "monthly", priority: 0.7 },
   { path: "/contact-us", changeFrequency: "monthly", priority: 0.6 },
