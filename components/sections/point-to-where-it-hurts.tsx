@@ -144,7 +144,13 @@ export function PointToWhereItHurts({ content }: PointToWhereItHurtsProps) {
             onKeyDown={desktopHandleKeyDown}
             className="relative aspect-square w-full max-w-[560px] shrink-0"
           >
-            <Image src={image.src} alt={image.alt} fill className="object-contain" />
+            <Image
+              src={image.src}
+              alt={image.alt}
+              fill
+              sizes="(min-width: 768px) 560px, 100vw"
+              className="object-contain"
+            />
 
             {regions.map((region) => {
               const isSelected = region.id === selectedId;

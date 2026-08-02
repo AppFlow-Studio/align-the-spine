@@ -34,7 +34,7 @@ export function UnderstandingCondition({ condition, className }: UnderstandingCo
         </div>
 
         <div className="relative aspect-[16/9] w-full overflow-hidden">
-          <Image src={image.src} alt={image.alt} fill className="object-cover" />
+          <Image src={image.src} alt={image.alt} fill sizes="100vw" className="object-cover" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-b from-transparent to-white" />
         </div>
 

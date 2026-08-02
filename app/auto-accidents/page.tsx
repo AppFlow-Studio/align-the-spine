@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 
 import { AccidentBanner } from "@/components/sections/accident-banner";
 import { AccidentInjuries } from "@/components/sections/accident-injuries";
@@ -8,11 +9,9 @@ import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
 import { HowWeHelpSteps } from "@/components/sections/how-we-help-steps";
 import { PatientReviews } from "@/components/sections/patient-reviews";
-import { PointToWhereItHurts } from "@/components/sections/point-to-where-it-hurts";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { autoAccidentAttorneyQuote, autoAccidentSteps } from "@/content/auto-accident";
@@ -22,6 +21,16 @@ import { leadFormVariants } from "@/content/lead-forms";
 import { pointToWhereItHurtsContent } from "@/content/point-to-where-it-hurts";
 import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
+
+/** Code-split (Epic 12): keep these interactive, below-the-fold sections
+ * (body-diagram selector; FaqAccordion's Framer Motion) out of the initial
+ * page JS bundle. */
+const PointToWhereItHurts = dynamic(() =>
+  import("@/components/sections/point-to-where-it-hurts").then((m) => m.PointToWhereItHurts),
+);
+const FaqAccordion = dynamic(() =>
+  import("@/components/ui/faq-accordion").then((m) => m.FaqAccordion),
+);
 
 const { hero, faq, flags } = autoAccidentCondition;
 // FaqAccordion/FaqJsonLd expect {question, answer} (content/faqs.ts' FAQ

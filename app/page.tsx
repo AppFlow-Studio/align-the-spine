@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 
 import { LocationFooter } from "@/components/layout/location-footer";
 import { LocationIntro } from "@/components/layout/location-intro";
 import { AccidentInjuries } from "@/components/sections/accident-injuries";
 import { ContactSection } from "@/components/sections/contact-section";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
-import { FaqSection } from "@/components/sections/faq-section";
 import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
-import { PointToWhereItHurts } from "@/components/sections/point-to-where-it-hurts";
 import { ServicesSection } from "@/components/sections/services-section";
 import { WhyChoose } from "@/components/sections/why-choose";
 import { doctorProfileContent } from "@/content/doctor-profile";
@@ -18,6 +17,12 @@ import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
 import { whyChooseContent } from "@/content/why-choose";
 import { buildMetadata } from "@/lib/seo/metadata";
+
+/** Code-split (Epic 12): interactive body-diagram selector, not needed
+ * until scrolled to — kept out of the initial page JS bundle. */
+const PointToWhereItHurts = dynamic(() =>
+  import("@/components/sections/point-to-where-it-hurts").then((m) => m.PointToWhereItHurts),
+);
 
 export const metadata: Metadata = buildMetadata({
   title: `${siteConfig.business.name} | South Florida's Chiropractor`,

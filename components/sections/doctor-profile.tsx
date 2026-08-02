@@ -33,7 +33,13 @@ export function DoctorProfile({ variant, content, extended }: DoctorProfileProps
     <Section spacing="lg">
       <Container className="flex flex-col gap-10 xl:flex-row xl:items-center xl:gap-16">
         <div className="relative aspect-[639/833] w-full shrink-0 xl:w-[45%]">
-          <Image src={portrait.src} alt={portrait.alt} fill className="object-cover" />
+          <Image
+            src={portrait.src}
+            alt={portrait.alt}
+            fill
+            sizes="(min-width: 1280px) 45vw, 100vw"
+            className="object-cover"
+          />
           <div
             aria-hidden="true"
             className="pointer-events-none absolute -bottom-11 -right-11 hidden h-35 w-58 border-b-[2px] border-r-[2px] border-[#9397B1] xl:block"

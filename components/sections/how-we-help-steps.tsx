@@ -33,7 +33,13 @@ export function HowWeHelpSteps({ heading, steps, cta }: HowWeHelpStepsProps) {
         {steps.map((step) => (
           <div key={step.title} className="flex flex-col gap-6 text-left">
             <div className="relative h-[246px] overflow-hidden">
-              <Image src={step.image} alt={step.alt} fill className="object-cover" />
+              <Image
+                src={step.image}
+                alt={step.alt}
+                fill
+                sizes="(min-width: 640px) 33vw, 100vw"
+                className="object-cover"
+              />
             </div>
             <div className="flex flex-col gap-3 border-t border-mute-300 pt-6">
               <h3 className="font-display text-h2 text-navy-800">{step.title}</h3>

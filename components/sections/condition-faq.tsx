@@ -1,10 +1,17 @@
+import dynamic from "next/dynamic";
+
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { Container } from "@/components/ui/container";
-import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
 import type { Condition } from "@/content/conditions/types";
 import type { FAQ } from "@/content/faqs";
+
+/** Code-split (Epic 12): FaqAccordion's Framer Motion out of the initial
+ * page JS bundle. */
+const FaqAccordion = dynamic(() =>
+  import("@/components/ui/faq-accordion").then((m) => m.FaqAccordion),
+);
 
 export interface ConditionFaqProps {
   condition: Condition;

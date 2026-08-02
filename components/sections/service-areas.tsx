@@ -13,7 +13,13 @@ export function ServiceAreas({ image }: ServiceAreasProps) {
   return (
     <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
       <div className="relative h-[300px] overflow-hidden lg:h-auto">
-        <Image src={image.src} alt={image.alt} fill className="object-cover" />
+        <Image
+          src={image.src}
+          alt={image.alt}
+          fill
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          className="object-cover"
+        />
       </div>
 
       <div className="bg-[#e4f9f4] p-8 lg:p-10">

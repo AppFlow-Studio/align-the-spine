@@ -1,14 +1,14 @@
+import dynamic from "next/dynamic";
+
 import { LocationFooter } from "@/components/layout/location-footer";
 import { LocationIntro } from "@/components/layout/location-intro";
 import { AccidentBanner } from "@/components/sections/accident-banner";
 import { ComparisonTable } from "@/components/sections/comparison-table";
-import { ConditionFaq } from "@/components/sections/condition-faq";
 import { ContactSection } from "@/components/sections/contact-section";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { Hero } from "@/components/sections/hero";
 import { HowWeHelpSteps } from "@/components/sections/how-we-help-steps";
 import { PatientReviews } from "@/components/sections/patient-reviews";
-import { PointToWhereItHurts } from "@/components/sections/point-to-where-it-hurts";
 import { UnderstandingCondition } from "@/components/sections/understanding-condition";
 import { WhatWeTreat } from "@/components/sections/what-we-treat";
 import { Section } from "@/components/ui/section";
@@ -18,6 +18,16 @@ import { doctorProfileContent } from "@/content/doctor-profile";
 import { pointToWhereItHurtsContent } from "@/content/point-to-where-it-hurts";
 import { siteConfig } from "@/content/site";
 import { homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
+
+/** Code-split (Epic 12): keep these interactive, below-the-fold sections
+ * (body-diagram selector; ConditionFaq's FaqAccordion/Framer Motion) out of
+ * the initial page JS bundle. */
+const PointToWhereItHurts = dynamic(() =>
+  import("@/components/sections/point-to-where-it-hurts").then((m) => m.PointToWhereItHurts),
+);
+const ConditionFaq = dynamic(() =>
+  import("@/components/sections/condition-faq").then((m) => m.ConditionFaq),
+);
 
 export interface ConditionPageProps {
   condition: Condition;

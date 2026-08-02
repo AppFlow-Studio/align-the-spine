@@ -71,6 +71,7 @@ export function LocationIntro({ sendHref = "/#contact" }: LocationIntroProps) {
             src="/figma-exports/exterior-img.png"
             alt="Palm Plaza exterior, home of Align the Spine Chiropractic"
             fill
+            sizes="(min-width: 1024px) 50vw, 100vw"
             className="object-cover"
           />
           <div className="absolute p-7 w-[90%] mx-auto  inset-x-0 bottom-7 bg-overlay-white-16 backdrop-brightness-75 backdrop-blur-md border border-white">

@@ -26,7 +26,7 @@ export function AccidentBanner({ condition, className }: AccidentBannerProps) {
               {flags.pipStat && (
                 <dl className="flex w-fit flex-col gap-0.5 bg-overlay-white-15 px-4 py-2">
                   <dt className="font-sans text-stat-label uppercase text-mute-300">
-                    {flags.pipStat.label}
+                    {flags.pipStat.description}
                   </dt>
                   <dd className="font-sans text-stat-value text-white">{flags.pipStat.value}</dd>
                 </dl>

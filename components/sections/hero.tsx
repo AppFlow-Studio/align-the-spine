@@ -108,7 +108,14 @@ export function Hero({
     // to alter wrapping — see
     // docs/superpowers/specs/2026-07-15-hero-section-design.md.
     <section className="relative -mt-[460px] min-h-[975px] overflow-hidden min-[400px]:-mt-[392px] sm:-mt-[304px] md:-mt-[240px] lg:-mt-[176px]">
-      <Image src={background.src} alt={background.alt} fill priority className="object-cover" />
+      <Image
+        src={background.src}
+        alt={background.alt}
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover"
+      />
       <div className="absolute inset-0 bg-black/[.47]" />
 
       <div className="container relative z-10 grid gap-10 pb-32 pt-[220px] lg:grid-cols-2 lg:items-center lg:gap-16 lg:pt-[260px]">
