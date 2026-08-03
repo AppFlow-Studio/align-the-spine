@@ -8,7 +8,12 @@ export const DEFAULT_ACCIDENT_SMALLPRINT =
   "Missing this window means you may have to pay thousands for medical care out of your own pocket.";
 
 export interface ConditionHero {
-  /** Small uppercase chip above the H1 (Hero's `conditionChip`), e.g. "NECK PAIN". */
+  /** Plain-text eyebrow line above the H1 (Hero's `eyebrow` prop — not the
+   * colored `conditionChip` badge, despite the field's name; the actual
+   * Figma condition-page heroes render this as a full sentence, e.g. "Back
+   * pain after a car accident?", matching the same Eyebrow treatment
+   * /auto-accidents and /about already use). Field name kept for backward
+   * compatibility with existing condition content. */
   eyebrowChip: string;
   h1: string;
   subhead: string;
@@ -23,6 +28,13 @@ export interface ConditionType {
 export interface ConditionUnderstanding {
   /** Full eyebrow line, e.g. "Understanding Neck Pain" — rendered as-is. */
   eyebrow: string;
+  /** Short H2, e.g. "Back pain has a lot of possible causes. Finding yours
+   * is the first step to fixing it." Optional — when present, the top of
+   * UnderstandingCondition switches to the fuller Figma layout (heading +
+   * body two-up against a labeled anatomy diagram, plus an "UNDERSTAND X"
+   * jump link) instead of the older single `intro` paragraph standing in
+   * as both heading and body. */
+  heading?: string;
   intro: string;
   image: { src: string; alt: string };
   types: ConditionType[];
@@ -55,6 +67,53 @@ export interface ConditionWhatWeTreatItem {
   desc: string;
   image: { src: string; alt: string };
   href: string;
+}
+
+export interface ConditionFeelsLikeItem {
+  title: string;
+  desc: string;
+  /** Optional "LEARN MORE →" jump/link target under the card. */
+  learnMoreHref?: string;
+}
+
+export interface ConditionWarningBullet {
+  label: string;
+  /** Omitted for the most severe bullet (e.g. "seek emergency care") —
+   * rendered as plain text with no link, matching the Figma treatment
+   * where only the non-emergency symptoms are clickable. */
+  href?: string;
+}
+
+export interface ConditionWarning {
+  heading: string;
+  image: { src: string; alt: string };
+  bullets: ConditionWarningBullet[];
+}
+
+export interface ConditionWhenToSee {
+  heading: string;
+  body: string;
+  image: { src: string; alt: string };
+}
+
+export interface ConditionTreatmentItem {
+  title: string;
+  desc: string;
+  image: { src: string; alt: string };
+  /** Short session/logistics note, e.g. "1 hr" or "Check eligibility". */
+  meta: string;
+  ctaLabel: string;
+  ctaHref: string;
+}
+
+export interface ConditionRelatedLink {
+  label: string;
+  href: string;
+  /** Renders the solid navy pill instead of the bordered default — the
+   * Figma related-conditions row highlights one link per page (e.g. "Auto
+   * Accident Injuries" on /conditions/back-pain) rather than styling them
+   * all identically. */
+  highlighted?: boolean;
 }
 
 export interface ConditionFlags {
@@ -93,4 +152,16 @@ export interface Condition {
   faq: ConditionFaq;
   whatWeTreat: ConditionWhatWeTreatItem[];
   flags: ConditionFlags;
+  /** The following 4 are optional additions (ATS-137) matching the fuller
+   * Figma condition-page frames — undefined on conditions that haven't been
+   * authored to this depth yet (neck-pain, whiplash, sciatica), whose
+   * sections are conditionally skipped by ConditionPage in that case. */
+  feelsLike?: ConditionFeelsLikeItem[];
+  whenToSee?: ConditionWhenToSee;
+  /** Condition-specific detailed treatment cards ("HOW WE TREAT" in Figma —
+   * distinct from `whatWeTreat`, which ConditionPage no longer renders
+   * directly now that the generic "Common accident injuries we treat" grid
+   * is just the shared AccidentInjuries component). */
+  howWeTreat?: ConditionTreatmentItem[];
+  relatedConditions?: ConditionRelatedLink[];
 }

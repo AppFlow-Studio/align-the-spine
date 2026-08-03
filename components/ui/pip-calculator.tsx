@@ -12,7 +12,7 @@ export interface PipCalculatorProps {
   className?: string;
 }
 
-const PROMPT = "Enter your accident date to see how many days you have left to begin treatment.";
+const PROMPT = "Enter a date to see how many days you have left to protect your PIP benefits.";
 const INVALID = "That doesn't look like a valid date — use mm/dd/yyyy.";
 
 /** 14-day PIP window date calculator (ATS-032), embedded in the accident

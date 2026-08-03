@@ -96,7 +96,7 @@ export default function AutoAccidentsPage() {
       <ComparisonTable />
 
       <div id="pip-calculator">
-        <AccidentBanner condition={autoAccidentCondition} />
+        <AccidentBanner accident={autoAccidentCondition.accident} />
       </div>
 
       <Section spacing="lg" className="container">

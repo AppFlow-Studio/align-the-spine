@@ -1,65 +1,94 @@
-import dynamic from "next/dynamic";
-
 import { LocationFooter } from "@/components/layout/location-footer";
 import { LocationIntro } from "@/components/layout/location-intro";
 import { AccidentBanner } from "@/components/sections/accident-banner";
+import { AccidentInjuries } from "@/components/sections/accident-injuries";
 import { ComparisonTable } from "@/components/sections/comparison-table";
+import { ConditionFaq } from "@/components/sections/condition-faq";
 import { ContactSection } from "@/components/sections/contact-section";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
+import { FeelsLike } from "@/components/sections/feels-like";
 import { Hero } from "@/components/sections/hero";
+import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
 import { HowWeHelpSteps } from "@/components/sections/how-we-help-steps";
+import { HowWeTreat } from "@/components/sections/how-we-treat";
 import { PatientReviews } from "@/components/sections/patient-reviews";
+import { PointToWhereItHurts } from "@/components/sections/point-to-where-it-hurts";
+import { RelatedConditions } from "@/components/sections/related-conditions";
 import { UnderstandingCondition } from "@/components/sections/understanding-condition";
-import { WhatWeTreat } from "@/components/sections/what-we-treat";
+import { WhenToSee } from "@/components/sections/when-to-see";
+import { Button } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { autoAccidentSteps } from "@/content/auto-accident";
 import type { Condition } from "@/content/conditions/types";
 import { doctorProfileContent } from "@/content/doctor-profile";
+import { leadFormVariants } from "@/content/lead-forms";
 import { pointToWhereItHurtsContent } from "@/content/point-to-where-it-hurts";
 import { siteConfig } from "@/content/site";
-import { homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
-
-/** Code-split (Epic 12): keep these interactive, below-the-fold sections
- * (body-diagram selector; ConditionFaq's FaqAccordion/Framer Motion) out of
- * the initial page JS bundle. */
-const PointToWhereItHurts = dynamic(() =>
-  import("@/components/sections/point-to-where-it-hurts").then((m) => m.PointToWhereItHurts),
-);
-const ConditionFaq = dynamic(() =>
-  import("@/components/sections/condition-faq").then((m) => m.ConditionFaq),
-);
+import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
 
 export interface ConditionPageProps {
   condition: Condition;
 }
 
-/** Shared section composition every condition page renders, per
- * condition-page-spec §C — extracted from app/conditions/[slug]/page.tsx
- * (ATS-061) so /auto-accident can reuse it with the accident-only
- * HowWeHelpSteps band gated on condition.flags.isAccidentVariant. Section
- * order: Hero → UnderstandingCondition → PointToWhereItHurts →
- * AccidentBanner → ComparisonTable → DoctorProfile → PatientReviews →
- * [HowWeHelpSteps, accident-variant only] → WhatWeTreat → ConditionFaq →
- * LocationIntro/LocationFooter/ContactSection. */
+/** Shared section composition every condition page renders, per the actual
+ * Figma condition-page frames (verified against `back-pain`, ATS-137 — the
+ * original ATS-061 version of this template was a simplified first pass
+ * that didn't match Figma's fuller section set). Section order: Hero (with
+ * lead form) → HeroReviewsCarousel → UnderstandingCondition → ComparisonTable
+ * → WhenToSee → HowWeTreat → FeelsLike → AccidentBanner →
+ * [HowWeHelpSteps, accident-variant only] → PatientReviews → DoctorProfile →
+ * PointToWhereItHurts → AccidentInjuries ("Common accident injuries we
+ * treat" — same generic grid Figma reuses per condition, not
+ * condition.whatWeTreat) → StillHaveQuestions band → RelatedConditions →
+ * ConditionFaq → LocationIntro/LocationFooter/ContactSection.
+ *
+ * WhenToSee/HowWeTreat/FeelsLike/RelatedConditions are optional on
+ * `Condition` and conditionally rendered — only back-pain has this content
+ * authored so far (ATS-137); neck-pain/whiplash/sciatica render without
+ * them until they're authored to the same depth. */
 export function ConditionPage({ condition }: ConditionPageProps) {
   return (
     <>
       <Hero
         variant="condition"
         background={condition.hero.backgroundImage}
-        conditionChip={condition.hero.eyebrowChip}
+        eyebrow={condition.hero.eyebrowChip}
         title={condition.hero.h1}
         subhead={condition.hero.subhead}
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
+        bilingualNote="¿Habla español? Dr. Abe habla su idioma."
+        form={{
+          heading: "Schedule Your Evaluation",
+          submitLabel: leadFormVariants.heroEval.submitLabel,
+          variant: leadFormVariants.heroEval.variant,
+          fields: leadFormVariants.heroEval.fields,
+          footerNote:
+            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
+        }}
       />
+
+      <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
+
       <UnderstandingCondition condition={condition} />
-      <PointToWhereItHurts content={pointToWhereItHurtsContent} />
-      <AccidentBanner condition={condition} />
+
       <ComparisonTable
         variant={condition.flags.extraComparisonRows ? "auto-accident" : "default"}
       />
-      <DoctorProfile variant="short" content={doctorProfileContent} />
-      <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews} />
+
+      {condition.whenToSee && <WhenToSee data={condition.whenToSee} />}
+
+      {condition.howWeTreat && <HowWeTreat items={condition.howWeTreat} />}
+
+      {condition.feelsLike && (
+        <FeelsLike
+          items={condition.feelsLike}
+          heading={`Not all ${condition.name.toLowerCase()} feels the same`}
+        />
+      )}
+
+      <AccidentBanner accident={condition.accident} />
+
       {condition.flags.isAccidentVariant && (
         <Section spacing="lg" className="container">
           <HowWeHelpSteps
@@ -69,8 +98,37 @@ export function ConditionPage({ condition }: ConditionPageProps) {
           />
         </Section>
       )}
-      <WhatWeTreat condition={condition} />
-      <ConditionFaq condition={condition} />
+
+      <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews} />
+
+      <DoctorProfile variant="short" content={doctorProfileContent} />
+
+      <PointToWhereItHurts content={pointToWhereItHurtsContent} />
+
+      <AccidentInjuries />
+
+      <Section spacing="none" className="bg-navy-900">
+        <Container className="flex flex-col gap-6 py-8 sm:flex-row sm:items-center sm:justify-between sm:py-14">
+          <div className="flex flex-col gap-2">
+            <h2 className="font-display text-h2 text-white">Still have questions? Just Call</h2>
+            <p className="font-sans text-body-lg text-mute-300">
+              Dr. Abe Answers the phone. No call center, no hold music.
+            </p>
+          </div>
+          <Button
+            variant="glass"
+            href={siteConfig.business.phoneHref}
+            eyebrow="Speak with us today"
+            className="w-fit shrink-0"
+          >
+            Call {siteConfig.business.phone}
+          </Button>
+        </Container>
+      </Section>
+
+      {condition.relatedConditions && <RelatedConditions items={condition.relatedConditions} />}
+
+      <ConditionFaq faq={condition.faq} />
       <LocationIntro />
       <LocationFooter />
       <ContactSection />

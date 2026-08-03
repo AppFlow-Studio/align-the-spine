@@ -2,20 +2,21 @@ import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { PipCalculator } from "@/components/ui/pip-calculator";
 import { Section } from "@/components/ui/section";
-import type { Condition } from "@/content/conditions/types";
+import type { ConditionAccident } from "@/content/conditions/types";
 
 export interface AccidentBannerProps {
-  condition: Condition;
+  accident: ConditionAccident;
   className?: string;
 }
 
 /** "Was this from an accident?" band per condition-page-spec §B4, §C:
- * navy rounded card, condition-driven headline/body/smallprint on the left,
+ * navy rounded card, caller-driven headline/body/smallprint on the left,
  * PIPCalculator (ATS-032) on the right. Eyebrow is static — everything else
- * varies per condition via Condition.accident. */
-export function AccidentBanner({ condition, className }: AccidentBannerProps) {
-  const { accident, flags } = condition;
-
+ * varies per caller. Takes the accident fields directly (not a whole
+ * Condition) so both the shared [slug] template and bespoke per-condition
+ * pages (e.g. /conditions/back-pain, ATS-137 full-fidelity pass) can use it
+ * without depending on the Condition schema. */
+export function AccidentBanner({ accident, className }: AccidentBannerProps) {
   return (
     <Section className={className}>
       <Container>
@@ -23,14 +24,6 @@ export function AccidentBanner({ condition, className }: AccidentBannerProps) {
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-center">
             <div className="flex flex-col gap-6">
               <Eyebrow variant="onDark">Was this from an accident?</Eyebrow>
-              {flags.pipStat && (
-                <dl className="flex w-fit flex-col gap-0.5 bg-overlay-white-15 px-4 py-2">
-                  <dt className="font-sans text-stat-label uppercase text-mute-300">
-                    {flags.pipStat.description}
-                  </dt>
-                  <dd className="font-sans text-stat-value text-white">{flags.pipStat.value}</dd>
-                </dl>
-              )}
               <h2 className="font-display text-h2 md:text-understanding-intro text-white">
                 {accident.headline}
               </h2>
