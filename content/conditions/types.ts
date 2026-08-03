@@ -1,4 +1,5 @@
 import type { ComparisonRow } from "@/content/comparison-table";
+import type { VerifiedValue } from "@/content/verified-value";
 
 /** Shared default for `accident.smallprint` — every condition currently
  * uses this exact wording; keep it exported so a future compliance edit
@@ -131,8 +132,9 @@ export interface ConditionFlags {
    * auto-accident page only (Hero's `stat` prop) — value + the full
    * descriptive sentence per the Figma hero, e.g. "$10,000" / "in PIP
    * coverage available with an Emergency Medical Condition determination —
-   * $2,500 without one". */
-  pipStat?: { value: string; description: string };
+   * $2,500 without one". ATS-E4 (4.5): a specific dollar-figure insurance
+   * claim — gated, renders only once verified. */
+  pipStat?: VerifiedValue<{ value: string; description: string }>;
 }
 
 export interface Condition {

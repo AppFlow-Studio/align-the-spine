@@ -44,14 +44,12 @@ export default function HomeVisitsPage() {
         }
         subhead="Full exam and hands-on treatment, wherever you're most comfortable — when it's the right fit for your case and location."
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
-        bilingualNote="¿Habla español? Dr. Abe habla su idioma."
         form={{
           heading: "Check home-visit eligibility",
           submitLabel: leadFormVariants.eligibility.submitLabel,
           variant: leadFormVariants.eligibility.variant,
           fields: leadFormVariants.eligibility.fields,
-          footerNote:
-            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
+          footerNote: "Call us to check availability in your area.",
         }}
       />
 

@@ -25,7 +25,7 @@ export const neckPainHero = {
   eyebrowChip: "Neck pain after a car accident?",
   h1: "Neck Pain Chiropractor in Deerfield Beach, FL",
   subhead:
-    "Evaluation and decompression-focused treatment for sciatic and radiating nerve pain — same-day in most cases, with in-home visits available when it applies to your case.",
+    "Evaluation and decompression-focused treatment for sciatic and radiating nerve pain, with in-home visits available when it applies to your case.",
   backgroundImage: {
     src: "/figma-exports/dr-abe-neck.png",
     alt: "Dr. Abe Nasser examining a patient's neck",

@@ -30,7 +30,7 @@ export const backPainHero = {
   eyebrowChip: "Back pain after a car accident?",
   h1: "Back pain Chiropractor in Deerfield Beach, FL",
   subhead:
-    "Evaluation and decompression-focused treatment for sciatic and radiating nerve pain — same-day in most cases, with in-home visits available when it applies to your case.",
+    "Evaluation and decompression-focused treatment for sciatic and radiating nerve pain, with in-home visits available when it applies to your case.",
   backgroundImage: {
     src: "/figma-exports/drabe-backpain-front.png",
     alt: "Hands-on lower-back soft-tissue treatment",

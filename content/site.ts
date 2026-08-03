@@ -1,3 +1,5 @@
+import { unverified, type VerifiedValue } from "@/content/verified-value";
+
 export interface Address {
   line1: string;
   suite: string;
@@ -47,8 +49,12 @@ export interface SiteConfig {
      * Business Profile listing if precision ever matters (e.g. a map embed). */
     geo: Geo;
   };
-  hours: DayHours[];
-  hoursNote: string;
+  /** ATS-E4 (4.2): the previous hardcoded 9am–7pm daily hours conflicted
+   * with the legacy Home/Contact pages and third-party listings — there's
+   * no single confirmed source of truth yet. Unverified until the client
+   * approves real hours; LocationFooter shows "Call to confirm" and the
+   * LocalBusiness JSON-LD omits openingHoursSpecification meanwhile. */
+  hours: VerifiedValue<DayHours[]>;
   nav: NavLink[];
   bookingCta: NavLink;
   footer: {
@@ -56,20 +62,22 @@ export interface SiteConfig {
     links: NavLink[];
     copyrightName: string;
   };
-  serviceAreas: string[];
-  social: SocialLink[];
-  stats: Stat[];
+  /** ATS-E4 (4.6): home-visit coverage area — was asserted as fixed fact
+   * (6 named cities) with no confirmation it's actually accurate/current.
+   * Gated until approved; ServiceAreas renders nothing meanwhile. */
+  serviceAreas: VerifiedValue<string[]>;
+  /** ATS-E4 (4.8): no real social URLs exist yet (both were "#"
+   * placeholders). Nothing currently renders this field, but it's typed
+   * as gated so a future renderer can't accidentally ship placeholder
+   * links. */
+  social: VerifiedValue<SocialLink[]>;
+  /** ATS-E4 (4.3/4.4/4.5/4.7): the "Reviews 152 / Visits Same-day / When it
+   * applies Home visits / Bilingual care EN/ES / Insurance $0 with PIP"
+   * stat row was five unverified claims in one array — review count,
+   * same-day availability, and $0/PIP insurance billing all need client
+   * approval; TopStatsBar/StatChipRow render nothing until this is set. */
+  stats: VerifiedValue<Stat[]>;
 }
-
-const businessHours: DayHours[] = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
-].map((day) => ({ day: day as DayHours["day"], open: "9:00 AM", close: "7:00 PM" }));
 
 /** True only for actual Vercel production deploys. Local dev, CI, and
  * Vercel preview builds are all treated as non-production so metadata/
@@ -95,8 +103,7 @@ export const siteConfig: SiteConfig = {
     },
     geo: { latitude: 26.3061477, longitude: -80.0940209 },
   },
-  hours: businessHours,
-  hoursNote: "Priority for emergency cases",
+  hours: unverified<DayHours[]>(),
   nav: [
     { label: "Services", href: "/services" },
     { label: "About", href: "/about" },
@@ -115,23 +122,7 @@ export const siteConfig: SiteConfig = {
     ],
     copyrightName: "Align the Spine Chiropractic",
   },
-  serviceAreas: [
-    "Deerfield Beach",
-    "Boca Raton",
-    "Boynton Beach",
-    "Fort Lauderdale",
-    "Aventura",
-    "North Miami",
-  ],
-  social: [
-    { platform: "Facebook", url: "#" },
-    { platform: "Instagram", url: "#" },
-  ],
-  stats: [
-    { label: "Reviews", value: "152" },
-    { label: "Visits", value: "Same-day" },
-    { label: "When it applies", value: "Home visits" },
-    { label: "Bilingual care", value: "EN/ES" },
-    { label: "Insurance", value: "$0 with PIP" },
-  ],
+  serviceAreas: unverified<string[]>(),
+  social: unverified<SocialLink[]>(),
+  stats: unverified<Stat[]>(),
 };

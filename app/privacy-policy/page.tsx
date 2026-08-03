@@ -26,8 +26,8 @@ export default function PrivacyPolicyPage() {
           -516px/no sub-tier, which didn't actually match Hero's real
           (measured) values, so the block was pulled up too far: the H1 sat
           under the fixed Navbar and a sliver of TopStatsBar's last stat
-          ("INSURANCE / $0 with PIP") leaked out below the navy block at
-          ~400-639px widths. Recompute (real-browser measurement, not
+          leaked out below the navy block at ~400-639px widths. Recompute
+          (real-browser measurement, not
           guessed) if TopStatsBar's height changes. */}
       <div className="-mt-[460px] bg-navy-900 pb-16 pt-[340px] min-[400px]:-mt-[392px] min-[400px]:pt-[280px] sm:-mt-[304px] md:-mt-[240px] md:pt-[220px] lg:-mt-[176px] lg:pt-[260px]">
         <div className="container">

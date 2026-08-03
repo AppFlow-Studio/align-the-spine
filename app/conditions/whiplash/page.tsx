@@ -38,9 +38,9 @@ import {
   whiplashSymptoms,
   whiplashWarning,
 } from "@/content/whiplash-page";
-import { buildMetadata } from "@/lib/seo/metadata";
+import { buildRouteMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = buildMetadata(getRoute("/conditions/whiplash"));
+export const metadata: Metadata = buildRouteMetadata(getRoute("/conditions/whiplash"));
 
 const whiplashTypes = [
   {
@@ -112,14 +112,12 @@ export default function WhiplashPage() {
         title={whiplashHero.h1}
         subhead={whiplashHero.subhead}
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
-        bilingualNote="¿Habla español? Dr. Abe habla su idioma."
         form={{
           heading: "Schedule Your Evaluation",
           submitLabel: leadFormVariants.heroEval.submitLabel,
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,
-          footerNote:
-            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
+          footerNote: "Call us to check availability in your area.",
         }}
       />
 

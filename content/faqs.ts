@@ -4,32 +4,38 @@ export interface FAQ {
 }
 
 /** "Before you call / Quick answers" block on /book (ATS-100), per the
- * Book-appt artboard: walk-ins, PIP coverage, home-visit travel. */
+ * Book-appt artboard: walk-ins, PIP coverage, home-visit travel.
+ * ATS-E4 (4.4/4.5/4.6): answers previously asserted same-day availability,
+ * a $0-out-of-pocket PIP claim, and a fixed multi-city service area as
+ * fact with no client approval — reworded to point to a call instead of
+ * asserting those specifics. */
 export const bookFaqs: FAQ[] = [
   {
     question: "Do you take walk-ins or same-day appointments?",
     answer:
-      "We recommend booking ahead so we can hold time for a full exam, but we keep same-day slots open for urgent cases — call the office and we'll fit you in when we can.",
+      "We recommend booking ahead so we can hold time for a full exam — call the office and we'll do our best to find a time that works for you.",
   },
   {
     question: "How does PIP coverage work for my visit?",
     answer:
-      "Florida PIP covers care after an auto accident when treatment begins within 14 days, and it often reduces your out-of-pocket cost to $0. Bring your claim number if you have one and we'll verify your coverage before your first visit.",
+      "Florida PIP can cover care after an auto accident when treatment begins within 14 days. Call us and we'll walk through your coverage and what to expect before your first visit.",
   },
   {
     question: "How far do you travel for home visits?",
     answer:
-      "We serve Deerfield Beach, Boca Raton, Fort Lauderdale, and the surrounding South Florida communities. If you're nearby but not sure you're in range, call us — we'll let you know right away.",
+      "Home visits are offered based on your case and location. Call us and we'll let you know if you're in range.",
   },
 ];
 
 /** "Everything you need to know about home visits" block on /home-visits
- * (ATS-110), per the Home-visits-v2 artboard. */
+ * (ATS-110), per the Home-visits-v2 artboard. ATS-E4 (4.5/4.6): see
+ * bookFaqs' note — the same $0/PIP billing and fixed-city claims were
+ * reworded here too. */
 export const homeVisitFaqs: FAQ[] = [
   {
     question: "Is there an extra fee for a home visit?",
     answer:
-      "For PIP/accident cases, home visits are typically billed the same as an office visit — in most cases $0 out-of-pocket. For non-accident cases, ask when you call; it depends on distance and scheduling.",
+      "Cost depends on your case and whether it's accident-related. Call us and we'll walk through pricing before you book.",
   },
   {
     question: "What should I do to prepare?",
@@ -39,7 +45,7 @@ export const homeVisitFaqs: FAQ[] = [
   {
     question: "What areas do you cover?",
     answer:
-      "Deerfield Beach, Boca Raton, Boynton Beach, Fort Lauderdale, Aventura, and North Miami. If you're nearby but not sure you're in range, call us and we'll let you know right away.",
+      "Home visits are offered based on your case and location. Call us and we'll let you know if you're in range.",
   },
   {
     question: "How is this different from a regular chiropractic visit?",
@@ -48,11 +54,15 @@ export const homeVisitFaqs: FAQ[] = [
   },
 ];
 
+/** ATS-E4 (4.4/4.5): "Do you accept insurance?", "walk-in" and "home
+ * visits" answers previously asserted most-major-insurance/$0-PIP,
+ * same-day, and guaranteed home-visit availability as fact — reworded to
+ * point to a call instead. */
 export const faqs: FAQ[] = [
   {
     question: "Do you accept insurance?",
     answer:
-      "Yes — we work with most major insurance providers, and if you were in an auto accident, PIP coverage often reduces your out-of-pocket cost to $0. Call us and we'll verify your benefits before your first visit.",
+      "Call us and we'll walk through your coverage and payment options before your first visit.",
   },
   {
     question: "What should I expect at my first visit?",
@@ -62,7 +72,7 @@ export const faqs: FAQ[] = [
   {
     question: "Do I need an appointment, or can I walk in?",
     answer:
-      "We recommend booking ahead so we can hold time for a full exam, but we keep same-day slots open for urgent cases — call the office and we'll fit you in when we can.",
+      "We recommend booking ahead so we can hold time for a full exam — call the office and we'll do our best to find a time that works for you.",
   },
   {
     question: "I was just in a car accident. How soon should I come in?",
@@ -77,7 +87,7 @@ export const faqs: FAQ[] = [
   {
     question: "Do you offer home visits?",
     answer:
-      "Yes, home visits are available when it applies — ask our team when you call and we'll let you know if it's a fit for your situation.",
+      "Home visits may be available depending on your case. Call us and we'll let you know if it's a fit for your situation.",
   },
 ];
 
@@ -90,37 +100,6 @@ export interface PageFaqs {
 export const faqsByPage = {
   home: {
     tail: "your spine health",
-    items: [
-      {
-        question: "Do you accept insurance?",
-        answer:
-          "Yes — we work with most major insurance providers, and if you were in an auto accident, PIP coverage often reduces your out-of-pocket cost to $0. Call us and we'll verify your benefits before your first visit.",
-      },
-      {
-        question: "What should I expect at my first visit?",
-        answer:
-          "Your first visit includes a full consultation, a hands-on exam, and — if needed — imaging to pinpoint the cause of your pain. We'll walk you through a treatment plan before any adjustment begins.",
-      },
-      {
-        question: "Do I need an appointment, or can I walk in?",
-        answer:
-          "We recommend booking ahead so we can hold time for a full exam, but we keep same-day slots open for urgent cases — call the office and we'll fit you in when we can.",
-      },
-      {
-        question: "I was just in a car accident. How soon should I come in?",
-        answer:
-          "As soon as possible, even if you feel fine. Whiplash and soft-tissue injuries often don't show symptoms for days. Early evaluation also creates the documentation your PIP claim needs.",
-      },
-      {
-        question: "How many visits will I need?",
-        answer:
-          "It depends on the injury and how long you've had it. Many patients feel relief within a few visits, while more complex or long-standing issues may need several weeks of care. We'll reassess and adjust the plan as you progress.",
-      },
-      {
-        question: "Do you offer home visits?",
-        answer:
-          "Yes, home visits are available when it applies — ask our team when you call and we'll let you know if it's a fit for your situation.",
-      },
-    ],
+    items: faqs,
   },
 } satisfies Record<string, PageFaqs>;

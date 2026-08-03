@@ -34,11 +34,10 @@ export default function AboutPage() {
           src: "/figma-exports/dr-abe-neck.png",
           alt: "Dr. Abe Nasser treating a patient's neck",
         }}
-        eyebrow="The doctor South Florida refers accident patients to"
+        eyebrow="Meet Dr. Abe Nasser"
         title="Comprehensive care, tailored to you"
         subhead="From routine adjustments to specialized recovery care — same doctor, every visit, at the office or your home when it applies."
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
-        bilingualNote="¿Habla español? Dr. Abe habla su idioma."
       />
       <DoctorProfile
         variant="long"

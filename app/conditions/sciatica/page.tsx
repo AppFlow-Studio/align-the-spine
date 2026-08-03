@@ -37,9 +37,9 @@ import {
 import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
-import { buildMetadata } from "@/lib/seo/metadata";
+import { buildRouteMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = buildMetadata(getRoute("/conditions/sciatica"));
+export const metadata: Metadata = buildRouteMetadata(getRoute("/conditions/sciatica"));
 
 const sciaticaTypes = [
   {
@@ -107,14 +107,12 @@ export default function SciaticaPage() {
         title={sciaticaHero.h1}
         subhead={sciaticaHero.subhead}
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
-        bilingualNote="¿Habla español? Dr. Abe habla su idioma."
         form={{
           heading: "Schedule Your Evaluation",
           submitLabel: leadFormVariants.heroEval.submitLabel,
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,
-          footerNote:
-            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
+          footerNote: "Call us to check availability in your area.",
         }}
       />
 
@@ -128,9 +126,9 @@ export default function SciaticaPage() {
               Sciatica isn&apos;t a condition on its own — it&apos;s a symptom of nerve pressure
             </h2>
             <p className="max-w-md font-sans text-body-lg text-ink-500">
-              Sciatica after a car accident is billed directly to PIP — Dr. Abe Nasser uses a full
-              evaluation to pinpoint the source of nerve compression and build a plan to relieve
-              your leg pain. Sciatica itself is often caused by a{" "}
+              Sciatica after a car accident may qualify for Florida PIP coverage — Dr. Abe Nasser
+              uses a full evaluation to pinpoint the source of nerve compression and build a plan to
+              relieve your leg pain. Sciatica itself is often caused by a{" "}
               <Link href="/services#spinal-decompression" className="underline">
                 herniated disc
               </Link>{" "}

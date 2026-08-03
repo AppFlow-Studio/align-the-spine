@@ -52,61 +52,66 @@ export function HeroReviewsCarousel({ testimonials }: HeroReviewsCarouselProps) 
 
       <div className="container">
         <div className="bg-white py-18">
-          <div className="flex items-center justify-between gap-4 border-b border-mute-300 pb-6">
-            <div className="relative min-w-0 flex-1 overflow-hidden">
-              <div
-                className="flex transition-transform duration-500 ease-in-out"
-                style={{
-                  width: `${testimonials.length * 100}%`,
-                  transform: `translateX(-${index * (100 / testimonials.length)}%)`,
-                }}
-              >
-                {testimonials.map((testimonial, i) => (
-                  <div
-                    key={i}
-                    className="flex shrink-0 flex-col gap-2 pr-4 sm:flex-row sm:items-center sm:gap-3"
-                    style={{ width: `${100 / testimonials.length}%` }}
-                  >
-                    <span className="inline-flex shrink-0 gap-1" aria-hidden="true">
-                      {Array.from({ length: 5 }, (_, s) => (
-                        <StarIcon key={s} className="h-4 w-4 text-[#EFBD3F]" />
-                      ))}
-                    </span>
-                    <p className="min-w-0 font-sans text-card-body text-ink-900">
-                      &ldquo;{testimonial.quote}&rdquo;
-                    </p>
-                    <span className="shrink-0 font-sans text-stat-label uppercase text-mute-400 sm:ml-auto">
-                      –{testimonial.author}
-                    </span>
-                  </div>
-                ))}
+          {/* ATS-E4 (4.11): omitted entirely when there are no real,
+           * client-approved testimonials — an empty bordered row with
+           * nothing in it read as a layout bug, not "nothing to show yet". */}
+          {testimonials.length > 0 && (
+            <div className="flex items-center justify-between gap-4 border-b border-mute-300 pb-6">
+              <div className="relative min-w-0 flex-1 overflow-hidden">
+                <div
+                  className="flex transition-transform duration-500 ease-in-out"
+                  style={{
+                    width: `${testimonials.length * 100}%`,
+                    transform: `translateX(-${index * (100 / testimonials.length)}%)`,
+                  }}
+                >
+                  {testimonials.map((testimonial, i) => (
+                    <div
+                      key={i}
+                      className="flex shrink-0 flex-col gap-2 pr-4 sm:flex-row sm:items-center sm:gap-3"
+                      style={{ width: `${100 / testimonials.length}%` }}
+                    >
+                      <span className="inline-flex shrink-0 gap-1" aria-hidden="true">
+                        {Array.from({ length: 5 }, (_, s) => (
+                          <StarIcon key={s} className="h-4 w-4 text-[#EFBD3F]" />
+                        ))}
+                      </span>
+                      <p className="min-w-0 font-sans text-card-body text-ink-900">
+                        &ldquo;{testimonial.quote}&rdquo;
+                      </p>
+                      <span className="shrink-0 font-sans text-stat-label uppercase text-mute-400 sm:ml-auto">
+                        –{testimonial.author}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
 
-            {testimonials.length > 1 && (
-              <div
-                className="flex shrink-0 items-center gap-1.5"
-                role="tablist"
-                aria-label="Featured reviews"
-              >
-                {testimonials.map((_, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    role="tab"
-                    aria-selected={i === index}
-                    aria-label={`Show review ${i + 1}`}
-                    onClick={() => setIndex(i)}
-                    className={cn(
-                      "h-1.5 w-1.5 rounded-full transition-colors",
-                      "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500",
-                      i === index ? "bg-navy-900" : "bg-mute-300",
-                    )}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
+              {testimonials.length > 1 && (
+                <div
+                  className="flex shrink-0 items-center gap-1.5"
+                  role="tablist"
+                  aria-label="Featured reviews"
+                >
+                  {testimonials.map((_, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      role="tab"
+                      aria-selected={i === index}
+                      aria-label={`Show review ${i + 1}`}
+                      onClick={() => setIndex(i)}
+                      className={cn(
+                        "h-1.5 w-1.5 rounded-full transition-colors",
+                        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500",
+                        i === index ? "bg-navy-900" : "bg-mute-300",
+                      )}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
 
           <TopStatsBar className="pt-6" />
         </div>

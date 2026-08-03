@@ -9,8 +9,7 @@ export const autoAccidentSteps: HowWeHelpStep[] = [
     image: "/figma-exports/home-visits-step-call.png",
     alt: "Phone showing an incoming call",
     title: "Call or request online",
-    description:
-      "Tell us what happened. Most requests get a same-day answer, no call center, no hold music.",
+    description: "Tell us what happened. No call center, no hold music.",
   },
   {
     image: "/figma-exports/home-visits-step-eligibility.png",
@@ -23,8 +22,7 @@ export const autoAccidentSteps: HowWeHelpStep[] = [
     image: "/figma-exports/home-visits-step-visit.png",
     alt: "Notebook and pen ready for a treatment plan",
     title: "Your plan, fully handled",
-    description:
-      "Treatment tied to your case — billed directly to PIP, with your attorney or insurer coordinated for you.",
+    description: "Treatment tied to your case — your attorney or insurer coordinated for you.",
   },
 ];
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { isPublished, type RouteMeta } from "@/content/seo";
 import { isProduction, siteConfig } from "@/content/site";
 
 export interface BuildMetadataInput {
@@ -55,4 +56,20 @@ export function buildMetadata({
     },
     ...(effectiveRobots ? { robots: effectiveRobots } : {}),
   };
+}
+
+/** ATS-E4 (4.12/4.14): wraps buildMetadata() for a content/seo.ts route
+ * entry, forcing noindex whenever the route isn't `status: "published"` —
+ * on top of (not instead of) buildMetadata's own outside-production
+ * noindex gate. Use this instead of `buildMetadata(getRoute(path))`
+ * directly for any route that can be draft (currently the 4 condition
+ * pages, pending clinician review). */
+export function buildRouteMetadata(route: RouteMeta): Metadata {
+  return buildMetadata({
+    title: route.title,
+    description: route.description,
+    path: route.path,
+    image: route.image,
+    robots: isPublished(route) ? undefined : { index: false, follow: false },
+  });
 }

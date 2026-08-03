@@ -1,5 +1,6 @@
 import { autoAccidentComparisonRows, comparisonTableRows } from "@/content/comparison-table";
 import { DEFAULT_ACCIDENT_SMALLPRINT, type Condition } from "@/content/conditions/types";
+import { unverified } from "@/content/verified-value";
 
 /** Auto Accident condition content per condition-page-spec §B, §C. The
  * accident-variant flags below (extra comparison rows, $10k Florida PIP
@@ -16,7 +17,7 @@ export const autoAccidentCondition: Condition = {
     eyebrowChip: "AUTO ACCIDENT CHIROPRACTOR IN DEERFIELD BEACH, FL",
     h1: "Injured in an Accident?",
     subhead:
-      "Complete chiropractic care — full exam, treatment, and documentation for your claim. Covered entirely by Florida PIP insurance. In-home visits available across South Florida when it's the right fit for your case.",
+      "Complete chiropractic care — full exam, treatment, and documentation for your claim. See your Florida PIP window below. In-home visits available when it's the right fit for your case.",
     backgroundImage: {
       src: "/figma-exports/interior-corridor.png",
       alt: "Align the Spine reception hallway",
@@ -67,7 +68,7 @@ export const autoAccidentCondition: Condition = {
       },
       {
         q: "Will this cost me anything out of pocket?",
-        a: "In most PIP-covered cases, your evaluation and treatment are billed directly to your auto insurance — typically $0 out-of-pocket. We'll verify your coverage before your first visit.",
+        a: "It depends on your coverage and the specifics of your case. Call us and we'll walk through what to expect before your first visit.",
       },
       {
         q: "Do I need a police report or an attorney to be seen?",
@@ -111,10 +112,8 @@ export const autoAccidentCondition: Condition = {
   flags: {
     isAccidentVariant: true,
     extraComparisonRows: true,
-    pipStat: {
-      value: "$10,000",
-      description:
-        "in PIP coverage available with an Emergency Medical Condition determination — $2,500 without one",
-    },
+    // ATS-E4 (4.5): specific PIP coverage dollar figures — unverified,
+    // Hero's `stat` callout renders nothing until this is approved.
+    pipStat: unverified(),
   },
 };

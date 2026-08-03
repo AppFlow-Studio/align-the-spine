@@ -1,8 +1,9 @@
 import { siteConfig } from "@/content/site";
+import { isVerified } from "@/content/verified-value";
 
 /** "9:00 AM" / "7:00 PM" -> "09:00" / "19:00", per schema.org's
  * openingHoursSpecification time format. */
-function to24Hour(time: string): string {
+export function to24Hour(time: string): string {
   const [, hourStr, minute, meridiem] = time.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i) ?? [];
   let hour = Number(hourStr) % 12;
   if (meridiem?.toUpperCase() === "PM") hour += 12;
@@ -11,7 +12,10 @@ function to24Hour(time: string): string {
 
 /** LocalBusiness/MedicalClinic JSON-LD for the practice, per ATS-131 scope
  * (name, address, phone, hours, geo). Static — the business data it's
- * built from (content/site.ts) doesn't vary by page. */
+ * built from (content/site.ts) doesn't vary by page. ATS-E4 (4.2/4.6):
+ * openingHoursSpecification and areaServed are both unverified claims —
+ * omitted from the schema entirely (rather than asserted) until
+ * content/site.ts's `hours`/`serviceAreas` are marked verified. */
 export const localBusinessJsonLd = {
   "@context": "https://schema.org",
   "@type": ["MedicalClinic", "LocalBusiness"],
@@ -33,11 +37,15 @@ export const localBusinessJsonLd = {
     latitude: siteConfig.business.geo.latitude,
     longitude: siteConfig.business.geo.longitude,
   },
-  openingHoursSpecification: siteConfig.hours.map((hours) => ({
-    "@type": "OpeningHoursSpecification",
-    dayOfWeek: hours.day,
-    opens: to24Hour(hours.open),
-    closes: to24Hour(hours.close),
-  })),
-  areaServed: siteConfig.serviceAreas.map((city) => ({ "@type": "City", name: city })),
+  ...(isVerified(siteConfig.hours) && {
+    openingHoursSpecification: siteConfig.hours.value.map((hours) => ({
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: hours.day,
+      opens: to24Hour(hours.open),
+      closes: to24Hour(hours.close),
+    })),
+  }),
+  ...(isVerified(siteConfig.serviceAreas) && {
+    areaServed: siteConfig.serviceAreas.value.map((city) => ({ "@type": "City", name: city })),
+  }),
 };

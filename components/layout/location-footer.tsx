@@ -3,8 +3,8 @@
 import Link from "next/link";
 
 import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
-import { InfoIcon } from "@/components/ui/icons/info";
 import { siteConfig } from "@/content/site";
+import { isVerified } from "@/content/verified-value";
 import { cn } from "@/lib/cn";
 
 function buildMapEmbedSrc(): string {
@@ -47,39 +47,42 @@ export function LocationFooter() {
             <div className="mt-2 h-px w-full bg-mute-300" />
           </div>
 
-          <table className="w-full font-alt text-footer-copy">
-            <tbody>
-              {siteConfig.hours.map((hours) => {
-                const isToday = hours.day === today;
-                return (
-                  <tr key={hours.day} className="border-t border-gray-200 first:border-t-0">
-                    <th
-                      scope="row"
-                      className={cn(
-                        "py-2 text-left font-normal text-navy-900",
-                        isToday && "text-teal-500",
-                      )}
-                    >
-                      {hours.day}
-                    </th>
-                    <td
-                      className={cn(
-                        "py-2 text-right font-bold text-navy-900",
-                        isToday && "text-teal-500",
-                      )}
-                    >
-                      {hours.open} – {hours.close}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-
-          <p className="flex items-center gap-2 font-alt text-footer-copy text-mute-400">
-            <InfoIcon className="h-4 w-4 shrink-0" />
-            {siteConfig.hoursNote}
-          </p>
+          {isVerified(siteConfig.hours) ? (
+            <table className="w-full font-alt text-footer-copy">
+              <tbody>
+                {siteConfig.hours.value.map((hours) => {
+                  const isToday = hours.day === today;
+                  return (
+                    <tr key={hours.day} className="border-t border-gray-200 first:border-t-0">
+                      <th
+                        scope="row"
+                        className={cn(
+                          "py-2 text-left font-normal text-navy-900",
+                          isToday && "text-teal-500",
+                        )}
+                      >
+                        {hours.day}
+                      </th>
+                      <td
+                        className={cn(
+                          "py-2 text-right font-bold text-navy-900",
+                          isToday && "text-teal-500",
+                        )}
+                      >
+                        {hours.open} – {hours.close}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          ) : (
+            // ATS-E4 (4.2): hours aren't confirmed yet — show a neutral
+            // call-to-confirm instead of asserting unverified daily hours.
+            <p className="font-alt text-footer-copy text-mute-400">
+              Call {siteConfig.business.phone} to confirm today&apos;s hours.
+            </p>
+          )}
 
           <div className=" gap-4 pt-4 sm:flex-row sm:items-center">
             <Link

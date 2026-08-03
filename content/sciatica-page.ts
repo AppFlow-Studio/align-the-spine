@@ -26,7 +26,7 @@ export const sciaticaHero = {
   eyebrowChip: "Sciatica or nerve pain radiating down?",
   h1: "Sciatica Chiropractor in Deerfield Beach, FL",
   subhead:
-    "Evaluation and decompression-focused treatment for sciatic and radiating nerve pain — same-day in most cases, with in-home visits available when it applies to your case.",
+    "Evaluation and decompression-focused treatment for sciatic and radiating nerve pain, with in-home visits available when it applies to your case.",
   backgroundImage: {
     src: "/figma-exports/drabe-backpain-front.png",
     alt: "Hands-on lower-back soft-tissue treatment",
