@@ -13,20 +13,12 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { homeVisitFaqs } from "@/content/faqs";
 import { homeVisitFitChecklist, homeVisitSteps } from "@/content/home-visits";
 import { leadFormVariants } from "@/content/lead-forms";
+import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { featuredTestimonial } from "@/content/testimonials";
 import { buildMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = buildMetadata({
-  title: `Home Visit Chiropractor in Deerfield Beach, FL | ${siteConfig.business.name}`,
-  description:
-    "Full chiropractic exams and treatment at your address when it fits your case and location. Check your home-visit eligibility online or call (954) 573-7192.",
-  path: "/home-visits",
-  image: {
-    src: "/figma-exports/home-visits-hero.png",
-    alt: "Dr. Abe Nasser setting up a treatment table in a patient's living room",
-  },
-});
+export const metadata: Metadata = buildMetadata(getRoute("/home-visits"));
 
 /** /home-visits page assembly (ATS-110) per the Home-visits-v2 artboard
  * (96:1950): condition hero with the eligibility LeadForm, ServiceAreas +

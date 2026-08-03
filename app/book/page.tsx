@@ -9,19 +9,11 @@ import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { bookFaqs } from "@/content/faqs";
+import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { buildMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = buildMetadata({
-  title: `Book an Appointment | ${siteConfig.business.name}`,
-  description:
-    "Schedule your chiropractic evaluation in Deerfield Beach or at your home. Same-day slots available for urgent cases — book online or call (954) 573-7192.",
-  path: "/book",
-  image: {
-    src: "/figma-exports/phone-mockup.png",
-    alt: "Patient calling Align the Spine to book an appointment",
-  },
-});
+export const metadata: Metadata = buildMetadata(getRoute("/book"));
 
 /** /book page assembly (ATS-100) per the Book-appt artboard (96:22): dark
  * booking hero with the two-step BookingForm, LocationIntro + LocationFooter

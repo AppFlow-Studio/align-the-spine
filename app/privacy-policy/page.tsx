@@ -4,15 +4,10 @@ import { OnThisPageNav } from "@/components/layout/on-this-page-nav";
 import { LegalContent } from "@/components/sections/legal-content";
 import { Section } from "@/components/ui/section";
 import { privacyPolicyEffectiveDate, privacyPolicySections } from "@/content/legal/privacy-policy";
-import { siteConfig } from "@/content/site";
+import { getRoute } from "@/content/seo";
 import { buildMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = buildMetadata({
-  title: `Privacy Policy | ${siteConfig.business.name}`,
-  description:
-    "How Align the Spine Chiropractic collects, uses, and protects your information, including HIPAA-protected health information.",
-  path: "/privacy-policy",
-});
+export const metadata: Metadata = buildMetadata(getRoute("/privacy-policy"));
 
 /** /privacy-policy page assembly (ATS-120) per the privacy-policy artboard
  * (96:2098): navy header (title + effective date), then a sticky
