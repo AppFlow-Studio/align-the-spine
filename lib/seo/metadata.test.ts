@@ -74,6 +74,17 @@ describe("buildMetadata production gating", () => {
     expect(metadata.robots).toEqual({ index: false, follow: false });
   });
 
+  it("clobbers permissive robots overrides in non-production", () => {
+    vi.stubEnv("VERCEL_ENV", "preview");
+    const metadata = buildMetadata({
+      title: "Title",
+      description: "Description",
+      path: "/about",
+      robots: { index: true, follow: true },
+    });
+    expect(metadata.robots).toEqual({ index: false, follow: false });
+  });
+
   it("respects the caller's robots value in production", () => {
     vi.stubEnv("VERCEL_ENV", "production");
     const metadata = buildMetadata({
