@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 
 import { Container } from "@/components/ui/container";
@@ -8,7 +9,9 @@ import { cn } from "@/lib/cn";
 
 export interface TypeCategoryItem {
   name: string;
-  description: string;
+  /** ReactNode, not string — some conditions' descriptions carry their own
+   * inline links (e.g. sciatica's "Herniated disc" item). */
+  description: ReactNode;
   /** Renders as a bordered, left-accented callout with a trailing arrow
    * instead of plain stacked text — matches the Figma "Cervical herniated
    * disc" treatment on neck-pain. */
@@ -16,7 +19,9 @@ export interface TypeCategoryItem {
 }
 
 export interface TypeCategory {
-  label: string;
+  /** Omit for a flat, ungrouped Types list (e.g. sciatica's "Types" has no
+   * "From an accident"/"Everyday causes" subheadings, unlike neck-pain's). */
+  label?: string;
   items: TypeCategoryItem[];
 }
 
@@ -77,15 +82,20 @@ export function CausesAndTypes({
 
         <div className="flex flex-col gap-10">
           <h2 className="font-display text-h2 text-navy-900">{typesHeading}</h2>
-          {categories.map((category) => (
-            <div key={category.label} className="flex flex-col gap-6 border-t border-mute-300 pt-6">
-              <h3 className="font-display text-type-name text-navy-900">{category.label}</h3>
+          {categories.map((category, index) => (
+            <div
+              key={category.label ?? index}
+              className="flex flex-col gap-6 border-t border-mute-300 pt-6"
+            >
+              {category.label && (
+                <h3 className="font-display text-type-name text-navy-900">{category.label}</h3>
+              )}
               <div className="flex flex-col">
                 {category.items.map((item) =>
                   item.highlighted ? (
                     <div
                       key={item.name}
-                      className="flex items-center gap-4 border-y border-mute-300 bg-overlay-teal-12 py-6 pl-6"
+                      className="flex items-center gap-4 border-y border-l-4 border-mute-300 border-l-teal-500 bg-overlay-teal-12 py-6 pl-6"
                     >
                       <div className="flex flex-1 flex-col gap-2">
                         <h4 className="font-sans text-type-name text-navy-900 underline decoration-navy-900 underline-offset-4">

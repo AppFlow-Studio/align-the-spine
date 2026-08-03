@@ -4,13 +4,12 @@ import { conditionsBySlug } from "@/content/conditions";
 import { routes } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 
-/** Real (non-build-time) lastModified dates for the two remaining
- * conditions still served by the generic /conditions/[slug] template (see
- * content/conditions/index.ts). Bump the date here by hand when either
- * condition's content changes — content/seo.ts covers every other route. */
+/** Real (non-build-time) lastModified date for the one remaining condition
+ * still served by the generic /conditions/[slug] template (see
+ * content/conditions/index.ts). Bump the date here by hand when its
+ * content changes — content/seo.ts covers every other route. */
 const dynamicConditionLastModified: Record<string, string> = {
   whiplash: "2026-07-29",
-  sciatica: "2026-07-29",
 };
 
 export function lastModifiedFor(slug: string): string {

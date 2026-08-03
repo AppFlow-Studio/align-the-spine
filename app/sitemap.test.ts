@@ -18,12 +18,10 @@ describe("sitemap", () => {
     expect(paths).not.toContain("/auto-accident");
   });
 
-  it("includes the dynamic /conditions/whiplash and /conditions/sciatica routes with real, non-build-time dates", () => {
+  it("includes the dynamic /conditions/whiplash route with a real, non-build-time date", () => {
     const entries = sitemap();
     const whiplash = entries.find((entry) => entry.url.endsWith("/conditions/whiplash"));
-    const sciatica = entries.find((entry) => entry.url.endsWith("/conditions/sciatica"));
     expect(whiplash?.lastModified).toBe("2026-07-29");
-    expect(sciatica?.lastModified).toBe("2026-07-29");
   });
 
   it("gives every entry a truthy lastModified", () => {
@@ -35,10 +33,7 @@ describe("sitemap", () => {
   it("includes every static route from the registry exactly once", () => {
     const paths = sitemap()
       .map((entry) => entry.url.replace(siteConfig.siteUrl, ""))
-      .filter(
-        (path) =>
-          !path.startsWith("/conditions/whiplash") && !path.startsWith("/conditions/sciatica"),
-      );
+      .filter((path) => !path.startsWith("/conditions/whiplash"));
     expect(paths).toEqual(routes.map((route) => route.path));
   });
 
