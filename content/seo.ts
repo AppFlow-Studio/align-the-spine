@@ -4,6 +4,7 @@ import { backPainHero } from "@/content/back-pain-page";
 import { neckPainHero } from "@/content/neck-pain-page";
 import { sciaticaHero } from "@/content/sciatica-page";
 import { siteConfig } from "@/content/site";
+import { whiplashHero } from "@/content/whiplash-page";
 
 export interface RouteMeta {
   /** Route path from the site root, e.g. "/services". "" is the home page. */
@@ -22,11 +23,12 @@ export interface RouteMeta {
 /** Single source of truth for every statically-indexable route: app/sitemap.ts
  * maps straight over this, and each static page's own metadata export pulls
  * its entry by path via getRoute() instead of re-declaring title/description,
- * so the two can't drift apart. The dynamic /conditions/[slug] route
- * (content/conditions/whiplash.ts) isn't listed here; see app/sitemap.ts
- * for how it's appended. /thank-you and /404 are intentionally absent —
- * both are noindex and neither belongs in the sitemap. /auto-accident is
- * absent too — it 308s to /auto-accidents (see next.config.ts). */
+ * so the two can't drift apart. As of ATS-137, every /conditions/* route is
+ * a dedicated static page registered here directly — there's no more
+ * dynamic /conditions/[slug] route. /thank-you and /404 are intentionally
+ * absent — both are noindex and neither belongs in the sitemap.
+ * /auto-accident is absent too — it 308s to /auto-accidents (see
+ * next.config.ts). */
 export const routes: RouteMeta[] = [
   {
     path: "",
@@ -100,6 +102,15 @@ export const routes: RouteMeta[] = [
     title: `${sciaticaHero.h1} | ${siteConfig.business.name}`,
     description: sciaticaHero.subhead,
     image: sciaticaHero.backgroundImage,
+    changeFrequency: "monthly",
+    priority: 0.8,
+    lastModified: "2026-08-03",
+  },
+  {
+    path: "/conditions/whiplash",
+    title: `${whiplashHero.h1} | ${siteConfig.business.name}`,
+    description: whiplashHero.subhead,
+    image: whiplashHero.backgroundImage,
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-08-03",

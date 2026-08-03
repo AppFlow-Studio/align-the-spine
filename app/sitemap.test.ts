@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { routes } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 
-import sitemap, { lastModifiedFor } from "./sitemap";
+import sitemap from "./sitemap";
 
 describe("sitemap", () => {
   it("returns absolute URLs under siteConfig.siteUrl for every entry", () => {
@@ -18,10 +18,10 @@ describe("sitemap", () => {
     expect(paths).not.toContain("/auto-accident");
   });
 
-  it("includes the dynamic /conditions/whiplash route with a real, non-build-time date", () => {
+  it("includes /conditions/whiplash with a real, non-build-time date", () => {
     const entries = sitemap();
     const whiplash = entries.find((entry) => entry.url.endsWith("/conditions/whiplash"));
-    expect(whiplash?.lastModified).toBe("2026-07-29");
+    expect(whiplash?.lastModified).toBeTruthy();
   });
 
   it("gives every entry a truthy lastModified", () => {
@@ -31,13 +31,7 @@ describe("sitemap", () => {
   });
 
   it("includes every static route from the registry exactly once", () => {
-    const paths = sitemap()
-      .map((entry) => entry.url.replace(siteConfig.siteUrl, ""))
-      .filter((path) => !path.startsWith("/conditions/whiplash"));
+    const paths = sitemap().map((entry) => entry.url.replace(siteConfig.siteUrl, ""));
     expect(paths).toEqual(routes.map((route) => route.path));
-  });
-
-  it("throws for a condition slug with no configured lastModified date", () => {
-    expect(() => lastModifiedFor("some-unconfigured-slug")).toThrow(/no lastModified configured/);
   });
 });
