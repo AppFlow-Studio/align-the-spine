@@ -5,12 +5,14 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { CheckIcon } from "@/components/ui/icons/check";
 import { Section } from "@/components/ui/section";
 import { siteConfig } from "@/content/site";
+import { buildMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: `Thank You | ${siteConfig.business.name}`,
   description: "We've received your request and will be in touch shortly.",
+  path: "/thank-you",
   robots: { index: false },
-};
+});
 
 /** Lead-form confirmation page (ATS-031). No Figma design exists for this
  * route — simple branded layout proposed per the ticket. */

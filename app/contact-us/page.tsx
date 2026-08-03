@@ -10,14 +10,12 @@ import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { bookFaqs } from "@/content/faqs";
 import { leadFormVariants } from "@/content/lead-forms";
+import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel } from "@/content/testimonials";
+import { buildMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
-  title: `Contact Us | ${siteConfig.business.name}`,
-  description:
-    "Questions about your visit, insurance, or your claim? Reach Align the Spine Chiropractic directly — no call center, no hold music. Call (954) 573-7192.",
-};
+export const metadata: Metadata = buildMetadata(getRoute("/contact-us"));
 
 /** /contact-us page assembly (ATS-143) per the Figma "contact-us" frame:
  * Hero (condition variant, name/phone/email/message form) →

@@ -19,8 +19,10 @@ import { autoAccidentCondition } from "@/content/conditions/auto-accident";
 import { doctorProfileContent } from "@/content/doctor-profile";
 import { leadFormVariants } from "@/content/lead-forms";
 import { pointToWhereItHurtsContent } from "@/content/point-to-where-it-hurts";
+import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
+import { buildMetadata } from "@/lib/seo/metadata";
 
 /** Code-split (Epic 12): keep these interactive, below-the-fold sections
  * (body-diagram selector; FaqAccordion's Framer Motion) out of the initial
@@ -42,11 +44,7 @@ const faqItems = faq.items.map((item) => ({ question: item.q, answer: item.a }))
 // PIPCalculator further down, matching the underline shown in the Figma hero.
 const [subheadBeforePip, subheadAfterPip] = hero.subhead.split("Florida PIP insurance");
 
-export const metadata: Metadata = {
-  title: `Auto Accident Chiropractor in Deerfield Beach, FL | ${siteConfig.business.name}`,
-  description:
-    "Same-day auto accident evaluations, billed directly to Florida PIP. Full exam, treatment, and documentation for your claim — in-home visits available. Call (954) 573-7192.",
-};
+export const metadata: Metadata = buildMetadata(getRoute("/auto-accidents"));
 
 /** /auto-accidents page assembly (ATS-141) per the Figma "auto-accident"
  * frame (file 4mb4VDHszsaj2KEZzyjOjf): Hero (condition variant, PIP stat
