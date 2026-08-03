@@ -27,6 +27,11 @@ export const autoAccidentSteps: HowWeHelpStep[] = [
 ];
 
 /** Attorney-referral quote strip between the HOW WE HELP steps and the
- * "Ready when you are" CTA band, per the Figma frame. */
+ * "Ready when you are" CTA band, per the Figma frame. ATS-E4 (4.5): the
+ * original copy asserted an unverified attorney-referral claim and a PIP
+ * billing claim ("Attorneys across South Florida refer their clients to
+ * Dr. Abe Nasser because he's one of the few providers doing PIP-covered
+ * home visits.") — neither has client sign-off. Reworded to describe what
+ * we do without the referral/insurance-billing assertions. */
 export const autoAccidentAttorneyQuote =
-  "Attorneys across South Florida refer their clients to Dr. Abe Nasser because he's one of the few providers doing PIP-covered home visits.";
+  "If you're working with an attorney, we're happy to coordinate documentation directly with them for your case.";
