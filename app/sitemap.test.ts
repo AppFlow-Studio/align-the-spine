@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { siteConfig } from "@/content/site";
 
-import sitemap from "./sitemap";
+import sitemap, { lastModifiedFor } from "./sitemap";
 
 describe("sitemap", () => {
   it("returns absolute URLs under siteConfig.siteUrl for every entry", () => {
@@ -36,5 +36,9 @@ describe("sitemap", () => {
     expect(paths).toContain("/services");
     expect(paths).toContain("/auto-accidents");
     expect(paths).toContain("/conditions/back-pain");
+  });
+
+  it("throws for a condition slug with no configured lastModified date", () => {
+    expect(() => lastModifiedFor("some-unconfigured-slug")).toThrow(/no lastModified configured/);
   });
 });

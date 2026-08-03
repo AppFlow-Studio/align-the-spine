@@ -13,7 +13,7 @@ const dynamicConditionLastModified: Record<string, string> = {
   sciatica: "2026-07-29",
 };
 
-function lastModifiedFor(slug: string): string {
+export function lastModifiedFor(slug: string): string {
   const date = dynamicConditionLastModified[slug];
   if (!date) {
     throw new Error(`app/sitemap.ts: no lastModified configured for condition "${slug}"`);
