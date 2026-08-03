@@ -2,30 +2,29 @@ import type { Metadata } from "next";
 
 import { siteConfig } from "@/content/site";
 
-export interface BuildMetadataParams {
+export interface BuildMetadataInput {
+  /** Full page title, e.g. "Book an Appointment | Align the Spine Chiropractic". */
   title: string;
   description: string;
-  /** Route path relative to siteConfig.siteUrl, e.g. "/about" (or "" for
-   * the homepage) — used for the canonical URL and OpenGraph url. */
+  /** Route path from the site root, e.g. "/services". Use "" for the home page. */
   path: string;
-  /** OG image; omitted entirely from the result when not provided (e.g.
-   * /privacy-policy has no representative photo). */
+  /** Social preview image. Omit for routes with no natural hero image (e.g. /privacy-policy) —
+   * OpenGraph/Twitter degrade gracefully to a text-only card. */
   image?: { src: string; alt: string };
-  /** Passed straight through to Next's Metadata (e.g. { index: false } for
-   * /thank-you, /404). */
   robots?: Metadata["robots"];
 }
 
-/** Shared per-page metadata builder: canonical URL + matching OpenGraph
- * title/description/url/image, built from siteConfig.siteUrl + path so
- * every page doesn't hand-roll its own alternates/openGraph block. */
+/** Builds the title/description/canonical/OpenGraph/Twitter metadata shared by every
+ * route (EPIC 12: per-route metadata scaffolding), so each page only supplies its own
+ * copy. Image `src` may be relative — `metadataBase` on the root layout
+ * (app/layout.tsx) resolves it to an absolute URL for OG/Twitter. */
 export function buildMetadata({
   title,
   description,
   path,
   image,
   robots,
-}: BuildMetadataParams): Metadata {
+}: BuildMetadataInput): Metadata {
   const url = `${siteConfig.siteUrl}${path}`;
 
   return {
@@ -36,7 +35,15 @@ export function buildMetadata({
       title,
       description,
       url,
-      ...(image ? { images: [{ url: image.src, alt: image.alt }] } : {}),
+      siteName: siteConfig.business.name,
+      type: "website",
+      images: image ? [{ url: image.src, alt: image.alt }] : undefined,
+    },
+    twitter: {
+      card: image ? "summary_large_image" : "summary",
+      title,
+      description,
+      images: image ? [image.src] : undefined,
     },
     ...(robots ? { robots } : {}),
   };
