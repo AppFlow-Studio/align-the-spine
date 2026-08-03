@@ -8,7 +8,8 @@ import { CausesAndTypes } from "@/components/sections/causes-and-types";
 import { ComparisonTable } from "@/components/sections/comparison-table";
 import { ConditionFaq } from "@/components/sections/condition-faq";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
-import { FeelsLike } from "@/components/sections/feels-like";
+import { SymptomWarningCard } from "@/components/sections/feels-like";
+import { FeelsLikeBand } from "@/components/sections/feels-like-band";
 import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
 import { HowWeTreat } from "@/components/sections/how-we-treat";
@@ -80,15 +81,21 @@ const whiplashTypes = [
  * Condition-schema content files are removed in the same change.
  *
  * Section order per the Figma `whiplash` frame (file 4mb4VDHszsaj2KEZzyjOjf,
- * node 96:2629), verified against 11 design screenshots: Hero →
- * HeroReviewsCarousel → Understanding intro (diagram LEFT, heading/body
- * RIGHT — the only condition page with this side flipped from
- * back-pain/neck-pain/sciatica) → CausesAndTypes (Classic Whiplash
+ * node 96:2629), verified against 11 design screenshots + 1 follow-up
+ * screenshot for FeelsLikeBand: Hero → HeroReviewsCarousel → Understanding
+ * intro (diagram LEFT, heading/body RIGHT — the only condition page with
+ * this side flipped from back-pain/neck-pain/sciatica) → FeelsLikeBand
+ * (full-bleed dark "What Whiplash Feels Like" photo band — Figma's actual
+ * position for this content, unlike every other condition page's plain
+ * FeelsLike grid lower on the page) → CausesAndTypes (Classic Whiplash
  * Symptoms + 6 related pills left, a flat 5-item Types list right) →
- * ComparisonTable → HowWeTreat → FeelsLike (+ warning card) →
- * AccidentBanner → PatientReviews → DoctorProfile → PointToWhereItHurts →
- * AccidentInjuries → "Still have questions?" band → RelatedConditions →
- * FAQ. No LocationIntro/LocationFooter/ContactSection — same as the other
+ * ComparisonTable → HowWeTreat → SymptomWarningCard (the "See a doctor
+ * promptly" photo+bullets card — same content FeelsLike's `warning` prop
+ * renders elsewhere, extracted so it can sit here on its own since the
+ * grid it normally pairs with moved into FeelsLikeBand) → AccidentBanner →
+ * PatientReviews → DoctorProfile → PointToWhereItHurts → AccidentInjuries
+ * → "Still have questions?" band → RelatedConditions → FAQ. No
+ * LocationIntro/LocationFooter/ContactSection — same as the other
  * dedicated condition pages, the Figma frame goes straight to the standard
  * footer (rendered by RootShell).
  *
@@ -177,6 +184,16 @@ export default function WhiplashPage() {
         </Container>
       </Section>
 
+      <FeelsLikeBand
+        eyebrow="What Whiplash Feels Like"
+        heading="Symptoms that show up days later"
+        items={whiplashFeelsLike}
+        background={{
+          src: "/figma-exports/whiplash-feels-band-bg.png",
+          alt: "Close-up of a hand reaching toward a shoulder in soft, warm light",
+        }}
+      />
+
       <div id="types-of-whiplash" className="scroll-mt-[120px]">
         <CausesAndTypes
           causesHeading="Classic Whiplash Symptoms"
@@ -192,11 +209,11 @@ export default function WhiplashPage() {
 
       <HowWeTreat items={whiplashHowWeTreat} />
 
-      <FeelsLike
-        items={whiplashFeelsLike}
-        heading="Symptoms that show up days later"
-        warning={whiplashWarning}
-      />
+      <Section>
+        <Container>
+          <SymptomWarningCard warning={whiplashWarning} />
+        </Container>
+      </Section>
 
       <AccidentBanner accident={whiplashAccident} />
 
