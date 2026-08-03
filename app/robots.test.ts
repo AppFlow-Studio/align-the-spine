@@ -14,6 +14,11 @@ describe("robots", () => {
     expect(robots().rules).toEqual({ userAgent: "*", disallow: "/" });
   });
 
+  it("disallows everything when VERCEL_ENV is unset", () => {
+    vi.stubEnv("VERCEL_ENV", undefined);
+    expect(robots().rules).toEqual({ userAgent: "*", disallow: "/" });
+  });
+
   it("allows crawling except /api/ and /thank-you in production", () => {
     vi.stubEnv("VERCEL_ENV", "production");
     expect(robots().rules).toEqual({
