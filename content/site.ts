@@ -108,7 +108,7 @@ export const siteConfig: SiteConfig = {
     tagline:
       "Premium chiropractic care delivered with medical excellence and patient-first convenience across South Florida.",
     links: [
-      { label: "Accident Care", href: "/auto-accident" },
+      { label: "Accident Care", href: "/auto-accidents" },
       { label: "About Dr. Abe", href: "/about" },
       { label: "Reviews", href: "/reviews" },
       { label: "Contact Us", href: "/contact-us" },

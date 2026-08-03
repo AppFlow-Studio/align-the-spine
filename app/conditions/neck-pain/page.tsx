@@ -34,16 +34,12 @@ import {
   neckPainWarning,
 } from "@/content/neck-pain-page";
 import { pointToWhereItHurtsContent } from "@/content/point-to-where-it-hurts";
+import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
 import { buildMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = buildMetadata({
-  title: `${neckPainHero.h1} | ${siteConfig.business.name}`,
-  description: neckPainHero.subhead,
-  path: "/conditions/neck-pain",
-  image: neckPainHero.backgroundImage,
-});
+export const metadata: Metadata = buildMetadata(getRoute("/conditions/neck-pain"));
 
 const neckPainTypeCategories = [
   {

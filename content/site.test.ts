@@ -18,7 +18,7 @@ describe("isProduction", () => {
   });
 
   it("is false when VERCEL_ENV is unset (local dev, CI)", () => {
-    vi.stubEnv("VERCEL_ENV", "");
+    vi.stubEnv("VERCEL_ENV", undefined);
     expect(isProduction()).toBe(false);
   });
 });

@@ -25,7 +25,7 @@ export interface RouteMeta {
  * (content/conditions/*.ts — whiplash, sciatica) aren't listed here; see
  * app/sitemap.ts for how those are appended. /thank-you and /404 are
  * intentionally absent — both are noindex and neither belongs in the
- * sitemap. /auto-accident is absent too — it 301s to /auto-accidents
+ * sitemap. /auto-accident is absent too — it 308s to /auto-accidents
  * (see next.config.ts). */
 export const routes: RouteMeta[] = [
   {

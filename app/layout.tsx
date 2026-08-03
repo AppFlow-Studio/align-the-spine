@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
   title: {
     default: `${siteConfig.business.name} | South Florida's Chiropractor`,
-    template: "%s | Align the Spine Chiropractic",
+    template: `%s | ${siteConfig.business.name}`,
   },
   description:
     "Elite spinal health care in Deerfield Beach, FL — office visits from $50, same-day car accident evaluations, and home visits when it fits your case.",

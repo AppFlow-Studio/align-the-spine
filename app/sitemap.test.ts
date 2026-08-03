@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { routes } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 
 import sitemap, { lastModifiedFor } from "./sitemap";
@@ -32,10 +33,13 @@ describe("sitemap", () => {
   });
 
   it("includes every static route from the registry exactly once", () => {
-    const paths = sitemap().map((entry) => entry.url.replace(siteConfig.siteUrl, ""));
-    expect(paths).toContain("/services");
-    expect(paths).toContain("/auto-accidents");
-    expect(paths).toContain("/conditions/back-pain");
+    const paths = sitemap()
+      .map((entry) => entry.url.replace(siteConfig.siteUrl, ""))
+      .filter(
+        (path) =>
+          !path.startsWith("/conditions/whiplash") && !path.startsWith("/conditions/sciatica"),
+      );
+    expect(paths).toEqual(routes.map((route) => route.path));
   });
 
   it("throws for a condition slug with no configured lastModified date", () => {

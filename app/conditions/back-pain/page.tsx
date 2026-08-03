@@ -36,16 +36,12 @@ import {
 import { doctorProfileContent } from "@/content/doctor-profile";
 import { leadFormVariants } from "@/content/lead-forms";
 import { pointToWhereItHurtsContent } from "@/content/point-to-where-it-hurts";
+import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
 import { buildMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = buildMetadata({
-  title: `${backPainHero.h1} | ${siteConfig.business.name}`,
-  description: backPainHero.subhead,
-  path: "/conditions/back-pain",
-  image: backPainHero.backgroundImage,
-});
+export const metadata: Metadata = buildMetadata(getRoute("/conditions/back-pain"));
 
 const backPainTypes = [
   {
