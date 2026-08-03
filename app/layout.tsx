@@ -6,7 +6,7 @@ import { AnalyticsScripts } from "@/components/analytics/analytics-scripts";
 import { GtmNoscript, GtmScript } from "@/components/analytics/gtm-scripts";
 import { RootShell } from "@/components/layout/root-shell";
 import { JsonLdScript } from "@/components/seo/json-ld-script";
-import { siteConfig } from "@/content/site";
+import { isProduction, siteConfig } from "@/content/site";
 import { localBusinessJsonLd } from "@/lib/seo/local-business";
 
 import "./globals.css";
@@ -32,15 +32,38 @@ const geist = Geist({
   display: "swap",
 });
 
-/** Fallback metadata for any route that doesn't set its own `title`/
- * `description` (every current page does — see app/page.tsx, app/about/
- * page.tsx, etc.). No `title.template` here: each page already bakes the
- * business name into its own title string, so a template would double it up. */
+/** Site-wide metadata scaffolding (P0A SEO foundation). Every route sets its
+ * own title/description/OG/Twitter/robots via lib/seo/metadata.ts's
+ * buildMetadata(), which wraps `title` in `{ absolute }` — so `title.template`
+ * below only ever applies to a route that doesn't call buildMetadata (none
+ * currently do). `robots` mirrors buildMetadata's own isProduction() gate so
+ * a route can't ship indexable in a nonproduction deploy by omission. */
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
-  title: `${siteConfig.business.name} | South Florida's Chiropractor`,
+  title: {
+    default: `${siteConfig.business.name} | South Florida's Chiropractor`,
+    template: "%s | Align the Spine Chiropractic",
+  },
   description:
     "Elite spinal health care in Deerfield Beach, FL — office visits from $50, same-day car accident evaluations, and home visits when it fits your case.",
+  openGraph: {
+    siteName: siteConfig.business.name,
+    type: "website",
+    images: [
+      { url: "/figma-exports/interior-reception.png", alt: "Align the Spine reception area" },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/figma-exports/interior-reception.png"],
+  },
+  icons: {
+    icon: "/favicon.ico",
+  },
+  robots: isProduction() ? { index: true, follow: true } : { index: false, follow: false },
+  ...(process.env.GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION } }
+    : {}),
 };
 
 export default function RootLayout({
