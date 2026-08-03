@@ -71,8 +71,16 @@ const businessHours: DayHours[] = [
   "Sunday",
 ].map((day) => ({ day: day as DayHours["day"], open: "9:00 AM", close: "7:00 PM" }));
 
+/** True only for actual Vercel production deploys. Local dev, CI, and
+ * Vercel preview builds are all treated as non-production so metadata/
+ * robots default to noindex — fail closed rather than risk a preview
+ * leaking into search. */
+export function isProduction(): boolean {
+  return process.env.VERCEL_ENV === "production";
+}
+
 export const siteConfig: SiteConfig = {
-  siteUrl: "https://alignthespinechiropractic.com",
+  siteUrl: process.env.SITE_URL ?? "https://alignthespinechiropractic.com",
   business: {
     name: "Align the Spine Chiropractic",
     phone: "(954) 573-7192",
@@ -93,7 +101,7 @@ export const siteConfig: SiteConfig = {
     { label: "Services", href: "/services" },
     { label: "About", href: "/about" },
     { label: "Reviews", href: "/reviews" },
-    { label: "Auto Accidents", href: "/auto-accident" },
+    { label: "Auto Accidents", href: "/auto-accidents" },
   ],
   bookingCta: { label: "Book Appointment", href: "/book" },
   footer: {
