@@ -8,9 +8,11 @@ import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { Hero } from "@/components/sections/hero";
 import { HowHePractices } from "@/components/sections/how-he-practices";
 import { PhotoGallery } from "@/components/sections/photo-gallery";
+import { JsonLd } from "@/components/seo/json-ld";
 import { doctorHistoryContent, doctorProfileContent } from "@/content/doctor-profile";
 import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
+import { buildPerson } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildMetadata(getRoute("/about"));
@@ -28,6 +30,7 @@ export const metadata: Metadata = buildMetadata(getRoute("/about"));
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={buildPerson()} />
       <Hero
         variant="condition"
         background={{
