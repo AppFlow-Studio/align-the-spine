@@ -5,6 +5,7 @@ import { Hero } from "@/components/sections/hero";
 import { HowWeHelpSteps } from "@/components/sections/how-we-help-steps";
 import { ReviewsStrip } from "@/components/sections/reviews-strip";
 import { ServiceAreas } from "@/components/sections/service-areas";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { Button } from "@/components/ui/button";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
@@ -28,6 +29,12 @@ export const metadata: Metadata = buildMetadata(getRoute("/home-visits"));
 export default function HomeVisitsPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "" },
+          { name: "Home Visits", path: "/home-visits" },
+        ]}
+      />
       <Hero
         variant="condition"
         background={{

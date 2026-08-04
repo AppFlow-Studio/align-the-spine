@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { OnThisPageNav } from "@/components/layout/on-this-page-nav";
 import { LegalContent } from "@/components/sections/legal-content";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { Section } from "@/components/ui/section";
 import { privacyPolicyEffectiveDate, privacyPolicySections } from "@/content/legal/privacy-policy";
 import { getRoute } from "@/content/seo";
@@ -16,6 +17,12 @@ export const metadata: Metadata = buildMetadata(getRoute("/privacy-policy"));
 export default function PrivacyPolicyPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "" },
+          { name: "Privacy Policy", path: "/privacy-policy" },
+        ]}
+      />
       {/* Negative top margin matches Hero's (components/sections/hero.tsx):
           pulls this block up over TopStatsBar, which RootShell renders
           in-flow before the fixed Navbar. Hero pages hide it the same way;

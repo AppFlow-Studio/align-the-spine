@@ -4,6 +4,7 @@ import { LocationFooter } from "@/components/layout/location-footer";
 import { LocationIntro } from "@/components/layout/location-intro";
 import { BookingForm } from "@/components/sections/booking-form";
 import { Hero } from "@/components/sections/hero";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { Section } from "@/components/ui/section";
@@ -22,6 +23,12 @@ export const metadata: Metadata = buildMetadata(getRoute("/book"));
 export default function BookPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "" },
+          { name: "Book", path: "/book" },
+        ]}
+      />
       <Hero
         variant="condition"
         background={{

@@ -8,6 +8,7 @@ import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { Hero } from "@/components/sections/hero";
 import { HowHePractices } from "@/components/sections/how-he-practices";
 import { PhotoGallery } from "@/components/sections/photo-gallery";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { JsonLd } from "@/components/seo/json-ld";
 import { doctorHistoryContent, doctorProfileContent } from "@/content/doctor-profile";
 import { getRoute } from "@/content/seo";
@@ -31,6 +32,12 @@ export default function AboutPage() {
   return (
     <>
       <JsonLd data={buildPerson()} />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "" },
+          { name: "About", path: "/about" },
+        ]}
+      />
       <Hero
         variant="condition"
         background={{

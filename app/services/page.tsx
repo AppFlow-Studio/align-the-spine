@@ -7,6 +7,7 @@ import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { Hero } from "@/components/sections/hero";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { ServiceCatalog } from "@/components/sections/service-catalog";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { doctorProfileContent } from "@/content/doctor-profile";
 import { leadFormVariants } from "@/content/lead-forms";
 import { getRoute } from "@/content/seo";
@@ -29,6 +30,12 @@ export const metadata: Metadata = buildMetadata(getRoute("/services"));
 export default function ServicesPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "" },
+          { name: "Services", path: "/services" },
+        ]}
+      />
       <Hero
         variant="home"
         background={{

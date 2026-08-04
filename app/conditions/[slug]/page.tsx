@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { ConditionPage } from "@/components/templates/condition-page";
 import { conditionsBySlug } from "@/content/conditions";
 import { siteConfig } from "@/content/site";
@@ -36,5 +37,15 @@ export default async function Page({ params }: PageProps) {
   const condition = conditionsBySlug[slug];
   if (!condition) notFound();
 
-  return <ConditionPage condition={condition} />;
+  return (
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "" },
+          { name: condition.name, path: `/conditions/${condition.slug}` },
+        ]}
+      />
+      <ConditionPage condition={condition} />
+    </>
+  );
 }

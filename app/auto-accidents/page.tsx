@@ -9,6 +9,7 @@ import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
 import { HowWeHelpSteps } from "@/components/sections/how-we-help-steps";
 import { PatientReviews } from "@/components/sections/patient-reviews";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
@@ -62,6 +63,12 @@ export const metadata: Metadata = buildMetadata(getRoute("/auto-accidents"));
 export default function AutoAccidentsPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "" },
+          { name: "Auto Accidents", path: "/auto-accidents" },
+        ]}
+      />
       <Hero
         variant="condition"
         background={hero.backgroundImage}
