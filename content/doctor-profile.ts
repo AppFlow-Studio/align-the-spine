@@ -38,3 +38,17 @@ export const doctorProfileContent: DoctorProfileContent = {
   rating: { value: 5, count: 152, location: "Deerfield Beach, Florida" },
   portrait: { src: "/figma-exports/portrait.png", alt: "Dr. Abe Nasser" },
 };
+
+export interface DoctorCredentials {
+  /** True only once Dr. Abe has confirmed these fields himself. Until then
+   * lib/schema.ts's buildPerson() omits alumniOf/hasCredential entirely
+   * rather than publish an unverified degree/license claim (ATS schema
+   * ticket §2.4). */
+  verified: boolean;
+  alumniOf?: string[];
+  hasCredential?: string[];
+}
+
+export const doctorCredentials: DoctorCredentials = {
+  verified: false,
+};
