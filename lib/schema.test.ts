@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { siteConfig } from "@/content/site";
 
 import {
+  buildBreadcrumbList,
   buildMedicalBusiness,
   buildOrganization,
   buildPerson,
@@ -86,5 +87,24 @@ describe("buildPerson", () => {
     const person = buildPerson();
     expect(person.alumniOf).toBeUndefined();
     expect(person.hasCredential).toBeUndefined();
+  });
+});
+
+describe("buildBreadcrumbList", () => {
+  it("builds a 1-indexed ListItem per entry with absolute item URLs", () => {
+    const breadcrumb = buildBreadcrumbList([
+      { name: "Home", path: "" },
+      { name: "Services", path: "/services" },
+    ]);
+    expect(breadcrumb["@type"]).toBe("BreadcrumbList");
+    expect(breadcrumb.itemListElement).toEqual([
+      { "@type": "ListItem", position: 1, name: "Home", item: siteConfig.siteUrl },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Services",
+        item: `${siteConfig.siteUrl}/services`,
+      },
+    ]);
   });
 });

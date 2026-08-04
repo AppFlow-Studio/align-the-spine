@@ -183,3 +183,34 @@ export function buildPerson(): PersonSchema {
       : {}),
   };
 }
+
+export interface BreadcrumbItemInput {
+  /** Visible crumb label, e.g. "Services". */
+  name: string;
+  /** Route path from the site root, e.g. "/services". Use "" for Home. */
+  path: string;
+}
+
+export interface BreadcrumbListSchema {
+  "@context": "https://schema.org";
+  "@type": "BreadcrumbList";
+  itemListElement: { "@type": "ListItem"; position: number; name: string; item: string }[];
+}
+
+/** BreadcrumbList entity (ATS schema ticket §2.2/§2.6). `items` must mirror
+ * the page's actual navigable path — e.g. a condition page passes
+ * `[{ name: "Home", path: "" }, { name: condition.name, path: "/conditions/x" }]`,
+ * not a fabricated intermediate "Conditions" hub (no such page exists in
+ * this site). */
+export function buildBreadcrumbList(items: BreadcrumbItemInput[]): BreadcrumbListSchema {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem" as const,
+      position: index + 1,
+      name: item.name,
+      item: `${siteConfig.siteUrl}${item.path}`,
+    })),
+  };
+}
