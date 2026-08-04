@@ -11,6 +11,7 @@ import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { ServicesSection } from "@/components/sections/services-section";
 import { WhyChoose } from "@/components/sections/why-choose";
+import { PracticeJsonLd } from "@/components/seo/practice-json-ld";
 import { doctorProfileContent } from "@/content/doctor-profile";
 import { pointToWhereItHurtsContent } from "@/content/point-to-where-it-hurts";
 import { getRoute } from "@/content/seo";
@@ -36,6 +37,7 @@ export const metadata: Metadata = buildMetadata(getRoute(""));
 export default function Home() {
   return (
     <>
+      <PracticeJsonLd />
       <Hero
         variant="home"
         background={{
