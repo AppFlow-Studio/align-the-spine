@@ -31,12 +31,16 @@ export interface HeroProps {
   spineOverlay?: boolean;
   eyebrow?: string;
   title: ReactNode;
-  subhead: string;
+  subhead: ReactNode;
   conditionChip?: string;
   badge?: string;
   ctas?: HeroCta[];
   callPill?: { eyebrow: string; phone: string };
   bilingualNote?: string;
+  /** Condition-variant-only stat callout below the bilingual note (e.g. the
+   * /auto-accidents Florida PIP coverage figure) — a divider line, a large
+   * value, and a descriptive line next to it. */
+  stat?: { value: string; description: string };
   form?: HeroFormConfig;
   /** Replaces the default LeadForm card entirely (e.g. the /book two-step
    * BookingForm, which brings its own card styling). */
@@ -81,6 +85,7 @@ export function Hero({
   ctas,
   callPill,
   bilingualNote,
+  stat,
   form,
   formSlot,
 }: HeroProps) {
@@ -103,7 +108,14 @@ export function Hero({
     // to alter wrapping — see
     // docs/superpowers/specs/2026-07-15-hero-section-design.md.
     <section className="relative -mt-[460px] min-h-[975px] overflow-hidden min-[400px]:-mt-[392px] sm:-mt-[304px] md:-mt-[240px] lg:-mt-[176px]">
-      <Image src={background.src} alt={background.alt} fill priority className="object-cover" />
+      <Image
+        src={background.src}
+        alt={background.alt}
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover"
+      />
       <div className="absolute inset-0 bg-black/[.47]" />
 
       <div className="container relative z-10 grid gap-10 pb-32 pt-[220px] lg:grid-cols-2 lg:items-center lg:gap-16 lg:pt-[260px]">
@@ -111,11 +123,11 @@ export function Hero({
           {variant === "condition" && conditionChip && (
             <HeroChip className="mt-0">{conditionChip}</HeroChip>
           )}
-          {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+          {eyebrow && <Eyebrow variant="onDark">{eyebrow}</Eyebrow>}
 
           <h1
             className={cn(
-              "font-display text-[32px] leading-[38px] text-white sm:text-[44px] sm:leading-[50px] lg:text-hero",
+              "font-display text-hero text-white",
               variant === "home" && badge ? "mb-10" : "mb-8 lg:mb-20",
             )}
           >
@@ -137,6 +149,15 @@ export function Hero({
 
           {variant === "condition" && bilingualNote && (
             <p className="font-alt text-alt-label text-mute-300">{bilingualNote}</p>
+          )}
+
+          {variant === "condition" && stat && (
+            <div className="flex flex-col gap-4 border-t border-white/30 pt-6">
+              <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <span className="font-display text-h2 text-white">{stat.value}</span>
+                <span className="font-sans text-body-lg text-mute-300">{stat.description}</span>
+              </p>
+            </div>
           )}
 
           {variant === "home" && Boolean(ctas?.length) && (

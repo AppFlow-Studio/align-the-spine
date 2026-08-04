@@ -9,11 +9,23 @@
   --color-navy-900: #253067;
   --color-navy-800: #2b3565;
   --color-navy-700: #374690; /* hero gradient end */
-  --color-teal-500: #58a0a0;
+  /* Darkened from the original #58a0a0 (ATS-134): that shade only hit
+   * 2.8–4.1:1 against white/#f6f6f6/navy-900, failing WCAG AA's 4.5:1 for
+   * text everywhere it was used as a label/link/price color. #3f7676 clears
+   * 4.5:1 against white and #f6f6f6. teal-300 is the on-dark counterpart —
+   * teal-500 itself drops to ~2.4:1 against navy-900, so anywhere an
+   * eyebrow/label sits on a navy/dark surface (AccidentBanner, Hero) needs
+   * this lighter tint instead, not the same token. */
+  --color-teal-500: #3f7676;
+  --color-teal-300: #7fc0c0;
   --color-ink-900: #1a1a1a;
-  --color-ink-500: #777777;
+  /* Darkened from #777777 (ATS-134): that shade only hit 4.14:1 against
+   * #f6f6f6, just under the 4.5:1 AA text threshold. */
+  --color-ink-500: #6b6b6b;
   --color-mute-300: #cdcdcd;
-  --color-mute-400: #8e9597;
+  /* Darkened from #8e9597 (ATS-134): that shade only hit 2.8–3.05:1 against
+   * white/#f6f6f6, well under the 4.5:1 AA text threshold. */
+  --color-mute-400: #6a6f71;
   --color-mute-350: #ababb3;
   --color-panel-100: #f6f6f6;
 
@@ -61,7 +73,33 @@ html {
   overflow-x: hidden;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    /* Smooth-scrolls in-page anchor jumps — OnThisPageNav's section links
+     * on /privacy-policy, and the "Florida PIP insurance" hero link on
+     * /auto-accidents. Honors each target's own scroll-margin-top (e.g.
+     * LegalContent's scroll-mt-[120px]), so the fixed Navbar still clears
+     * correctly. Scoped out of prefers-reduced-motion instead of the usual
+     * motion-safe: utility, since this is a native CSS property, not a
+     * Tailwind-animated one. */
+    scroll-behavior: smooth;
+  }
+}
+
 body {
+  /* ATS-135: the html-only rule above doesn't actually stop horizontal
+   * scroll, since the CSS overflow spec propagates BODY's (not HTML's)
+   * overflow to the viewport when both exist — verified with Playwright
+   * across Chromium/WebKit/Firefox, `documentElement`'s computed
+   * overflow-x was "hidden" but `body`'s was still "visible", and the
+   * closed mobile drawer's real (pre-transform) geometry was reachable via
+   * window.scrollTo at <lg widths in all three engines. `clip`, not
+   * `hidden`: `overflow-x: hidden` here forces the coupled overflow-y to
+   * compute as "auto" (per spec, non-clip axis values pair up), which
+   * turns body into a scroll container and breaks OnThisPageNav's
+   * `position: sticky` (verified — it stopped sticking once tested).
+   * `overflow-x: clip` closes the same leak without that coupling. */
+  overflow-x: clip;
   background: var(--color-panel-100);
   color: var(--color-ink-900);
 }

@@ -5,6 +5,7 @@ import { Hero } from "@/components/sections/hero";
 import { HowWeHelpSteps } from "@/components/sections/how-we-help-steps";
 import { ReviewsStrip } from "@/components/sections/reviews-strip";
 import { ServiceAreas } from "@/components/sections/service-areas";
+import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { Button } from "@/components/ui/button";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { Section } from "@/components/ui/section";
@@ -12,14 +13,12 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { homeVisitFaqs } from "@/content/faqs";
 import { homeVisitFitChecklist, homeVisitSteps } from "@/content/home-visits";
 import { leadFormVariants } from "@/content/lead-forms";
+import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { featuredTestimonial } from "@/content/testimonials";
+import { buildRouteMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
-  title: `Home Visit Chiropractor in Deerfield Beach, FL | ${siteConfig.business.name}`,
-  description:
-    "Full chiropractic exams and treatment at your address when it fits your case and location. Check your home-visit eligibility online or call (954) 573-7192.",
-};
+export const metadata: Metadata = buildRouteMetadata(getRoute("/home-visits"));
 
 /** /home-visits page assembly (ATS-110) per the Home-visits-v2 artboard
  * (96:1950): condition hero with the eligibility LeadForm, ServiceAreas +
@@ -45,14 +44,12 @@ export default function HomeVisitsPage() {
         }
         subhead="Full exam and hands-on treatment, wherever you're most comfortable — when it's the right fit for your case and location."
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
-        bilingualNote="¿Habla español? Dr. Abe habla su idioma."
         form={{
           heading: "Check home-visit eligibility",
           submitLabel: leadFormVariants.eligibility.submitLabel,
           variant: leadFormVariants.eligibility.variant,
           fields: leadFormVariants.eligibility.fields,
-          footerNote:
-            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
+          footerNote: "Call us to check availability in your area.",
         }}
       />
 
@@ -120,6 +117,7 @@ export default function HomeVisitsPage() {
             Everything you need to know about home visits
           </SectionHeading>
           <FaqAccordion items={homeVisitFaqs} />
+          <FaqJsonLd items={homeVisitFaqs} />
         </div>
       </Section>
     </>

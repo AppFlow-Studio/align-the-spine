@@ -22,7 +22,13 @@ export function ServiceListRow({ item, className }: ServiceListRowProps) {
       className={cn("flex flex-col gap-6 py-10 md:flex-row md:items-stretch md:gap-10", className)}
     >
       <div className="relative aspect-[670/374] w-full shrink-0 md:w-[45%]">
-        <Image src={item.image.src} alt={item.image.alt} fill className="object-cover" />
+        <Image
+          src={item.image.src}
+          alt={item.image.alt}
+          fill
+          sizes="(min-width: 768px) 45vw, 100vw"
+          className="object-cover"
+        />
       </div>
       <div className="flex min-w-0 flex-1 flex-col items-start gap-4">
         <h3 className="break-words font-display text-card-title text-navy-900">{item.name}</h3>

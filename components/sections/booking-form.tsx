@@ -9,7 +9,6 @@ import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
 import { Input } from "@/components/ui/input";
 import type { LeadFormValues } from "@/components/ui/lead-form";
 import { Select } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import { leadFormVariants } from "@/content/lead-forms";
 import { trackLeadConversion } from "@/lib/analytics";
 import { buildLeadFormSchema } from "@/lib/lead-form-schema";
@@ -23,7 +22,7 @@ function SquareButton({
 }: { children: ReactNode } & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
-      className="relative flex h-12 w-full items-center justify-center bg-navy-900 px-8 font-sans text-button text-white transition-colors hover:bg-navy-700 disabled:pointer-events-none disabled:opacity-70"
+      className="relative flex h-12 w-full items-center justify-center bg-navy-900 px-8 font-sans text-button text-white transition-colors hover:bg-navy-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:pointer-events-none disabled:opacity-70"
       {...rest}
     >
       {children}
@@ -119,17 +118,6 @@ export function BookingForm() {
               variant="dark"
               options={field.options ?? []}
               placeholder={field.placeholder}
-              error={error}
-              {...register(field.name)}
-            />
-          );
-        }
-        if (field.type === "textarea") {
-          return (
-            <Textarea
-              key={field.name}
-              label={label}
-              variant="dark"
               error={error}
               {...register(field.name)}
             />

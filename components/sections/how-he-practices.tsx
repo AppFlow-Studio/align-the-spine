@@ -23,7 +23,13 @@ export function HowHePractices() {
           {howHePracticesCards.map((card) => (
             <div key={card.title} className="flex flex-col gap-4">
               <div className="relative aspect-[507/283] w-full shrink-0">
-                <Image src={card.image.src} alt={card.image.alt} fill className="object-cover" />
+                <Image
+                  src={card.image.src}
+                  alt={card.image.alt}
+                  fill
+                  sizes="(min-width: 640px) 33vw, 100vw"
+                  className="object-cover"
+                />
               </div>
               <div className="flex flex-col gap-2 border-t border-mute-300 pt-4">
                 <h3 className="break-words font-display text-card-title text-navy-800">
@@ -45,6 +51,7 @@ export function HowHePractices() {
               src={homeVisitCallout.image.src}
               alt={homeVisitCallout.image.alt}
               fill
+              sizes="100vw"
               className="object-cover"
             />
           </div>

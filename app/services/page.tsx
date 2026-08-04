@@ -9,14 +9,12 @@ import { PatientReviews } from "@/components/sections/patient-reviews";
 import { ServiceCatalog } from "@/components/sections/service-catalog";
 import { doctorProfileContent } from "@/content/doctor-profile";
 import { leadFormVariants } from "@/content/lead-forms";
+import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
+import { buildMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
-  title: `Chiropractic Services in Deerfield Beach, FL | ${siteConfig.business.name}`,
-  description:
-    "Adjustments, sports injury care, posture correction, spinal decompression, headache relief, and massage/soft-tissue therapy — same doctor, every visit. Call (954) 573-7192.",
-};
+export const metadata: Metadata = buildMetadata(getRoute("/services"));
 
 /** /services page assembly (ATS-081) per the services artboard (frame
  * 96:2185 — the ticket's node ref 1:2583 no longer resolves in the file):
@@ -46,8 +44,7 @@ export default function ServicesPage() {
           submitLabel: leadFormVariants.carAccident.submitLabel,
           variant: leadFormVariants.carAccident.variant,
           fields: leadFormVariants.carAccident.fields,
-          footerNote:
-            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
+          footerNote: "Call us to check availability in your area.",
         }}
       />
       <ServiceCatalog />

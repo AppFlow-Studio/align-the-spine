@@ -4,9 +4,15 @@ export interface Service {
   duration: string;
   summary: string;
   image: { src: string; alt: string };
+  /** ATS-E4 (4.13): true for offers/equipment claims that need separate
+   * sign-off beyond "this is a real service" — e.g. X-ray availability and
+   * new-patient pricing. Filtered out of `services` (the exported, rendered
+   * list) until that verification lands; see `allServices` for the full
+   * source list including gated entries. */
+  needsVerification?: boolean;
 }
 
-export const services: Service[] = [
+const allServices: Service[] = [
   {
     slug: "new-patient-special",
     name: "New Patient Special (includes XRAY)",
@@ -16,6 +22,10 @@ export const services: Service[] = [
       src: "/figma-exports/drabe-xray-newpt.png",
       alt: "New patient exam and X-ray evaluation",
     },
+    // Bundles an X-ray-equipment claim and a pricing offer — neither has
+    // client sign-off (ATS-E4 4.9/4.13). Omitted from `services` below
+    // until both are verified.
+    needsVerification: true,
   },
   {
     slug: "myofascial-release-trigger-point",
@@ -70,3 +80,7 @@ export const services: Service[] = [
     },
   },
 ];
+
+/** Rendered list — excludes any entry still pending verification
+ * (ATS-E4 4.13). */
+export const services: Service[] = allServices.filter((service) => !service.needsVerification);

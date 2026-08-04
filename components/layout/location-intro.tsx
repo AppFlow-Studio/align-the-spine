@@ -7,11 +7,18 @@ import { PhoneIcon } from "@/components/ui/icons/phone";
 import { PinIcon } from "@/components/ui/icons/pin";
 import { siteConfig } from "@/content/site";
 
+export interface LocationIntroProps {
+  /** Defaults to the homepage's embedded contact form. Override on pages
+   * with their own hero-level contact form (e.g. /contact-us) so "Send"
+   * jumps there instead of navigating away. */
+  sendHref?: string;
+}
+
 /** Intro/contact section per ATS-013: heading + address/phone/email + a
  * "Send Message" CTA on the left, an exterior building photo with a caption
  * overlay on the right. Rendered directly above LocationFooter on Home,
- * Services, About. */
-export function LocationIntro() {
+ * Services, About, Book, Contact Us. */
+export function LocationIntro({ sendHref = "/#contact" }: LocationIntroProps) {
   return (
     <section className="bg-white">
       <div className="container grid gap-10 py-20 lg:grid-cols-2 lg:items-center lg:gap-16">
@@ -51,7 +58,7 @@ export function LocationIntro() {
           </div>
 
           <Link
-            href="/#contact"
+            href={sendHref}
             className="flex h-12 w-fit items-center justify-center gap-3  bg-navy-900 px-8 font-sans text-button text-white transition-colors hover:bg-navy-700"
           >
             <span className="pr-10">Send</span>
@@ -64,6 +71,7 @@ export function LocationIntro() {
             src="/figma-exports/exterior-img.png"
             alt="Palm Plaza exterior, home of Align the Spine Chiropractic"
             fill
+            sizes="(min-width: 1024px) 50vw, 100vw"
             className="object-cover"
           />
           <div className="absolute p-7 w-[90%] mx-auto  inset-x-0 bottom-7 bg-overlay-white-16 backdrop-brightness-75 backdrop-blur-md border border-white">

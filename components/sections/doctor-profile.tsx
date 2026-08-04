@@ -7,6 +7,7 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { StarIcon } from "@/components/ui/icons/star";
 import { Section } from "@/components/ui/section";
 import type { DoctorProfileContent } from "@/content/doctor-profile";
+import { isVerified } from "@/content/verified-value";
 
 export interface DoctorProfileProps {
   variant: "short" | "long";
@@ -33,28 +34,36 @@ export function DoctorProfile({ variant, content, extended }: DoctorProfileProps
     <Section spacing="lg">
       <Container className="flex flex-col gap-10 xl:flex-row xl:items-center xl:gap-16">
         <div className="relative aspect-[639/833] w-full shrink-0 xl:w-[45%]">
-          <Image src={portrait.src} alt={portrait.alt} fill className="object-cover" />
+          <Image
+            src={portrait.src}
+            alt={portrait.alt}
+            fill
+            sizes="(min-width: 1280px) 45vw, 100vw"
+            className="object-cover"
+          />
           <div
             aria-hidden="true"
             className="pointer-events-none absolute -bottom-11 -right-11 hidden h-35 w-58 border-b-[2px] border-r-[2px] border-[#9397B1] xl:block"
           />
-          <div className="absolute inset-x-6 bottom-6 flex items-center justify-between gap-3 bg-overlay-ink-20 px-6 py-4 backdrop-blur-sm">
-            <span className="font-sans text-stat-label text-white">{rating.location}</span>
-            <span
-              className="inline-flex items-center gap-2"
-              role="img"
-              aria-label={`Rated ${rating.value} out of 5 stars from ${rating.count} reviews`}
-            >
-              <span className="inline-flex gap-1">
-                {Array.from({ length: rating.value }, (_, i) => (
-                  <StarIcon key={i} className="h-5 w-5 text-[#EFBD3F]" />
-                ))}
+          {isVerified(rating) && (
+            <div className="absolute inset-x-6 bottom-6 flex items-center justify-between gap-3 bg-overlay-ink-20 px-6 py-4 backdrop-blur-sm">
+              <span className="font-sans text-stat-label text-white">{rating.value.location}</span>
+              <span
+                className="inline-flex items-center gap-2"
+                role="img"
+                aria-label={`Rated ${rating.value.value} out of 5 stars from ${rating.value.count} reviews`}
+              >
+                <span className="inline-flex gap-1">
+                  {Array.from({ length: rating.value.value }, (_, i) => (
+                    <StarIcon key={i} className="h-5 w-5 text-[#EFBD3F]" />
+                  ))}
+                </span>
+                <span aria-hidden="true" className="font-sans text-stat-label text-white">
+                  {rating.value.count}
+                </span>
               </span>
-              <span aria-hidden="true" className="font-sans text-stat-label text-white">
-                {rating.count}
-              </span>
-            </span>
-          </div>
+            </div>
+          )}
         </div>
         <div className="flex min-w-0 flex-1 flex-col items-start gap-6">
           <Eyebrow>{eyebrow}</Eyebrow>

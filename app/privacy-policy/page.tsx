@@ -4,13 +4,10 @@ import { OnThisPageNav } from "@/components/layout/on-this-page-nav";
 import { LegalContent } from "@/components/sections/legal-content";
 import { Section } from "@/components/ui/section";
 import { privacyPolicyEffectiveDate, privacyPolicySections } from "@/content/legal/privacy-policy";
-import { siteConfig } from "@/content/site";
+import { getRoute } from "@/content/seo";
+import { buildMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
-  title: `Privacy Policy | ${siteConfig.business.name}`,
-  description:
-    "How Align the Spine Chiropractic collects, uses, and protects your information, including HIPAA-protected health information.",
-};
+export const metadata: Metadata = buildMetadata(getRoute("/privacy-policy"));
 
 /** /privacy-policy page assembly (ATS-120) per the privacy-policy artboard
  * (96:2098): navy header (title + effective date), then a sticky
@@ -22,8 +19,17 @@ export default function PrivacyPolicyPage() {
       {/* Negative top margin matches Hero's (components/sections/hero.tsx):
           pulls this block up over TopStatsBar, which RootShell renders
           in-flow before the fixed Navbar. Hero pages hide it the same way;
-          this page has no Hero to do it, so it needs the trick directly. */}
-      <div className="-mt-[516px] bg-navy-900 pb-16 pt-[240px] sm:-mt-[304px] sm:pt-[200px] md:-mt-[240px] md:pt-[190px] lg:-mt-[176px] lg:pt-[200px]">
+          this page has no Hero to do it, so it needs the trick directly.
+          Values must match Hero's exactly (including its min-[400px]
+          sub-tier for the 400-639px range, where TopStatsBar's height
+          steps down before the sm breakpoint) — this block previously used
+          -516px/no sub-tier, which didn't actually match Hero's real
+          (measured) values, so the block was pulled up too far: the H1 sat
+          under the fixed Navbar and a sliver of TopStatsBar's last stat
+          leaked out below the navy block at ~400-639px widths. Recompute
+          (real-browser measurement, not
+          guessed) if TopStatsBar's height changes. */}
+      <div className="-mt-[460px] bg-navy-900 pb-16 pt-[340px] min-[400px]:-mt-[392px] min-[400px]:pt-[280px] sm:-mt-[304px] md:-mt-[240px] md:pt-[220px] lg:-mt-[176px] lg:pt-[260px]">
         <div className="container">
           <h1 className="font-display text-hero text-white">Privacy Policy</h1>
           <p className="mt-4 font-sans text-body-lg text-mute-300">{privacyPolicyEffectiveDate}</p>

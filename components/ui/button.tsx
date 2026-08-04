@@ -2,6 +2,7 @@ import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "reac
 
 import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
 import { PhoneIcon } from "@/components/ui/icons/phone";
+import { Spinner } from "@/components/ui/spinner";
 import { cn } from "@/lib/cn";
 
 /** Button variants per condition-page-spec §A8. */
@@ -56,18 +57,6 @@ type ButtonProps = ButtonOwnProps &
     | ({ href: string } & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "className">)
     | ({ href?: undefined } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className">)
   );
-
-function Spinner({ className }: { className?: string }) {
-  return (
-    <span
-      aria-hidden="true"
-      className={cn(
-        "inline-block animate-spin rounded-full border-2 border-current border-t-transparent",
-        className,
-      )}
-    />
-  );
-}
 
 export function Button({
   variant = "primary",

@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, type Resolver } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
+import { errorId } from "@/components/ui/field";
 import type { LeadFormValues } from "@/components/ui/lead-form";
 import { trackLeadConversion } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
@@ -29,7 +30,7 @@ function inputType(type: LeadFieldType) {
 }
 
 const fieldClasses =
-  "w-full border-0 border-b border-mute-300 bg-transparent px-0 pb-2 pt-1 font-sans text-field text-navy-900 outline-none transition-colors placeholder:text-mute-400 focus:border-navy-900";
+  "w-full border-0 border-b border-mute-300 bg-transparent px-0 pb-2 pt-1 font-sans text-field text-navy-900 outline-none transition-colors placeholder:text-mute-400 focus:border-navy-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500";
 
 /** Borderless, underline-only field styling used only by the homepage
  * "Contact us" band (per the contact-us-final design) — every other lead
@@ -121,10 +122,19 @@ export function UnderlineForm({
               inputMode={type === "zip" ? "numeric" : undefined}
               autoComplete={field.autoComplete}
               aria-invalid={error ? true : undefined}
+              aria-describedby={error ? errorId(`underline-${field.name}`) : undefined}
               className={fieldClasses}
               {...register(field.name)}
             />
-            {error && <p className="font-sans text-field-error text-error">{error}</p>}
+            {error && (
+              <p
+                id={errorId(`underline-${field.name}`)}
+                role="alert"
+                className="font-sans text-field-error text-error"
+              >
+                {error}
+              </p>
+            )}
           </div>
         );
       })}
