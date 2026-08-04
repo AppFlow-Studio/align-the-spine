@@ -7,6 +7,7 @@ import {
   buildMedicalBusiness,
   buildOrganization,
   buildPerson,
+  buildService,
   buildWebSite,
   DR_ABE_PERSON_ID,
   MEDICAL_BUSINESS_ID,
@@ -106,5 +107,22 @@ describe("buildBreadcrumbList", () => {
         item: `${siteConfig.siteUrl}/services`,
       },
     ]);
+  });
+});
+
+describe("buildService", () => {
+  it("builds a Service entity keyed by #{slug}, provided by the practice", () => {
+    const service = buildService({
+      slug: "adjustment",
+      name: "Adjustment",
+      duration: "1 hr",
+      summary: "Test summary.",
+      image: { src: "/x.png", alt: "x" },
+    });
+    expect(service["@type"]).toBe("Service");
+    expect(service["@id"]).toBe(`${siteConfig.siteUrl}/services#adjustment`);
+    expect(service.provider).toEqual({ "@id": MEDICAL_BUSINESS_ID });
+    expect(service.name).toBe("Adjustment");
+    expect(service.description).toBe("Test summary.");
   });
 });

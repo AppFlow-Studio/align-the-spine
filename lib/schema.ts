@@ -1,4 +1,5 @@
 import { doctorCredentials, doctorProfileContent } from "@/content/doctor-profile";
+import type { Service } from "@/content/services";
 import { siteConfig } from "@/content/site";
 
 /** Stable @id anchors reused across every builder in this file and every
@@ -212,5 +213,34 @@ export function buildBreadcrumbList(items: BreadcrumbItemInput[]): BreadcrumbLis
       name: item.name,
       item: `${siteConfig.siteUrl}${item.path}`,
     })),
+  };
+}
+
+export interface ServiceSchema {
+  "@context": "https://schema.org";
+  "@type": "Service";
+  "@id": string;
+  name: string;
+  description: string;
+  provider: { "@id": string };
+  areaServed: { "@type": "City"; name: string }[];
+  url: string;
+}
+
+/** Service entity (ATS schema ticket §2.2/§2.5). One per verified entry in
+ * content/services.ts — there is no /services/[slug] route in this
+ * codebase (services render as a single grid on /services), so each gets
+ * its own #{slug} anchor on that one page instead of a dedicated URL. */
+export function buildService(service: Service): ServiceSchema {
+  const url = `${siteConfig.siteUrl}/services#${service.slug}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": url,
+    name: service.name,
+    description: service.summary,
+    provider: { "@id": MEDICAL_BUSINESS_ID },
+    areaServed: siteConfig.serviceAreas.map((city) => ({ "@type": "City", name: city })),
+    url,
   };
 }
