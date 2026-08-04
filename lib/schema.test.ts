@@ -5,7 +5,9 @@ import { siteConfig } from "@/content/site";
 import {
   buildMedicalBusiness,
   buildOrganization,
+  buildPerson,
   buildWebSite,
+  DR_ABE_PERSON_ID,
   MEDICAL_BUSINESS_ID,
   ORGANIZATION_ID,
   WEBSITE_ID,
@@ -64,5 +66,25 @@ describe("buildMedicalBusiness", () => {
   it("omits openingHoursSpecification while hours are unverified", () => {
     expect(siteConfig.hoursVerified).toBe(false);
     expect(buildMedicalBusiness().openingHoursSpecification).toBeUndefined();
+  });
+});
+
+describe("buildPerson", () => {
+  it("uses Person, never Physician, per the vocabulary rule", () => {
+    expect(buildPerson()["@type"]).toBe("Person");
+  });
+
+  it("uses the stable /about#dr-abe @id", () => {
+    expect(buildPerson()["@id"]).toBe(DR_ABE_PERSON_ID);
+  });
+
+  it("links to the practice via worksFor", () => {
+    expect(buildPerson().worksFor).toEqual({ "@id": MEDICAL_BUSINESS_ID });
+  });
+
+  it("omits alumniOf/hasCredential while doctorCredentials is unverified", () => {
+    const person = buildPerson();
+    expect(person.alumniOf).toBeUndefined();
+    expect(person.hasCredential).toBeUndefined();
   });
 });

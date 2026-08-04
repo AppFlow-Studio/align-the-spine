@@ -1,3 +1,4 @@
+import { doctorCredentials, doctorProfileContent } from "@/content/doctor-profile";
 import { siteConfig } from "@/content/site";
 
 /** Stable @id anchors reused across every builder in this file and every
@@ -137,6 +138,47 @@ export function buildMedicalBusiness(): MedicalBusinessSchema {
             opens: to24Hour(hours.open),
             closes: to24Hour(hours.close),
           })),
+        }
+      : {}),
+  };
+}
+
+export interface PersonSchema {
+  "@context": "https://schema.org";
+  "@type": "Person";
+  "@id": string;
+  name: string;
+  url: string;
+  image: string;
+  jobTitle: string;
+  worksFor: { "@id": string };
+  alumniOf?: string[];
+  hasCredential?: string[];
+}
+
+/** Person entity for Dr. Abe (ATS schema ticket §2.2/§2.4) — "Person", never
+ * "Physician" (that requires explicit owner confirmation this codebase
+ * doesn't have; "jobTitle: Chiropractor" is plain-text copy the site already
+ * publishes everywhere, not a licensure @type claim). alumniOf/hasCredential
+ * only render once doctorCredentials.verified is true — Dr. Abe hasn't
+ * confirmed his degree/school/license yet, so today's output omits both
+ * fields rather than publish an unverified claim. */
+export function buildPerson(): PersonSchema {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": DR_ABE_PERSON_ID,
+    name: doctorProfileContent.name,
+    url: `${siteConfig.siteUrl}/about`,
+    image: `${siteConfig.siteUrl}${doctorProfileContent.portrait.src}`,
+    jobTitle: "Chiropractor",
+    worksFor: { "@id": MEDICAL_BUSINESS_ID },
+    ...(doctorCredentials.verified
+      ? {
+          ...(doctorCredentials.alumniOf ? { alumniOf: doctorCredentials.alumniOf } : {}),
+          ...(doctorCredentials.hasCredential
+            ? { hasCredential: doctorCredentials.hasCredential }
+            : {}),
         }
       : {}),
   };
