@@ -60,3 +60,84 @@ export function buildWebSite(): WebSiteSchema {
     publisher: { "@id": ORGANIZATION_ID },
   };
 }
+
+/** "9:00 AM" / "7:00 PM" -> "09:00" / "19:00", per schema.org's
+ * openingHoursSpecification time format. Lifted from the retired
+ * lib/seo/local-business.ts. */
+function to24Hour(time: string): string {
+  const [, hourStr, minute, meridiem] = time.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i) ?? [];
+  let hour = Number(hourStr) % 12;
+  if (meridiem?.toUpperCase() === "PM") hour += 12;
+  return `${String(hour).padStart(2, "0")}:${minute}`;
+}
+
+export interface OpeningHoursSpec {
+  "@type": "OpeningHoursSpecification";
+  dayOfWeek: string;
+  opens: string;
+  closes: string;
+}
+
+export interface MedicalBusinessSchema {
+  "@context": "https://schema.org";
+  "@type": "MedicalBusiness";
+  "@id": string;
+  name: string;
+  url: string;
+  telephone: string;
+  email: string;
+  address: {
+    "@type": "PostalAddress";
+    streetAddress: string;
+    addressLocality: string;
+    addressRegion: string;
+    postalCode: string;
+    addressCountry: string;
+  };
+  geo: { "@type": "GeoCoordinates"; latitude: number; longitude: number };
+  areaServed: { "@type": "City"; name: string }[];
+  openingHoursSpecification?: OpeningHoursSpec[];
+}
+
+/** MedicalBusiness entity for the practice (ATS schema ticket §2.2/§2.3) —
+ * "MedicalBusiness" is the required @type per the ticket's vocabulary rule
+ * (never "Chiropractic", which is a medicine-system enum, not a business
+ * type). Replaces the old lib/seo/local-business.ts's
+ * `["MedicalClinic", "LocalBusiness"]` type array. `openingHoursSpecification`
+ * only renders once siteConfig.hoursVerified is true (§2.9) — every day is
+ * currently the same untouched 9-7 placeholder, unconfirmed by the client. */
+export function buildMedicalBusiness(): MedicalBusinessSchema {
+  return {
+    "@context": "https://schema.org",
+    "@type": "MedicalBusiness",
+    "@id": MEDICAL_BUSINESS_ID,
+    name: siteConfig.business.name,
+    url: siteConfig.siteUrl,
+    telephone: siteConfig.business.phone,
+    email: siteConfig.business.email,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: `${siteConfig.business.address.line1}, ${siteConfig.business.address.suite}`,
+      addressLocality: siteConfig.business.address.city,
+      addressRegion: siteConfig.business.address.state,
+      postalCode: siteConfig.business.address.zip,
+      addressCountry: "US",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: siteConfig.business.geo.latitude,
+      longitude: siteConfig.business.geo.longitude,
+    },
+    areaServed: siteConfig.serviceAreas.map((city) => ({ "@type": "City", name: city })),
+    ...(siteConfig.hoursVerified
+      ? {
+          openingHoursSpecification: siteConfig.hours.map((hours) => ({
+            "@type": "OpeningHoursSpecification" as const,
+            dayOfWeek: hours.day,
+            opens: to24Hour(hours.open),
+            closes: to24Hour(hours.close),
+          })),
+        }
+      : {}),
+  };
+}

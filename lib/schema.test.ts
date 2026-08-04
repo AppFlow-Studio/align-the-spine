@@ -2,7 +2,14 @@ import { describe, expect, it } from "vitest";
 
 import { siteConfig } from "@/content/site";
 
-import { buildOrganization, buildWebSite, ORGANIZATION_ID, WEBSITE_ID } from "./schema";
+import {
+  buildMedicalBusiness,
+  buildOrganization,
+  buildWebSite,
+  MEDICAL_BUSINESS_ID,
+  ORGANIZATION_ID,
+  WEBSITE_ID,
+} from "./schema";
 
 describe("buildOrganization", () => {
   it("uses the stable #organization @id", () => {
@@ -24,5 +31,38 @@ describe("buildWebSite", () => {
     const site = buildWebSite();
     expect(site["@id"]).toBe(WEBSITE_ID);
     expect(site.publisher).toEqual({ "@id": ORGANIZATION_ID });
+  });
+});
+
+describe("buildMedicalBusiness", () => {
+  it("uses MedicalBusiness as the sole @type — never Chiropractic or LocalBusiness", () => {
+    expect(buildMedicalBusiness()["@type"]).toBe("MedicalBusiness");
+  });
+
+  it("uses the stable #business @id", () => {
+    expect(buildMedicalBusiness()["@id"]).toBe(MEDICAL_BUSINESS_ID);
+  });
+
+  it("includes verified NAP and geo", () => {
+    const business = buildMedicalBusiness();
+    expect(business.telephone).toBe(siteConfig.business.phone);
+    expect(business.address).toEqual({
+      "@type": "PostalAddress",
+      streetAddress: "811 Southeast 8th Avenue, Suite #101",
+      addressLocality: "Deerfield Beach",
+      addressRegion: "FL",
+      postalCode: "33441",
+      addressCountry: "US",
+    });
+    expect(business.geo).toEqual({
+      "@type": "GeoCoordinates",
+      latitude: 26.3061477,
+      longitude: -80.0940209,
+    });
+  });
+
+  it("omits openingHoursSpecification while hours are unverified", () => {
+    expect(siteConfig.hoursVerified).toBe(false);
+    expect(buildMedicalBusiness().openingHoursSpecification).toBeUndefined();
   });
 });
