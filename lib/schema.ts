@@ -1,4 +1,5 @@
 import { doctorCredentials, doctorProfileContent } from "@/content/doctor-profile";
+import type { FAQ } from "@/content/faqs";
 import type { Service } from "@/content/services";
 import { siteConfig } from "@/content/site";
 
@@ -242,5 +243,31 @@ export function buildService(service: Service): ServiceSchema {
     provider: { "@id": MEDICAL_BUSINESS_ID },
     areaServed: siteConfig.serviceAreas.map((city) => ({ "@type": "City", name: city })),
     url,
+  };
+}
+
+export interface FAQPageSchema {
+  "@context": "https://schema.org";
+  "@type": "FAQPage";
+  mainEntity: {
+    "@type": "Question";
+    name: string;
+    acceptedAnswer: { "@type": "Answer"; text: string };
+  }[];
+}
+
+/** FAQPage entity (ATS schema ticket §2.2/§2.7). Callers must only pass the
+ * exact FAQ items visibly rendered on the same page (Google's requirement
+ * that structured data match visible content) — every current call site
+ * (components/seo/faq-json-ld.tsx) already does this. */
+export function buildFAQPage(items: FAQ[]): FAQPageSchema {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question" as const,
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer" as const, text: item.answer },
+    })),
   };
 }

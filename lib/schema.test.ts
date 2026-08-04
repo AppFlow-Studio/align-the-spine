@@ -4,6 +4,7 @@ import { siteConfig } from "@/content/site";
 
 import {
   buildBreadcrumbList,
+  buildFAQPage,
   buildMedicalBusiness,
   buildOrganization,
   buildPerson,
@@ -124,5 +125,19 @@ describe("buildService", () => {
     expect(service.provider).toEqual({ "@id": MEDICAL_BUSINESS_ID });
     expect(service.name).toBe("Adjustment");
     expect(service.description).toBe("Test summary.");
+  });
+});
+
+describe("buildFAQPage", () => {
+  it("builds one Question/Answer pair per FAQ item", () => {
+    const faqPage = buildFAQPage([{ question: "Q1?", answer: "A1." }]);
+    expect(faqPage["@type"]).toBe("FAQPage");
+    expect(faqPage.mainEntity).toEqual([
+      {
+        "@type": "Question",
+        name: "Q1?",
+        acceptedAnswer: { "@type": "Answer", text: "A1." },
+      },
+    ]);
   });
 });

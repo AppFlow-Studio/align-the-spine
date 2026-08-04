@@ -1,5 +1,6 @@
-import { JsonLdScript } from "@/components/seo/json-ld-script";
+import { JsonLd } from "@/components/seo/json-ld";
 import type { FAQ } from "@/content/faqs";
+import { buildFAQPage } from "@/lib/schema";
 
 export interface FaqJsonLdProps {
   items: FAQ[];
@@ -9,20 +10,5 @@ export interface FaqJsonLdProps {
  * alongside the FaqAccordion showing the same `items`, per Google's
  * requirement that FAQPage data match visible content. */
 export function FaqJsonLd({ items }: FaqJsonLdProps) {
-  return (
-    <JsonLdScript
-      data={{
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        mainEntity: items.map((item) => ({
-          "@type": "Question",
-          name: item.question,
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: item.answer,
-          },
-        })),
-      }}
-    />
-  );
+  return <JsonLd data={buildFAQPage(items)} />;
 }

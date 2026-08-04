@@ -30,7 +30,7 @@ function assertNoPlaceholderUrls(value: unknown, path = "$"): void {
 /** Renders a schema.org JSON-LD `<script>` tag. The one place every
  * structured-data block (lib/schema.ts's builders) gets serialized, so
  * script-closing escaping and placeholder-URL rejection stay consistent —
- * replaces the old components/seo/json-ld-script.tsx. */
+ * replaces the old script-tag serializer this file's sibling once owned. */
 export function JsonLd({ data }: JsonLdProps) {
   assertNoPlaceholderUrls(data);
   return (
