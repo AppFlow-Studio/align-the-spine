@@ -20,6 +20,10 @@ export interface NavLink {
 export interface SocialLink {
   platform: string;
   url: string;
+  /** True only once marketing has confirmed this is the correct, live GBP/
+   * social URL for the practice. lib/schema.ts's buildOrganization() omits
+   * unverified entries from `sameAs` entirely rather than publish a guess. */
+  verified: boolean;
 }
 
 export interface Stat {
@@ -48,6 +52,10 @@ export interface SiteConfig {
     geo: Geo;
   };
   hours: DayHours[];
+  /** True only once the client has confirmed these are the practice's
+   * actual, current hours. lib/schema.ts's buildMedicalBusiness() omits
+   * openingHoursSpecification entirely while this is false. */
+  hoursVerified: boolean;
   hoursNote: string;
   nav: NavLink[];
   bookingCta: NavLink;
@@ -96,6 +104,7 @@ export const siteConfig: SiteConfig = {
     geo: { latitude: 26.3061477, longitude: -80.0940209 },
   },
   hours: businessHours,
+  hoursVerified: false,
   hoursNote: "Priority for emergency cases",
   nav: [
     { label: "Services", href: "/services" },
@@ -124,8 +133,8 @@ export const siteConfig: SiteConfig = {
     "North Miami",
   ],
   social: [
-    { platform: "Facebook", url: "#" },
-    { platform: "Instagram", url: "#" },
+    { platform: "Facebook", url: "#", verified: false },
+    { platform: "Instagram", url: "#", verified: false },
   ],
   stats: [
     { label: "Reviews", value: "152" },

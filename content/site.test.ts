@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { isProduction } from "@/content/site";
+import { isProduction, siteConfig } from "@/content/site";
 
 describe("isProduction", () => {
   afterEach(() => {
@@ -20,5 +20,17 @@ describe("isProduction", () => {
   it("is false when VERCEL_ENV is unset (local dev, CI)", () => {
     vi.stubEnv("VERCEL_ENV", undefined);
     expect(isProduction()).toBe(false);
+  });
+});
+
+describe("hoursVerified / social.verified gates", () => {
+  it("defaults hoursVerified to false until the client confirms real hours", () => {
+    expect(siteConfig.hoursVerified).toBe(false);
+  });
+
+  it("marks every current social link as unverified (all are '#' placeholders today)", () => {
+    for (const social of siteConfig.social) {
+      expect(social.verified).toBe(false);
+    }
   });
 });
