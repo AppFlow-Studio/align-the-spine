@@ -16,9 +16,9 @@ import { leadFormVariants } from "@/content/lead-forms";
 import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { featuredTestimonial } from "@/content/testimonials";
-import { buildMetadata } from "@/lib/seo/metadata";
+import { buildRouteMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = buildMetadata(getRoute("/home-visits"));
+export const metadata: Metadata = buildRouteMetadata(getRoute("/home-visits"));
 
 /** /home-visits page assembly (ATS-110) per the Home-visits-v2 artboard
  * (96:1950): condition hero with the eligibility LeadForm, ServiceAreas +

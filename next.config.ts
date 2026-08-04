@@ -11,6 +11,14 @@ const nextConfig: NextConfig = {
         destination: "/auto-accidents",
         permanent: true,
       },
+      {
+        // ATS-E3 (3.3): the contact page's canonical URL is /contact-us —
+        // redirect the legacy /contact path so it still resolves instead
+        // of soft-404ing.
+        source: "/contact",
+        destination: "/contact-us",
+        permanent: true,
+      },
     ];
   },
 };

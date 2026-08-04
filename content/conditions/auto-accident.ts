@@ -15,7 +15,13 @@ export const autoAccidentCondition: Condition = {
   name: "Auto Accident Injuries",
   hero: {
     eyebrowChip: "AUTO ACCIDENT CHIROPRACTOR IN DEERFIELD BEACH, FL",
-    h1: "Injured in an Accident?",
+    // ATS-E3 (3.1): H1 set verbatim to the ticket's required SEO wording —
+    // deviates from the Figma-approved "Injured in an Accident?" headline
+    // (ATS-141). If this needs to be visually distinct from the on-page H1
+    // (e.g. a shorter marketing headline over this as the true semantic
+    // H1), flag it — for now the ticket's H1 text renders as the hero
+    // headline directly, matching every other page's pattern.
+    h1: "Chiropractic Evaluation After a Car Accident in Deerfield Beach",
     subhead:
       "Complete chiropractic care — full exam, treatment, and documentation for your claim. See your Florida PIP window below. In-home visits available when it's the right fit for your case.",
     backgroundImage: {

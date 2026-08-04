@@ -28,7 +28,7 @@ export default function BookPage() {
           src: "/figma-exports/phone-mockup.png",
           alt: "Patient calling Align the Spine to book an appointment",
         }}
-        title="Book a Chiropractic Appointment"
+        title="Request a Chiropractic Appointment"
         subhead="In-office or in-home when it applies. Tell us what's going on and we'll take it from there."
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
         formSlot={<BookingForm />}

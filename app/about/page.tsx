@@ -34,8 +34,8 @@ export default function AboutPage() {
           src: "/figma-exports/dr-abe-neck.png",
           alt: "Dr. Abe Nasser treating a patient's neck",
         }}
-        eyebrow="Meet Dr. Abe Nasser"
-        title="Comprehensive care, tailored to you"
+        eyebrow="About Dr. Abe Nasser"
+        title="Meet Dr. Abe Nasser"
         subhead="From routine adjustments to specialized recovery care — same doctor, every visit, at the office or your home when it applies."
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
       />

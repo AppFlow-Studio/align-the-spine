@@ -33,7 +33,7 @@ export default function NotFound() {
 
         <div className="flex flex-wrap items-center justify-center gap-4">
           <Button href="/book" variant="teal">
-            Book Appointment
+            Request Appointment
           </Button>
           <Button href="/" variant="primary">
             Back to Home

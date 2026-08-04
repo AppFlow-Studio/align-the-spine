@@ -51,12 +51,12 @@ export const leadFormVariants = {
     ],
     submitLabel: "Send Message",
   },
+  // ATS-E3 (3.1): no claim-number field — the ticket forbids collecting
+  // it on this form (broad accident qualifier only, no case-detail
+  // fields).
   carAccident: {
     variant: "carAccident",
-    fields: [
-      ...baseFields,
-      { name: "claimNumber", label: "Claim # (if available)", required: false },
-    ],
+    fields: baseFields,
     submitLabel: "Schedule My Car Accident Evaluation",
   },
   contact: {
@@ -79,7 +79,9 @@ export const leadFormVariants = {
     submitLabel: "Check Eligibility",
   },
   /** Two-step /book hero form per the Book-appt artboard: step 1 collects
-   * first name + phone, step 2 the rest. No email field by design. */
+   * first name + phone, step 2 the rest. No email field by design.
+   * ATS-E3 (3.4): the free-text "notes" field is gone — a broad reason
+   * select only, no open-ended detailed health notes. */
   booking: {
     variant: "booking",
     fields: [
@@ -99,12 +101,6 @@ export const leadFormVariants = {
           { label: "Home visit", value: "home-visit" },
           { label: "Other", value: "other" },
         ],
-      },
-      {
-        name: "notes",
-        label: "Anything else we should know? (optional)",
-        type: "textarea",
-        required: false,
       },
     ],
     submitLabel: "Schedule My Evaluation",

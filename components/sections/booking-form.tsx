@@ -9,7 +9,6 @@ import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
 import { Input } from "@/components/ui/input";
 import type { LeadFormValues } from "@/components/ui/lead-form";
 import { Select } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import { leadFormVariants } from "@/content/lead-forms";
 import { trackLeadConversion } from "@/lib/analytics";
 import { buildLeadFormSchema } from "@/lib/lead-form-schema";
@@ -119,17 +118,6 @@ export function BookingForm() {
               variant="dark"
               options={field.options ?? []}
               placeholder={field.placeholder}
-              error={error}
-              {...register(field.name)}
-            />
-          );
-        }
-        if (field.type === "textarea") {
-          return (
-            <Textarea
-              key={field.name}
-              label={label}
-              variant="dark"
               error={error}
               {...register(field.name)}
             />

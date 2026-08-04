@@ -74,21 +74,24 @@ export const routes: RouteMeta[] = [
     lastModified: "2026-07-31",
   },
   {
+    // ATS-E3 (3.4): renamed from "Book" — nothing on this form auto-confirms
+    // a slot, it's a request that gets a callback, so "Book" overpromised.
     path: "/book",
-    title: `Book an Appointment | ${siteConfig.business.name}`,
+    title: `Request a Chiropractic Appointment | Deerfield Beach, FL | ${siteConfig.business.name}`,
     description:
-      "Schedule your chiropractic evaluation in Deerfield Beach or at your home — book online or call (954) 573-7192.",
+      "Request your chiropractic evaluation in Deerfield Beach or at your home — we'll follow up to confirm. Call (954) 573-7192.",
     image: {
       src: "/figma-exports/phone-mockup.png",
-      alt: "Patient calling Align the Spine to book an appointment",
+      alt: "Patient calling Align the Spine to request an appointment",
     },
     changeFrequency: "monthly",
     priority: 0.9,
-    lastModified: "2026-07-31",
+    lastModified: "2026-08-04",
   },
   {
+    // ATS-E3 (3.1): "Auto" -> "Car" to match the ticket's specified title.
     path: "/auto-accidents",
-    title: `Auto Accident Chiropractor in Deerfield Beach, FL | ${siteConfig.business.name}`,
+    title: `Car Accident Chiropractor in Deerfield Beach, FL | ${siteConfig.business.name}`,
     description:
       "Car accident evaluations for Florida PIP claims. Full exam, treatment, and documentation for your claim — in-home visits available. Call (954) 573-7192.",
     image: {
@@ -145,6 +148,9 @@ export const routes: RouteMeta[] = [
     lastModified: "2026-08-03",
     status: "draft",
   },
+  // ATS-E3 (3.7): unverified service-area/availability data (see
+  // content/site.ts's `serviceAreas`, ATS-E4 4.6) — stays draft
+  // (noindex, out of the sitemap) until that's confirmed.
   {
     path: "/home-visits",
     title: `Home Visit Chiropractor in Deerfield Beach, FL | ${siteConfig.business.name}`,
@@ -157,10 +163,24 @@ export const routes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-07-31",
+    status: "draft",
+  },
+  // ATS-E3 (3.2): no approved review data yet (content/reviews.ts is
+  // empty) — stays draft until real, published reviews exist.
+  {
+    path: "/reviews",
+    title: `Patient Reviews | ${siteConfig.business.name}`,
+    description:
+      "Verified patient reviews for Align the Spine Chiropractic in Deerfield Beach, FL.",
+    changeFrequency: "monthly",
+    priority: 0.6,
+    lastModified: "2026-08-04",
+    status: "draft",
   },
   {
+    // ATS-E3 (3.8): title set to the ticket's exact required wording.
     path: "/about",
-    title: `About Dr. Abe Nasser | ${siteConfig.business.name}`,
+    title: "Dr. Abe Nasser, D.C. | Deerfield Beach Chiropractor",
     description:
       "One doctor, every visit. Meet Dr. Abe Nasser — transparent pricing and the same provider from your first exam through recovery. Call (954) 573-7192.",
     image: {

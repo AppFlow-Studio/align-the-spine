@@ -29,18 +29,23 @@ describe("sitemap", () => {
     expect(paths).toEqual(routes.filter(isPublished).map((route) => route.path));
   });
 
-  // ATS-E4 (4.12/4.14): condition pages are draft (noindex, out of the
-  // sitemap) until a clinician reviewer signs off — see content/seo.ts.
-  // This test intentionally fails once any of them flips to "published"
-  // without also being removed from this list, as a reminder to update
-  // the assertion deliberately rather than let it silently pass.
-  it("excludes the still-unreviewed condition pages", () => {
+  // ATS-E4 (4.12/4.14) / ATS-E3 (3.2/3.7): these routes are draft (noindex,
+  // out of the sitemap) until their respective approvals land — condition
+  // pages need a clinician reviewer, /reviews needs real published
+  // reviews, /home-visits needs verified service-area/availability data.
+  // See content/seo.ts. This test intentionally fails once any of them
+  // flips to "published" without also being removed from this list, as a
+  // reminder to update the assertion deliberately rather than let it
+  // silently pass.
+  it("excludes routes still pending approval", () => {
     const paths = sitemap().map((entry) => entry.url.replace(siteConfig.siteUrl, ""));
     for (const path of [
       "/conditions/back-pain",
       "/conditions/neck-pain",
       "/conditions/sciatica",
       "/conditions/whiplash",
+      "/reviews",
+      "/home-visits",
     ]) {
       expect(paths).not.toContain(path);
     }
