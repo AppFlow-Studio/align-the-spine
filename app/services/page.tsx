@@ -12,7 +12,7 @@ import { JsonLd } from "@/components/seo/json-ld";
 import { doctorProfileContent } from "@/content/doctor-profile";
 import { leadFormVariants } from "@/content/lead-forms";
 import { getRoute } from "@/content/seo";
-import { services } from "@/content/services";
+import { servicesGrid } from "@/content/services-grid";
 import { siteConfig } from "@/content/site";
 import { homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
 import { buildService } from "@/lib/schema";
@@ -39,7 +39,7 @@ export default function ServicesPage() {
           { name: "Services", path: "/services" },
         ]}
       />
-      {services.map((service) => (
+      {servicesGrid.map((service) => (
         <JsonLd key={service.slug} data={buildService(service)} />
       ))}
       <Hero
