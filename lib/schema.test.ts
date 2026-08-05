@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { servicesGrid } from "@/content/services-grid";
 import { siteConfig } from "@/content/site";
 
 import {
@@ -13,6 +14,7 @@ import {
   DR_ABE_PERSON_ID,
   MEDICAL_BUSINESS_ID,
   ORGANIZATION_ID,
+  to24Hour,
   WEBSITE_ID,
 } from "./schema";
 
@@ -69,6 +71,32 @@ describe("buildMedicalBusiness", () => {
   it("omits openingHoursSpecification while hours are unverified", () => {
     expect(siteConfig.hoursVerified).toBe(false);
     expect(buildMedicalBusiness().openingHoursSpecification).toBeUndefined();
+  });
+
+  it("links back to the Organization entity via parentOrganization", () => {
+    expect(buildMedicalBusiness().parentOrganization).toEqual({ "@id": ORGANIZATION_ID });
+  });
+});
+
+describe("to24Hour", () => {
+  it("converts a morning AM time to 24-hour format", () => {
+    expect(to24Hour("9:00 AM")).toBe("09:00");
+  });
+
+  it("converts an evening PM time to 24-hour format", () => {
+    expect(to24Hour("7:00 PM")).toBe("19:00");
+  });
+
+  it("keeps 12:00 PM (noon) as 12:00, the classic 12-hour boundary case", () => {
+    expect(to24Hour("12:00 PM")).toBe("12:00");
+  });
+
+  it("converts 12:00 AM (midnight) to 00:00", () => {
+    expect(to24Hour("12:00 AM")).toBe("00:00");
+  });
+
+  it("throws on an unparseable time string instead of returning NaN:undefined", () => {
+    expect(() => to24Hour("not a time")).toThrow(/unparseable time string/);
   });
 });
 

@@ -66,9 +66,16 @@ export function buildWebSite(): WebSiteSchema {
 
 /** "9:00 AM" / "7:00 PM" -> "09:00" / "19:00", per schema.org's
  * openingHoursSpecification time format. Lifted from the retired
- * lib/seo/local-business.ts. */
-function to24Hour(time: string): string {
-  const [, hourStr, minute, meridiem] = time.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i) ?? [];
+ * lib/seo/local-business.ts. Throws on an unparseable input rather than
+ * silently emitting "NaN:undefined" into openingHoursSpecification —
+ * consistent with assertNoPlaceholderUrls's fail-loud philosophy
+ * (components/seo/json-ld.tsx). Exported for direct unit testing. */
+export function to24Hour(time: string): string {
+  const match = time.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+  if (!match) {
+    throw new Error(`to24Hour: unparseable time string "${time}"`);
+  }
+  const [, hourStr, minute, meridiem] = match;
   let hour = Number(hourStr) % 12;
   if (meridiem?.toUpperCase() === "PM") hour += 12;
   return `${String(hour).padStart(2, "0")}:${minute}`;
@@ -99,6 +106,7 @@ export interface MedicalBusinessSchema {
   };
   geo: { "@type": "GeoCoordinates"; latitude: number; longitude: number };
   areaServed: { "@type": "City"; name: string }[];
+  parentOrganization: { "@id": string };
   openingHoursSpecification?: OpeningHoursSpec[];
 }
 
@@ -108,7 +116,10 @@ export interface MedicalBusinessSchema {
  * type). Replaces the old lib/seo/local-business.ts's
  * `["MedicalClinic", "LocalBusiness"]` type array. `openingHoursSpecification`
  * only renders once siteConfig.hoursVerified is true (§2.9) — every day is
- * currently the same untouched 9-7 placeholder, unconfirmed by the client. */
+ * currently the same untouched 9-7 placeholder, unconfirmed by the client.
+ * `parentOrganization` links this clinic entity back to the brand-level
+ * Organization entity (buildOrganization) so a JSON-LD consumer sees one
+ * connected graph instead of two same-named, unrelated entities. */
 export function buildMedicalBusiness(): MedicalBusinessSchema {
   return {
     "@context": "https://schema.org",
@@ -132,6 +143,7 @@ export function buildMedicalBusiness(): MedicalBusinessSchema {
       longitude: siteConfig.business.geo.longitude,
     },
     areaServed: siteConfig.serviceAreas.map((city) => ({ "@type": "City", name: city })),
+    parentOrganization: { "@id": ORGANIZATION_ID },
     ...(siteConfig.hoursVerified
       ? {
           openingHoursSpecification: siteConfig.hours.map((hours) => ({
@@ -228,10 +240,15 @@ export interface ServiceSchema {
   url: string;
 }
 
-/** Service entity (ATS schema ticket §2.2/§2.5). One per verified entry in
- * content/services.ts — there is no /services/[slug] route in this
- * codebase (services render as a single grid on /services), so each gets
- * its own #{slug} anchor on that one page instead of a dedicated URL. */
+/** Service entity (ATS schema ticket §2.2/§2.5). One per entry in
+ * content/services-grid.ts — the array actually rendered by ServiceCatalog
+ * on /services (content/services.ts is a separate list that feeds the
+ * homepage's ServicesSection instead). There is no /services/[slug] route
+ * in this codebase (services render as a single grid on /services), so
+ * each gets its own #{slug} anchor on that one page instead of a dedicated
+ * URL. The `Service` type here just happens to be structurally identical
+ * to `ServiceCardItem` (content/services-grid.ts), which is what callers
+ * actually pass. */
 export function buildService(service: Service): ServiceSchema {
   const url = `${siteConfig.siteUrl}/services#${service.slug}`;
   return {
