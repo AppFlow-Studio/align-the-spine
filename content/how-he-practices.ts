@@ -20,7 +20,7 @@ export const howHePracticesCards: PracticeCard[] = [
   {
     title: "Accessible care",
     description:
-      "Transparent pricing and a $50 new-patient visit — great chiropractic care shouldn't be a luxury.",
+      "Transparent pricing — great chiropractic care shouldn't be a luxury. Call us for current new-patient pricing.",
     image: { src: "/figma-exports/drabe-whiplash.png", alt: "Chiropractic treatment session" },
   },
   {
@@ -42,6 +42,6 @@ export const howHePracticesCards: PracticeCard[] = [
 
 export const homeVisitCallout: HomeVisitCallout = {
   heading: "The office, when you'd rather come to us",
-  body: "Home visits are available based on your case and location — but the Deerfield Beach office is always here, same-day appointments most weeks.",
+  body: "Home visits are available based on your case and location — but the Deerfield Beach office is always here too.",
   image: { src: "/figma-exports/interior-reception.png", alt: "Align the Spine reception area" },
 };

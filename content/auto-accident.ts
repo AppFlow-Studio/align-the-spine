@@ -9,8 +9,7 @@ export const autoAccidentSteps: HowWeHelpStep[] = [
     image: "/figma-exports/home-visits-step-call.png",
     alt: "Phone showing an incoming call",
     title: "Call or request online",
-    description:
-      "Tell us what happened. Most requests get a same-day answer, no call center, no hold music.",
+    description: "Tell us what happened. No call center, no hold music.",
   },
   {
     image: "/figma-exports/home-visits-step-eligibility.png",
@@ -23,12 +22,16 @@ export const autoAccidentSteps: HowWeHelpStep[] = [
     image: "/figma-exports/home-visits-step-visit.png",
     alt: "Notebook and pen ready for a treatment plan",
     title: "Your plan, fully handled",
-    description:
-      "Treatment tied to your case — billed directly to PIP, with your attorney or insurer coordinated for you.",
+    description: "Treatment tied to your case — your attorney or insurer coordinated for you.",
   },
 ];
 
 /** Attorney-referral quote strip between the HOW WE HELP steps and the
- * "Ready when you are" CTA band, per the Figma frame. */
+ * "Ready when you are" CTA band, per the Figma frame. ATS-E4 (4.5): the
+ * original copy asserted an unverified attorney-referral claim and a PIP
+ * billing claim ("Attorneys across South Florida refer their clients to
+ * Dr. Abe Nasser because he's one of the few providers doing PIP-covered
+ * home visits.") — neither has client sign-off. Reworded to describe what
+ * we do without the referral/insurance-billing assertions. */
 export const autoAccidentAttorneyQuote =
-  "Attorneys across South Florida refer their clients to Dr. Abe Nasser because he's one of the few providers doing PIP-covered home visits.";
+  "If you're working with an attorney, we're happy to coordinate documentation directly with them for your case.";

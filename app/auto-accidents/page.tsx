@@ -23,6 +23,7 @@ import { pointToWhereItHurtsContent } from "@/content/point-to-where-it-hurts";
 import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
+import { isVerified } from "@/content/verified-value";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 /** Code-split (Epic 12): keep these interactive, below-the-fold sections
@@ -41,9 +42,12 @@ const { hero, faq, flags } = autoAccidentCondition;
 // ConditionFaqItem) — map between the two.
 const faqItems = faq.items.map((item) => ({ question: item.q, answer: item.a }));
 
-// Splits hero.subhead's "Florida PIP insurance" into an in-page link to the
+// Splits hero.subhead's "Florida PIP window" into an in-page link to the
 // PIPCalculator further down, matching the underline shown in the Figma hero.
-const [subheadBeforePip, subheadAfterPip] = hero.subhead.split("Florida PIP insurance");
+const [subheadBeforePip, subheadAfterPip] = hero.subhead.split("Florida PIP window");
+// ATS-E4 (4.5): flags.pipStat is a specific PIP-coverage dollar claim —
+// only pass it to Hero once it's been client-verified.
+const pipStat = flags.pipStat && isVerified(flags.pipStat) ? flags.pipStat.value : undefined;
 
 export const metadata: Metadata = buildMetadata(getRoute("/auto-accidents"));
 
@@ -78,21 +82,19 @@ export default function AutoAccidentsPage() {
           <>
             {subheadBeforePip}
             <a href="#pip-calculator" className="underline">
-              Florida PIP insurance
+              Florida PIP window
             </a>
             {subheadAfterPip}
           </>
         }
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
-        bilingualNote="¿Habla español? Dr. Abe habla su idioma."
-        stat={flags.pipStat}
+        stat={pipStat}
         form={{
           heading: "Schedule Your Evaluation",
           submitLabel: leadFormVariants.accidentEval.submitLabel,
           variant: leadFormVariants.accidentEval.variant,
           fields: leadFormVariants.accidentEval.fields,
-          footerNote:
-            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
+          footerNote: "Call us to check availability in your area.",
         }}
       />
 
@@ -122,7 +124,7 @@ export default function AutoAccidentsPage() {
           <div className="flex flex-col gap-2">
             <h2 className="font-display text-h2 text-white">Ready when you are</h2>
             <p className="font-sans text-body-lg text-mute-300">
-              Same-day visits, seven days a week — no waiting room, no driving in pain.
+              No waiting room, no driving in pain — call and we&apos;ll find a time that works.
             </p>
           </div>
           <Button

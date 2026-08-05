@@ -7,8 +7,7 @@ export const homeVisitSteps: HowWeHelpStep[] = [
     image: "/figma-exports/home-visits-step-call.png",
     alt: "Phone showing an incoming call",
     title: "Call or request online",
-    description:
-      "Tell us what's going on and where you're located. Most requests get a same-day answer.",
+    description: "Tell us what's going on and where you're located, and we'll get back to you.",
   },
   {
     image: "/figma-exports/home-visits-step-eligibility.png",
@@ -35,8 +34,7 @@ export interface FitChecklistRow {
  * /home-visits (ATS-110/111), per the Home-visits-v2 artboard. */
 export const homeVisitFitChecklist: FitChecklistRow[] = [
   {
-    goodFit:
-      "Recovering from a car accident, especially in the first 14 days (PIP-covered in most cases)",
+    goodFit: "Recovering from a car accident, especially within the first 14 days",
     inOffice: "Outside our current service area (call and we'll let you know)",
   },
   {
@@ -50,7 +48,7 @@ export const homeVisitFitChecklist: FitChecklistRow[] = [
       "Routine, non-urgent maintenance visits, where the office is usually faster to schedule",
   },
   {
-    goodFit: "Needing a same-day evaluation and unable to get to the office quickly",
+    goodFit: "Needing a quick evaluation and unable to get to the office comfortably",
     inOffice: "First-time evaluations, so we can build your full treatment plan in person",
   },
 ];

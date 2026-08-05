@@ -20,7 +20,7 @@ export const comparisonTableRows: ComparisonRow[] = [
   },
   {
     label: "Availability",
-    alignTheSpine: "Same Day Appointment",
+    alignTheSpine: "Priority Scheduling",
     traditionalClinic: "Wait list 2-3 weeks",
   },
   {

@@ -1,18 +1,25 @@
+import type { DoctorRating } from "@/content/doctor-profile";
 import { siteConfig } from "@/content/site";
+import { unverified, type VerifiedValue } from "@/content/verified-value";
 
 export interface WhyChooseContent {
   heading: string;
   body: string;
   cta: { label: string; href: string };
-  rating: { value: number; count: number; location: string };
+  /** ATS-E4 (4.3): unverified — WhyChoose omits the rating badge until
+   * approved. */
+  rating: VerifiedValue<DoctorRating>;
   image: { src: string; alt: string };
 }
 
-/** WhyChoose copy + image per homepage artboard (96:496–96:503), ATS-072. */
+/** WhyChoose copy + image per homepage artboard (96:496–96:503), ATS-072.
+ * ATS-E4 (4.5): "All major insurance accepted" and an unconfirmed "15
+ * years" tenure claim were removed from `body` — neither has client
+ * approval. */
 export const whyChooseContent: WhyChooseContent = {
   heading: "Why Choose Align the Spine Chiropractic",
-  body: "Serving South Florida for over 15 years. From everyday back pain and sports injuries to complex accident recovery, Align the Spine was built around one belief: great chiropractic care should be accessible to everyone. Transparent pricing. All major insurance accepted. And a doctor who actually knows your name — because at Align the Spine, you always see Dr. Abe.",
+  body: "From everyday back pain and sports injuries to complex accident recovery, Align the Spine was built around one belief: great chiropractic care should be accessible to everyone. Transparent pricing, explained clearly. And a doctor who actually knows your name — because at Align the Spine, you always see Dr. Abe.",
   cta: { label: "Book an appointment", href: siteConfig.bookingCta.href },
-  rating: { value: 5, count: 152, location: "Deerfield Beach, Florida" },
+  rating: unverified<DoctorRating>(),
   image: { src: "/figma-exports/interior-table.png", alt: "Align the Spine treatment room" },
 };

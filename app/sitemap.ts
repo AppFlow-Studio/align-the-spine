@@ -1,45 +1,22 @@
 import type { MetadataRoute } from "next";
 
-import { conditionsBySlug } from "@/content/conditions";
-import { routes } from "@/content/seo";
+import { isPublished, routes } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 
-/** Real (non-build-time) lastModified dates for the two remaining
- * conditions still served by the generic /conditions/[slug] template (see
- * content/conditions/index.ts). Bump the date here by hand when either
- * condition's content changes — content/seo.ts covers every other route. */
-const dynamicConditionLastModified: Record<string, string> = {
-  whiplash: "2026-07-29",
-  sciatica: "2026-07-29",
-};
-
-export function lastModifiedFor(slug: string): string {
-  const date = dynamicConditionLastModified[slug];
-  if (!date) {
-    throw new Error(`app/sitemap.ts: no lastModified configured for condition "${slug}"`);
-  }
-  return date;
-}
-
-/** Sitemap (ATS-131): sourced entirely from content/seo.ts's route registry
- * plus the dynamic /conditions/[slug] routes derived from conditionsBySlug,
- * so a new static page or condition doesn't also need a second, separate
- * sitemap entry. /thank-you, /404, /auto-accident, and API routes are
- * absent because they're not in the registry — see content/seo.ts. */
+/** Sitemap (ATS-131): sourced entirely from content/seo.ts's route
+ * registry, so a new static or condition page doesn't also need a second,
+ * separate sitemap entry. /thank-you, /404, /auto-accident, and API
+ * routes are absent because they're not in the registry — see
+ * content/seo.ts. As of ATS-137, every /conditions/* route is a static
+ * page registered there directly — there's no more dynamic [slug] route
+ * to append separately. ATS-E4 (4.12): routes marked `status: "draft"`
+ * (currently all 4 condition pages, pending clinician review — see
+ * content/seo.ts) are excluded here too. */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticEntries: MetadataRoute.Sitemap = routes.map((route) => ({
+  return routes.filter(isPublished).map((route) => ({
     url: `${siteConfig.siteUrl}${route.path}`,
     lastModified: route.lastModified,
     changeFrequency: route.changeFrequency,
     priority: route.priority,
   }));
-
-  const conditionEntries: MetadataRoute.Sitemap = Object.keys(conditionsBySlug).map((slug) => ({
-    url: `${siteConfig.siteUrl}/conditions/${slug}`,
-    lastModified: lastModifiedFor(slug),
-    changeFrequency: "monthly",
-    priority: 0.8,
-  }));
-
-  return [...staticEntries, ...conditionEntries];
 }

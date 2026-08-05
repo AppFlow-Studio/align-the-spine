@@ -17,9 +17,9 @@ import { leadFormVariants } from "@/content/lead-forms";
 import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { featuredTestimonial } from "@/content/testimonials";
-import { buildMetadata } from "@/lib/seo/metadata";
+import { buildRouteMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = buildMetadata(getRoute("/home-visits"));
+export const metadata: Metadata = buildRouteMetadata(getRoute("/home-visits"));
 
 /** /home-visits page assembly (ATS-110) per the Home-visits-v2 artboard
  * (96:1950): condition hero with the eligibility LeadForm, ServiceAreas +
@@ -51,14 +51,12 @@ export default function HomeVisitsPage() {
         }
         subhead="Full exam and hands-on treatment, wherever you're most comfortable — when it's the right fit for your case and location."
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
-        bilingualNote="¿Habla español? Dr. Abe habla su idioma."
         form={{
           heading: "Check home-visit eligibility",
           submitLabel: leadFormVariants.eligibility.submitLabel,
           variant: leadFormVariants.eligibility.variant,
           fields: leadFormVariants.eligibility.fields,
-          footerNote:
-            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
+          footerNote: "Call us to check availability in your area.",
         }}
       />
 

@@ -38,9 +38,9 @@ import { pointToWhereItHurtsContent } from "@/content/point-to-where-it-hurts";
 import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
-import { buildMetadata } from "@/lib/seo/metadata";
+import { buildRouteMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = buildMetadata(getRoute("/conditions/neck-pain"));
+export const metadata: Metadata = buildRouteMetadata(getRoute("/conditions/neck-pain"));
 
 const neckPainTypeCategories = [
   {
@@ -113,14 +113,12 @@ export default function NeckPainPage() {
         title={neckPainHero.h1}
         subhead={neckPainHero.subhead}
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
-        bilingualNote="¿Habla español? Dr. Abe habla su idioma."
         form={{
           heading: "Schedule Your Evaluation",
           submitLabel: leadFormVariants.heroEval.submitLabel,
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,
-          footerNote:
-            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
+          footerNote: "Call us to check availability in your area.",
         }}
       />
 

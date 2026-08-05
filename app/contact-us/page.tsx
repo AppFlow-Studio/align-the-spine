@@ -47,7 +47,6 @@ export default function ContactUsPage() {
           title="You've Landed in the Right Place After a Car Accident"
           subhead="Questions about your visit, insurance, or your claim? Reach us directly — no call center, no hold music."
           callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
-          bilingualNote="¿Habla español? Dr. Abe habla su idioma."
           form={{
             heading: "Schedule Your Evaluation",
             submitLabel: leadFormVariants.contactUs.submitLabel,
