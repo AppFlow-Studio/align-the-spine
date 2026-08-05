@@ -8,11 +8,14 @@ import { Hero } from "@/components/sections/hero";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { ServiceCatalog } from "@/components/sections/service-catalog";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { JsonLd } from "@/components/seo/json-ld";
 import { doctorProfileContent } from "@/content/doctor-profile";
 import { leadFormVariants } from "@/content/lead-forms";
 import { getRoute } from "@/content/seo";
+import { services } from "@/content/services";
 import { siteConfig } from "@/content/site";
 import { homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
+import { buildService } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildMetadata(getRoute("/services"));
@@ -36,6 +39,9 @@ export default function ServicesPage() {
           { name: "Services", path: "/services" },
         ]}
       />
+      {services.map((service) => (
+        <JsonLd key={service.slug} data={buildService(service)} />
+      ))}
       <Hero
         variant="home"
         background={{
