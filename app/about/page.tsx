@@ -6,11 +6,16 @@ import { ContactSection } from "@/components/sections/contact-section";
 import { DoctorHistory } from "@/components/sections/doctor-history";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { Hero } from "@/components/sections/hero";
+import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
 import { HowHePractices } from "@/components/sections/how-he-practices";
 import { PhotoGallery } from "@/components/sections/photo-gallery";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { JsonLd } from "@/components/seo/json-ld";
 import { doctorHistoryContent, doctorProfileContent } from "@/content/doctor-profile";
 import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
+import { heroReviewsCarousel } from "@/content/testimonials";
+import { buildPerson } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildMetadata(getRoute("/about"));
@@ -28,6 +33,13 @@ export const metadata: Metadata = buildMetadata(getRoute("/about"));
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={buildPerson()} />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "" },
+          { name: "About", path: "/about" },
+        ]}
+      />
       <Hero
         variant="condition"
         background={{
@@ -39,6 +51,7 @@ export default function AboutPage() {
         subhead="From routine adjustments to specialized recovery care — same doctor, every visit, at the office or your home when it applies."
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
       />
+      <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
       <DoctorProfile
         variant="long"
         content={doctorProfileContent}

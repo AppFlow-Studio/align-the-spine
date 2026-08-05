@@ -4,6 +4,8 @@ import { LocationFooter } from "@/components/layout/location-footer";
 import { LocationIntro } from "@/components/layout/location-intro";
 import { BookingForm } from "@/components/sections/booking-form";
 import { Hero } from "@/components/sections/hero";
+import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { Section } from "@/components/ui/section";
@@ -11,6 +13,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { bookFaqs } from "@/content/faqs";
 import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
+import { heroReviewsCarousel } from "@/content/testimonials";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildMetadata(getRoute("/book"));
@@ -22,6 +25,12 @@ export const metadata: Metadata = buildMetadata(getRoute("/book"));
 export default function BookPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "" },
+          { name: "Book", path: "/book" },
+        ]}
+      />
       <Hero
         variant="condition"
         background={{
@@ -33,6 +42,7 @@ export default function BookPage() {
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
         formSlot={<BookingForm />}
       />
+      <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
 
       <LocationIntro />
       <LocationFooter />

@@ -4,7 +4,6 @@ import Link from "next/link";
 
 import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
 import { siteConfig } from "@/content/site";
-import { isVerified } from "@/content/verified-value";
 import { cn } from "@/lib/cn";
 
 function buildMapEmbedSrc(): string {
@@ -47,10 +46,10 @@ export function LocationFooter() {
             <div className="mt-2 h-px w-full bg-mute-300" />
           </div>
 
-          {isVerified(siteConfig.hours) ? (
+          {siteConfig.hoursVerified ? (
             <table className="w-full font-alt text-footer-copy">
               <tbody>
-                {siteConfig.hours.value.map((hours) => {
+                {siteConfig.hours.map((hours) => {
                   const isToday = hours.day === today;
                   return (
                     <tr key={hours.day} className="border-t border-gray-200 first:border-t-0">

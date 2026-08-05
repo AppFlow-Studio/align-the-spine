@@ -22,6 +22,10 @@ export interface NavLink {
 export interface SocialLink {
   platform: string;
   url: string;
+  /** True only once marketing has confirmed this is the correct, live GBP/
+   * social URL for the practice. lib/schema.ts's buildOrganization() omits
+   * unverified entries from `sameAs` entirely rather than publish a guess. */
+  verified: boolean;
 }
 
 export interface Stat {
@@ -49,12 +53,12 @@ export interface SiteConfig {
      * Business Profile listing if precision ever matters (e.g. a map embed). */
     geo: Geo;
   };
-  /** ATS-E4 (4.2): the previous hardcoded 9am–7pm daily hours conflicted
-   * with the legacy Home/Contact pages and third-party listings — there's
-   * no single confirmed source of truth yet. Unverified until the client
-   * approves real hours; LocationFooter shows "Call to confirm" and the
-   * LocalBusiness JSON-LD omits openingHoursSpecification meanwhile. */
-  hours: VerifiedValue<DayHours[]>;
+  hours: DayHours[];
+  /** True only once the client has confirmed these are the practice's
+   * actual, current hours. lib/schema.ts's buildMedicalBusiness() omits
+   * openingHoursSpecification entirely while this is false. */
+  hoursVerified: boolean;
+  hoursNote: string;
   nav: NavLink[];
   bookingCta: NavLink;
   footer: {
@@ -65,19 +69,33 @@ export interface SiteConfig {
   /** ATS-E4 (4.6): home-visit coverage area — was asserted as fixed fact
    * (6 named cities) with no confirmation it's actually accurate/current.
    * Gated until approved; ServiceAreas renders nothing meanwhile. */
-  serviceAreas: VerifiedValue<string[]>;
+  serviceAreas: string[];
+  /** True only once the client has confirmed the service-areas list is
+   * accurate/current. ServiceAreas and lib/seo/local-business.ts's
+   * areaServed both omit this data entirely while this is false. */
+  serviceAreasVerified: boolean;
   /** ATS-E4 (4.8): no real social URLs exist yet (both were "#"
    * placeholders). Nothing currently renders this field, but it's typed
    * as gated so a future renderer can't accidentally ship placeholder
    * links. */
-  social: VerifiedValue<SocialLink[]>;
+  social: SocialLink[];
   /** ATS-E4 (4.3/4.4/4.5/4.7): the "Reviews 152 / Visits Same-day / When it
    * applies Home visits / Bilingual care EN/ES / Insurance $0 with PIP"
    * stat row was five unverified claims in one array — review count,
    * same-day availability, and $0/PIP insurance billing all need client
    * approval; TopStatsBar/StatChipRow render nothing until this is set. */
-  stats: VerifiedValue<Stat[]>;
+  stats: Stat[];
 }
+
+const businessHours: DayHours[] = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+].map((day) => ({ day: day as DayHours["day"], open: "9:00 AM", close: "7:00 PM" }));
 
 /** True only for actual Vercel production deploys. Local dev, CI, and
  * Vercel preview builds are all treated as non-production so metadata/
@@ -103,7 +121,9 @@ export const siteConfig: SiteConfig = {
     },
     geo: { latitude: 26.3061477, longitude: -80.0940209 },
   },
-  hours: unverified<DayHours[]>(),
+  hours: businessHours,
+  hoursVerified: false,
+  hoursNote: "Priority for emergency cases",
   nav: [
     { label: "Services", href: "/services" },
     { label: "About", href: "/about" },
@@ -123,7 +143,24 @@ export const siteConfig: SiteConfig = {
     ],
     copyrightName: "Align the Spine Chiropractic",
   },
-  serviceAreas: unverified<string[]>(),
-  social: unverified<SocialLink[]>(),
-  stats: unverified<Stat[]>(),
+  serviceAreas: [
+    "Deerfield Beach",
+    "Boca Raton",
+    "Boynton Beach",
+    "Fort Lauderdale",
+    "Aventura",
+    "North Miami",
+  ],
+  serviceAreasVerified: false,
+  social: [
+    { platform: "Facebook", url: "#", verified: false },
+    { platform: "Instagram", url: "#", verified: false },
+  ],
+  stats: [
+    { label: "Reviews", value: "152" },
+    { label: "Visits", value: "Same-day" },
+    { label: "When it applies", value: "Home visits" },
+    { label: "Bilingual care", value: "EN/ES" },
+    { label: "Insurance", value: "$0 with PIP" },
+  ],
 };

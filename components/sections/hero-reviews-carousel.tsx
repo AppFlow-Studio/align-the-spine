@@ -47,7 +47,7 @@ export function HeroReviewsCarousel({ testimonials }: HeroReviewsCarouselProps) 
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-panel-100 via-panel-100/80 to-transparent"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-white via-white/80 to-transparent"
       />
 
       <div className="container">

@@ -21,12 +21,12 @@ export function ServiceListRow({ item, className }: ServiceListRowProps) {
     <div
       className={cn("flex flex-col gap-6 py-10 md:flex-row md:items-stretch md:gap-10", className)}
     >
-      <div className="relative aspect-[670/374] w-full shrink-0 md:w-[45%]">
+      <div className="relative aspect-[500/300] w-full shrink-0 md:w-[40%]">
         <Image
           src={item.image.src}
           alt={item.image.alt}
           fill
-          sizes="(min-width: 768px) 45vw, 100vw"
+          sizes="(min-width: 578px) 45vw, 100vw"
           className="object-cover"
         />
       </div>
@@ -34,13 +34,17 @@ export function ServiceListRow({ item, className }: ServiceListRowProps) {
         <h3 className="break-words font-display text-card-title text-navy-900">{item.name}</h3>
         <Divider />
         <p className="font-sans text-card-body">
-          <span className="text-ink-500">
+          <span className="text-ink-500 text-[20px]">
             {item.duration} | Contact us {siteConfig.business.phone}
           </span>
           <br />
-          <span className="text-ink-900">{item.summary}</span>
+          <span className="text-ink-900 text-[20px]">{item.summary}</span>
         </p>
-        <Button variant="book" href={siteConfig.bookingCta.href} className="mt-auto self-end">
+        <Button
+          variant="book"
+          href={siteConfig.bookingCta.href}
+          className="mt-auto self-end px-16 py-7 text-lg"
+        >
           Book
         </Button>
       </div>

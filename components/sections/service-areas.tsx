@@ -2,7 +2,6 @@ import Image from "next/image";
 
 import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
 import { siteConfig } from "@/content/site";
-import { isVerified } from "@/content/verified-value";
 
 export interface ServiceAreasProps {
   image: { src: string; alt: string };
@@ -14,7 +13,7 @@ export interface ServiceAreasProps {
  * coverage with no confirmation it's accurate — renders nothing until
  * content/site.ts's `serviceAreas` is marked verified. */
 export function ServiceAreas({ image }: ServiceAreasProps) {
-  if (!isVerified(siteConfig.serviceAreas)) return null;
+  if (!siteConfig.serviceAreasVerified) return null;
 
   return (
     <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
@@ -34,7 +33,7 @@ export function ServiceAreas({ image }: ServiceAreasProps) {
         </h3>
         <div className="mt-4 h-px w-full bg-teal-500/30" />
         <ul className="mt-2">
-          {siteConfig.serviceAreas.value.map((area) => (
+          {siteConfig.serviceAreas.map((area) => (
             <li
               key={area}
               className="flex items-center justify-between border-b border-teal-500/20 py-3 font-display text-2xl text-navy-800 last:border-b-0"

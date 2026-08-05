@@ -100,7 +100,7 @@ body {
    * `position: sticky` (verified — it stopped sticking once tested).
    * `overflow-x: clip` closes the same leak without that coupling. */
   overflow-x: clip;
-  background: var(--color-panel-100);
+  background: var(--color-background);
   color: var(--color-ink-900);
 }
 

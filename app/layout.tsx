@@ -5,9 +5,7 @@ import { AnalyticsListeners } from "@/components/analytics/analytics-listeners";
 import { AnalyticsScripts } from "@/components/analytics/analytics-scripts";
 import { GtmNoscript, GtmScript } from "@/components/analytics/gtm-scripts";
 import { RootShell } from "@/components/layout/root-shell";
-import { JsonLdScript } from "@/components/seo/json-ld-script";
 import { isProduction, siteConfig } from "@/content/site";
-import { localBusinessJsonLd } from "@/lib/seo/local-business";
 
 import "./globals.css";
 
@@ -78,7 +76,6 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col">
         <GtmNoscript />
-        <JsonLdScript data={localBusinessJsonLd} />
         <GtmScript />
         <AnalyticsScripts />
         <AnalyticsListeners />

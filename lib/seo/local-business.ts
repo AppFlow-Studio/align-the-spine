@@ -1,5 +1,4 @@
 import { siteConfig } from "@/content/site";
-import { isVerified } from "@/content/verified-value";
 
 /** "9:00 AM" / "7:00 PM" -> "09:00" / "19:00", per schema.org's
  * openingHoursSpecification time format. */
@@ -37,15 +36,15 @@ export const localBusinessJsonLd = {
     latitude: siteConfig.business.geo.latitude,
     longitude: siteConfig.business.geo.longitude,
   },
-  ...(isVerified(siteConfig.hours) && {
-    openingHoursSpecification: siteConfig.hours.value.map((hours) => ({
+  ...(siteConfig.hoursVerified && {
+    openingHoursSpecification: siteConfig.hours.map((hours) => ({
       "@type": "OpeningHoursSpecification",
       dayOfWeek: hours.day,
       opens: to24Hour(hours.open),
       closes: to24Hour(hours.close),
     })),
   }),
-  ...(isVerified(siteConfig.serviceAreas) && {
-    areaServed: siteConfig.serviceAreas.value.map((city) => ({ "@type": "City", name: city })),
+  ...(siteConfig.serviceAreasVerified && {
+    areaServed: siteConfig.serviceAreas.map((city) => ({ "@type": "City", name: city })),
   }),
 };

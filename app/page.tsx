@@ -11,6 +11,7 @@ import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { ServicesSection } from "@/components/sections/services-section";
 import { WhyChoose } from "@/components/sections/why-choose";
+import { PracticeJsonLd } from "@/components/seo/practice-json-ld";
 import { doctorProfileContent } from "@/content/doctor-profile";
 import { pointToWhereItHurtsContent } from "@/content/point-to-where-it-hurts";
 import { getRoute } from "@/content/seo";
@@ -36,6 +37,7 @@ export const metadata: Metadata = buildMetadata(getRoute(""));
 export default function Home() {
   return (
     <>
+      <PracticeJsonLd />
       <Hero
         variant="home"
         background={{
@@ -51,12 +53,13 @@ export default function Home() {
             Chiropractor
           </>
         }
-        subhead="At your home or in the office. We provide elite spinal health solutions tailored to your unique lifestyle and recovery goals."
+        subhead="Injured in a car accident? Full evaluation, treatment, and documentation for your PIP claim — at your home or in the office, on your schedule."
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
         form={{
           heading: "Schedule Your Car Accident Evaluation",
           submitLabel: "Schedule My Car Accident Evaluation",
-          footerNote: "Call us to check availability in your area.",
+          footerNote:
+            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
         }}
       />
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />

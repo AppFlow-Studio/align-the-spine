@@ -118,7 +118,7 @@ export function Hero({
       />
       <div className="absolute inset-0 bg-black/[.47]" />
 
-      <div className="container relative z-10 grid gap-10 pb-32 pt-[220px] lg:grid-cols-2 lg:items-center lg:gap-16 lg:pt-[260px]">
+      <div className="container relative z-10 grid gap-10 pt-[220px] lg:grid-cols-2 lg:items-center lg:gap-16 lg:pt-[350px]">
         <div className="flex flex-col gap-6">
           {variant === "condition" && conditionChip && (
             <HeroChip className="mt-0">{conditionChip}</HeroChip>
@@ -134,7 +134,7 @@ export function Hero({
             {title}
           </h1>
           {variant === "home" && badge && <HeroChip>{badge}</HeroChip>}
-          <p className="font-sans text-body-lg text-mute-300">{subhead}</p>
+          <p className="font-poppins text-white text-[22px] max-w-[720px]">{subhead}</p>
 
           {callPill && (
             <Button
@@ -185,7 +185,7 @@ export function Hero({
               </div>
             ))}
           {form?.footerNote && (
-            <p className="font-sans text-body-lg text-white sm:w-4/5">{form.footerNote}</p>
+            <p className="font-sans text-body-lg text-mute-300 sm:w-4/5">{form.footerNote}</p>
           )}
         </div>
       </div>

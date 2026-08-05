@@ -4,7 +4,9 @@ import { LocationFooter } from "@/components/layout/location-footer";
 import { LocationIntro } from "@/components/layout/location-intro";
 import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
+import { PracticeJsonLd } from "@/components/seo/practice-json-ld";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -27,6 +29,13 @@ export const metadata: Metadata = buildMetadata(getRoute("/contact-us"));
 export default function ContactUsPage() {
   return (
     <>
+      <PracticeJsonLd />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "" },
+          { name: "Contact Us", path: "/contact-us" },
+        ]}
+      />
       <div id="contact-hero-form">
         <Hero
           variant="condition"
