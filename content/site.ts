@@ -70,6 +70,10 @@ export interface SiteConfig {
    * (6 named cities) with no confirmation it's actually accurate/current.
    * Gated until approved; ServiceAreas renders nothing meanwhile. */
   serviceAreas: string[];
+  /** True only once the client has confirmed the service-areas list is
+   * accurate/current. ServiceAreas and lib/seo/local-business.ts's
+   * areaServed both omit this data entirely while this is false. */
+  serviceAreasVerified: boolean;
   /** ATS-E4 (4.8): no real social URLs exist yet (both were "#"
    * placeholders). Nothing currently renders this field, but it's typed
    * as gated so a future renderer can't accidentally ship placeholder
@@ -147,6 +151,7 @@ export const siteConfig: SiteConfig = {
     "Aventura",
     "North Miami",
   ],
+  serviceAreasVerified: false,
   social: [
     { platform: "Facebook", url: "#", verified: false },
     { platform: "Instagram", url: "#", verified: false },
