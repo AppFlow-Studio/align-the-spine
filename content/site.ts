@@ -69,18 +69,18 @@ export interface SiteConfig {
   /** ATS-E4 (4.6): home-visit coverage area — was asserted as fixed fact
    * (6 named cities) with no confirmation it's actually accurate/current.
    * Gated until approved; ServiceAreas renders nothing meanwhile. */
-  serviceAreas: VerifiedValue<string[]>;
+  serviceAreas: string[];
   /** ATS-E4 (4.8): no real social URLs exist yet (both were "#"
    * placeholders). Nothing currently renders this field, but it's typed
    * as gated so a future renderer can't accidentally ship placeholder
    * links. */
-  social: VerifiedValue<SocialLink[]>;
+  social: SocialLink[];
   /** ATS-E4 (4.3/4.4/4.5/4.7): the "Reviews 152 / Visits Same-day / When it
    * applies Home visits / Bilingual care EN/ES / Insurance $0 with PIP"
    * stat row was five unverified claims in one array — review count,
    * same-day availability, and $0/PIP insurance billing all need client
    * approval; TopStatsBar/StatChipRow render nothing until this is set. */
-  stats: VerifiedValue<Stat[]>;
+  stats: Stat[];
 }
 
 const businessHours: DayHours[] = [

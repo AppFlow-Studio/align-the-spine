@@ -5,6 +5,7 @@ import { LocationIntro } from "@/components/layout/location-intro";
 import { ContactSection } from "@/components/sections/contact-section";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { Hero } from "@/components/sections/hero";
+import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { ServiceCatalog } from "@/components/sections/service-catalog";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
@@ -14,7 +15,7 @@ import { leadFormVariants } from "@/content/lead-forms";
 import { getRoute } from "@/content/seo";
 import { servicesGrid } from "@/content/services-grid";
 import { siteConfig } from "@/content/site";
-import { homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
+import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
 import { buildService } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo/metadata";
 
@@ -60,6 +61,7 @@ export default function ServicesPage() {
           footerNote: "Call us to check availability in your area.",
         }}
       />
+      <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
       <ServiceCatalog />
       <DoctorProfile variant="short" content={doctorProfileContent} />
       <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews} />

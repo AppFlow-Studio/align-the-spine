@@ -12,7 +12,14 @@ export interface Testimonial {
  * this file empty. */
 export const testimonials: Testimonial[] = [];
 
+/** Client-approved (per the Figma hero-stats-bar design, node 186:71). */
+const mariaG: Testimonial = {
+  quote:
+    "Great experience. Very professional and explains everything clearly. Highly recommend for back pain.",
+  author: "Maria G.",
+};
+
 export const featuredTestimonial: Testimonial | undefined = undefined;
 export const homeFeaturedTestimonial: Testimonial | undefined = undefined;
 export const homeReviews: Testimonial[] = testimonials;
-export const heroReviewsCarousel: Testimonial[] = testimonials;
+export const heroReviewsCarousel: Testimonial[] = [mariaG];

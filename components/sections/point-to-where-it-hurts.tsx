@@ -152,6 +152,11 @@ export function PointToWhereItHurts({ content }: PointToWhereItHurtsProps) {
               className="object-contain"
             />
 
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-30 bg-linear-to-t from-white to-transparent"
+            />
+
             {regions.map((region) => {
               const isSelected = region.id === selectedId;
               return (

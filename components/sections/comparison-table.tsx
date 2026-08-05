@@ -48,18 +48,18 @@ export function ComparisonTable({ variant = "default", className }: ComparisonTa
 
           <Card radius={30} shadow="comparison" className="hidden overflow-hidden lg:block">
             <div className="grid grid-cols-3">
-              <div className="px-6 py-8 md:px-8">
-                <p className="font-display text-h2 text-ink-900">
+              <div className="bg-panel-100 px-3 py-4 md:px-8">
+                <p className="font-display text-h2 font-normal text-ink-900">
                   {comparisonTableColumnHeadings.careBenefits}
                 </p>
               </div>
-              <div className="rounded-t-20 bg-navy-900 px-6 py-8 md:px-8">
-                <p className="font-display text-h2 text-white">
+              <div className=" bg-navy-900 px-3 py-4 md:px-8">
+                <p className="font-display text-h2 font-normal text-white">
                   {comparisonTableColumnHeadings.alignTheSpine}
                 </p>
               </div>
-              <div className="px-6 py-8 md:px-8">
-                <p className="font-display text-h2 text-mute-350">
+              <div className="px-3 py-4 md:px-8">
+                <p className="font-display text-h2 font-normal text-mute-350">
                   {comparisonTableColumnHeadings.traditionalClinic}
                 </p>
               </div>
@@ -94,12 +94,7 @@ function ComparisonRowCells({ row, isLast }: { row: ComparisonRow; isLast: boole
       <div className="flex items-center border-t border-mute-300 px-6 py-6 md:px-8">
         <p className="font-sans text-stat-label text-ink-900">{row.label}</p>
       </div>
-      <div
-        className={cn(
-          "flex items-center gap-3 bg-navy-900 px-6 py-6 md:px-8",
-          isLast && "rounded-b-20",
-        )}
-      >
+      <div className={cn("flex items-center gap-3 bg-navy-900 px-6 py-6 md:px-8")}>
         <CheckIcon className="h-4 w-4 shrink-0 text-teal-500" />
         <p className="font-sans text-stat-label text-white">{row.alignTheSpine}</p>
       </div>
@@ -115,10 +110,10 @@ function ComparisonRowCells({ row, isLast }: { row: ComparisonRow; isLast: boole
 function ComparisonRowCard({ row }: { row: ComparisonRow }) {
   return (
     <Card radius={20} shadow="card" className="overflow-hidden">
-      <div className="border-b border-mute-300 px-6 py-4">
+      <div className="border-b border-mute-300 px-4 py-2">
         <p className="font-sans text-stat-label font-medium text-ink-900">{row.label}</p>
       </div>
-      <div className="flex items-start gap-3 bg-navy-900 px-6 py-4">
+      <div className="flex items-start gap-3 bg-navy-900 px-4 py-2">
         <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-teal-500" />
         <div className="flex flex-col gap-0.5">
           <span className="font-sans text-[11px] uppercase tracking-wide text-mute-300">
@@ -127,7 +122,7 @@ function ComparisonRowCard({ row }: { row: ComparisonRow }) {
           <span className="font-sans text-stat-label text-white">{row.alignTheSpine}</span>
         </div>
       </div>
-      <div className="flex flex-col gap-0.5 px-6 py-4">
+      <div className="flex flex-col gap-0.5 px-4 py-2">
         <span className="font-sans text-[11px] uppercase tracking-wide text-mute-400">
           {comparisonTableColumnHeadings.traditionalClinic}
         </span>
