@@ -47,6 +47,7 @@ describe("sitemap", () => {
       "/reviews",
       "/home-visits",
       "/services/chiropractic-adjustments",
+      "/services/spinal-decompression",
     ]) {
       expect(paths).not.toContain(path);
     }

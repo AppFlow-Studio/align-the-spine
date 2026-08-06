@@ -5,6 +5,7 @@ import { backPainHero } from "@/content/back-pain-page";
 import { neckPainHero } from "@/content/neck-pain-page";
 import { sciaticaHero } from "@/content/sciatica-page";
 import { siteConfig } from "@/content/site";
+import { spinalDecompressionHero } from "@/content/spinal-decompression-page";
 import { whiplashHero } from "@/content/whiplash-page";
 
 export interface RouteMeta {
@@ -160,6 +161,19 @@ export const routes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.7,
     lastModified: "2026-08-05",
+    status: "draft",
+  },
+  // Same reviewer-gate as the condition pages above — this page includes
+  // clinical guidance about disc injuries and PIP claim timing, so it stays
+  // draft until a clinician signs off too.
+  {
+    path: "/services/spinal-decompression",
+    title: `${spinalDecompressionHero.h1} | ${siteConfig.business.name}`,
+    description: spinalDecompressionHero.subhead,
+    image: spinalDecompressionHero.backgroundImage,
+    changeFrequency: "monthly",
+    priority: 0.7,
+    lastModified: "2026-08-06",
     status: "draft",
   },
   // ATS-E3 (3.7): unverified service-area/availability data (see
