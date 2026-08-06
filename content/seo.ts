@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 
 import { adjustmentsHero } from "@/content/adjustments-page";
 import { backPainHero } from "@/content/back-pain-page";
+import { cervicogenicHeadacheHero } from "@/content/cervicogenic-headache-page";
 import { massageSoftTissueHero } from "@/content/massage-soft-tissue-page";
 import { neckPainHero } from "@/content/neck-pain-page";
 import { sciaticaHero } from "@/content/sciatica-page";
@@ -149,6 +150,16 @@ export const routes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-08-03",
+    status: "draft",
+  },
+  {
+    path: "/conditions/cervicogenic-headache",
+    title: `${cervicogenicHeadacheHero.h1} | ${siteConfig.business.name}`,
+    description: cervicogenicHeadacheHero.subhead,
+    image: cervicogenicHeadacheHero.backgroundImage,
+    changeFrequency: "monthly",
+    priority: 0.8,
+    lastModified: "2026-08-06",
     status: "draft",
   },
   // Same reviewer-gate as the condition pages above — this page includes
