@@ -48,6 +48,7 @@ describe("sitemap", () => {
       "/home-visits",
       "/services/chiropractic-adjustments",
       "/services/spinal-decompression",
+      "/services/massage-soft-tissue",
     ]) {
       expect(paths).not.toContain(path);
     }
