@@ -1,5 +1,3 @@
-import { unverified, type VerifiedValue } from "@/content/verified-value";
-
 export interface Address {
   line1: string;
   suite: string;
@@ -58,7 +56,6 @@ export interface SiteConfig {
    * actual, current hours. lib/schema.ts's buildMedicalBusiness() omits
    * openingHoursSpecification entirely while this is false. */
   hoursVerified: boolean;
-  hoursNote: string;
   nav: NavLink[];
   bookingCta: NavLink;
   footer: {
@@ -85,6 +82,9 @@ export interface SiteConfig {
    * same-day availability, and $0/PIP insurance billing all need client
    * approval; TopStatsBar/StatChipRow render nothing until this is set. */
   stats: Stat[];
+  /** True only once the client has confirmed every value in `stats` above.
+   * TopStatsBar and StatChipRow both render nothing while this is false. */
+  statsVerified: boolean;
 }
 
 const businessHours: DayHours[] = [
@@ -123,7 +123,6 @@ export const siteConfig: SiteConfig = {
   },
   hours: businessHours,
   hoursVerified: false,
-  hoursNote: "Priority for emergency cases",
   nav: [
     { label: "Services", href: "/services" },
     { label: "About", href: "/about" },
@@ -156,11 +155,6 @@ export const siteConfig: SiteConfig = {
     { platform: "Facebook", url: "#", verified: false },
     { platform: "Instagram", url: "#", verified: false },
   ],
-  stats: [
-    { label: "Reviews", value: "152" },
-    { label: "Visits", value: "Same-day" },
-    { label: "When it applies", value: "Home visits" },
-    { label: "Bilingual care", value: "EN/ES" },
-    { label: "Insurance", value: "$0 with PIP" },
-  ],
+  stats: [],
+  statsVerified: false,
 };
