@@ -49,7 +49,7 @@ export const whiplashRelatedMidPage: ConditionRelatedLink[] = [
   { label: "Cervicogenic Headache", href: "/conditions/neck-pain" },
   { label: "TMJ / Jaw Pain from Trauma", href: "/services#adjustments", highlighted: true },
   { label: "Concussion / Post-Concussion Syndrome", href: "/auto-accidents" },
-  { label: "Shoulder Pain", href: "/services#massage-soft-tissue" },
+  { label: "Shoulder Pain", href: "/services/massage-soft-tissue" },
   { label: "Auto Accident Injuries", href: "/auto-accidents" },
   { label: "Neck Pain", href: "/conditions/neck-pain" },
 ];
@@ -120,7 +120,7 @@ export const whiplashFeelsLike: ConditionFeelsLikeItem[] = [
   {
     title: "Reduced range of motion",
     desc: "Trouble turning your head fully in one or both directions.",
-    learnMoreHref: "/services#massage-soft-tissue",
+    learnMoreHref: "/services/massage-soft-tissue",
   },
 ];
 

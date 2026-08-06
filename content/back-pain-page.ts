@@ -117,7 +117,7 @@ export const backPainFeelsLike: ConditionFeelsLikeItem[] = [
   {
     title: "Sharp catch on movement",
     desc: "A specific bend or twist that triggers a sudden, sharp pull — often muscular.",
-    learnMoreHref: "/services#massage-soft-tissue",
+    learnMoreHref: "/services/massage-soft-tissue",
   },
   {
     title: "Pain that won't ease up",

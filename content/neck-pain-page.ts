@@ -103,7 +103,7 @@ export const neckPainFeelsLike: ConditionFeelsLikeItem[] = [
   {
     title: "Tech neck ache",
     desc: "A dull, nagging strain at the base of the skull after hours at a desk or on a phone.",
-    learnMoreHref: "/services#massage-soft-tissue",
+    learnMoreHref: "/services/massage-soft-tissue",
   },
   {
     title: "Radiating tension",

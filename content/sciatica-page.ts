@@ -113,7 +113,7 @@ export const sciaticaFeelsLike: ConditionFeelsLikeItem[] = [
   {
     title: "Muscle weakness",
     desc: 'Difficulty moving the foot or leg, often feeling "heavy" or unresponsive during activity.',
-    learnMoreHref: "/services#massage-soft-tissue",
+    learnMoreHref: "/services/massage-soft-tissue",
   },
 ];
 

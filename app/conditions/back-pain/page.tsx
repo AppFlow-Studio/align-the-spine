@@ -179,7 +179,7 @@ export default function BackPainPage() {
                 herniated disc
               </Link>{" "}
               or{" "}
-              <Link href="/services#massage-soft-tissue" className="underline">
+              <Link href="/services/massage-soft-tissue" className="underline">
                 muscle strain
               </Link>{" "}
               that shows up in everyday cases — sometimes with pain that radiates down the leg, a
