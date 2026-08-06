@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 
+import { adjustmentsHero } from "@/content/adjustments-page";
 import { backPainHero } from "@/content/back-pain-page";
 import { neckPainHero } from "@/content/neck-pain-page";
 import { sciaticaHero } from "@/content/sciatica-page";
@@ -146,6 +147,19 @@ export const routes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-08-03",
+    status: "draft",
+  },
+  // Same reviewer-gate as the condition pages above — this page includes
+  // clinical guidance ("not the right first step for a fracture,
+  // dislocation..."), so it stays draft until a clinician signs off too.
+  {
+    path: "/services/chiropractic-adjustments",
+    title: `${adjustmentsHero.h1} | ${siteConfig.business.name}`,
+    description: adjustmentsHero.subhead,
+    image: adjustmentsHero.backgroundImage,
+    changeFrequency: "monthly",
+    priority: 0.7,
+    lastModified: "2026-08-05",
     status: "draft",
   },
   // ATS-E3 (3.7): unverified service-area/availability data (see

@@ -46,6 +46,7 @@ describe("sitemap", () => {
       "/conditions/whiplash",
       "/reviews",
       "/home-visits",
+      "/services/chiropractic-adjustments",
     ]) {
       expect(paths).not.toContain(path);
     }
