@@ -76,7 +76,7 @@ const backPainTypes = [
       <>
         Pain originating from a bulging or herniated disc pressing on surrounding structures — may
         stay localized or radiate depending on severity. See{" "}
-        <Link href="/services#spinal-decompression" className="underline">
+        <Link href="/services/spinal-decompression" className="underline">
           Spinal Decompression
         </Link>{" "}
         for how we treat it conservatively.
@@ -94,7 +94,7 @@ const backPainTypes = [
       <>
         Pain that radiates from the lower back into the hip or leg, caused by a nerve being
         compressed or irritated — often from a{" "}
-        <Link href="/services#spinal-decompression" className="underline">
+        <Link href="/services/spinal-decompression" className="underline">
           herniated disc
         </Link>
         . This pattern is specifically{" "}
@@ -175,7 +175,7 @@ export default function BackPainPage() {
                 PIP benefits
               </Link>
               , since sudden impact can cause the same{" "}
-              <Link href="/services#spinal-decompression" className="underline">
+              <Link href="/services/spinal-decompression" className="underline">
                 herniated disc
               </Link>{" "}
               or{" "}

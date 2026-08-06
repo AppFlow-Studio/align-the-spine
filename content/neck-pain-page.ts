@@ -43,7 +43,7 @@ export const neckPainCauses: string[] = [
 
 export const neckPainRelatedMidPage: ConditionRelatedLink[] = [
   { label: "Whiplash", href: "/conditions/whiplash" },
-  { label: "Herniated Disc", href: "/services#spinal-decompression", highlighted: true },
+  { label: "Herniated Disc", href: "/services/spinal-decompression", highlighted: true },
   { label: "Auto Accident Injuries", href: "/auto-accidents" },
 ];
 
@@ -108,7 +108,7 @@ export const neckPainFeelsLike: ConditionFeelsLikeItem[] = [
   {
     title: "Radiating tension",
     desc: "Tightness that spreads into the shoulders and upper back, not just the neck itself.",
-    learnMoreHref: "/services#spinal-decompression",
+    learnMoreHref: "/services/spinal-decompression",
   },
   {
     title: "Sharp or sudden pain",
@@ -125,7 +125,7 @@ export const neckPainWarning: ConditionWarning = {
   },
   bullets: [
     { label: "Numbness or tingling radiating into the arm or hand", href: "/conditions/whiplash" },
-    { label: "Weakness in the arm or grip", href: "/services#spinal-decompression" },
+    { label: "Weakness in the arm or grip", href: "/services/spinal-decompression" },
     { label: "Loss of bladder or bowel control — seek emergency care" },
   ],
 };
@@ -140,10 +140,10 @@ export const neckPainRelatedBottom: ConditionRelatedLink[] = [
   { label: "Lower Back Pain", href: "/conditions/back-pain" },
   { label: "Auto Accident Injuries", href: "/auto-accidents", highlighted: true },
   { label: "Neck Pain", href: "/conditions/neck-pain" },
-  { label: "Spinal Decompression", href: "/services#spinal-decompression" },
+  { label: "Spinal Decompression", href: "/services/spinal-decompression" },
   { label: "Whiplash", href: "/conditions/whiplash" },
   { label: "Home Visit Care", href: "/home-visits" },
-  { label: "Herniated Disc", href: "/services#spinal-decompression" },
+  { label: "Herniated Disc", href: "/services/spinal-decompression" },
   { label: "View All Treatments", href: "/services" },
 ];
 

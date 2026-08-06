@@ -43,7 +43,7 @@ export const sciaticaSymptoms: string[] = [
 
 export const sciaticaRelatedMidPage: ConditionRelatedLink[] = [
   { label: "Lower Back Pain", href: "/conditions/back-pain" },
-  { label: "Herniated Disc", href: "/services#spinal-decompression", highlighted: true },
+  { label: "Herniated Disc", href: "/services/spinal-decompression", highlighted: true },
   { label: "Auto Accident Injuries", href: "/auto-accidents" },
 ];
 
@@ -98,7 +98,7 @@ export const sciaticaFeelsLike: ConditionFeelsLikeItem[] = [
   {
     title: "Radiating leg pain",
     desc: "Pain that travels from the lower back through the buttocks and down the leg.",
-    learnMoreHref: "/services#spinal-decompression",
+    learnMoreHref: "/services/spinal-decompression",
   },
   {
     title: "Shooting or burning",
@@ -108,7 +108,7 @@ export const sciaticaFeelsLike: ConditionFeelsLikeItem[] = [
   {
     title: "Numbness or tingling",
     desc: "Pins and needles or loss of sensation specifically in the leg or foot.",
-    learnMoreHref: "/services#spinal-decompression",
+    learnMoreHref: "/services/spinal-decompression",
   },
   {
     title: "Muscle weakness",
@@ -124,7 +124,7 @@ export const sciaticaWarning: ConditionWarning = {
     alt: "Dr. Abe examining a patient's lower back",
   },
   bullets: [
-    { label: "Pain radiating below the knee", href: "/services#spinal-decompression" },
+    { label: "Pain radiating below the knee", href: "/services/spinal-decompression" },
     { label: "Numbness or weakness in the foot", href: "/conditions/back-pain" },
     { label: "Loss of bladder or bowel control — seek emergency care" },
   ],
@@ -141,10 +141,10 @@ export const sciaticaRelatedBottom: ConditionRelatedLink[] = [
   { label: "Lower Back Pain", href: "/conditions/back-pain" },
   { label: "Auto Accident Injuries", href: "/auto-accidents", highlighted: true },
   { label: "Neck Pain", href: "/conditions/neck-pain" },
-  { label: "Spinal Decompression", href: "/services#spinal-decompression" },
+  { label: "Spinal Decompression", href: "/services/spinal-decompression" },
   { label: "Whiplash", href: "/conditions/whiplash" },
   { label: "Home Visit Care", href: "/home-visits" },
-  { label: "Herniated Disc", href: "/services#spinal-decompression" },
+  { label: "Herniated Disc", href: "/services/spinal-decompression" },
   { label: "View All Treatments", href: "/services" },
 ];
 

@@ -48,7 +48,7 @@ export const backPainCauses: string[] = [
 
 export const backPainRelatedMidPage: ConditionRelatedLink[] = [
   { label: "Sciatica", href: "/conditions/sciatica" },
-  { label: "Herniated Disc", href: "/services#spinal-decompression", highlighted: true },
+  { label: "Herniated Disc", href: "/services/spinal-decompression", highlighted: true },
   { label: "Auto Accident Injuries", href: "/auto-accidents" },
 ];
 
@@ -122,7 +122,7 @@ export const backPainFeelsLike: ConditionFeelsLikeItem[] = [
   {
     title: "Pain that won't ease up",
     desc: "Discomfort that's stuck around for weeks or months, not just a bad day.",
-    learnMoreHref: "/services#spinal-decompression",
+    learnMoreHref: "/services/spinal-decompression",
   },
   {
     title: "Radiating pain",
@@ -141,7 +141,7 @@ export const backPainWarning: ConditionWarning = {
     { label: "Numbness or weakness in the leg", href: "/conditions/sciatica" },
     {
       label: "Pain that worsens at night or doesn't improve with rest",
-      href: "/services#spinal-decompression",
+      href: "/services/spinal-decompression",
     },
     { label: "Loss of bladder or bowel control — seek emergency care" },
   ],
@@ -156,10 +156,10 @@ export const backPainAccident: ConditionAccident = {
 export const backPainRelatedBottom: ConditionRelatedLink[] = [
   { label: "Lower Back Pain", href: "/conditions/back-pain" },
   { label: "Neck Pain", href: "/conditions/neck-pain" },
-  { label: "Spinal Decompression", href: "/services#spinal-decompression" },
+  { label: "Spinal Decompression", href: "/services/spinal-decompression" },
   { label: "Whiplash", href: "/conditions/whiplash" },
   { label: "Home Visit Care", href: "/home-visits" },
-  { label: "Herniated Disc", href: "/services#spinal-decompression" },
+  { label: "Herniated Disc", href: "/services/spinal-decompression" },
   { label: "View All Treatments", href: "/services" },
   { label: "Auto Accident Injuries", href: "/auto-accidents", highlighted: true },
 ];

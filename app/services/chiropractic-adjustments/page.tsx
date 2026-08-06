@@ -36,10 +36,10 @@ const relatedBottom: ConditionRelatedLink[] = [
   { label: "Lower Back Pain", href: "/conditions/back-pain" },
   { label: "Auto Accident Injuries", href: "/auto-accidents", highlighted: true },
   { label: "Neck Pain", href: "/conditions/neck-pain" },
-  { label: "Spinal Decompression", href: "/services#spinal-decompression" },
+  { label: "Spinal Decompression", href: "/services/spinal-decompression" },
   { label: "Whiplash", href: "/conditions/whiplash" },
   { label: "Home Visit Care", href: "/home-visits" },
-  { label: "Herniated Disc", href: "/services#spinal-decompression" },
+  { label: "Herniated Disc", href: "/services/spinal-decompression" },
   { label: "View All Treatments", href: "/services" },
 ];
 
@@ -179,7 +179,7 @@ export default function ChiropracticAdjustmentsPage() {
             of what we see. They&apos;re not the right first step for a fracture, dislocation, or
             Grade IV whiplash, which need emergency imaging before any hands-on care. For a severely
             herniated disc with significant nerve compression,{" "}
-            <Link href="/services#spinal-decompression" className="underline">
+            <Link href="/services/spinal-decompression" className="underline">
               spinal decompression
             </Link>{" "}
             may be the better starting point, sometimes combined with adjustment once acute pressure
