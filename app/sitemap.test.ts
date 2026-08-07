@@ -46,6 +46,7 @@ describe("sitemap", () => {
       "/conditions/whiplash",
       "/conditions/cervicogenic-headache",
       "/conditions/concussion",
+      "/conditions/tmj-jaw-pain",
       "/reviews",
       "/home-visits",
       "/services/chiropractic-adjustments",

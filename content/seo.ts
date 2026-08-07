@@ -9,6 +9,7 @@ import { neckPainHero } from "@/content/neck-pain-page";
 import { sciaticaHero } from "@/content/sciatica-page";
 import { siteConfig } from "@/content/site";
 import { spinalDecompressionHero } from "@/content/spinal-decompression-page";
+import { tmjJawPainHero } from "@/content/tmj-jaw-pain-page";
 import { whiplashHero } from "@/content/whiplash-page";
 
 export interface RouteMeta {
@@ -168,6 +169,16 @@ export const routes: RouteMeta[] = [
     title: `${concussionHero.h1} | ${siteConfig.business.name}`,
     description: concussionHero.subhead,
     image: concussionHero.backgroundImage,
+    changeFrequency: "monthly",
+    priority: 0.8,
+    lastModified: "2026-08-07",
+    status: "draft",
+  },
+  {
+    path: "/conditions/tmj-jaw-pain",
+    title: `${tmjJawPainHero.h1} | ${siteConfig.business.name}`,
+    description: tmjJawPainHero.subhead,
+    image: tmjJawPainHero.backgroundImage,
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-08-07",
