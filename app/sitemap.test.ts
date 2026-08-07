@@ -45,6 +45,7 @@ describe("sitemap", () => {
       "/conditions/sciatica",
       "/conditions/whiplash",
       "/conditions/cervicogenic-headache",
+      "/conditions/concussion",
       "/reviews",
       "/home-visits",
       "/services/chiropractic-adjustments",
