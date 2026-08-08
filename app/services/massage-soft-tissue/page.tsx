@@ -27,6 +27,7 @@ import {
 import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
+import { cn } from "@/lib/cn";
 import { buildRouteMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildRouteMetadata(getRoute("/services/massage-soft-tissue"));
@@ -140,12 +141,12 @@ export default function MassageSoftTissuePage() {
             Conditions soft tissue therapy relieves
           </SectionHeading>
           <div className="flex flex-col divide-y divide-mute-300 border-t border-mute-300">
-            {massageConditions.map((condition) => (
+            {massageConditions.map((condition, idx) => (
               <div
                 key={condition.name}
-                className="grid grid-cols-1 items-center gap-6 py-8 sm:grid-cols-[200px_1fr]"
+                className="grid grid-cols-1 items-center gap-6 py-8 sm:grid-cols-[200px_1fr_1fr]"
               >
-                <div className="relative aspect-4/3 w-full overflow-hidden sm:w-[200px]">
+                <div className="relative aspect-3/2 w-full overflow-hidden sm:w-50">
                   <Image
                     src={condition.image.src}
                     alt={condition.image.alt}
@@ -154,10 +155,17 @@ export default function MassageSoftTissuePage() {
                     className="object-cover"
                   />
                 </div>
-                <div className="flex flex-col gap-2">
-                  <h3 className="font-display text-h2 text-navy-900">{condition.name}</h3>
-                  <p className="font-sans text-body-lg text-ink-500">{condition.description}</p>
-                </div>
+                <h3
+                  className={cn(
+                    "font-display text-h2",
+                    idx === 1 ? "text-teal-500" : "text-navy-900",
+                  )}
+                >
+                  {condition.name}
+                </h3>
+                <p className={cn("font-sans text-body-lg text-ink-500", idx === 1 && "font-bold")}>
+                  {condition.description}
+                </p>
               </div>
             ))}
           </div>

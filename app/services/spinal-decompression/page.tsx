@@ -30,6 +30,7 @@ import {
   spinalDecompressionHero,
 } from "@/content/spinal-decompression-page";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
+import { cn } from "@/lib/cn";
 import { buildRouteMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildRouteMetadata(getRoute("/services/spinal-decompression"));
@@ -95,7 +96,7 @@ export default function SpinalDecompressionPage() {
             <h2 className="font-display text-h2 text-navy-900">
               The pressure a car accident leaves behind
             </h2>
-            <p className="max-w-md font-sans text-body-lg text-ink-500">
+            <p className="font-sans text-body-lg text-ink-500">
               When a disc bulges or herniates — from a collision&apos;s impact or from years of wear
               — it can press directly on a nerve root, causing the radiating pain we see in{" "}
               <Link href="/conditions/sciatica" className="underline">
@@ -121,20 +122,60 @@ export default function SpinalDecompressionPage() {
               <ArrowRightIcon className="h-4 w-4" />
             </a>
           </div>
-          <div className="relative mx-auto aspect-[772/500] w-full max-w-lg overflow-hidden lg:mx-0">
-            <Image
-              src="/figma-exports/drabe-traction_compression.png"
-              alt="Spinal traction and decompression therapy"
-              fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
-            />
+          <div className="mx-auto flex justify-end w-full max-w-lg gap-6 lg:mx-0">
+            <div className="flex flex-1 flex-col gap-4">
+              <div className="relative aspect-square w-full overflow-hidden">
+                <Image
+                  src="/figma-exports/decompression-under-compression.png"
+                  alt="Disc under compression, pressing on the nerve root"
+                  fill
+                  sizes="(min-width: 1024px) 20vw, 50vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="flex flex-col gap-1 text-center">
+                <span className="font-sans text-stat-label uppercase text-navy-900">
+                  Under Compression
+                </span>
+                <p className="font-sans text-stat-label text-ink-500">
+                  Disc presses on the nerve root, causing pain
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-1 flex-col gap-4">
+              <div className="relative aspect-square w-full overflow-hidden">
+                <Image
+                  src="/figma-exports/decompression-under-decompression.png"
+                  alt="Disc under decompression, space restored and pressure relieved"
+                  fill
+                  sizes="(min-width: 1024px) 20vw, 50vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="flex flex-col gap-1 text-center">
+                <span className="font-sans text-stat-label uppercase text-teal-500">
+                  Under Decompression
+                </span>
+                <p className="font-sans text-stat-label text-ink-500">
+                  Space restored, pressure on the nerve relieved
+                </p>
+              </div>
+            </div>
           </div>
         </Container>
       </Section>
 
-      <div id="how-it-works" className="scroll-mt-[120px] bg-navy-900">
-        <Section>
+      <div id="how-it-works" className="relative scroll-mt-[120px] overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/figma-exports/whiplash-feels-band-bg.png"
+            alt="Close-up of a hand reaching toward a shoulder in soft, warm light"
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0" />
+        </div>
+        <Section className="relative">
           <Container className="flex flex-col gap-14">
             <div className="flex flex-col gap-3">
               <Eyebrow variant="onDark">How it works</Eyebrow>
@@ -142,15 +183,28 @@ export default function SpinalDecompressionPage() {
                 A gradual process, not a single fix
               </h2>
             </div>
-            <div className="grid grid-cols-1 gap-10 border-t border-white/20 pt-10 sm:grid-cols-3">
-              {decompressionHowItWorks.map((step) => (
+            <div className="grid grid-cols-1 gap-10 sm:grid-cols-3">
+              {decompressionHowItWorks.map((step, idx) => (
                 <div key={step.title} className="flex flex-col gap-3">
-                  <h3 className="font-display text-h2 text-white">{step.title}</h3>
+                  <h3
+                    className={cn(
+                      "font-display text-h2 leading-10",
+                      idx === 1 ? "text-teal-500" : "text-white",
+                    )}
+                  >
+                    {step.title}
+                  </h3>
+                  <hr
+                    className={cn("border-t", idx === 1 ? "border-teal-500" : "border-white/20")}
+                  />
                   <p className="font-sans text-body-lg text-mute-300">{step.description}</p>
                   {step.learnMoreHref && (
                     <Link
                       href={step.learnMoreHref}
-                      className="inline-flex w-fit items-center gap-2 font-sans text-stat-label uppercase text-white transition-colors hover:text-mute-300"
+                      className={cn(
+                        "inline-flex w-fit items-center gap-2 font-sans text-stat-label uppercase transition-colors hover:text-mute-300",
+                        idx === 1 ? "text-teal-500" : "text-white",
+                      )}
                     >
                       Learn more
                       <ArrowRightIcon className="h-4 w-4" />
@@ -169,12 +223,12 @@ export default function SpinalDecompressionPage() {
             Conditions decompression relieves
           </SectionHeading>
           <div className="flex flex-col divide-y divide-mute-300 border-t border-mute-300">
-            {decompressionConditions.map((condition) => (
+            {decompressionConditions.map((condition, idx) => (
               <div
                 key={condition.name}
-                className="grid grid-cols-1 items-center gap-6 py-8 sm:grid-cols-[200px_1fr]"
+                className="grid grid-cols-1 items-center gap-6 py-8 sm:grid-cols-[200px_1fr_1fr]"
               >
-                <div className="relative aspect-4/3 w-full overflow-hidden sm:w-[200px]">
+                <div className="relative aspect-3/2 w-full overflow-hidden sm:w-50">
                   <Image
                     src={condition.image.src}
                     alt={condition.image.alt}
@@ -183,10 +237,15 @@ export default function SpinalDecompressionPage() {
                     className="object-cover"
                   />
                 </div>
-                <div className="flex flex-col gap-2">
-                  <h3 className="font-display text-h2 text-navy-900">{condition.name}</h3>
-                  <p className="font-sans text-body-lg text-ink-500">{condition.description}</p>
-                </div>
+                <h3
+                  className={cn(
+                    "font-display text-h2",
+                    idx === 0 ? "text-teal-500" : "text-navy-900",
+                  )}
+                >
+                  {condition.name}
+                </h3>
+                <p className="font-sans text-body-lg text-ink-500">{condition.description}</p>
               </div>
             ))}
           </div>

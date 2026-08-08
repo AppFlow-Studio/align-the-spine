@@ -70,30 +70,42 @@ export interface MassageCondition {
   image: { src: string; alt: string };
 }
 
-/** "Conditions soft tissue therapy relieves" list — reuses the existing
- * condition-page anatomy diagrams already shipped for Whiplash/Neck
- * Pain/Back Pain, same reuse pattern as the spinal-decompression page's
- * equivalent section. */
+/** "Conditions soft tissue therapy relieves" list — per the Figma frame,
+ * each row uses a treatment photo rather than an anatomy diagram. Whiplash
+ * and Back Pain reuse the same photos as the spinal-decompression page's
+ * equivalent rows (identical shots in that Figma file). */
 export const massageConditions: MassageCondition[] = [
   {
     name: "Whiplash",
     description: "Releases the muscle spasm and guarding around an injured neck after impact.",
-    image: { src: "/figma-exports/whiplash-anatomy-diagram.png", alt: "Whiplash injury diagram" },
+    image: {
+      src: "/figma-exports/decompression-whiplash-disc.png",
+      alt: "Hand assessing a patient's neck after whiplash",
+    },
   },
   {
     name: "Neck Pain",
     description: "For tension and stiffness following a collision, not just everyday strain.",
-    image: { src: "/figma-exports/neck-pain-anatomy-diagram.png", alt: "Neck pain diagram" },
+    image: {
+      src: "/figma-exports/drabe-shoulder.png",
+      alt: "Dr. Abe Nasser treating a patient's neck and shoulder",
+    },
   },
   {
     name: "Back Pain",
     description: "Relieves muscle spasm surrounding a disc or joint injury from a crash.",
-    image: { src: "/figma-exports/back-pain-anatomy-diagram.png", alt: "Back pain diagram" },
+    image: {
+      src: "/figma-exports/decompression-herniated-back.png",
+      alt: "Hands treating a patient's lower back",
+    },
   },
   {
     name: "Shoulder & Extremity",
     description: "Seatbelt-related bruising and soft-tissue trauma in the arms and shoulders.",
-    image: { src: "/figma-exports/drabe-shoulder.png", alt: "Shoulder and extremity treatment" },
+    image: {
+      src: "/figma-exports/decompression-herniated-neck.png",
+      alt: "Hands treating a patient's shoulder",
+    },
   },
 ];
 

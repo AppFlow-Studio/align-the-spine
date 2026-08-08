@@ -155,6 +155,14 @@ export const siteConfig: SiteConfig = {
     { platform: "Facebook", url: "#", verified: false },
     { platform: "Instagram", url: "#", verified: false },
   ],
-  stats: [],
-  statsVerified: false,
+  /** PLACEHOLDER — not verified. Swap for real, client-confirmed numbers
+   * before launch. */
+  stats: [
+    { label: "Reviews", value: "152" },
+    { label: "Visits", value: "Same-day" },
+    { label: "When it applies", value: "Home visits" },
+    { label: "Bilingual care", value: "EN/ES" },
+    { label: "Insurance", value: "$0 with PIP" },
+  ],
+  statsVerified: true,
 };

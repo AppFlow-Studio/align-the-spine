@@ -50,9 +50,10 @@ export const adjustmentsHowItWorks: AdjustmentsStep[] = [
     learnMoreHref: "/services#adjustments",
   },
   {
-    title: "Ongoing plan, built around you",
+    title: "Ongoing plan, billed to PIP",
     description:
-      "Some cases resolve in one visit; others need a short series. We document everything along the way so your visit history is on record if you need it.",
+      "Some cases resolve in one visit; others need a short series. Everything is documented and billed directly to your claim.",
+    learnMoreHref: "/auto-accidents#pip",
   },
 ];
 

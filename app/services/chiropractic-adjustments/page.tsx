@@ -26,6 +26,7 @@ import { leadFormVariants } from "@/content/lead-forms";
 import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
+import { cn } from "@/lib/cn";
 import { buildRouteMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildRouteMetadata(
@@ -88,13 +89,13 @@ export default function ChiropracticAdjustmentsPage() {
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
 
       <Section>
-        <Container className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
+        <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[3fr_2fr] lg:items-start lg:gap-16">
           <div className="flex flex-col gap-6">
             <Eyebrow>Understanding the treatment</Eyebrow>
             <h2 className="font-display text-h2 text-navy-900">
               Restoring the motion a collision took away
             </h2>
-            <p className="max-w-md font-sans text-body-lg text-ink-500">
+            <p className="font-sans text-body-lg text-ink-500">
               A chiropractic adjustment uses precise, hands-on pressure to restore motion to a joint
               that&apos;s lost it after impact — what we call a fixation. When a vertebra stops
               moving properly after a collision, the surrounding muscles and nerves compensate,
@@ -125,12 +126,12 @@ export default function ChiropracticAdjustmentsPage() {
               <ArrowRightIcon className="h-4 w-4" />
             </a>
           </div>
-          <div className="relative mx-auto aspect-[772/500] w-full max-w-lg overflow-hidden lg:mx-0">
+          <div className="relative mx-auto aspect-5/6 w-full max-w-md overflow-hidden lg:mx-0">
             <Image
               src="/figma-exports/drabeadjust.png"
               alt="Dr. Abe performing a chiropractic adjustment"
               fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
+              sizes="(min-width: 1024px) 32vw, 100vw"
               className="object-cover"
             />
           </div>
@@ -144,14 +145,25 @@ export default function ChiropracticAdjustmentsPage() {
               From the collision to feeling like yourself again
             </SectionHeading>
             <div className="grid grid-cols-1 gap-10 border-t border-mute-300 pt-10 sm:grid-cols-3">
-              {adjustmentsHowItWorks.map((step) => (
+              {adjustmentsHowItWorks.map((step, idx) => (
                 <div key={step.title} className="flex flex-col gap-3">
-                  <h3 className="font-display text-h2 text-navy-900">{step.title}</h3>
+                  <h3
+                    className={cn(
+                      "font-display text-h2 text-navy-900",
+                      idx === 1 && "text-teal-500",
+                    )}
+                  >
+                    {step.title}
+                  </h3>
+                  <hr className={cn("border-t border-navy-900", idx === 1 && "border-teal-500")} />
                   <p className="font-sans text-body-lg text-ink-500">{step.description}</p>
                   {step.learnMoreHref && (
                     <Link
                       href={step.learnMoreHref}
-                      className="inline-flex w-fit items-center gap-2 font-sans text-stat-label uppercase text-navy-900 transition-colors hover:text-navy-700"
+                      className={cn(
+                        "inline-flex w-fit items-center gap-2 font-sans text-stat-label uppercase text-navy-900 transition-colors hover:text-navy-700",
+                        idx === 1 && "text-teal-500",
+                      )}
                     >
                       Learn more
                       <ArrowRightIcon className="h-4 w-4" />
@@ -169,27 +181,39 @@ export default function ChiropracticAdjustmentsPage() {
       <ComparisonTable />
 
       <Section>
-        <Container className="flex flex-col gap-6">
-          <Eyebrow>Is it right for you?</Eyebrow>
-          <h2 className="max-w-3xl font-display text-h2 text-navy-900">
-            Right for most collision injuries — not every one
-          </h2>
-          <p className="max-w-3xl font-sans text-body-lg text-ink-500">
-            Adjustments are appropriate for most mechanical injuries from a collision — the majority
-            of what we see. They&apos;re not the right first step for a fracture, dislocation, or
-            Grade IV whiplash, which need emergency imaging before any hands-on care. For a severely
-            herniated disc with significant nerve compression,{" "}
-            <Link href="/services/spinal-decompression" className="underline">
-              spinal decompression
-            </Link>{" "}
-            may be the better starting point, sometimes combined with adjustment once acute pressure
-            is relieved. If your accident happened within the last 14 days, evaluation now protects
-            your{" "}
-            <Link href="/auto-accidents" className="underline">
-              PIP benefits
-            </Link>{" "}
-            before the window closes.
-          </p>
+        <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[3fr_2fr] lg:items-start lg:gap-16">
+          <div className="flex flex-col gap-6">
+            <Eyebrow>Is it right for you?</Eyebrow>
+            <h2 className="font-display text-h2 text-navy-900">
+              Right for most collision injuries — not every one
+            </h2>
+            <p className="font-sans text-body-lg text-ink-500">
+              Adjustments are appropriate for most mechanical injuries from a collision — the
+              majority of what we see. They&apos;re not the right first step for a fracture,
+              dislocation, or Grade IV whiplash, which need emergency imaging before any hands-on
+              care. For a severely herniated disc with significant nerve compression,{" "}
+              <Link href="/services/spinal-decompression" className="underline">
+                spinal decompression
+              </Link>{" "}
+              may be the better starting point, sometimes combined with adjustment once acute
+              pressure is relieved. If your accident happened within the last 14 days, evaluation
+              now protects your{" "}
+              <Link href="/auto-accidents" className="underline">
+                PIP benefits
+              </Link>{" "}
+              before the window closes.
+            </p>
+            <hr className="border-t border-mute-300" />
+          </div>
+          <div className="relative mx-auto aspect-5/6 w-full max-w-md overflow-hidden lg:mx-0">
+            <Image
+              src="/figma-exports/adjustments-right-for-you.png"
+              alt="Dr. Abe adjusting a patient's neck in the clinic"
+              fill
+              sizes="(min-width: 1024px) 32vw, 100vw"
+              className="object-cover"
+            />
+          </div>
         </Container>
       </Section>
 

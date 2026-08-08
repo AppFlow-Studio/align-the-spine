@@ -53,7 +53,7 @@ export const decompressionHowItWorks: DecompressionStep[] = [
     learnMoreHref: "/services/spinal-decompression",
   },
   {
-    title: "Ongoing plan, documented for your claim",
+    title: "Ongoing plan, billed to PIP",
     description:
       "Most post-accident cases need a short series, not a single visit. Everything is documented for your claim from day one.",
     learnMoreHref: "/auto-accidents",
@@ -66,44 +66,41 @@ export interface DecompressionCondition {
   image: { src: string; alt: string };
 }
 
-/** "Conditions decompression relieves" list — reuses the existing
- * condition-page anatomy diagrams already shipped for these 4 conditions,
- * rather than sourcing new photography, since the Figma frame's own photo
- * treatment (staff headshots reused across every row) isn't meaningfully
- * tied to each condition anyway. */
+/** "Conditions decompression relieves" list — per the Figma frame, each row
+ * uses a treatment photo rather than an anatomy diagram. */
 export const decompressionConditions: DecompressionCondition[] = [
   {
     name: "Sciatica",
     description: "Nerve pain that shows up after a collision compresses a disc in the lower back.",
     image: {
-      src: "/figma-exports/sciatica-anatomy-diagram.png",
-      alt: "Sciatica nerve pain diagram",
+      src: "/figma-exports/decompression-sciatica.png",
+      alt: "Chiropractor treating a patient's lower back for sciatica",
     },
   },
   {
     name: "Whiplash-Related Disc Injury",
     description:
-      "When the force of a crash affects a disc in the neck, not just the surrounding muscle.",
+      "When the disc itself is affected by a collision, not just the surrounding soft tissue.",
     image: {
-      src: "/figma-exports/whiplash-anatomy-diagram.png",
-      alt: "Whiplash disc injury diagram",
+      src: "/figma-exports/decompression-whiplash-disc.png",
+      alt: "Hand assessing a patient's neck for whiplash-related disc injury",
     },
   },
   {
     name: "Herniated Disc (Back)",
     description: "The most common disc injury we see from rear-end and side-impact collisions.",
     image: {
-      src: "/figma-exports/back-pain-anatomy-diagram.png",
-      alt: "Herniated lower back disc diagram",
+      src: "/figma-exports/decompression-herniated-back.png",
+      alt: "Hands treating a patient's lower back for a herniated disc",
     },
   },
   {
     name: "Herniated Disc (Neck)",
     description:
-      "When the disc itself is affected by a collision, not just the surrounding soft tissue.",
+      "When the force of a crash affects a disc in the neck, not just the surrounding muscle.",
     image: {
-      src: "/figma-exports/neck-pain-anatomy-diagram.png",
-      alt: "Herniated neck disc diagram",
+      src: "/figma-exports/decompression-herniated-neck.png",
+      alt: "Hands treating a patient's neck for a herniated disc",
     },
   },
 ];

@@ -6,7 +6,7 @@ import { AccidentBanner } from "@/components/sections/accident-banner";
 import { ComparisonTable } from "@/components/sections/comparison-table";
 import { ConditionFaq } from "@/components/sections/condition-faq";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
-import { FeelsLike } from "@/components/sections/feels-like";
+import { FeelsLikeBand } from "@/components/sections/feels-like-band";
 import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
@@ -17,8 +17,10 @@ import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
 import { Section } from "@/components/ui/section";
+import { SectionHeading } from "@/components/ui/section-heading";
 import { autoAccidentAttorneyQuote } from "@/content/auto-accident";
 import {
+  cervicogenicHeadacheConditions,
   cervicogenicHeadacheFaq,
   cervicogenicHeadacheFeelsLike,
   cervicogenicHeadacheHero,
@@ -30,6 +32,7 @@ import { leadFormVariants } from "@/content/lead-forms";
 import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
+import { cn } from "@/lib/cn";
 import { buildRouteMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildRouteMetadata(getRoute("/conditions/cervicogenic-headache"));
@@ -81,13 +84,13 @@ export default function CervicogenicHeadachePage() {
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
 
       <Section>
-        <Container className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
+        <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[3fr_2fr] lg:items-start lg:gap-16">
           <div className="flex flex-col gap-6">
             <Eyebrow>Understanding cervicogenic headache</Eyebrow>
             <h2 className="font-display text-h2 text-navy-900">
               The headache a car accident leaves behind
             </h2>
-            <p className="max-w-md font-sans text-body-lg text-ink-500">
+            <p className="font-sans text-body-lg text-ink-500">
               Cervicogenic headaches originate in the cervical spine, not the head itself — which is
               why they&apos;re one of the most common, and most overlooked, injuries after a car
               accident. The sudden force of a collision can irritate the joints and nerves at the
@@ -111,12 +114,12 @@ export default function CervicogenicHeadachePage() {
               <ArrowRightIcon className="h-4 w-4" />
             </a>
           </div>
-          <div className="relative mx-auto aspect-[772/500] w-full max-w-lg overflow-hidden lg:mx-0">
+          <div className="relative mx-auto aspect-5/6 w-full max-w-md overflow-hidden lg:mx-0">
             <Image
               src="/figma-exports/dr-abe-neck.png"
               alt="Dr. Abe Nasser examining a patient's neck"
               fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
+              sizes="(min-width: 1024px) 32vw, 100vw"
               className="object-cover"
             />
           </div>
@@ -124,11 +127,51 @@ export default function CervicogenicHeadachePage() {
       </Section>
 
       <div id="how-it-feels" className="scroll-mt-[120px]">
-        <FeelsLike
-          items={cervicogenicHeadacheFeelsLike}
+        <FeelsLikeBand
+          eyebrow="What it feels like"
           heading="A headache that started after impact"
+          items={cervicogenicHeadacheFeelsLike}
+          background={{
+            src: "/figma-exports/whiplash-feels-band-bg.png",
+            alt: "Close-up of a hand reaching toward a shoulder in soft, warm light",
+          }}
         />
       </div>
+
+      <Section>
+        <Container className="flex flex-col gap-14">
+          <SectionHeading eyebrow="What it treats">
+            Conditions cervicogenic headache relieves
+          </SectionHeading>
+          <div className="flex flex-col divide-y divide-mute-300 border-t border-mute-300">
+            {cervicogenicHeadacheConditions.map((condition, idx) => (
+              <div
+                key={condition.name}
+                className="grid grid-cols-1 items-center gap-6 py-8 sm:grid-cols-[200px_1fr_1fr]"
+              >
+                <div className="relative aspect-3/2 w-full overflow-hidden sm:w-50">
+                  <Image
+                    src={condition.image.src}
+                    alt={condition.image.alt}
+                    fill
+                    sizes="200px"
+                    className="object-cover"
+                  />
+                </div>
+                <h3
+                  className={cn(
+                    "font-display text-h2",
+                    idx === 1 ? "text-teal-500" : "text-navy-900",
+                  )}
+                >
+                  {condition.name}
+                </h3>
+                <p className="font-sans text-body-lg text-ink-500">{condition.description}</p>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </Section>
 
       <ComparisonTable />
 

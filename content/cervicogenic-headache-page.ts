@@ -69,6 +69,51 @@ export const cervicogenicHeadacheFeelsLike: ConditionFeelsLikeItem[] = [
   },
 ];
 
+export interface CervicogenicHeadacheCondition {
+  name: string;
+  description: string;
+  image: { src: string; alt: string };
+}
+
+/** "Conditions cervicogenic headache relieves" list — related conditions
+ * that either cause or commonly overlap with a cervicogenic headache after
+ * a collision, each linking to its own dedicated condition page. */
+export const cervicogenicHeadacheConditions: CervicogenicHeadacheCondition[] = [
+  {
+    name: "Whiplash",
+    description:
+      "The neck injury that most often triggers this type of headache after a collision.",
+    image: {
+      src: "/figma-exports/decompression-whiplash-disc.png",
+      alt: "Hand assessing a patient's neck after whiplash",
+    },
+  },
+  {
+    name: "Neck Pain",
+    description: "Ongoing stiffness and tension in the neck that radiates upward into a headache.",
+    image: {
+      src: "/figma-exports/drabe-shoulder.png",
+      alt: "Dr. Abe Nasser treating a patient's neck and shoulder",
+    },
+  },
+  {
+    name: "TMJ / Jaw Pain",
+    description: "Jaw clenching and joint strain from impact that can compound headache symptoms.",
+    image: {
+      src: "/figma-exports/drabe-head.png",
+      alt: "Hands treating a patient's head and jaw",
+    },
+  },
+  {
+    name: "Concussion",
+    description: "A head injury that can overlap with or mask a cervicogenic headache's symptoms.",
+    image: {
+      src: "/figma-exports/align-thespne-neck.png",
+      alt: "Dr. Abe Nasser examining a patient's neck",
+    },
+  },
+];
+
 export const cervicogenicHeadacheRelatedBottom: ConditionRelatedLink[] = [
   { label: "Lower Back Pain", href: "/conditions/back-pain" },
   { label: "Auto Accident Injuries", href: "/auto-accidents", highlighted: true },
