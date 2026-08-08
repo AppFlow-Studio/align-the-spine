@@ -7,7 +7,6 @@ export interface PracticeCard {
 export interface HomeVisitCallout {
   heading: string;
   body: string;
-  image: { src: string; alt: string };
 }
 
 /** "HOW HE PRACTICES" section per the about-drabe artboard (96:3244–96:4348,
@@ -15,7 +14,11 @@ export interface HomeVisitCallout {
  * home-vs-office callout under "The office, when you'd rather come to us".
  * The artboard repeats the "HOW HE PRACTICES" eyebrow above both halves —
  * kept once, above the cards, since repeating identical eyebrow text twice
- * back-to-back reads as a duplication rather than two distinct sections. */
+ * back-to-back reads as a duplication rather than two distinct sections.
+ * The callout's photo lives in content/photo-gallery.ts's
+ * `interiorGalleryHero` instead — PhotoGallery renders it as the same
+ * grid's full-width top row so its gap matches the 3-photo row below,
+ * rather than living in its own separately-padded Section. */
 export const howHePracticesCards: PracticeCard[] = [
   {
     title: "Accessible care",
@@ -43,5 +46,4 @@ export const howHePracticesCards: PracticeCard[] = [
 export const homeVisitCallout: HomeVisitCallout = {
   heading: "The office, when you'd rather come to us",
   body: "Home visits are available based on your case and location — but the Deerfield Beach office is always here too.",
-  image: { src: "/figma-exports/interior-reception.png", alt: "Align the Spine reception area" },
 };

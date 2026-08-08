@@ -7,6 +7,8 @@ interface TopStatsBarProps {
 /** Reviews/Visits/When it applies/Bilingual care/Insurance stat row, per
  * client-approved values in siteConfig.stats (content/site.ts). */
 export function TopStatsBar({ className }: TopStatsBarProps) {
+  if (!siteConfig.statsVerified) return null;
+
   return (
     <div className={className}>
       <dl className="grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">

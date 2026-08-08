@@ -9,6 +9,12 @@ import { siteConfig } from "@/content/site";
 
 export interface HowWeTreatProps {
   items: ConditionTreatmentItem[];
+  /** Main heading text. Defaults to back-pain's own copy, where it's a
+   * short title with a separate `sub` line below it. Some pages' Figma
+   * frames (e.g. concussion) instead render the "Treatment focused on the
+   * source..." line itself as this heading, with no `sub` at all. */
+  heading?: string;
+  sub?: string;
   className?: string;
 }
 
@@ -17,15 +23,17 @@ export interface HowWeTreatProps {
  * 2-up image cards with a longer description, a session-length/eligibility
  * note, and a per-item CTA (e.g. "Book now" vs. "Check eligibility" for the
  * home-visit option). */
-export function HowWeTreat({ items, className }: HowWeTreatProps) {
+export function HowWeTreat({
+  items,
+  heading = "How we treat it",
+  sub = "Treatment focused on the source, not the symptom.",
+  className,
+}: HowWeTreatProps) {
   return (
     <Section className={className}>
       <Container className="flex flex-col gap-14">
-        <SectionHeading
-          eyebrow="How we treat"
-          sub="Treatment focused on the source, not the symptom."
-        >
-          How we treat it
+        <SectionHeading eyebrow="How we treat" sub={sub}>
+          {heading}
         </SectionHeading>
 
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2">

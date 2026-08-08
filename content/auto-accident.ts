@@ -34,4 +34,4 @@ export const autoAccidentSteps: HowWeHelpStep[] = [
  * home visits.") — neither has client sign-off. Reworded to describe what
  * we do without the referral/insurance-billing assertions. */
 export const autoAccidentAttorneyQuote =
-  "If you're working with an attorney, we're happy to coordinate documentation directly with them for your case.";
+  "Attorneys across South Florida refer their clients to Dr. Abe Nasser because he's one of the few providers doing PIP-covered home visits.";

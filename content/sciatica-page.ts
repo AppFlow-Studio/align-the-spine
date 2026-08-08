@@ -43,7 +43,7 @@ export const sciaticaSymptoms: string[] = [
 
 export const sciaticaRelatedMidPage: ConditionRelatedLink[] = [
   { label: "Lower Back Pain", href: "/conditions/back-pain" },
-  { label: "Herniated Disc", href: "/services#spinal-decompression", highlighted: true },
+  { label: "Herniated Disc", href: "/services/spinal-decompression", highlighted: true },
   { label: "Auto Accident Injuries", href: "/auto-accidents" },
 ];
 
@@ -52,7 +52,7 @@ export const sciaticaHowWeTreat: ConditionTreatmentItem[] = [
     title: "Myofasial Release/Trigger Point",
     desc: "The piriformis and surrounding muscles often tighten around the sciatic nerve, adding to the pain. The Graston tool releases that tension directly, similar to a deep massage focused on the area compressing the nerve.",
     image: {
-      src: "/figma-exports/drabe-releasetool.png",
+      src: "/figma-exports/how-we-treat-1.png",
       alt: "Myofascial release and trigger point therapy with the Graston tool",
     },
     meta: "1 hr",
@@ -63,7 +63,7 @@ export const sciaticaHowWeTreat: ConditionTreatmentItem[] = [
     title: "Adjustment",
     desc: "Sciatica often stems from a fixation in the lower spine putting pressure on the nerve root. Adjustments restore normal movement to that segment, which is frequently what relieves the radiating pain down the leg.",
     image: {
-      src: "/figma-exports/drabeadjust.png",
+      src: "/figma-exports/how-we-treat-2.png",
       alt: "Dr. Abe performing a chiropractic adjustment",
     },
     meta: "1 hr",
@@ -74,7 +74,7 @@ export const sciaticaHowWeTreat: ConditionTreatmentItem[] = [
     title: "Traction/Decompression",
     desc: "When sciatica is caused by a herniated disc or spinal stenosis, traction is the most direct approach — gently separating the vertebrae to take pressure off the compressed nerve root.",
     image: {
-      src: "/figma-exports/drabe-traction_compression.png",
+      src: "/figma-exports/how-we-treat-3.png",
       alt: "Spinal traction and decompression therapy",
     },
     meta: "1 hr",
@@ -85,7 +85,7 @@ export const sciaticaHowWeTreat: ConditionTreatmentItem[] = [
     title: "Home Visit Care",
     desc: "Sciatica can make sitting in a car unbearable. We bring the full exam and treatment to you when getting to the office isn't realistic.",
     image: {
-      src: "/figma-exports/athome-drabe.png",
+      src: "/figma-exports/how-we-treat-4.png",
       alt: "Dr. Abe providing chiropractic care at a patient's home",
     },
     meta: "Check eligibility",
@@ -98,7 +98,7 @@ export const sciaticaFeelsLike: ConditionFeelsLikeItem[] = [
   {
     title: "Radiating leg pain",
     desc: "Pain that travels from the lower back through the buttocks and down the leg.",
-    learnMoreHref: "/services#spinal-decompression",
+    learnMoreHref: "/services/spinal-decompression",
   },
   {
     title: "Shooting or burning",
@@ -108,12 +108,12 @@ export const sciaticaFeelsLike: ConditionFeelsLikeItem[] = [
   {
     title: "Numbness or tingling",
     desc: "Pins and needles or loss of sensation specifically in the leg or foot.",
-    learnMoreHref: "/services#spinal-decompression",
+    learnMoreHref: "/services/spinal-decompression",
   },
   {
     title: "Muscle weakness",
     desc: 'Difficulty moving the foot or leg, often feeling "heavy" or unresponsive during activity.',
-    learnMoreHref: "/services#massage-soft-tissue",
+    learnMoreHref: "/services/massage-soft-tissue",
   },
 ];
 
@@ -124,7 +124,7 @@ export const sciaticaWarning: ConditionWarning = {
     alt: "Dr. Abe examining a patient's lower back",
   },
   bullets: [
-    { label: "Pain radiating below the knee", href: "/services#spinal-decompression" },
+    { label: "Pain radiating below the knee", href: "/services/spinal-decompression" },
     { label: "Numbness or weakness in the foot", href: "/conditions/back-pain" },
     { label: "Loss of bladder or bowel control — seek emergency care" },
   ],
@@ -141,10 +141,10 @@ export const sciaticaRelatedBottom: ConditionRelatedLink[] = [
   { label: "Lower Back Pain", href: "/conditions/back-pain" },
   { label: "Auto Accident Injuries", href: "/auto-accidents", highlighted: true },
   { label: "Neck Pain", href: "/conditions/neck-pain" },
-  { label: "Spinal Decompression", href: "/services#spinal-decompression" },
+  { label: "Spinal Decompression", href: "/services/spinal-decompression" },
   { label: "Whiplash", href: "/conditions/whiplash" },
   { label: "Home Visit Care", href: "/home-visits" },
-  { label: "Herniated Disc", href: "/services#spinal-decompression" },
+  { label: "Herniated Disc", href: "/services/spinal-decompression" },
   { label: "View All Treatments", href: "/services" },
 ];
 

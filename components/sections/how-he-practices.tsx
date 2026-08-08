@@ -41,20 +41,9 @@ export function HowHePractices() {
           ))}
         </div>
 
-        <div className="flex flex-col gap-10">
-          <div className="flex flex-col items-center gap-3 text-center">
-            <h2 className="font-display text-h2 text-navy-800">{homeVisitCallout.heading}</h2>
-            <p className="max-w-2xl font-sans text-body-lg text-ink-900">{homeVisitCallout.body}</p>
-          </div>
-          <div className="relative aspect-[1566/874] w-full">
-            <Image
-              src={homeVisitCallout.image.src}
-              alt={homeVisitCallout.image.alt}
-              fill
-              sizes="100vw"
-              className="object-cover"
-            />
-          </div>
+        <div className="flex flex-col items-center gap-3 text-center">
+          <h2 className="font-display text-h2 text-navy-800">{homeVisitCallout.heading}</h2>
+          <p className="max-w-2xl font-sans text-body-lg text-ink-900">{homeVisitCallout.body}</p>
         </div>
       </Container>
     </Section>

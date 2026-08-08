@@ -8,6 +8,8 @@ export interface StatChipRowProps {
 /** Inline stat-chip row sharing TopStatsBar's data (siteConfig.stats) with a
  * glass-pill treatment for dark hero backgrounds, per condition-page-spec §B2. */
 export function StatChipRow({ className }: StatChipRowProps) {
+  if (!siteConfig.statsVerified) return null;
+
   return (
     <dl className={cn("flex flex-wrap gap-3", className)}>
       {siteConfig.stats.map((stat) => (

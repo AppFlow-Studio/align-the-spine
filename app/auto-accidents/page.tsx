@@ -137,7 +137,11 @@ export default function AutoAccidentsPage() {
         </Container>
       </Section>
 
-      <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews} variant="light" />
+      <PatientReviews
+        featured={homeFeaturedTestimonial}
+        reviews={homeReviews.slice(0, 3)}
+        variant="light"
+      />
 
       <DoctorProfile variant="short" content={doctorProfileContent} />
 

@@ -43,7 +43,7 @@ export const neckPainCauses: string[] = [
 
 export const neckPainRelatedMidPage: ConditionRelatedLink[] = [
   { label: "Whiplash", href: "/conditions/whiplash" },
-  { label: "Herniated Disc", href: "/services#spinal-decompression", highlighted: true },
+  { label: "Herniated Disc", href: "/services/spinal-decompression", highlighted: true },
   { label: "Auto Accident Injuries", href: "/auto-accidents" },
 ];
 
@@ -52,7 +52,7 @@ export const neckPainHowWeTreat: ConditionTreatmentItem[] = [
     title: "Myofasial Release/Trigger Point",
     desc: "Tension from posture, stress, or sleep position tends to build up as tight knots in the neck and shoulders. The Graston tool breaks up that muscle tightness — similar to a deep massage, but targeted to the specific spots holding tension.",
     image: {
-      src: "/figma-exports/drabe-releasetool.png",
+      src: "/figma-exports/how-we-treat-1.png",
       alt: "Myofascial release and trigger point therapy with the Graston tool",
     },
     meta: "1 hr",
@@ -63,7 +63,7 @@ export const neckPainHowWeTreat: ConditionTreatmentItem[] = [
     title: "Adjustment",
     desc: "Everyday stiffness often comes from small fixations in the neck's vertebrae — segments that aren't moving the way they should. Adjustments restore that motion, which is usually what turns a stiff neck into a fully mobile one again.",
     image: {
-      src: "/figma-exports/drabeadjust.png",
+      src: "/figma-exports/how-we-treat-2.png",
       alt: "Dr. Abe performing a chiropractic adjustment",
     },
     meta: "1 hr",
@@ -74,7 +74,7 @@ export const neckPainHowWeTreat: ConditionTreatmentItem[] = [
     title: "Traction/Decompression",
     desc: "For neck pain that's structural rather than muscular — often from a disc issue — traction relieves pressure between the vertebrae, helping resolve pain that adjustment alone doesn't fully address.",
     image: {
-      src: "/figma-exports/drabe-traction_compression.png",
+      src: "/figma-exports/how-we-treat-3.png",
       alt: "Spinal traction and decompression therapy",
     },
     meta: "1 hr",
@@ -85,7 +85,7 @@ export const neckPainHowWeTreat: ConditionTreatmentItem[] = [
     title: "Home Visit Care",
     desc: "For neck pain bad enough that turning your head to drive is uncomfortable, we bring the exam and treatment to you instead of asking you to make the trip.",
     image: {
-      src: "/figma-exports/athome-drabe.png",
+      src: "/figma-exports/how-we-treat-4.png",
       alt: "Dr. Abe providing chiropractic care at a patient's home",
     },
     meta: "Check eligibility",
@@ -103,12 +103,12 @@ export const neckPainFeelsLike: ConditionFeelsLikeItem[] = [
   {
     title: "Tech neck ache",
     desc: "A dull, nagging strain at the base of the skull after hours at a desk or on a phone.",
-    learnMoreHref: "/services#massage-soft-tissue",
+    learnMoreHref: "/services/massage-soft-tissue",
   },
   {
     title: "Radiating tension",
     desc: "Tightness that spreads into the shoulders and upper back, not just the neck itself.",
-    learnMoreHref: "/services#spinal-decompression",
+    learnMoreHref: "/services/spinal-decompression",
   },
   {
     title: "Sharp or sudden pain",
@@ -125,7 +125,7 @@ export const neckPainWarning: ConditionWarning = {
   },
   bullets: [
     { label: "Numbness or tingling radiating into the arm or hand", href: "/conditions/whiplash" },
-    { label: "Weakness in the arm or grip", href: "/services#spinal-decompression" },
+    { label: "Weakness in the arm or grip", href: "/services/spinal-decompression" },
     { label: "Loss of bladder or bowel control — seek emergency care" },
   ],
 };
@@ -140,10 +140,10 @@ export const neckPainRelatedBottom: ConditionRelatedLink[] = [
   { label: "Lower Back Pain", href: "/conditions/back-pain" },
   { label: "Auto Accident Injuries", href: "/auto-accidents", highlighted: true },
   { label: "Neck Pain", href: "/conditions/neck-pain" },
-  { label: "Spinal Decompression", href: "/services#spinal-decompression" },
+  { label: "Spinal Decompression", href: "/services/spinal-decompression" },
   { label: "Whiplash", href: "/conditions/whiplash" },
   { label: "Home Visit Care", href: "/home-visits" },
-  { label: "Herniated Disc", href: "/services#spinal-decompression" },
+  { label: "Herniated Disc", href: "/services/spinal-decompression" },
   { label: "View All Treatments", href: "/services" },
 ];
 

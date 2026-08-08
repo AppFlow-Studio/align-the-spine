@@ -37,6 +37,7 @@ const FORBIDDEN_STRINGS: ForbiddenString[] = [
     label: "unverified accident-patient-referral claim",
     needle: "the doctor South Florida refers accident patients to",
   },
+  { label: "placeholder testimonial author", needle: "Maria G." },
 ];
 
 function stripComments(source: string): string {

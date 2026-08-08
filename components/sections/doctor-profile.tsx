@@ -12,8 +12,9 @@ import { isVerified } from "@/content/verified-value";
 export interface DoctorProfileProps {
   variant: "short" | "long";
   content: DoctorProfileContent;
-  /** Rendered below the profile block only when variant is "long" — reserved
-   * for ATS-091's History + HOW HE PRACTICES cards, unused today. */
+  /** Rendered as its own section right after the profile block, only when
+   * variant is "long" — reserved for ATS-091's History + HOW HE PRACTICES
+   * cards. */
   extended?: ReactNode;
 }
 
@@ -27,55 +28,63 @@ export interface DoctorProfileProps {
  * 45/55 columns' text side until the column itself is wide enough (tested
  * clean at 1280/1440; 768–1024 wrapped the "Book with Dr. Abe" label and
  * clipped against the button's fixed height — ATS-092 responsive pass,
- * same class of tablet-cramping bug SpineAnatomy had in ATS-073). */
+ * same class of tablet-cramping bug SpineAnatomy had in ATS-073).
+ *
+ * `extended` renders as a sibling of this component's own <Section>, not
+ * nested inside it — the "long" variant's History band has its own
+ * full-bleed navy background, distinct from this block's white one. */
 export function DoctorProfile({ variant, content, extended }: DoctorProfileProps) {
   const { eyebrow, name, bio, cta, rating, portrait } = content;
   return (
-    <Section spacing="lg">
-      <Container className="flex flex-col gap-10 xl:flex-row xl:items-center xl:gap-16">
-        <div className="relative aspect-[600/800] w-full shrink-0 xl:w-[40%]">
-          <Image
-            src={portrait.src}
-            alt={portrait.alt}
-            fill
-            sizes="(min-width: 1280px) 45vw, 100vw"
-            className="object-cover"
-          />
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -bottom-11 -right-11 hidden h-35 w-58 border-b-[2px] border-r-[2px] border-[#9397B1] xl:block"
-          />
-          {isVerified(rating) && (
-            <div className="absolute inset-x-6 bottom-6 flex items-center justify-between gap-3 bg-overlay-ink-20 px-6 py-4 backdrop-blur-sm">
-              <span className="font-sans text-stat-label text-white">{rating.value.location}</span>
-              <span
-                className="inline-flex items-center gap-2"
-                role="img"
-                aria-label={`Rated ${rating.value.value} out of 5 stars from ${rating.value.count} reviews`}
-              >
-                <span className="inline-flex gap-1">
-                  {Array.from({ length: rating.value.value }, (_, i) => (
-                    <StarIcon key={i} className="h-5 w-5 text-[#EFBD3F]" />
-                  ))}
+    <>
+      <Section spacing="lg">
+        <Container className="flex flex-col gap-10 xl:flex-row xl:items-center xl:gap-16">
+          <div className="relative aspect-[600/800] w-full shrink-0 xl:w-[40%]">
+            <Image
+              src={portrait.src}
+              alt={portrait.alt}
+              fill
+              sizes="(min-width: 1280px) 45vw, 100vw"
+              className="object-cover"
+            />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -bottom-11 -right-11 hidden h-35 w-58 border-b-[2px] border-r-[2px] border-[#9397B1] xl:block"
+            />
+            {isVerified(rating) && (
+              <div className="absolute inset-x-6 bottom-6 flex items-center justify-between gap-3 bg-overlay-ink-20 px-6 py-4 backdrop-blur-sm">
+                <span className="font-sans text-stat-label text-white">
+                  {rating.value.location}
                 </span>
-                <span aria-hidden="true" className="font-sans text-stat-label text-white">
-                  {rating.value.count}
+                <span
+                  className="inline-flex items-center gap-2"
+                  role="img"
+                  aria-label={`Rated ${rating.value.value} out of 5 stars from ${rating.value.count} reviews`}
+                >
+                  <span className="inline-flex gap-1">
+                    {Array.from({ length: rating.value.value }, (_, i) => (
+                      <StarIcon key={i} className="h-5 w-5 text-[#EFBD3F]" />
+                    ))}
+                  </span>
+                  <span aria-hidden="true" className="font-sans text-stat-label text-white">
+                    {rating.value.count}
+                  </span>
                 </span>
-              </span>
-            </div>
-          )}
-        </div>
-        <div className="flex min-w-0 flex-1 flex-col items-start gap-6">
-          <Eyebrow>{eyebrow}</Eyebrow>
-          <h2 className="font-display text-doctor-name text-navy-900">{name}</h2>
-          <span aria-hidden="true" className="h-24 w-0.5 bg-[#9397B1]" />
-          <p className="font-sans text-body-lg text-ink-900">{bio}</p>
-          <Button variant="cta" href={cta.href}>
-            {cta.label}
-          </Button>
-        </div>
-      </Container>
+              </div>
+            )}
+          </div>
+          <div className="flex min-w-0 flex-1 flex-col items-start gap-6">
+            <Eyebrow>{eyebrow}</Eyebrow>
+            <h2 className="font-display text-doctor-name text-navy-900">{name}</h2>
+            <span aria-hidden="true" className="h-24 w-0.5 bg-[#9397B1]" />
+            <p className="font-sans text-body-lg text-ink-900">{bio}</p>
+            <Button variant="cta" href={cta.href}>
+              {cta.label}
+            </Button>
+          </div>
+        </Container>
+      </Section>
       {variant === "long" && extended}
-    </Section>
+    </>
   );
 }

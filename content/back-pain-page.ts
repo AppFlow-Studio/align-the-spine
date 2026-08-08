@@ -48,7 +48,7 @@ export const backPainCauses: string[] = [
 
 export const backPainRelatedMidPage: ConditionRelatedLink[] = [
   { label: "Sciatica", href: "/conditions/sciatica" },
-  { label: "Herniated Disc", href: "/services#spinal-decompression", highlighted: true },
+  { label: "Herniated Disc", href: "/services/spinal-decompression", highlighted: true },
   { label: "Auto Accident Injuries", href: "/auto-accidents" },
 ];
 
@@ -66,7 +66,7 @@ export const backPainHowWeTreat: ConditionTreatmentItem[] = [
     title: "Myofasial Release/Trigger Point",
     desc: "Lower back strain often carries as tight, spasming muscle along the spine. The Graston tool works through that tension directly, breaking up adhesions similar to a deep massage.",
     image: {
-      src: "/figma-exports/drabe-releasetool.png",
+      src: "/figma-exports/how-we-treat-1.png",
       alt: "Myofascial release and trigger point therapy with the Graston tool",
     },
     meta: "1 hr",
@@ -77,7 +77,7 @@ export const backPainHowWeTreat: ConditionTreatmentItem[] = [
     title: "Adjustment",
     desc: "Back pain frequently comes from fixations — segments of the spine, especially in the low back, that have lost their normal movement. Adjustments restore that motion so the surrounding muscles can stop compensating.",
     image: {
-      src: "/figma-exports/drabeadjust.png",
+      src: "/figma-exports/how-we-treat-2.png",
       alt: "Dr. Abe performing a chiropractic adjustment",
     },
     meta: "1 hr",
@@ -88,7 +88,7 @@ export const backPainHowWeTreat: ConditionTreatmentItem[] = [
     title: "Traction/Decompression",
     desc: "For disc-related or chronic back pain, traction stretches the lower spine to relieve pressure on the discs and nerves, helping pump fluid back into the disc space between vertebrae.",
     image: {
-      src: "/figma-exports/drabe-traction_compression.png",
+      src: "/figma-exports/how-we-treat-3.png",
       alt: "Spinal traction and decompression therapy",
     },
     meta: "1 hr",
@@ -99,7 +99,7 @@ export const backPainHowWeTreat: ConditionTreatmentItem[] = [
     title: "Home Visit Care",
     desc: "When even getting into the car is painful, we bring the exam and hands-on treatment to your living room instead.",
     image: {
-      src: "/figma-exports/athome-drabe.png",
+      src: "/figma-exports/how-we-treat-4.png",
       alt: "Dr. Abe providing chiropractic care at a patient's home",
     },
     meta: "Check eligibility",
@@ -117,12 +117,12 @@ export const backPainFeelsLike: ConditionFeelsLikeItem[] = [
   {
     title: "Sharp catch on movement",
     desc: "A specific bend or twist that triggers a sudden, sharp pull — often muscular.",
-    learnMoreHref: "/services#massage-soft-tissue",
+    learnMoreHref: "/services/massage-soft-tissue",
   },
   {
     title: "Pain that won't ease up",
     desc: "Discomfort that's stuck around for weeks or months, not just a bad day.",
-    learnMoreHref: "/services#spinal-decompression",
+    learnMoreHref: "/services/spinal-decompression",
   },
   {
     title: "Radiating pain",
@@ -141,7 +141,7 @@ export const backPainWarning: ConditionWarning = {
     { label: "Numbness or weakness in the leg", href: "/conditions/sciatica" },
     {
       label: "Pain that worsens at night or doesn't improve with rest",
-      href: "/services#spinal-decompression",
+      href: "/services/spinal-decompression",
     },
     { label: "Loss of bladder or bowel control — seek emergency care" },
   ],
@@ -156,10 +156,10 @@ export const backPainAccident: ConditionAccident = {
 export const backPainRelatedBottom: ConditionRelatedLink[] = [
   { label: "Lower Back Pain", href: "/conditions/back-pain" },
   { label: "Neck Pain", href: "/conditions/neck-pain" },
-  { label: "Spinal Decompression", href: "/services#spinal-decompression" },
+  { label: "Spinal Decompression", href: "/services/spinal-decompression" },
   { label: "Whiplash", href: "/conditions/whiplash" },
   { label: "Home Visit Care", href: "/home-visits" },
-  { label: "Herniated Disc", href: "/services#spinal-decompression" },
+  { label: "Herniated Disc", href: "/services/spinal-decompression" },
   { label: "View All Treatments", href: "/services" },
   { label: "Auto Accident Injuries", href: "/auto-accidents", highlighted: true },
 ];

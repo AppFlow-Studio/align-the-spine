@@ -164,7 +164,7 @@ export default function WhiplashPage() {
                   cervical spine
                 </Link>{" "}
                 and in more severe cases contribute to a{" "}
-                <Link href="/services#spinal-decompression" className="underline">
+                <Link href="/services/spinal-decompression" className="underline">
                   herniated disc
                 </Link>
                 . Early evaluation is what determines whether whiplash resolves in weeks or becomes
@@ -215,7 +215,11 @@ export default function WhiplashPage() {
 
       <AccidentBanner accident={whiplashAccident} />
 
-      <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews} />
+      <PatientReviews
+        featured={homeFeaturedTestimonial}
+        reviews={homeReviews.slice(0, 3)}
+        variant="light"
+      />
 
       <DoctorProfile variant="short" content={doctorProfileContent} />
 

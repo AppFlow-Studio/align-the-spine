@@ -44,8 +44,14 @@ describe("sitemap", () => {
       "/conditions/neck-pain",
       "/conditions/sciatica",
       "/conditions/whiplash",
+      "/conditions/cervicogenic-headache",
+      "/conditions/concussion",
+      "/conditions/tmj-jaw-pain",
       "/reviews",
       "/home-visits",
+      "/services/chiropractic-adjustments",
+      "/services/spinal-decompression",
+      "/services/massage-soft-tissue",
     ]) {
       expect(paths).not.toContain(path);
     }

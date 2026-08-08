@@ -195,7 +195,11 @@ export default function NeckPainPage() {
 
       <AccidentBanner accident={neckPainAccident} />
 
-      <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews} />
+      <PatientReviews
+        featured={homeFeaturedTestimonial}
+        reviews={homeReviews.slice(0, 3)}
+        variant="light"
+      />
 
       <DoctorProfile variant="short" content={doctorProfileContent} />
 

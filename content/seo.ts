@@ -1,9 +1,15 @@
 import type { MetadataRoute } from "next";
 
+import { adjustmentsHero } from "@/content/adjustments-page";
 import { backPainHero } from "@/content/back-pain-page";
+import { cervicogenicHeadacheHero } from "@/content/cervicogenic-headache-page";
+import { concussionHero } from "@/content/concussion-page";
+import { massageSoftTissueHero } from "@/content/massage-soft-tissue-page";
 import { neckPainHero } from "@/content/neck-pain-page";
 import { sciaticaHero } from "@/content/sciatica-page";
 import { siteConfig } from "@/content/site";
+import { spinalDecompressionHero } from "@/content/spinal-decompression-page";
+import { tmjJawPainHero } from "@/content/tmj-jaw-pain-page";
 import { whiplashHero } from "@/content/whiplash-page";
 
 export interface RouteMeta {
@@ -146,6 +152,75 @@ export const routes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-08-03",
+    status: "draft",
+  },
+  {
+    path: "/conditions/cervicogenic-headache",
+    title: `${cervicogenicHeadacheHero.h1} | ${siteConfig.business.name}`,
+    description: cervicogenicHeadacheHero.subhead,
+    image: cervicogenicHeadacheHero.backgroundImage,
+    changeFrequency: "monthly",
+    priority: 0.8,
+    lastModified: "2026-08-06",
+    status: "draft",
+  },
+  {
+    path: "/conditions/concussion",
+    title: `${concussionHero.h1} | ${siteConfig.business.name}`,
+    description: concussionHero.subhead,
+    image: concussionHero.backgroundImage,
+    changeFrequency: "monthly",
+    priority: 0.8,
+    lastModified: "2026-08-07",
+    status: "draft",
+  },
+  {
+    path: "/conditions/tmj-jaw-pain",
+    title: `${tmjJawPainHero.h1} | ${siteConfig.business.name}`,
+    description: tmjJawPainHero.subhead,
+    image: tmjJawPainHero.backgroundImage,
+    changeFrequency: "monthly",
+    priority: 0.8,
+    lastModified: "2026-08-07",
+    status: "draft",
+  },
+  // Same reviewer-gate as the condition pages above — this page includes
+  // clinical guidance ("not the right first step for a fracture,
+  // dislocation..."), so it stays draft until a clinician signs off too.
+  {
+    path: "/services/chiropractic-adjustments",
+    title: `${adjustmentsHero.h1} | ${siteConfig.business.name}`,
+    description: adjustmentsHero.subhead,
+    image: adjustmentsHero.backgroundImage,
+    changeFrequency: "monthly",
+    priority: 0.7,
+    lastModified: "2026-08-05",
+    status: "draft",
+  },
+  // Same reviewer-gate as the condition pages above — this page includes
+  // clinical guidance about disc injuries and PIP claim timing, so it stays
+  // draft until a clinician signs off too.
+  {
+    path: "/services/spinal-decompression",
+    title: `${spinalDecompressionHero.h1} | ${siteConfig.business.name}`,
+    description: spinalDecompressionHero.subhead,
+    image: spinalDecompressionHero.backgroundImage,
+    changeFrequency: "monthly",
+    priority: 0.7,
+    lastModified: "2026-08-06",
+    status: "draft",
+  },
+  // Same reviewer-gate as the condition pages above — this page includes
+  // clinical guidance about soft-tissue technique selection, so it stays
+  // draft until a clinician signs off too.
+  {
+    path: "/services/massage-soft-tissue",
+    title: `${massageSoftTissueHero.h1} | ${siteConfig.business.name}`,
+    description: massageSoftTissueHero.subhead,
+    image: massageSoftTissueHero.backgroundImage,
+    changeFrequency: "monthly",
+    priority: 0.7,
+    lastModified: "2026-08-06",
     status: "draft",
   },
   // ATS-E3 (3.7): unverified service-area/availability data (see

@@ -9,6 +9,11 @@ import { cn } from "@/lib/cn";
 
 export interface RelatedConditionsProps {
   items: ConditionRelatedLink[];
+  /** Defaults to the standard bottom-of-page copy — override for a frame
+   * that reuses this same pill-row treatment with different wording (e.g.
+   * concussion's mid-page "Often needed alongside other post-accident
+   * care" band). */
+  heading?: string;
   className?: string;
 }
 
@@ -17,12 +22,16 @@ export interface RelatedConditionsProps {
  * pages, styled as bordered pills, each with a trailing arrow. One item per
  * page comes through with `highlighted: true` and renders as a solid navy
  * pill instead. */
-export function RelatedConditions({ items, className }: RelatedConditionsProps) {
+export function RelatedConditions({
+  items,
+  heading = "Related Conditions and treatments",
+  className,
+}: RelatedConditionsProps) {
   return (
     <Section className={className}>
       <Container className="flex flex-col gap-8">
         <SectionHeading as="h2" className="text-left">
-          Related Conditions and treatments
+          {heading}
         </SectionHeading>
         <div className="flex flex-wrap gap-3">
           {items.map((item) => (
@@ -30,7 +39,7 @@ export function RelatedConditions({ items, className }: RelatedConditionsProps) 
               key={item.label}
               href={item.href}
               className={cn(
-                "inline-flex items-center gap-2 rounded-40 border px-6 py-3 font-sans text-stat-label uppercase transition-colors",
+                "inline-flex items-center gap-2 border px-6 py-3 font-sans text-stat-label uppercase transition-colors",
                 item.highlighted
                   ? "border-navy-900 bg-navy-900 text-white hover:bg-navy-700"
                   : "border-mute-300 text-navy-900 hover:border-navy-900",

@@ -49,7 +49,7 @@ const sciaticaTypes = [
         description: (
           <>
             A{" "}
-            <Link href="/services#spinal-decompression" className="underline">
+            <Link href="/services/spinal-decompression" className="underline">
               herniated or bulging disc
             </Link>{" "}
             pressing directly on the nerve root. The most common cause.
@@ -129,11 +129,11 @@ export default function SciaticaPage() {
               Sciatica after a car accident may qualify for Florida PIP coverage — Dr. Abe Nasser
               uses a full evaluation to pinpoint the source of nerve compression and build a plan to
               relieve your leg pain. Sciatica itself is often caused by a{" "}
-              <Link href="/services#spinal-decompression" className="underline">
+              <Link href="/services/spinal-decompression" className="underline">
                 herniated disc
               </Link>{" "}
               or{" "}
-              <Link href="/services#spinal-decompression" className="underline">
+              <Link href="/services/spinal-decompression" className="underline">
                 spinal stenosis
               </Link>{" "}
               compressing the nerve root, whether that compression came from sudden impact or built
@@ -182,7 +182,11 @@ export default function SciaticaPage() {
 
       <AccidentBanner accident={sciaticaAccident} />
 
-      <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews} />
+      <PatientReviews
+        featured={homeFeaturedTestimonial}
+        reviews={homeReviews.slice(0, 3)}
+        variant="light"
+      />
 
       <DoctorProfile variant="short" content={doctorProfileContent} />
 

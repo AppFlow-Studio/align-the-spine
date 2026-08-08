@@ -49,7 +49,7 @@ export const whiplashRelatedMidPage: ConditionRelatedLink[] = [
   { label: "Cervicogenic Headache", href: "/conditions/neck-pain" },
   { label: "TMJ / Jaw Pain from Trauma", href: "/services#adjustments", highlighted: true },
   { label: "Concussion / Post-Concussion Syndrome", href: "/auto-accidents" },
-  { label: "Shoulder Pain", href: "/services#massage-soft-tissue" },
+  { label: "Shoulder Pain", href: "/services/massage-soft-tissue" },
   { label: "Auto Accident Injuries", href: "/auto-accidents" },
   { label: "Neck Pain", href: "/conditions/neck-pain" },
 ];
@@ -59,7 +59,7 @@ export const whiplashHowWeTreat: ConditionTreatmentItem[] = [
     title: "Myofasial Release/Trigger Point",
     desc: "We use the Graston tool to break up scar tissue and muscle spasm in the neck and upper back that build up after a collision. This can feel similar to a deep massage and helps restore the soft tissue's normal movement.",
     image: {
-      src: "/figma-exports/drabe-releasetool.png",
+      src: "/figma-exports/how-we-treat-1.png",
       alt: "Myofascial release and trigger point therapy with the Graston tool",
     },
     meta: "1 hr",
@@ -70,7 +70,7 @@ export const whiplashHowWeTreat: ConditionTreatmentItem[] = [
     title: "Adjustment",
     desc: "After whiplash, the neck often loses its normal motion in specific segments — what we call fixations. Adjustments restore that motion so the neck can heal properly instead of compensating around the stiffness.",
     image: {
-      src: "/figma-exports/drabeadjust.png",
+      src: "/figma-exports/how-we-treat-2.png",
       alt: "Dr. Abe performing a chiropractic adjustment",
     },
     meta: "1 hr",
@@ -81,7 +81,7 @@ export const whiplashHowWeTreat: ConditionTreatmentItem[] = [
     title: "Traction/Decompression",
     desc: "For whiplash that's affecting the discs in the neck, traction gently separates the vertebrae to relieve pressure and encourage fluid movement back into the disc space — often paired with adjustment for faster recovery.",
     image: {
-      src: "/figma-exports/drabe-traction_compression.png",
+      src: "/figma-exports/how-we-treat-3.png",
       alt: "Spinal traction and decompression therapy",
     },
     meta: "1 hr",
@@ -92,7 +92,7 @@ export const whiplashHowWeTreat: ConditionTreatmentItem[] = [
     title: "Home Visit Care",
     desc: "Turning your head to check mirrors or drive is often the hardest part of whiplash recovery. We come to you in the early days when driving isn't realistic yet — full exam and treatment, wherever you're most comfortable.",
     image: {
-      src: "/figma-exports/athome-drabe.png",
+      src: "/figma-exports/how-we-treat-4.png",
       alt: "Dr. Abe providing chiropractic care at a patient's home",
     },
     meta: "Check eligibility",
@@ -120,7 +120,7 @@ export const whiplashFeelsLike: ConditionFeelsLikeItem[] = [
   {
     title: "Reduced range of motion",
     desc: "Trouble turning your head fully in one or both directions.",
-    learnMoreHref: "/services#massage-soft-tissue",
+    learnMoreHref: "/services/massage-soft-tissue",
   },
 ];
 
@@ -148,10 +148,10 @@ export const whiplashRelatedBottom: ConditionRelatedLink[] = [
   { label: "Lower Back Pain", href: "/conditions/back-pain" },
   { label: "Auto Accident Injuries", href: "/auto-accidents", highlighted: true },
   { label: "Neck Pain", href: "/conditions/neck-pain" },
-  { label: "Spinal Decompression", href: "/services#spinal-decompression" },
+  { label: "Spinal Decompression", href: "/services/spinal-decompression" },
   { label: "Whiplash", href: "/conditions/whiplash" },
   { label: "Home Visit Care", href: "/home-visits" },
-  { label: "Herniated Disc", href: "/services#spinal-decompression" },
+  { label: "Herniated Disc", href: "/services/spinal-decompression" },
   { label: "View All Treatments", href: "/services" },
 ];
 
