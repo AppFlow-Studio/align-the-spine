@@ -52,7 +52,7 @@ export const neckPainHowWeTreat: ConditionTreatmentItem[] = [
     title: "Myofasial Release/Trigger Point",
     desc: "Tension from posture, stress, or sleep position tends to build up as tight knots in the neck and shoulders. The Graston tool breaks up that muscle tightness — similar to a deep massage, but targeted to the specific spots holding tension.",
     image: {
-      src: "/figma-exports/drabe-releasetool.png",
+      src: "/figma-exports/how-we-treat-1.png",
       alt: "Myofascial release and trigger point therapy with the Graston tool",
     },
     meta: "1 hr",
@@ -63,7 +63,7 @@ export const neckPainHowWeTreat: ConditionTreatmentItem[] = [
     title: "Adjustment",
     desc: "Everyday stiffness often comes from small fixations in the neck's vertebrae — segments that aren't moving the way they should. Adjustments restore that motion, which is usually what turns a stiff neck into a fully mobile one again.",
     image: {
-      src: "/figma-exports/drabeadjust.png",
+      src: "/figma-exports/how-we-treat-2.png",
       alt: "Dr. Abe performing a chiropractic adjustment",
     },
     meta: "1 hr",
@@ -74,7 +74,7 @@ export const neckPainHowWeTreat: ConditionTreatmentItem[] = [
     title: "Traction/Decompression",
     desc: "For neck pain that's structural rather than muscular — often from a disc issue — traction relieves pressure between the vertebrae, helping resolve pain that adjustment alone doesn't fully address.",
     image: {
-      src: "/figma-exports/drabe-traction_compression.png",
+      src: "/figma-exports/how-we-treat-3.png",
       alt: "Spinal traction and decompression therapy",
     },
     meta: "1 hr",
@@ -85,7 +85,7 @@ export const neckPainHowWeTreat: ConditionTreatmentItem[] = [
     title: "Home Visit Care",
     desc: "For neck pain bad enough that turning your head to drive is uncomfortable, we bring the exam and treatment to you instead of asking you to make the trip.",
     image: {
-      src: "/figma-exports/athome-drabe.png",
+      src: "/figma-exports/how-we-treat-4.png",
       alt: "Dr. Abe providing chiropractic care at a patient's home",
     },
     meta: "Check eligibility",

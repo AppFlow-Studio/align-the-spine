@@ -10,7 +10,6 @@ import { FeelsLikeBand } from "@/components/sections/feels-like-band";
 import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
-import { RelatedConditions } from "@/components/sections/related-conditions";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
@@ -24,7 +23,6 @@ import {
   cervicogenicHeadacheFaq,
   cervicogenicHeadacheFeelsLike,
   cervicogenicHeadacheHero,
-  cervicogenicHeadacheRelatedBottom,
 } from "@/content/cervicogenic-headache-page";
 import { autoAccidentCondition } from "@/content/conditions/auto-accident";
 import { doctorProfileContent } from "@/content/doctor-profile";
@@ -179,10 +177,14 @@ export default function CervicogenicHeadachePage() {
 
       <AccidentBanner accident={autoAccidentCondition.accident} />
 
-      <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews} />
+      <PatientReviews
+        featured={homeFeaturedTestimonial}
+        reviews={homeReviews.slice(0, 3)}
+        variant="light"
+      />
 
       <Section spacing="sm" className="bg-[#E4F9F4]">
-        <p className="container text-center font-sans text-body-lg text-navy-900">
+        <p className="container text-center font-sans font-medium text-body-lg text-navy-900">
           {autoAccidentAttorneyQuote}
         </p>
       </Section>
@@ -206,8 +208,6 @@ export default function CervicogenicHeadachePage() {
           </Button>
         </Container>
       </Section>
-
-      <RelatedConditions items={cervicogenicHeadacheRelatedBottom} />
 
       <ConditionFaq faq={cervicogenicHeadacheFaq} />
     </>

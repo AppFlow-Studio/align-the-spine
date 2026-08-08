@@ -69,14 +69,58 @@ export const concussionSymptoms: string[] = [
 export const concussionSymptomNote =
   "Worth a conversation. Even a couple of these symptoms after an accident are worth mentioning at an evaluation.";
 
-export const concussionRelatedBottom: ConditionRelatedLink[] = [
+export const concussionTypesHeading = "Types of concussion trauma";
+
+export const concussionSymptomsHeading = "Classic symptoms";
+
+export const concussionRelatedTypesHeading = "Related concussion conditions";
+
+export const concussionRelatedTypes: ConditionRelatedLink[] = [
+  { label: "Whiplash", href: "/conditions/whiplash" },
+  { label: "Cervicogenic Headache", href: "/conditions/cervicogenic-headache" },
+  { label: "Auto Accident Injuries", href: "/auto-accidents" },
+];
+
+export const concussionCauseCategories = [
+  {
+    label: "From an accident",
+    items: [
+      {
+        name: "Mild traumatic brain injury",
+        description:
+          "Direct impact or the brain's sudden movement inside the skull from a collision's force.",
+      },
+      {
+        name: "Post-concussion syndrome",
+        description: "Symptoms that persist beyond the typical two-to-four week recovery window.",
+      },
+    ],
+  },
+  {
+    label: "Everyday causes",
+    items: [
+      {
+        name: "Sports-related concussion",
+        description: "From contact sports or falls, unrelated to a vehicle collision.",
+      },
+      {
+        name: "Cumulative concussion effects",
+        description: "Effects that build from multiple head injuries over time.",
+      },
+    ],
+  },
+];
+
+export const concussionRelatedMidPageHeading = "Often needed alongside other post-accident care";
+
+export const concussionRelatedMidPage: ConditionRelatedLink[] = [
   { label: "Lower Back Pain", href: "/conditions/back-pain" },
   { label: "Auto Accident Injuries", href: "/auto-accidents", highlighted: true },
   { label: "Neck Pain", href: "/conditions/neck-pain" },
   { label: "Spinal Decompression", href: "/services/spinal-decompression" },
   { label: "Whiplash", href: "/conditions/whiplash" },
   { label: "Home Visit Care", href: "/home-visits" },
-  { label: "Cervicogenic Headache", href: "/conditions/cervicogenic-headache" },
+  { label: "Herniated Disc", href: "/services/spinal-decompression" },
   { label: "View All Treatments", href: "/services" },
 ];
 

@@ -182,7 +182,11 @@ export default function SciaticaPage() {
 
       <AccidentBanner accident={sciaticaAccident} />
 
-      <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews} />
+      <PatientReviews
+        featured={homeFeaturedTestimonial}
+        reviews={homeReviews.slice(0, 3)}
+        variant="light"
+      />
 
       <DoctorProfile variant="short" content={doctorProfileContent} />
 

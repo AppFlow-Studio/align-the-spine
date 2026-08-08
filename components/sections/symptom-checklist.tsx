@@ -66,7 +66,7 @@ export function SymptomChecklist({ heading, symptoms, note, className }: Symptom
             checked.size === 0 && "opacity-60",
           )}
         >
-          <span className="font-display text-5xl text-navy-900">{checked.size}</span>
+          <span className="font-display text-7xl text-navy-900">{checked.size}</span>
           <span className="font-sans text-stat-label uppercase text-ink-500">
             symptoms selected
           </span>

@@ -52,7 +52,7 @@ export const sciaticaHowWeTreat: ConditionTreatmentItem[] = [
     title: "Myofasial Release/Trigger Point",
     desc: "The piriformis and surrounding muscles often tighten around the sciatic nerve, adding to the pain. The Graston tool releases that tension directly, similar to a deep massage focused on the area compressing the nerve.",
     image: {
-      src: "/figma-exports/drabe-releasetool.png",
+      src: "/figma-exports/how-we-treat-1.png",
       alt: "Myofascial release and trigger point therapy with the Graston tool",
     },
     meta: "1 hr",
@@ -63,7 +63,7 @@ export const sciaticaHowWeTreat: ConditionTreatmentItem[] = [
     title: "Adjustment",
     desc: "Sciatica often stems from a fixation in the lower spine putting pressure on the nerve root. Adjustments restore normal movement to that segment, which is frequently what relieves the radiating pain down the leg.",
     image: {
-      src: "/figma-exports/drabeadjust.png",
+      src: "/figma-exports/how-we-treat-2.png",
       alt: "Dr. Abe performing a chiropractic adjustment",
     },
     meta: "1 hr",
@@ -74,7 +74,7 @@ export const sciaticaHowWeTreat: ConditionTreatmentItem[] = [
     title: "Traction/Decompression",
     desc: "When sciatica is caused by a herniated disc or spinal stenosis, traction is the most direct approach — gently separating the vertebrae to take pressure off the compressed nerve root.",
     image: {
-      src: "/figma-exports/drabe-traction_compression.png",
+      src: "/figma-exports/how-we-treat-3.png",
       alt: "Spinal traction and decompression therapy",
     },
     meta: "1 hr",
@@ -85,7 +85,7 @@ export const sciaticaHowWeTreat: ConditionTreatmentItem[] = [
     title: "Home Visit Care",
     desc: "Sciatica can make sitting in a car unbearable. We bring the full exam and treatment to you when getting to the office isn't realistic.",
     image: {
-      src: "/figma-exports/athome-drabe.png",
+      src: "/figma-exports/how-we-treat-4.png",
       alt: "Dr. Abe providing chiropractic care at a patient's home",
     },
     meta: "Check eligibility",

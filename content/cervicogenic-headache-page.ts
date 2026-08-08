@@ -1,8 +1,4 @@
-import type {
-  ConditionFaq,
-  ConditionFeelsLikeItem,
-  ConditionRelatedLink,
-} from "@/content/conditions/types";
+import type { ConditionFaq, ConditionFeelsLikeItem } from "@/content/conditions/types";
 
 /** Bespoke content for the dedicated /conditions/cervicogenic-headache page
  * — same per-condition, hand-built approach as /conditions/back-pain and
@@ -112,17 +108,6 @@ export const cervicogenicHeadacheConditions: CervicogenicHeadacheCondition[] = [
       alt: "Dr. Abe Nasser examining a patient's neck",
     },
   },
-];
-
-export const cervicogenicHeadacheRelatedBottom: ConditionRelatedLink[] = [
-  { label: "Lower Back Pain", href: "/conditions/back-pain" },
-  { label: "Auto Accident Injuries", href: "/auto-accidents", highlighted: true },
-  { label: "Neck Pain", href: "/conditions/neck-pain" },
-  { label: "Spinal Decompression", href: "/services/spinal-decompression" },
-  { label: "Whiplash", href: "/conditions/whiplash" },
-  { label: "Home Visit Care", href: "/home-visits" },
-  { label: "Massage/Soft-Tissue", href: "/services/massage-soft-tissue" },
-  { label: "View All Treatments", href: "/services" },
 ];
 
 export const cervicogenicHeadacheFaq: ConditionFaq = {

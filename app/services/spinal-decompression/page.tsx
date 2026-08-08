@@ -258,7 +258,11 @@ export default function SpinalDecompressionPage() {
 
       <AccidentBanner accident={autoAccidentCondition.accident} />
 
-      <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews} />
+      <PatientReviews
+        featured={homeFeaturedTestimonial}
+        reviews={homeReviews.slice(0, 3)}
+        variant="light"
+      />
 
       <Section spacing="sm" className="bg-[#E4F9F4]">
         <p className="container text-center font-sans text-body-lg text-navy-900">

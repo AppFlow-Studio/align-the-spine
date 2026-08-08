@@ -5,9 +5,11 @@ import Link from "next/link";
 import { AccidentBanner } from "@/components/sections/accident-banner";
 import { ComparisonTable } from "@/components/sections/comparison-table";
 import { ConditionFaq } from "@/components/sections/condition-faq";
+import { ConditionTypesWithCauses } from "@/components/sections/condition-types-with-causes";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
+import { HowWeTreat } from "@/components/sections/how-we-treat";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { RelatedConditions } from "@/components/sections/related-conditions";
 import { SymptomChecklist } from "@/components/sections/symptom-checklist";
@@ -17,12 +19,19 @@ import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Section } from "@/components/ui/section";
 import { autoAccidentAttorneyQuote } from "@/content/auto-accident";
+import { backPainHowWeTreat } from "@/content/back-pain-page";
 import {
+  concussionCauseCategories,
   concussionFaq,
   concussionHero,
-  concussionRelatedBottom,
+  concussionRelatedMidPage,
+  concussionRelatedMidPageHeading,
+  concussionRelatedTypes,
+  concussionRelatedTypesHeading,
   concussionSymptomNote,
   concussionSymptoms,
+  concussionSymptomsHeading,
+  concussionTypesHeading,
 } from "@/content/concussion-page";
 import { autoAccidentCondition } from "@/content/conditions/auto-accident";
 import { doctorProfileContent } from "@/content/doctor-profile";
@@ -43,16 +52,25 @@ export const metadata: Metadata = buildRouteMetadata(getRoute("/conditions/concu
  * boilerplate, so several sections here are shared/reused or skipped
  * rather than bespoke).
  *
- * Section order: Hero → HeroReviewsCarousel → SymptomChecklist
+ * Section order: Hero → HeroReviewsCarousel → Understanding intro
+ * (heading/body with a link to whiplash, photo right) → SymptomChecklist
  * (interactive "check your symptoms" widget, bespoke and genuinely
- * concussion-specific) → Understanding intro (heading/body with a link to
- * whiplash, photo right) → ComparisonTable (reused) → DoctorProfile
- * (reused — the Figma bio here is leftover massage-page copy with an
- * unverified PIP-billing claim) → AccidentBanner (reused) → PatientReviews
- * (reused) → attorney quote strip (reused) → CTA band → RelatedConditions
- * (8-pill bottom row) → FAQ (bespoke — the Figma FAQ here is literal
- * leftover massage-soft-tissue copy). No LocationIntro/LocationFooter/
- * ContactSection — matches the other condition/services pages' pattern. */
+ * concussion-specific) → ConditionTypesWithCauses ("Types of concussion
+ * trauma": symptoms list + related-condition pills left, "From an
+ * accident"/"Everyday causes" card right — the section the Figma frame's
+ * own copy had left unresolved when this page was first built) →
+ * HowWeTreat (reuses back-pain's exact 4 treatment cards — the same
+ * content flagged elsewhere as leftover/clinically-mismatched copy, but
+ * the frame's own "HOW WE TREAT" section renders this verbatim, so it's
+ * kept rather than invented) → ComparisonTable (reused) → RelatedConditions
+ * mid-page band ("Often needed alongside other post-accident care", light
+ * gray background) → DoctorProfile (reused — the Figma bio here is
+ * leftover massage-page copy with an unverified PIP-billing claim) →
+ * AccidentBanner (reused) → PatientReviews (reused) → attorney quote strip
+ * (reused) → CTA band → FAQ (bespoke — the Figma FAQ here is literal
+ * leftover massage-soft-tissue copy). No bottom RelatedConditions pill row
+ * or LocationIntro/LocationFooter/ContactSection — matches the other
+ * condition/services pages' pattern. */
 export default function ConcussionPage() {
   return (
     <>
@@ -80,20 +98,14 @@ export default function ConcussionPage() {
 
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
 
-      <SymptomChecklist
-        heading="Check any symptoms you've noticed since your accident:"
-        symptoms={concussionSymptoms}
-        note={concussionSymptomNote}
-      />
-
       <Section>
-        <Container className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
+        <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[3fr_2fr] lg:items-start lg:gap-16">
           <div className="flex flex-col gap-6">
             <Eyebrow>Understanding concussion trauma</Eyebrow>
             <h2 className="font-display text-h2 text-navy-900">
               The injury a car accident can cause without you hitting your head
             </h2>
-            <p className="max-w-md font-sans text-body-lg text-ink-500">
+            <p className="w-full font-sans text-body-lg text-ink-500">
               A concussion doesn&apos;t require losing consciousness or striking your head directly
               — the sudden whiplash motion of a car accident alone can cause the brain to move
               inside the skull, resulting in a mild traumatic brain injury. Post-concussion syndrome
@@ -107,28 +119,63 @@ export default function ConcussionPage() {
               <Link href="/auto-accidents" className="underline">
                 14 days
               </Link>{" "}
-              to get evaluated and protect your PIP benefits.
+              to get evaluated and protect your{" "}
+              <Link href="/auto-accidents" className="underline">
+                PIP benefits
+              </Link>
+              .
             </p>
+            <div className="w-full border-t border-mute-300" />
           </div>
-          <div className="relative mx-auto aspect-[772/500] w-full max-w-lg overflow-hidden lg:mx-0">
+          <div className="relative mx-auto aspect-5/6 w-full max-w-md overflow-hidden lg:mx-0">
             <Image
               src="/figma-exports/dr-abe-neck.png"
               alt="Dr. Abe Nasser examining a patient's neck"
               fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
+              sizes="(min-width: 1024px) 32vw, 100vw"
               className="object-cover"
             />
           </div>
         </Container>
       </Section>
 
+      <SymptomChecklist
+        heading="Check any symptoms you've noticed since your accident:"
+        symptoms={concussionSymptoms}
+        note={concussionSymptomNote}
+      />
+
+      <ConditionTypesWithCauses
+        heading={concussionTypesHeading}
+        symptomsHeading={concussionSymptomsHeading}
+        symptoms={concussionSymptoms}
+        relatedHeading={concussionRelatedTypesHeading}
+        relatedLinks={concussionRelatedTypes}
+        categories={concussionCauseCategories}
+      />
+
+      <HowWeTreat
+        items={backPainHowWeTreat}
+        heading="Treatment focused on the source, not the symptom."
+      />
+
       <ComparisonTable />
+
+      <RelatedConditions
+        items={concussionRelatedMidPage}
+        heading={concussionRelatedMidPageHeading}
+        className="bg-[#F5F6F8]"
+      />
 
       <DoctorProfile variant="short" content={doctorProfileContent} />
 
       <AccidentBanner accident={autoAccidentCondition.accident} />
 
-      <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews} />
+      <PatientReviews
+        featured={homeFeaturedTestimonial}
+        reviews={homeReviews.slice(0, 3)}
+        variant="light"
+      />
 
       <Section spacing="sm" className="bg-[#E4F9F4]">
         <p className="container text-center font-sans text-body-lg text-navy-900">
@@ -155,8 +202,6 @@ export default function ConcussionPage() {
           </Button>
         </Container>
       </Section>
-
-      <RelatedConditions items={concussionRelatedBottom} />
 
       <ConditionFaq faq={concussionFaq} />
     </>
