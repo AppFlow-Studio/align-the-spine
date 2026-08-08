@@ -10,7 +10,6 @@ import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
-import { RelatedConditions } from "@/components/sections/related-conditions";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
@@ -20,7 +19,6 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { adjustmentsFaq, adjustmentsHero, adjustmentsHowItWorks } from "@/content/adjustments-page";
 import { autoAccidentAttorneyQuote } from "@/content/auto-accident";
 import { autoAccidentCondition } from "@/content/conditions/auto-accident";
-import type { ConditionRelatedLink } from "@/content/conditions/types";
 import { doctorProfileContent } from "@/content/doctor-profile";
 import { leadFormVariants } from "@/content/lead-forms";
 import { getRoute } from "@/content/seo";
@@ -32,17 +30,6 @@ import { buildRouteMetadata } from "@/lib/seo/metadata";
 export const metadata: Metadata = buildRouteMetadata(
   getRoute("/services/chiropractic-adjustments"),
 );
-
-const relatedBottom: ConditionRelatedLink[] = [
-  { label: "Lower Back Pain", href: "/conditions/back-pain" },
-  { label: "Auto Accident Injuries", href: "/auto-accidents", highlighted: true },
-  { label: "Neck Pain", href: "/conditions/neck-pain" },
-  { label: "Spinal Decompression", href: "/services/spinal-decompression" },
-  { label: "Whiplash", href: "/conditions/whiplash" },
-  { label: "Home Visit Care", href: "/home-visits" },
-  { label: "Herniated Disc", href: "/services/spinal-decompression" },
-  { label: "View All Treatments", href: "/services" },
-];
 
 /** /services/chiropractic-adjustments — dedicated, hand-built page, same
  * per-page pattern as the 4 condition pages (ATS-137) and /auto-accidents
@@ -62,11 +49,11 @@ const relatedBottom: ConditionRelatedLink[] = [
  * autoAccidentCondition.accident — identical copy in this frame) →
  * PatientReviews (reused) → "Ready when you are" CTA band + attorney
  * quote strip (reuses autoAccidentAttorneyQuote, already
- * compliance-scrubbed) → RelatedConditions (8-pill bottom row, same set
- * every condition page uses) → FAQ (bespoke — this frame's FAQ is the
- * same sciatica-page copy-paste bug found elsewhere). No
- * LocationIntro/LocationFooter/ContactSection — matches /auto-accidents'
- * pattern, straight to the standard footer via RootShell. */
+ * compliance-scrubbed) → FAQ (bespoke — this frame's FAQ is the same
+ * sciatica-page copy-paste bug found elsewhere). No bottom
+ * RelatedConditions pill row or LocationIntro/LocationFooter/
+ * ContactSection — matches /auto-accidents' pattern, straight to the
+ * standard footer via RootShell. */
 export default function ChiropracticAdjustmentsPage() {
   return (
     <>
@@ -118,9 +105,10 @@ export default function ChiropracticAdjustmentsPage() {
               following an accident. An adjustment doesn&apos;t just relieve the ache — it restores
               the mechanics so your body stops working around the injury.
             </p>
+            <div className="border-t border-mute-300 w-full" />
             <a
               href="#how-it-works"
-              className="inline-flex w-fit items-center gap-2 border-t border-mute-300 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors hover:text-navy-700"
+              className="inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors hover:text-navy-700"
             >
               Understand Adjustments
               <ArrowRightIcon className="h-4 w-4" />
@@ -250,8 +238,6 @@ export default function ChiropracticAdjustmentsPage() {
           </Button>
         </Container>
       </Section>
-
-      <RelatedConditions items={relatedBottom} />
 
       <ConditionFaq faq={adjustmentsFaq} />
     </>

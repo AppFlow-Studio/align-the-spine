@@ -35,14 +35,16 @@ import { buildRouteMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildRouteMetadata(getRoute("/services/spinal-decompression"));
 
-const relatedBottom: ConditionRelatedLink[] = [
+const relatedMidPageHeading = "Often needed alongside other post-accident care";
+
+const relatedMidPage: ConditionRelatedLink[] = [
   { label: "Lower Back Pain", href: "/conditions/back-pain" },
   { label: "Auto Accident Injuries", href: "/auto-accidents", highlighted: true },
   { label: "Neck Pain", href: "/conditions/neck-pain" },
-  { label: "Chiropractic Adjustments", href: "/services/chiropractic-adjustments" },
+  { label: "Spinal Decompression", href: "/services/spinal-decompression" },
   { label: "Whiplash", href: "/conditions/whiplash" },
   { label: "Home Visit Care", href: "/home-visits" },
-  { label: "Sciatica", href: "/conditions/sciatica" },
+  { label: "Herniated Disc", href: "/services/spinal-decompression" },
   { label: "View All Treatments", href: "/services" },
 ];
 
@@ -57,16 +59,18 @@ const relatedBottom: ConditionRelatedLink[] = [
  * How It Works (3-step, dark navy per this frame — unlike the
  * adjustments page's white "How it works") → Conditions decompression
  * relieves (bespoke 4-row list, reuses the condition pages' existing
- * anatomy diagrams) → ComparisonTable (reused) → DoctorProfile (reused —
+ * anatomy diagrams) → ComparisonTable (reused) → RelatedConditions mid-page
+ * band ("Often needed alongside other post-accident care", light gray
+ * background) → DoctorProfile (reused —
  * the Figma bio here has an unverified "handles the documentation and
  * billing directly with your PIP claim" claim, see
  * content/spinal-decompression-page.ts) → AccidentBanner (reuses
  * autoAccidentCondition.accident — identical copy in this frame) →
  * PatientReviews (reused) → attorney quote strip (reuses
  * autoAccidentAttorneyQuote, already compliance-scrubbed) → CTA band →
- * RelatedConditions (8-pill bottom row) → FAQ (bespoke — this frame's FAQ
- * heading is the same "...chiropractic adjustments" copy-paste bug found
- * elsewhere). No LocationIntro/LocationFooter/ContactSection — matches
+ * FAQ (bespoke — this frame's FAQ heading is the same "...chiropractic
+ * adjustments" copy-paste bug found elsewhere). No bottom RelatedConditions
+ * pill row or LocationIntro/LocationFooter/ContactSection — matches
  * /auto-accidents' and /services/chiropractic-adjustments' pattern. */
 export default function SpinalDecompressionPage() {
   return (
@@ -254,6 +258,12 @@ export default function SpinalDecompressionPage() {
 
       <ComparisonTable />
 
+      <RelatedConditions
+        items={relatedMidPage}
+        heading={relatedMidPageHeading}
+        className="bg-[#F5F6F8]"
+      />
+
       <DoctorProfile variant="short" content={doctorProfileContent} />
 
       <AccidentBanner accident={autoAccidentCondition.accident} />
@@ -289,8 +299,6 @@ export default function SpinalDecompressionPage() {
           </Button>
         </Container>
       </Section>
-
-      <RelatedConditions items={relatedBottom} />
 
       <ConditionFaq faq={decompressionFaq} />
     </>

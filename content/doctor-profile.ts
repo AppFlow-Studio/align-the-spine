@@ -21,16 +21,29 @@ export interface DoctorProfileContent {
 export interface DoctorHistoryContent {
   eyebrow: string;
   heading: string;
-  body: string;
+  paragraphs: string[];
 }
 
 /** "HISTORY" long-form bio per the about-drabe artboard (node 96:2575–96:2586,
- * ATS-090) — lifted verbatim per the ticket. Rendered into DoctorProfile's
- * `extended` slot (variant="long") on /about only. */
+ * ATS-090), rendered as its own full-bleed navy band. Rendered into
+ * DoctorProfile's `extended` slot (variant="long") on /about only.
+ *
+ * ATS-E4 (4.17) note: the Figma frame's 2nd paragraph names a specific "$50
+ * new-patient exam" price. content-safety.test.ts hard-fails on any "$50"
+ * string as an unverified pricing claim, so that sentence is generalized
+ * here to the same idea without a dollar figure — update deliberately
+ * (alongside the test's FORBIDDEN_STRINGS entry) if that price is ever
+ * client-approved for publication. The bilingual EN/ES claim in the 3rd
+ * paragraph is kept as-is — it's already an established, verified claim
+ * used elsewhere (see content/site.ts's trust badges). */
 export const doctorHistoryContent: DoctorHistoryContent = {
   eyebrow: "HISTORY",
   heading: "Built on being the doctor who's actually there",
-  body: "Dr. Abe began his chiropractic career serving the Broward County and Palm Beach County area, treating patients across every stage of recovery — pre- and post-pregnancy, post-surgical, geriatric, and athletes. Somewhere along the way, he noticed the same pattern everywhere: patients bounced between whichever provider was available that day, never quite building the continuity that actually speeds up recovery. Align the Spine was built around the opposite idea. One doctor, every visit. Transparent pricing instead of a maze of codes, explained clearly before any treatment begins.",
+  paragraphs: [
+    "Dr. Abe began his chiropractic career serving Broward and Palm Beach County, working with patients across every stage of recovery — pre- and post-pregnancy, post-surgical, geriatric, and athletes. Somewhere along the way, he noticed the same pattern everywhere: patients bounced between whichever provider was available that day, never quite building the continuity that actually speeds up recovery.",
+    "Align the Spine was built around the opposite idea. One doctor, every visit. Transparent pricing instead of a maze of codes, with an affordable new-patient exam because the first visit shouldn't be the expensive gamble that keeps people from getting checked out in the first place.",
+    "He's bilingual — English and Spanish — and sees that as part of the job, not an add-on. If a patient is more comfortable explaining what hurts in Spanish, that's the conversation they should get to have.",
+  ],
 };
 
 /** DoctorProfile copy per condition-page-spec §B6. Short and long variants

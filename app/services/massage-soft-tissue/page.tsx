@@ -8,14 +8,12 @@ import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
-import { RelatedConditions } from "@/components/sections/related-conditions";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { autoAccidentAttorneyQuote } from "@/content/auto-accident";
 import { autoAccidentCondition } from "@/content/conditions/auto-accident";
-import type { ConditionRelatedLink } from "@/content/conditions/types";
 import { doctorProfileContent } from "@/content/doctor-profile";
 import { leadFormVariants } from "@/content/lead-forms";
 import {
@@ -31,17 +29,6 @@ import { cn } from "@/lib/cn";
 import { buildRouteMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildRouteMetadata(getRoute("/services/massage-soft-tissue"));
-
-const relatedBottom: ConditionRelatedLink[] = [
-  { label: "Lower Back Pain", href: "/conditions/back-pain" },
-  { label: "Auto Accident Injuries", href: "/auto-accidents", highlighted: true },
-  { label: "Neck Pain", href: "/conditions/neck-pain" },
-  { label: "Spinal Decompression", href: "/services/spinal-decompression" },
-  { label: "Whiplash", href: "/conditions/whiplash" },
-  { label: "Home Visit Care", href: "/home-visits" },
-  { label: "Chiropractic Adjustments", href: "/services/chiropractic-adjustments" },
-  { label: "View All Treatments", href: "/services" },
-];
 
 /** /services/massage-soft-tissue — dedicated, hand-built page, same
  * per-page pattern as the condition pages (ATS-137) and
@@ -59,10 +46,10 @@ const relatedBottom: ConditionRelatedLink[] = [
  * "billed directly to your PIP claim" claim, see
  * content/massage-soft-tissue-page.ts) → AccidentBanner (reuses
  * autoAccidentCondition.accident) → PatientReviews (reused) → attorney
- * quote strip (reused) → CTA band → RelatedConditions (8-pill bottom row)
- * → FAQ (2 of the 4 Figma questions were copy-pasted from the
- * spinal-decompression page — replaced with real, massage-specific ones).
- * No LocationIntro/LocationFooter/ContactSection — matches the other
+ * quote strip (reused) → CTA band → FAQ (2 of the 4 Figma questions were
+ * copy-pasted from the spinal-decompression page — replaced with real,
+ * massage-specific ones). No bottom RelatedConditions pill row or
+ * LocationIntro/LocationFooter/ContactSection — matches the other
  * /services/* pages' pattern. */
 export default function MassageSoftTissuePage() {
   return (
@@ -125,14 +112,26 @@ export default function MassageSoftTissuePage() {
         </Container>
       </Section>
 
-      <Section spacing="sm" className="bg-navy-900">
-        <Container className="flex flex-col gap-3">
-          <h2 className="font-display text-h2 text-white">Matched to your injury, not a routine</h2>
-          <p className="max-w-2xl font-sans text-body-lg text-mute-300">
-            We identify exactly which tissue was affected by the collision, then apply the technique
-            built for it — not a generic massage sequence.
-          </p>
-        </Container>
+      <Section spacing="none">
+        <div className="relative overflow-hidden">
+          <div className="absolute inset-0">
+            <Image
+              src="/figma-exports/massage-matched-to-injury-bg.png"
+              alt="A therapist selecting massage tools from a bag of soft-tissue equipment"
+              fill
+              className="object-cover"
+            />
+          </div>
+          <Container className="relative flex flex-col gap-3 py-16 md:py-20">
+            <h2 className="font-display text-h2 text-white">
+              Matched to your injury, not a routine
+            </h2>
+            <p className="max-w-2xl font-sans text-body-lg text-mute-300">
+              We identify exactly which tissue was affected by the collision, then apply the
+              technique built for it — not a generic massage sequence.
+            </p>
+          </Container>
+        </div>
       </Section>
 
       <Section>
@@ -209,8 +208,6 @@ export default function MassageSoftTissuePage() {
           </Button>
         </Container>
       </Section>
-
-      <RelatedConditions items={relatedBottom} />
 
       <ConditionFaq faq={massageFaq} />
     </>
