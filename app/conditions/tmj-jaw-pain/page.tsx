@@ -77,35 +77,40 @@ export default function TmjJawPainPage() {
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
 
       <Section>
-        <Container className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
+        <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[3fr_2fr] lg:items-start lg:gap-16">
           <div className="flex flex-col gap-6">
             <Eyebrow>Understanding TMJ trauma</Eyebrow>
             <h2 className="font-display text-h2 text-navy-900">
-              The impact your jaw absorbed without you noticing
+              The impact your jaw absorbed without you noticing.
             </h2>
-            <p className="max-w-md font-sans text-body-lg text-ink-500">
-              TMJ dysfunction after a car accident is more common than most people realize — the
-              same sudden forward-back motion that causes{" "}
+            <p className="w-full font-sans text-body-lg text-ink-500">
+              A concussion doesn&apos;t require losing consciousness or striking your head directly
+              — the sudden whiplash motion of a car accident alone can cause the brain to move
+              inside the skull, resulting in a mild traumatic brain injury. Post-concussion syndrome
+              develops when symptoms like headaches, dizziness, or brain fog persist beyond the
+              first few weeks. Because concussion and{" "}
               <Link href="/conditions/whiplash" className="underline">
                 whiplash
               </Link>{" "}
-              can also strain or misalign the jaw joint on impact, especially if your jaw was
-              clenched or open at the moment of collision. It&apos;s frequently overlooked because
-              neck pain dominates the conversation, but untreated TMJ trauma can lead to chronic
-              clicking, locking, and headaches that don&apos;t resolve on their own. Florida gives
-              you{" "}
+              frequently occur together, treating only the neck while missing the concussion is a
+              common gap in accident care. Florida gives you{" "}
               <Link href="/auto-accidents" className="underline">
                 14 days
               </Link>{" "}
-              to get evaluated and protect your PIP benefits.
+              to get evaluated and protect your{" "}
+              <Link href="/auto-accidents" className="underline">
+                PIP benefits
+              </Link>
+              .
             </p>
+            <div className="w-full border-t border-mute-300" />
           </div>
-          <div className="relative mx-auto aspect-[772/500] w-full max-w-lg overflow-hidden lg:mx-0">
+          <div className="relative mx-auto aspect-5/6 w-full max-w-md overflow-hidden lg:mx-0">
             <Image
               src="/figma-exports/dr-abe-neck.png"
               alt="Dr. Abe Nasser examining a patient's neck"
               fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
+              sizes="(min-width: 1024px) 32vw, 100vw"
               className="object-cover"
             />
           </div>
