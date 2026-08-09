@@ -64,11 +64,7 @@ export default function ServicesPage() {
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
       <ServiceCatalog />
       <DoctorProfile variant="short" content={doctorProfileContent} />
-      <PatientReviews
-        featured={homeFeaturedTestimonial}
-        reviews={homeReviews.slice(0, 3)}
-        variant="light"
-      />
+      <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews.slice(0, 3)} />
       <LocationIntro />
       <LocationFooter />
       <ContactSection />

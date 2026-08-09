@@ -67,7 +67,7 @@ export default function Home() {
       <AccidentInjuries />
       <PointToWhereItHurts content={pointToWhereItHurtsContent} />
       <DoctorProfile variant="short" content={doctorProfileContent} />
-      <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews} />
+      <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews.slice(0, 3)} />
       {/* <FaqSection pageKey="home" /> */}
       <LocationIntro />
       <LocationFooter />
