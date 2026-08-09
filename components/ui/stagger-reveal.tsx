@@ -4,10 +4,9 @@ import type { ReactNode } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 
 import {
+  buildRevealTransition,
   REVEAL_DURATION_S,
-  REVEAL_EASE,
   REVEAL_OFFSET_PX,
-  REVEAL_OPACITY_DURATION_RATIO,
   REVEAL_STAGGER_STEP_S,
 } from "@/components/ui/fade-in";
 
@@ -70,23 +69,14 @@ export function StaggerItem({
   offset = REVEAL_OFFSET_PX,
   duration = REVEAL_DURATION_S,
 }: StaggerItemProps) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = Boolean(useReducedMotion());
   const MotionTag = as === "span" ? motion.span : motion.div;
-  // Same opacity/y split as FadeIn — see its REVEAL_OPACITY_DURATION_RATIO
+  // Same opacity/y split as FadeIn/Section — see buildRevealTransition's
   // doc comment: opacity finishes early so the item is fully visible while
   // still rising into place.
   const itemVariants: Variants = {
     hidden: { opacity: 0, y: reduceMotion ? 0 : offset },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: reduceMotion
-        ? { duration: 0 }
-        : {
-            opacity: { duration: duration * REVEAL_OPACITY_DURATION_RATIO, ease: "easeOut" },
-            y: { duration, ease: REVEAL_EASE },
-          },
-    },
+    visible: { opacity: 1, y: 0, transition: buildRevealTransition(duration, 0, reduceMotion) },
   };
 
   return (

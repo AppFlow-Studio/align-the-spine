@@ -3,7 +3,10 @@
 import type { ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
-/** Tune the site's scroll-reveal feel from these five values.
+/** Tune the site's scroll-reveal feel from these five values — every
+ * reveal primitive (FadeIn here, Section's built-in reveal, StaggerGroup/
+ * StaggerItem in stagger-reveal.tsx) reads from them, so a change here
+ * applies consistently site-wide.
  * - REVEAL_OFFSET_PX: how far content starts below its resting position.
  *   Kept fairly generous (40px) — this is a "rise into place" reveal, so
  *   the vertical travel needs to still be visible/legible, not just a
@@ -22,13 +25,25 @@ import { motion, useReducedMotion } from "motion/react";
  * - REVEAL_EASE: the slide's slow-in/gentle-settle curve — accelerates
  *   quickly then eases into place, no overshoot/bounce.
  * - REVEAL_STAGGER_STEP_S: delay between successive items in a
- *   StaggerGroup (see stagger-reveal.tsx) — kept here so every reveal
- *   primitive in the file shares one source of truth. */
+ *   StaggerGroup (see stagger-reveal.tsx). */
 export const REVEAL_OFFSET_PX = 40;
 export const REVEAL_DURATION_S = 0.9;
 export const REVEAL_OPACITY_DURATION_RATIO = 0.6;
 export const REVEAL_EASE = [0.22, 1, 0.36, 1] as const;
 export const REVEAL_STAGGER_STEP_S = 0.09;
+
+/** Shared opacity/y transition split — see REVEAL_OPACITY_DURATION_RATIO's
+ * doc comment above for why opacity and the slide don't share one
+ * duration. Used by FadeIn, Section's built-in reveal, and StaggerItem so
+ * all three feel identical. */
+export function buildRevealTransition(duration: number, delay: number, reduceMotion: boolean) {
+  if (reduceMotion) return { duration: 0, delay: 0 };
+  return {
+    delay,
+    opacity: { duration: duration * REVEAL_OPACITY_DURATION_RATIO, ease: "easeOut" as const },
+    y: { duration, ease: REVEAL_EASE },
+  };
+}
 
 export interface FadeInProps {
   children: ReactNode;
@@ -62,7 +77,11 @@ export interface FadeInProps {
  * fighting this project's own design tokens. For a list of siblings that
  * should reveal one after another (cards, rows), use StaggerGroup +
  * StaggerItem from stagger-reveal.tsx instead — they share this same
- * timing via the constants above. */
+ * timing via the constants above. Most page sections don't need this
+ * directly — Section (components/ui/section.tsx) already reveals itself
+ * on scroll; reach for FadeIn for finer-grained control (e.g. the Hero
+ * title/subhead's on-mount stagger, or content inside a Section that opted
+ * out via `reveal={false}` to do its own StaggerGroup instead). */
 export function FadeIn({
   children,
   className,
@@ -72,18 +91,10 @@ export function FadeIn({
   duration = REVEAL_DURATION_S,
   whenInView = false,
 }: FadeInProps) {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = Boolean(useReducedMotion());
   const MotionTag = as === "span" ? motion.span : motion.div;
   const visible = { opacity: 1, y: 0 };
-  // Opacity finishes early so the content is fully visible while still
-  // rising into place — see REVEAL_OPACITY_DURATION_RATIO's doc comment.
-  const transition = reduceMotion
-    ? { duration: 0, delay: 0 }
-    : {
-        delay,
-        opacity: { duration: duration * REVEAL_OPACITY_DURATION_RATIO, ease: "easeOut" as const },
-        y: { duration, ease: REVEAL_EASE },
-      };
+  const transition = buildRevealTransition(duration, delay, reduceMotion);
 
   return (
     <MotionTag

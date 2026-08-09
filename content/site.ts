@@ -12,9 +12,25 @@ export interface DayHours {
   close: string;
 }
 
+export interface NavMenuItem {
+  label: string;
+  href: string;
+  description: string;
+  /** Preview photo shown in the dropdown's image panel while this item is
+   * hovered/focused — reuses each page's own existing hero photo rather
+   * than a new asset. */
+  image: { src: string; alt: string };
+}
+
 export interface NavLink {
   label: string;
   href: string;
+  /** Optional mega-menu items — when present, Navbar renders this link as
+   * a hover-triggered dropdown (desktop) or expandable accordion (mobile)
+   * instead of a plain link. `href` itself still navigates on click (it's
+   * the group's closest "view all" destination), the dropdown/accordion
+   * is purely an additional way in. */
+  menu?: NavMenuItem[];
 }
 
 export interface SocialLink {
@@ -124,7 +140,108 @@ export const siteConfig: SiteConfig = {
   hours: businessHours,
   hoursVerified: false,
   nav: [
-    { label: "Services", href: "/services" },
+    {
+      label: "Services",
+      href: "/services",
+      menu: [
+        {
+          label: "Chiropractic Adjustments",
+          href: "/services/chiropractic-adjustments",
+          description: "Restoring the motion a collision took away.",
+          image: {
+            src: "/figma-exports/adjustments-hero.png",
+            alt: "Dr. Abe performing a chiropractic adjustment",
+          },
+        },
+        {
+          label: "Spinal Decompression",
+          href: "/services/spinal-decompression",
+          description: "Gentle traction to relieve pressure on discs and nerves.",
+          image: {
+            src: "/figma-exports/spinal-decompression-hero.png",
+            alt: "Spinal decompression treatment",
+          },
+        },
+        {
+          label: "Massage / Soft-Tissue",
+          href: "/services/massage-soft-tissue",
+          description: "Targeted therapy for muscle tension and scar tissue.",
+          image: {
+            src: "/figma-exports/massage-soft-tissue-hero.png",
+            alt: "Massage and soft-tissue therapy session",
+          },
+        },
+      ],
+    },
+    {
+      label: "Conditions",
+      href: "/auto-accidents",
+      menu: [
+        {
+          label: "Lower Back Pain",
+          href: "/conditions/back-pain",
+          description: "Disc, muscle, and nerve pain after an accident.",
+          image: {
+            src: "/figma-exports/drabe-backpain-front.png",
+            alt: "Dr. Abe examining a patient's lower back",
+          },
+        },
+        {
+          label: "Neck Pain",
+          href: "/conditions/neck-pain",
+          description: "Stiffness and tension radiating into the shoulders.",
+          image: {
+            src: "/figma-exports/dr-abe-neck.png",
+            alt: "Dr. Abe examining a patient's neck",
+          },
+        },
+        {
+          label: "Whiplash",
+          href: "/conditions/whiplash",
+          description: "The sudden-impact neck injury most accidents cause.",
+          image: {
+            src: "/figma-exports/drabe-whiplash-man.png",
+            alt: "Dr. Abe treating a patient for whiplash",
+          },
+        },
+        {
+          label: "Sciatica",
+          href: "/conditions/sciatica",
+          description: "Radiating nerve pain down the leg.",
+          image: {
+            src: "/figma-exports/drabe-backpain-front.png",
+            alt: "Dr. Abe examining a patient for sciatica",
+          },
+        },
+        {
+          label: "Concussion",
+          href: "/conditions/concussion",
+          description: "Brain injury that can happen without hitting your head.",
+          image: {
+            src: "/figma-exports/drabe-headache.png",
+            alt: "Dr. Abe examining a patient after a car accident",
+          },
+        },
+        {
+          label: "Cervicogenic Headache",
+          href: "/conditions/cervicogenic-headache",
+          description: "Headaches that actually start in the neck.",
+          image: {
+            src: "/figma-exports/drabe-headache.png",
+            alt: "Dr. Abe examining a patient for headache-related neck tension",
+          },
+        },
+        {
+          label: "TMJ / Jaw Pain",
+          href: "/conditions/tmj-jaw-pain",
+          description: "Jaw trauma the same impact that causes whiplash.",
+          image: {
+            src: "/figma-exports/drabe-headache.png",
+            alt: "Dr. Abe examining a patient's jaw",
+          },
+        },
+      ],
+    },
     { label: "About", href: "/about" },
     { label: "Reviews", href: "/reviews" },
     { label: "Auto Accidents", href: "/auto-accidents" },

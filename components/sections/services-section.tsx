@@ -15,7 +15,7 @@ import { services } from "@/content/services";
  * view (see components/ui/stagger-reveal.tsx). */
 export function ServicesSection() {
   return (
-    <Section>
+    <Section reveal={false}>
       <Container className="flex flex-col gap-2">
         <FadeIn whenInView className="flex flex-col gap-2">
           <SectionHeading tone="navy-800">Online Appointment</SectionHeading>
