@@ -39,7 +39,7 @@ export function DoctorProfile({ variant, content, extended }: DoctorProfileProps
     <>
       <Section spacing="lg">
         <Container className="flex flex-col gap-10 xl:flex-row xl:items-center xl:gap-16">
-          <div className="relative aspect-[600/800] w-full shrink-0 xl:w-[40%]">
+          <div className="relative mx-auto aspect-[600/800] w-full max-w-sm shrink-0 xl:mx-0 xl:w-[40%] xl:max-w-none">
             <Image
               src={portrait.src}
               alt={portrait.alt}
