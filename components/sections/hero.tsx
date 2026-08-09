@@ -3,6 +3,7 @@ import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { FadeIn } from "@/components/ui/fade-in";
 import { LeadForm, type LeadFieldConfig, type LeadFormValues } from "@/components/ui/lead-form";
 import { leadFormVariants } from "@/content/lead-forms";
 import { siteConfig } from "@/content/site";
@@ -131,10 +132,14 @@ export function Hero({
               variant === "home" && badge ? "mb-10" : "mb-8 lg:mb-20",
             )}
           >
-            {title}
+            <FadeIn as="span">{title}</FadeIn>
           </h1>
           {variant === "home" && badge && <HeroChip>{badge}</HeroChip>}
-          <p className="font-poppins text-white text-[22px] max-w-[720px]">{subhead}</p>
+          <p className="font-poppins text-white text-[22px] max-w-[720px]">
+            <FadeIn as="span" delay={0.15}>
+              {subhead}
+            </FadeIn>
+          </p>
 
           {callPill && (
             <Button

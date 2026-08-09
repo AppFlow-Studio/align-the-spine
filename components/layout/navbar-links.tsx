@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 
 import { siteConfig } from "@/content/site";
 
+import { NavbarDropdown } from "./navbar-dropdown";
+
 export function NavbarLinks({ isGlass, className = "" }: { isGlass: boolean; className?: string }) {
   const pathname = usePathname();
 
@@ -13,9 +15,11 @@ export function NavbarLinks({ isGlass, className = "" }: { isGlass: boolean; cla
       className={`items-center gap-10 rounded-40 px-8 py-2 transition-colors duration-300  ${className}`}
     >
       {siteConfig.nav.map((link) => {
+        if (link.menu) return <NavbarDropdown key={link.label} link={link} />;
+
         const active = pathname === link.href;
         return (
-          <li key={link.href}>
+          <li key={link.label}>
             <Link
               href={link.href}
               aria-current={active ? "page" : undefined}
