@@ -29,7 +29,7 @@ export function ServiceCard({ item, className }: ServiceCardProps) {
     <Card
       id={item.slug}
       shadow="none"
-      className={cn("scroll-mt-[120px] flex flex-col overflow-hidden", className)}
+      className={cn("group scroll-mt-[120px] flex flex-col overflow-hidden", className)}
     >
       <div className="relative aspect-[507/360] w-full shrink-0">
         <Image
@@ -37,7 +37,7 @@ export function ServiceCard({ item, className }: ServiceCardProps) {
           alt={item.image.alt}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-          className="object-cover grayscale contrast-110 brightness-90"
+          className="object-cover grayscale contrast-110 brightness-90 transition-[filter] duration-300 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100"
         />
       </div>
       <div className="flex flex-1 flex-col gap-6 p-8">

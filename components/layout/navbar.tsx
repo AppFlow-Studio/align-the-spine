@@ -47,7 +47,7 @@ export function Navbar({ variant }: { variant?: NavbarVariant } = {}) {
   return (
     <header className="fixed inset-x-0 top-0 z-50 flex h-[100px] items-center">
       <div
-        className={`container flex items-center justify-between rounded-full px-2 transition-colors duration-300 ${
+        className={`container relative flex items-center justify-between rounded-full px-2 transition-colors duration-300 ${
           isGlass ? "bg-navy-900 backdrop-blur-md" : "bg-transparent"
         }`}
       >

@@ -30,7 +30,6 @@ import { leadFormVariants } from "@/content/lead-forms";
 import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
-import { cn } from "@/lib/cn";
 import { buildRouteMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildRouteMetadata(getRoute("/conditions/cervicogenic-headache"));
@@ -142,10 +141,10 @@ export default function CervicogenicHeadachePage() {
             Conditions cervicogenic headache relieves
           </SectionHeading>
           <div className="flex flex-col divide-y divide-mute-300 border-t border-mute-300">
-            {cervicogenicHeadacheConditions.map((condition, idx) => (
+            {cervicogenicHeadacheConditions.map((condition) => (
               <div
                 key={condition.name}
-                className="grid grid-cols-1 items-center gap-6 py-8 sm:grid-cols-[200px_1fr_1fr]"
+                className="group grid grid-cols-1 items-center gap-6 py-8 sm:grid-cols-[200px_1fr_1fr]"
               >
                 <div className="relative aspect-3/2 w-full overflow-hidden sm:w-50">
                   <Image
@@ -153,18 +152,15 @@ export default function CervicogenicHeadachePage() {
                     alt={condition.image.alt}
                     fill
                     sizes="200px"
-                    className="object-cover"
+                    className="object-cover grayscale contrast-110 brightness-90 transition-[filter] duration-300 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100"
                   />
                 </div>
-                <h3
-                  className={cn(
-                    "font-display text-h2",
-                    idx === 1 ? "text-teal-500" : "text-navy-900",
-                  )}
-                >
+                <h3 className="font-display text-h2 text-navy-900 transition-colors group-hover:text-teal-500">
                   {condition.name}
                 </h3>
-                <p className="font-sans text-body-lg text-ink-500">{condition.description}</p>
+                <p className="font-sans text-body-lg text-ink-500 transition-colors group-hover:font-semibold group-hover:text-ink-900">
+                  {condition.description}
+                </p>
               </div>
             ))}
           </div>

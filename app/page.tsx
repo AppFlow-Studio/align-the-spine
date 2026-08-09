@@ -13,26 +13,26 @@ import { ServicesSection } from "@/components/sections/services-section";
 import { WhyChoose } from "@/components/sections/why-choose";
 import { PracticeJsonLd } from "@/components/seo/practice-json-ld";
 import { doctorProfileContent } from "@/content/doctor-profile";
-import { pointToWhereItHurtsContent } from "@/content/point-to-where-it-hurts";
 import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
+import { spineOverviewContent } from "@/content/spine-overview";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
 import { whyChooseContent } from "@/content/why-choose";
 import { buildMetadata } from "@/lib/seo/metadata";
 
-/** Code-split (Epic 12): interactive body-diagram selector, not needed
- * until scrolled to — kept out of the initial page JS bundle. */
-const PointToWhereItHurts = dynamic(() =>
-  import("@/components/sections/point-to-where-it-hurts").then((m) => m.PointToWhereItHurts),
+/** Code-split (Epic 12): not needed until scrolled to — kept out of the
+ * initial page JS bundle. */
+const SpineOverview = dynamic(() =>
+  import("@/components/sections/spine-overview").then((m) => m.SpineOverview),
 );
 
 export const metadata: Metadata = buildMetadata(getRoute(""));
 
 /** / (Home) page assembly (ATS-071) per the homepage-1-col artboard:
- * HomeHero → ServiceGrid/ListRow → WhyChoose/PointToWhereItHurts (Epic 4, replaces
- * the ATS-072 SpineAnatomy quadrant section with an interactive hotspot diagram) →
- * DoctorBio → accident-injury grid → patient reviews → FAQ/CTA bands →
- * contact LeadForm → LocationIntro/LocationFooter (shared with
+ * HomeHero → ServiceGrid/ListRow → WhyChoose/SpineOverview (static "Understanding
+ * the spine" diagram — condition pages keep the interactive PointToWhereItHurts
+ * hotspot version) → DoctorBio → accident-injury grid → patient reviews →
+ * FAQ/CTA bands → contact LeadForm → LocationIntro/LocationFooter (shared with
  * Services/About/Book — see app/book/page.tsx). */
 export default function Home() {
   return (
@@ -65,7 +65,7 @@ export default function Home() {
       <ServicesSection />
       <WhyChoose content={whyChooseContent} />
       <AccidentInjuries />
-      <PointToWhereItHurts content={pointToWhereItHurtsContent} />
+      <SpineOverview content={spineOverviewContent} />
       <DoctorProfile variant="short" content={doctorProfileContent} />
       <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews.slice(0, 3)} />
       {/* <FaqSection pageKey="home" /> */}

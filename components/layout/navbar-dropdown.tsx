@@ -7,7 +7,8 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 
 import { ChevronDownIcon } from "@/components/ui/icons/chevron-down";
-import type { NavLink as NavLinkConfig } from "@/content/site";
+import { siteConfig, type NavLink as NavLinkConfig } from "@/content/site";
+import { buildMapEmbedSrc } from "@/lib/maps";
 
 const CLOSE_DELAY_MS = 120;
 
@@ -43,7 +44,6 @@ export function NavbarDropdown({ link }: { link: NavLinkConfig }) {
 
   return (
     <li
-      className="relative"
       onMouseEnter={openNow}
       onMouseLeave={closeSoon}
       onFocusCapture={openNow}
@@ -73,49 +73,74 @@ export function NavbarDropdown({ link }: { link: NavLinkConfig }) {
             className="absolute left-1/2 top-full w-[min(94vw,50rem)] -translate-x-1/2 pt-3"
           >
             <div className="flex gap-4 rounded-30 border border-white/15 bg-navy-900/80 p-4 shadow-card backdrop-blur-2xl">
-              <ul
-                className={
-                  items.length > 4 ? "grid flex-1 grid-cols-2 gap-1" : "flex flex-1 flex-col gap-1"
-                }
-              >
-                {items.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      onMouseEnter={() => setActiveHref(item.href)}
-                      onFocus={() => setActiveHref(item.href)}
-                      className={`block rounded-15 px-4 py-3 transition-colors ${
-                        item.href === activeItem.href ? "bg-white/10" : "hover:bg-white/10"
-                      }`}
-                    >
-                      <span className="block font-sans text-body-lg text-white">{item.label}</span>
-                      <span className="mt-0.5 block font-sans text-[13px] leading-5 text-mute-300">
-                        {item.description}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
+              <ul className={"flex flex-1 flex-col gap-2"}>
+                {items.map((item) => {
+                  const ItemIcon = item.icon;
+                  return (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        onMouseEnter={() => setActiveHref(item.href)}
+                        onFocus={() => setActiveHref(item.href)}
+                        className={`flex items-start gap-3 rounded-20 px-4 py-3 transition-colors ${
+                          item.href === activeItem.href ? "bg-white/10" : "hover:bg-white/10"
+                        }`}
+                      >
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-teal-300">
+                          <ItemIcon className="h-4 w-4" />
+                        </span>
+                        <span className="min-w-0">
+                          <span className="block font-sans text-body-lg text-white">
+                            {item.label}
+                          </span>
+                          <span className="mt-0.5 block font-sans text-[13px] leading-5 text-mute-300">
+                            {item.description}
+                          </span>
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
 
-              <div className="relative hidden w-80 shrink-0 overflow-hidden rounded-20 bg-black/20 sm:block">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeItem.href}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2, ease: "easeOut" }}
-                    className="absolute inset-0"
-                  >
-                    <Image
-                      src={activeItem.image.src}
-                      alt={activeItem.image.alt}
-                      fill
-                      sizes="320px"
-                      className="object-contain"
+              <div className="hidden w-80 shrink-0 flex-col gap-3 sm:flex">
+                <div className="relative aspect-[16/9] w-full shrink-0 overflow-hidden rounded-20 bg-black/20">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeItem.href}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                      className="absolute inset-0"
+                    >
+                      <Image
+                        src={activeItem.image.src}
+                        alt={activeItem.image.alt}
+                        fill
+                        sizes="320px"
+                        className="object-cover"
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+
+                {items.length > 3 && (
+                  <div className="relative min-h-24 flex-1 overflow-hidden rounded-20 bg-black/20">
+                    <iframe
+                      title={`Map to ${siteConfig.business.name}`}
+                      src={buildMapEmbedSrc()}
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      className="absolute inset-0 h-full w-full border-0 opacity-90"
                     />
-                  </motion.div>
-                </AnimatePresence>
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-900/90 to-transparent px-3 pb-2 pt-4">
+                      <span className="font-sans text-[13px] font-medium text-white">
+                        {siteConfig.business.name}
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </motion.div>
