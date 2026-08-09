@@ -12,6 +12,7 @@ import { PatientReviews } from "@/components/sections/patient-reviews";
 import { ServicesSection } from "@/components/sections/services-section";
 import { WhyChoose } from "@/components/sections/why-choose";
 import { PracticeJsonLd } from "@/components/seo/practice-json-ld";
+import { FadeIn } from "@/components/ui/fade-in";
 import { doctorProfileContent } from "@/content/doctor-profile";
 import { pointToWhereItHurtsContent } from "@/content/point-to-where-it-hurts";
 import { getRoute } from "@/content/seo";
@@ -45,15 +46,20 @@ export default function Home() {
           alt: "Align the Spine reception area",
         }}
         title={
-          <>
+          <FadeIn as="span">
             Align the Spine
             <br />
             South Florida&apos;s
             <br />
             Chiropractor
-          </>
+          </FadeIn>
         }
-        subhead="Injured in a car accident? Full evaluation, treatment, and documentation for your PIP claim — at your home or in the office, on your schedule."
+        subhead={
+          <FadeIn as="span" delay={0.15}>
+            Injured in a car accident? Full evaluation, treatment, and documentation for your PIP
+            claim — at your home or in the office, on your schedule.
+          </FadeIn>
+        }
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
         form={{
           heading: "Schedule Your Car Accident Evaluation",
@@ -63,11 +69,21 @@ export default function Home() {
       />
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
       <ServicesSection />
-      <WhyChoose content={whyChooseContent} />
-      <AccidentInjuries />
-      <PointToWhereItHurts content={pointToWhereItHurtsContent} />
-      <DoctorProfile variant="short" content={doctorProfileContent} />
-      <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews.slice(0, 3)} />
+      <FadeIn whenInView>
+        <WhyChoose content={whyChooseContent} />
+      </FadeIn>
+      <FadeIn whenInView>
+        <AccidentInjuries />
+      </FadeIn>
+      <FadeIn whenInView>
+        <PointToWhereItHurts content={pointToWhereItHurtsContent} />
+      </FadeIn>
+      <FadeIn whenInView>
+        <DoctorProfile variant="short" content={doctorProfileContent} />
+      </FadeIn>
+      <FadeIn whenInView>
+        <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews.slice(0, 3)} />
+      </FadeIn>
       {/* <FaqSection pageKey="home" /> */}
       <LocationIntro />
       <LocationFooter />
