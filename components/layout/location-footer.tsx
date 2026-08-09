@@ -5,12 +5,7 @@ import Link from "next/link";
 import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
 import { siteConfig } from "@/content/site";
 import { cn } from "@/lib/cn";
-
-function buildMapEmbedSrc(): string {
-  const { line1, suite, city, state, zip } = siteConfig.business.address;
-  const fullAddress = `${line1} ${suite}, ${city}, ${state} ${zip}`;
-  return `https://www.google.com/maps?q=${encodeURIComponent(fullAddress)}&output=embed`;
-}
+import { buildMapEmbedSrc } from "@/lib/maps";
 
 /** Larger location/contact block per ATS-013: map with a floating glass
  * address card + an hours table (today's row highlighted) + dual CTAs.

@@ -1,3 +1,12 @@
+import type { ComponentType, SVGProps } from "react";
+
+import { ActivityIcon } from "@/components/ui/icons/activity";
+import { ExpandVerticalIcon } from "@/components/ui/icons/expand-vertical";
+import { HandIcon } from "@/components/ui/icons/hand";
+import { RingsIcon } from "@/components/ui/icons/rings";
+import { WavesIcon } from "@/components/ui/icons/waves";
+import { ZapIcon } from "@/components/ui/icons/zap";
+
 export interface Address {
   line1: string;
   suite: string;
@@ -20,6 +29,8 @@ export interface NavMenuItem {
    * hovered/focused — reuses each page's own existing hero photo rather
    * than a new asset. */
   image: { src: string; alt: string };
+  /** Icon shown in the mega-menu row next to the label. */
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
 }
 
 export interface NavLink {
@@ -148,6 +159,7 @@ export const siteConfig: SiteConfig = {
           label: "Chiropractic Adjustments",
           href: "/services/chiropractic-adjustments",
           description: "Restoring the motion a collision took away.",
+          icon: ActivityIcon,
           image: {
             src: "/figma-exports/adjustments-hero.png",
             alt: "Dr. Abe performing a chiropractic adjustment",
@@ -157,6 +169,7 @@ export const siteConfig: SiteConfig = {
           label: "Spinal Decompression",
           href: "/services/spinal-decompression",
           description: "Gentle traction to relieve pressure on discs and nerves.",
+          icon: ExpandVerticalIcon,
           image: {
             src: "/figma-exports/spinal-decompression-hero.png",
             alt: "Spinal decompression treatment",
@@ -166,6 +179,7 @@ export const siteConfig: SiteConfig = {
           label: "Massage / Soft-Tissue",
           href: "/services/massage-soft-tissue",
           description: "Targeted therapy for muscle tension and scar tissue.",
+          icon: HandIcon,
           image: {
             src: "/figma-exports/massage-soft-tissue-hero.png",
             alt: "Massage and soft-tissue therapy session",
@@ -181,6 +195,7 @@ export const siteConfig: SiteConfig = {
           label: "Lower Back Pain",
           href: "/conditions/back-pain",
           description: "Disc, muscle, and nerve pain after an accident.",
+          icon: ActivityIcon,
           image: {
             src: "/figma-exports/drabe-backpain-front.png",
             alt: "Dr. Abe examining a patient's lower back",
@@ -190,6 +205,7 @@ export const siteConfig: SiteConfig = {
           label: "Neck Pain",
           href: "/conditions/neck-pain",
           description: "Stiffness and tension radiating into the shoulders.",
+          icon: WavesIcon,
           image: {
             src: "/figma-exports/dr-abe-neck.png",
             alt: "Dr. Abe examining a patient's neck",
@@ -199,6 +215,7 @@ export const siteConfig: SiteConfig = {
           label: "Whiplash",
           href: "/conditions/whiplash",
           description: "The sudden-impact neck injury most accidents cause.",
+          icon: ZapIcon,
           image: {
             src: "/figma-exports/drabe-whiplash-man.png",
             alt: "Dr. Abe treating a patient for whiplash",
@@ -208,6 +225,7 @@ export const siteConfig: SiteConfig = {
           label: "Sciatica",
           href: "/conditions/sciatica",
           description: "Radiating nerve pain down the leg.",
+          icon: ZapIcon,
           image: {
             src: "/figma-exports/drabe-backpain-front.png",
             alt: "Dr. Abe examining a patient for sciatica",
@@ -217,6 +235,7 @@ export const siteConfig: SiteConfig = {
           label: "Concussion",
           href: "/conditions/concussion",
           description: "Brain injury that can happen without hitting your head.",
+          icon: RingsIcon,
           image: {
             src: "/figma-exports/drabe-headache.png",
             alt: "Dr. Abe examining a patient after a car accident",
@@ -226,6 +245,7 @@ export const siteConfig: SiteConfig = {
           label: "Cervicogenic Headache",
           href: "/conditions/cervicogenic-headache",
           description: "Headaches that actually start in the neck.",
+          icon: WavesIcon,
           image: {
             src: "/figma-exports/drabe-headache.png",
             alt: "Dr. Abe examining a patient for headache-related neck tension",
@@ -235,6 +255,7 @@ export const siteConfig: SiteConfig = {
           label: "TMJ / Jaw Pain",
           href: "/conditions/tmj-jaw-pain",
           description: "Jaw trauma the same impact that causes whiplash.",
+          icon: RingsIcon,
           image: {
             src: "/figma-exports/drabe-headache.png",
             alt: "Dr. Abe examining a patient's jaw",

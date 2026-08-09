@@ -42,13 +42,15 @@ export function FeelsLikeBand({
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {items.map((item) => (
-              <div key={item.title} className="flex flex-col gap-3 bg-overlay-white-15 p-6">
-                <h3 className="font-display text-type-name text-white">{item.title}</h3>
+              <div key={item.title} className="group flex flex-col gap-3 bg-overlay-white-15 p-6">
+                <h3 className="font-display text-type-name text-white transition-colors group-hover:text-teal-500">
+                  {item.title}
+                </h3>
                 <p className="font-alt text-faq-a text-mute-300">{item.desc}</p>
                 {item.learnMoreHref && (
                   <Link
                     href={item.learnMoreHref}
-                    className="inline-flex w-fit items-center gap-2 font-sans text-stat-label uppercase text-white transition-colors hover:text-mute-300"
+                    className="inline-flex w-fit items-center gap-2 font-sans text-stat-label uppercase text-white underline-offset-4 transition-colors group-hover:text-teal-500 group-hover:underline"
                   >
                     Learn more
                     <ArrowRightIcon className="h-4 w-4" />
