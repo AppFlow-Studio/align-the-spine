@@ -8,6 +8,7 @@ import { useForm, type Resolver } from "react-hook-form";
 import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
 import { Input } from "@/components/ui/input";
 import type { LeadFormValues } from "@/components/ui/lead-form";
+import { LiquidGlass } from "@/components/ui/liquid-glass";
 import { Select } from "@/components/ui/select";
 import { leadFormVariants } from "@/content/lead-forms";
 import { trackLeadConversion } from "@/lib/analytics";
@@ -89,73 +90,79 @@ export function BookingForm() {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onValid)}
-      noValidate
-      className="relative flex flex-col gap-4 bg-overlay-white-15 p-6 shadow-card backdrop-blur-md sm:p-12"
-    >
-      <h2 className="font-sans text-calc-heading text-white">Request an appointment</h2>
+    <LiquidGlass radius="rounded-none" className="shadow-card">
+      <form
+        onSubmit={handleSubmit(onValid)}
+        noValidate
+        className="relative flex flex-col gap-4 p-6 sm:p-12"
+      >
+        <h2 className="font-sans text-calc-heading text-white">Request an appointment</h2>
 
-      <div aria-hidden="true" className="absolute h-0 w-0 overflow-hidden">
-        <label htmlFor="booking-form-website">Website</label>
-        <input
-          id="booking-form-website"
-          name="website"
-          type="text"
-          tabIndex={-1}
-          autoComplete="off"
-        />
-      </div>
+        <div aria-hidden="true" className="absolute h-0 w-0 overflow-hidden">
+          <label htmlFor="booking-form-website">Website</label>
+          <input
+            id="booking-form-website"
+            name="website"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </div>
 
-      {visibleFields.map((field) => {
-        const label = field.label.toUpperCase();
-        const error = errors[field.name]?.message;
-        if (field.type === "select") {
+        {visibleFields.map((field) => {
+          const label = field.label.toUpperCase();
+          const error = errors[field.name]?.message;
+          if (field.type === "select") {
+            return (
+              <Select
+                key={field.name}
+                label={label}
+                variant="dark"
+                options={field.options ?? []}
+                placeholder={field.placeholder}
+                error={error}
+                {...register(field.name)}
+              />
+            );
+          }
           return (
-            <Select
+            <Input
               key={field.name}
               label={label}
+              type={field.type === "tel" ? "tel" : "text"}
               variant="dark"
-              options={field.options ?? []}
-              placeholder={field.placeholder}
+              autoComplete={field.autoComplete}
               error={error}
               {...register(field.name)}
             />
           );
-        }
-        return (
-          <Input
-            key={field.name}
-            label={label}
-            type={field.type === "tel" ? "tel" : "text"}
-            variant="dark"
-            autoComplete={field.autoComplete}
-            error={error}
-            {...register(field.name)}
-          />
-        );
-      })}
+        })}
 
-      <div className="mt-2 flex flex-col gap-2">
-        {step === 1 ? (
-          <SquareButton type="button" onClick={onContinue}>
-            Continue
-          </SquareButton>
-        ) : (
-          <SquareButton type="submit" disabled={isSubmitting} aria-busy={isSubmitting || undefined}>
-            {isSubmitting ? "Sending…" : config.submitLabel}
-          </SquareButton>
+        <div className="mt-2 flex flex-col gap-2">
+          {step === 1 ? (
+            <SquareButton type="button" onClick={onContinue}>
+              Continue
+            </SquareButton>
+          ) : (
+            <SquareButton
+              type="submit"
+              disabled={isSubmitting}
+              aria-busy={isSubmitting || undefined}
+            >
+              {isSubmitting ? "Sending…" : config.submitLabel}
+            </SquareButton>
+          )}
+          <p className="text-center font-sans text-field-error font-light text-white">
+            Step {step} of 2
+          </p>
+        </div>
+
+        {submitError && (
+          <p role="alert" className="font-sans text-field text-error">
+            {submitError}
+          </p>
         )}
-        <p className="text-center font-sans text-field-error font-light text-white">
-          Step {step} of 2
-        </p>
-      </div>
-
-      {submitError && (
-        <p role="alert" className="font-sans text-field text-error">
-          {submitError}
-        </p>
-      )}
-    </form>
+      </form>
+    </LiquidGlass>
   );
 }
