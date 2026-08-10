@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { FadeIn } from "@/components/ui/fade-in";
 import { LeadForm, type LeadFieldConfig, type LeadFormValues } from "@/components/ui/lead-form";
+import { LiquidGlass } from "@/components/ui/liquid-glass";
 import { leadFormVariants } from "@/content/lead-forms";
 import { siteConfig } from "@/content/site";
 import { cn } from "@/lib/cn";
@@ -179,7 +180,7 @@ export function Hero({
         <div className="flex flex-col items-end gap-6">
           {formSlot ??
             (form && (
-              <div className="w-full bg-overlay-white-15 p-8 shadow-card sm:w-4/5">
+              <LiquidGlass className="w-full p-8 shadow-card sm:w-4/5">
                 <LeadForm
                   heading={form.heading}
                   variant={form.variant}
@@ -187,7 +188,7 @@ export function Hero({
                   submitLabel={form.submitLabel}
                   onSubmit={form.onSubmit}
                 />
-              </div>
+              </LiquidGlass>
             ))}
           {form?.footerNote && (
             <p className="font-sans text-body-lg text-mute-300 sm:w-4/5">{form.footerNote}</p>
