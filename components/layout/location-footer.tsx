@@ -35,10 +35,10 @@ export function LocationFooter() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-6 px-6 py-10 lg:w-[420px] lg:shrink-0 lg:py-16 lg:pl-14">
+        <div className="flex flex-col gap-2 px-6 py-10 lg:w-[420px] lg:shrink-0 lg:py-16 lg:pl-14">
           <div>
             <h3 className="font-display text-h2 text-navy-900">Hours of operation</h3>
-            <div className="mt-2 h-px w-full bg-mute-300" />
+            <div className="h-px w-full bg-navy-700" />
           </div>
 
           {siteConfig.hoursVerified ? (

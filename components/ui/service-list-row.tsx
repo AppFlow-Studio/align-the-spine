@@ -32,7 +32,7 @@ export function ServiceListRow({ item, className }: ServiceListRowProps) {
       </div>
       <div className="flex min-w-0 flex-1 flex-col items-start gap-4">
         <h3 className="break-words font-display text-card-title text-navy-900">{item.name}</h3>
-        <Divider />
+        <Divider className="bg-navy-900" />
         <p className="font-sans text-card-body">
           <span className="text-ink-500 text-[20px]">
             {item.duration} | Contact us {siteConfig.business.phone}

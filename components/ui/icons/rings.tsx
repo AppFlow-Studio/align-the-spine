@@ -12,9 +12,8 @@ export function RingsIcon(props: SVGProps<SVGSVGElement>) {
       aria-hidden="true"
       {...props}
     >
-      <circle cx="12" cy="12" r="2" />
-      <circle cx="12" cy="12" r="6" />
-      <circle cx="12" cy="12" r="10" />
+      <circle cx="12" cy="12" r="3" />
+      <circle cx="12" cy="12" r="8" />
     </svg>
   );
 }

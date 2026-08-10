@@ -61,14 +61,13 @@ const config: Config = {
       },
       fontSize: {
         // Fluid clamp() per condition-page-spec §E: same 375->1728px
-        // interpolation as display/h2/card-title below. Endpoints are the
-        // real values this token already shipped with — 32px was Hero's
-        // own hand-rolled mobile override, 64px was (and remains) the
-        // desktop value — so this only smooths the curve between them,
-        // it doesn't invent new sizes at either extreme.
+        // interpolation as display/h2/card-title below. Bumped +4px (size)
+        // and +6px (leading) across the whole curve from the original
+        // 32/64px + 38/68px endpoints per design feedback (headline read too
+        // tight/small at mid-viewport widths).
         hero: [
-          "clamp(32px, 2.37vw + 23.13px, 64px)",
-          { lineHeight: "clamp(38px, 2.22vw + 29.69px, 68px)", fontWeight: "300" },
+          "clamp(36px, 2.37vw + 27.13px, 68px)",
+          { lineHeight: "clamp(44px, 2.22vw + 35.69px, 74px)", fontWeight: "300" },
         ],
         // Fluid clamp() per condition-page-spec §E (ATS-112), same 375→1728px
         // interpolation the .container fluid gutter already uses (globals.css).

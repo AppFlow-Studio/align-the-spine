@@ -16,6 +16,10 @@ export interface SpineOverviewContent {
   cta: { label: string; href: string };
 }
 
+/** Home-page-only static spine diagram (replaces PointToWhereItHurts's
+ * interactive hotspots on / — see components/sections/spine-overview.tsx).
+ * The four regions and their captions are baked into the image itself, so
+ * `image.alt` carries the full text for screen readers. */
 /** Static "Understanding the spine" overview for the Home page (ATS-071). The
  * condition pages keep the interactive PointToWhereItHurts hotspot diagram; the
  * home page shows this calmer, non-interactive anatomy primer that walks the

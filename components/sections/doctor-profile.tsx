@@ -39,17 +39,13 @@ export function DoctorProfile({ variant, content, extended }: DoctorProfileProps
     <>
       <Section spacing="lg">
         <Container className="flex flex-col gap-10 xl:flex-row xl:items-center xl:gap-16">
-          <div className="relative mx-auto aspect-[600/800] w-full max-w-sm shrink-0 xl:mx-0 xl:w-[40%] xl:max-w-none">
+          <div className="relative mx-auto aspect-square w-full max-w-sm shrink-0 xl:mx-0 xl:w-[40%] xl:max-w-none">
             <Image
               src={portrait.src}
               alt={portrait.alt}
               fill
               sizes="(min-width: 1280px) 45vw, 100vw"
               className="object-cover"
-            />
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute -bottom-11 -right-11 hidden h-35 w-58 border-b-[2px] border-r-[2px] border-[#9397B1] xl:block"
             />
             {isVerified(rating) && (
               <div className="absolute inset-x-6 bottom-6 flex items-center justify-between gap-3 bg-overlay-ink-20 px-6 py-4 backdrop-blur-sm">
@@ -73,10 +69,9 @@ export function DoctorProfile({ variant, content, extended }: DoctorProfileProps
               </div>
             )}
           </div>
-          <div className="flex min-w-0 flex-1 flex-col items-start gap-6">
+          <div className="flex min-w-0 flex-1 flex-col items-start gap-4">
             <Eyebrow>{eyebrow}</Eyebrow>
             <h2 className="font-display text-doctor-name text-navy-900">{name}</h2>
-            <span aria-hidden="true" className="h-24 w-0.5 bg-[#9397B1]" />
             <p className="font-sans text-body-lg text-ink-900">{bio}</p>
             <Button variant="cta" href={cta.href}>
               {cta.label}

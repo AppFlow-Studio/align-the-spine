@@ -200,7 +200,7 @@ export default function BackPainPage() {
           </div>
           <div className="relative mx-auto aspect-[551/660] w-full max-w-md overflow-hidden lg:mx-0">
             <Image
-              src="/figma-exports/back-pain-anatomy-diagram.png"
+              src="https://align-the-spine.b-cdn.net/images/back-pain.png"
               alt="Illustration of the lower back highlighting the lumbar spine and lumbar nerve as common sources of back pain"
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"

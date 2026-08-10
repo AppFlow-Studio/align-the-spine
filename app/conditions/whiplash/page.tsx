@@ -127,7 +127,7 @@ export default function WhiplashPage() {
         <Container className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
           <div className="relative mx-auto aspect-[573/731] w-full max-w-sm overflow-hidden lg:mx-0">
             <Image
-              src="/figma-exports/whiplash-anatomy-diagram.png"
+              src="https://align-the-spine.b-cdn.net/images/whiplash.png"
               alt="Illustration of the cervical spine highlighting cervical nerve pain, disc herniation, and the spinal cord"
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"

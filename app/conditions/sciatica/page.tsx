@@ -149,7 +149,7 @@ export default function SciaticaPage() {
           </div>
           <div className="relative mx-auto aspect-[439/787] w-full max-w-sm overflow-hidden lg:mx-0">
             <Image
-              src="/figma-exports/sciatica-anatomy-diagram.png"
+              src="https://align-the-spine.b-cdn.net/images/sciatica.png"
               alt="Illustration of the lumbar spine and sciatic nerve pathway highlighting the sacroiliac joint, pelvis, and femur"
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"

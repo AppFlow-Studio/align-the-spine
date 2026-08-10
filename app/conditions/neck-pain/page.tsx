@@ -162,7 +162,7 @@ export default function NeckPainPage() {
           </div>
           <div className="relative mx-auto aspect-[411/737] w-full max-w-sm overflow-hidden lg:mx-0">
             <Image
-              src="/figma-exports/neck-pain-anatomy-diagram.png"
+              src="https://align-the-spine.b-cdn.net/images/neck-pain.png"
               alt="Illustration of the cervical spine highlighting the cervical nerves, muscle strain/spasm, and neck pain pathway into the shoulder"
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"

@@ -117,7 +117,7 @@ export function LeadForm({
     >
       <h2
         className={cn(
-          "col-span-2 font-sans text-button font-medium",
+          "col-span-2 mb-3 font-sans text-button font-medium",
           fieldVariant === "dark" ? "text-white" : "text-navy-900",
         )}
       >

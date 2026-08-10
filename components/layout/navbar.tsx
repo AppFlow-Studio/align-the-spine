@@ -64,9 +64,7 @@ export function Navbar({ variant }: { variant?: NavbarVariant } = {}) {
 
         <Link
           href={siteConfig.bookingCta.href}
-          className={`hidden h-[52px] items-center rounded-40 px-6 text-button text-white transition-colors duration-300 lg:flex ${
-            isGlass ? "bg-navy-900 border border-white" : "bg-navy-900/50"
-          }`}
+          className="hidden h-[52px] items-center rounded-40 bg-navy-900 px-6 text-button text-white transition-colors duration-300 lg:flex"
         >
           {siteConfig.bookingCta.label}
         </Link>
