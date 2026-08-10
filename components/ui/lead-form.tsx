@@ -113,7 +113,7 @@ export function LeadForm({
     <form
       onSubmit={handleSubmit(onValid)}
       noValidate
-      className={cn("relative grid grid-cols-2 gap-x-4 gap-y-5 backdrop-blur-md", className)}
+      className={cn("relative grid grid-cols-2 gap-x-4 gap-y-5", className)}
     >
       <h2
         className={cn(

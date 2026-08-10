@@ -104,7 +104,11 @@ export function NavbarDropdown({ link }: { link: NavLinkConfig }) {
               </ul>
 
               <div className="hidden w-80 shrink-0 flex-col gap-3 sm:flex">
-                <div className="relative aspect-[16/9] w-full shrink-0 overflow-hidden rounded-20 bg-black/20">
+                <div
+                  className={`relative w-full overflow-hidden rounded-20 bg-black/20 ${
+                    items.length > 3 ? "aspect-[16/9] shrink-0" : "flex-1"
+                  }`}
+                >
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={activeItem.href}
