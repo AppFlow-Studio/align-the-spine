@@ -40,9 +40,11 @@ export function ServiceCard({ item, className }: ServiceCardProps) {
           className="object-cover grayscale contrast-110 brightness-90 transition-[filter] duration-300 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100"
         />
       </div>
-      <div className="flex flex-1 flex-col gap-6 p-8">
+      <div className="flex flex-1 flex-col gap-6 py-8">
         <div className="flex flex-col gap-3">
-          <h3 className="break-words font-display text-card-title text-navy-800">{item.name}</h3>
+          <h3 className="break-words border-b border-navy-900 pb-3 font-display text-card-title text-navy-800">
+            {item.name}
+          </h3>
           <p className="font-sans text-card-body text-ink-900">{item.summary}</p>
         </div>
         <Button

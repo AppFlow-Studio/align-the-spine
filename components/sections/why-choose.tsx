@@ -22,7 +22,7 @@ export function WhyChoose({ content }: WhyChooseProps) {
         <div className="flex min-w-0 flex-1 flex-col items-start gap-6">
           <h2 className="font-display text-h2 text-navy-800">{heading}</h2>
           <p className="font-sans text-body-lg text-ink-900">{body}</p>
-          <Button variant="cta" href={cta.href}>
+          <Button variant="cta" href={cta.href} className={"rounded-full"}>
             {cta.label}
           </Button>
         </div>

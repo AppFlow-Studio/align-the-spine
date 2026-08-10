@@ -1,5 +1,4 @@
 import { Container } from "@/components/ui/container";
-import { Divider } from "@/components/ui/divider";
 import { FadeIn } from "@/components/ui/fade-in";
 import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -19,7 +18,6 @@ export function ServicesSection() {
       <Container className="flex flex-col gap-2">
         <FadeIn whenInView className="flex flex-col gap-2">
           <SectionHeading tone="navy-800">Online Appointment</SectionHeading>
-          <Divider />
         </FadeIn>
         <StaggerGroup className="flex flex-col gap-2">
           {services.map((service) => (

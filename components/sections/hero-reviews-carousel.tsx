@@ -11,7 +11,7 @@ export interface HeroReviewsCarouselProps {
   testimonials: Testimonial[];
 }
 
-const AUTO_ADVANCE_MS = 6000;
+const AUTO_ADVANCE_MS = 7000;
 
 /** Floating review-card carousel that overlaps Hero's bottom edge, per the
  * homepage artboard: a rotating star-rated quote + author (dot pagination)
