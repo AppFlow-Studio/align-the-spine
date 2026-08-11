@@ -83,7 +83,7 @@ export default function MassageSoftTissuePage() {
             {massageTechniques.map((technique) => (
               <div
                 key={technique.title}
-                className="grid grid-cols-1 items-center gap-6 py-8 sm:grid-cols-[280px_1fr_auto]"
+                className="grid grid-cols-1 items-center gap-6 py-8 sm:grid-cols-[280px_1fr_auto] group"
               >
                 <div className="relative aspect-4/3 w-full overflow-hidden sm:w-[280px]">
                   <Image
@@ -91,11 +91,13 @@ export default function MassageSoftTissuePage() {
                     alt={technique.image.alt}
                     fill
                     sizes="280px"
-                    className="object-cover hover:scale-105 transition-transform duration-300"
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <h3 className="font-display text-h2 text-navy-900">{technique.title}</h3>
+                  <h3 className="font-display text-h2 text-navy-900 group-hover:text-teal-500 transition-colors duration-300">
+                    {technique.title}
+                  </h3>
                   <p className="font-sans text-body-lg text-ink-500">{technique.description}</p>
                   <p className="font-sans text-sm text-ink-500">
                     <span className="font-medium text-navy-900">Best for:</span> {technique.bestFor}

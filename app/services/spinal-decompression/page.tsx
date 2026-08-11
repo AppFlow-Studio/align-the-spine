@@ -189,25 +189,25 @@ export default function SpinalDecompressionPage() {
             </div>
             <div className="grid grid-cols-1 gap-10 sm:grid-cols-3">
               {decompressionHowItWorks.map((step, idx) => (
-                <div key={step.title} className="flex flex-col gap-3">
+                <div key={step.title} className="group flex flex-col gap-3">
                   <h3
                     className={cn(
-                      "font-display text-h2 leading-10",
-                      idx === 1 ? "text-teal-500" : "text-white",
+                      "font-display text-h2 leading-10 text-white transition-colors duration-200 group-hover:text-teal-500",
                     )}
                   >
                     {step.title}
                   </h3>
                   <hr
-                    className={cn("border-t", idx === 1 ? "border-teal-500" : "border-white/20")}
+                    className={cn(
+                      "border-t border-white/20 transition-colors duration-200 group-hover:border-teal-500",
+                    )}
                   />
                   <p className="font-sans text-body-lg text-mute-300">{step.description}</p>
                   {step.learnMoreHref && (
                     <Link
                       href={step.learnMoreHref}
                       className={cn(
-                        "inline-flex w-fit items-center gap-2 font-sans text-stat-label uppercase transition-colors hover:text-mute-300",
-                        idx === 1 ? "text-teal-500" : "text-white",
+                        "inline-flex w-fit items-center gap-2 font-sans text-stat-label uppercase transition-colors duration-200 text-white hover:text-mute-300 group-hover:text-teal-500",
                       )}
                     >
                       Learn more
@@ -238,7 +238,7 @@ export default function SpinalDecompressionPage() {
                     alt={condition.image.alt}
                     fill
                     sizes="200px"
-                    className="object-cover"
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <h3

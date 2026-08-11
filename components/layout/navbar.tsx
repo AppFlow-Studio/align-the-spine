@@ -66,7 +66,7 @@ export function Navbar({ variant }: { variant?: NavbarVariant } = {}) {
   }, [resolvedVariant]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 flex h-[100px] items-center">
+    <header className="fixed inset-x-0 top-0 z-50 isolate flex h-[100px] items-center will-change-transform">
       <div
         className={`container relative flex items-center justify-between rounded-full px-2 transition-colors duration-300 ${
           isGlass ? "bg-[#636363] backdrop-blur-md" : "bg-transparent"
