@@ -31,18 +31,20 @@ export function HowWeHelpSteps({ heading, steps, cta }: HowWeHelpStepsProps) {
 
       <div className="grid gap-10 sm:grid-cols-3 sm:gap-6">
         {steps.map((step) => (
-          <div key={step.title} className="flex flex-col gap-6 text-left">
+          <div key={step.title} className="flex flex-col gap-6 text-left group">
             <div className="relative h-[246px] overflow-hidden">
               <Image
                 src={step.image}
                 alt={step.alt}
                 fill
                 sizes="(min-width: 640px) 33vw, 100vw"
-                className="object-cover"
+                className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
             <div className="flex flex-col gap-3 border-t border-mute-300 pt-6">
-              <h3 className="font-display text-h2 text-navy-800">{step.title}</h3>
+              <h3 className="font-display text-h2 text-navy-800 group-hover:text-teal-500 transition-colors duration-300">
+                {step.title}
+              </h3>
               <p className="font-sans text-body-lg text-ink-900">{step.description}</p>
             </div>
           </div>

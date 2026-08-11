@@ -21,18 +21,18 @@ export function HowHePractices() {
 
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-3">
           {howHePracticesCards.map((card) => (
-            <div key={card.title} className="flex flex-col gap-4">
-              <div className="relative aspect-[507/283] w-full shrink-0">
+            <div key={card.title} className="flex flex-col gap-4 group">
+              <div className="relative aspect-507/283 w-full shrink-0 overflow-hidden">
                 <Image
                   src={card.image.src}
                   alt={card.image.alt}
                   fill
                   sizes="(min-width: 640px) 33vw, 100vw"
-                  className="object-cover"
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
               <div className="flex flex-col gap-2 border-t border-mute-300 pt-4">
-                <h3 className="break-words font-display text-card-title text-navy-800">
+                <h3 className="break-words font-display text-card-title text-navy-800 group-hover:text-teal-500 transition-colors duration-300">
                   {card.title}
                 </h3>
                 <p className="font-sans text-card-body text-ink-900">{card.description}</p>

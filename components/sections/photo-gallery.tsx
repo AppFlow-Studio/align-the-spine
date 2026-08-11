@@ -12,23 +12,23 @@ export function PhotoGallery() {
   return (
     <Section spacing="none">
       <Container className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-        <div className="relative aspect-[1566/874] w-full sm:col-span-3">
+        <div className="relative aspect-[1566/874] overflow-hidden w-full sm:col-span-3">
           <Image
             src={interiorGalleryHero.src}
             alt={interiorGalleryHero.alt}
             fill
             sizes="100vw"
-            className="object-cover"
+            className="object-cover hover:scale-105 transition-transform duration-300"
           />
         </div>
         {interiorGalleryPhotos.map((photo) => (
-          <div key={photo.src} className="relative aspect-[507/378] w-full">
+          <div key={photo.src} className="relative aspect-[507/378] overflow-hidden w-full">
             <Image
               src={photo.src}
               alt={photo.alt}
               fill
               sizes="(min-width: 640px) 33vw, 100vw"
-              className="object-cover"
+              className="object-cover hover:scale-105 transition-transform duration-300"
             />
           </div>
         ))}

@@ -27,13 +27,13 @@ export function WhyChoose({ content }: WhyChooseProps) {
           </Button>
         </div>
 
-        <div className="relative aspect-[913/685] w-full shrink-0 md:w-[45%]">
+        <div className="relative aspect-[913/685] overflow-hidden w-full shrink-0 md:w-[45%]">
           <Image
             src={image.src}
             alt={image.alt}
             fill
             sizes="(min-width: 768px) 45vw, 100vw"
-            className="object-cover"
+            className="object-cover hover:scale-105 transition-transform duration-300"
           />
           {isVerified(rating) && (
             <div className="absolute inset-x-6 bottom-6 flex items-center justify-between gap-3 bg-overlay-ink-20 px-6 py-4 backdrop-blur-sm">

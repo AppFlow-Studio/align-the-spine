@@ -5,6 +5,7 @@ import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
 import { MailIcon } from "@/components/ui/icons/mail";
 import { PhoneIcon } from "@/components/ui/icons/phone";
 import { PinIcon } from "@/components/ui/icons/pin";
+import { LiquidGlass } from "@/components/ui/liquid-glass";
 import { siteConfig } from "@/content/site";
 
 export interface LocationIntroProps {
@@ -72,14 +73,17 @@ export function LocationIntro({ sendHref = "/#contact" }: LocationIntroProps) {
             alt="Palm Plaza exterior, home of Align the Spine Chiropractic"
             fill
             sizes="(min-width: 1024px) 50vw, 100vw"
-            className="object-cover"
+            className="object-cover hover:scale-105 transition-transform duration-300"
           />
-          <div className="absolute p-7 w-[90%] mx-auto  inset-x-0 bottom-7 bg-overlay-white-16 backdrop-brightness-75 backdrop-blur-md border border-white">
+          <LiquidGlass
+            radius="rounded-none"
+            className="absolute p-7 w-[90%] mx-auto  inset-x-0 bottom-7 bg-gray-500/40 border border-white"
+          >
             <h2 className="font-display text-3xl text-button text-white">Palm Plaza</h2>
             <p className="mt-1 font-alt text-footer-copy text-white text-lg">
               After you enter the plaza, we are the building on the far-right corner.
             </p>
-          </div>
+          </LiquidGlass>
         </div>
       </div>
     </section>

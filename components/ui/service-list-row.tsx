@@ -21,13 +21,13 @@ export function ServiceListRow({ item, className }: ServiceListRowProps) {
     <div
       className={cn("flex flex-col gap-6 py-10 md:flex-row md:items-stretch md:gap-10", className)}
     >
-      <div className="relative aspect-[500/300] w-full shrink-0 md:w-[40%]">
+      <div className="relative aspect-[500/300] overflow-hidden w-full shrink-0 md:w-[40%]">
         <Image
           src={item.image.src}
           alt={item.image.alt}
           fill
           sizes="(min-width: 578px) 45vw, 100vw"
-          className="object-cover"
+          className="object-cover hover:scale-105 transition-transform duration-300"
         />
       </div>
       <div className="flex min-w-0 flex-1 flex-col items-start gap-4">

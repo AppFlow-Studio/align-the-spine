@@ -8,6 +8,7 @@ import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
+import { RelatedConditions } from "@/components/sections/related-conditions";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -22,6 +23,7 @@ import {
   massageSoftTissueHero,
   massageTechniques,
 } from "@/content/massage-soft-tissue-page";
+import { sciaticaRelatedBottom } from "@/content/sciatica-page";
 import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
@@ -89,7 +91,7 @@ export default function MassageSoftTissuePage() {
                     alt={technique.image.alt}
                     fill
                     sizes="280px"
-                    className="object-cover"
+                    className="object-cover hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -143,7 +145,7 @@ export default function MassageSoftTissuePage() {
             {massageConditions.map((condition, idx) => (
               <div
                 key={condition.name}
-                className="grid grid-cols-1 items-center gap-6 py-8 sm:grid-cols-[200px_1fr_1fr]"
+                className="grid grid-cols-1 items-center gap-6 py-8 sm:grid-cols-[200px_1fr_1fr] group"
               >
                 <div className="relative aspect-3/2 w-full overflow-hidden sm:w-50">
                   <Image
@@ -156,8 +158,7 @@ export default function MassageSoftTissuePage() {
                 </div>
                 <h3
                   className={cn(
-                    "font-display text-h2",
-                    idx === 1 ? "text-teal-500" : "text-navy-900",
+                    "font-display text-h2 text-navy-900 group-hover:text-teal-500 transition-colors duration-300",
                   )}
                 >
                   {condition.name}
@@ -172,6 +173,11 @@ export default function MassageSoftTissuePage() {
       </Section>
 
       <ComparisonTable />
+
+      <RelatedConditions
+        items={sciaticaRelatedBottom}
+        heading="Often needed alongside other post-accident care"
+      />
 
       <DoctorProfile variant="short" content={doctorProfileContent} />
 

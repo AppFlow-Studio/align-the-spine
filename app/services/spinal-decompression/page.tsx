@@ -120,47 +120,47 @@ export default function SpinalDecompressionPage() {
             </p>
             <a
               href="#how-it-works"
-              className="inline-flex w-fit items-center gap-2 border-t border-mute-300 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors hover:text-navy-700"
+              className="inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4"
             >
               Understand Decompression
               <ArrowRightIcon className="h-4 w-4" />
             </a>
           </div>
-          <div className="mx-auto flex justify-end w-full max-w-lg gap-6 lg:mx-0">
-            <div className="flex flex-1 flex-col gap-4">
-              <div className="relative aspect-square w-full overflow-hidden">
+          <div className="mx-auto flex justify-end w-full max-w-4xl gap-6 lg:mx-0">
+            <div className="flex flex-1 flex-col gap-4 w-full group">
+              <div className="relative aspect-video w-full overflow-hidden max-w-full">
                 <Image
                   src="/figma-exports/decompression-under-compression.png"
                   alt="Disc under compression, pressing on the nerve root"
                   fill
                   sizes="(min-width: 1024px) 20vw, 50vw"
-                  className="object-cover"
+                  className="object-cover border border-black"
                 />
               </div>
               <div className="flex flex-col gap-1 text-center">
-                <span className="font-sans text-stat-label uppercase text-navy-900">
+                <span className="font-sans text-stat-label uppercase text-navy-900 transition-colors duration-300 group-hover:text-teal-500">
                   Under Compression
                 </span>
-                <p className="font-sans text-stat-label text-ink-500">
+                <p className="max-w-64 mx-auto font-sans text-stat-label text-ink-500">
                   Disc presses on the nerve root, causing pain
                 </p>
               </div>
             </div>
-            <div className="flex flex-1 flex-col gap-4">
-              <div className="relative aspect-square w-full overflow-hidden">
+            <div className="flex flex-1 flex-col gap-4 w-full group">
+              <div className="relative aspect-video w-full overflow-hidden max-w-full">
                 <Image
                   src="/figma-exports/decompression-under-decompression.png"
                   alt="Disc under decompression, space restored and pressure relieved"
                   fill
                   sizes="(min-width: 1024px) 20vw, 50vw"
-                  className="object-cover"
+                  className="object-cover border border-black"
                 />
               </div>
               <div className="flex flex-col gap-1 text-center">
-                <span className="font-sans text-stat-label uppercase text-teal-500">
+                <span className="font-sans text-stat-label uppercase text-navy-900 transition-colors duration-300 group-hover:text-teal-500">
                   Under Decompression
                 </span>
-                <p className="font-sans text-stat-label text-ink-500">
+                <p className="max-w-64 mx-auto font-sans text-stat-label text-ink-500">
                   Space restored, pressure on the nerve relieved
                 </p>
               </div>
@@ -230,7 +230,7 @@ export default function SpinalDecompressionPage() {
             {decompressionConditions.map((condition, idx) => (
               <div
                 key={condition.name}
-                className="grid grid-cols-1 items-center gap-6 py-8 sm:grid-cols-[200px_1fr_1fr]"
+                className="grid grid-cols-1 items-center gap-6 py-8 sm:grid-cols-[200px_1fr_1fr] group"
               >
                 <div className="relative aspect-3/2 w-full overflow-hidden sm:w-50">
                   <Image
@@ -243,8 +243,7 @@ export default function SpinalDecompressionPage() {
                 </div>
                 <h3
                   className={cn(
-                    "font-display text-h2",
-                    idx === 0 ? "text-teal-500" : "text-navy-900",
+                    "font-display text-h2 text-navy-900 group-hover:text-teal-500 transition-colors duration-300",
                   )}
                 >
                   {condition.name}

@@ -7,6 +7,8 @@ import { siteConfig } from "@/content/site";
 import { cn } from "@/lib/cn";
 import { buildMapEmbedSrc } from "@/lib/maps";
 
+import { LiquidGlass } from "../ui/liquid-glass";
+
 /** Larger location/contact block per ATS-013: map with a floating glass
  * address card + an hours table (today's row highlighted) + dual CTAs.
  * Used as the "location" footer variant on Home, Services, About. */
@@ -24,7 +26,10 @@ export function LocationFooter() {
             referrerPolicy="no-referrer-when-downgrade"
             className="absolute inset-0 h-full w-full border-0"
           />
-          <div className="absolute inset-x-4 bottom-4 bg-overlay-white-16 p-6 backdrop-blur-md backdrop-brightness-85 border border-white sm:inset-x-8 sm:bottom-8 sm:p-8">
+          <LiquidGlass
+            radius="rounded-none"
+            className="absolute inset-x-4 bottom-4 bg-gray-500/40 border border-white sm:inset-x-8 sm:bottom-8 sm:p-8"
+          >
             <h2 className="font-display text-h2 text-navy-900">Our Location</h2>
             <address className="mt-2 font-alt text-footer-copy not-italic text-navy-900">
               {siteConfig.business.address.line1}, {siteConfig.business.address.suite}
@@ -32,7 +37,7 @@ export function LocationFooter() {
               {siteConfig.business.address.city}, {siteConfig.business.address.state}{" "}
               {siteConfig.business.address.zip}
             </address>
-          </div>
+          </LiquidGlass>
         </div>
 
         <div className="flex flex-col gap-2 px-6 py-10 lg:w-[420px] lg:shrink-0 lg:py-16 lg:pl-14">
