@@ -6,8 +6,8 @@ import { LocationIntro } from "@/components/layout/location-intro";
 import { AccidentInjuries } from "@/components/sections/accident-injuries";
 import { ContactSection } from "@/components/sections/contact-section";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
-import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
+import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { ServicesSection } from "@/components/sections/services-section";
 import { WhyChoose } from "@/components/sections/why-choose";
@@ -29,7 +29,7 @@ const SpineOverview = dynamic(() =>
 export const metadata: Metadata = buildMetadata(getRoute(""));
 
 /** / (Home) page assembly (ATS-071) per the homepage-1-col artboard:
- * HomeHero → ServiceGrid/ListRow → WhyChoose/SpineOverview (static "Understanding
+ * HeroSolidPanel → ServiceGrid/ListRow → WhyChoose/SpineOverview (static "Understanding
  * the spine" diagram — condition pages keep the interactive PointToWhereItHurts
  * hotspot version) → DoctorBio → accident-injury grid → patient reviews →
  * FAQ/CTA bands → contact LeadForm → LocationIntro/LocationFooter (shared with
@@ -38,8 +38,7 @@ export default function Home() {
   return (
     <>
       <PracticeJsonLd />
-      <Hero
-        variant="home"
+      <HeroSolidPanel
         background={{
           src: "/figma-exports/interior-reception.png",
           alt: "Align the Spine reception area",

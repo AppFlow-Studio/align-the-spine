@@ -14,10 +14,20 @@ export interface InputProps extends Omit<ComponentPropsWithRef<"input">, "classN
   label?: string;
   error?: string;
   variant?: FieldVariant;
+  /** See fieldControlClasses' `outline` param. */
+  outline?: boolean;
   className?: string;
 }
 
-export function Input({ label, error, variant = "dark", className, id, ...rest }: InputProps) {
+export function Input({
+  label,
+  error,
+  variant = "dark",
+  outline = false,
+  className,
+  id,
+  ...rest
+}: InputProps) {
   const autoId = useId();
   const fieldId = id ?? autoId;
   return (
@@ -27,8 +37,8 @@ export function Input({ label, error, variant = "dark", className, id, ...rest }
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? errorId(fieldId) : undefined}
         className={cn(
-          "h-[41px] outline-1px outline-gray-200 border-gray-200",
-          fieldControlClasses(variant, Boolean(error)),
+          outline ? "h-[52px]" : "h-[41px] outline-1px outline-gray-200 border-gray-200",
+          fieldControlClasses(variant, Boolean(error), outline),
         )}
         {...rest}
       />

@@ -4,7 +4,9 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { PinIcon } from "@/components/ui/icons/pin";
 import { StarIcon } from "@/components/ui/icons/star";
+import { LiquidGlass } from "@/components/ui/liquid-glass";
 import { Section } from "@/components/ui/section";
 import type { DoctorProfileContent } from "@/content/doctor-profile";
 import { isVerified } from "@/content/verified-value";
@@ -39,42 +41,48 @@ export function DoctorProfile({ variant, content, extended }: DoctorProfileProps
     <>
       <Section spacing="lg">
         <Container className="flex flex-col gap-10 xl:flex-row xl:items-center xl:gap-16">
-          <div className="relative mx-auto aspect-square w-full max-w-sm shrink-0 xl:mx-0 xl:w-[40%] xl:max-w-none">
+          <div className="relative mx-auto aspect-square overflow-hidden w-full max-w-sm shrink-0 xl:mx-0 xl:w-[40%] xl:max-w-none">
             <Image
               src={portrait.src}
               alt={portrait.alt}
               fill
               sizes="(min-width: 1280px) 45vw, 100vw"
-              className="object-cover"
+              className="object-cover hover:scale-105 transition-transform duration-300"
             />
             {isVerified(rating) && (
-              <div className="absolute inset-x-6 bottom-6 flex items-center justify-between gap-3 bg-overlay-ink-20 px-6 py-4 backdrop-blur-sm">
-                <span className="font-sans text-stat-label text-white">
-                  {rating.value.location}
-                </span>
-                <span
-                  className="inline-flex items-center gap-2"
-                  role="img"
-                  aria-label={`Rated ${rating.value.value} out of 5 stars from ${rating.value.count} reviews`}
-                >
-                  <span className="inline-flex gap-1">
-                    {Array.from({ length: rating.value.value }, (_, i) => (
-                      <StarIcon key={i} className="h-5 w-5 text-[#EFBD3F]" />
-                    ))}
+              <LiquidGlass
+                radius="rounded-none"
+                className="absolute inset-x-0 bottom-0 bg-gray-500/40"
+              >
+                <div className="flex items-center justify-between gap-3 px-6 py-4">
+                  <span className="inline-flex items-center gap-2 font-sans text-stat-label text-white">
+                    <PinIcon className="h-4 w-4 shrink-0" />
+                    {rating.value.location}
                   </span>
-                  <span aria-hidden="true" className="font-sans text-stat-label text-white">
-                    {rating.value.count}
+                  <span
+                    className="inline-flex items-center gap-2"
+                    role="img"
+                    aria-label={`Rated ${rating.value.value} out of 5 stars from ${rating.value.count} reviews`}
+                  >
+                    <span className="inline-flex gap-1">
+                      {Array.from({ length: rating.value.value }, (_, i) => (
+                        <StarIcon key={i} className="h-5 w-5 text-[#EFBD3F]" />
+                      ))}
+                    </span>
+                    <span aria-hidden="true" className="font-sans text-stat-label text-white">
+                      {rating.value.count}
+                    </span>
                   </span>
-                </span>
-              </div>
+                </div>
+              </LiquidGlass>
             )}
           </div>
           <div className="flex min-w-0 flex-1 flex-col items-start gap-4">
             <Eyebrow>{eyebrow}</Eyebrow>
             <h2 className="font-display text-doctor-name text-navy-900">{name}</h2>
             <p className="font-sans text-body-lg text-ink-900">{bio}</p>
-            <Button variant="cta" href={cta.href}>
-              {cta.label}
+            <Button variant="primary" href={cta.href} className="rounded-4xl">
+              Call {cta.label}
             </Button>
           </div>
         </Container>

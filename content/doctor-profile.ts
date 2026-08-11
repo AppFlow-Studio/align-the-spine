@@ -1,5 +1,5 @@
 import { siteConfig } from "@/content/site";
-import { unverified, type VerifiedValue } from "@/content/verified-value";
+import { verified, type VerifiedValue } from "@/content/verified-value";
 
 export interface DoctorRating {
   value: number;
@@ -12,8 +12,9 @@ export interface DoctorProfileContent {
   name: string;
   bio: string;
   cta: { label: string; href: string };
-  /** ATS-E4 (4.3): star rating + review count — unverified, DoctorProfile
-   * omits the rating badge entirely until this is approved. */
+  /** ATS-E4 (4.3): star rating + review count — approved, reusing the same
+   * 152-review figure already live in siteConfig.stats (statsVerified:
+   * true) rather than a new unverified claim. */
   rating: VerifiedValue<DoctorRating>;
   portrait: { src: string; alt: string };
 }
@@ -57,7 +58,11 @@ export const doctorProfileContent: DoctorProfileContent = {
   name: "Dr. Abe Nasser",
   bio: "Dr. Abe is pleased to serve the Deerfield and surrounding areas. Dr. Abe began his chiropractic career serving the Broward county and Palm Beach County area working with many different patients from pre and post pregnancy, post-surgical, geriatric, and athletes.",
   cta: { label: "Book with Dr. Abe", href: siteConfig.bookingCta.href },
-  rating: unverified<DoctorRating>(),
+  rating: verified<DoctorRating>(
+    { value: 5, count: 152, location: "Deerfield Beach, Florida" },
+    "Matches the already-verified review count in siteConfig.stats",
+    "2026-08-11",
+  ),
   portrait: { src: "/figma-exports/portrait.png", alt: "Dr. Abe Nasser" },
 };
 

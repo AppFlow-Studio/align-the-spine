@@ -80,40 +80,30 @@ export function CausesAndTypes({
           </div>
         </div>
 
-        <div className="flex flex-col gap-10">
-          <h2 className="font-display text-h2 text-navy-900">{typesHeading}</h2>
+        <div className="flex flex-col gap-10 bg-[#F8F8F8]">
+          <h2 className="font-display text-h2 text-navy-900 px-6">{typesHeading}</h2>
           {categories.map((category, index) => (
-            <div
-              key={category.label ?? index}
-              className="flex flex-col gap-6 border-t border-mute-300 pt-6"
-            >
+            <div key={category.label ?? index} className="flex flex-col gap-6 pt-6">
               {category.label && (
                 <h3 className="font-display text-type-name text-navy-900">{category.label}</h3>
               )}
               <div className="flex flex-col">
-                {category.items.map((item) =>
-                  item.highlighted ? (
-                    <div
-                      key={item.name}
-                      className="flex items-center gap-4 border-y border-l-4 border-mute-300 border-l-teal-500 bg-overlay-teal-12 py-6 pl-6"
-                    >
-                      <div className="flex flex-1 flex-col gap-2">
-                        <h4 className="font-sans text-type-name text-navy-900 underline decoration-navy-900 underline-offset-4">
+                {category.items.map((item) => (
+                  <div
+                    key={item.name}
+                    className="flex flex-col gap-2 border-y border-mute-300 bg-[#F8F8F8] px-6 py-6 transition-all duration-300 hover:border-l-4 hover:border-l-teal-500 hover:bg-white hover:shadow-lg group"
+                  >
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex flex-col gap-2">
+                        <h4 className="group-hover:text-teal-500 group-hover:decoration-teal-500 font-sans text-type-name text-navy-900 underline decoration-navy-900 underline-offset-4">
                           {item.name}
                         </h4>
                         <p className="font-alt text-faq-a text-ink-500">{item.description}</p>
                       </div>
-                      <ArrowRightIcon className="h-6 w-6 shrink-0 text-navy-900" />
+                      <ArrowRightIcon className="h-6 w-6 shrink-0 text-[#F8F8F8] group-hover:text-teal-500" />
                     </div>
-                  ) : (
-                    <div key={item.name} className="flex flex-col gap-2 py-6">
-                      <h4 className="font-sans text-type-name text-navy-900 underline decoration-navy-900 underline-offset-4">
-                        {item.name}
-                      </h4>
-                      <p className="font-alt text-faq-a text-ink-500">{item.description}</p>
-                    </div>
-                  ),
-                )}
+                  </div>
+                ))}
               </div>
             </div>
           ))}
@@ -128,10 +118,7 @@ function RelatedPill({ link }: { link: ConditionRelatedLink }) {
     <Link
       href={link.href}
       className={cn(
-        "flex items-center justify-between gap-3 border px-6 py-4 font-sans text-stat-label uppercase transition-colors",
-        link.highlighted
-          ? "border-navy-900 bg-navy-900 text-white hover:bg-navy-700"
-          : "border-navy-900 text-navy-900 hover:bg-navy-900 hover:text-white",
+        "flex items-center justify-between gap-3 border px-6 py-4 font-sans text-stat-label uppercase transition-colors border-navy-900 text-navy-900 hover:bg-navy-900 hover:text-white duration-500 rounded-4xl",
       )}
     >
       {link.label}

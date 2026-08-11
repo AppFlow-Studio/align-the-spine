@@ -43,7 +43,7 @@ export const sciaticaSymptoms: string[] = [
 
 export const sciaticaRelatedMidPage: ConditionRelatedLink[] = [
   { label: "Lower Back Pain", href: "/conditions/back-pain" },
-  { label: "Herniated Disc", href: "/services/spinal-decompression", highlighted: true },
+  { label: "Herniated Disc", href: "/services/spinal-decompression" },
   { label: "Auto Accident Injuries", href: "/auto-accidents" },
 ];
 
@@ -139,7 +139,7 @@ export const sciaticaAccident: ConditionAccident = {
 
 export const sciaticaRelatedBottom: ConditionRelatedLink[] = [
   { label: "Lower Back Pain", href: "/conditions/back-pain" },
-  { label: "Auto Accident Injuries", href: "/auto-accidents", highlighted: true },
+  { label: "Auto Accident Injuries", href: "/auto-accidents" },
   { label: "Neck Pain", href: "/conditions/neck-pain" },
   { label: "Spinal Decompression", href: "/services/spinal-decompression" },
   { label: "Whiplash", href: "/conditions/whiplash" },

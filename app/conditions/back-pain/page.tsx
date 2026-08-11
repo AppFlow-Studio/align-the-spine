@@ -9,8 +9,8 @@ import { ComparisonTable } from "@/components/sections/comparison-table";
 import { ConditionFaq } from "@/components/sections/condition-faq";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { FeelsLike } from "@/components/sections/feels-like";
-import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
+import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { HowWeTreat } from "@/components/sections/how-we-treat";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { PointToWhereItHurts } from "@/components/sections/point-to-where-it-hurts";
@@ -139,8 +139,7 @@ export default function BackPainPage() {
           { name: "Back Pain", path: "/conditions/back-pain" },
         ]}
       />
-      <Hero
-        variant="condition"
+      <HeroSolidPanel
         background={backPainHero.backgroundImage}
         eyebrow={backPainHero.eyebrowChip}
         title={backPainHero.h1}
@@ -158,13 +157,13 @@ export default function BackPainPage() {
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
 
       <Section>
-        <Container className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
+        <Container className="flex justify-between gap-10 lg:items-start">
           <div className="flex flex-col gap-6">
             <Eyebrow>Understanding Back Pain</Eyebrow>
-            <h2 className="font-display text-h2 text-navy-900">
+            <h2 className="font-newspaper max-w-3xl text-h2 text-navy-900 leading-10">
               Back pain has a lot of possible causes. Finding yours is the first step to fixing it.
             </h2>
-            <p className="max-w-md font-sans text-body-lg text-ink-500">
+            <p className="max-w-2xl font-sans text-body-lg text-ink-500 ml-[10vw]">
               Back pain has a lot of possible causes — finding yours is the first step to fixing it.
               If a car accident is involved, Florida gives you{" "}
               <Link href="/auto-accidents" className="underline">
@@ -190,18 +189,19 @@ export default function BackPainPage() {
               . Everyday back pain follows a similar pattern: sudden strain from lifting or a bad
               movement, or pain that&rsquo;s been building for months from structural wear.
             </p>
+            <div className="h-px bg-mute-350 ml-[10vw]" />
             <a
               href="#types-of-back-pain"
-              className="inline-flex w-fit items-center gap-2 border-t border-mute-300 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors hover:text-navy-700"
+              className="inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4 ml-[10vw]"
             >
               Understand Back Pain
               <ArrowRightIcon className="h-4 w-4" />
             </a>
           </div>
-          <div className="relative mx-auto aspect-[551/660] w-full max-w-md overflow-hidden lg:mx-0">
+          <div className="relative mx-auto aspect-551/660 w-full max-w-md overflow-hidden lg:mr-[5vw]">
             <Image
-              src="https://align-the-spine.b-cdn.net/images/back-pain.png"
-              alt="Illustration of the lower back highlighting the lumbar spine and lumbar nerve as common sources of back pain"
+              src="/figma-exports/back-pain-anatomy-diagram.png"
+              alt="Illustration of the lumbar spine and sciatic nerve pathway highlighting the sacroiliac joint, pelvis, and femur"
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
               className="object-contain"

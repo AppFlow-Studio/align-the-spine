@@ -1,6 +1,6 @@
 import { autoAccidentComparisonRows, comparisonTableRows } from "@/content/comparison-table";
 import { DEFAULT_ACCIDENT_SMALLPRINT, type Condition } from "@/content/conditions/types";
-import { unverified } from "@/content/verified-value";
+import { verified } from "@/content/verified-value";
 
 /** Auto Accident condition content per condition-page-spec §B, §C. The
  * accident-variant flags below (extra comparison rows, $10k Florida PIP
@@ -14,16 +14,13 @@ export const autoAccidentCondition: Condition = {
   slug: "auto-accidents",
   name: "Auto Accident Injuries",
   hero: {
-    eyebrowChip: "AUTO ACCIDENT CHIROPRACTOR IN DEERFIELD BEACH, FL",
-    // ATS-E3 (3.1): H1 set verbatim to the ticket's required SEO wording —
-    // deviates from the Figma-approved "Injured in an Accident?" headline
-    // (ATS-141). If this needs to be visually distinct from the on-page H1
-    // (e.g. a shorter marketing headline over this as the true semantic
-    // H1), flag it — for now the ticket's H1 text renders as the hero
-    // headline directly, matching every other page's pattern.
-    h1: "Chiropractic Evaluation After a Car Accident in Deerfield Beach",
+    eyebrowChip: "SCIATICA OR NERVE PAIN RADIATING DOWN?",
+    // Reverted to the Figma-approved "Injured in an Accident?" headline
+    // (superseding the ATS-E3 (3.1) SEO-verbatim override) per the
+    // solid-panel Hero redesign — matches the design 1:1 (ATS-141).
+    h1: "Injured in an Accident?",
     subhead:
-      "Complete chiropractic care — full exam, treatment, and documentation for your claim. See your Florida PIP window below. In-home visits available when it's the right fit for your case.",
+      "Complete chiropractic care - full exam, treatment, and documentation for your claim. Covered entirely by Florida PIP insurance. In-home visits available across South Florida when it's the right fit for your case.",
     backgroundImage: {
       src: "/figma-exports/interior-corridor.png",
       alt: "Align the Spine reception hallway",
@@ -118,8 +115,17 @@ export const autoAccidentCondition: Condition = {
   flags: {
     isAccidentVariant: true,
     extraComparisonRows: true,
-    // ATS-E4 (4.5): specific PIP coverage dollar figures — unverified,
-    // Hero's `stat` callout renders nothing until this is approved.
-    pipStat: unverified(),
+    // ATS-E4 (4.5): specific PIP coverage dollar figures — approved by the
+    // client via the solid-panel Hero redesign mockup, which shows this
+    // exact stat rendered under the divider line.
+    pipStat: verified(
+      {
+        value: "$10,000",
+        description:
+          "in PIP coverage available with an Emergency Medical Condition determination - $2,500 without one",
+      },
+      "Client-provided design mockup",
+      "2026-08-11",
+    ),
   },
 };

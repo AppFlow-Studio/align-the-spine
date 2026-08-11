@@ -5,40 +5,103 @@ import { Container } from "@/components/ui/container";
 import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
 import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
-import type { SpineOverviewContent } from "@/content/spine-overview";
+import type { SpineOverviewContent, SpineSegment } from "@/content/spine-overview";
+import { cn } from "@/lib/cn";
 
 export interface SpineOverviewProps {
   content: SpineOverviewContent;
 }
 
+/** Leader-line callout for one spine region: a short line running from the
+ * marker dot out to the label, label text on the far side — mirrors
+ * PointToWhereItHurts' RegionLabel, but static (no selection state) and
+ * with a longer line since these labels sit well outside the (smaller,
+ * non-interactive) diagram rather than hugging its edge. */
+function SegmentCallout({ segment }: { segment: SpineSegment }) {
+  const { name, description, labelSide } = segment;
+  const isLeft = labelSide === "left";
+  // "Cervical (Neck)" -> ["Cervical", "(Neck)"], rendered on 2 lines like
+  // the Figma frame so the parenthetical never collides with the diagram.
+  const [regionName, regionDetail] = name.split(/\s+(?=\()/);
+
+  return (
+    <div
+      className={cn(
+        "absolute top-1/2 flex -translate-y-1/2 items-start gap-4",
+        isLeft ? "right-full flex-row-reverse pr-4" : "left-full pl-4",
+      )}
+    >
+      <span
+        aria-hidden="true"
+        className="mt-20 h-px w-10 shrink-0 bg-teal-500 sm:w-16 md:w-24 lg:w-32"
+      />
+      <div className="flex w-[200px] flex-col gap-1 text-left sm:w-[240px]">
+        <h3 className="font-display text-card-title text-navy-800">
+          {regionName}
+          {regionDetail && (
+            <>
+              <br />
+              {regionDetail}
+            </>
+          )}
+        </h3>
+        <p className="font-sans text-body-lg text-ink-500">{description}</p>
+      </div>
+    </div>
+  );
+}
+
 /** Static "Understanding the spine" overview (ATS-071) — the Home page's calmer
  * counterpart to the interactive PointToWhereItHurts diagram the condition pages
- * use. A back-view spine illustration beside a top-to-bottom walk of the four
- * spinal regions and where accident injuries land, ending in a booking CTA.
- * Deliberately a server component: no interactivity, so nothing ships to the
- * client bundle (it's code-split in app/page.tsx purely for section ordering). */
+ * use. A single centered spine illustration with 4 leader-line callouts
+ * alternating left/right, matching the "Your spine controls everything" Figma
+ * frame. Deliberately a server component: no interactivity, so nothing ships to
+ * the client bundle (it's code-split in app/page.tsx purely for section
+ * ordering). */
 export function SpineOverview({ content }: SpineOverviewProps) {
-  const { eyebrow, heading, intro, image, segments, cta } = content;
+  const { eyebrow, heading, image, segments, cta } = content;
 
   return (
     <Section spacing="lg">
-      <Container className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
-        <div className="relative mx-auto aspect-square w-full max-w-[460px] lg:order-first">
-          <Image
-            src={image.src}
-            alt={image.alt}
-            fill
-            sizes="(min-width: 1024px) 460px, 100vw"
-            className="object-contain"
+      <Container className="flex flex-col items-center gap-14 text-center">
+        <SectionHeading eyebrow={eyebrow} className="items-center">
+          {heading}
+        </SectionHeading>
+
+        {/* Leader-line diagram needs room for labels on both sides of the
+         * image — below lg that space doesn't exist, so a plain image +
+         * stacked list (mirroring the pre-redesign layout) takes over. */}
+        <div className="relative mx-auto hidden aspect-square w-full max-w-[460px] lg:block">
+          <Image src={image.src} alt={image.alt} fill sizes="460px" className="object-contain" />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-white to-transparent"
           />
+
+          {segments.map((segment) => (
+            <div
+              key={segment.id}
+              className="absolute"
+              style={{ top: `${segment.position.y}%`, left: `${segment.position.x}%` }}
+            >
+              <span
+                aria-hidden="true"
+                className="absolute h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-teal-300 bg-white/60"
+              />
+              <SegmentCallout segment={segment} />
+            </div>
+          ))}
         </div>
 
-        <div className="flex flex-col gap-8">
-          <SectionHeading eyebrow={eyebrow} sub={intro}>
-            {heading}
-          </SectionHeading>
-
-          <ul className="flex flex-col gap-6">
+        <div className="flex flex-col items-center gap-10 lg:hidden">
+          <div className="relative mx-auto aspect-square w-full max-w-[280px]">
+            <Image src={image.src} alt={image.alt} fill sizes="280px" className="object-contain" />
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-white to-transparent"
+            />
+          </div>
+          <ul className="flex flex-col gap-6 text-left">
             {segments.map((segment) => (
               <li key={segment.id} className="border-l-2 border-teal-500 pl-5">
                 <h3 className="font-display text-card-title text-navy-800">{segment.name}</h3>
@@ -46,15 +109,15 @@ export function SpineOverview({ content }: SpineOverviewProps) {
               </li>
             ))}
           </ul>
-
-          <Link
-            href={cta.href}
-            className="inline-flex items-center gap-2 font-sans text-body-lg uppercase tracking-[1.25px] text-teal-500 transition-colors hover:text-teal-500/80"
-          >
-            {cta.label}
-            <ArrowRightIcon className="h-4 w-4" />
-          </Link>
         </div>
+
+        <Link
+          href={cta.href}
+          className="inline-flex items-center gap-2 font-sans text-body-lg uppercase tracking-[1.25px] text-teal-500 transition-colors hover:text-teal-500/80"
+        >
+          {cta.label}
+          <ArrowRightIcon className="h-4 w-4" />
+        </Link>
       </Container>
     </Section>
   );

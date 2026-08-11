@@ -6,8 +6,17 @@ import { cn } from "@/lib/cn";
 
 export type FieldVariant = "dark" | "light";
 
-/** Shared control styling per condition-page-spec §A7. */
-export function fieldControlClasses(variant: FieldVariant, hasError: boolean) {
+/** Shared control styling per condition-page-spec §A7. `outline` swaps the
+ * dark variant's filled/blurred look for a transparent, rounded, bordered
+ * box — the solid-navy-panel Hero variant's field style, since the filled
+ * look was designed against LiquidGlass, not a flat navy background. */
+export function fieldControlClasses(variant: FieldVariant, hasError: boolean, outline = false) {
+  if (variant === "dark" && outline) {
+    return cn(
+      "w-full rounded-[10px] border border-white/40 bg-transparent px-4 font-sans text-field text-white outline-none placeholder:text-white/50 transition-colors focus:outline-2 focus:-outline-offset-1 focus:outline-white",
+      hasError && "border-error focus:outline-error",
+    );
+  }
   return cn(
     "w-full border-[0.5px] px-4 font-sans text-field outline-none transition-colors",
     variant === "dark"

@@ -105,10 +105,10 @@ export default function ChiropracticAdjustmentsPage() {
               following an accident. An adjustment doesn&apos;t just relieve the ache — it restores
               the mechanics so your body stops working around the injury.
             </p>
-            <div className="border-t border-mute-300 w-full" />
+            <div className="border-t border-mute-350 w-full" />
             <a
               href="#how-it-works"
-              className="inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors hover:text-navy-700"
+              className="inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4"
             >
               Understand Adjustments
               <ArrowRightIcon className="h-4 w-4" />
@@ -120,7 +120,7 @@ export default function ChiropracticAdjustmentsPage() {
               alt="Dr. Abe performing a chiropractic adjustment"
               fill
               sizes="(min-width: 1024px) 32vw, 100vw"
-              className="object-cover"
+              className="object-cover hover:scale-105 transition-transform duration-300"
             />
           </div>
         </Container>
@@ -133,25 +133,17 @@ export default function ChiropracticAdjustmentsPage() {
               From the collision to feeling like yourself again
             </SectionHeading>
             <div className="grid grid-cols-1 gap-10 border-t border-mute-300 pt-10 sm:grid-cols-3">
-              {adjustmentsHowItWorks.map((step, idx) => (
-                <div key={step.title} className="flex flex-col gap-3">
-                  <h3
-                    className={cn(
-                      "font-display text-h2 text-navy-900",
-                      idx === 1 && "text-teal-500",
-                    )}
-                  >
+              {adjustmentsHowItWorks.map((step) => (
+                <div key={step.title} className="group flex flex-col gap-3">
+                  <h3 className="font-display text-h2 text-navy-900 transition-colors duration-200 group-hover:text-teal-500">
                     {step.title}
                   </h3>
-                  <hr className={cn("border-t border-navy-900", idx === 1 && "border-teal-500")} />
+                  <hr className="border-t border-navy-900 transition-colors duration-200 group-hover:border-teal-500" />
                   <p className="font-sans text-body-lg text-ink-500">{step.description}</p>
                   {step.learnMoreHref && (
                     <Link
                       href={step.learnMoreHref}
-                      className={cn(
-                        "inline-flex w-fit items-center gap-2 font-sans text-stat-label uppercase text-navy-900 transition-colors hover:text-navy-700",
-                        idx === 1 && "text-teal-500",
-                      )}
+                      className="inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4 group-hover:text-teal-500 group-hover:decoration-teal-500 "
                     >
                       Learn more
                       <ArrowRightIcon className="h-4 w-4" />
@@ -199,7 +191,7 @@ export default function ChiropracticAdjustmentsPage() {
               alt="Dr. Abe adjusting a patient's neck in the clinic"
               fill
               sizes="(min-width: 1024px) 32vw, 100vw"
-              className="object-cover"
+              className="object-cover hover:scale-105 transition-transform duration-300"
             />
           </div>
         </Container>

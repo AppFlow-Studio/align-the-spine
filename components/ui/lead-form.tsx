@@ -37,6 +37,20 @@ export interface LeadFormProps {
   successMessage?: string;
   /** Field styling for dark (hero) vs light surfaces. */
   fieldVariant?: FieldVariant;
+  /** Transparent/bordered/rounded field look instead of the filled default
+   * — the solid-panel Hero variant's design, since the filled look was
+   * designed against LiquidGlass, not a flat navy background. */
+  fieldOutline?: boolean;
+  /** "upper" (default) uppercases field labels; "none" renders them as
+   * authored (e.g. "First Name" instead of "FIRST NAME") — the
+   * solid-panel Hero variant's design. */
+  labelCase?: "upper" | "none";
+  /** Submit button color — defaults to "primary" (navy); the solid-panel
+   * Hero variant uses "teal" to match its design. */
+  submitVariant?: "primary" | "teal";
+  /** Overrides the heading's default sans/navy-or-white styling entirely
+   * (e.g. the solid-panel Hero variant's serif display heading). */
+  headingClassName?: string;
   className?: string;
 }
 
@@ -56,6 +70,10 @@ export function LeadForm({
   onSubmit,
   successMessage = "Thanks — we'll be in touch shortly.",
   fieldVariant = "dark",
+  fieldOutline = false,
+  labelCase = "upper",
+  submitVariant = "primary",
+  headingClassName,
   className,
 }: LeadFormProps) {
   const router = useRouter();
@@ -113,12 +131,20 @@ export function LeadForm({
     <form
       onSubmit={handleSubmit(onValid)}
       noValidate
-      className={cn("relative grid grid-cols-2 gap-x-4 gap-y-5", className)}
+      className={cn(
+        "relative grid grid-cols-2 gap-x-4",
+        fieldOutline ? "gap-y-6" : "gap-y-5",
+        className,
+      )}
     >
       <h2
         className={cn(
-          "col-span-2 mb-3 font-sans text-button font-medium",
-          fieldVariant === "dark" ? "text-white" : "text-navy-900",
+          "col-span-2 mb-3",
+          headingClassName ??
+            cn(
+              "font-sans text-button font-medium",
+              fieldVariant === "dark" ? "text-white" : "text-navy-900",
+            ),
         )}
       >
         {heading}
@@ -133,13 +159,14 @@ export function LeadForm({
         const type = field.type ?? "text";
         const spanClass = field.half ? undefined : "col-span-2";
         const error = errors[field.name]?.message;
-        const label = field.label.toUpperCase();
+        const label = labelCase === "none" ? field.label : field.label.toUpperCase();
         if (type === "select") {
           return (
             <Select
               key={field.name}
               label={label}
               variant={fieldVariant}
+              outline={fieldOutline}
               options={field.options ?? []}
               placeholder={field.placeholder}
               error={error}
@@ -154,6 +181,7 @@ export function LeadForm({
               key={field.name}
               label={label}
               variant={fieldVariant}
+              outline={fieldOutline}
               placeholder={field.placeholder}
               error={error}
               className={spanClass}
@@ -168,6 +196,7 @@ export function LeadForm({
             type={inputType(type)}
             inputMode={type === "zip" ? "numeric" : undefined}
             variant={fieldVariant}
+            outline={fieldOutline}
             placeholder={field.placeholder}
             autoComplete={field.autoComplete}
             error={error}
@@ -177,7 +206,12 @@ export function LeadForm({
         );
       })}
 
-      <Button type="submit" variant="primary" loading={isSubmitting} className="col-span-2 w-full">
+      <Button
+        type="submit"
+        variant={submitVariant}
+        loading={isSubmitting}
+        className="col-span-2 w-full"
+      >
         {submitLabel}
       </Button>
 

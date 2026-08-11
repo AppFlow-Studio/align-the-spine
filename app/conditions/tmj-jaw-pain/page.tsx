@@ -6,8 +6,8 @@ import { AccidentBanner } from "@/components/sections/accident-banner";
 import { ComparisonTable } from "@/components/sections/comparison-table";
 import { ConditionFaq } from "@/components/sections/condition-faq";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
-import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
+import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { RelatedConditions } from "@/components/sections/related-conditions";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
@@ -58,8 +58,7 @@ export default function TmjJawPainPage() {
           { name: "TMJ / Jaw Pain", path: "/conditions/tmj-jaw-pain" },
         ]}
       />
-      <Hero
-        variant="condition"
+      <HeroSolidPanel
         background={tmjJawPainHero.backgroundImage}
         eyebrow={tmjJawPainHero.eyebrowChip}
         title={tmjJawPainHero.h1}

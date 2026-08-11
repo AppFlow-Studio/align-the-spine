@@ -14,6 +14,8 @@ export interface TextareaProps extends Omit<ComponentPropsWithRef<"textarea">, "
   label?: string;
   error?: string;
   variant?: FieldVariant;
+  /** See fieldControlClasses' `outline` param. */
+  outline?: boolean;
   className?: string;
 }
 
@@ -21,6 +23,7 @@ export function Textarea({
   label,
   error,
   variant = "dark",
+  outline = false,
   className,
   id,
   ...rest
@@ -34,7 +37,10 @@ export function Textarea({
         rows={4}
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? errorId(fieldId) : undefined}
-        className={cn("min-h-[123px] resize-y py-2", fieldControlClasses(variant, Boolean(error)))}
+        className={cn(
+          "min-h-[123px] resize-y py-2",
+          fieldControlClasses(variant, Boolean(error), outline),
+        )}
         {...rest}
       />
     </FieldWrapper>

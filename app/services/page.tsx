@@ -4,8 +4,8 @@ import { LocationFooter } from "@/components/layout/location-footer";
 import { LocationIntro } from "@/components/layout/location-intro";
 import { ContactSection } from "@/components/sections/contact-section";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
-import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
+import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { ServiceCatalog } from "@/components/sections/service-catalog";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
@@ -43,8 +43,7 @@ export default function ServicesPage() {
       {servicesGrid.map((service) => (
         <JsonLd key={service.slug} data={buildService(service)} />
       ))}
-      <Hero
-        variant="home"
+      <HeroSolidPanel
         background={{
           src: "/figma-exports/dr-abe-neck.png",
           alt: "Dr. Abe Nasser treating a patient's neck",

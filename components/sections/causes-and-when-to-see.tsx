@@ -80,10 +80,7 @@ function RelatedPill({ link }: { link: ConditionRelatedLink }) {
     <Link
       href={link.href}
       className={cn(
-        "flex items-center justify-between gap-3 border px-6 py-4 font-sans text-stat-label uppercase transition-colors",
-        link.highlighted
-          ? "border-navy-900 bg-navy-900 text-white hover:bg-navy-700"
-          : "border-navy-900 text-navy-900 hover:bg-navy-900 hover:text-white",
+        "flex items-center justify-between gap-3 border px-6 py-4 font-sans text-stat-label uppercase transition-colors duration-300 border-navy-900 text-navy-900 hover:bg-navy-900 hover:text-white",
       )}
     >
       {link.label}

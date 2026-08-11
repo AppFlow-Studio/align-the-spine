@@ -7,8 +7,8 @@ import { ComparisonTable } from "@/components/sections/comparison-table";
 import { ConditionFaq } from "@/components/sections/condition-faq";
 import { ConditionTypesWithCauses } from "@/components/sections/condition-types-with-causes";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
-import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
+import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { HowWeTreat } from "@/components/sections/how-we-treat";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { RelatedConditions } from "@/components/sections/related-conditions";
@@ -80,8 +80,7 @@ export default function ConcussionPage() {
           { name: "Concussion", path: "/conditions/concussion" },
         ]}
       />
-      <Hero
-        variant="condition"
+      <HeroSolidPanel
         background={concussionHero.backgroundImage}
         eyebrow={concussionHero.eyebrowChip}
         title={concussionHero.h1}

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { FitChecklist } from "@/components/sections/fit-checklist";
-import { Hero } from "@/components/sections/hero";
+import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { HowWeHelpSteps } from "@/components/sections/how-we-help-steps";
 import { ReviewsStrip } from "@/components/sections/reviews-strip";
 import { ServiceAreas } from "@/components/sections/service-areas";
@@ -35,8 +35,7 @@ export default function HomeVisitsPage() {
           { name: "Home Visits", path: "/home-visits" },
         ]}
       />
-      <Hero
-        variant="condition"
+      <HeroSolidPanel
         background={{
           src: "/figma-exports/home-visits-hero.png",
           alt: "Dr. Abe Nasser setting up a treatment table in a patient's living room",
