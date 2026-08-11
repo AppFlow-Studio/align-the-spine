@@ -9,8 +9,8 @@ import { ComparisonTable } from "@/components/sections/comparison-table";
 import { ConditionFaq } from "@/components/sections/condition-faq";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { FeelsLike } from "@/components/sections/feels-like";
-import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
+import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { HowWeTreat } from "@/components/sections/how-we-treat";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { PointToWhereItHurts } from "@/components/sections/point-to-where-it-hurts";
@@ -60,7 +60,6 @@ const sciaticaTypes = [
         name: "Stenotic sciatica",
         description:
           "Spinal stenosis narrows the canal and compresses the nerve. More common with age.",
-        highlighted: true,
       },
       {
         name: "Piriformis syndrome",
@@ -100,8 +99,7 @@ const sciaticaTypes = [
 export default function SciaticaPage() {
   return (
     <>
-      <Hero
-        variant="condition"
+      <HeroSolidPanel
         background={sciaticaHero.backgroundImage}
         eyebrow={sciaticaHero.eyebrowChip}
         title={sciaticaHero.h1}
@@ -119,37 +117,40 @@ export default function SciaticaPage() {
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
 
       <Section>
-        <Container className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
+        <Container className="flex justify-between gap-10 lg:items-start">
           <div className="flex flex-col gap-6">
             <Eyebrow>How sciatica escalates</Eyebrow>
-            <h2 className="font-display text-h2 text-navy-900">
+            <h2 className="font-newsreader max-w-3xl text-h2 text-navy-900 leading-10">
               Sciatica isn&apos;t a condition on its own — it&apos;s a symptom of nerve pressure
             </h2>
-            <p className="max-w-md font-sans text-body-lg text-ink-500">
-              Sciatica after a car accident may qualify for Florida PIP coverage — Dr. Abe Nasser
-              uses a full evaluation to pinpoint the source of nerve compression and build a plan to
-              relieve your leg pain. Sciatica itself is often caused by a{" "}
-              <Link href="/services/spinal-decompression" className="underline">
-                herniated disc
-              </Link>{" "}
-              or{" "}
-              <Link href="/services/spinal-decompression" className="underline">
-                spinal stenosis
-              </Link>{" "}
-              compressing the nerve root, whether that compression came from sudden impact or built
-              up over time.
-            </p>
-            <a
-              href="#types-of-sciatica"
-              className="inline-flex w-fit items-center gap-2 border-t border-mute-300 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors hover:text-navy-700"
-            >
-              Understand Sciatica
-              <ArrowRightIcon className="h-4 w-4" />
-            </a>
+            <div className="flex flex-col gap-4 ml-[10vw]">
+              <p className="max-w-2xl font-sans text-body-lg text-ink-500">
+                Sciatica after a car accident is billed directly to PIP — Dr. Abe Nasser uses a full
+                evaluation to pinpoint the source of nerve compression and build a plan to relieve
+                your leg pain. Sciatica itself is often caused by a{" "}
+                <Link href="/services/spinal-decompression" className="underline">
+                  herniated disc
+                </Link>{" "}
+                or{" "}
+                <Link href="/services/spinal-decompression" className="underline">
+                  spinal stenosis
+                </Link>{" "}
+                compressing the nerve root, whether that compression came from sudden impact or
+                built up over time.
+              </p>
+              <div className="w-full h-px bg-mute-350" />
+              <a
+                href="#types-of-sciatica"
+                className="inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4"
+              >
+                Understand Sciatica
+                <ArrowRightIcon className="h-4 w-4" />
+              </a>
+            </div>
           </div>
-          <div className="relative mx-auto aspect-[439/787] w-full max-w-sm overflow-hidden lg:mx-0">
+          <div className="relative mx-auto aspect-639/770 w-full max-w-lg overflow-hidden lg:mr-[5vw]">
             <Image
-              src="https://align-the-spine.b-cdn.net/images/sciatica.png"
+              src="/figma-exports/sciatica-anatomy-diagram.png"
               alt="Illustration of the lumbar spine and sciatic nerve pathway highlighting the sacroiliac joint, pelvis, and femur"
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"

@@ -268,7 +268,7 @@ export const siteConfig: SiteConfig = {
     { label: "Auto Accidents", href: "/auto-accidents" },
   ],
   // ATS-E3 (3.4): "Request" not "Book" — nothing auto-confirms a slot.
-  bookingCta: { label: "Request Appointment", href: "/book" },
+  bookingCta: { label: "Book Appointment", href: "/book" },
   footer: {
     tagline:
       "Premium chiropractic care delivered with medical excellence and patient-first convenience across South Florida.",
@@ -276,7 +276,7 @@ export const siteConfig: SiteConfig = {
       { label: "Accident Care", href: "/auto-accidents" },
       { label: "About Dr. Abe", href: "/about" },
       { label: "Reviews", href: "/reviews" },
-      { label: "Contact Us", href: "/contact-us" },
+      // { label: "Contact Us", href: "/contact-us" },
     ],
     copyrightName: "Align the Spine Chiropractic",
   },

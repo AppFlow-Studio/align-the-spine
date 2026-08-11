@@ -9,8 +9,8 @@ import { ComparisonTable } from "@/components/sections/comparison-table";
 import { ConditionFaq } from "@/components/sections/condition-faq";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { FeelsLike } from "@/components/sections/feels-like";
-import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
+import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { HowWeTreat } from "@/components/sections/how-we-treat";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { PointToWhereItHurts } from "@/components/sections/point-to-where-it-hurts";
@@ -106,8 +106,7 @@ export default function NeckPainPage() {
           { name: "Neck Pain", path: "/conditions/neck-pain" },
         ]}
       />
-      <Hero
-        variant="condition"
+      <HeroSolidPanel
         background={neckPainHero.backgroundImage}
         eyebrow={neckPainHero.eyebrowChip}
         title={neckPainHero.h1}
@@ -125,13 +124,13 @@ export default function NeckPainPage() {
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
 
       <Section>
-        <Container className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
+        <Container className="flex justify-between gap-10 lg:items-start">
           <div className="flex flex-col gap-6">
             <Eyebrow>Understanding Neck Pain</Eyebrow>
-            <h2 className="font-display text-h2 text-navy-900">
+            <h2 className="font-newspaper leading-10 text-h2 text-navy-900 max-w-3xl">
               Neck pain ranges from a stiff morning to something worth a real evaluation.
             </h2>
-            <p className="max-w-md font-sans text-body-lg text-ink-500">
+            <p className="max-w-2xl font-sans text-body-lg text-ink-500 ml-[10vw]">
               Neck pain after a car accident needs a different evaluation than an everyday stiff
               morning. If your neck pain started after a collision, Florida gives you{" "}
               <Link href="/auto-accidents" className="underline">
@@ -152,15 +151,16 @@ export default function NeckPainPage() {
               . Everyday neck pain is usually muscular — tension from posture, stress, or sleep
               position — and responds well to conservative care.
             </p>
+            <div className="h-px bg-mute-350 ml-[10vw]" />
             <a
               href="#types-of-neck-pain"
-              className="inline-flex w-fit items-center gap-2 border-t border-mute-300 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors hover:text-navy-700"
+              className="ml-[10vw] inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4"
             >
               Understand Neck Pain
               <ArrowRightIcon className="h-4 w-4" />
             </a>
           </div>
-          <div className="relative mx-auto aspect-[411/737] w-full max-w-sm overflow-hidden lg:mx-0">
+          <div className="relative mx-auto aspect-411/737 w-full max-w-sm overflow-hidden lg:mr-[5vw]">
             <Image
               src="https://align-the-spine.b-cdn.net/images/neck-pain.png"
               alt="Illustration of the cervical spine highlighting the cervical nerves, muscle strain/spasm, and neck pain pathway into the shoulder"

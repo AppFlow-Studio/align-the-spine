@@ -10,8 +10,8 @@ import { ConditionFaq } from "@/components/sections/condition-faq";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { SymptomWarningCard } from "@/components/sections/feels-like";
 import { FeelsLikeBand } from "@/components/sections/feels-like-band";
-import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
+import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { HowWeTreat } from "@/components/sections/how-we-treat";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { PointToWhereItHurts } from "@/components/sections/point-to-where-it-hurts";
@@ -105,8 +105,7 @@ const whiplashTypes = [
 export default function WhiplashPage() {
   return (
     <>
-      <Hero
-        variant="condition"
+      <HeroSolidPanel
         background={whiplashHero.backgroundImage}
         eyebrow={whiplashHero.eyebrowChip}
         title={whiplashHero.h1}
@@ -124,8 +123,8 @@ export default function WhiplashPage() {
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
 
       <Section>
-        <Container className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
-          <div className="relative mx-auto aspect-[573/731] w-full max-w-sm overflow-hidden lg:mx-0">
+        <Container className="flex justify-between gap-10 lg:items-start lg:gap-16">
+          <div className="w-full relative mx-auto aspect-573/731 max-w-sm overflow-hidden lg:mx-0">
             <Image
               src="https://align-the-spine.b-cdn.net/images/whiplash.png"
               alt="Illustration of the cervical spine highlighting cervical nerve pain, disc herniation, and the spinal cord"
@@ -136,11 +135,11 @@ export default function WhiplashPage() {
           </div>
           <div className="flex flex-col gap-6">
             <Eyebrow>Understanding whiplash</Eyebrow>
-            <h2 className="font-display text-h2 text-navy-900">
+            <h2 className="font-newspaper text-h2 text-navy-900 leading-10">
               Whiplash is a soft-tissue neck injury from rapid motion — usually a car accident, but
               not always.
             </h2>
-            <div className="flex flex-col gap-4 font-sans text-body-lg text-ink-500">
+            <div className="flex flex-col gap-4 font-sans text-body-lg text-ink-500 ml-[10vw]">
               <p>
                 Whiplash is most commonly caused by{" "}
                 <Link href="/auto-accidents" className="underline">
@@ -171,9 +170,10 @@ export default function WhiplashPage() {
                 chronic.
               </p>
             </div>
+            <div className="h-px bg-mute-350 ml-[10vw]" />
             <a
               href="#types-of-whiplash"
-              className="inline-flex w-fit items-center gap-2 border-t border-mute-300 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors hover:text-navy-700"
+              className="ml-[10vw] inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4"
             >
               Understand Whiplash
               <ArrowRightIcon className="h-4 w-4" />

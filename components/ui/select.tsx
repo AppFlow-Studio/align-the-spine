@@ -20,6 +20,8 @@ export interface SelectProps extends Omit<ComponentPropsWithRef<"select">, "clas
   label?: string;
   error?: string;
   variant?: FieldVariant;
+  /** See fieldControlClasses' `outline` param. */
+  outline?: boolean;
   options: SelectOption[];
   /** Rendered as a disabled empty-value first option. */
   placeholder?: string;
@@ -30,6 +32,7 @@ export function Select({
   label,
   error,
   variant = "dark",
+  outline = false,
   options,
   placeholder,
   className,
@@ -47,9 +50,10 @@ export function Select({
           aria-describedby={error ? errorId(fieldId) : undefined}
           defaultValue={placeholder && rest.value === undefined ? "" : undefined}
           className={cn(
-            "h-[41px] appearance-none pr-10",
+            outline ? "h-[52px]" : "h-[41px]",
+            "appearance-none pr-10",
             variant === "dark" && "[&>option]:text-ink-900",
-            fieldControlClasses(variant, Boolean(error)),
+            fieldControlClasses(variant, Boolean(error), outline),
           )}
           {...rest}
         >

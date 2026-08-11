@@ -5,8 +5,8 @@ import { AccidentBanner } from "@/components/sections/accident-banner";
 import { AccidentInjuries } from "@/components/sections/accident-injuries";
 import { ComparisonTable } from "@/components/sections/comparison-table";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
-import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
+import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { HowWeHelpSteps } from "@/components/sections/how-we-help-steps";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
@@ -42,9 +42,9 @@ const { hero, faq, flags } = autoAccidentCondition;
 // ConditionFaqItem) — map between the two.
 const faqItems = faq.items.map((item) => ({ question: item.q, answer: item.a }));
 
-// Splits hero.subhead's "Florida PIP window" into an in-page link to the
+// Splits hero.subhead's "PIP insurance" into an in-page link to the
 // PIPCalculator further down, matching the underline shown in the Figma hero.
-const [subheadBeforePip, subheadAfterPip] = hero.subhead.split("Florida PIP window");
+const [subheadBeforePip, subheadAfterPip] = hero.subhead.split("PIP insurance");
 // ATS-E4 (4.5): flags.pipStat is a specific PIP-coverage dollar claim —
 // only pass it to Hero once it's been client-verified.
 const pipStat = flags.pipStat && isVerified(flags.pipStat) ? flags.pipStat.value : undefined;
@@ -52,8 +52,8 @@ const pipStat = flags.pipStat && isVerified(flags.pipStat) ? flags.pipStat.value
 export const metadata: Metadata = buildMetadata(getRoute("/auto-accidents"));
 
 /** /auto-accidents page assembly (ATS-141) per the Figma "auto-accident"
- * frame (file 4mb4VDHszsaj2KEZzyjOjf): Hero (condition variant, PIP stat
- * callout) → HeroReviewsCarousel (incl. TopStatsBar) → ComparisonTable
+ * frame (file 4mb4VDHszsaj2KEZzyjOjf): HeroSolidPanel (PIP stat callout)
+ * → HeroReviewsCarousel (incl. TopStatsBar) → ComparisonTable
  * (default 3-row variant — the Figma frame doesn't show the pre-built
  * auto-accident-only extra rows, see conversation notes) → AccidentBanner
  * w/ PIPCalculator → HowWeHelpSteps (no cta — this design's steps have no
@@ -73,8 +73,7 @@ export default function AutoAccidentsPage() {
           { name: "Auto Accidents", path: "/auto-accidents" },
         ]}
       />
-      <Hero
-        variant="condition"
+      <HeroSolidPanel
         background={hero.backgroundImage}
         eyebrow={hero.eyebrowChip}
         title={hero.h1}
@@ -82,19 +81,21 @@ export default function AutoAccidentsPage() {
           <>
             {subheadBeforePip}
             <a href="#pip-calculator" className="underline">
-              Florida PIP window
+              PIP insurance
             </a>
             {subheadAfterPip}
           </>
         }
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
+        bilingualNote="¿Habla español? Dr. Abe habla su idioma."
         stat={pipStat}
         form={{
           heading: "Schedule Your Evaluation",
-          submitLabel: leadFormVariants.accidentEval.submitLabel,
-          variant: leadFormVariants.accidentEval.variant,
-          fields: leadFormVariants.accidentEval.fields,
-          footerNote: "Call us to check availability in your area.",
+          submitLabel: leadFormVariants.heroEval.submitLabel,
+          variant: leadFormVariants.heroEval.variant,
+          fields: leadFormVariants.heroEval.fields,
+          footerNote:
+            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
         }}
       />
 

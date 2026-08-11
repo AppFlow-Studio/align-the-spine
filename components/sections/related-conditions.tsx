@@ -39,10 +39,7 @@ export function RelatedConditions({
               key={item.label}
               href={item.href}
               className={cn(
-                "inline-flex items-center gap-2 border px-6 py-3 font-sans text-stat-label uppercase transition-colors",
-                item.highlighted
-                  ? "border-navy-900 bg-navy-900 text-white hover:bg-navy-700"
-                  : "border-mute-300 text-navy-900 hover:border-navy-900",
+                "inline-flex items-center gap-2 border px-6 py-3 font-sans text-stat-label uppercase border-mute-300 text-navy-900 hover:border-navy-900 hover:bg-navy-900 hover:text-white transition-colors duration-500",
               )}
             >
               {item.label}

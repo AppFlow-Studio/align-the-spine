@@ -7,8 +7,8 @@ import { ComparisonTable } from "@/components/sections/comparison-table";
 import { ConditionFaq } from "@/components/sections/condition-faq";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { FeelsLikeBand } from "@/components/sections/feels-like-band";
-import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
+import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { Button } from "@/components/ui/button";
@@ -62,8 +62,7 @@ export default function CervicogenicHeadachePage() {
           { name: "Cervicogenic Headache", path: "/conditions/cervicogenic-headache" },
         ]}
       />
-      <Hero
-        variant="condition"
+      <HeroSolidPanel
         background={cervicogenicHeadacheHero.backgroundImage}
         eyebrow={cervicogenicHeadacheHero.eyebrowChip}
         title={cervicogenicHeadacheHero.h1}

@@ -35,15 +35,21 @@ export function FeelsLike({ items, heading, warning, className }: FeelsLikeProps
       <Container className="flex flex-col gap-14">
         <div className="flex flex-col gap-10">
           <SectionHeading eyebrow="What it feels like">{heading}</SectionHeading>
-          <div className="grid grid-cols-1 gap-8 border-t border-mute-300 pt-8 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-5 border-t border-mute-300 pt-8 sm:grid-cols-2 lg:grid-cols-4">
             {items.map((item) => (
-              <div key={item.title} className="flex flex-col gap-3">
-                <h3 className="font-display text-type-name text-navy-900">{item.title}</h3>
+              <div
+                key={item.title}
+                className="flex flex-col gap-3 hover:bg-[#f8f8f8] p-2 group transition-colors duration-300"
+              >
+                <h3 className="font-display text-type-name text-navy-900 group-hover:text-teal-500 transition-colors duration-300">
+                  {item.title}
+                </h3>
+                <div className="w-full h-px bg-navy-900 group-hover:bg-teal-500 transition-colors duration-300" />
                 <p className="font-alt text-faq-a text-ink-500">{item.desc}</p>
                 {item.learnMoreHref && (
                   <Link
                     href={item.learnMoreHref}
-                    className="inline-flex w-fit items-center gap-2 font-sans text-stat-label uppercase text-navy-900 transition-colors hover:text-navy-700"
+                    className="inline-flex w-fit items-center gap-2 font-sans text-stat-label uppercase text-navy-900 group-hover:text-teal-500 hover:text-navy-700 underline decoration-transparent group-hover:decoration-navy-700 underline-offset-4 transition-colors duration-300"
                   >
                     Learn more
                     <ArrowRightIcon className="h-4 w-4" />
