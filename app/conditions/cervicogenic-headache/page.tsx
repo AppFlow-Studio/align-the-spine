@@ -152,7 +152,7 @@ export default function CervicogenicHeadachePage() {
                     alt={condition.image.alt}
                     fill
                     sizes="200px"
-                    className="object-cover grayscale transition duration-500 group-hover:grayscale-0"
+                    className="object-cover transition-[filter] duration-500 sm:grayscale sm:brightness-75 sm:group-hover:grayscale-0 sm:group-hover:brightness-100"
                   />
                 </div>
                 <h3 className="font-display text-h2 text-ink-500 transition-colors duration-300 group-hover:text-navy-900">
