@@ -82,7 +82,7 @@ export const decompressionConditions: DecompressionCondition[] = [
     description:
       "When the disc itself is affected by a collision, not just the surrounding soft tissue.",
     image: {
-      src: "/figma-exports/decompression-whiplash-disc.png",
+      src: "https://align-the-spine.b-cdn.net/images/drabe-whiplash.png",
       alt: "Hand assessing a patient's neck for whiplash-related disc injury",
     },
   },
@@ -90,7 +90,7 @@ export const decompressionConditions: DecompressionCondition[] = [
     name: "Herniated Disc (Back)",
     description: "The most common disc injury we see from rear-end and side-impact collisions.",
     image: {
-      src: "/figma-exports/decompression-herniated-back.png",
+      src: "https://align-the-spine.b-cdn.net/images/drabe-herniated%20disc.png",
       alt: "Hands treating a patient's lower back for a herniated disc",
     },
   },
@@ -99,7 +99,7 @@ export const decompressionConditions: DecompressionCondition[] = [
     description:
       "When the force of a crash affects a disc in the neck, not just the surrounding muscle.",
     image: {
-      src: "/figma-exports/decompression-herniated-neck.png",
+      src: "https://align-the-spine.b-cdn.net/images/drabe-head.png",
       alt: "Hands treating a patient's neck for a herniated disc",
     },
   },

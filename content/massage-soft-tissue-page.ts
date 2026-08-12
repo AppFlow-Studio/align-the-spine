@@ -79,7 +79,7 @@ export const massageConditions: MassageCondition[] = [
     name: "Whiplash",
     description: "Releases the muscle spasm and guarding around an injured neck after impact.",
     image: {
-      src: "/figma-exports/decompression-whiplash-disc.png",
+      src: "https://align-the-spine.b-cdn.net/images/drabe-whiplash.png",
       alt: "Hand assessing a patient's neck after whiplash",
     },
   },
@@ -87,7 +87,7 @@ export const massageConditions: MassageCondition[] = [
     name: "Neck Pain",
     description: "For tension and stiffness following a collision, not just everyday strain.",
     image: {
-      src: "/figma-exports/drabe-shoulder.png",
+      src: "https://align-the-spine.b-cdn.net/images/dr-abe-neck.png",
       alt: "Dr. Abe Nasser treating a patient's neck and shoulder",
     },
   },
@@ -95,7 +95,7 @@ export const massageConditions: MassageCondition[] = [
     name: "Back Pain",
     description: "Relieves muscle spasm surrounding a disc or joint injury from a crash.",
     image: {
-      src: "/figma-exports/decompression-herniated-back.png",
+      src: "https://align-the-spine.b-cdn.net/images/drabe-backpain-front.png",
       alt: "Hands treating a patient's lower back",
     },
   },
@@ -103,7 +103,7 @@ export const massageConditions: MassageCondition[] = [
     name: "Shoulder & Extremity",
     description: "Seatbelt-related bruising and soft-tissue trauma in the arms and shoulders.",
     image: {
-      src: "/figma-exports/decompression-herniated-neck.png",
+      src: "https://align-the-spine.b-cdn.net/images/align-the-spine-shoulders.png",
       alt: "Hands treating a patient's shoulder",
     },
   },
