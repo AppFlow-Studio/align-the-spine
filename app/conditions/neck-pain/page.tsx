@@ -125,7 +125,7 @@ export default function NeckPainPage() {
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
 
       <Section>
-        <Container className="flex justify-between gap-10 lg:items-start">
+        <Container className="flex flex-col justify-between gap-10 lg:flex-row lg:items-start">
           <div className="flex flex-col gap-6">
             <Eyebrow>Understanding Neck Pain</Eyebrow>
             <h2 className="font-display text-display font-normal text-navy-900">
@@ -135,7 +135,7 @@ export default function NeckPainPage() {
               <br />
               worth a real evaluation.
             </h2>
-            <p className="max-w-2xl font-sans text-body-lg text-ink-500 ml-[10vw]">
+            <p className="max-w-2xl font-sans text-body-lg text-ink-500 lg:ml-[10vw]">
               Neck pain after a car accident needs a different evaluation than an everyday stiff
               morning. If your neck pain started after a collision, Florida gives you{" "}
               <Link href="/car-accident-chiropractor" className="underline">
@@ -153,10 +153,10 @@ export default function NeckPainPage() {
               . Neck pain can also involve muscle tension from posture, stress, or sleep position,
               so an evaluation helps determine the likely source and appropriate next step.
             </p>
-            <div className="h-[1px] bg-black ml-[10vw]" />
+            <div className="h-[1px] bg-black lg:ml-[10vw]" />
             <a
               href="#types-of-neck-pain"
-              className="group ml-[10vw] inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4"
+              className="group lg:ml-[10vw] inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4"
             >
               Understand Neck Pain
               <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

@@ -158,7 +158,7 @@ export default function BackPainPage() {
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
 
       <Section>
-        <Container className="flex justify-between gap-10 lg:items-start">
+        <Container className="flex flex-col justify-between gap-10 lg:flex-row lg:items-start">
           <div className="flex flex-col gap-6">
             <Eyebrow>Understanding Back Pain</Eyebrow>
             <h2 className="font-display text-display font-normal text-navy-900">
@@ -168,7 +168,7 @@ export default function BackPainPage() {
               <br />
               first step to fixing it.
             </h2>
-            <p className="max-w-2xl font-sans text-body-lg text-ink-500 ml-[10vw]">
+            <p className="max-w-2xl font-sans text-body-lg text-ink-500 lg:ml-[10vw]">
               Back pain has a lot of possible causes — finding yours is the first step to fixing it.
               If a car accident is involved, Florida gives you{" "}
               <Link href="/car-accident-chiropractor" className="underline">
@@ -194,10 +194,10 @@ export default function BackPainPage() {
               . Everyday back pain follows a similar pattern: sudden strain from lifting or a bad
               movement, or pain that&rsquo;s been building for months from structural wear.
             </p>
-            <div className="h-[1px] bg-black ml-[10vw]" />
+            <div className="h-[1px] bg-black lg:ml-[10vw]" />
             <a
               href="#types-of-back-pain"
-              className="group inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4 ml-[10vw]"
+              className="group inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4 lg:ml-[10vw]"
             >
               Understand Back Pain
               <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

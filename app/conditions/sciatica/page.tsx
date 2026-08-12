@@ -118,17 +118,17 @@ export default function SciaticaPage() {
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
 
       <Section>
-        <Container className="flex justify-between gap-10 lg:items-start">
+        <Container className="flex flex-col justify-between gap-10 lg:flex-row lg:items-start">
           <div className="flex flex-col gap-6">
             <Eyebrow>How sciatica escalates</Eyebrow>
-            <h2 className="font-display text-display font-medium text-navy-900">
+            <h2 className="font-display text-display font-normal text-navy-900">
               Sciatica isn&apos;t a condition on
               <br />
               its own — it&apos;s a symptom of
               <br />
               nerve pressure
             </h2>
-            <div className="flex flex-col gap-4 ml-[10vw]">
+            <div className="flex flex-col gap-4 lg:ml-[10vw]">
               <p className="max-w-2xl font-sans text-body-lg text-ink-500">
                 Sciatica describes pain or other symptoms along the sciatic nerve. After a car
                 accident, Dr. Abe Nasser evaluates possible musculoskeletal contributors and
