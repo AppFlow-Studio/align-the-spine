@@ -132,6 +132,9 @@ export function HeroSolidPanel({
   form,
   formSlot,
 }: HeroSolidPanelProps) {
+  // Pages like /about pass no form/formSlot — don't render the empty navy
+  // panel there; let the photo column (lg:flex-1) fill the full width instead.
+  const hasForm = Boolean(formSlot || form);
   return (
     <section className="relative flex flex-col overflow-hidden lg:-mt-[176px] lg:min-h-[860px] lg:flex-row ">
       <div className="relative min-h-[620px] min-w-0 lg:min-h-full lg:flex-1 pt-10">
@@ -143,9 +146,9 @@ export function HeroSolidPanel({
           sizes="(min-width: 1024px) 62vw, 100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/75 to-black/50" />
         <Container>
-          <div className="container relative z-10 flex h-full flex-col justify-start pt-[120px] pb-24 lg:pb-16 lg:pt-[220px] lg:pr-12">
+          <div className="container relative z-10 flex h-full flex-col justify-start pt-[120px] pb-24 lg:pb-[60px] lg:pt-[220px] lg:pr-12">
             {eyebrow && <Eyebrow variant="onDark">{eyebrow}</Eyebrow>}
             {badge && (
               <span className="w-fit rounded-full bg-teal-500 px-6 py-3 font-sans text-button text-white">
@@ -240,35 +243,37 @@ export function HeroSolidPanel({
           <Button
             variant="teal"
             href={siteConfig.business.phoneHref}
-            className="w-full justify-center"
+            className="w-full justify-center mb-4"
           >
             Call Now: {callPill.phone.replace(/^Call /, "")}
           </Button>
         )}
       </div>
 
-      <div className="relative hidden flex-col justify-start bg-navy-900 px-6 pb-16 sm:px-10 lg:flex lg:w-[640px] lg:shrink-0 lg:px-16 lg:pb-0 lg:pt-[210px] xl:w-[760px] 2xl:w-[800px]">
-        {formSlot ??
-          (form && (
-            <LeadForm
-              heading={form.heading}
-              variant={form.variant}
-              fields={form.fields ?? leadFormVariants.heroEval.fields}
-              submitLabel={form.submitLabel}
-              onSubmit={form.onSubmit}
-              submitVariant="teal"
-              fieldOutline
-              labelCase="none"
-              headingClassName="mb-2 font-display text-h2 !leading-[1.15] text-white"
-              className="gap-y-4"
-              twoStep={form.twoStep}
-              stepOneFieldNames={form.stepOneFieldNames}
-            />
-          ))}
-        {form?.footerNote && (
-          <p className="mt-6 font-sans text-body-lg text-mute-300">{form.footerNote}</p>
-        )}
-      </div>
+      {hasForm && (
+        <div className="relative hidden flex-col justify-start bg-navy-900 px-6 pb-16 sm:px-10 lg:flex lg:w-[640px] lg:shrink-0 lg:px-16 lg:pb-[60px] lg:pt-[210px] xl:w-[760px] 2xl:w-[800px]">
+          {formSlot ??
+            (form && (
+              <LeadForm
+                heading={form.heading}
+                variant={form.variant}
+                fields={form.fields ?? leadFormVariants.heroEval.fields}
+                submitLabel={form.submitLabel}
+                onSubmit={form.onSubmit}
+                submitVariant="teal"
+                fieldOutline
+                labelCase="none"
+                headingClassName="mb-2 font-display text-h2 !leading-[1.15] text-white"
+                className="gap-y-4"
+                twoStep={form.twoStep}
+                stepOneFieldNames={form.stepOneFieldNames}
+              />
+            ))}
+          {form?.footerNote && (
+            <p className="mt-6 font-sans text-body-lg text-mute-300">{form.footerNote}</p>
+          )}
+        </div>
+      )}
     </section>
   );
 }
