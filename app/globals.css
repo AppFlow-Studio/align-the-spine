@@ -112,6 +112,19 @@ body {
   color: var(--color-ink-900);
 }
 
+@layer base {
+  /* Tailwind v4's Preflight resets <button> to the native default (arrow)
+   * cursor. Links already show a pointer, so buttons read as *less*
+   * clickable than links — restore the pointer on every interactive control
+   * site-wide (Button/ArrowButton primitives, the booking-form SquareButton,
+   * form submits, nav/accordion toggles, the body-diagram hotspots, etc.).
+   * :not(:disabled) keeps disabled controls on the default cursor. */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
 @layer components {
   .container {
     width: 100%;

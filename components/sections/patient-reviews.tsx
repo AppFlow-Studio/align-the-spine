@@ -33,7 +33,7 @@ export function PatientReviews({ featured, reviews, variant = "dark" }: PatientR
             <Eyebrow variant={dark ? "onDark" : "default"}>Patient success</Eyebrow>
             <p
               className={cn(
-                "font-sans text-h2 font-medium leading-10",
+                "font-sans text-4xl leading-tight",
                 dark ? "text-white" : "text-navy-900",
               )}
             >

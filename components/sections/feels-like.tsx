@@ -52,7 +52,7 @@ export function FeelsLike({ items, heading, warning, className }: FeelsLikeProps
                     className="inline-flex w-fit items-center gap-2 font-sans text-stat-label uppercase text-navy-900 group-hover:text-teal-500 hover:text-navy-700 underline decoration-transparent group-hover:decoration-navy-700 underline-offset-4 transition-colors duration-300"
                   >
                     Learn more
-                    <ArrowRightIcon className="h-4 w-4" />
+                    <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
                 )}
               </div>
@@ -91,10 +91,10 @@ export function SymptomWarningCard({ warning, className }: SymptomWarningCardPro
               <li key={bullet.label}>
                 <Link
                   href={bullet.href}
-                  className="inline-flex items-center gap-2 font-sans text-body-lg text-teal-500 transition-colors hover:text-teal-500/80"
+                  className="group inline-flex items-center gap-2 font-sans text-body-lg text-teal-500 transition-colors hover:text-teal-500/80"
                 >
                   {bullet.label}
-                  <ArrowRightIcon className="h-4 w-4 shrink-0" />
+                  <ArrowRightIcon className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               </li>
             ) : (

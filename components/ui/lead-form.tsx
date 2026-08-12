@@ -139,7 +139,7 @@ export function LeadForm({
     >
       <h2
         className={cn(
-          "col-span-2 mb-3",
+          "col-span-2 mb-3 text-2xl",
           headingClassName ??
             cn(
               "font-sans text-button font-medium",

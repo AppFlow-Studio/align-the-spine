@@ -118,7 +118,8 @@ export function Hero({
         sizes="100vw"
         className="object-cover"
       />
-      <div className="absolute inset-0 bg-black/[.47]" />
+      {/* <div className="absolute inset-0 bg-black/[.47]" /> */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/75 to-black/50" />
 
       <div className="container relative z-10 grid gap-10 pt-[220px] lg:grid-cols-2 lg:items-center lg:gap-16 lg:pt-[350px]">
         <div className="flex flex-col gap-6">

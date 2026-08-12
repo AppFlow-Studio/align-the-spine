@@ -5,8 +5,8 @@ import { LocationIntro } from "@/components/layout/location-intro";
 import { ContactSection } from "@/components/sections/contact-section";
 import { DoctorHistory } from "@/components/sections/doctor-history";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
-import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
+import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { HowHePractices } from "@/components/sections/how-he-practices";
 import { PhotoGallery } from "@/components/sections/photo-gallery";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
@@ -40,16 +40,22 @@ export default function AboutPage() {
           { name: "About", path: "/about" },
         ]}
       />
-      <Hero
-        variant="condition"
+      <HeroSolidPanel
         background={{
           src: "/figma-exports/dr-abe-neck.png",
           alt: "Dr. Abe Nasser treating a patient's neck",
         }}
-        eyebrow="About Dr. Abe Nasser"
-        title="Meet Dr. Abe Nasser"
+        eyebrow="Sciatica or nerve pain radiating down?"
+        title={
+          <>
+            Chiropractic Services
+            <br />
+            in Deerfield Beach, FL
+          </>
+        }
         subhead="From routine adjustments to specialized recovery care — same doctor, every visit, at the office or your home when it applies."
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
+        bilingualNote="¿Habla español? Dr. Abe habla su idioma."
       />
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
       <DoctorProfile

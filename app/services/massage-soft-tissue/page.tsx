@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
 import { AccidentBanner } from "@/components/sections/accident-banner";
 import { ComparisonTable } from "@/components/sections/comparison-table";
 import { ConditionFaq } from "@/components/sections/condition-faq";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
-import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
+import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { RelatedConditions } from "@/components/sections/related-conditions";
+import { ServiceIntro } from "@/components/sections/service-intro";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -56,8 +58,7 @@ export const metadata: Metadata = buildRouteMetadata(getRoute("/services/massage
 export default function MassageSoftTissuePage() {
   return (
     <>
-      <Hero
-        variant="condition"
+      <HeroSolidPanel
         background={massageSoftTissueHero.backgroundImage}
         eyebrow={massageSoftTissueHero.eyebrowChip}
         title={massageSoftTissueHero.h1}
@@ -68,15 +69,45 @@ export default function MassageSoftTissuePage() {
           submitLabel: leadFormVariants.heroEval.submitLabel,
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,
-          footerNote: "Call us to check availability in your area.",
+          footerNote:
+            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
         }}
       />
 
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
 
-      <Section>
+      <ServiceIntro
+        eyebrow="Understanding the treatment"
+        heading="The soft-tissue damage a collision leaves behind"
+        divider
+        cta={{ href: "#techniques", label: "Explore the techniques" }}
+        image={{
+          src: "/figma-exports/drabe-softtissue.png",
+          alt: "Dr. Abe performing soft-tissue therapy on a patient",
+        }}
+      >
+        A crash doesn&apos;t only jar your joints — it overloads the muscles, tendons, and fascia
+        that hold them together, leaving the spasm, guarding, and deep bruising behind the pain we
+        see in{" "}
+        <Link href="/conditions/whiplash" className="underline">
+          whiplash
+        </Link>
+        ,{" "}
+        <Link href="/conditions/neck-pain" className="underline">
+          neck pain
+        </Link>
+        , and{" "}
+        <Link href="/conditions/back-pain" className="underline">
+          back pain
+        </Link>{" "}
+        after an accident. Massage and soft-tissue therapy work directly on that tissue — releasing
+        the tension and restoring blood flow so the area can actually heal instead of tightening
+        around the injury.
+      </ServiceIntro>
+
+      <Section id="techniques" className="scroll-mt-[120px]">
         <Container className="flex flex-col gap-14">
-          <SectionHeading eyebrow="Understanding the treatment">
+          <SectionHeading eyebrow="Our techniques">
             Three techniques, matched to what a collision actually did to your tissue.
           </SectionHeading>
           <div className="flex flex-col divide-y divide-navy-900/20 border-t border-navy-900">
@@ -203,8 +234,8 @@ export default function MassageSoftTissuePage() {
             <h2 className="font-display text-h2 text-white">
               Still have questions about your accident claim?
             </h2>
-            <p className="font-sans text-body-lg text-mute-300">
-              No waiting room, no driving in pain — call and we&apos;ll find a time that works.
+            <p className="font-sans text-body-lg text-mute-300 w-[65%]">
+              Same-day visits, seven days a week — no waiting room, no driving in pain.
             </p>
           </div>
           <Button

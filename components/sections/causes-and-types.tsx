@@ -100,7 +100,7 @@ export function CausesAndTypes({
                         </h4>
                         <p className="font-alt text-faq-a text-ink-500">{item.description}</p>
                       </div>
-                      <ArrowRightIcon className="h-6 w-6 shrink-0 text-[#F8F8F8] group-hover:text-teal-500" />
+                      <ArrowRightIcon className="h-6 w-6 shrink-0 text-[#F8F8F8] transition-all duration-300 group-hover:translate-x-1 group-hover:text-teal-500" />
                     </div>
                   </div>
                 ))}

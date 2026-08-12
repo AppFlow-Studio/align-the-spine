@@ -105,10 +105,10 @@ function SelectedPanel({
       <p className="mt-2 font-sans text-[15px] leading-[24px] text-ink-500">{region.description}</p>
       <Link
         href={region.href ?? siteConfig.bookingCta.href}
-        className="mt-4 inline-flex items-center gap-2 font-sans text-[13px] uppercase tracking-[1.25px] text-teal-500 transition-colors hover:text-teal-500/80"
+        className="group mt-4 inline-flex items-center gap-2 font-sans text-[13px] uppercase tracking-[1.25px] text-teal-500 transition-colors hover:text-teal-500/80"
       >
         {ctaLabel}
-        <ArrowRightIcon className="h-4 w-4" />
+        <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
       </Link>
     </div>
   );

@@ -7,6 +7,7 @@ import { FadeIn } from "@/components/ui/fade-in";
 import { PhoneIcon } from "@/components/ui/icons/phone";
 import { LeadForm } from "@/components/ui/lead-form";
 import { leadFormVariants } from "@/content/lead-forms";
+import { cn } from "@/lib/cn";
 
 import { Container } from "../ui/container";
 
@@ -48,18 +49,32 @@ export function HeroSolidPanel({
   form,
   formSlot,
 }: HeroSolidPanelProps) {
+  // No form/formSlot → full-bleed condition hero (e.g. /about's about-drabe
+  // Figma frame): the photo spans the whole section and the navy form panel is
+  // dropped, instead of the two-column split Home/Services use.
+  const hasForm = Boolean(formSlot || form);
   return (
-    <section className="relative -mt-[460px] overflow-hidden min-[400px]:-mt-[392px] sm:-mt-[304px] md:-mt-[240px] lg:-mt-[176px] lg:flex lg:min-h-[975px]">
-      <div className="relative min-h-[720px] lg:min-h-full lg:flex-1">
+    <section
+      className={cn(
+        "relative -mt-[460px] overflow-hidden min-[400px]:-mt-[392px] sm:-mt-[304px] md:-mt-[240px] lg:-mt-[176px] lg:min-h-[975px]",
+        hasForm && "lg:flex",
+      )}
+    >
+      <div className={cn("relative min-h-[720px] lg:min-h-full", hasForm && "lg:flex-1")}>
         <Image
           src={background.src}
           alt={background.alt}
           fill
           priority
-          sizes="(min-width: 1024px) 62vw, 100vw"
+          sizes={hasForm ? "(min-width: 1024px) 62vw, 100vw" : "100vw"}
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-black/40" />
+        {/* Darker toward the left reading edge so the headline, subhead, and
+         * call pill stay legible over the photo, easing off as the image meets
+         * the navy form panel — the "homepage-round-buttons-new-hero" Figma
+         * backdrop (flat 58% black there; graded here so the reading edge is
+         * darker without over-darkening the whole photo). */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/75 to-black/50" />
         <Container>
           <div className="container relative z-10 flex h-full flex-col justify-center pt-[220px] pb-16 lg:pt-[350px] lg:pr-12">
             {eyebrow && <Eyebrow variant="onDark">{eyebrow}</Eyebrow>}
@@ -69,18 +84,18 @@ export function HeroSolidPanel({
               </span>
             )}
 
-            <h1 className="font-display text-hero font-medium text-white">
+            <h1 className="font-display text-hero font-normal text-white">
               <FadeIn as="span">{title}</FadeIn>
             </h1>
 
-            <p className="max-w-[560px] font-sans text-body-lg text-mute-300 mt-8">
+            <p className="max-w-[560px] font-sans text-body-lg text-mute-300 mt-10">
               <FadeIn as="span" delay={0.15}>
                 {subhead}
               </FadeIn>
             </p>
 
             {callPill && (
-              <div className="flex items-start gap-4 mt-20 mb-4">
+              <div className="flex items-start gap-4 mt-8 mb-4">
                 <PhoneIcon className="size-15 shrink-0 rounded-full bg-teal-500 p-2.5 text-white" />
                 <span className="flex flex-col">
                   <span className="font-alt text-alt-label text-mute-300">{callPill.eyebrow}</span>
@@ -108,25 +123,27 @@ export function HeroSolidPanel({
         </Container>
       </div>
 
-      <div className="relative flex flex-col justify-center bg-navy-900 px-6 py-16 sm:px-10 lg:w-[640px] lg:shrink-0 lg:px-16 lg:py-0 xl:w-[760px] 2xl:w-[800px]">
-        {formSlot ??
-          (form && (
-            <LeadForm
-              heading={form.heading}
-              variant={form.variant}
-              fields={form.fields ?? leadFormVariants.heroEval.fields}
-              submitLabel={form.submitLabel}
-              onSubmit={form.onSubmit}
-              submitVariant="teal"
-              fieldOutline
-              labelCase="none"
-              headingClassName="mb-8 font-display text-h2 text-white"
-            />
-          ))}
-        {form?.footerNote && (
-          <p className="mt-6 font-sans text-body-lg text-mute-300">{form.footerNote}</p>
-        )}
-      </div>
+      {hasForm && (
+        <div className="relative flex flex-col justify-center bg-navy-900 px-6 py-16 sm:px-10 lg:w-[500px] lg:shrink-0 lg:px-16 lg:py-0 xl:w-[640px] 2xl:w-[720px]">
+          {formSlot ??
+            (form && (
+              <LeadForm
+                heading={form.heading}
+                variant={form.variant}
+                fields={form.fields ?? leadFormVariants.heroEval.fields}
+                submitLabel={form.submitLabel}
+                onSubmit={form.onSubmit}
+                submitVariant="teal"
+                fieldOutline
+                labelCase="none"
+                headingClassName="mb-8 font-display text-h1 text-white"
+              />
+            ))}
+          {form?.footerNote && (
+            <p className="mt-6 font-sans text-body-lg text-mute-300">{form.footerNote}</p>
+          )}
+        </div>
+      )}
     </section>
   );
 }

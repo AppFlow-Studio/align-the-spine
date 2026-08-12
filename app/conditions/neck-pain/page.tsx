@@ -117,7 +117,8 @@ export default function NeckPainPage() {
           submitLabel: leadFormVariants.heroEval.submitLabel,
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,
-          footerNote: "Call us to check availability in your area.",
+          footerNote:
+            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
         }}
       />
 
@@ -158,10 +159,10 @@ export default function NeckPainPage() {
             <div className="h-px bg-mute-350 ml-[10vw]" />
             <a
               href="#types-of-neck-pain"
-              className="ml-[10vw] inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4"
+              className="group ml-[10vw] inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4"
             >
               Understand Neck Pain
-              <ArrowRightIcon className="h-4 w-4" />
+              <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
           </div>
           <div className="relative mx-auto aspect-411/737 w-full max-w-sm overflow-hidden lg:mr-[5vw]">
@@ -215,7 +216,7 @@ export default function NeckPainPage() {
         <Container className="flex flex-col gap-6 py-8 sm:flex-row sm:items-center sm:justify-between sm:py-14">
           <div className="flex flex-col gap-2">
             <h2 className="font-display text-h2 text-white">Still have questions? Just Call</h2>
-            <p className="font-sans text-body-lg text-mute-300">
+            <p className="font-sans text-body-lg text-mute-300 w-[65%]">
               Dr. Abe Answers the phone. No call center, no hold music.
             </p>
           </div>

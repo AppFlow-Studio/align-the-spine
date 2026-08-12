@@ -29,7 +29,7 @@ export function SectionHeading({
       {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
       <Tag
         className={cn(
-          "font-display text-5xl",
+          "font-display text-h2 leading-tight",
           tone === "navy-800" ? "text-navy-800" : "text-navy-900",
         )}
       >
