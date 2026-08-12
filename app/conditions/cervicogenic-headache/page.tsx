@@ -87,20 +87,20 @@ export default function CervicogenicHeadachePage() {
               The headache a car accident leaves behind
             </h2>
             <p className="font-sans text-body-lg text-ink-500">
-              Cervicogenic headaches originate in the cervical spine, not the head itself — which is
-              why they&apos;re one of the most common, and most overlooked, injuries after a car
-              accident. The sudden force of a collision can irritate the joints and nerves at the
-              base of the skull, referring pain upward into a headache that feels like it belongs to
-              your head but is actually coming from your neck. Florida gives you{" "}
-              <Link href="/auto-accidents" className="underline">
+              A cervicogenic headache is pain referred from structures in the neck. It may be felt
+              at the base of the skull, on one side of the head, or with limited neck motion. A car
+              accident can strain the neck, but new, severe, or worsening headaches need prompt
+              medical evaluation to rule out other causes. Florida PIP generally requires initial
+              services and care within{" "}
+              <Link href="/car-accident-chiropractor" className="underline">
                 14 days
               </Link>{" "}
-              to get evaluated and protect your PIP benefits — and if headaches followed your
-              accident,{" "}
+              of a motor vehicle accident, with coverage depending on eligibility and policy terms.
+              If headaches followed the collision,{" "}
               <Link href="/conditions/whiplash" className="underline">
                 whiplash
               </Link>{" "}
-              is often the underlying cause.
+              and neck pain may need to be assessed alongside the headache.
             </p>
             <a
               href="#how-it-feels"
@@ -136,8 +136,8 @@ export default function CervicogenicHeadachePage() {
 
       <Section>
         <Container className="flex flex-col gap-14">
-          <SectionHeading eyebrow="What it treats">
-            Conditions cervicogenic headache relieves
+          <SectionHeading eyebrow="Related conditions">
+            Conditions that may overlap with cervicogenic headache
           </SectionHeading>
           <div className="flex flex-col divide-y divide-mute-300 border-t border-mute-300">
             {cervicogenicHeadacheConditions.map((condition) => (
@@ -174,7 +174,7 @@ export default function CervicogenicHeadachePage() {
 
       <PatientReviews
         featured={homeFeaturedTestimonial}
-        reviews={homeReviews.slice(0, 3)}
+        reviews={homeReviews.slice(1, 4)}
         variant="light"
       />
 

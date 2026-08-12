@@ -58,7 +58,7 @@ export const doctorHistoryContent: DoctorHistoryContent = {
 export const doctorProfileContent: DoctorProfileContent = {
   eyebrow: "THE DOCTOR BEHIND YOUR CARE",
   name: "Dr. Abe Nasser",
-  bio: "Dr. Abe is pleased to serve the Deerfield and surrounding areas. Dr. Abe began his chiropractic career serving the Broward county and Palm Beach County area working with many different patients from pre and post pregnancy, post-surgical, geriatric, and athletes.",
+  bio: "Dr. Abe Nasser is the chiropractor behind Align the Spine Chiropractic in Deerfield Beach. He has worked with patients across Broward and Palm Beach counties, including athletes, older adults, and people navigating post-surgical or pregnancy-related needs.",
   cta: { label: "Book with Dr. Abe", href: siteConfig.bookingCta.href },
   rating: mapVerified(siteConfig.reviewsRating, (r) => ({
     value: r.rating,

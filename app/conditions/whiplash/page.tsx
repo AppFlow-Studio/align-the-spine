@@ -143,17 +143,17 @@ export default function WhiplashPage() {
             <div className="flex flex-col gap-4 font-sans text-body-lg text-ink-500 ml-[10vw]">
               <p>
                 Whiplash is most commonly caused by{" "}
-                <Link href="/auto-accidents" className="underline">
+                <Link href="/car-accident-chiropractor" className="underline">
                   rear-end collisions
                 </Link>{" "}
                 — the sudden force snaps the head forward and back faster than the neck muscles can
                 brace for. Symptoms often appear 24–72 hours after impact, which is why many people
                 feel fine at the scene. Florida law gives you{" "}
-                <Link href="/auto-accidents" className="underline">
+                <Link href="/car-accident-chiropractor" className="underline">
                   14 days
                 </Link>{" "}
                 to get evaluated and protect your{" "}
-                <Link href="/auto-accidents" className="underline">
+                <Link href="/car-accident-chiropractor" className="underline">
                   PIP benefits
                 </Link>{" "}
                 — don&apos;t wait for symptoms to peak before calling.
@@ -218,7 +218,7 @@ export default function WhiplashPage() {
 
       <PatientReviews
         featured={homeFeaturedTestimonial}
-        reviews={homeReviews.slice(0, 3)}
+        reviews={homeReviews.slice(1, 4)}
         variant="light"
       />
 

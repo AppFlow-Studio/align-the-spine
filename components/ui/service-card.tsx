@@ -11,6 +11,8 @@ export interface ServiceCardItem {
   duration: string;
   summary: string;
   image: { src: string; alt: string };
+  href?: string;
+  ctaLabel?: string;
 }
 
 export interface ServiceCardProps {
@@ -48,8 +50,12 @@ export function ServiceCard({ item, className }: ServiceCardProps) {
           </h3>
           <p className="font-sans text-card-body text-ink-900">{item.summary}</p>
         </div>
-        <Button variant="primary" href={siteConfig.bookingCta.href} className="mt-auto w-fit">
-          Book now
+        <Button
+          variant="primary"
+          href={item.href ?? siteConfig.bookingCta.href}
+          className="mt-auto w-fit"
+        >
+          {item.ctaLabel ?? "Book now"}
         </Button>
       </div>
     </Card>

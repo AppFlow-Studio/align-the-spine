@@ -41,10 +41,10 @@ import type { ConditionFaq, ConditionRelatedLink } from "@/content/conditions/ty
  * other two pages' Understanding-section photo. */
 
 export const tmjJawPainHero = {
-  eyebrowChip: "Jaw pain or clicking after a car accident?",
+  eyebrowChip: "Jaw pain, tightness, or clicking?",
   h1: "TMJ / Jaw Pain Chiropractor in Deerfield Beach, FL",
   subhead:
-    "The same forces that cause whiplash can injure the jaw joint too — often missed because the neck pain gets all the attention.",
+    "Dr. Abe evaluates jaw-joint movement, surrounding muscle tension, and neck-related factors before deciding whether chiropractic care may be appropriate.",
   backgroundImage: {
     src: "/figma-exports/drabe-headache.png",
     alt: "Dr. Abe Nasser examining a patient after a car accident",
@@ -53,12 +53,16 @@ export const tmjJawPainHero = {
 
 export const tmjJawPainRelatedBottom: ConditionRelatedLink[] = [
   { label: "Lower Back Pain", href: "/conditions/back-pain" },
-  { label: "Auto Accident Injuries", href: "/auto-accidents", highlighted: true },
+  {
+    label: "Auto Accident Injuries",
+    href: "/car-accident-chiropractor",
+    highlighted: true,
+  },
   { label: "Neck Pain", href: "/conditions/neck-pain" },
   { label: "Whiplash", href: "/conditions/whiplash" },
   { label: "Cervicogenic Headache", href: "/conditions/cervicogenic-headache" },
   { label: "Concussion", href: "/conditions/concussion" },
-  { label: "Home Visit Care", href: "/home-visits" },
+  { label: "Home Visit Care", href: "/home-visit-chiropractor" },
   { label: "View All Treatments", href: "/services" },
 ];
 
@@ -67,7 +71,7 @@ export const tmjJawPainFaq: ConditionFaq = {
   items: [
     {
       q: "Can a car accident really cause TMJ problems?",
-      a: "Yes — the same forward-back motion that causes whiplash can strain or misalign the jaw joint on impact, especially if your jaw was clenched or open at the moment of collision. It's easy to miss because neck pain usually gets the attention first.",
+      a: "A collision can strain the jaw joint or surrounding muscles, especially when the jaw is clenched during impact. An evaluation is needed because jaw symptoms can have several causes.",
     },
     {
       q: "What does TMJ dysfunction feel like?",
@@ -79,7 +83,7 @@ export const tmjJawPainFaq: ConditionFaq = {
     },
     {
       q: "How many visits will I need?",
-      a: "It varies by how significant the strain is. Mild cases can improve in a few visits; others need a longer plan, especially if there's ongoing clenching or grinding involved. We reassess as you go.",
+      a: "It varies with the cause, exam findings, and ongoing factors such as clenching or grinding. Dr. Abe reassesses progress rather than promising a fixed number of visits.",
     },
   ],
 };

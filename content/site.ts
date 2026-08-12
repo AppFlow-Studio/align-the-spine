@@ -204,7 +204,7 @@ export const siteConfig: SiteConfig = {
         },
         {
           label: "Massage / Soft-Tissue",
-          href: "/services/massage-soft-tissue",
+          href: "/services/soft-tissue-therapy",
           description: "Targeted therapy for muscle tension and scar tissue.",
           icon: HandIcon,
           image: {
@@ -216,7 +216,7 @@ export const siteConfig: SiteConfig = {
     },
     {
       label: "Conditions",
-      href: "/auto-accidents",
+      href: "/car-accident-chiropractor",
       menu: [
         {
           label: "Lower Back Pain",
@@ -292,14 +292,14 @@ export const siteConfig: SiteConfig = {
     },
     { label: "About", href: "/about" },
     { label: "Reviews", href: "/reviews" },
-    { label: "Auto Accidents", href: "/auto-accidents" },
+    { label: "Auto Accidents", href: "/car-accident-chiropractor" },
   ],
   // ATS-E3 (3.4): "Request" not "Book" — nothing auto-confirms a slot.
-  bookingCta: { label: "Book Appointment", href: "/book" },
+  bookingCta: { label: "Book Appointment", href: "/book-an-appointment" },
   footer: {
     tagline: "Chiropractic care in Deerfield Beach, from your first exam through recovery.",
     links: [
-      { label: "Accident Care", href: "/auto-accidents" },
+      { label: "Accident Care", href: "/car-accident-chiropractor" },
       { label: "About Dr. Abe", href: "/about" },
       { label: "Reviews", href: "/reviews" },
       // { label: "Contact Us", href: "/contact-us" },

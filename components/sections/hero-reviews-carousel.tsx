@@ -6,6 +6,7 @@ import { TopStatsBar } from "@/components/layout/top-stats-bar";
 import { StarIcon } from "@/components/ui/icons/star";
 import type { Testimonial } from "@/content/testimonials";
 import { cn } from "@/lib/cn";
+import { highlightReviewKeywords } from "@/lib/highlight-review-keywords";
 
 export interface HeroReviewsCarouselProps {
   testimonials: Testimonial[];
@@ -73,11 +74,11 @@ export function HeroReviewsCarousel({ testimonials }: HeroReviewsCarouselProps) 
                     >
                       <span className="inline-flex shrink-0 gap-1" aria-hidden="true">
                         {Array.from({ length: 5 }, (_, s) => (
-                          <StarIcon key={s} className="h-4 w-4 text-[#EFBD3F]" />
+                          <StarIcon key={s} className="h-4 w-4 text-gold-400" />
                         ))}
                       </span>
                       <p className="min-w-0 font-sans text-card-body text-ink-900">
-                        &ldquo;{testimonial.quote}&rdquo;
+                        &ldquo;{highlightReviewKeywords(testimonial.quote)}&rdquo;
                       </p>
                       <span className="shrink-0 font-sans text-stat-label uppercase text-mute-400 sm:ml-auto">
                         –{testimonial.author}

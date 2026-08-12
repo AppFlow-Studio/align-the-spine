@@ -21,8 +21,9 @@ export const autoAccidentSteps: HowWeHelpStep[] = [
   {
     image: "/figma-exports/home-visits-step-visit.png",
     alt: "Notebook and pen ready for a treatment plan",
-    title: "Your plan, fully handled",
-    description: "Treatment tied to your case — your attorney or insurer coordinated for you.",
+    title: "A documented care plan",
+    description:
+      "Care is based on your evaluation, with accident-related findings documented for your claim.",
   },
 ];
 

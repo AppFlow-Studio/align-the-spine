@@ -93,11 +93,11 @@ export default function TmjJawPainPage() {
               </Link>{" "}
               frequently occur together, treating only the neck while missing the concussion is a
               common gap in accident care. Florida gives you{" "}
-              <Link href="/auto-accidents" className="underline">
+              <Link href="/car-accident-chiropractor" className="underline">
                 14 days
               </Link>{" "}
               to get evaluated and protect your{" "}
-              <Link href="/auto-accidents" className="underline">
+              <Link href="/car-accident-chiropractor" className="underline">
                 PIP benefits
               </Link>
               .
@@ -124,7 +124,7 @@ export default function TmjJawPainPage() {
 
       <PatientReviews
         featured={homeFeaturedTestimonial}
-        reviews={homeReviews.slice(0, 3)}
+        reviews={homeReviews.slice(1, 4)}
         variant="light"
       />
 

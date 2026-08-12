@@ -7,7 +7,8 @@ export interface RatingProps {
   /** Review count shown after the stars (e.g. 152). */
   count?: number;
   className?: string;
-  /** Filled-star color, defaults to teal-500 (light surfaces). */
+  /** Filled-star color, defaults to gold-400 — the universal "gold star"
+   * review convention, legible on both light and dark surfaces. */
   filledClassName?: string;
   /** Empty-star color, defaults to mute-300. */
   emptyClassName?: string;
@@ -18,7 +19,7 @@ export function Rating({
   value = 5,
   count,
   className,
-  filledClassName = "text-teal-500",
+  filledClassName = "text-gold-400",
   emptyClassName = "text-mute-300",
 }: RatingProps) {
   return (

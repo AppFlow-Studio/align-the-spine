@@ -25,7 +25,7 @@ export const neckPainHero = {
   eyebrowChip: "Neck pain after a car accident?",
   h1: "Neck Pain Chiropractor in Deerfield Beach, FL",
   subhead:
-    "Evaluation and decompression-focused treatment for sciatic and radiating nerve pain, with in-home visits available when it applies to your case.",
+    "Chiropractic evaluation for neck pain, stiffness, and limited motion, including neck pain that begins after a car accident or whiplash injury.",
   backgroundImage: {
     src: "/figma-exports/dr-abe-neck.png",
     alt: "Dr. Abe Nasser examining a patient's neck",
@@ -44,12 +44,12 @@ export const neckPainCauses: string[] = [
 export const neckPainRelatedMidPage: ConditionRelatedLink[] = [
   { label: "Whiplash", href: "/conditions/whiplash" },
   { label: "Herniated Disc", href: "/services/spinal-decompression", highlighted: true },
-  { label: "Auto Accident Injuries", href: "/auto-accidents" },
+  { label: "Auto Accident Injuries", href: "/car-accident-chiropractor" },
 ];
 
 export const neckPainHowWeTreat: ConditionTreatmentItem[] = [
   {
-    title: "Myofasial Release/Trigger Point",
+    title: "Myofascial Release/Trigger Point",
     desc: "Tension from posture, stress, or sleep position tends to build up as tight knots in the neck and shoulders. The Graston tool breaks up that muscle tightness — similar to a deep massage, but targeted to the specific spots holding tension.",
     image: {
       src: "/figma-exports/how-we-treat-1.png",
@@ -72,7 +72,7 @@ export const neckPainHowWeTreat: ConditionTreatmentItem[] = [
   },
   {
     title: "Traction/Decompression",
-    desc: "For neck pain that's structural rather than muscular — often from a disc issue — traction relieves pressure between the vertebrae, helping resolve pain that adjustment alone doesn't fully address.",
+    desc: "For selected neck-pain cases involving a disc or joint concern, controlled traction may reduce pressure between vertebrae. The evaluation determines whether it is appropriate.",
     image: {
       src: "/figma-exports/how-we-treat-3.png",
       alt: "Spinal traction and decompression therapy",
@@ -90,7 +90,7 @@ export const neckPainHowWeTreat: ConditionTreatmentItem[] = [
     },
     meta: "Check eligibility",
     ctaLabel: "CHECK ELIGIBILITY",
-    ctaHref: "/home-visits",
+    ctaHref: "/home-visit-chiropractor",
   },
 ];
 
@@ -103,7 +103,7 @@ export const neckPainFeelsLike: ConditionFeelsLikeItem[] = [
   {
     title: "Tech neck ache",
     desc: "A dull, nagging strain at the base of the skull after hours at a desk or on a phone.",
-    learnMoreHref: "/services/massage-soft-tissue",
+    learnMoreHref: "/services/soft-tissue-therapy",
   },
   {
     title: "Radiating tension",
@@ -132,17 +132,21 @@ export const neckPainWarning: ConditionWarning = {
 
 export const neckPainAccident: ConditionAccident = {
   headline: "Neck pain after a crash needs documentation, not just rest",
-  body: "A sudden impact can strain the muscles and ligaments supporting the cervical spine in ways that don't show up until days later. Florida law gives you 14 days after the accident to get evaluated and protect your PIP benefits.",
+  body: "A sudden impact can strain the muscles and ligaments supporting the cervical spine, and symptoms may appear later. Florida PIP generally requires initial services and care within 14 days of a motor vehicle accident.",
   smallprint: DEFAULT_ACCIDENT_SMALLPRINT,
 };
 
 export const neckPainRelatedBottom: ConditionRelatedLink[] = [
   { label: "Lower Back Pain", href: "/conditions/back-pain" },
-  { label: "Auto Accident Injuries", href: "/auto-accidents", highlighted: true },
+  {
+    label: "Auto Accident Injuries",
+    href: "/car-accident-chiropractor",
+    highlighted: true,
+  },
   { label: "Neck Pain", href: "/conditions/neck-pain" },
   { label: "Spinal Decompression", href: "/services/spinal-decompression" },
   { label: "Whiplash", href: "/conditions/whiplash" },
-  { label: "Home Visit Care", href: "/home-visits" },
+  { label: "Home Visit Care", href: "/home-visit-chiropractor" },
   { label: "Herniated Disc", href: "/services/spinal-decompression" },
   { label: "View All Treatments", href: "/services" },
 ];
@@ -156,15 +160,15 @@ export const neckPainFaq: ConditionFaq = {
     },
     {
       q: "Can a chiropractor help with a pinched nerve in my neck?",
-      a: "Often, yes. Gentle cervical adjustments and soft-tissue work can relieve the pressure causing nerve irritation, though we'll confirm it's a good fit during your exam.",
+      a: "Chiropractic care may be appropriate for some musculoskeletal causes of nerve irritation. An exam is needed first to determine whether adjustments, soft-tissue care, imaging review, or referral is the safer next step.",
     },
     {
-      q: "How long until I feel relief?",
-      a: "Many patients notice less stiffness within the first 2–3 visits, though how quickly you improve depends on whether the pain is acute or chronic.",
+      q: "How long can neck pain take to improve?",
+      a: "Timing varies with the cause, severity, and how long symptoms have been present. Dr. Abe reassesses your response to care and adjusts the plan rather than promising a fixed number of visits.",
     },
     {
       q: "Should I still come in if my neck pain started weeks ago?",
-      a: "Yes — chronic neck pain responds well to care too. We'll build a plan around how long you've had it and what's likely causing it.",
+      a: "Yes. An evaluation can help identify musculoskeletal contributors and whether chiropractic care or another type of care is appropriate, even when symptoms began weeks ago.",
     },
   ],
 };

@@ -20,10 +20,10 @@ import type { ConditionFaq } from "@/content/conditions/types";
  * massage-specific questions instead of carrying the mismatch forward. */
 
 export const massageSoftTissueHero = {
-  eyebrowChip: "Bruised or sore after a crash?",
+  eyebrowChip: "Muscle tightness or soft-tissue soreness?",
   h1: "Massage & Soft Tissue Therapy in Deerfield Beach, FL",
   subhead:
-    "Hands-on treatment for the muscle spasm, bruising, and soft-tissue strain a collision leaves behind — full evaluation and PIP documentation available for accident cases.",
+    "Targeted soft-tissue care for muscle tension, restricted motion, and injury-related soreness, selected after a chiropractic evaluation by Dr. Abe.",
   backgroundImage: {
     src: "/figma-exports/massage-soft-tissue-hero.png",
     alt: "Soft tissue and massage therapy treatment room",
@@ -70,14 +70,15 @@ export interface MassageCondition {
   image: { src: string; alt: string };
 }
 
-/** "Conditions soft tissue therapy relieves" list — per the Figma frame,
+/** Conditions addressed with soft-tissue care — per the Figma frame,
  * each row uses a treatment photo rather than an anatomy diagram. Whiplash
  * and Back Pain reuse the same photos as the spinal-decompression page's
  * equivalent rows (identical shots in that Figma file). */
 export const massageConditions: MassageCondition[] = [
   {
     name: "Whiplash",
-    description: "Releases the muscle spasm and guarding around an injured neck after impact.",
+    description:
+      "Addresses muscle spasm and guarding around the neck after an appropriate evaluation.",
     image: {
       src: "/figma-exports/decompression-whiplash-disc.png",
       alt: "Hand assessing a patient's neck after whiplash",
@@ -93,7 +94,7 @@ export const massageConditions: MassageCondition[] = [
   },
   {
     name: "Back Pain",
-    description: "Relieves muscle spasm surrounding a disc or joint injury from a crash.",
+    description: "Targets muscle spasm that may accompany a back, disc, or joint injury.",
     image: {
       src: "/figma-exports/decompression-herniated-back.png",
       alt: "Hands treating a patient's lower back",
@@ -114,7 +115,7 @@ export const massageFaq: ConditionFaq = {
   items: [
     {
       q: "Can soft tissue work help right after a car accident?",
-      a: "Often, yes — muscle spasm and bruising from a collision typically respond well to hands-on soft tissue work once anything more serious has been ruled out at your evaluation. Mention any accident at that visit so we can document it for your claim correctly.",
+      a: "It may be appropriate after an evaluation rules out injuries needing urgent care or referral. Mention the collision and symptom timing so Dr. Abe can choose a suitable technique and document the visit.",
     },
     {
       q: "How is this different from a regular massage?",
@@ -126,7 +127,7 @@ export const massageFaq: ConditionFaq = {
     },
     {
       q: "How many sessions will I need after an accident?",
-      a: "It varies by injury. Some soreness resolves in a session or two; deeper bruising or chronic guarding may need a short series. We reassess as you go rather than committing you to a fixed package upfront.",
+      a: "It varies with the injury and response to care. Dr. Abe reassesses your symptoms rather than promising a fixed number of sessions or package upfront.",
     },
   ],
 };

@@ -56,7 +56,7 @@ describe("getRouteHref", () => {
   });
 
   it("returns null for a draft route — makes linking to it impossible", () => {
-    expect(getRouteHref("/reviews")).toBeNull();
+    expect(getRouteHref("/home-visit-chiropractor")).toBeNull();
   });
 
   it("returns null for an unregistered path", () => {

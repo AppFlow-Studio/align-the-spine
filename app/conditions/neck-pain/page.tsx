@@ -137,14 +137,11 @@ export default function NeckPainPage() {
             <p className="max-w-2xl font-sans text-body-lg text-ink-500 ml-[10vw]">
               Neck pain after a car accident needs a different evaluation than an everyday stiff
               morning. If your neck pain started after a collision, Florida gives you{" "}
-              <Link href="/auto-accidents" className="underline">
+              <Link href="/car-accident-chiropractor" className="underline">
                 14 days
               </Link>{" "}
-              to get evaluated and protect your{" "}
-              <Link href="/auto-accidents" className="underline">
-                PIP benefits
-              </Link>{" "}
-              — it may be{" "}
+              for initial services and care under Florida PIP, with coverage depending on policy
+              terms. Accident-related neck pain may involve{" "}
               <Link href="/conditions/whiplash" className="underline">
                 whiplash
               </Link>{" "}
@@ -152,8 +149,8 @@ export default function NeckPainPage() {
               <Link href="/services#adjustments" className="underline">
                 cervical spine
               </Link>
-              . Everyday neck pain is usually muscular — tension from posture, stress, or sleep
-              position — and responds well to conservative care.
+              . Neck pain can also involve muscle tension from posture, stress, or sleep position,
+              so an evaluation helps determine the likely source and appropriate next step.
             </p>
             <div className="h-px bg-mute-350 ml-[10vw]" />
             <a
@@ -201,7 +198,7 @@ export default function NeckPainPage() {
 
       <PatientReviews
         featured={homeFeaturedTestimonial}
-        reviews={homeReviews.slice(0, 3)}
+        reviews={homeReviews.slice(1, 4)}
         variant="light"
       />
 

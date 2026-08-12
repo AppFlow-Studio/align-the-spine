@@ -63,7 +63,7 @@ see that file's doc comment for the exact precedence.
 | Variant        | Fields                                                                         | Submit label                        |
 | -------------- | ------------------------------------------------------------------------------ | ----------------------------------- |
 | `heroEval`     | First, Last, Phone, Email, car-accident?                                       | Schedule My Evaluation              |
-| `accidentEval` | First, Last, Phone, car-accident? (no email)                                   | Schedule My Evaluation              |
+| `accidentEval` | First, Last, Phone, Email, Date of Accident (no car-accident?)                 | Schedule My Evaluation              |
 | `carAccident`  | First, Last, Phone, Email, car-accident?                                       | Schedule My Car Accident Evaluation |
 | `contactUs`    | Name, Phone, Email, car-accident?, Message                                     | Send Message                        |
 | `contact`      | First, Last, Email, Phone, Zip, car-accident?, Best Time to Contact (optional) | Contact Us                          |

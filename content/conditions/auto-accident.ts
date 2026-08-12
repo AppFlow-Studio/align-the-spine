@@ -11,10 +11,10 @@ import { verified } from "@/content/verified-value";
  * autoAccidentSteps) behind this same `flags.isAccidentVariant`, rather
  * than adding a redundant 4th flag key. */
 export const autoAccidentCondition: Condition = {
-  slug: "auto-accidents",
+  slug: "car-accident-chiropractor",
   name: "Auto Accident Injuries",
   hero: {
-    eyebrowChip: "SCIATICA OR NERVE PAIN RADIATING DOWN?",
+    eyebrowChip: "CHIROPRACTIC CARE AFTER A CAR ACCIDENT",
     // Reverted to the Figma-approved "Injured in an Accident?" headline
     // (superseding the ATS-E3 (3.1) SEO-verbatim override) per the
     // solid-panel Hero redesign — matches the design 1:1 (ATS-141).
@@ -25,7 +25,7 @@ export const autoAccidentCondition: Condition = {
     // Emergency Medical Condition determination, $2,500 without one) and
     // the truth-constraint ban on payment/coverage guarantees.
     subhead:
-      "Complete chiropractic care - full exam, treatment, and documentation for your claim, billed through your Florida PIP insurance when eligible. In-home visits available across South Florida when it's the right fit for your case.",
+      "Dr. Abe provides chiropractic evaluations in Deerfield Beach for neck pain, back pain, stiffness, and whiplash after a car accident, with documentation for PIP insurance when eligible.",
     backgroundImage: {
       src: "/figma-exports/interior-corridor.png",
       alt: "Align the Spine reception hallway",
@@ -34,7 +34,7 @@ export const autoAccidentCondition: Condition = {
   understanding: {
     eyebrow: "Understanding Accident Injuries",
     intro:
-      "Car accidents don't just cause the injury you can feel right away — the real damage is often soft-tissue and joint trauma that takes days to surface. Getting a full evaluation early both protects your health and creates the record your PIP claim depends on.",
+      "Car accidents can strain muscles, ligaments, joints, and discs, and some symptoms may take hours or days to become noticeable. A chiropractic evaluation documents musculoskeletal concerns and helps determine whether care or referral is appropriate.",
     image: {
       src: "/figma-exports/drabe-consult.png",
       alt: "Dr. Abe Nasser consulting with a new accident patient",
@@ -62,8 +62,8 @@ export const autoAccidentCondition: Condition = {
     ],
   },
   accident: {
-    headline: "Florida gives you 14 days from the accident",
-    body: "Florida law requires treatment within 14 days of an auto accident. Miss that window and you may forfeit your Personal Injury Protection (PIP) benefits entirely — even if the accident wasn't your fault.",
+    headline: "Florida PIP has a 14-day initial-care window",
+    body: "Florida PIP generally requires initial services and care within 14 days of a motor vehicle accident. Eligibility, reimbursement, and benefit limits depend on the policy and circumstances.",
     smallprint: DEFAULT_ACCIDENT_SMALLPRINT,
   },
   comparisonRows: [...comparisonTableRows, ...autoAccidentComparisonRows],
@@ -72,7 +72,7 @@ export const autoAccidentCondition: Condition = {
     items: [
       {
         q: "I feel fine — do I really need to be seen?",
-        a: "Yes. Adrenaline and swelling can mask injuries for days, so feeling okay right now isn't proof you're in the clear. Getting checked promptly catches problems while they're easiest to treat, and it puts a timestamped exam on record in case your claim needs it later.",
+        a: "Some accident-related symptoms can appear later. Seek urgent medical care for severe or worsening symptoms; otherwise, a timely evaluation can document concerns and determine whether treatment or referral is appropriate.",
       },
       {
         q: "Will this cost me anything out of pocket?",
@@ -84,7 +84,7 @@ export const autoAccidentCondition: Condition = {
       },
       {
         q: "What happens after the 14-day window has passed?",
-        a: "You may still have options, but PIP coverage becomes harder to secure the longer you wait. Call us — we'll talk through what's still possible for your case.",
+        a: "You can still seek appropriate medical care, but Florida PIP payment generally depends on receiving initial services and care within 14 days. Ask your insurer or a qualified legal professional about your specific coverage.",
       },
     ],
   },
@@ -96,16 +96,16 @@ export const autoAccidentCondition: Condition = {
         src: "/figma-exports/drabeadjust.png",
         alt: "Dr. Abe performing a chiropractic adjustment",
       },
-      href: "/services",
+      href: "/services/chiropractic-adjustments",
     },
     {
       title: "Massage/Soft-Tissue",
-      desc: "Myofascial release for the whiplash and soft-tissue strain a crash leaves behind, paired with adjustments for faster recovery.",
+      desc: "Myofascial release and other soft-tissue techniques for selected muscle tension, guarding, and accident-related strain.",
       image: {
         src: "/figma-exports/drabe-soft-tissue.png",
         alt: "Massage and soft-tissue therapy",
       },
-      href: "/services",
+      href: "/services/soft-tissue-therapy",
     },
     {
       title: "Spinal Decompression",
@@ -114,7 +114,7 @@ export const autoAccidentCondition: Condition = {
         src: "/figma-exports/drabe-traction_compression.png",
         alt: "Spinal traction and decompression therapy",
       },
-      href: "/services",
+      href: "/services/spinal-decompression",
     },
   ],
   flags: {

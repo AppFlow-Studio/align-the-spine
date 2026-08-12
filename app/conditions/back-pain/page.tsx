@@ -54,11 +54,11 @@ const backPainTypes = [
           whiplash
         </Link>
         . Florida gives you{" "}
-        <Link href="/auto-accidents" className="underline">
+        <Link href="/car-accident-chiropractor" className="underline">
           14 days
         </Link>{" "}
         to get evaluated and protect your{" "}
-        <Link href="/auto-accidents" className="underline">
+        <Link href="/car-accident-chiropractor" className="underline">
           PIP benefits
         </Link>
         .
@@ -170,11 +170,11 @@ export default function BackPainPage() {
             <p className="max-w-2xl font-sans text-body-lg text-ink-500 ml-[10vw]">
               Back pain has a lot of possible causes — finding yours is the first step to fixing it.
               If a car accident is involved, Florida gives you{" "}
-              <Link href="/auto-accidents" className="underline">
+              <Link href="/car-accident-chiropractor" className="underline">
                 14 days
               </Link>{" "}
               to get evaluated and protect your{" "}
-              <Link href="/auto-accidents" className="underline">
+              <Link href="/car-accident-chiropractor" className="underline">
                 PIP benefits
               </Link>
               , since sudden impact can cause the same{" "}
@@ -182,7 +182,7 @@ export default function BackPainPage() {
                 herniated disc
               </Link>{" "}
               or{" "}
-              <Link href="/services/massage-soft-tissue" className="underline">
+              <Link href="/services/soft-tissue-therapy" className="underline">
                 muscle strain
               </Link>{" "}
               that shows up in everyday cases — sometimes with pain that radiates down the leg, a
@@ -240,7 +240,7 @@ export default function BackPainPage() {
 
       <PatientReviews
         featured={homeFeaturedTestimonial}
-        reviews={homeReviews.slice(0, 3)}
+        reviews={homeReviews.slice(1, 4)}
         variant="light"
       />
 

@@ -16,16 +16,16 @@ describe("isPhoneLink", () => {
   });
 
   it("rejects non-tel links", () => {
-    expect(isPhoneLink("/book")).toBe(false);
+    expect(isPhoneLink("/book-an-appointment")).toBe(false);
     expect(isPhoneLink("mailto:abe@example.com")).toBe(false);
   });
 });
 
 describe("isBookCtaLink", () => {
   it("matches /book and /book with a query or hash", () => {
-    expect(isBookCtaLink("/book")).toBe(true);
-    expect(isBookCtaLink("/book?ref=nav")).toBe(true);
-    expect(isBookCtaLink("/book#form")).toBe(true);
+    expect(isBookCtaLink("/book-an-appointment")).toBe(true);
+    expect(isBookCtaLink("/book-an-appointment?ref=nav")).toBe(true);
+    expect(isBookCtaLink("/book-an-appointment#form")).toBe(true);
   });
 
   it("rejects other paths, including /book-adjacent ones", () => {

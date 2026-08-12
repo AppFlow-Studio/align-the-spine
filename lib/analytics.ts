@@ -128,5 +128,9 @@ export function isPhoneLink(href: string): boolean {
 }
 
 export function isBookCtaLink(href: string): boolean {
-  return href === "/book" || href.startsWith("/book?") || href.startsWith("/book#");
+  return (
+    href === "/book-an-appointment" ||
+    href.startsWith("/book-an-appointment?") ||
+    href.startsWith("/book-an-appointment#")
+  );
 }

@@ -178,7 +178,7 @@ export default function ChiropracticAdjustmentsPage() {
               may be the better starting point, sometimes combined with adjustment once acute
               pressure is relieved. If your accident happened within the last 14 days, evaluation
               now protects your{" "}
-              <Link href="/auto-accidents" className="underline">
+              <Link href="/car-accident-chiropractor" className="underline">
                 PIP benefits
               </Link>{" "}
               before the window closes.
@@ -203,7 +203,7 @@ export default function ChiropracticAdjustmentsPage() {
 
       <PatientReviews
         featured={homeFeaturedTestimonial}
-        reviews={homeReviews.slice(0, 3)}
+        reviews={homeReviews.slice(1, 4)}
         variant="light"
       />
 

@@ -76,8 +76,17 @@ export interface LeadFormProps {
 const DEFAULT_STEP_ONE_FIELDS = ["firstName", "lastName", "phone"];
 
 function inputType(type: LeadFieldType) {
-  if (type === "tel" || type === "email") return type;
+  if (type === "tel" || type === "email" || type === "date") return type;
   return "text";
+}
+
+// Native <input type="date"> pickers refuse to show any day past this as
+// selectable when passed as `max` — belt-and-suspenders with the schema's
+// isNotFutureDate refine (lib/lead-form-schema.ts), which still catches a
+// browser that ignores `max` or a direct API request.
+function todayIsoDate(): string {
+  const today = new Date();
+  return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
 }
 
 interface RenderFieldOptions {
@@ -160,6 +169,7 @@ function renderField(field: LeadFieldConfig, opts: RenderFieldOptions) {
       label={label}
       type={inputType(type)}
       inputMode={type === "zip" ? "numeric" : undefined}
+      max={type === "date" ? todayIsoDate() : undefined}
       variant={fieldVariant}
       outline={fieldOutline}
       placeholder={field.placeholder}

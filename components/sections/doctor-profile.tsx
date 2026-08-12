@@ -66,7 +66,7 @@ export function DoctorProfile({ variant, content, extended }: DoctorProfileProps
                   >
                     <span className="inline-flex gap-1">
                       {Array.from({ length: rating.value.value }, (_, i) => (
-                        <StarIcon key={i} className="h-5 w-5 text-[#EFBD3F]" />
+                        <StarIcon key={i} className="h-5 w-5 text-gold-400" />
                       ))}
                     </span>
                     <span aria-hidden="true" className="font-sans text-stat-label text-white">

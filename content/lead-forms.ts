@@ -25,9 +25,10 @@ const zipField: LeadFieldConfig = {
  * by whether it's accident-related, regardless of which page or form it
  * came through — lib/analytics.ts's classifyLeadPriority reads this field
  * first, ahead of any page/variant-based inference. Left optional: on an
- * already accident-framed form (e.g. /auto-accidents) re-asking would be
- * pure friction, and classifyLeadPriority's variant-based fallback covers a
- * blank answer there. */
+ * already accident-framed form (e.g. /car-accident-chiropractor) re-asking
+ * would be pure friction, and classifyLeadPriority's variant-based fallback
+ * covers a blank answer there — see accidentEval below, which drops this
+ * question entirely for exactly that reason. */
 const carAccidentField: LeadFieldConfig = {
   name: "carAccident",
   label: "Is this related to a car accident?",
@@ -38,6 +39,20 @@ const carAccidentField: LeadFieldConfig = {
     { label: "Yes", value: "yes" },
     { label: "No", value: "no" },
   ],
+};
+
+/** /car-accident-chiropractor-only — replaces carAccidentField there since
+ * "is this related to a car accident?" is redundant on a page the visitor
+ * only reached because it is one; the date narrows Florida's 14-day PIP
+ * evaluation window instead, which is actually new information. Native
+ * <input type="date"> enforces the format (no free-text parsing), and
+ * lib/lead-form-schema.ts's isNotFutureDate refine rejects a date after
+ * today server-side too. */
+const accidentDateField: LeadFieldConfig = {
+  name: "accidentDate",
+  label: "Date of Accident",
+  type: "date",
+  autoComplete: "off",
 };
 
 /** ATS-030 variant presets. Every lead form on the site is one of these
@@ -51,11 +66,20 @@ export const leadFormVariants = {
     fields: [...baseFields, carAccidentField],
     submitLabel: "Schedule My Evaluation",
   },
-  /** /auto-accidents hero form: First/Last/Phone only, no email — matches
-   * the Figma hero card exactly (unlike heroEval, which includes email). */
+  /** /car-accident-chiropractor hero form: same First/Last/Phone/Email
+   * fields as heroEval, but accidentDateField instead of carAccidentField
+   * — see that field's own doc comment for why. Single-step (not
+   * heroEval's twoStep on desktop — this page's HeroSolidPanel doesn't set
+   * `twoStep`), matching every other HeroSolidPanel page's desktop form;
+   * the mobile floating card is always two-step regardless of variant (see
+   * hero-solid-panel.tsx), so that stays consistent with every other page
+   * automatically. Already in lib/analytics.ts's HIGH_PRIORITY_VARIANTS,
+   * so dropping carAccidentField here doesn't lose priority
+   * classification — the variant alone is enough since the whole page is
+   * accident-framed. */
   accidentEval: {
     variant: "accidentEval",
-    fields: [...baseFields.filter((field) => field.name !== "email"), carAccidentField],
+    fields: [...baseFields, accidentDateField],
     submitLabel: "Schedule My Evaluation",
   },
   /** /contact-us hero form: single Name field (not First/Last), Phone,
@@ -78,6 +102,15 @@ export const leadFormVariants = {
     variant: "carAccident",
     fields: [...baseFields, carAccidentField],
     submitLabel: "Schedule My Car Accident Evaluation",
+  },
+  /** /reviews hero form — same fields as heroEval, own variant key purely
+   * so leads from this placement are distinguishable in the /api/lead log
+   * and any future funnel analysis, same reasoning as carAccident
+   * duplicating heroEval's fields below. */
+  reviewsEval: {
+    variant: "reviewsEval",
+    fields: [...baseFields, carAccidentField],
+    submitLabel: "Schedule My Evaluation",
   },
   contact: {
     variant: "contact",
