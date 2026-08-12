@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Newsreader, Poppins } from "next/font/google";
+import { Fraunces, Geist, Poppins } from "next/font/google";
 
 import { AnalyticsListeners } from "@/components/analytics/analytics-listeners";
 import { AnalyticsScripts } from "@/components/analytics/analytics-scripts";
@@ -9,10 +9,11 @@ import { isProduction, siteConfig } from "@/content/site";
 
 import "./globals.css";
 
-const newsreader = Newsreader({
-  variable: "--font-newsreader",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: "variable",
+  axes: ["SOFT", "WONK", "opsz"],
   display: "swap",
 });
 
@@ -72,7 +73,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${newsreader.variable} ${poppins.variable} ${geist.variable} h-full antialiased`}
+      className={`${fraunces.variable} ${poppins.variable} ${geist.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <GtmNoscript />

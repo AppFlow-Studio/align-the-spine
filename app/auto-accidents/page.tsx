@@ -76,7 +76,13 @@ export default function AutoAccidentsPage() {
       <HeroSolidPanel
         background={hero.backgroundImage}
         eyebrow={hero.eyebrowChip}
-        title={hero.h1}
+        title={
+          <>
+            Injured in an
+            <br />
+            Accident?
+          </>
+        }
         subhead={
           <>
             {subheadBeforePip}
@@ -129,11 +135,7 @@ export default function AutoAccidentsPage() {
               No waiting room, no driving in pain — call and we&apos;ll find a time that works.
             </p>
           </div>
-          <Button
-            variant="teal"
-            href={siteConfig.bookingCta.href}
-            className="w-fit shrink-0 rounded-none!"
-          >
+          <Button variant="teal" href={siteConfig.bookingCta.href} className="w-fit shrink-0">
             Schedule my Evaluation
           </Button>
         </Container>

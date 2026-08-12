@@ -5,33 +5,37 @@ import { PhoneIcon } from "@/components/ui/icons/phone";
 import { Spinner } from "@/components/ui/spinner";
 import { cn } from "@/lib/cn";
 
-/** Button variants per condition-page-spec §A8. */
+/** Button variants per condition-page-spec §A8. All variants render as a
+ * full pill (rounded-full, applied on the shared base classes below) —
+ * previously some used a fixed-radius token (r40/r80) or no radius at all;
+ * unified for a consistent rounded look site-wide. */
+/* All variants use equal padding on every side (a single p-N utility)
+ * instead of a fixed height paired with only horizontal px-N, per the
+ * design-review note — that combination left far more room on the sides
+ * than top/bottom. */
 const variants = {
-  /* Primary submit: #253067, h64, r40, Poppins 20 white, trailing arrow */
+  /* Primary submit: #253067, Poppins 20 white, trailing arrow */
   primary:
-    "h-12 gap-3 bg-navy-900 px-6 font-sans text-button text-white hover:bg-navy-700 focus-visible:outline-navy-900",
-  /* Teal/calc: #58a0a0, h48, r40, Poppins Medium 16 white, trailing arrow */
-  teal: "h-12 gap-3 rounded-40 bg-teal-500 px-6 font-sans text-button font-medium text-white hover:brightness-110 focus-visible:outline-teal-500",
-  /* Big CTA: #253067, r80, Poppins 22 white, circular arrow badge left.
-   * Scales down below sm so it can't outgrow a 375px viewport (ATS-112).
-   * min-h, not h, so a label that wraps in a narrow column (e.g.
-   * DoctorProfile's tablet-width text column, ATS-092) grows the pill
-   * instead of clipping the wrapped lines against a fixed height. */
-  cta: "min-h-14 gap-4 bg-navy-900 px-6 font-sans text-button text-white hover:bg-navy-700 focus-visible:outline-navy-900 sm:min-h-[72px] sm:gap-6 sm:px-8 sm:text-btn-lg",
-  /* Glass call-pill: white 15% overlay, r80, phone icon + eyebrow + Poppins 22 white.
+    "p-4 gap-3 bg-navy-900 font-sans text-button text-white hover:bg-navy-700 focus-visible:outline-navy-900",
+  /* Teal/calc: #58a0a0, Poppins Medium 16 white, trailing arrow */
+  teal: "p-4 gap-3 bg-teal-500 font-sans text-button font-medium text-white hover:brightness-110 focus-visible:outline-teal-500",
+  /* Big CTA: #253067, Poppins 22 white, circular arrow badge left.
+   * Scales down below sm so it can't outgrow a 375px viewport (ATS-112). */
+  cta: "p-4 gap-4 bg-navy-900 font-sans text-button text-white hover:bg-navy-700 focus-visible:outline-navy-900 sm:p-5 sm:gap-6 sm:text-btn-lg",
+  /* Glass call-pill: white 15% overlay, phone icon + eyebrow + Poppins 22 white.
    * Scales down below sm — h-16/text-[20px] was applied unconditionally down
    * to 0px, making the pill disproportionately large next to the rest of a
    * mobile Hero (ATS-093 responsive fix). */
   glass:
-    "h-12 gap-3 rounded-80 bg-overlay-white-15 px-4 font-sans text-[15px] leading-5 text-white backdrop-blur-sm hover:bg-white/25 focus-visible:outline-white sm:h-16 sm:gap-4 sm:px-6 sm:text-[20px] sm:leading-6 xl:h-[72px] xl:gap-5 xl:px-8 xl:text-btn-lg",
+    "h-12 gap-3 bg-overlay-white-15 px-4 font-sans text-[15px] leading-5 text-white backdrop-blur-sm hover:bg-white/25 focus-visible:outline-white sm:h-16 sm:gap-4 sm:px-6 sm:text-[20px] sm:leading-6 xl:h-[72px] xl:gap-5 xl:px-8 xl:text-btn-lg",
   /* Ghost link ("Book now"): Geist 22 #253067, trailing arrow */
   ghost:
     "gap-2 font-alt text-alt-label text-navy-900 hover:text-navy-700 focus-visible:outline-navy-900",
-  /* Nav pill: navy 20% overlay, h52, r40 */
+  /* Nav pill: navy 20% overlay */
   "nav-pill":
-    "h-[52px] gap-2 rounded-40 bg-overlay-navy-20 px-6 font-sans text-nav text-white hover:bg-navy-900 focus-visible:outline-white",
-  /* Services-row "Book": solid navy rectangle, h58, Poppins 20 white, no arrow, no radius (per Figma) */
-  book: "h-11 px-8 font-sans text-button text-white bg-navy-900 hover:bg-navy-700 focus-visible:outline-navy-900",
+    "p-4 gap-2 bg-overlay-navy-20 font-sans text-nav text-white hover:bg-navy-900 focus-visible:outline-white",
+  /* Services-row "Book": solid navy pill, Poppins 20 white, no arrow */
+  book: "p-4 font-sans text-button text-white bg-navy-900 hover:bg-navy-700 focus-visible:outline-navy-900",
 } as const;
 
 const arrowSize = {
@@ -67,7 +71,7 @@ export function Button({
   ...rest
 }: ButtonProps) {
   const classes = cn(
-    "inline-flex items-center justify-center transition-colors",
+    "group inline-flex items-center justify-center rounded-full transition-colors",
     "focus-visible:outline-2 focus-visible:outline-offset-2",
     "disabled:pointer-events-none disabled:opacity-50",
     loading && "pointer-events-none opacity-70",
@@ -85,7 +89,7 @@ export function Button({
             aria-hidden="true"
             className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-navy-900 sm:h-11 sm:w-11"
           >
-            <ArrowRightIcon className="h-4 w-4 sm:h-5 sm:w-5" />
+            <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 sm:h-5 sm:w-5" />
           </span>
         ))}
       {variant === "glass" &&
@@ -109,7 +113,12 @@ export function Button({
         (loading ? (
           <Spinner className={arrowSize[variant]} />
         ) : (
-          <ArrowRightIcon className={cn("shrink-0", arrowSize[variant])} />
+          <ArrowRightIcon
+            className={cn(
+              "shrink-0 transition-transform duration-300 group-hover:translate-x-1",
+              arrowSize[variant],
+            )}
+          />
         ))}
     </>
   );

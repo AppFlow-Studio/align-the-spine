@@ -39,7 +39,7 @@ export function TypesGrid({ heading, items, className }: TypesGridProps) {
                 </h3>
                 <p className="font-alt text-faq-a text-ink-500">{item.description}</p>
               </div>
-              <ArrowRightIcon className="h-6 w-6 shrink-0 text-navy-900 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <ArrowRightIcon className="h-6 w-6 shrink-0 text-navy-900 transition-opacity duration-300 md:opacity-0 md:group-hover:opacity-100" />
             </div>
           ))}
         </div>

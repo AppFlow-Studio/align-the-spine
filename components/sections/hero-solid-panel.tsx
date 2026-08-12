@@ -121,7 +121,7 @@ export function HeroSolidPanel({
         />
         <div className="absolute inset-0 bg-black/40" />
         <Container>
-          <div className="container relative z-10 flex h-full flex-col justify-center gap-6 pt-[220px] pb-24 lg:pb-16 lg:pt-[350px] lg:pr-12">
+          <div className="container relative z-10 flex h-full flex-col justify-center pt-[220px] pb-24 lg:pb-16 lg:pt-[350px] lg:pr-12">
             {eyebrow && <Eyebrow variant="onDark">{eyebrow}</Eyebrow>}
             {badge && (
               <span className="w-fit rounded-full bg-teal-500 px-6 py-3 font-sans text-button text-white">
@@ -129,22 +129,24 @@ export function HeroSolidPanel({
               </span>
             )}
 
-            <h1 className="font-display text-hero text-white">
+            <h1 className="font-display text-hero font-medium text-white">
               <FadeIn as="span">{title}</FadeIn>
             </h1>
 
-            <p className="max-w-[560px] font-sans text-body-lg text-mute-300">
+            <p className="max-w-[560px] font-sans text-body-lg text-mute-300 mt-8">
               <FadeIn as="span" delay={0.15}>
                 {subhead}
               </FadeIn>
             </p>
 
             {callPill && (
-              <a href={siteConfig.business.phoneHref} className="flex items-start gap-4">
-                <PhoneIcon className="size-15 mt-2 shrink-0 rounded-full bg-teal-500 p-2.5 text-white" />
+              <a href={siteConfig.business.phoneHref} className="flex items-start gap-4 mt-20 mb-4">
+                <PhoneIcon className="size-15 shrink-0 rounded-full bg-teal-500 p-2.5 text-white" />
                 <span className="flex flex-col">
                   <span className="font-alt text-alt-label text-mute-300">{callPill.eyebrow}</span>
-                  <span className="font-display text-h2 text-white">{callPill.phone}</span>
+                  <span className="font-display text-h2 text-white leading-10">
+                    {callPill.phone}
+                  </span>
                 </span>
               </a>
             )}
@@ -155,7 +157,7 @@ export function HeroSolidPanel({
 
             {stat && (
               <div className="relative">
-                <div className="absolute left-[-10%] h-px w-xl bg-teal-300" />
+                <div className="absolute left-[-10%] h-px w-xl mt-3 bg-teal-300" />
                 <div className="flex flex-row gap-4 pt-6">
                   <span className="mr-3 font-display text-h2 text-white">{stat.value}</span>
                   <span className="font-sans text-body-lg text-mute-300">{stat.description}</span>
@@ -213,7 +215,7 @@ export function HeroSolidPanel({
         </div>
       </div>
 
-      <div className="relative hidden flex-col justify-center bg-navy-900 px-6 pb-16 sm:px-10 lg:flex lg:w-[640px] lg:shrink-0 lg:px-16 lg:pb-0 lg:pt-[190px]">
+      <div className="relative hidden flex-col justify-center bg-navy-900 px-6 pb-16 sm:px-10 lg:flex lg:w-[640px] lg:shrink-0 lg:px-16 lg:pb-0 lg:pt-[190px] xl:w-[760px] 2xl:w-[800px]">
         <HeroTrustLine className="mb-6" />
 
         {formSlot ??

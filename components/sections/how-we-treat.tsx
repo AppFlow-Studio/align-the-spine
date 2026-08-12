@@ -38,7 +38,7 @@ export function HowWeTreat({
 
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2">
           {items.map((item) => (
-            <div key={item.title} className="flex flex-col gap-6">
+            <div key={item.title} className="group flex flex-col gap-6">
               <div className="relative aspect-[772/500] w-full overflow-hidden">
                 <Image
                   src={item.image.src}
@@ -48,8 +48,11 @@ export function HowWeTreat({
                   className="object-cover"
                 />
               </div>
-              <div className="flex flex-col gap-3 border-t border-mute-300 pt-6">
-                <h3 className="font-display text-h2 text-navy-900">{item.title}</h3>
+              <div className="flex flex-col gap-3">
+                <h3 className="font-display text-h2 text-navy-900 transition-colors duration-300 group-hover:text-teal-500">
+                  {item.title}
+                </h3>
+                <hr className="border-t border-navy-900 transition-colors duration-300 group-hover:border-teal-500" />
                 <p className="font-sans text-card-body">
                   <span className="text-ink-500">
                     {item.meta} | Contact us {siteConfig.business.phone}

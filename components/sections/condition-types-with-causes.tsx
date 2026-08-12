@@ -65,10 +65,10 @@ export function ConditionTypesWithCauses({
                   <Link
                     key={link.label}
                     href={link.href}
-                    className="flex items-center justify-between gap-3 border border-navy-900 px-6 py-4 font-sans text-body-lg text-navy-900 transition-colors hover:bg-navy-900 hover:text-white"
+                    className="group flex items-center justify-between gap-3 rounded-full border border-navy-900 px-6 py-4 font-sans text-body-lg text-navy-900 transition-colors hover:bg-navy-900 hover:text-white"
                   >
                     {link.label}
-                    <ArrowRightIcon className="h-4 w-4 shrink-0" />
+                    <ArrowRightIcon className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
                 ))}
               </div>

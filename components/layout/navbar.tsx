@@ -85,7 +85,7 @@ export function Navbar({ variant }: { variant?: NavbarVariant } = {}) {
 
         <Link
           href={siteConfig.bookingCta.href}
-          className={`hidden h-[52px] items-center rounded-40 px-6 text-button text-white transition-colors duration-300 lg:flex ${
+          className={`hidden h-[52px] items-center rounded-full px-6 text-button text-white transition-colors duration-300 lg:flex ${
             outlineCta ? "border border-white bg-transparent" : "bg-navy-900"
           }`}
         >

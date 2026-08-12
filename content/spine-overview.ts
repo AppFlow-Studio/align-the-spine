@@ -1,5 +1,3 @@
-import { siteConfig } from "@/content/site";
-
 export interface SpineSegment {
   id: string;
   /** Short region label, e.g. "Cervical (Neck)". */
@@ -18,7 +16,6 @@ export interface SpineOverviewContent {
   heading: string;
   image: { src: string; alt: string };
   segments: SpineSegment[];
-  cta: { label: string; href: string };
 }
 
 /** Home-page-only static spine diagram (replaces PointToWhereItHurts's
@@ -33,7 +30,6 @@ export const spineOverviewContent: SpineOverviewContent = {
   eyebrow: "Understanding the spine",
   heading: "Your spine controls everything",
   image: { src: "/figma-exports/spine-skeloton.png", alt: "Human spine anatomy, back view" },
-  cta: { label: "Schedule an evaluation", href: siteConfig.bookingCta.href },
   segments: [
     {
       id: "cervical",

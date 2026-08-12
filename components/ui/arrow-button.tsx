@@ -22,12 +22,15 @@ type ArrowButtonProps = ArrowButtonOwnProps &
 
 export function ArrowButton({ size = "md", label, className, ...rest }: ArrowButtonProps) {
   const classes = cn(
-    "inline-flex shrink-0 items-center justify-center rounded-full bg-navy-900 text-white",
+    "group inline-flex shrink-0 items-center justify-center rounded-full bg-navy-900 text-white",
     "transition-colors hover:bg-navy-700",
     "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-900",
     "disabled:pointer-events-none disabled:opacity-50",
     sizes[size],
     className,
+  );
+  const arrow = (
+    <ArrowRightIcon className="transition-transform duration-300 group-hover:translate-x-0.5" />
   );
 
   if (rest.href !== undefined) {
@@ -37,7 +40,7 @@ export function ArrowButton({ size = "md", label, className, ...rest }: ArrowBut
         aria-label={label}
         {...(rest as AnchorHTMLAttributes<HTMLAnchorElement>)}
       >
-        <ArrowRightIcon />
+        {arrow}
       </a>
     );
   }
@@ -49,7 +52,7 @@ export function ArrowButton({ size = "md", label, className, ...rest }: ArrowBut
       aria-label={label}
       {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}
     >
-      <ArrowRightIcon />
+      {arrow}
     </button>
   );
 }

@@ -83,7 +83,7 @@ export default function CervicogenicHeadachePage() {
         <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[3fr_2fr] lg:items-start lg:gap-16">
           <div className="flex flex-col gap-6">
             <Eyebrow>Understanding cervicogenic headache</Eyebrow>
-            <h2 className="font-display text-h2 text-navy-900">
+            <h2 className="font-display text-display font-medium text-navy-900">
               The headache a car accident leaves behind
             </h2>
             <p className="font-sans text-body-lg text-ink-500">
@@ -151,7 +151,7 @@ export default function CervicogenicHeadachePage() {
                     alt={condition.image.alt}
                     fill
                     sizes="200px"
-                    className="object-cover grayscale contrast-110 brightness-90 transition-[filter] duration-300 group-hover:grayscale-0 group-hover:contrast-100 group-hover:brightness-100"
+                    className="object-cover transition-[filter] duration-300 sm:grayscale sm:contrast-110 sm:brightness-90 sm:group-hover:grayscale-0 sm:group-hover:contrast-100 sm:group-hover:brightness-100"
                   />
                 </div>
                 <h3 className="font-display text-h2 text-navy-900 transition-colors group-hover:text-teal-500">
