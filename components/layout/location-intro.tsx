@@ -60,10 +60,10 @@ export function LocationIntro({ sendHref = "/#contact" }: LocationIntroProps) {
 
           <Link
             href={sendHref}
-            className="flex h-12 w-fit items-center justify-center gap-3  bg-navy-900 px-8 font-sans text-button text-white transition-colors hover:bg-navy-700"
+            className="group flex h-12 w-fit items-center justify-center gap-3 rounded-full bg-navy-900 px-8 font-sans text-button text-white transition-colors hover:bg-navy-700"
           >
             <span className="pr-10">Send</span>
-            <ArrowRightIcon className="h-5 w-5" />
+            <ArrowRightIcon className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </div>
 
@@ -77,10 +77,10 @@ export function LocationIntro({ sendHref = "/#contact" }: LocationIntroProps) {
           />
           <LiquidGlass
             radius="rounded-none"
-            className="absolute p-7 w-[90%] mx-auto  inset-x-0 bottom-7 bg-gray-500/40 border border-white"
+            className="absolute p-7 w-[90%] mx-auto max-w-md left-7 bottom-7 bg-white border-l-4 border-teal-500"
           >
-            <h2 className="font-display text-3xl text-button text-white">Palm Plaza</h2>
-            <p className="mt-1 font-alt text-footer-copy text-white text-lg">
+            <h2 className="font-display text-3xl text-button">Palm Plaza</h2>
+            <p className="mt-1 font-alt text-footer-copy text-lg">
               After you enter the plaza, we are the building on the far-right corner.
             </p>
           </LiquidGlass>

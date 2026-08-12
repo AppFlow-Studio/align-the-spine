@@ -11,7 +11,7 @@ export interface Testimonial {
 export const testimonials: Testimonial[] = [
   {
     quote:
-      "Great experience. Very professional and explains everything clearly. Highly recommend for back pain.",
+      "Dr. Abe is the best in South Florida. I was in a bad accident and couldn't leave my house—he came to me the same day and took care of everything",
     author: "Maria G.",
   },
   {

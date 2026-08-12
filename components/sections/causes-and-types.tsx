@@ -118,11 +118,11 @@ function RelatedPill({ link }: { link: ConditionRelatedLink }) {
     <Link
       href={link.href}
       className={cn(
-        "flex items-center justify-between gap-3 border px-6 py-4 font-sans text-stat-label uppercase transition-colors border-navy-900 text-navy-900 hover:bg-navy-900 hover:text-white duration-500 rounded-4xl",
+        "group flex items-center justify-between gap-3 rounded-full border px-6 py-4 font-sans text-stat-label uppercase transition-colors border-navy-900 text-navy-900 hover:bg-navy-900 hover:text-white duration-500",
       )}
     >
       {link.label}
-      <ArrowRightIcon className="h-4 w-4 shrink-0" />
+      <ArrowRightIcon className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
     </Link>
   );
 }

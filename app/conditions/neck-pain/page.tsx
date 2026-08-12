@@ -127,8 +127,12 @@ export default function NeckPainPage() {
         <Container className="flex justify-between gap-10 lg:items-start">
           <div className="flex flex-col gap-6">
             <Eyebrow>Understanding Neck Pain</Eyebrow>
-            <h2 className="font-newspaper leading-10 text-h2 text-navy-900 max-w-3xl">
-              Neck pain ranges from a stiff morning to something worth a real evaluation.
+            <h2 className="font-display text-display font-medium text-navy-900">
+              Neck pain ranges from a
+              <br />
+              stiff morning to something
+              <br />
+              worth a real evaluation.
             </h2>
             <p className="max-w-2xl font-sans text-body-lg text-ink-500 ml-[10vw]">
               Neck pain after a car accident needs a different evaluation than an everyday stiff

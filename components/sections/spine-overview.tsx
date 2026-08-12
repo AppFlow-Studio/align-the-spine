@@ -1,8 +1,6 @@
 import Image from "next/image";
-import Link from "next/link";
 
 import { Container } from "@/components/ui/container";
-import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
 import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
 import type { SpineOverviewContent, SpineSegment } from "@/content/spine-overview";
@@ -27,15 +25,12 @@ function SegmentCallout({ segment }: { segment: SpineSegment }) {
   return (
     <div
       className={cn(
-        "absolute top-1/2 flex -translate-y-1/2 items-start gap-4",
+        "absolute top-1/2 flex -translate-y-1/2 items-center gap-4",
         isLeft ? "right-full flex-row-reverse pr-4" : "left-full pl-4",
       )}
     >
-      <span
-        aria-hidden="true"
-        className="mt-20 h-px w-10 shrink-0 bg-teal-500 sm:w-16 md:w-24 lg:w-32"
-      />
-      <div className="flex w-[200px] flex-col gap-1 text-left sm:w-[240px]">
+      <span aria-hidden="true" className="h-px w-10 shrink-0 bg-teal-500 sm:w-20 md:w-32 lg:w-44" />
+      <div className="flex w-[260px] flex-col gap-1 text-left sm:w-[380px]">
         <h3 className="font-display text-card-title text-navy-800">
           {regionName}
           {regionDetail && (
@@ -59,12 +54,12 @@ function SegmentCallout({ segment }: { segment: SpineSegment }) {
  * the client bundle (it's code-split in app/page.tsx purely for section
  * ordering). */
 export function SpineOverview({ content }: SpineOverviewProps) {
-  const { eyebrow, heading, image, segments, cta } = content;
+  const { eyebrow, heading, image, segments } = content;
 
   return (
     <Section spacing="lg">
       <Container className="flex flex-col items-center gap-14 text-center">
-        <SectionHeading eyebrow={eyebrow} className="items-center">
+        <SectionHeading eyebrow={eyebrow} className="items-center max-w-md font-semibold">
           {heading}
         </SectionHeading>
 
@@ -110,14 +105,6 @@ export function SpineOverview({ content }: SpineOverviewProps) {
             ))}
           </ul>
         </div>
-
-        <Link
-          href={cta.href}
-          className="inline-flex items-center gap-2 font-sans text-body-lg uppercase tracking-[1.25px] text-teal-500 transition-colors hover:text-teal-500/80"
-        >
-          {cta.label}
-          <ArrowRightIcon className="h-4 w-4" />
-        </Link>
       </Container>
     </Section>
   );

@@ -39,11 +39,11 @@ export function RelatedConditions({
               key={item.label}
               href={item.href}
               className={cn(
-                "inline-flex items-center gap-2 border px-6 py-3 font-sans text-stat-label uppercase border-mute-300 text-navy-900 hover:border-navy-900 hover:bg-navy-900 hover:text-white transition-colors duration-500",
+                "group inline-flex items-center gap-2 rounded-full border px-6 py-3 font-sans text-stat-label uppercase border-mute-300 text-navy-900 hover:border-navy-900 hover:bg-navy-900 hover:text-white transition-colors duration-500",
               )}
             >
               {item.label}
-              <ArrowRightIcon className="h-4 w-4" />
+              <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           ))}
         </div>

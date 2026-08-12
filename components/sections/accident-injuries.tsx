@@ -11,7 +11,7 @@ export function AccidentInjuries() {
   return (
     <Section>
       <Container className="flex flex-col gap-14">
-        <SectionHeading eyebrow="What we treat" className="items-center text-center">
+        <SectionHeading eyebrow="What we treat" className="items-center font-semibold text-center">
           Common accident injuries we treat
         </SectionHeading>
         <ServiceGrid items={accidentInjuries} />

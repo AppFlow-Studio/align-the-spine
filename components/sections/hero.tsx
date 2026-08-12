@@ -136,7 +136,7 @@ export function Hero({
             <FadeIn as="span">{title}</FadeIn>
           </h1>
           {variant === "home" && badge && <HeroChip>{badge}</HeroChip>}
-          <p className="font-poppins text-white text-[22px] max-w-[720px]">
+          <p className="font-sans text-white text-[22px] max-w-[720px]">
             <FadeIn as="span" delay={0.15}>
               {subhead}
             </FadeIn>

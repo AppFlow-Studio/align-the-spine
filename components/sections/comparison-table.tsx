@@ -41,7 +41,7 @@ export function ComparisonTable({ variant = "default", className }: ComparisonTa
             eyebrow={comparisonTableEyebrow}
             tone="navy-900"
             sub={comparisonTableSubheading}
-            className="mx-auto max-w-2xl items-center text-center"
+            className="mx-auto max-w-2xl font-semibold items-center text-center"
           >
             {comparisonTableHeading}
           </SectionHeading>

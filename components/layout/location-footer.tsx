@@ -52,11 +52,11 @@ export function LocationFooter() {
                 {siteConfig.hours.map((hours) => {
                   const isToday = hours.day === today;
                   return (
-                    <tr key={hours.day} className="border-t border-gray-200 first:border-t-0">
+                    <tr key={hours.day} className="group border-t border-gray-200 first:border-t-0">
                       <th
                         scope="row"
                         className={cn(
-                          "py-2 text-left font-normal text-navy-900",
+                          "py-2 text-left font-normal text-navy-900 transition-colors duration-200 group-hover:text-teal-500",
                           isToday && "text-teal-500",
                         )}
                       >
@@ -64,7 +64,7 @@ export function LocationFooter() {
                       </th>
                       <td
                         className={cn(
-                          "py-2 text-right font-bold text-navy-900",
+                          "py-2 text-right font-bold text-navy-900 transition-colors duration-200 group-hover:text-teal-500",
                           isToday && "text-teal-500",
                         )}
                       >
@@ -86,10 +86,10 @@ export function LocationFooter() {
           <div className=" gap-4 pt-4 sm:flex-row sm:items-center">
             <Link
               href={siteConfig.bookingCta.href}
-              className="flex h-12 items-center justify-center gap-3 bg-navy-900 px-8 font-sans text-button text-white transition-colors hover:bg-navy-700"
+              className="group flex h-12 items-center justify-center gap-3 rounded-full bg-navy-900 px-8 font-sans text-button text-white transition-colors hover:bg-navy-700"
             >
               Book Your Visit
-              <ArrowRightIcon className="h-5 w-5" />
+              <ArrowRightIcon className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>
         </div>

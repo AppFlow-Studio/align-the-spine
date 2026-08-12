@@ -20,7 +20,8 @@ export interface ServiceCardProps {
 
 /** Service card per condition-page-spec §B9: image (r15, desaturated per the
  * reference design), title (Newsreader Medium 35 navy-800), description
- * (Poppins 22/38 ink-900), "Book now" ghost link. Flush against the page
+ * (Poppins 22/38 ink-900), "Book now" pill button (same primary style as
+ * DoctorProfile's CTA). Flush against the page
  * background — no card shadow/elevation — per the reference design.
  * ~507×618 proportions via aspect-ratio (not hardcoded px) so ServiceGrid
  * can collapse responsively. */
@@ -47,11 +48,7 @@ export function ServiceCard({ item, className }: ServiceCardProps) {
           </h3>
           <p className="font-sans text-card-body text-ink-900">{item.summary}</p>
         </div>
-        <Button
-          variant="ghost"
-          href={siteConfig.bookingCta.href}
-          className="mt-auto w-fit text-body-lg"
-        >
+        <Button variant="primary" href={siteConfig.bookingCta.href} className="mt-auto w-fit">
           Book now
         </Button>
       </div>

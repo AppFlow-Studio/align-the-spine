@@ -83,7 +83,7 @@ export default function CervicogenicHeadachePage() {
         <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[3fr_2fr] lg:items-start lg:gap-16">
           <div className="flex flex-col gap-6">
             <Eyebrow>Understanding cervicogenic headache</Eyebrow>
-            <h2 className="font-display text-h2 text-navy-900">
+            <h2 className="font-display text-display font-medium text-navy-900">
               The headache a car accident leaves behind
             </h2>
             <p className="font-sans text-body-lg text-ink-500">
