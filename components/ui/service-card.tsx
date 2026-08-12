@@ -53,7 +53,7 @@ export function ServiceCard({ item, className }: ServiceCardProps) {
         <Button
           variant="primary"
           href={item.href ?? siteConfig.bookingCta.href}
-          className="mt-auto w-fit"
+          className="mt-auto w-fit px-[2em]"
         >
           {item.ctaLabel ?? "Book now"}
         </Button>
