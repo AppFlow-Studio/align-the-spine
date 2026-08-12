@@ -23,11 +23,9 @@ export interface TypesGridProps {
 export function TypesGrid({ heading, items, className }: TypesGridProps) {
   return (
     <Section className={className}>
-      <Container className="flex flex-col gap-12">
-        <h2 className="mx-auto max-w-2xl text-center font-display text-h2 text-navy-900 md:text-understanding-intro">
-          {heading}
-        </h2>
-        <div className="grid grid-cols-1 gap-x-16 gap-y-10 border-t border-mute-300 pt-10 md:grid-cols-2">
+      <Container className="flex flex-col gap-4">
+        <h2 className="max-w-2xl text-left font-display text-h2 text-navy-900">{heading}</h2>
+        <div className="grid grid-cols-1 gap-x-16 gap-y-10 border-t-2 border-mute-300 pt-10 md:grid-cols-2">
           {items.map((item) => (
             <div
               key={item.name}

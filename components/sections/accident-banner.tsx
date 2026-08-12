@@ -46,7 +46,7 @@ export function AccidentBanner({ accident, className }: AccidentBannerProps) {
             <div className="flex items-start gap-4 rounded-30 bg-overlay-white-15 px-5 py-4 lg:items-center lg:rounded-full mt-20">
               <span
                 aria-hidden="true"
-                className="flex size-12 shrink-0 items-center justify-center rounded-full bg-teal-500 font-sans text-xl font-bold text-white"
+                className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#58A0A0] font-sans text-xl font-bold text-white"
               >
                 !
               </span>

@@ -44,7 +44,7 @@ export function FeelsLike({ items, heading, warning, className }: FeelsLikeProps
                 <h3 className="font-display text-type-name text-navy-900 group-hover:text-teal-500 transition-colors duration-300">
                   {item.title}
                 </h3>
-                <div className="w-full h-px bg-navy-900 group-hover:bg-teal-500 transition-colors duration-300" />
+                <div className="w-full h-px bg-navy-900 group-hover:bg-[#58A0A0] transition-colors duration-300" />
                 <p className="font-alt text-faq-a text-ink-500">{item.desc}</p>
                 {item.learnMoreHref && (
                   <Link

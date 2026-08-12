@@ -23,8 +23,8 @@ export function NavbarLinks({ isGlass, className = "" }: { isGlass: boolean; cla
             <Link
               href={link.href}
               aria-current={active ? "page" : undefined}
-              className={`text-nav uppercase text-white transition-opacity duration-300 ${
-                active ? "opacity-100 underline underline-offset-4" : "opacity-70 hover:opacity-100"
+              className={`text-nav uppercase text-white underline-offset-4 transition-opacity duration-300 ${
+                active ? "opacity-100 underline" : "opacity-70 hover:underline hover:opacity-100"
               }`}
             >
               {link.label}

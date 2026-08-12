@@ -172,7 +172,7 @@ export default function WhiplashPage() {
                 chronic.
               </p>
             </div>
-            <div className="h-px bg-mute-350 ml-[10vw]" />
+            <div className="h-[1px] bg-black ml-[10vw]" />
             <a
               href="#types-of-whiplash"
               className="group ml-[10vw] inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4"

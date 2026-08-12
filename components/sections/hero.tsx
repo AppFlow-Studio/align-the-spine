@@ -61,7 +61,7 @@ function HeroChip({ children, className }: { children: ReactNode; className?: st
   return (
     <span
       className={cn(
-        "-ml-4 -mt-3 flex w-fit items-center bg-teal-500 px-6 py-3 font-sans text-button text-white sm:-ml-6 sm:-mt-4 lg:-ml-8 lg:-mt-6",
+        "-ml-4 -mt-3 flex w-fit items-center bg-[#58A0A0] px-6 py-3 font-sans text-button text-white sm:-ml-6 sm:-mt-4 lg:-ml-8 lg:-mt-6",
         className,
       )}
     >

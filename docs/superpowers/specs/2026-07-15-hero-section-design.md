@@ -102,7 +102,7 @@ Content grid (`container grid gap-10 lg:grid-cols-2 lg:items-center`) renders in
   - Subhead: `font-sans text-body-lg text-mute-300` (25/40, `#cdcdcd`)
   - `Button variant="glass"` call-pill (`eyebrow` + phone), only when `callPill` is passed
   - Condition: `bilingualNote` in `font-alt text-alt-label text-mute-300` (Geist 22)
-  - Home: `badge` (reuses `Badge` or a simple `bg-teal-500` pill matching the screenshot) + trust chips (`Badge variant="tag"`)
+  - Home: `badge` (reuses `Badge` or a simple `bg-[#58A0A0]` pill matching the screenshot) + trust chips (`Badge variant="tag"`)
 - **Right column:** `LeadForm` wrapped in a card — `bg-overlay-white-15 rounded-15 shadow-card p-8` (both `overlay-white-15` and `shadow-card` are exact existing tokens, not new values) — `form.footerNote` rendered below the card in `text-white`/`text-mute-300`.
 - **Responsive:** grid collapses to a single column below `lg`; because the form card is the second grid child in source order, it naturally stacks below the headline block on tablet/mobile without extra logic, satisfying the acceptance criterion directly.
 

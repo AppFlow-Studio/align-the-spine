@@ -80,18 +80,20 @@ export function CausesAndTypes({
           </div>
         </div>
 
-        <div className="flex flex-col gap-10 bg-[#F8F8F8]">
+        <div className="flex flex-col gap-10 bg-[#F8F8F8] p-4">
           <h2 className="font-display text-h2 text-navy-900 px-6">{typesHeading}</h2>
           {categories.map((category, index) => (
-            <div key={category.label ?? index} className="flex flex-col gap-6 pt-6">
+            <div key={category.label ?? index} className="flex flex-col gap-2 pt-6 px-8">
               {category.label && (
-                <h3 className="font-display text-type-name text-navy-900">{category.label}</h3>
+                <h3 className="font-display text-type-name text-navy-900 border-b border-mute-350 pb-1">
+                  {category.label}
+                </h3>
               )}
               <div className="flex flex-col">
                 {category.items.map((item) => (
                   <div
                     key={item.name}
-                    className="flex flex-col gap-2 border-y border-mute-300 bg-[#F8F8F8] px-6 py-6 transition-all duration-300 hover:border-l-4 hover:border-l-teal-500 hover:bg-white hover:shadow-lg group"
+                    className="flex flex-col gap-2  bg-[#F8F8F8] px-6 py-6 transition-all duration-300 hover:border-l-4 hover:border-l-teal-500 hover:bg-white hover:shadow-lg group"
                   >
                     <div className="flex items-center justify-between gap-4">
                       <div className="flex flex-col gap-2">

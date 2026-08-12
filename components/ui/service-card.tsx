@@ -38,7 +38,7 @@ export function ServiceCard({ item, className }: ServiceCardProps) {
           alt={item.image.alt}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-          className="object-cover transition-[filter] duration-300 sm:grayscale sm:contrast-110 sm:brightness-90 sm:group-hover:grayscale-0 sm:group-hover:contrast-100 sm:group-hover:brightness-100"
+          className="object-cover transition-[filter] duration-300 sm:grayscale sm:brightness-75 sm:group-hover:grayscale-0 sm:group-hover:brightness-100"
         />
       </div>
       <div className="flex flex-1 flex-col gap-6 py-8">

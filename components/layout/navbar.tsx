@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
 import { MenuIcon } from "@/components/ui/icons/menu";
 import { siteConfig } from "@/content/site";
 
@@ -68,16 +69,21 @@ export function Navbar({ variant }: { variant?: NavbarVariant } = {}) {
   return (
     <header className="fixed inset-x-0 top-0 z-50 isolate flex h-[100px] items-center will-change-transform">
       <div
-        className={`container relative flex items-center justify-between rounded-full px-2 transition-colors duration-300 ${
-          isGlass ? "bg-[#636363] backdrop-blur-md" : "bg-transparent"
+        className={`container relative flex items-center justify-between rounded-full px-6 py-2 transition-colors duration-300 ${
+          isGlass ? "bg-navy-900" : "bg-transparent"
         }`}
       >
         <Link href="/" className="shrink-0">
+          {/* On scroll the logo scales down so it sits centered in the navy
+              pill with clear breathing room, rather than filling it edge-to-edge. */}
           <Image
             src="/figma-exports/logo_blue.png"
             alt={siteConfig.business.name}
             width={65}
             height={65}
+            className={`origin-left transition-transform duration-300 ${
+              isGlass ? "scale-[0.8]" : "scale-100"
+            }`}
           />
         </Link>
 
@@ -85,11 +91,16 @@ export function Navbar({ variant }: { variant?: NavbarVariant } = {}) {
 
         <Link
           href={siteConfig.bookingCta.href}
-          className={`hidden h-[52px] items-center rounded-full px-6 text-button text-white transition-colors duration-300 lg:flex ${
-            outlineCta ? "border border-white bg-transparent" : "bg-navy-900"
+          className={`group hidden h-[52px] items-center gap-2 rounded-full px-6 text-button transition-colors duration-300 lg:flex ${
+            isGlass
+              ? "bg-white text-navy-900"
+              : outlineCta
+                ? "border border-white bg-transparent text-white"
+                : "bg-navy-900 text-white"
           }`}
         >
           {siteConfig.bookingCta.label}
+          <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
         </Link>
 
         <button

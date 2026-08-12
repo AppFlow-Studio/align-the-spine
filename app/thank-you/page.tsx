@@ -20,7 +20,7 @@ export default function ThankYouPage() {
   return (
     <Section spacing="lg" className="container pt-40 md:pt-48">
       <div className="mx-auto flex max-w-2xl flex-col items-center gap-6 text-center">
-        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-teal-500">
+        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#58A0A0]">
           <CheckIcon className="h-8 w-8 text-white" />
         </span>
 

@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import { LocationFooter } from "@/components/layout/location-footer";
 import { LocationIntro } from "@/components/layout/location-intro";
 import { BookingForm } from "@/components/sections/booking-form";
-import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
+import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
@@ -31,16 +31,18 @@ export default function BookPage() {
           { name: "Book", path: "/book" },
         ]}
       />
-      <Hero
-        variant="condition"
+      <HeroSolidPanel
+        eyebrow="Ready to schedule your evaluation?"
         background={{
           src: "/figma-exports/phone-mockup.png",
           alt: "Patient calling Align the Spine to book an appointment",
         }}
-        title="Request a Chiropractic Appointment"
+        title="Book a Chiropractic Appointment"
         subhead="In-office or in-home when it applies. Tell us what's going on and we'll take it from there."
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
+        clearForm
         formSlot={<BookingForm />}
+        bilingualNote="¿Habla español? Dr. Abe habla su idioma."
       />
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
 

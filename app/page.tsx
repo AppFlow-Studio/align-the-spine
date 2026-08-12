@@ -52,6 +52,7 @@ export default function Home() {
             Chiropractor
           </>
         }
+        badge="Office Visits are $50"
         bilingualNote="¿Habla español? Dr. Abe habla su idioma."
         subhead="Injured in a car accident? Full evaluation, treatment, and documentation for your PIP claim — at your home or in the office, on your schedule."
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}

@@ -126,7 +126,7 @@ export default function MassageSoftTissuePage() {
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <h3 className="font-display text-h2 text-navy-900 group-hover:text-teal-500 transition-colors duration-300">
+                  <h3 className="font-display text-h1 text-navy-900 group-hover:text-teal-500 transition-colors duration-300">
                     {technique.title}
                   </h3>
                   <p className="font-sans text-body-lg text-ink-500">{technique.description}</p>
@@ -137,7 +137,7 @@ export default function MassageSoftTissuePage() {
                 <Button
                   variant="book"
                   href="/book"
-                  className="w-fit shrink-0 self-start sm:self-center"
+                  className="w-fit shrink-0 self-start px-8 sm:self-center"
                 >
                   Book
                 </Button>
@@ -158,7 +158,7 @@ export default function MassageSoftTissuePage() {
             />
           </div>
           <Container className="relative flex flex-col gap-3 py-16 md:py-20">
-            <h2 className="font-display text-h2 text-white">
+            <h2 className="font-display text-h2 font-normal text-white">
               Matched to your injury, not a routine
             </h2>
             <p className="max-w-2xl font-sans text-body-lg text-mute-300">
@@ -186,17 +186,21 @@ export default function MassageSoftTissuePage() {
                     alt={condition.image.alt}
                     fill
                     sizes="200px"
-                    className="object-cover"
+                    className="object-cover transition-[filter] duration-500 sm:grayscale sm:brightness-75 sm:group-hover:grayscale-0 sm:group-hover:brightness-100"
                   />
                 </div>
                 <h3
                   className={cn(
-                    "font-display text-h2 text-navy-900 group-hover:text-teal-500 transition-colors duration-300",
+                    "font-display text-h2 font-normal text-ink-500 group-hover:text-navy-900 transition-colors duration-300",
                   )}
                 >
                   {condition.name}
                 </h3>
-                <p className={cn("font-sans text-body-lg text-ink-500", idx === 1 && "font-bold")}>
+                <p
+                  className={cn(
+                    "font-sans text-body-lg text-ink-500 transition-colors duration-300 group-hover:text-navy-900",
+                  )}
+                >
                   {condition.description}
                 </p>
               </div>

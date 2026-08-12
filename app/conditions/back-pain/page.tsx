@@ -161,7 +161,7 @@ export default function BackPainPage() {
         <Container className="flex justify-between gap-10 lg:items-start">
           <div className="flex flex-col gap-6">
             <Eyebrow>Understanding Back Pain</Eyebrow>
-            <h2 className="font-display text-display font-medium text-navy-900">
+            <h2 className="font-display text-display font-normal text-navy-900">
               Back pain has a lot of possible
               <br />
               causes. Finding yours is the
@@ -194,7 +194,7 @@ export default function BackPainPage() {
               . Everyday back pain follows a similar pattern: sudden strain from lifting or a bad
               movement, or pain that&rsquo;s been building for months from structural wear.
             </p>
-            <div className="h-px bg-mute-350 ml-[10vw]" />
+            <div className="h-[1px] bg-black ml-[10vw]" />
             <a
               href="#types-of-back-pain"
               className="group inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4 ml-[10vw]"

@@ -173,7 +173,7 @@ export default function SpinalDecompressionPage() {
           <Container className="flex flex-col gap-14">
             <div className="flex flex-col gap-3">
               <Eyebrow variant="onDark">How it works</Eyebrow>
-              <h2 className="font-display text-h2 text-white">
+              <h2 className="font-display font-normal text-h2 text-white">
                 A gradual process, not a single fix
               </h2>
             </div>
@@ -182,7 +182,7 @@ export default function SpinalDecompressionPage() {
                 <div key={step.title} className="group flex flex-col gap-3">
                   <h3
                     className={cn(
-                      "font-display text-h2 leading-10 text-white transition-colors duration-200 group-hover:text-teal-500",
+                      "font-display text-3xl leading-10 text-white transition-colors duration-200 group-hover:text-teal-500",
                     )}
                   >
                     {step.title}
@@ -228,17 +228,19 @@ export default function SpinalDecompressionPage() {
                     alt={condition.image.alt}
                     fill
                     sizes="200px"
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="object-cover grayscale transition duration-500 group-hover:grayscale-0"
                   />
                 </div>
                 <h3
                   className={cn(
-                    "font-display text-h2 text-navy-900 group-hover:text-teal-500 transition-colors duration-300",
+                    "font-display text-h2 font-normal text-ink-500 group-hover:text-navy-900 transition-colors duration-300",
                   )}
                 >
                   {condition.name}
                 </h3>
-                <p className="font-sans text-body-lg text-ink-500">{condition.description}</p>
+                <p className="font-sans text-body-lg text-ink-500 transition-colors duration-300 group-hover:text-navy-900">
+                  {condition.description}
+                </p>
               </div>
             ))}
           </div>

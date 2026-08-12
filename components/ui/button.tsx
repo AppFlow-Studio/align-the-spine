@@ -18,7 +18,7 @@ const variants = {
   primary:
     "p-4 gap-3 bg-navy-900 font-sans text-button text-white hover:bg-navy-700 focus-visible:outline-navy-900",
   /* Teal/calc: #58a0a0, Poppins Medium 16 white, trailing arrow */
-  teal: "p-4 gap-3 bg-teal-500 font-sans text-button font-medium text-white hover:brightness-110 focus-visible:outline-teal-500",
+  teal: "p-4 gap-3 bg-[#58A0A0] font-sans text-button font-medium text-white hover:brightness-110 focus-visible:outline-teal-500",
   /* Big CTA: #253067, Poppins 22 white, circular arrow badge left.
    * Scales down below sm so it can't outgrow a 375px viewport (ATS-112). */
   cta: "p-4 gap-4 bg-navy-900 font-sans text-button text-white hover:bg-navy-700 focus-visible:outline-navy-900 sm:p-5 sm:gap-6 sm:text-btn-lg",
@@ -96,7 +96,7 @@ export function Button({
         (loading ? (
           <Spinner className="h-6 w-6" />
         ) : (
-          <PhoneIcon className="size-7 shrink-0 rounded-full bg-teal-500 p-1.5 text-white sm:size-9 sm:p-2 xl:size-11 xl:p-2.5" />
+          <PhoneIcon className="size-7 shrink-0 rounded-full bg-[#58A0A0] p-1 text-white [&_path]:stroke-current [&_path]:[stroke-linejoin:round] [&_path]:[stroke-width:0.75] sm:size-9 sm:p-1.5 xl:size-11 xl:p-2" />
         ))}
       {variant === "glass" && eyebrow ? (
         <span className="flex flex-col items-start text-left">
