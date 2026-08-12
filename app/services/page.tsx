@@ -57,13 +57,14 @@ export default function ServicesPage() {
           submitLabel: leadFormVariants.carAccident.submitLabel,
           variant: leadFormVariants.carAccident.variant,
           fields: leadFormVariants.carAccident.fields,
-          footerNote: "Call us to check availability in your area.",
+          footerNote:
+            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
         }}
       />
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
       <ServiceCatalog />
       <DoctorProfile variant="short" content={doctorProfileContent} />
-      <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews.slice(0, 3)} />
+      <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews.slice(1, 4)} />
       <LocationIntro />
       <LocationFooter />
       <ContactSection />

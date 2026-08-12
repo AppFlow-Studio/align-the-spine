@@ -20,10 +20,10 @@ import type { ConditionFaq } from "@/content/conditions/types";
  * forward again. */
 
 export const adjustmentsHero = {
-  eyebrowChip: "Injured in a car accident?",
+  eyebrowChip: "Joint stiffness or limited motion?",
   h1: "Chiropractic Adjustments in Deerfield Beach, FL",
   subhead:
-    "Restore motion lost in a collision — full evaluation, treatment, and documentation for your PIP claim. In-home care available when it applies.",
+    "Hands-on chiropractic adjustments use controlled pressure to improve joint motion. Dr. Abe evaluates your symptoms and safety before treatment.",
   backgroundImage: {
     src: "/figma-exports/adjustments-hero.png",
     alt: "Treatment room set up for a chiropractic adjustment",
@@ -41,19 +41,19 @@ export const adjustmentsHowItWorks: AdjustmentsStep[] = [
     title: "Full evaluation",
     description:
       "We identify exactly which segments lost motion in the collision and rule out anything needing imaging or referral first.",
-    learnMoreHref: "/auto-accidents",
+    learnMoreHref: "/car-accident-chiropractor",
   },
   {
     title: "Hands-on adjustment",
     description:
-      "Precise, controlled pressure restores motion to the affected joint. Many patients feel relief immediately.",
+      "Dr. Abe applies precise, controlled pressure to an appropriate joint based on your exam findings and comfort.",
     learnMoreHref: "/services#adjustments",
   },
   {
-    title: "Ongoing plan, billed to PIP",
+    title: "Plan and reassessment",
     description:
-      "Some cases resolve in one visit; others need a short series. Everything is documented and billed directly to your claim.",
-    learnMoreHref: "/auto-accidents#pip",
+      "Visit frequency depends on your symptoms and response to care. Accident-related findings are documented when relevant to your claim.",
+    learnMoreHref: "/car-accident-chiropractor",
   },
 ];
 
@@ -66,7 +66,7 @@ export const adjustmentsFaq: ConditionFaq = {
     },
     {
       q: "Is an adjustment safe after a car accident?",
-      a: "Often yes, once we've ruled out fracture, dislocation, or significant nerve compression during your evaluation. That's why the first visit is a full exam, not straight to treatment.",
+      a: "It may be appropriate after an evaluation rules out concerns that need imaging, urgent care, or referral. The first visit starts with an exam rather than assuming an adjustment is suitable.",
     },
     {
       q: "How is an adjustment different from a massage?",
@@ -74,7 +74,7 @@ export const adjustmentsFaq: ConditionFaq = {
     },
     {
       q: "How many adjustments will I need?",
-      a: "It depends on the injury. Some patients feel significantly better after one visit; others need a short series. We reassess as you go rather than committing you to a fixed package upfront.",
+      a: "It depends on the condition, exam findings, and response to care. Dr. Abe reassesses progress instead of promising a fixed visit count or package upfront.",
     },
   ],
 };

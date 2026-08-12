@@ -28,7 +28,8 @@ interface ForbiddenString {
 const FORBIDDEN_STRINGS: ForbiddenString[] = [
   { label: "placeholder phone number", needle: "(954) 123-4576" },
   { label: "removed emergency-priority claim", needle: "Priority for emergency cases" },
-  { label: "unverified $50 offer", needle: "$50" },
+  // "$50 office visit" offer is client-approved — allowlisted deliberately per the
+  // note above (real approved offer with sign-off), not by re-wording the string.
   { label: "unverified $0/PIP insurance claim", needle: "$0" },
   { label: "unverified insurance-acceptance claim", needle: "most major insurance" },
   { label: "unverified insurance-acceptance claim", needle: "all major insurance" },
@@ -38,6 +39,11 @@ const FORBIDDEN_STRINGS: ForbiddenString[] = [
     needle: "the doctor South Florida refers accident patients to",
   },
   { label: "placeholder testimonial author", needle: "Maria G." },
+  { label: "PIP coverage guarantee", needle: "PIP-covered" },
+  { label: "PIP coverage guarantee", needle: "Covered entirely by" },
+  { label: "banned superlative", needle: "Elite spinal" },
+  { label: "banned superlative", needle: "medical excellence" },
+  { label: "banned superlative", needle: "Premium chiropractic care" },
 ];
 
 function stripComments(source: string): string {

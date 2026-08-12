@@ -1,4 +1,9 @@
-import type { ConditionFaq, ConditionRelatedLink } from "@/content/conditions/types";
+import type {
+  ConditionFaq,
+  ConditionRelatedLink,
+  ConditionTreatmentItem,
+} from "@/content/conditions/types";
+import { siteConfig } from "@/content/site";
 
 /** Bespoke content for the dedicated /conditions/concussion page — same
  * per-condition, hand-built approach as the other condition pages and the
@@ -48,9 +53,9 @@ import type { ConditionFaq, ConditionRelatedLink } from "@/content/conditions/ty
 
 export const concussionHero = {
   eyebrowChip: "Hit your head or felt dazed after a car accident?",
-  h1: "Concussion / Post-Concussion Chiropractor in Deerfield Beach, FL",
+  h1: "Concussion Symptoms After a Car Accident",
   subhead:
-    'Even a "minor" concussion needs evaluation — symptoms can persist for weeks without the right care.',
+    "A concussion is a mild traumatic brain injury that needs medical evaluation. Chiropractic care is not a substitute for emergency or neurological assessment.",
   backgroundImage: {
     src: "/figma-exports/drabe-headache.png",
     alt: "Dr. Abe Nasser examining a patient after a car accident",
@@ -67,7 +72,54 @@ export const concussionSymptoms: string[] = [
 ];
 
 export const concussionSymptomNote =
-  "Worth a conversation. Even a couple of these symptoms after an accident are worth mentioning at an evaluation.";
+  "Seek prompt medical evaluation for possible concussion symptoms after an accident, and emergency care for severe or worsening symptoms.";
+
+export const concussionSupportItems: ConditionTreatmentItem[] = [
+  {
+    title: "Medical evaluation first",
+    desc: "Possible concussion symptoms require assessment by an appropriate medical professional. Emergency warning signs should not wait for a chiropractic visit.",
+    image: {
+      src: "/figma-exports/how-we-treat-1.png",
+      alt: "Myofascial release and trigger point therapy with a Graston tool",
+    },
+    meta: "Safety first",
+    ctaLabel: "REQUEST EVALUATION",
+    ctaHref: siteConfig.bookingCta.href,
+  },
+  {
+    title: "Neck and whiplash review",
+    desc: "After medical clearance, Dr. Abe can evaluate whether separate neck pain, stiffness, or whiplash-related musculoskeletal concerns are present.",
+    image: {
+      src: "/figma-exports/how-we-treat-2.png",
+      alt: "Dr. Abe performing a chiropractic adjustment",
+    },
+    meta: "After clearance",
+    ctaLabel: "REQUEST EVALUATION",
+    ctaHref: siteConfig.bookingCta.href,
+  },
+  {
+    title: "Care only when appropriate",
+    desc: "Any chiropractic care is limited to suitable musculoskeletal findings and coordinated with medical guidance when concussion symptoms are involved.",
+    image: {
+      src: "/figma-exports/how-we-treat-3.png",
+      alt: "Spinal traction and decompression therapy",
+    },
+    meta: "Case by case",
+    ctaLabel: "REQUEST EVALUATION",
+    ctaHref: siteConfig.bookingCta.href,
+  },
+  {
+    title: "Ongoing reassessment",
+    desc: "New neurological symptoms, worsening headache, repeated vomiting, confusion, weakness, or loss of consciousness require urgent medical care.",
+    image: {
+      src: "/figma-exports/how-we-treat-4.png",
+      alt: "Dr. Abe providing chiropractic care at a patient's home",
+    },
+    meta: "Know the red flags",
+    ctaLabel: "REQUEST EVALUATION",
+    ctaHref: siteConfig.bookingCta.href,
+  },
+];
 
 export const concussionTypesHeading = "Types of concussion trauma";
 
@@ -78,7 +130,7 @@ export const concussionRelatedTypesHeading = "Related concussion conditions";
 export const concussionRelatedTypes: ConditionRelatedLink[] = [
   { label: "Whiplash", href: "/conditions/whiplash" },
   { label: "Cervicogenic Headache", href: "/conditions/cervicogenic-headache" },
-  { label: "Auto Accident Injuries", href: "/auto-accidents" },
+  { label: "Auto Accident Injuries", href: "/car-accident-chiropractor" },
 ];
 
 export const concussionCauseCategories = [
@@ -115,11 +167,15 @@ export const concussionRelatedMidPageHeading = "Often needed alongside other pos
 
 export const concussionRelatedMidPage: ConditionRelatedLink[] = [
   { label: "Lower Back Pain", href: "/conditions/back-pain" },
-  { label: "Auto Accident Injuries", href: "/auto-accidents", highlighted: true },
+  {
+    label: "Auto Accident Injuries",
+    href: "/car-accident-chiropractor",
+    highlighted: true,
+  },
   { label: "Neck Pain", href: "/conditions/neck-pain" },
   { label: "Spinal Decompression", href: "/services/spinal-decompression" },
   { label: "Whiplash", href: "/conditions/whiplash" },
-  { label: "Home Visit Care", href: "/home-visits" },
+  { label: "Home Visit Care", href: "/home-visit-chiropractor" },
   { label: "Herniated Disc", href: "/services/spinal-decompression" },
   { label: "View All Treatments", href: "/services" },
 ];
@@ -129,19 +185,19 @@ export const concussionFaq: ConditionFaq = {
   items: [
     {
       q: "Can you have a concussion without losing consciousness or hitting your head?",
-      a: "Yes — the sudden whiplash motion of a car accident alone can cause the brain to move inside the skull, which is enough to cause a mild traumatic brain injury. Most concussions don't involve any loss of consciousness at all.",
+      a: "Yes. A concussion can occur without loss of consciousness or a direct blow to the head. Anyone with possible symptoms after a collision should receive appropriate medical evaluation.",
     },
     {
       q: "How long do concussion symptoms typically last?",
-      a: "Many people improve within the first couple of weeks, but symptoms like headaches, dizziness, or brain fog that persist beyond that point are considered post-concussion syndrome and are worth a dedicated evaluation.",
+      a: "Recovery time varies. Persistent headache, dizziness, concentration problems, or other symptoms should be reviewed by an appropriate medical professional rather than judged by a fixed timeline.",
     },
     {
       q: "Is chiropractic care safe after a concussion?",
-      a: "Often, yes, once anything more serious has been ruled out — gentle, upper-cervical-focused care can help with the neck-related symptoms that frequently accompany a concussion. Your evaluation determines what's appropriate for your specific case.",
+      a: "Chiropractic care does not diagnose or treat the brain injury itself. After appropriate medical evaluation, Dr. Abe may assess separate neck or musculoskeletal symptoms and determine whether care or referral is appropriate.",
     },
     {
       q: "Why do concussion and whiplash so often get missed together?",
-      a: 'Whiplash symptoms are more obvious and get treated first, while concussion symptoms like brain fog or light sensitivity are easy to dismiss as "just being shaken up." A full evaluation after any collision checks for both.',
+      a: "The conditions can share symptoms after a collision, including headache and dizziness. Medical evaluation addresses possible brain injury, while a separate musculoskeletal exam can assess neck pain or whiplash after clearance.",
     },
   ],
 };

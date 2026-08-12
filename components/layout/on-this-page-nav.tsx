@@ -73,11 +73,11 @@ function NavLinks({
               onClick={onNavigate}
               aria-current={active ? "location" : undefined}
               className={cn(
-                "flex items-center gap-3 py-2 font-alt text-alt-label transition-colors",
+                "group flex items-center gap-3 py-2 font-alt text-alt-label transition-colors",
                 active ? "text-teal-500" : "text-ink-500 hover:text-navy-900",
               )}
             >
-              <ArrowRightIcon className="h-4 w-4 shrink-0" />
+              <ArrowRightIcon className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
               <span className="min-w-0">{section.navLabel}</span>
             </a>
           </li>

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { getRoute, routes } from "@/content/seo";
+import { getRoute, getRouteHref, routes } from "@/content/seo";
 
 describe("routes registry", () => {
   it("has no duplicate paths", () => {
@@ -47,5 +47,19 @@ describe("getRoute", () => {
 
   it("throws for an unregistered path instead of silently returning nothing", () => {
     expect(() => getRoute("/does-not-exist")).toThrow(/no route registered/);
+  });
+});
+
+describe("getRouteHref", () => {
+  it("returns the path for a published route", () => {
+    expect(getRouteHref("/services")).toBe("/services");
+  });
+
+  it("returns null for a draft route — makes linking to it impossible", () => {
+    expect(getRouteHref("/home-visit-chiropractor")).toBeNull();
+  });
+
+  it("returns null for an unregistered path", () => {
+    expect(getRouteHref("/does-not-exist")).toBeNull();
   });
 });

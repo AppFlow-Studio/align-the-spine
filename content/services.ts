@@ -29,13 +29,13 @@ const allServices: Service[] = [
   },
   {
     slug: "myofascial-release-trigger-point",
-    name: "Myofasial Release/Trigger Point",
+    name: "Myofascial Release/Trigger Point",
     duration: "1 hr",
     summary:
-      "We use the gratson tool to loosen up any muscle spasms and break up any adhesions in the soft tissue. This technique is otherwise known as scraping and can be very similar to a massage.",
+      "Dr. Abe uses a Graston tool and targeted pressure to address muscle tension and restricted soft-tissue movement, similar to a focused deep-tissue technique.",
     image: {
       src: "/figma-exports/drabe-releasetool.png",
-      alt: "Myofascial release and trigger point therapy with the gratson tool",
+      alt: "Myofascial release and trigger point therapy with a Graston tool",
     },
   },
   {
@@ -43,7 +43,7 @@ const allServices: Service[] = [
     name: "Cupping Therapy",
     duration: "1 hr",
     summary:
-      "Increases blood circulation to the area the cups are applied to. This helps ease pain and ease any trigger points you might have and your neck, low back, or other areas.",
+      "Cupping applies localized suction to selected areas of muscle tension and may be included when appropriate for neck, back, or other soft-tissue concerns.",
     image: { src: "/figma-exports/cupping-drabe.png", alt: "Cupping therapy treatment" },
   },
   {
@@ -51,7 +51,7 @@ const allServices: Service[] = [
     name: "Adjustment",
     duration: "1 hr",
     summary:
-      "Adjustments are used to help put motion into the spine and making sure the spine is moving properly. Sometimes in the neck mid back and low back we have what we call fixations in the vertebrae, and this can cause discomfort and pain.",
+      "Chiropractic adjustments use controlled pressure to improve motion in selected joints of the neck, mid back, or lower back after an appropriate evaluation.",
     image: {
       src: "/figma-exports/drabeadjust.png",
       alt: "Dr. Abe performing a chiropractic adjustment",
@@ -62,7 +62,7 @@ const allServices: Service[] = [
     name: "Traction/Decompression",
     duration: "1 hr",
     summary:
-      "Traction of the low back and even the neck can be done. You are strapped down to a machine and a specific poundage is set. The machine starts at helps open up the joints in the area traction is being applied. This helps to pump fluid into the discs that are between our vertebrae.",
+      "Spinal traction and decompression use a controlled pull for selected neck or lower-back concerns. Settings are based on the evaluation and adjusted to the patient.",
     image: {
       src: "/figma-exports/drabe-traction_compression.png",
       alt: "Spinal traction and decompression therapy",
@@ -73,7 +73,7 @@ const allServices: Service[] = [
     name: "Car Accidents",
     duration: "1 hr",
     summary:
-      "If you have been injured in a car accident, we can help! Please provide your first and last name, phone, email, and accident claim number.",
+      "After a car accident, request a chiropractic evaluation for neck pain, back pain, stiffness, whiplash symptoms, and other musculoskeletal concerns.",
     image: {
       src: "/figma-exports/drabe-consult.png",
       alt: "Car accident consultation with Dr. Abe",

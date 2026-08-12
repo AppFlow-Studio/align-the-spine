@@ -5,6 +5,7 @@ import { Rating } from "@/components/ui/rating";
 import { Section } from "@/components/ui/section";
 import type { Testimonial } from "@/content/testimonials";
 import { cn } from "@/lib/cn";
+import { highlightReviewKeywords } from "@/lib/highlight-review-keywords";
 
 export interface PatientReviewsProps {
   /** ATS-E4 (4.11): both optional/possibly-empty — content/testimonials.ts
@@ -33,11 +34,11 @@ export function PatientReviews({ featured, reviews, variant = "dark" }: PatientR
             <Eyebrow variant={dark ? "onDark" : "default"}>Patient success</Eyebrow>
             <p
               className={cn(
-                "font-sans text-h2 font-medium leading-10",
+                "font-sans text-4xl leading-tight",
                 dark ? "text-white" : "text-navy-900",
               )}
             >
-              {featured.quote}
+              {highlightReviewKeywords(featured.quote)}
             </p>
             <div className="flex flex-col items-center gap-1">
               <span
@@ -77,14 +78,18 @@ export function PatientReviews({ featured, reviews, variant = "dark" }: PatientR
                 <GoogleIcon className="h-4 w-4" />
               </span>
               {dark ? (
-                <Rating value={5} filledClassName="text-white" emptyClassName="text-white/30" />
+                <Rating
+                  value={5}
+                  filledClassName="text-yellow-400"
+                  emptyClassName="text-white/30"
+                />
               ) : (
                 <Rating value={5} />
               )}
               <p
                 className={cn("font-sans text-card-body", dark ? "text-mute-300" : "text-ink-900")}
               >
-                &ldquo;{review.quote}&rdquo;
+                &ldquo;{highlightReviewKeywords(review.quote)}&rdquo;
               </p>
             </div>
           ))}

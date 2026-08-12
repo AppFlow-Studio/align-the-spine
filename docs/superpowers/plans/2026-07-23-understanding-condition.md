@@ -16,7 +16,7 @@
 - Colors `navy-900` (`#253067`), `teal-500` (`#58a0a0`), `ink-900` (`#1a1a1a`), `ink-500` (`#777777`) already exist — use `text-navy-900`/`text-teal-500`/`text-ink-900`/`text-ink-500`, never hardcode these hex values.
 - The vertical column divider must be the existing `Divider` component (`orientation="vertical"`) inside a flex row, not Tailwind's `divide-x` utility (not used anywhere else in this codebase).
 - Common Causes rows use a horizontal `Divider` before every row, including the first — matching `ServicesSection`'s established convention.
-- Both the Common Causes dot and the RedFlagCard bullet dot are a plain `h-[11px] w-[11px] rounded-full bg-teal-500` span — no icon asset.
+- Both the Common Causes dot and the RedFlagCard bullet dot are a plain `h-[11px] w-[11px] rounded-full bg-[#58A0A0]` span — no icon asset.
 - `Condition.understanding.types` and `.causes` are plain arrays (`ConditionType[]`, `string[]`), not fixed-length tuples — matches every other list type in this repo.
 - Do not add or modify any route under `app/` other than the temporary, reverted `app/page.tsx` edit in the final task — no condition-page route exists yet (ATS-022).
 - Supporting image is `/figma-exports/dr-abe-neck.png` (already present in the repo) — do not add a new image asset.
@@ -353,7 +353,7 @@ export function RedFlagCard({ title, bullets, className }: RedFlagCardProps) {
           <li key={bullet} className="flex items-start gap-3">
             <span
               aria-hidden="true"
-              className="mt-2.5 h-[11px] w-[11px] shrink-0 rounded-full bg-teal-500"
+              className="mt-2.5 h-[11px] w-[11px] shrink-0 rounded-full bg-[#58A0A0]"
             />
             <span className="font-alt text-redflag-bullet text-ink-900">{bullet}</span>
           </li>
@@ -455,7 +455,7 @@ export function UnderstandingCondition({ condition, className }: UnderstandingCo
                   <div className="flex items-center gap-3 py-4">
                     <span
                       aria-hidden="true"
-                      className="h-[11px] w-[11px] shrink-0 rounded-full bg-teal-500"
+                      className="h-[11px] w-[11px] shrink-0 rounded-full bg-[#58A0A0]"
                     />
                     <span className="font-alt text-faq-a text-ink-900">{cause}</span>
                   </div>

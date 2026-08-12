@@ -33,17 +33,17 @@ export function ServiceListRow({ item, className }: ServiceListRowProps) {
       <div className="flex min-w-0 flex-1 flex-col items-start gap-4">
         <h3 className="break-words font-display text-card-title text-navy-900">{item.name}</h3>
         <Divider className="bg-navy-900" />
-        <p className="font-sans text-card-body">
+        <p className="font-sans text-card-body mt-4">
           <span className="text-ink-500 text-[20px]">
             {item.duration} | Contact us {siteConfig.business.phone}
           </span>
           <br />
-          <span className="text-ink-900 text-[20px]">{item.summary}</span>
+          <span className="text-ink-900 text-[20px] leading-loose">{item.summary}</span>
         </p>
         <Button
           variant="book"
           href={siteConfig.bookingCta.href}
-          className="mt-auto self-end p-8 text-lg"
+          className="mt-auto self-end px-12 text-lg"
         >
           Book
         </Button>

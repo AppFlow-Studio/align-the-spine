@@ -43,9 +43,9 @@ export default function ContactUsPage() {
             src: "/figma-exports/interior-reception.png",
             alt: "Align the Spine reception area",
           }}
-          eyebrow="Questions about your accident claim?"
-          title="You've Landed in the Right Place After a Car Accident"
-          subhead="Questions about your visit, insurance, or your claim? Reach us directly — no call center, no hold music."
+          eyebrow="CHIROPRACTIC CARE IN DEERFIELD BEACH"
+          title="Contact Align the Spine Chiropractic"
+          subhead="Visit 811 SE 8th Ave, Suite 101, in Deerfield Beach, or reach us directly with questions about an appointment, insurance, or accident claim."
           callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
           form={{
             heading: "Schedule Your Evaluation",

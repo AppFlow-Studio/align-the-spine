@@ -269,7 +269,7 @@ export interface HeroProps {
 
 function HeroChip({ children }: { children: ReactNode }) {
   return (
-    <span className="w-fit rounded-6 bg-teal-500 px-6 py-3 font-sans text-button text-white">
+    <span className="w-fit rounded-6 bg-[#58A0A0] px-6 py-3 font-sans text-button text-white">
       {children}
     </span>
   );

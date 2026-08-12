@@ -99,7 +99,7 @@ export function UnderstandingCondition({ condition, className }: UnderstandingCo
                   <div className="flex items-center gap-3 py-4">
                     <span
                       aria-hidden="true"
-                      className="h-[11px] w-[11px] shrink-0 rounded-full bg-teal-500"
+                      className="h-[11px] w-[11px] shrink-0 rounded-full bg-[#58A0A0]"
                     />
                     <span className="font-alt text-faq-a text-ink-900">{cause}</span>
                   </div>

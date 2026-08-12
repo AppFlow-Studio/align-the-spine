@@ -21,17 +21,19 @@ export const autoAccidentSteps: HowWeHelpStep[] = [
   {
     image: "/figma-exports/home-visits-step-visit.png",
     alt: "Notebook and pen ready for a treatment plan",
-    title: "Your plan, fully handled",
-    description: "Treatment tied to your case — your attorney or insurer coordinated for you.",
+    title: "A documented care plan",
+    description:
+      "Care is based on your evaluation, with accident-related findings documented for your claim.",
   },
 ];
 
-/** Attorney-referral quote strip between the HOW WE HELP steps and the
- * "Ready when you are" CTA band, per the Figma frame. ATS-E4 (4.5): the
- * original copy asserted an unverified attorney-referral claim and a PIP
- * billing claim ("Attorneys across South Florida refer their clients to
- * Dr. Abe Nasser because he's one of the few providers doing PIP-covered
- * home visits.") — neither has client sign-off. Reworded to describe what
- * we do without the referral/insurance-billing assertions. */
+/** Quote strip between the HOW WE HELP steps and the "Ready when you are"
+ * CTA band, per the Figma frame. The original copy asserted an unverifiable
+ * third-party attorney-referral claim and a "PIP-covered" coverage
+ * guarantee — this file's own prior comment said both were removed for
+ * lacking client sign-off, but the exported string still contained them
+ * verbatim (SEO Foundation Phase 1 caught and fixed the actual value, not
+ * just the comment describing the fix). Rewritten to describe only what the
+ * practice does, with no referral claim and no coverage guarantee. */
 export const autoAccidentAttorneyQuote =
-  "Attorneys across South Florida refer their clients to Dr. Abe Nasser because he's one of the few providers doing PIP-covered home visits.";
+  "When your case involves an attorney or an insurance adjuster, we coordinate directly with them — so your treatment plan and documentation are ready when they're needed.";

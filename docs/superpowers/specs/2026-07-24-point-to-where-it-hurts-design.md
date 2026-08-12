@@ -275,7 +275,7 @@ function RegionLabel({ region, side }: { region: BodyRegion; side: "left" | "rig
     >
       <span aria-hidden="true" className="flex shrink-0 items-center gap-2">
         <span className="h-px w-12 bg-mute-300" />
-        <span className="h-2 w-2 shrink-0 rounded-full bg-teal-500" />
+        <span className="h-2 w-2 shrink-0 rounded-full bg-[#58A0A0]" />
       </span>
       <span className="font-sans text-body-lg text-navy-800">{region.name}</span>
     </div>

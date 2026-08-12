@@ -35,7 +35,7 @@ export const cervicogenicHeadacheHero = {
   eyebrowChip: "Headaches that started after a car accident?",
   h1: "Cervicogenic Headache Chiropractor in Deerfield Beach, FL",
   subhead:
-    "Headaches that actually start in your neck, not your head. Full evaluation and PIP documentation available when accident-related.",
+    "A cervicogenic headache is referred pain from the neck. Dr. Abe evaluates neck motion and related musculoskeletal factors before recommending care.",
   backgroundImage: {
     src: "/figma-exports/drabe-headache.png",
     alt: "Dr. Abe Nasser examining a patient for headache-related neck tension",
@@ -59,8 +59,8 @@ export const cervicogenicHeadacheFeelsLike: ConditionFeelsLikeItem[] = [
     learnMoreHref: "/services/chiropractic-adjustments",
   },
   {
-    title: "Doesn't respond to meds",
-    desc: "Because the source is the neck, not the head.",
+    title: "May persist with medication",
+    desc: "Medication may ease pain without addressing a neck-related contributor.",
     learnMoreHref: "/services/spinal-decompression",
   },
 ];
@@ -115,19 +115,19 @@ export const cervicogenicHeadacheFaq: ConditionFaq = {
   items: [
     {
       q: "Can a car accident cause headaches that show up weeks later?",
-      a: "Yes — cervicogenic headaches are often delayed, sometimes by days or weeks, since the neck tension and joint irritation behind them can take time to fully develop. If a headache started any time after an accident, it's worth mentioning at your evaluation.",
+      a: "Headaches can begin after an accident or become noticeable later, but timing alone does not identify the cause. New, severe, or worsening headaches after a collision need prompt medical evaluation.",
     },
     {
       q: "How do I know if my headache is coming from my neck?",
-      a: "A few signs point to it: it stays on one side, it gets worse when you turn or tilt your head, and it doesn't respond well to typical headache medication. A neck-focused exam is the only way to confirm it.",
+      a: "Cervicogenic headaches may be one-sided and may worsen with neck movement or limited range of motion. A clinician must evaluate the symptoms because several headache types can overlap.",
     },
     {
       q: "Will pain medication help?",
-      a: "Usually not much, since a cervicogenic headache's source is the joints and nerves in the neck, not the head itself. Treating the neck directly tends to work better than treating the headache in isolation.",
+      a: "Medication may reduce pain for some people, but it does not determine whether the neck is contributing. Discuss medication questions with the prescribing clinician and seek evaluation for persistent symptoms.",
     },
     {
       q: "How many visits will I need?",
-      a: "It depends on how long the tension and joint irritation have been building. Some patients feel meaningful relief within the first few visits; others need a longer plan. We reassess as you go.",
+      a: "It depends on the cause, exam findings, and response to care. Dr. Abe reassesses progress rather than promising a fixed number of visits.",
     },
   ],
 };

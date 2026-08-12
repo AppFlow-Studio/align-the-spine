@@ -28,9 +28,9 @@ import { siteConfig } from "@/content/site";
 
 export const backPainHero = {
   eyebrowChip: "Back pain after a car accident?",
-  h1: "Back pain Chiropractor in Deerfield Beach, FL",
+  h1: "Back Pain Chiropractor in Deerfield Beach, FL",
   subhead:
-    "Evaluation and decompression-focused treatment for sciatic and radiating nerve pain, with in-home visits available when it applies to your case.",
+    "Chiropractic evaluation for lower back pain, stiffness, and pain that may travel into the hip or leg, including symptoms after a car accident.",
   backgroundImage: {
     src: "/figma-exports/drabe-backpain-front.png",
     alt: "Hands-on lower-back soft-tissue treatment",
@@ -49,12 +49,12 @@ export const backPainCauses: string[] = [
 export const backPainRelatedMidPage: ConditionRelatedLink[] = [
   { label: "Sciatica", href: "/conditions/sciatica" },
   { label: "Herniated Disc", href: "/services/spinal-decompression", highlighted: true },
-  { label: "Auto Accident Injuries", href: "/auto-accidents" },
+  { label: "Auto Accident Injuries", href: "/car-accident-chiropractor" },
 ];
 
 export const backPainWhenToSee: ConditionWhenToSee = {
   heading: "When to See a Chiropractor for Back Pain",
-  body: "Most back pain responds well to conservative care, especially when addressed early. It's worth scheduling an evaluation if pain has lasted more than a week or two, is interfering with sleep or daily movement, or followed a car accident, fall, or sudden impact — in Florida, PIP benefits require evaluation within 14 days to stay protected. Seek immediate medical attention rather than chiropractic care if you notice numbness or weakness that's getting worse, or any loss of bladder or bowel control.",
+  body: "Consider an evaluation if back pain lasts more than a week or two, interferes with sleep or daily movement, or follows a car accident, fall, or sudden impact. Florida PIP generally requires initial care within 14 days of a motor vehicle accident. Seek immediate medical attention for worsening numbness or weakness, or any loss of bladder or bowel control.",
   image: {
     src: "/figma-exports/drabe-back.png",
     alt: "Dr. Abe reviewing a patient's back pain history",
@@ -63,7 +63,7 @@ export const backPainWhenToSee: ConditionWhenToSee = {
 
 export const backPainHowWeTreat: ConditionTreatmentItem[] = [
   {
-    title: "Myofasial Release/Trigger Point",
+    title: "Myofascial Release/Trigger Point",
     desc: "Lower back strain often carries as tight, spasming muscle along the spine. The Graston tool works through that tension directly, breaking up adhesions similar to a deep massage.",
     image: {
       src: "/figma-exports/how-we-treat-1.png",
@@ -104,7 +104,7 @@ export const backPainHowWeTreat: ConditionTreatmentItem[] = [
     },
     meta: "Check eligibility",
     ctaLabel: "CHECK ELIGIBILITY",
-    ctaHref: "/home-visits",
+    ctaHref: "/home-visit-chiropractor",
   },
 ];
 
@@ -117,7 +117,7 @@ export const backPainFeelsLike: ConditionFeelsLikeItem[] = [
   {
     title: "Sharp catch on movement",
     desc: "A specific bend or twist that triggers a sudden, sharp pull — often muscular.",
-    learnMoreHref: "/services/massage-soft-tissue",
+    learnMoreHref: "/services/soft-tissue-therapy",
   },
   {
     title: "Pain that won't ease up",
@@ -149,7 +149,7 @@ export const backPainWarning: ConditionWarning = {
 
 export const backPainAccident: ConditionAccident = {
   headline: "Back pain after a crash needs documentation, not just rest",
-  body: "A sudden impact can strain the discs and joints of the lower back in ways that don't show up until days later. Florida law gives you 14 days after the accident to get evaluated and protect your PIP benefits.",
+  body: "A sudden impact can strain the muscles, joints, or discs of the lower back, and symptoms may appear later. Florida PIP generally requires initial services and care within 14 days of a motor vehicle accident.",
   smallprint: DEFAULT_ACCIDENT_SMALLPRINT,
 };
 
@@ -158,10 +158,14 @@ export const backPainRelatedBottom: ConditionRelatedLink[] = [
   { label: "Neck Pain", href: "/conditions/neck-pain" },
   { label: "Spinal Decompression", href: "/services/spinal-decompression" },
   { label: "Whiplash", href: "/conditions/whiplash" },
-  { label: "Home Visit Care", href: "/home-visits" },
+  { label: "Home Visit Care", href: "/home-visit-chiropractor" },
   { label: "Herniated Disc", href: "/services/spinal-decompression" },
   { label: "View All Treatments", href: "/services" },
-  { label: "Auto Accident Injuries", href: "/auto-accidents", highlighted: true },
+  {
+    label: "Auto Accident Injuries",
+    href: "/car-accident-chiropractor",
+    highlighted: true,
+  },
 ];
 
 export const backPainFaq: ConditionFaq = {
@@ -169,7 +173,7 @@ export const backPainFaq: ConditionFaq = {
   items: [
     {
       q: "Is it safe to get adjusted if I have a herniated disc?",
-      a: "Often yes — many disc-related cases respond well to gentle adjustments and decompression. We'll confirm what's safe for your specific case during your exam, not guess.",
+      a: "It depends on the disc injury, symptoms, and exam findings. Dr. Abe evaluates whether an adjustment, decompression, another conservative option, or medical referral is appropriate before treatment.",
     },
     {
       q: "Should I rest or stay active with back pain?",
@@ -177,7 +181,7 @@ export const backPainFaq: ConditionFaq = {
     },
     {
       q: "What if my back pain radiates down my leg?",
-      a: "That's often a sign of nerve involvement, commonly from a disc issue or sciatica. It's worth an exam sooner rather than later so we can catch it early.",
+      a: "Pain traveling into the leg can involve an irritated nerve, including sciatica, but an exam is needed to assess the cause. Seek urgent care for progressive weakness or bladder or bowel changes.",
     },
     {
       q: "How many visits does back pain usually take to improve?",

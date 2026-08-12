@@ -17,7 +17,27 @@ const nextConfig: NextConfig = {
         // bespoke /auto-accidents build (ATS-141) — permanent redirect so
         // neither URL competes for the same query in search.
         source: "/auto-accident",
-        destination: "/auto-accidents",
+        destination: "/car-accident-chiropractor",
+        permanent: true,
+      },
+      {
+        source: "/auto-accidents",
+        destination: "/car-accident-chiropractor",
+        permanent: true,
+      },
+      {
+        source: "/home-visits",
+        destination: "/home-visit-chiropractor",
+        permanent: true,
+      },
+      {
+        source: "/services/massage-soft-tissue",
+        destination: "/services/soft-tissue-therapy",
+        permanent: true,
+      },
+      {
+        source: "/book",
+        destination: "/book-an-appointment",
         permanent: true,
       },
       {

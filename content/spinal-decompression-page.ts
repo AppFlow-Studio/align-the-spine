@@ -23,10 +23,10 @@ import type { ConditionFaq } from "@/content/conditions/types";
  * forward again. */
 
 export const spinalDecompressionHero = {
-  eyebrowChip: "Disc pain after a car accident?",
+  eyebrowChip: "Disc or radiating nerve pain?",
   h1: "Spinal Decompression in Deerfield Beach, FL",
   subhead:
-    "Non-surgical traction that relieves pressure on compressed discs and nerves — whether from a car accident or years of wear. Full evaluation and PIP documentation available for accident cases.",
+    "Non-surgical spinal decompression uses controlled traction to reduce pressure on spinal joints and discs. An evaluation determines whether it fits your case.",
   backgroundImage: {
     src: "/figma-exports/spinal-decompression-hero.png",
     alt: "Treatment room set up for spinal decompression therapy",
@@ -44,7 +44,7 @@ export const decompressionHowItWorks: DecompressionStep[] = [
     title: "Full evaluation & imaging review",
     description:
       "We confirm whether the collision caused or worsened a disc injury, and review any imaging you already have.",
-    learnMoreHref: "/auto-accidents",
+    learnMoreHref: "/car-accident-chiropractor",
   },
   {
     title: "Controlled traction sessions",
@@ -53,10 +53,10 @@ export const decompressionHowItWorks: DecompressionStep[] = [
     learnMoreHref: "/services/spinal-decompression",
   },
   {
-    title: "Ongoing plan, billed to PIP",
+    title: "Plan and reassessment",
     description:
-      "Most post-accident cases need a short series, not a single visit. Everything is documented for your claim from day one.",
-    learnMoreHref: "/auto-accidents",
+      "Session frequency depends on your findings and response. Accident-related care is documented for your claim when applicable.",
+    learnMoreHref: "/car-accident-chiropractor",
   },
 ];
 
@@ -66,12 +66,13 @@ export interface DecompressionCondition {
   image: { src: string; alt: string };
 }
 
-/** "Conditions decompression relieves" list — per the Figma frame, each row
+/** Conditions evaluated for decompression — per the Figma frame, each row
  * uses a treatment photo rather than an anatomy diagram. */
 export const decompressionConditions: DecompressionCondition[] = [
   {
     name: "Sciatica",
-    description: "Nerve pain that shows up after a collision compresses a disc in the lower back.",
+    description:
+      "Radiating leg pain that may involve irritation or compression of a lower-back nerve.",
     image: {
       src: "/figma-exports/decompression-sciatica.png",
       alt: "Chiropractor treating a patient's lower back for sciatica",
@@ -82,15 +83,15 @@ export const decompressionConditions: DecompressionCondition[] = [
     description:
       "When the disc itself is affected by a collision, not just the surrounding soft tissue.",
     image: {
-      src: "/figma-exports/decompression-whiplash-disc.png",
+      src: "https://align-the-spine.b-cdn.net/images/drabe-whiplash.png",
       alt: "Hand assessing a patient's neck for whiplash-related disc injury",
     },
   },
   {
     name: "Herniated Disc (Back)",
-    description: "The most common disc injury we see from rear-end and side-impact collisions.",
+    description: "A lower-back disc condition that may irritate nearby nerves and affect movement.",
     image: {
-      src: "/figma-exports/decompression-herniated-back.png",
+      src: "https://align-the-spine.b-cdn.net/images/drabe-herniated%20disc.png",
       alt: "Hands treating a patient's lower back for a herniated disc",
     },
   },
@@ -99,7 +100,7 @@ export const decompressionConditions: DecompressionCondition[] = [
     description:
       "When the force of a crash affects a disc in the neck, not just the surrounding muscle.",
     image: {
-      src: "/figma-exports/decompression-herniated-neck.png",
+      src: "https://align-the-spine.b-cdn.net/images/drabe-head.png",
       alt: "Hands treating a patient's neck for a herniated disc",
     },
   },
@@ -110,11 +111,11 @@ export const decompressionFaq: ConditionFaq = {
   items: [
     {
       q: "Can a car accident cause a herniated disc?",
-      a: 'Often, yes — even from low-speed collisions. Muscle spasm and disc compression can take a day or two to fully present, which is why people who felt "fine" at the scene are limping by day three. If there was any accident involved, mention it at your evaluation so we can document it for your PIP claim correctly.',
+      a: "A collision can injure or aggravate a spinal disc, but symptoms alone cannot confirm a herniation. An evaluation and any appropriate imaging review help determine the likely source.",
     },
     {
       q: "Is spinal decompression painful?",
-      a: "No — the traction is gentle and controlled, and most patients find the sessions relaxing rather than uncomfortable. Some mild soreness afterward is normal, similar to a deep stretch.",
+      a: "Spinal decompression uses controlled traction and should be adjusted to your comfort. Tell Dr. Abe about pain or unusual symptoms during or after a session so the plan can be reassessed.",
     },
     {
       q: "How is this different from a chiropractic adjustment?",
@@ -122,7 +123,7 @@ export const decompressionFaq: ConditionFaq = {
     },
     {
       q: "How many sessions will I need after an accident?",
-      a: "Most post-accident cases need a short series rather than a single visit, since disc pressure typically eases gradually. We reassess as you go and document every session for your claim.",
+      a: "The number of sessions depends on exam findings and response to care. Dr. Abe reassesses progress and documents accident-related treatment when applicable.",
     },
   ],
 };

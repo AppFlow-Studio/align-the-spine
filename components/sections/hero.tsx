@@ -25,6 +25,11 @@ export interface HeroFormConfig {
   fields?: LeadFieldConfig[];
   footerNote?: string;
   onSubmit?: (values: LeadFormValues) => Promise<void>;
+  /** Short-form-first: shows only stepOneFieldNames behind a "Continue"
+   * button before revealing the rest — keeps the hero form's mobile
+   * footprint short instead of showing every field at once. */
+  twoStep?: boolean;
+  stepOneFieldNames?: string[];
 }
 
 export interface HeroProps {
@@ -61,7 +66,7 @@ function HeroChip({ children, className }: { children: ReactNode; className?: st
   return (
     <span
       className={cn(
-        "-ml-4 -mt-3 flex w-fit items-center bg-teal-500 px-6 py-3 font-sans text-button text-white sm:-ml-6 sm:-mt-4 lg:-ml-8 lg:-mt-6",
+        "-ml-4 -mt-3 flex w-fit items-center bg-[#58A0A0] px-6 py-3 font-sans text-button text-white sm:-ml-6 sm:-mt-4 lg:-ml-8 lg:-mt-6",
         className,
       )}
     >
@@ -118,7 +123,8 @@ export function Hero({
         sizes="100vw"
         className="object-cover"
       />
-      <div className="absolute inset-0 bg-black/[.47]" />
+      {/* <div className="absolute inset-0 bg-black/[.47]" /> */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/75 to-black/50" />
 
       <div className="container relative z-10 grid gap-10 pt-[220px] lg:grid-cols-2 lg:items-center lg:gap-16 lg:pt-[350px]">
         <div className="flex flex-col gap-6">

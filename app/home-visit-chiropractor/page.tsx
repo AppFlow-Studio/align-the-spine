@@ -19,7 +19,7 @@ import { siteConfig } from "@/content/site";
 import { featuredTestimonial } from "@/content/testimonials";
 import { buildRouteMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = buildRouteMetadata(getRoute("/home-visits"));
+export const metadata: Metadata = buildRouteMetadata(getRoute("/home-visit-chiropractor"));
 
 /** /home-visits page assembly (ATS-110) per the Home-visits-v2 artboard
  * (96:1950): condition hero with the eligibility LeadForm, ServiceAreas +
@@ -32,7 +32,7 @@ export default function HomeVisitsPage() {
       <BreadcrumbJsonLd
         items={[
           { name: "Home", path: "" },
-          { name: "Home Visits", path: "/home-visits" },
+          { name: "Home Visit Chiropractor", path: "/home-visit-chiropractor" },
         ]}
       />
       <HeroSolidPanel
@@ -55,7 +55,8 @@ export default function HomeVisitsPage() {
           submitLabel: leadFormVariants.eligibility.submitLabel,
           variant: leadFormVariants.eligibility.variant,
           fields: leadFormVariants.eligibility.fields,
-          footerNote: "Call us to check availability in your area.",
+          footerNote:
+            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
         }}
       />
 
@@ -94,7 +95,7 @@ export default function HomeVisitsPage() {
         <div className="flex flex-col gap-6 bg-navy-900 p-8 sm:flex-row sm:items-center sm:justify-between sm:p-14">
           <div className="flex flex-col gap-2">
             <h2 className="font-display text-h2 text-white">Ready to check eligibility</h2>
-            <p className="font-sans text-body-lg text-mute-300">
+            <p className="font-sans text-body-lg text-mute-300 w-[65%]">
               Takes two minutes — we&apos;ll tell you honestly whether a home visit fits your case.
             </p>
           </div>
