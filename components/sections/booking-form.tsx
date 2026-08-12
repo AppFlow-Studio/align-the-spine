@@ -23,11 +23,11 @@ function SquareButton({
 }: { children: ReactNode } & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
-      className="group relative flex h-12 w-full items-center justify-center rounded-full bg-navy-900 px-8 font-sans text-button text-white transition-colors hover:bg-navy-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:pointer-events-none disabled:opacity-70"
+      className="group flex w-full items-center justify-center gap-3 rounded-full bg-navy-900 p-4 font-sans text-button text-white transition-colors hover:bg-navy-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white disabled:pointer-events-none disabled:opacity-70"
       {...rest}
     >
       {children}
-      <ArrowRightIcon className="absolute right-6 top-1/2 h-5 w-5 -translate-y-1/2 transition-transform duration-300 group-hover:translate-x-1" />
+      <ArrowRightIcon className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
     </button>
   );
 }

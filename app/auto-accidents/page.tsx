@@ -76,7 +76,13 @@ export default function AutoAccidentsPage() {
       <HeroSolidPanel
         background={hero.backgroundImage}
         eyebrow={hero.eyebrowChip}
-        title={hero.h1}
+        title={
+          <>
+            Injured in an
+            <br />
+            Accident?
+          </>
+        }
         subhead={
           <>
             {subheadBeforePip}
