@@ -43,7 +43,7 @@ export function ServiceListRow({ item, className }: ServiceListRowProps) {
         <Button
           variant="book"
           href={siteConfig.bookingCta.href}
-          className="mt-auto self-end px-12 text-lg"
+          className="mt-auto self-end text-lg"
         >
           Book
         </Button>
