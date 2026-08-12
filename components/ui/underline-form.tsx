@@ -140,7 +140,7 @@ export function UnderlineForm({
       })}
 
       <div className="sm:col-span-2">
-        <Button type="submit" variant="primary" loading={isSubmitting} className="rounded-3xl">
+        <Button type="submit" variant="primary" loading={isSubmitting}>
           {submitLabel}
         </Button>
       </div>

@@ -32,7 +32,10 @@ export function PatientReviews({ featured, reviews, variant = "dark" }: PatientR
           <div className="flex max-w-3xl flex-col items-center gap-6 text-center">
             <Eyebrow variant={dark ? "onDark" : "default"}>Patient success</Eyebrow>
             <p
-              className={cn("font-sans leading-12 text-h2", dark ? "text-white" : "text-navy-900")}
+              className={cn(
+                "font-sans text-h2 font-medium leading-10",
+                dark ? "text-white" : "text-navy-900",
+              )}
             >
               {featured.quote}
             </p>

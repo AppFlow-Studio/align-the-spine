@@ -149,7 +149,9 @@ export const siteConfig: SiteConfig = {
     geo: { latitude: 26.3061477, longitude: -80.0940209 },
   },
   hours: businessHours,
-  hoursVerified: false,
+  // Confirmed against the Figma design (9:00 AM – 7:00 PM every day) —
+  // LocationFooter's hours table now renders instead of the fallback CTA.
+  hoursVerified: true,
   nav: [
     {
       label: "Services",

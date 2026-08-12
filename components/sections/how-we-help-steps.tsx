@@ -25,7 +25,7 @@ export interface HowWeHelpStepsProps {
 export function HowWeHelpSteps({ heading, steps, cta }: HowWeHelpStepsProps) {
   return (
     <div className="flex flex-col items-center gap-14 text-center">
-      <SectionHeading eyebrow="How We Help" className="items-center">
+      <SectionHeading eyebrow="How We Help" className="max-w-2xl font-semibold items-center">
         {heading}
       </SectionHeading>
 
@@ -41,10 +41,11 @@ export function HowWeHelpSteps({ heading, steps, cta }: HowWeHelpStepsProps) {
                 className="object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="flex flex-col gap-3 border-t border-mute-300 pt-6">
+            <div className="flex flex-col gap-3">
               <h3 className="font-display text-h2 text-navy-800 group-hover:text-teal-500 transition-colors duration-300">
                 {step.title}
               </h3>
+              <hr className="border-t border-navy-900 transition-colors duration-300 group-hover:border-teal-500" />
               <p className="font-sans text-body-lg text-ink-900">{step.description}</p>
             </div>
           </div>

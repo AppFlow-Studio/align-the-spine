@@ -135,9 +135,10 @@ export default function WhiplashPage() {
           </div>
           <div className="flex flex-col gap-6">
             <Eyebrow>Understanding whiplash</Eyebrow>
-            <h2 className="font-newspaper text-h2 text-navy-900 leading-10">
-              Whiplash is a soft-tissue neck injury from rapid motion — usually a car accident, but
-              not always.
+            <h2 className="font-display text-display font-medium text-navy-900">
+              Whiplash is a soft-tissue neck injury from rapid
+              <br />
+              motion — usually a car accident, but not always.
             </h2>
             <div className="flex flex-col gap-4 font-sans text-body-lg text-ink-500 ml-[10vw]">
               <p>
@@ -173,10 +174,10 @@ export default function WhiplashPage() {
             <div className="h-px bg-mute-350 ml-[10vw]" />
             <a
               href="#types-of-whiplash"
-              className="ml-[10vw] inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4"
+              className="group ml-[10vw] inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4"
             >
               Understand Whiplash
-              <ArrowRightIcon className="h-4 w-4" />
+              <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
           </div>
         </Container>

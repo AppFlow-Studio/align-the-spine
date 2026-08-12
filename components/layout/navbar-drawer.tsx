@@ -140,7 +140,7 @@ export function NavbarDrawer({ open, onClose }: { open: boolean; onClose: () => 
         <Link
           href={siteConfig.bookingCta.href}
           onClick={onClose}
-          className="mt-auto flex h-[52px] items-center justify-center rounded-40 bg-white px-6 text-button text-navy-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-900"
+          className="mt-auto flex h-[52px] items-center justify-center rounded-full bg-white px-6 text-button text-navy-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-900"
         >
           {siteConfig.bookingCta.label}
         </Link>

@@ -79,7 +79,7 @@ export default function MassageSoftTissuePage() {
           <SectionHeading eyebrow="Understanding the treatment">
             Three techniques, matched to what a collision actually did to your tissue.
           </SectionHeading>
-          <div className="flex flex-col divide-y divide-mute-300 border-t border-mute-300">
+          <div className="flex flex-col divide-y divide-navy-900/20 border-t border-navy-900">
             {massageTechniques.map((technique) => (
               <div
                 key={technique.title}
@@ -143,7 +143,7 @@ export default function MassageSoftTissuePage() {
           <SectionHeading eyebrow="What it treats">
             Conditions soft tissue therapy relieves
           </SectionHeading>
-          <div className="flex flex-col divide-y divide-mute-300 border-t border-mute-300">
+          <div className="flex flex-col divide-y divide-navy-900/20 border-t border-navy-900">
             {massageConditions.map((condition, idx) => (
               <div
                 key={condition.name}

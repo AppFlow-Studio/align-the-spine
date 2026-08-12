@@ -31,7 +31,16 @@ export function NavbarDropdown({ link }: { link: NavLinkConfig }) {
   const items = link.menu ?? [];
   const activeItem = items.find((item) => item.href === activeHref) ?? items[0];
 
-  const active = pathname === link.href || items.some((item) => pathname === item.href);
+  /* Conditions has no real hub page, so its own href borrows /auto-accidents
+   * as a click-through destination — but that route already belongs to the
+   * separate "Auto Accidents" nav item. Without this guard, visiting
+   * /auto-accidents underlined both entries at once. Only let the
+   * borrowed href count as "active" when no sibling link actually owns it. */
+  const hrefOwnedBySibling = siteConfig.nav.some(
+    (other) => other !== link && !other.menu && other.href === link.href,
+  );
+  const active =
+    items.some((item) => pathname === item.href) || (pathname === link.href && !hrefOwnedBySibling);
 
   function openNow() {
     if (closeTimer.current) clearTimeout(closeTimer.current);

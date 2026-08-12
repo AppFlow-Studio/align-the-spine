@@ -120,8 +120,12 @@ export default function SciaticaPage() {
         <Container className="flex justify-between gap-10 lg:items-start">
           <div className="flex flex-col gap-6">
             <Eyebrow>How sciatica escalates</Eyebrow>
-            <h2 className="font-newsreader max-w-3xl text-h2 text-navy-900 leading-10">
-              Sciatica isn&apos;t a condition on its own — it&apos;s a symptom of nerve pressure
+            <h2 className="font-display text-display font-medium text-navy-900">
+              Sciatica isn&apos;t a condition on
+              <br />
+              its own — it&apos;s a symptom of
+              <br />
+              nerve pressure
             </h2>
             <div className="flex flex-col gap-4 ml-[10vw]">
               <p className="max-w-2xl font-sans text-body-lg text-ink-500">
@@ -141,10 +145,10 @@ export default function SciaticaPage() {
               <div className="w-full h-px bg-mute-350" />
               <a
                 href="#types-of-sciatica"
-                className="inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4"
+                className="group inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4"
               >
                 Understand Sciatica
-                <ArrowRightIcon className="h-4 w-4" />
+                <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
             </div>
           </div>

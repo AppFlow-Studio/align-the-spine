@@ -79,9 +79,9 @@ export function DoctorProfile({ variant, content, extended }: DoctorProfileProps
           </div>
           <div className="flex min-w-0 flex-1 flex-col items-start gap-4">
             <Eyebrow>{eyebrow}</Eyebrow>
-            <h2 className="font-display text-doctor-name text-navy-900">{name}</h2>
+            <h2 className="font-display font-semibold text-doctor-name text-navy-900">{name}</h2>
             <p className="font-sans text-body-lg text-ink-900">{bio}</p>
-            <Button variant="primary" href={cta.href} className="rounded-4xl">
+            <Button variant="primary" href={cta.href}>
               Call {cta.label}
             </Button>
           </div>

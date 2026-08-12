@@ -52,12 +52,14 @@ export default function Home() {
             Chiropractor
           </>
         }
+        bilingualNote="¿Habla español? Dr. Abe habla su idioma."
         subhead="Injured in a car accident? Full evaluation, treatment, and documentation for your PIP claim — at your home or in the office, on your schedule."
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
         form={{
           heading: "Schedule Your Car Accident Evaluation",
           submitLabel: "Schedule My Car Accident Evaluation",
-          footerNote: "Call us to check availability in your area.",
+          footerNote:
+            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
         }}
       />
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />

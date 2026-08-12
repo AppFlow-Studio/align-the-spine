@@ -45,10 +45,10 @@ export function UnderstandingCondition({ condition, className }: UnderstandingCo
               <p className="max-w-md font-sans text-body-lg text-ink-500">{intro}</p>
               <a
                 href="#types"
-                className="inline-flex w-fit items-center gap-2 border-t border-mute-300 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors hover:text-navy-700"
+                className="group inline-flex w-fit items-center gap-2 border-t border-mute-300 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors hover:text-navy-700"
               >
                 Understand {name}
-                <ArrowRightIcon className="h-4 w-4" />
+                <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
             </div>
             <div className="relative mx-auto aspect-[551/660] w-full max-w-md overflow-hidden lg:mx-0">
