@@ -8,11 +8,12 @@ import { useForm, type Resolver } from "react-hook-form";
 import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
 import { Input } from "@/components/ui/input";
 import type { LeadFormValues } from "@/components/ui/lead-form";
-import { LiquidGlass } from "@/components/ui/liquid-glass";
 import { Select } from "@/components/ui/select";
 import { leadFormVariants } from "@/content/lead-forms";
 import { trackLeadConversion } from "@/lib/analytics";
+import { getStoredAttribution } from "@/lib/attribution";
 import { buildLeadFormSchema } from "@/lib/lead-form-schema";
+import { formatUsPhoneAsYouType } from "@/lib/phone-format";
 
 const config = leadFormVariants.booking;
 const STEP_ONE_FIELDS = ["firstName", "phone"] as const;
@@ -77,12 +78,17 @@ export function BookingForm() {
       const response = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ variant: config.variant, values, website: "" }),
+        body: JSON.stringify({
+          variant: config.variant,
+          values,
+          website: "",
+          attribution: getStoredAttribution(),
+        }),
       });
       if (!response.ok) {
         throw new Error(`Lead submission failed with status ${response.status}`);
       }
-      trackLeadConversion(config.variant);
+      trackLeadConversion(config.variant, values);
       router.push("/thank-you");
     } catch {
       setSubmitError("Something went wrong. Please try again.");
@@ -90,79 +96,90 @@ export function BookingForm() {
   };
 
   return (
-    <LiquidGlass radius="rounded-none" className="shadow-card">
-      <form
-        onSubmit={handleSubmit(onValid)}
-        noValidate
-        className="relative flex flex-col gap-4 p-6 sm:p-12"
-      >
-        <h2 className="font-sans text-calc-heading text-white">Request an appointment</h2>
+    <form onSubmit={handleSubmit(onValid)} noValidate className="relative flex flex-col gap-4">
+      <h2 className="mb-2 font-display text-h1 text-white">Request an appointment</h2>
 
-        <div aria-hidden="true" className="absolute h-0 w-0 overflow-hidden">
-          <label htmlFor="booking-form-website">Website</label>
-          <input
-            id="booking-form-website"
-            name="website"
-            type="text"
-            tabIndex={-1}
-            autoComplete="off"
-          />
-        </div>
+      <div aria-hidden="true" className="absolute h-0 w-0 overflow-hidden">
+        <label htmlFor="booking-form-website">Website</label>
+        <input
+          id="booking-form-website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
 
-        {visibleFields.map((field) => {
-          const label = field.label.toUpperCase();
-          const error = errors[field.name]?.message;
-          if (field.type === "select") {
-            return (
-              <Select
-                key={field.name}
-                label={label}
-                variant="dark"
-                options={field.options ?? []}
-                placeholder={field.placeholder}
-                error={error}
-                {...register(field.name)}
-              />
-            );
-          }
+      {visibleFields.map((field) => {
+        const label = field.label.toUpperCase();
+        const error = errors[field.name]?.message;
+        if (field.type === "select") {
           return (
-            <Input
+            <Select
               key={field.name}
               label={label}
-              type={field.type === "tel" ? "tel" : "text"}
               variant="dark"
-              autoComplete={field.autoComplete}
+              options={field.options ?? []}
+              placeholder={field.placeholder}
               error={error}
               {...register(field.name)}
             />
           );
-        })}
+        }
+        if (field.type === "tel") {
+          const { onChange, ...telField } = register(field.name);
+          return (
+            <Input
+              key={field.name}
+              label={label}
+              type="tel"
+              inputMode="tel"
+              variant="dark"
+              autoComplete={field.autoComplete}
+              placeholder="(954) 573-7192"
+              maxLength={14}
+              error={error}
+              {...telField}
+              onChange={(event) => {
+                event.target.value = formatUsPhoneAsYouType(event.target.value);
+                onChange(event);
+              }}
+            />
+          );
+        }
+        return (
+          <Input
+            key={field.name}
+            label={label}
+            type="text"
+            variant="dark"
+            autoComplete={field.autoComplete}
+            error={error}
+            {...register(field.name)}
+          />
+        );
+      })}
 
-        <div className="mt-2 flex flex-col gap-2">
-          {step === 1 ? (
-            <SquareButton type="button" onClick={onContinue}>
-              Continue
-            </SquareButton>
-          ) : (
-            <SquareButton
-              type="submit"
-              disabled={isSubmitting}
-              aria-busy={isSubmitting || undefined}
-            >
-              {isSubmitting ? "Sending…" : config.submitLabel}
-            </SquareButton>
-          )}
-          <p className="text-center font-sans text-field-error font-light text-white">
-            Step {step} of 2
-          </p>
-        </div>
-
-        {submitError && (
-          <p role="alert" className="font-sans text-field text-error">
-            {submitError}
-          </p>
+      <div className="mt-2 flex flex-col gap-2">
+        {step === 1 ? (
+          <SquareButton type="button" onClick={onContinue}>
+            Continue
+          </SquareButton>
+        ) : (
+          <SquareButton type="submit" disabled={isSubmitting} aria-busy={isSubmitting || undefined}>
+            {isSubmitting ? "Sending…" : config.submitLabel}
+          </SquareButton>
         )}
-      </form>
-    </LiquidGlass>
+        <p className="text-center font-sans text-field-error font-light text-white">
+          Step {step} of 2
+        </p>
+      </div>
+
+      {submitError && (
+        <p role="alert" className="font-sans text-field text-error">
+          {submitError}
+        </p>
+      )}
+    </form>
   );
 }

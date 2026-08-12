@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
+import { createPortal } from "react-dom";
 
 import { ChevronDownIcon } from "@/components/ui/icons/chevron-down";
 import { CloseIcon } from "@/components/ui/icons/close";
@@ -10,12 +11,30 @@ import { siteConfig } from "@/content/site";
 
 import { useFocusTrap } from "./use-focus-trap";
 
+const noopSubscribe = () => () => {};
+
+/** True only once hydrated on the client. document.body (the portal target
+ * below) doesn't exist during SSR, and rendering straight off
+ * `typeof document !== "undefined"` would mismatch between the server pass
+ * and the client's first hydration pass — useSyncExternalStore is the
+ * React-sanctioned way to have that first client render still match the
+ * server (both read `getServerSnapshot`'s `false`) and only flip true on
+ * the render after. */
+function useHasMounted() {
+  return useSyncExternalStore(
+    noopSubscribe,
+    () => true,
+    () => false,
+  );
+}
+
 export function NavbarDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   const containerRef = useFocusTrap(open);
   // Which nav-item labels have their submenu accordion expanded — a Set
   // rather than a single value since there's no reason opening one should
   // close another in this short a list.
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  const mounted = useHasMounted();
 
   useEffect(() => {
     if (!open) return;
@@ -42,7 +61,16 @@ export function NavbarDrawer({ open, onClose }: { open: boolean; onClose: () => 
     });
   }
 
-  return (
+  if (!mounted) return null;
+
+  // Portaled to document.body rather than rendered in place: Navbar's
+  // <header> carries `will-change-transform`, which per spec gives it a
+  // containing block for `position: fixed` descendants — so without the
+  // portal, this drawer's "fixed" overlay/panel were positioned relative to
+  // that 100px-tall header instead of the viewport, clipping the whole
+  // drawer down to a sliver at the top of the screen instead of covering
+  // the full height.
+  return createPortal(
     <div className="lg:hidden" aria-hidden={!open} inert={!open}>
       <div
         onClick={onClose}
@@ -140,11 +168,12 @@ export function NavbarDrawer({ open, onClose }: { open: boolean; onClose: () => 
         <Link
           href={siteConfig.bookingCta.href}
           onClick={onClose}
-          className="mt-auto flex h-[52px] items-center justify-center rounded-full bg-white px-6 text-button text-navy-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-900"
+          className="mt-auto flex h-[52px] items-center justify-center rounded-full bg-white px-6 text-button text-navy-900 transition-colors duration-300 hover:bg-teal-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-900"
         >
           {siteConfig.bookingCta.label}
         </Link>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

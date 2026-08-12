@@ -55,7 +55,7 @@ describe("buildMedicalBusiness", () => {
     expect(business.telephone).toBe(siteConfig.business.phone);
     expect(business.address).toEqual({
       "@type": "PostalAddress",
-      streetAddress: "811 Southeast 8th Avenue, Suite #101",
+      streetAddress: "811 SE 8th Ave, Ste 101",
       addressLocality: "Deerfield Beach",
       addressRegion: "FL",
       postalCode: "33441",
@@ -63,14 +63,21 @@ describe("buildMedicalBusiness", () => {
     });
     expect(business.geo).toEqual({
       "@type": "GeoCoordinates",
-      latitude: 26.3061477,
-      longitude: -80.0940209,
+      latitude: 26.3067873,
+      longitude: -80.0944778,
     });
   });
 
-  it("omits openingHoursSpecification while hours are unverified", () => {
-    expect(siteConfig.hoursVerified).toBe(false);
-    expect(buildMedicalBusiness().openingHoursSpecification).toBeUndefined();
+  it("includes openingHoursSpecification — hours are client-confirmed", () => {
+    expect(siteConfig.hoursVerified).toBe(true);
+    const spec = buildMedicalBusiness().openingHoursSpecification;
+    expect(spec).toHaveLength(7);
+    expect(spec?.[0]).toEqual({
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Monday",
+      opens: "07:00",
+      closes: "23:00",
+    });
   });
 
   it("links back to the Organization entity via parentOrganization", () => {

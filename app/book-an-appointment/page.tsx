@@ -16,7 +16,7 @@ import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel } from "@/content/testimonials";
 import { buildMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = buildMetadata(getRoute("/book"));
+export const metadata: Metadata = buildMetadata(getRoute("/book-an-appointment"));
 
 /** /book page assembly (ATS-100) per the Book-appt artboard (96:22): dark
  * booking hero with the two-step BookingForm, LocationIntro + LocationFooter
@@ -28,7 +28,7 @@ export default function BookPage() {
       <BreadcrumbJsonLd
         items={[
           { name: "Home", path: "" },
-          { name: "Book", path: "/book" },
+          { name: "Book an Appointment", path: "/book-an-appointment" },
         ]}
       />
       <HeroSolidPanel
@@ -37,10 +37,9 @@ export default function BookPage() {
           src: "/figma-exports/phone-mockup.png",
           alt: "Patient calling Align the Spine to book an appointment",
         }}
-        title="Book a Chiropractic Appointment"
-        subhead="In-office or in-home when it applies. Tell us what's going on and we'll take it from there."
+        title="Request a Chiropractic Appointment"
+        subhead="Request an appointment with Dr. Abe in Deerfield Beach, or ask whether a home visit fits your case and location."
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
-        clearForm
         formSlot={<BookingForm />}
         bilingualNote="¿Habla español? Dr. Abe habla su idioma."
       />

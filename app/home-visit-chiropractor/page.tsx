@@ -19,7 +19,7 @@ import { siteConfig } from "@/content/site";
 import { featuredTestimonial } from "@/content/testimonials";
 import { buildRouteMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = buildRouteMetadata(getRoute("/home-visits"));
+export const metadata: Metadata = buildRouteMetadata(getRoute("/home-visit-chiropractor"));
 
 /** /home-visits page assembly (ATS-110) per the Home-visits-v2 artboard
  * (96:1950): condition hero with the eligibility LeadForm, ServiceAreas +
@@ -32,7 +32,7 @@ export default function HomeVisitsPage() {
       <BreadcrumbJsonLd
         items={[
           { name: "Home", path: "" },
-          { name: "Home Visits", path: "/home-visits" },
+          { name: "Home Visit Chiropractor", path: "/home-visit-chiropractor" },
         ]}
       />
       <HeroSolidPanel

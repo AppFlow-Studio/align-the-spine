@@ -19,7 +19,6 @@ import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Section } from "@/components/ui/section";
 import { autoAccidentAttorneyQuote } from "@/content/auto-accident";
-import { backPainHowWeTreat } from "@/content/back-pain-page";
 import {
   concussionCauseCategories,
   concussionFaq,
@@ -28,6 +27,7 @@ import {
   concussionRelatedMidPageHeading,
   concussionRelatedTypes,
   concussionRelatedTypesHeading,
+  concussionSupportItems,
   concussionSymptomNote,
   concussionSymptoms,
   concussionSymptomsHeading,
@@ -110,24 +110,20 @@ export default function ConcussionPage() {
               hitting your head.
             </h2>
             <p className="w-full font-sans text-body-lg text-ink-500">
-              A concussion doesn&apos;t require losing consciousness or striking your head directly
-              — the sudden whiplash motion of a car accident alone can cause the brain to move
-              inside the skull, resulting in a mild traumatic brain injury. Post-concussion syndrome
-              develops when symptoms like headaches, dizziness, or brain fog persist beyond the
-              first few weeks. Because concussion and{" "}
+              A concussion is a mild traumatic brain injury that can occur without losing
+              consciousness or striking the head directly. Headache, dizziness, confusion, vomiting,
+              weakness, or worsening symptoms after a collision need prompt medical assessment.
+              Chiropractic care is not a substitute for emergency or neurological evaluation.
+              Concussion and{" "}
               <Link href="/conditions/whiplash" className="underline">
                 whiplash
               </Link>{" "}
-              frequently occur together, treating only the neck while missing the concussion is a
-              common gap in accident care. Florida gives you{" "}
-              <Link href="/auto-accidents" className="underline">
+              can occur together, so neck pain may need a separate musculoskeletal evaluation after
+              medical clearance. Florida PIP generally requires initial services and care within{" "}
+              <Link href="/car-accident-chiropractor" className="underline">
                 14 days
               </Link>{" "}
-              to get evaluated and protect your{" "}
-              <Link href="/auto-accidents" className="underline">
-                PIP benefits
-              </Link>
-              .
+              of a motor vehicle accident, with coverage depending on eligibility and policy terms.
             </p>
             <div className="w-full border-t border-mute-300" />
           </div>
@@ -159,8 +155,8 @@ export default function ConcussionPage() {
       />
 
       <HowWeTreat
-        items={backPainHowWeTreat}
-        heading="Treatment focused on the source, not the symptom."
+        items={concussionSupportItems}
+        heading="Concussion safety starts with medical evaluation."
       />
 
       <ComparisonTable />
@@ -177,7 +173,7 @@ export default function ConcussionPage() {
 
       <PatientReviews
         featured={homeFeaturedTestimonial}
-        reviews={homeReviews.slice(0, 3)}
+        reviews={homeReviews.slice(1, 4)}
         variant="light"
       />
 

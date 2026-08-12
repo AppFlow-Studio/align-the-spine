@@ -58,55 +58,55 @@ export function isPublished(route: RouteMeta): boolean {
 export const routes: RouteMeta[] = [
   {
     path: "",
-    title: `${siteConfig.business.name} | South Florida's Chiropractor`,
+    title: `Chiropractor in Deerfield Beach, FL | ${siteConfig.business.name}`,
     description:
-      "Elite spinal health care in Deerfield Beach, FL — car accident evaluations and home visits when it fits your case. Call (954) 573-7192.",
+      "Chiropractic care in Deerfield Beach for back pain, neck pain, mobility concerns, and injuries, with focused evaluations after car accidents.",
     image: { src: "/figma-exports/interior-reception.png", alt: "Align the Spine reception area" },
     changeFrequency: "weekly",
     priority: 1,
-    lastModified: "2026-08-02",
+    lastModified: "2026-08-12",
   },
   {
     path: "/services",
     title: `Chiropractic Services in Deerfield Beach, FL | ${siteConfig.business.name}`,
     description:
-      "Adjustments, sports injury care, posture correction, spinal decompression, headache relief, and massage/soft-tissue therapy — same doctor, every visit. Call (954) 573-7192.",
+      "Explore chiropractic services in Deerfield Beach, including adjustments, spinal decompression, soft-tissue care, and sports-injury care from Dr. Abe.",
     image: {
       src: "/figma-exports/dr-abe-neck.png",
       alt: "Dr. Abe Nasser treating a patient's neck",
     },
     changeFrequency: "monthly",
     priority: 0.9,
-    lastModified: "2026-07-31",
+    lastModified: "2026-08-12",
   },
   {
     // ATS-E3 (3.4): renamed from "Book" — nothing on this form auto-confirms
     // a slot, it's a request that gets a callback, so "Book" overpromised.
-    path: "/book",
+    path: "/book-an-appointment",
     title: `Request a Chiropractic Appointment | Deerfield Beach, FL | ${siteConfig.business.name}`,
     description:
-      "Request your chiropractic evaluation in Deerfield Beach or at your home — we'll follow up to confirm. Call (954) 573-7192.",
+      "Request a chiropractic appointment with Dr. Abe in Deerfield Beach. Ask whether an office evaluation or eligible home visit fits your needs.",
     image: {
       src: "/figma-exports/phone-mockup.png",
       alt: "Patient calling Align the Spine to request an appointment",
     },
     changeFrequency: "monthly",
     priority: 0.9,
-    lastModified: "2026-08-04",
+    lastModified: "2026-08-12",
   },
   {
     // ATS-E3 (3.1): "Auto" -> "Car" to match the ticket's specified title.
-    path: "/auto-accidents",
+    path: "/car-accident-chiropractor",
     title: `Car Accident Chiropractor in Deerfield Beach, FL | ${siteConfig.business.name}`,
     description:
-      "Car accident evaluations for Florida PIP claims. Full exam, treatment, and documentation for your claim — in-home visits available. Call (954) 573-7192.",
+      "See Dr. Abe for a car accident chiropractic evaluation in Deerfield Beach, including care for neck pain, back pain, stiffness, and whiplash symptoms.",
     image: {
       src: "/figma-exports/interior-corridor.png",
       alt: "Align the Spine reception hallway",
     },
     changeFrequency: "monthly",
     priority: 0.9,
-    lastModified: "2026-08-03",
+    lastModified: "2026-08-12",
   },
   // ATS-E4 (4.14): all 4 condition pages below have a red-flag/warning
   // section (confirmed present on each — RedFlagCard/ConditionWarning) but
@@ -121,7 +121,7 @@ export const routes: RouteMeta[] = [
     image: backPainHero.backgroundImage,
     changeFrequency: "monthly",
     priority: 0.8,
-    lastModified: "2026-08-01",
+    lastModified: "2026-08-12",
     status: "draft",
   },
   {
@@ -131,7 +131,7 @@ export const routes: RouteMeta[] = [
     image: neckPainHero.backgroundImage,
     changeFrequency: "monthly",
     priority: 0.8,
-    lastModified: "2026-08-01",
+    lastModified: "2026-08-12",
     status: "draft",
   },
   {
@@ -141,7 +141,7 @@ export const routes: RouteMeta[] = [
     image: sciaticaHero.backgroundImage,
     changeFrequency: "monthly",
     priority: 0.8,
-    lastModified: "2026-08-03",
+    lastModified: "2026-08-12",
     status: "draft",
   },
   {
@@ -151,7 +151,7 @@ export const routes: RouteMeta[] = [
     image: whiplashHero.backgroundImage,
     changeFrequency: "monthly",
     priority: 0.8,
-    lastModified: "2026-08-03",
+    lastModified: "2026-08-12",
     status: "draft",
   },
   {
@@ -161,7 +161,7 @@ export const routes: RouteMeta[] = [
     image: cervicogenicHeadacheHero.backgroundImage,
     changeFrequency: "monthly",
     priority: 0.8,
-    lastModified: "2026-08-06",
+    lastModified: "2026-08-12",
     status: "draft",
   },
   {
@@ -171,7 +171,7 @@ export const routes: RouteMeta[] = [
     image: concussionHero.backgroundImage,
     changeFrequency: "monthly",
     priority: 0.8,
-    lastModified: "2026-08-07",
+    lastModified: "2026-08-12",
     status: "draft",
   },
   {
@@ -181,7 +181,7 @@ export const routes: RouteMeta[] = [
     image: tmjJawPainHero.backgroundImage,
     changeFrequency: "monthly",
     priority: 0.8,
-    lastModified: "2026-08-07",
+    lastModified: "2026-08-12",
     status: "draft",
   },
   // Same reviewer-gate as the condition pages above — this page includes
@@ -194,7 +194,7 @@ export const routes: RouteMeta[] = [
     image: adjustmentsHero.backgroundImage,
     changeFrequency: "monthly",
     priority: 0.7,
-    lastModified: "2026-08-05",
+    lastModified: "2026-08-12",
     status: "draft",
   },
   // Same reviewer-gate as the condition pages above — this page includes
@@ -207,41 +207,41 @@ export const routes: RouteMeta[] = [
     image: spinalDecompressionHero.backgroundImage,
     changeFrequency: "monthly",
     priority: 0.7,
-    lastModified: "2026-08-06",
+    lastModified: "2026-08-12",
     status: "draft",
   },
   // Same reviewer-gate as the condition pages above — this page includes
   // clinical guidance about soft-tissue technique selection, so it stays
   // draft until a clinician signs off too.
   {
-    path: "/services/massage-soft-tissue",
+    path: "/services/soft-tissue-therapy",
     title: `${massageSoftTissueHero.h1} | ${siteConfig.business.name}`,
     description: massageSoftTissueHero.subhead,
     image: massageSoftTissueHero.backgroundImage,
     changeFrequency: "monthly",
     priority: 0.7,
-    lastModified: "2026-08-06",
+    lastModified: "2026-08-12",
     status: "draft",
   },
   // ATS-E3 (3.7): unverified service-area/availability data (see
   // content/site.ts's `serviceAreas`, ATS-E4 4.6) — stays draft
   // (noindex, out of the sitemap) until that's confirmed.
   {
-    path: "/home-visits",
+    path: "/home-visit-chiropractor",
     title: `Home Visit Chiropractor in Deerfield Beach, FL | ${siteConfig.business.name}`,
     description:
-      "Full chiropractic exams and treatment at your address when it fits your case and location. Check your home-visit eligibility online or call (954) 573-7192.",
+      "Ask about a chiropractic home visit from Dr. Abe when travel is difficult and the service fits your case and location. Check eligibility before booking.",
     image: {
       src: "/figma-exports/home-visits-hero.png",
       alt: "Dr. Abe Nasser setting up a treatment table in a patient's living room",
     },
     changeFrequency: "monthly",
     priority: 0.8,
-    lastModified: "2026-07-31",
+    lastModified: "2026-08-12",
     status: "draft",
   },
-  // ATS-E3 (3.2): no approved review data yet (content/reviews.ts is
-  // empty) — stays draft until real, published reviews exist.
+  // ATS-E3 (3.2): flipped to published once real, client-supplied reviews
+  // landed in content/testimonials.ts (2026-08-12) — see ReviewsCarousel.
   {
     path: "/reviews",
     title: `Patient Reviews | ${siteConfig.business.name}`,
@@ -249,31 +249,31 @@ export const routes: RouteMeta[] = [
       "Verified patient reviews for Align the Spine Chiropractic in Deerfield Beach, FL.",
     changeFrequency: "monthly",
     priority: 0.6,
-    lastModified: "2026-08-04",
-    status: "draft",
+    lastModified: "2026-08-12",
+    status: "published",
   },
   {
     // ATS-E3 (3.8): title set to the ticket's exact required wording.
     path: "/about",
     title: "Dr. Abe Nasser, D.C. | Deerfield Beach Chiropractor",
     description:
-      "One doctor, every visit. Meet Dr. Abe Nasser — transparent pricing and the same provider from your first exam through recovery. Call (954) 573-7192.",
+      "Meet Dr. Abe Nasser, the chiropractor behind Align the Spine Chiropractic in Deerfield Beach, and learn about his patient-centered approach to care.",
     image: {
       src: "/figma-exports/dr-abe-neck.png",
       alt: "Dr. Abe Nasser treating a patient's neck",
     },
     changeFrequency: "monthly",
     priority: 0.7,
-    lastModified: "2026-07-31",
+    lastModified: "2026-08-12",
   },
   {
     path: "/contact-us",
-    title: `Contact Us | ${siteConfig.business.name}`,
+    title: `Contact ${siteConfig.business.name} | Deerfield Beach, FL`,
     description:
-      "Questions about your visit, insurance, or your claim? Reach Align the Spine Chiropractic directly — no call center, no hold music. Call (954) 573-7192.",
+      "Contact Align the Spine Chiropractic at 811 SE 8th Ave, Suite 101, Deerfield Beach, FL, or call (954) 573-7192 about an appointment or visit.",
     changeFrequency: "monthly",
     priority: 0.6,
-    lastModified: "2026-07-31",
+    lastModified: "2026-08-12",
   },
   {
     path: "/privacy-policy",
@@ -293,4 +293,19 @@ export function getRoute(path: string): RouteMeta {
   const route = routes.find((entry) => entry.path === path);
   if (!route) throw new Error(`content/seo.ts: no route registered for path "${path}"`);
   return route;
+}
+
+/** Returns `path` if it's registered and published, `null` otherwise —
+ * makes linking to a draft/noindex/unregistered route structurally
+ * impossible instead of relying on every call site to remember to check.
+ * Callers that need to render a conditional link (e.g. `href={getRouteHref(...)  ?? undefined}`)
+ * or skip rendering entirely when null is returned should do so explicitly;
+ * this deliberately never falls back to the path anyway. Not yet wired into
+ * every internal link — that's the internal-linking rebuild, a separate
+ * phase — but the primitive exists now so that work has something safe to
+ * build on. */
+export function getRouteHref(path: string): string | null {
+  const route = routes.find((entry) => entry.path === path);
+  if (!route || !isPublished(route)) return null;
+  return route.path;
 }

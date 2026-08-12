@@ -130,9 +130,10 @@ export default function SciaticaPage() {
             </h2>
             <div className="flex flex-col gap-4 ml-[10vw]">
               <p className="max-w-2xl font-sans text-body-lg text-ink-500">
-                Sciatica after a car accident is billed directly to PIP — Dr. Abe Nasser uses a full
-                evaluation to pinpoint the source of nerve compression and build a plan to relieve
-                your leg pain. Sciatica itself is often caused by a{" "}
+                Sciatica describes pain or other symptoms along the sciatic nerve. After a car
+                accident, Dr. Abe Nasser evaluates possible musculoskeletal contributors and
+                documents relevant findings for a PIP claim when applicable. Possible causes include
+                a{" "}
                 <Link href="/services/spinal-decompression" className="underline">
                   herniated disc
                 </Link>{" "}
@@ -140,8 +141,8 @@ export default function SciaticaPage() {
                 <Link href="/services/spinal-decompression" className="underline">
                   spinal stenosis
                 </Link>{" "}
-                compressing the nerve root, whether that compression came from sudden impact or
-                built up over time.
+                that irritates or compresses a nerve root, whether symptoms followed an impact or
+                developed over time.
               </p>
               <div className="w-full h-px bg-mute-350" />
               <a
@@ -190,7 +191,7 @@ export default function SciaticaPage() {
 
       <PatientReviews
         featured={homeFeaturedTestimonial}
-        reviews={homeReviews.slice(0, 3)}
+        reviews={homeReviews.slice(1, 4)}
         variant="light"
       />
 

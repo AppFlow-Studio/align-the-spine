@@ -2,14 +2,74 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 
 import type { HeroFormConfig } from "@/components/sections/hero";
+import { Button } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { FadeIn } from "@/components/ui/fade-in";
+import { CheckIcon } from "@/components/ui/icons/check";
 import { PhoneIcon } from "@/components/ui/icons/phone";
 import { LeadForm } from "@/components/ui/lead-form";
+import { Rating } from "@/components/ui/rating";
 import { leadFormVariants } from "@/content/lead-forms";
+import { getVerifiedStats, siteConfig } from "@/content/site";
+import { isVerified } from "@/content/verified-value";
 import { cn } from "@/lib/cn";
 
 import { Container } from "../ui/container";
+
+/** Trust-badge marquee: star rating + review count, plus whatever else is
+ * verified (same-day, PIP accepted, etc.) as small pills, sliding slowly in
+ * an endless loop. Renders nothing when nothing is verified yet, same as
+ * every other verified-claim consumer. Pill treatment (bg-white/10,
+ * rounded-full) reuses existing tokens — same glass-pill idea as Button's
+ * "glass" variant and StatChipRow's bg-overlay-white-15, not a new visual
+ * language. The track renders the pill set twice back-to-back
+ * (aria-hidden on the second copy) and CSS-animates a translateX(-50%)
+ * loop (globals.css's .animate-trust-marquee) — seamless as long as both
+ * copies are identical, which they always are here. */
+function HeroTrustLine({ className }: { className?: string }) {
+  const reviews = siteConfig.reviewsRating;
+  const otherStats = getVerifiedStats().filter((stat) => stat.label !== "Reviews");
+  const hasReviews = isVerified(reviews);
+
+  if (!hasReviews && otherStats.length === 0) return null;
+
+  const pills = (
+    <>
+      {hasReviews && (
+        <span className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-white/20 bg-white/10 py-1.5 pl-3 pr-3.5">
+          <Rating
+            value={reviews.value.rating}
+            filledClassName="text-yellow-400"
+            emptyClassName="text-white/30"
+          />
+          <span className="font-sans text-stat-label text-white">
+            {reviews.value.rating.toFixed(1)} ({reviews.value.count} reviews)
+          </span>
+        </span>
+      )}
+      {otherStats.map((stat) => (
+        <span
+          key={stat.label}
+          className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-white/20 bg-white/10 py-1.5 pl-2.5 pr-3.5 font-sans text-stat-label text-white"
+        >
+          <CheckIcon className="h-3.5 w-3.5 shrink-0 text-teal-300" />
+          {stat.value}
+        </span>
+      ))}
+    </>
+  );
+
+  return (
+    <div className={`trust-marquee-fade w-full overflow-hidden ${className ?? ""}`}>
+      <div className="flex w-max animate-trust-marquee gap-3 motion-reduce:animate-none">
+        <div className="flex shrink-0 gap-3 pr-3">{pills}</div>
+        <div className="flex shrink-0 gap-3 pr-3" aria-hidden="true">
+          {pills}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export interface HeroSolidPanelProps {
   background: { src: string; alt: string };
@@ -35,16 +95,36 @@ export interface HeroSolidPanelProps {
   clearForm?: boolean;
 }
 
-/** Alternate Hero treatment ("homepage-round-buttons-new-hero" in Figma) with
- * three layouts driven by the form props:
- *   • solid panel (default, Home/Services): photo confined to a left column,
- *     the lead form in a solid navy panel on the right;
- *   • clear form (`clearForm`, /book): full-bleed photo, formatted content on
- *     the left, the form as a translucent card overlaid on the right;
- *   • no form (/about): full-bleed photo, content only.
- * Shares Hero's background-bleed trick (negative top margin sized to
- * TopStatsBar so the photo starts at the viewport's true top, behind the
- * fixed transparent Navbar) — see docs/superpowers/specs/2026-07-15-hero-section-design.md. */
+/** Alternate Hero treatment ("homepage-round-buttons-new-hero" in Figma):
+ * photo confined to a left column instead of bleeding full-width, and the
+ * lead form sits in a solid navy panel instead of Hero's LiquidGlass card
+ * — at `lg` and up. Shares Hero's background-bleed trick there (negative
+ * top margin sized to TopStatsBar so the photo starts at the viewport's
+ * true top, behind the fixed transparent Navbar) — see
+ * docs/superpowers/specs/2026-07-15-hero-section-design.md.
+ *
+ * Below `lg` this is a genuinely different composition, not a squeezed
+ * version of the desktop one: photo leads (matching the site's established
+ * look) with the H1/subhead/trust-marquee/call-pill overlaid on it as
+ * before, and the lead form lives in a compact LiquidGlass card that
+ * overlaps the photo's bottom edge — same card treatment Hero.tsx already
+ * uses for its own form, just floating instead of inline. The card is
+ * always `twoStep` (name + phone, then a smooth height/opacity expand into
+ * the rest) so the first thing below the photo is a two-field ask, never
+ * every field at once — see docs/BASELINE.md's CRO audit for why. A
+ * full-width call button sits right under the card as an equal-weight
+ * alternative. No negative-margin bleed below `lg`: TopStatsBar is
+ * `hidden` there (components/layout/root-shell.tsx), so the section
+ * already starts at the viewport's true top with nothing to cancel out —
+ * the H1's own pt-[120px] alone clears the fixed Navbar.
+ *
+ * Both columns' content is top-aligned (`justify-start`, not
+ * `justify-center`) to the *same* `pt` at each breakpoint instead of being
+ * vertically centered independently — centering meant the H1 and the form
+ * panel's heading drifted apart depending on how tall each column's own
+ * content happened to be (optional eyebrow/badge, footer note, etc.), so
+ * they never actually lined up. Pinning both to one shared top offset is
+ * what makes them align. */
 export function HeroSolidPanel({
   background,
   eyebrow,

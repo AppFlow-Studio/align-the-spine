@@ -17,7 +17,7 @@ export function ServicesSection() {
     <Section reveal={false}>
       <Container className="flex flex-col gap-2">
         <FadeIn whenInView className="flex flex-col gap-2">
-          <SectionHeading tone="navy-800">Online Appointment</SectionHeading>
+          <SectionHeading tone="navy-800">Chiropractic Services</SectionHeading>
         </FadeIn>
         <StaggerGroup className="flex flex-col gap-2">
           {services.map((service) => (

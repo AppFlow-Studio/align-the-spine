@@ -11,7 +11,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prepare": "husky",
-    "test": "vitest run"
+    "test": "vitest run",
+    "verify:canonicals": "node scripts/check-canonicals.mjs"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

@@ -12,19 +12,21 @@ import { siteConfig } from "@/content/site";
 import { NavbarDrawer } from "./navbar-drawer";
 import { NavbarLinks } from "./navbar-links";
 
-export const SOLID_NAV_ROUTES = ["/privacy-policy", "/home-visits", "/thank-you"];
+export const SOLID_NAV_ROUTES = ["/privacy-policy", "/home-visit-chiropractor", "/thank-you"];
 
 /** Pages whose Hero renders a solid navy-900 right-column panel
- * (components/sections/hero-solid-panel.tsx) — the same color as the
- * default filled "Book Appointment" pill, so it'd be invisible against it
- * while the navbar is still transparent (pre-scroll). Those pages get an
- * outlined pill instead until the navbar goes solid/glass. /home-visits
- * also uses HeroSolidPanel but is already in SOLID_NAV_ROUTES above (its
- * navbar is never transparent), so it doesn't need to be listed here too. */
+ * (components/sections/hero-solid-panel.tsx, or /reviews's matching
+ * hand-built hero) — the same color as the default filled "Book
+ * Appointment" pill, so it'd be invisible against it while the navbar is
+ * still transparent (pre-scroll). Those pages get an outlined pill instead
+ * until the navbar goes solid/glass. /home-visits also uses HeroSolidPanel
+ * but is already in SOLID_NAV_ROUTES above (its navbar is never
+ * transparent), so it doesn't need to be listed here too. */
 export const OUTLINE_CTA_ROUTES = [
   "/",
-  "/auto-accidents",
+  "/car-accident-chiropractor",
   "/services",
+  "/reviews",
   "/conditions/back-pain",
   "/conditions/cervicogenic-headache",
   "/conditions/concussion",

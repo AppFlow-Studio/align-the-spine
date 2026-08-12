@@ -18,7 +18,7 @@ describe("buildMetadata", () => {
     const metadata = buildMetadata({
       title: "Book an Appointment | Align the Spine Chiropractic",
       description: "Description",
-      path: "/book",
+      path: "/book-an-appointment",
     });
     expect(metadata.title).toEqual({
       absolute: "Book an Appointment | Align the Spine Chiropractic",
@@ -26,11 +26,15 @@ describe("buildMetadata", () => {
   });
 
   it("mirrors title/description/url into openGraph and twitter", () => {
-    const metadata = buildMetadata({ title: "Title", description: "Description", path: "/book" });
+    const metadata = buildMetadata({
+      title: "Title",
+      description: "Description",
+      path: "/book-an-appointment",
+    });
     expect(metadata.openGraph).toMatchObject({
       title: "Title",
       description: "Description",
-      url: `${siteConfig.siteUrl}/book`,
+      url: `${siteConfig.siteUrl}/book-an-appointment`,
       siteName: siteConfig.business.name,
     });
     expect(metadata.twitter).toMatchObject({ title: "Title", description: "Description" });

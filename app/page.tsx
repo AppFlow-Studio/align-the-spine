@@ -47,20 +47,20 @@ export default function Home() {
           <>
             Align the Spine
             <br />
-            South Florida&apos;s
+            Deerfield Beach
             <br />
             Chiropractor
           </>
         }
         badge="Office Visits are $50"
         bilingualNote="¿Habla español? Dr. Abe habla su idioma."
-        subhead="Injured in a car accident? Full evaluation, treatment, and documentation for your PIP claim — at your home or in the office, on your schedule."
+        subhead="Chiropractic care in Deerfield Beach for back pain, neck pain, mobility concerns, and injuries — with focused evaluations after car accidents."
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
         form={{
-          heading: "Schedule Your Car Accident Evaluation",
-          submitLabel: "Schedule My Car Accident Evaluation",
+          heading: "Schedule Your Chiropractic Evaluation",
+          submitLabel: "Schedule My Evaluation",
           footerNote:
-            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
+            "Visit us in Deerfield Beach, or call to ask whether a home visit fits your case and location.",
         }}
       />
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
@@ -69,7 +69,13 @@ export default function Home() {
       <AccidentInjuries />
       <SpineOverview content={spineOverviewContent} />
       <DoctorProfile variant="short" content={doctorProfileContent} />
-      <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews.slice(0, 3)} />
+      {/* slice(1, 4), not (0, 3): homeFeaturedTestimonial is homeReviews[0]
+       * (Sheila's car-accident review — kept as the big featured quote
+       * since it's the most relevant to this practice's primary accident
+       * leads), so the grid below starts from the next review instead of
+       * repeating her a second time as both the featured quote and the
+       * first card. */}
+      <PatientReviews featured={homeFeaturedTestimonial} reviews={homeReviews.slice(1, 4)} />
       {/* <FaqSection pageKey="home" /> */}
       <LocationIntro />
       <LocationFooter />

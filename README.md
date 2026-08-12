@@ -18,7 +18,9 @@ Open [http://localhost:3000](http://localhost:3000) to view it.
 - `npm run start` — run the production build
 - `npm run lint` — ESLint
 - `npm run typecheck` — TypeScript, no emit
+- `npm run test` — Vitest
 - `npm run format` / `npm run format:check` — Prettier (with import sorting)
+- `npm run verify:canonicals -- <baseUrl>` — fetches a deployed site's sitemap.xml and confirms every URL in it returns 200 with no redirect (e.g. `npm run verify:canonicals -- https://chirobackpain.com`). Needs a real deployed URL, so it isn't part of `npm run build` or CI — run it manually after a deploy.
 
 ## Project structure
 
@@ -33,7 +35,7 @@ Import these via the `@/` path alias, e.g. `import { Button } from "@/components
 
 ## CI / Deployment
 
-- GitHub Actions runs typecheck, lint, and build on every PR (`.github/workflows/ci.yml`).
+- GitHub Actions runs typecheck, lint, test, and build on every PR (`.github/workflows/ci.yml`).
 - Vercel is connected to this repo for automatic preview deployments on PRs and production deploys on `main`.
 
 ## Git hooks

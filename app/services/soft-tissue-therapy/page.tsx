@@ -32,7 +32,7 @@ import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/con
 import { cn } from "@/lib/cn";
 import { buildRouteMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = buildRouteMetadata(getRoute("/services/massage-soft-tissue"));
+export const metadata: Metadata = buildRouteMetadata(getRoute("/services/soft-tissue-therapy"));
 
 /** /services/massage-soft-tissue — dedicated, hand-built page, same
  * per-page pattern as the condition pages (ATS-137) and
@@ -136,8 +136,8 @@ export default function MassageSoftTissuePage() {
                 </div>
                 <Button
                   variant="book"
-                  href="/book"
-                  className="w-fit shrink-0 self-start px-8 sm:self-center"
+                  href="/book-an-appointment"
+                  className="w-fit shrink-0 self-start sm:self-center"
                 >
                   Book
                 </Button>
@@ -171,8 +171,8 @@ export default function MassageSoftTissuePage() {
 
       <Section>
         <Container className="flex flex-col gap-14">
-          <SectionHeading eyebrow="What it treats">
-            Conditions soft tissue therapy relieves
+          <SectionHeading eyebrow="When it may fit">
+            Conditions addressed with soft-tissue care
           </SectionHeading>
           <div className="flex flex-col divide-y divide-navy-900/20 border-t border-navy-900">
             {massageConditions.map((condition, idx) => (
@@ -222,7 +222,7 @@ export default function MassageSoftTissuePage() {
 
       <PatientReviews
         featured={homeFeaturedTestimonial}
-        reviews={homeReviews.slice(0, 3)}
+        reviews={homeReviews.slice(1, 4)}
         variant="light"
       />
 

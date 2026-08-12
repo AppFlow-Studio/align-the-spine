@@ -6,7 +6,7 @@ import type { VerifiedValue } from "@/content/verified-value";
  * is a one-file change instead of five. Individual conditions may still
  * override `smallprint` with condition-specific wording if ever needed. */
 export const DEFAULT_ACCIDENT_SMALLPRINT =
-  "Missing this window means you may have to pay thousands for medical care out of your own pocket.";
+  "Coverage and payment depend on your policy, eligibility, medical necessity, and the circumstances of your claim.";
 
 export interface ConditionHero {
   /** Plain-text eyebrow line above the H1 (Hero's `eyebrow` prop — not the

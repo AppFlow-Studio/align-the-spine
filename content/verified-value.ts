@@ -35,3 +35,17 @@ export function isVerified<T>(
 ): claim is VerifiedValue<T> & { value: T; status: "verified" } {
   return claim.status === "verified" && claim.value !== null;
 }
+
+/** Derives a differently-shaped VerifiedValue from another (e.g. a
+ * `{rating, count}` object down to a display string) without re-asserting
+ * verification — the result carries the same status/source/lastVerified as
+ * `claim`, so a derived value can never end up "verified" on its own. */
+export function mapVerified<T, U>(claim: VerifiedValue<T>, fn: (value: T) => U): VerifiedValue<U> {
+  if (!isVerified(claim)) return { value: null, status: claim.status };
+  return {
+    value: fn(claim.value),
+    status: claim.status,
+    source: claim.source,
+    lastVerified: claim.lastVerified,
+  };
+}

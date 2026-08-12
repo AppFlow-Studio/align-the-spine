@@ -40,11 +40,15 @@ const relatedMidPageHeading = "Often needed alongside other post-accident care";
 
 const relatedMidPage: ConditionRelatedLink[] = [
   { label: "Lower Back Pain", href: "/conditions/back-pain" },
-  { label: "Auto Accident Injuries", href: "/auto-accidents", highlighted: true },
+  {
+    label: "Auto Accident Injuries",
+    href: "/car-accident-chiropractor",
+    highlighted: true,
+  },
   { label: "Neck Pain", href: "/conditions/neck-pain" },
   { label: "Spinal Decompression", href: "/services/spinal-decompression" },
   { label: "Whiplash", href: "/conditions/whiplash" },
-  { label: "Home Visit Care", href: "/home-visits" },
+  { label: "Home Visit Care", href: "/home-visit-chiropractor" },
   { label: "Herniated Disc", href: "/services/spinal-decompression" },
   { label: "View All Treatments", href: "/services" },
 ];
@@ -213,8 +217,8 @@ export default function SpinalDecompressionPage() {
 
       <Section>
         <Container className="flex flex-col gap-14">
-          <SectionHeading eyebrow="What it treats">
-            Conditions decompression relieves
+          <SectionHeading eyebrow="When it may fit">
+            Conditions evaluated for spinal decompression
           </SectionHeading>
           <div className="flex flex-col divide-y divide-mute-300 border-t border-mute-300">
             {decompressionConditions.map((condition, idx) => (
@@ -261,7 +265,7 @@ export default function SpinalDecompressionPage() {
 
       <PatientReviews
         featured={homeFeaturedTestimonial}
-        reviews={homeReviews.slice(0, 3)}
+        reviews={homeReviews.slice(1, 4)}
         variant="light"
       />
 

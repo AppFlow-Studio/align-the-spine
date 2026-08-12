@@ -20,6 +20,9 @@ const config: Config = {
           300: "var(--color-teal-300)",
           500: "var(--color-teal-500)",
         },
+        gold: {
+          400: "var(--color-gold-400)",
+        },
         ink: {
           900: "var(--color-ink-900)",
           500: "var(--color-ink-500)",
