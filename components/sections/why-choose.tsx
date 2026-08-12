@@ -30,7 +30,7 @@ export function WhyChoose({ content }: WhyChooseProps) {
             ))}
           </h2>
           <p className="font-sans text-body-lg text-ink-900">{body}</p>
-          <Button variant="primary" href={cta.href}>
+          <Button variant="primary" href={cta.href} className="w-fit px-[2em]">
             {cta.label}
           </Button>
         </div>

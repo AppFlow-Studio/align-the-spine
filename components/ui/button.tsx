@@ -34,8 +34,10 @@ const variants = {
   /* Nav pill: navy 20% overlay */
   "nav-pill":
     "p-4 gap-2 bg-overlay-navy-20 font-sans text-nav text-white hover:bg-navy-900 focus-visible:outline-white",
-  /* Services-row "Book": solid navy pill, Poppins 20 white, no arrow */
-  book: "p-4 font-sans text-button text-white bg-navy-900 hover:bg-navy-700 focus-visible:outline-navy-900",
+  /* Services-row "Book": solid navy pill, Poppins 20 white, no arrow.
+   * Padding is 8px×40px (py-2 px-10) — a slim, wide pill per design, the one
+   * intentional exception to the equal-padding rule noted above. */
+  book: "px-10 py-2 font-sans text-button text-white bg-navy-900 hover:bg-navy-700 focus-visible:outline-navy-900",
 } as const;
 
 const arrowSize = {
