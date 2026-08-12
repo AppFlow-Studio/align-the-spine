@@ -80,7 +80,7 @@ export default function TmjJawPainPage() {
         <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[3fr_2fr] lg:items-start lg:gap-16">
           <div className="flex flex-col gap-6">
             <Eyebrow>Understanding TMJ trauma</Eyebrow>
-            <h2 className="font-display text-display font-medium text-navy-900">
+            <h2 className="font-display text-display font-normal text-navy-900">
               The impact your jaw absorbed without you noticing.
             </h2>
             <p className="w-full font-sans text-body-lg text-ink-500">
