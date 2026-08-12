@@ -12,7 +12,9 @@ import { LiquidGlass } from "@/components/ui/liquid-glass";
 import { Select } from "@/components/ui/select";
 import { leadFormVariants } from "@/content/lead-forms";
 import { trackLeadConversion } from "@/lib/analytics";
+import { getStoredAttribution } from "@/lib/attribution";
 import { buildLeadFormSchema } from "@/lib/lead-form-schema";
+import { formatUsPhoneAsYouType } from "@/lib/phone-format";
 
 const config = leadFormVariants.booking;
 const STEP_ONE_FIELDS = ["firstName", "phone"] as const;
@@ -77,12 +79,17 @@ export function BookingForm() {
       const response = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ variant: config.variant, values, website: "" }),
+        body: JSON.stringify({
+          variant: config.variant,
+          values,
+          website: "",
+          attribution: getStoredAttribution(),
+        }),
       });
       if (!response.ok) {
         throw new Error(`Lead submission failed with status ${response.status}`);
       }
-      trackLeadConversion(config.variant);
+      trackLeadConversion(config.variant, values);
       router.push("/thank-you");
     } catch {
       setSubmitError("Something went wrong. Please try again.");
@@ -125,11 +132,32 @@ export function BookingForm() {
               />
             );
           }
+          if (field.type === "tel") {
+            const { onChange, ...telField } = register(field.name);
+            return (
+              <Input
+                key={field.name}
+                label={label}
+                type="tel"
+                inputMode="tel"
+                variant="dark"
+                autoComplete={field.autoComplete}
+                placeholder="(954) 573-7192"
+                maxLength={14}
+                error={error}
+                {...telField}
+                onChange={(event) => {
+                  event.target.value = formatUsPhoneAsYouType(event.target.value);
+                  onChange(event);
+                }}
+              />
+            );
+          }
           return (
             <Input
               key={field.name}
               label={label}
-              type={field.type === "tel" ? "tel" : "text"}
+              type="text"
               variant="dark"
               autoComplete={field.autoComplete}
               error={error}

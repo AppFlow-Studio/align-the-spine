@@ -96,6 +96,7 @@ export default function AutoAccidentsPage() {
           fields: leadFormVariants.heroEval.fields,
           footerNote:
             "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
+          twoStep: true,
         }}
       />
 

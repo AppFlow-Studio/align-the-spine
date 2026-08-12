@@ -22,7 +22,14 @@ export function RootShell({ children }: RootShellProps) {
       >
         Skip to content
       </a>
-      <TopStatsBar className="container py-4 md:py-6" />
+      {/* Every Hero/HeroSolidPanel page bleeds its photo up over this bar so
+       * it was never actually visible below `lg` in practice — the bleed
+       * margin was fragile (see hero-solid-panel.tsx's CRO-pass comment for
+       * where it broke), so this makes that always-hidden-below-lg intent
+       * explicit instead of relying on pixel-matching a margin to it.
+       * HeroSolidPanel's own in-panel trust line covers social proof below
+       * `lg` instead (see hero-solid-panel.tsx). */}
+      <TopStatsBar className="container hidden py-4 lg:block lg:py-6" />
       <Navbar />
       <main id="main-content" className="flex-1">
         {children}

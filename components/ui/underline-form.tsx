@@ -9,12 +9,14 @@ import { Button } from "@/components/ui/button";
 import { errorId } from "@/components/ui/field";
 import type { LeadFormValues } from "@/components/ui/lead-form";
 import { trackLeadConversion } from "@/lib/analytics";
+import { getStoredAttribution } from "@/lib/attribution";
 import { cn } from "@/lib/cn";
 import {
   buildLeadFormSchema,
   type LeadFieldConfig,
   type LeadFieldType,
 } from "@/lib/lead-form-schema";
+import { formatUsPhoneAsYouType } from "@/lib/phone-format";
 
 export interface UnderlineFormProps {
   variant?: string;
@@ -74,12 +76,17 @@ export function UnderlineForm({
       const response = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ variant, values, website: honeypot?.value ?? "" }),
+        body: JSON.stringify({
+          variant,
+          values,
+          website: honeypot?.value ?? "",
+          attribution: getStoredAttribution(),
+        }),
       });
       if (!response.ok) {
         throw new Error(`Lead submission failed with status ${response.status}`);
       }
-      trackLeadConversion(variant);
+      trackLeadConversion(variant, values);
       router.push("/thank-you");
     } catch {
       setSubmitError("Something went wrong. Please try again.");
@@ -107,6 +114,7 @@ export function UnderlineForm({
         const type = field.type ?? "text";
         const spanClass = field.half ? undefined : "sm:col-span-2";
         const error = errors[field.name]?.message;
+        const registered = register(field.name);
 
         return (
           <div key={field.name} className={cn("flex flex-col gap-2", spanClass)}>
@@ -121,10 +129,20 @@ export function UnderlineForm({
               type={inputType(type)}
               inputMode={type === "zip" ? "numeric" : undefined}
               autoComplete={field.autoComplete}
+              placeholder={type === "tel" ? "(954) 573-7192" : field.placeholder}
+              maxLength={type === "tel" ? 14 : undefined}
               aria-invalid={error ? true : undefined}
               aria-describedby={error ? errorId(`underline-${field.name}`) : undefined}
               className={fieldClasses}
-              {...register(field.name)}
+              {...registered}
+              onChange={
+                type === "tel"
+                  ? (event) => {
+                      event.target.value = formatUsPhoneAsYouType(event.target.value);
+                      registered.onChange(event);
+                    }
+                  : registered.onChange
+              }
             />
             {error && (
               <p

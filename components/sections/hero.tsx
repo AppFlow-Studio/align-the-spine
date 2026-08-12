@@ -25,6 +25,11 @@ export interface HeroFormConfig {
   fields?: LeadFieldConfig[];
   footerNote?: string;
   onSubmit?: (values: LeadFormValues) => Promise<void>;
+  /** Short-form-first: shows only stepOneFieldNames behind a "Continue"
+   * button before revealing the rest — keeps the hero form's mobile
+   * footprint short instead of showing every field at once. */
+  twoStep?: boolean;
+  stepOneFieldNames?: string[];
 }
 
 export interface HeroProps {

@@ -60,7 +60,7 @@ export const routes: RouteMeta[] = [
     path: "",
     title: `${siteConfig.business.name} | South Florida's Chiropractor`,
     description:
-      "Elite spinal health care in Deerfield Beach, FL — car accident evaluations and home visits when it fits your case. Call (954) 573-7192.",
+      "Spinal health care in Deerfield Beach, FL — car accident evaluations and home visits when it fits your case. Call (954) 573-7192.",
     image: { src: "/figma-exports/interior-reception.png", alt: "Align the Spine reception area" },
     changeFrequency: "weekly",
     priority: 1,
@@ -293,4 +293,19 @@ export function getRoute(path: string): RouteMeta {
   const route = routes.find((entry) => entry.path === path);
   if (!route) throw new Error(`content/seo.ts: no route registered for path "${path}"`);
   return route;
+}
+
+/** Returns `path` if it's registered and published, `null` otherwise —
+ * makes linking to a draft/noindex/unregistered route structurally
+ * impossible instead of relying on every call site to remember to check.
+ * Callers that need to render a conditional link (e.g. `href={getRouteHref(...)  ?? undefined}`)
+ * or skip rendering entirely when null is returned should do so explicitly;
+ * this deliberately never falls back to the path anyway. Not yet wired into
+ * every internal link — that's the internal-linking rebuild, a separate
+ * phase — but the primitive exists now so that work has something safe to
+ * build on. */
+export function getRouteHref(path: string): string | null {
+  const route = routes.find((entry) => entry.path === path);
+  if (!route || !isPublished(route)) return null;
+  return route.path;
 }

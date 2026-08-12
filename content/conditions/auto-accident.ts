@@ -19,8 +19,13 @@ export const autoAccidentCondition: Condition = {
     // (superseding the ATS-E3 (3.1) SEO-verbatim override) per the
     // solid-panel Hero redesign — matches the design 1:1 (ATS-141).
     h1: "Injured in an Accident?",
+    // Was "Covered entirely by Florida PIP insurance" — a flat 100% coverage
+    // guarantee, which contradicts the actual PIP structure this same hero
+    // states two fields below (flags.pipStat: capped at $10,000 with an
+    // Emergency Medical Condition determination, $2,500 without one) and
+    // the truth-constraint ban on payment/coverage guarantees.
     subhead:
-      "Complete chiropractic care - full exam, treatment, and documentation for your claim. Covered entirely by Florida PIP insurance. In-home visits available across South Florida when it's the right fit for your case.",
+      "Complete chiropractic care - full exam, treatment, and documentation for your claim, billed through your Florida PIP insurance when eligible. In-home visits available across South Florida when it's the right fit for your case.",
     backgroundImage: {
       src: "/figma-exports/interior-corridor.png",
       alt: "Align the Spine reception hallway",

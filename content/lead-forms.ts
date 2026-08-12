@@ -21,6 +21,25 @@ const zipField: LeadFieldConfig = {
   autoComplete: "postal-code",
 };
 
+/** Shared across every variant so a lead can always be filtered/prioritized
+ * by whether it's accident-related, regardless of which page or form it
+ * came through — lib/analytics.ts's classifyLeadPriority reads this field
+ * first, ahead of any page/variant-based inference. Left optional: on an
+ * already accident-framed form (e.g. /auto-accidents) re-asking would be
+ * pure friction, and classifyLeadPriority's variant-based fallback covers a
+ * blank answer there. */
+const carAccidentField: LeadFieldConfig = {
+  name: "carAccident",
+  label: "Is this related to a car accident?",
+  type: "select",
+  required: false,
+  placeholder: "Select one",
+  options: [
+    { label: "Yes", value: "yes" },
+    { label: "No", value: "no" },
+  ],
+};
+
 /** ATS-030 variant presets. Every lead form on the site is one of these
  * configs spread into <LeadForm />:
  *
@@ -29,14 +48,14 @@ const zipField: LeadFieldConfig = {
 export const leadFormVariants = {
   heroEval: {
     variant: "heroEval",
-    fields: baseFields,
+    fields: [...baseFields, carAccidentField],
     submitLabel: "Schedule My Evaluation",
   },
   /** /auto-accidents hero form: First/Last/Phone only, no email — matches
    * the Figma hero card exactly (unlike heroEval, which includes email). */
   accidentEval: {
     variant: "accidentEval",
-    fields: baseFields.filter((field) => field.name !== "email"),
+    fields: [...baseFields.filter((field) => field.name !== "email"), carAccidentField],
     submitLabel: "Schedule My Evaluation",
   },
   /** /contact-us hero form: single Name field (not First/Last), Phone,
@@ -47,6 +66,7 @@ export const leadFormVariants = {
       { name: "name", label: "Name", half: true, autoComplete: "name" },
       { name: "phone", label: "Phone", type: "tel", half: true, autoComplete: "tel" },
       { name: "email", label: "Email", type: "email", autoComplete: "email" },
+      carAccidentField,
       { name: "message", label: "Message", type: "textarea" },
     ],
     submitLabel: "Send Message",
@@ -56,7 +76,7 @@ export const leadFormVariants = {
   // fields).
   carAccident: {
     variant: "carAccident",
-    fields: baseFields,
+    fields: [...baseFields, carAccidentField],
     submitLabel: "Schedule My Car Accident Evaluation",
   },
   contact: {
@@ -67,6 +87,7 @@ export const leadFormVariants = {
       { name: "email", label: "Email", type: "email", autoComplete: "email" },
       { name: "phone", label: "Phone", type: "tel", half: true, autoComplete: "tel" },
       { ...zipField, half: true },
+      carAccidentField,
       { name: "bestTime", label: "Best Time to Contact", required: false },
     ],
     submitLabel: "Contact Us",
@@ -75,13 +96,16 @@ export const leadFormVariants = {
    * only asks for name, phone, and zip. */
   eligibility: {
     variant: "eligibility",
-    fields: [...baseFields.filter((field) => field.name !== "email"), zipField],
+    fields: [...baseFields.filter((field) => field.name !== "email"), zipField, carAccidentField],
     submitLabel: "Check Eligibility",
   },
   /** Two-step /book hero form per the Book-appt artboard: step 1 collects
    * first name + phone, step 2 the rest. No email field by design.
    * ATS-E3 (3.4): the free-text "notes" field is gone — a broad reason
-   * select only, no open-ended detailed health notes. */
+   * select only, no open-ended detailed health notes. Also carries its own
+   * "Accident" option in `reason`, which classifyLeadPriority treats as
+   * equivalent to carAccidentField — kept as-is rather than duplicated
+   * alongside a second, redundant accident question on this one form. */
   booking: {
     variant: "booking",
     fields: [

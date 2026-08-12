@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.business.name}`,
   },
   description:
-    "Elite spinal health care in Deerfield Beach, FL — car accident evaluations and home visits when it fits your case. Call (954) 573-7192.",
+    "Spinal health care in Deerfield Beach, FL — car accident evaluations and home visits when it fits your case. Call (954) 573-7192.",
   openGraph: {
     siteName: siteConfig.business.name,
     type: "website",

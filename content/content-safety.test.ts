@@ -38,6 +38,11 @@ const FORBIDDEN_STRINGS: ForbiddenString[] = [
     needle: "the doctor South Florida refers accident patients to",
   },
   { label: "placeholder testimonial author", needle: "Maria G." },
+  { label: "PIP coverage guarantee", needle: "PIP-covered" },
+  { label: "PIP coverage guarantee", needle: "Covered entirely by" },
+  { label: "banned superlative", needle: "Elite spinal" },
+  { label: "banned superlative", needle: "medical excellence" },
+  { label: "banned superlative", needle: "Premium chiropractic care" },
 ];
 
 function stripComments(source: string): string {
