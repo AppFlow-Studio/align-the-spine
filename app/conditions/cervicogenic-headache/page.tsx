@@ -86,7 +86,7 @@ export default function CervicogenicHeadachePage() {
             <h2 className="font-display text-display font-medium text-navy-900">
               The headache a car accident leaves behind
             </h2>
-            <p className="font-sans text-body-lg text-ink-500">
+            <p className="font-sans text-body-lg text-ink-900">
               Cervicogenic headaches originate in the cervical spine, not the head itself — which is
               why they&apos;re one of the most common, and most overlooked, injuries after a car
               accident. The sudden force of a collision can irritate the joints and nerves at the
@@ -154,7 +154,7 @@ export default function CervicogenicHeadachePage() {
                     className="object-cover transition-[filter] duration-300 sm:grayscale sm:contrast-110 sm:brightness-90 sm:group-hover:grayscale-0 sm:group-hover:contrast-100 sm:group-hover:brightness-100"
                   />
                 </div>
-                <h3 className="font-display text-h2 text-navy-900 transition-colors group-hover:text-teal-500">
+                <h3 className="font-display text-3xl text-navy-900 transition-colors group-hover:text-teal-500">
                   {condition.name}
                 </h3>
                 <p className="font-sans text-body-lg text-ink-500 transition-colors group-hover:font-semibold group-hover:text-ink-900">

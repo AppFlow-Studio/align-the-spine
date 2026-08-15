@@ -49,7 +49,7 @@ export function HowWeTreat({
                 />
               </div>
               <div className="flex flex-col gap-3">
-                <h3 className="font-display text-h2 text-navy-900 transition-colors duration-300 group-hover:text-teal-500">
+                <h3 className="font-display text-3xl text-navy-900 transition-colors duration-300 group-hover:text-teal-500">
                   {item.title}
                 </h3>
                 <hr className="border-t border-navy-900 transition-colors duration-300 group-hover:border-teal-500" />

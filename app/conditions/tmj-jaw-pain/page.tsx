@@ -82,7 +82,7 @@ export default function TmjJawPainPage() {
             <h2 className="font-display text-display font-medium text-navy-900">
               The impact your jaw absorbed without you noticing.
             </h2>
-            <p className="w-full font-sans text-body-lg text-ink-500">
+            <p className="w-full font-sans text-body-lg text-ink-900">
               A concussion doesn&apos;t require losing consciousness or striking your head directly
               — the sudden whiplash motion of a car accident alone can cause the brain to move
               inside the skull, resulting in a mild traumatic brain injury. Post-concussion syndrome

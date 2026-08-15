@@ -42,12 +42,12 @@ export function ConditionTypesWithCauses({
   return (
     <Section className={className}>
       <Container className="flex flex-col gap-12">
-        <h2 className="font-display text-h2 text-navy-900">{heading}</h2>
+        <h2 className="font-display text-5xl text-navy-900">{heading}</h2>
 
         <div className="grid grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-16">
           <div className="flex flex-col gap-14">
             <div className="flex flex-col gap-6">
-              <h3 className="font-display text-h2 text-navy-900">{symptomsHeading}</h3>
+              <h3 className="font-display text-3xl text-navy-900">{symptomsHeading}</h3>
               <ul className="flex flex-col gap-4">
                 {symptoms.map((symptom) => (
                   <li key={symptom} className="flex items-center gap-3">
@@ -59,7 +59,7 @@ export function ConditionTypesWithCauses({
             </div>
 
             <div className="flex flex-col gap-6">
-              <h3 className="font-display text-h2 text-navy-900">{relatedHeading}</h3>
+              <h3 className="font-display text-3xl text-navy-900">{relatedHeading}</h3>
               <div className="flex flex-col gap-4">
                 {relatedLinks.map((link) => (
                   <Link
@@ -85,7 +85,7 @@ export function ConditionTypesWithCauses({
                     : "flex flex-col gap-6 border-t border-mute-300 pt-8"
                 }
               >
-                <h3 className="font-display text-h2 text-navy-900">{category.label}</h3>
+                <h3 className="font-display text-3xl text-navy-900">{category.label}</h3>
                 <div className="flex flex-col gap-6">
                   {category.items.map((item) => (
                     <div key={item.name} className="flex flex-col gap-2">

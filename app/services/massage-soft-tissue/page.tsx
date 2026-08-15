@@ -95,7 +95,7 @@ export default function MassageSoftTissuePage() {
                   />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <h3 className="font-display text-h2 text-navy-900 group-hover:text-teal-500 transition-colors duration-300">
+                  <h3 className="font-display text-3xl text-navy-900 group-hover:text-teal-500 transition-colors duration-300">
                     {technique.title}
                   </h3>
                   <p className="font-sans text-body-lg text-ink-500">{technique.description}</p>
@@ -127,7 +127,7 @@ export default function MassageSoftTissuePage() {
             />
           </div>
           <Container className="relative flex flex-col gap-3 py-16 md:py-20">
-            <h2 className="font-display text-h2 text-white">
+            <h2 className="font-display text-5xl text-white">
               Matched to your injury, not a routine
             </h2>
             <p className="max-w-2xl font-sans text-body-lg text-mute-300">
@@ -160,7 +160,7 @@ export default function MassageSoftTissuePage() {
                 </div>
                 <h3
                   className={cn(
-                    "font-display text-h2 text-navy-900 group-hover:text-teal-500 transition-colors duration-300",
+                    "font-display text-3xl text-navy-900 group-hover:text-teal-500 transition-colors duration-300",
                   )}
                 >
                   {condition.name}

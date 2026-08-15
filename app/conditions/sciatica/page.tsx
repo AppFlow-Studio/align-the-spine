@@ -122,13 +122,13 @@ export default function SciaticaPage() {
             <Eyebrow>How sciatica escalates</Eyebrow>
             <h2 className="font-display text-display font-medium text-navy-900">
               Sciatica isn&apos;t a condition on
-              <br />
+              <br className="hidden lg:inline" />
               its own — it&apos;s a symptom of
-              <br />
+              <br className="hidden lg:inline" />
               nerve pressure
             </h2>
-            <div className="flex flex-col gap-4 ml-[10vw]">
-              <p className="max-w-2xl font-sans text-body-lg text-ink-500">
+            <div className="flex flex-col gap-4 lg:ml-[10vw]">
+              <p className="max-w-2xl font-sans text-body-lg text-ink-900">
                 Sciatica after a car accident is billed directly to PIP — Dr. Abe Nasser uses a full
                 evaluation to pinpoint the source of nerve compression and build a plan to relieve
                 your leg pain. Sciatica itself is often caused by a{" "}

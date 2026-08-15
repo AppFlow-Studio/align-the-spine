@@ -56,7 +56,7 @@ export function HeroReviewsCarousel({ testimonials }: HeroReviewsCarouselProps) 
            * client-approved testimonials — an empty bordered row with
            * nothing in it read as a layout bug, not "nothing to show yet". */}
           {testimonials.length > 0 && (
-            <div className="flex items-center justify-between gap-4 border-b border-mute-300 pb-6">
+            <div className="flex flex-col gap-4 border-b border-mute-300 pb-6 sm:flex-row sm:items-center sm:justify-between">
               <div className="relative min-w-0 flex-1 overflow-hidden">
                 <div
                   className="flex transition-transform duration-500 ease-in-out"
@@ -89,7 +89,7 @@ export function HeroReviewsCarousel({ testimonials }: HeroReviewsCarouselProps) 
 
               {testimonials.length > 1 && (
                 <div
-                  className="flex shrink-0 items-center gap-1.5"
+                  className="flex shrink-0 items-center justify-center gap-1.5 sm:justify-start"
                   role="tablist"
                   aria-label="Featured reviews"
                 >

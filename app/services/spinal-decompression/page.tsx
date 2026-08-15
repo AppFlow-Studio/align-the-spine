@@ -97,10 +97,10 @@ export default function SpinalDecompressionPage() {
         <Container className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
           <div className="flex flex-col gap-6">
             <Eyebrow>Understanding the treatment</Eyebrow>
-            <h2 className="font-display text-h2 text-navy-900">
+            <h2 className="font-display text-5xl text-navy-900">
               The pressure a car accident leaves behind
             </h2>
-            <p className="font-sans text-body-lg text-ink-500">
+            <p className="font-sans text-body-lg text-ink-900">
               When a disc bulges or herniates — from a collision&apos;s impact or from years of wear
               — it can press directly on a nerve root, causing the radiating pain we see in{" "}
               <Link href="/conditions/sciatica" className="underline">

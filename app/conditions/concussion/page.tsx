@@ -103,12 +103,12 @@ export default function ConcussionPage() {
             <Eyebrow>Understanding concussion trauma</Eyebrow>
             <h2 className="font-display text-display font-medium text-navy-900">
               The injury a car accident
-              <br />
+              <br className="hidden lg:inline" />
               can cause without you
-              <br />
+              <br className="hidden lg:inline" />
               hitting your head.
             </h2>
-            <p className="w-full font-sans text-body-lg text-ink-500">
+            <p className="w-full font-sans text-body-lg text-ink-900">
               A concussion doesn&apos;t require losing consciousness or striking your head directly
               — the sudden whiplash motion of a car accident alone can cause the brain to move
               inside the skull, resulting in a mild traumatic brain injury. Post-concussion syndrome

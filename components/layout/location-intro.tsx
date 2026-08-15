@@ -22,9 +22,9 @@ export interface LocationIntroProps {
 export function LocationIntro({ sendHref = "/#contact" }: LocationIntroProps) {
   return (
     <section className="bg-white">
-      <div className="container grid gap-10 py-20 lg:grid-cols-2 lg:items-center lg:gap-16">
+      <div className="container grid gap-10 pt-28 pb-20 lg:grid-cols-2 lg:items-center lg:gap-16">
         <div className="flex flex-col gap-8">
-          <h2 className="font-display text-h2 text-navy-900 leading-12">
+          <h2 className="font-display text-5xl text-navy-900">
             Serving
             <br />
             South Florida

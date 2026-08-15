@@ -79,10 +79,10 @@ export default function ChiropracticAdjustmentsPage() {
         <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[3fr_2fr] lg:items-start lg:gap-16">
           <div className="flex flex-col gap-6">
             <Eyebrow>Understanding the treatment</Eyebrow>
-            <h2 className="font-display text-h2 text-navy-900">
+            <h2 className="font-display text-5xl text-navy-900">
               Restoring the motion a collision took away
             </h2>
-            <p className="font-sans text-body-lg text-ink-500">
+            <p className="font-sans text-body-lg text-ink-900">
               A chiropractic adjustment uses precise, hands-on pressure to restore motion to a joint
               that&apos;s lost it after impact — what we call a fixation. When a vertebra stops
               moving properly after a collision, the surrounding muscles and nerves compensate,
@@ -135,7 +135,7 @@ export default function ChiropracticAdjustmentsPage() {
             <div className="grid grid-cols-1 gap-10 border-t border-mute-300 pt-10 sm:grid-cols-3">
               {adjustmentsHowItWorks.map((step) => (
                 <div key={step.title} className="group flex flex-col gap-3">
-                  <h3 className="font-display text-h2 text-navy-900 transition-colors duration-200 group-hover:text-teal-500">
+                  <h3 className="font-display text-3xl text-navy-900 transition-colors duration-200 group-hover:text-teal-500">
                     {step.title}
                   </h3>
                   <hr className="border-t border-navy-900 transition-colors duration-200 group-hover:border-teal-500" />

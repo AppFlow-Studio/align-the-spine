@@ -66,44 +66,52 @@ export function Navbar({ variant }: { variant?: NavbarVariant } = {}) {
   }, [resolvedVariant]);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 isolate flex h-[100px] items-center will-change-transform">
-      <div
-        className={`container relative flex items-center justify-between rounded-full px-2 transition-colors duration-300 ${
-          isGlass ? "bg-[#636363] backdrop-blur-md" : "bg-transparent"
-        }`}
-      >
-        <Link href="/" className="shrink-0">
-          <Image
-            src="/figma-exports/logo_blue.png"
-            alt={siteConfig.business.name}
-            width={65}
-            height={65}
-          />
-        </Link>
-
-        <NavbarLinks isGlass={isGlass} className="hidden lg:flex" />
-
-        <Link
-          href={siteConfig.bookingCta.href}
-          className={`hidden h-[52px] items-center rounded-full px-6 text-button text-white transition-colors duration-300 lg:flex ${
-            outlineCta ? "border border-white bg-transparent" : "bg-navy-900"
+    <>
+      <header className="fixed inset-x-0 top-0 z-50 isolate flex h-[100px] items-center will-change-transform">
+        <div
+          className={`container relative flex items-center justify-between rounded-full px-2 transition-colors duration-300 ${
+            isGlass ? "bg-[#636363] backdrop-blur-md" : "bg-transparent"
           }`}
         >
-          {siteConfig.bookingCta.label}
-        </Link>
+          <Link href="/" className="shrink-0">
+            <Image
+              src="/figma-exports/logo_blue.png"
+              alt={siteConfig.business.name}
+              width={65}
+              height={65}
+            />
+          </Link>
 
-        <button
-          type="button"
-          aria-label="Open menu"
-          aria-expanded={drawerOpen}
-          onClick={() => setDrawerOpen(true)}
-          className="flex h-10 w-10 items-center justify-center text-white lg:hidden"
-        >
-          <MenuIcon className="h-6 w-6" />
-        </button>
-      </div>
+          <NavbarLinks isGlass={isGlass} className="hidden lg:flex" />
 
+          <Link
+            href={siteConfig.bookingCta.href}
+            className={`hidden h-[52px] items-center rounded-full px-6 text-button text-white transition-colors duration-300 lg:flex ${
+              outlineCta ? "border border-white bg-transparent" : "bg-navy-900"
+            }`}
+          >
+            {siteConfig.bookingCta.label}
+          </Link>
+
+          <button
+            type="button"
+            aria-label="Open menu"
+            aria-expanded={drawerOpen}
+            onClick={() => setDrawerOpen(true)}
+            className="flex h-10 w-10 items-center justify-center text-white lg:hidden"
+          >
+            <MenuIcon className="h-6 w-6" />
+          </button>
+        </div>
+      </header>
+
+      {/* Rendered as a header sibling, not a child: header has
+       * will-change-transform, which establishes a containing block for
+       * position:fixed descendants (per spec, same as an actual transform)
+       * — nesting the drawer inside it collapsed the drawer's fixed
+       * inset-0/h-full to the header's own 100px height instead of the
+       * viewport. */}
       <NavbarDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
-    </header>
+    </>
   );
 }
