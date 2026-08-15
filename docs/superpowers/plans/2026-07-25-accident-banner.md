@@ -13,7 +13,7 @@
 - No component-level test framework in active use in this repo (one `vitest` unit test exists, for a non-component util); verification is `npm run typecheck`, `npm run lint`, `npm run build`, plus manual dev-server QA — same convention as every prior plan in `docs/superpowers/plans/`.
 - Reuse existing tokens/components exactly, do not reimplement: `Eyebrow` (`components/ui/eyebrow.tsx`), `Section`/`Container` (`components/ui/section.tsx`/`components/ui/container.tsx`), `PipCalculator` (`components/ui/pip-calculator.tsx`), the `understanding-intro` fontSize token (headline — 50px/62px/400, exact match for "Newsreader Regular 50/62"), the `body-lg` fontSize token paired with `text-mute-300` (body paragraph — 25px/40px/400, `#cdcdcd`, exact match), `navy-900` (`#253067`), `teal-500` (`#58a0a0`), `overlay-white-15` (translucent pill fill, same one `PipCalculator`'s own card uses).
 - New token only: `small-print` (`18px`/`30px`/`400`) fontSize — no other new tokens, no hardcoded hex values in component code.
-- The warning badge is a plain `bg-teal-500 rounded-full` `<span>` containing a white "!" text glyph — no new icon asset, matching this repo's existing convention of plain colored dot spans (`RedFlagCard`'s bullet dot, `UnderstandingCondition`'s Common-Causes dot) instead of new SVGs.
+- The warning badge is a plain `bg-[#58A0A0] rounded-full` `<span>` containing a white "!" text glyph — no new icon asset, matching this repo's existing convention of plain colored dot spans (`RedFlagCard`'s bullet dot, `UnderstandingCondition`'s Common-Causes dot) instead of new SVGs.
 - `Condition.accidentBanner` is a flat `{ headline: string; body: string }` object — the eyebrow text and warning small-print are NOT part of this type; they are static strings inside `AccidentBanner` itself.
 - Background is flat `bg-navy-900` — no background photo (per resolved design decision; see spec's "Background treatment" note).
 - Do not add or modify any route under `app/` other than the temporary, reverted `app/page.tsx` edit in the final task — no condition-page route exists yet.
@@ -274,7 +274,7 @@ export function AccidentBanner({ condition, className }: AccidentBannerProps) {
               <div className="flex items-center gap-4 rounded-full bg-overlay-white-15 px-5 py-4">
                 <span
                   aria-hidden="true"
-                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-teal-500 font-sans text-sm font-bold text-white"
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#58A0A0] font-sans text-sm font-bold text-white"
                 >
                   !
                 </span>

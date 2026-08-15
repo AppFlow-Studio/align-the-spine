@@ -25,16 +25,14 @@ export interface HowWeTreatProps {
  * home-visit option). */
 export function HowWeTreat({
   items,
-  heading = "How we treat it",
+  heading = "Treatment focused on the source,\n not the symptom.",
   sub = "Treatment focused on the source, not the symptom.",
   className,
 }: HowWeTreatProps) {
   return (
     <Section className={className}>
       <Container className="flex flex-col gap-14">
-        <SectionHeading eyebrow="How we treat" sub={sub}>
-          {heading}
-        </SectionHeading>
+        <SectionHeading eyebrow="How we treat">{heading}</SectionHeading>
 
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2">
           {items.map((item) => (

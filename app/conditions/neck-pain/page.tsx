@@ -117,17 +117,18 @@ export default function NeckPainPage() {
           submitLabel: leadFormVariants.heroEval.submitLabel,
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,
-          footerNote: "Call us to check availability in your area.",
+          footerNote:
+            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
         }}
       />
 
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
 
       <Section>
-        <Container className="flex justify-between gap-10 lg:items-start">
+        <Container className="flex flex-col justify-between gap-10 lg:flex-row lg:items-start">
           <div className="flex flex-col gap-6">
             <Eyebrow>Understanding Neck Pain</Eyebrow>
-            <h2 className="font-display text-display font-medium text-navy-900">
+            <h2 className="font-display text-display font-normal text-navy-900">
               Neck pain ranges from a
               <br className="hidden lg:inline" />
               stiff morning to something
@@ -137,14 +138,11 @@ export default function NeckPainPage() {
             <p className="max-w-2xl font-sans text-body-lg text-ink-900 lg:ml-[10vw]">
               Neck pain after a car accident needs a different evaluation than an everyday stiff
               morning. If your neck pain started after a collision, Florida gives you{" "}
-              <Link href="/auto-accidents" className="underline">
+              <Link href="/car-accident-chiropractor" className="underline">
                 14 days
               </Link>{" "}
-              to get evaluated and protect your{" "}
-              <Link href="/auto-accidents" className="underline">
-                PIP benefits
-              </Link>{" "}
-              — it may be{" "}
+              for initial services and care under Florida PIP, with coverage depending on policy
+              terms. Accident-related neck pain may involve{" "}
               <Link href="/conditions/whiplash" className="underline">
                 whiplash
               </Link>{" "}
@@ -152,16 +150,16 @@ export default function NeckPainPage() {
               <Link href="/services#adjustments" className="underline">
                 cervical spine
               </Link>
-              . Everyday neck pain is usually muscular — tension from posture, stress, or sleep
-              position — and responds well to conservative care.
+              . Neck pain can also involve muscle tension from posture, stress, or sleep position,
+              so an evaluation helps determine the likely source and appropriate next step.
             </p>
-            <div className="h-px bg-mute-350 ml-[10vw]" />
+            <div className="h-[1px] bg-black lg:ml-[10vw]" />
             <a
               href="#types-of-neck-pain"
-              className="ml-[10vw] inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4"
+              className="group lg:ml-[10vw] inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4"
             >
               Understand Neck Pain
-              <ArrowRightIcon className="h-4 w-4" />
+              <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
           </div>
           <div className="relative mx-auto aspect-411/737 w-full max-w-sm overflow-hidden lg:mr-[5vw]">
@@ -201,7 +199,7 @@ export default function NeckPainPage() {
 
       <PatientReviews
         featured={homeFeaturedTestimonial}
-        reviews={homeReviews.slice(0, 3)}
+        reviews={homeReviews.slice(1, 4)}
         variant="light"
       />
 
@@ -215,7 +213,7 @@ export default function NeckPainPage() {
         <Container className="flex flex-col gap-6 py-8 sm:flex-row sm:items-center sm:justify-between sm:py-14">
           <div className="flex flex-col gap-2">
             <h2 className="font-display text-h2 text-white">Still have questions? Just Call</h2>
-            <p className="font-sans text-body-lg text-mute-300">
+            <p className="font-sans text-body-lg text-mute-300 w-[65%]">
               Dr. Abe Answers the phone. No call center, no hold music.
             </p>
           </div>

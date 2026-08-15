@@ -23,11 +23,9 @@ export interface TypesGridProps {
 export function TypesGrid({ heading, items, className }: TypesGridProps) {
   return (
     <Section className={className}>
-      <Container className="flex flex-col gap-12">
-        <h2 className="mx-auto max-w-2xl text-center font-display text-h2 text-navy-900 md:text-understanding-intro">
-          {heading}
-        </h2>
-        <div className="grid grid-cols-1 gap-x-16 gap-y-10 border-t border-mute-300 pt-10 md:grid-cols-2">
+      <Container className="flex flex-col gap-4">
+        <h2 className="max-w-2xl text-left font-display text-h2 text-navy-900">{heading}</h2>
+        <div className="grid grid-cols-1 gap-x-16 gap-y-10 border-t-2 border-mute-300 pt-10 md:grid-cols-2">
           {items.map((item) => (
             <div
               key={item.name}
@@ -39,7 +37,7 @@ export function TypesGrid({ heading, items, className }: TypesGridProps) {
                 </h3>
                 <p className="font-alt text-faq-a text-ink-500">{item.description}</p>
               </div>
-              <ArrowRightIcon className="h-6 w-6 shrink-0 text-navy-900 transition-opacity duration-300 md:opacity-0 md:group-hover:opacity-100" />
+              <ArrowRightIcon className="h-6 w-6 shrink-0 text-navy-900 transition-all duration-300 group-hover:translate-x-1 md:opacity-0 md:group-hover:opacity-100" />
             </div>
           ))}
         </div>

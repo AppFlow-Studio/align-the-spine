@@ -10,11 +10,13 @@ export const servicesGrid: ServiceCardItem[] = [
     name: "Adjustments",
     duration: "",
     summary:
-      "Hands-on spinal adjustments that restore motion to fixated segments in the neck, mid back, and low back — the foundation of most treatment plans.",
+      "Hands-on chiropractic adjustments using controlled pressure to improve joint motion in the neck, mid back, or lower back when appropriate.",
     image: {
       src: "/figma-exports/drabeadjust.png",
       alt: "Dr. Abe performing a chiropractic adjustment",
     },
+    href: "/services/chiropractic-adjustments",
+    ctaLabel: "Learn more",
   },
   {
     slug: "sports-injury",
@@ -32,7 +34,7 @@ export const servicesGrid: ServiceCardItem[] = [
     name: "Posture & Corrective",
     duration: "",
     summary:
-      "Corrective care for postural imbalances that build up from desk work, driving, or repetitive strain, aimed at long-term alignment, not just relief.",
+      "Chiropractic evaluation and care for postural strain that can build from desk work, driving, or repetitive movement.",
     image: { src: "/figma-exports/drabe-spine.png", alt: "Posture and corrective spinal care" },
   },
   {
@@ -40,18 +42,20 @@ export const servicesGrid: ServiceCardItem[] = [
     name: "Spinal Decompression",
     duration: "",
     summary:
-      "Traction-based decompression that opens up compressed joints and pumps fluid back into the discs, easing pressure on nerves from disc displacement.",
+      "Controlled, traction-based spinal decompression for selected disc, joint, and radiating nerve-pain concerns after a full evaluation.",
     image: {
       src: "/figma-exports/drabe-traction_compression.png",
       alt: "Spinal traction and decompression therapy",
     },
+    href: "/services/spinal-decompression",
+    ctaLabel: "Learn more",
   },
   {
     slug: "headache-migraine",
     name: "Headache & Migraine",
     duration: "",
     summary:
-      "Upper cervical adjustments that target the neck fixations behind tension headaches and migraines, not just the pain they cause.",
+      "Neck-focused evaluation and chiropractic care for headaches with a possible musculoskeletal or cervical component.",
     image: { src: "/figma-exports/drabe-headache.png", alt: "Headache and migraine treatment" },
   },
   {
@@ -59,7 +63,9 @@ export const servicesGrid: ServiceCardItem[] = [
     name: "Massage/Soft-Tissue",
     duration: "",
     summary:
-      "Myofascial release and soft-tissue work that loosens muscle spasms and breaks up adhesions, often paired with adjustments for faster recovery.",
+      "Myofascial release and targeted soft-tissue care for muscle tension, restricted motion, and injury-related soreness.",
     image: { src: "/figma-exports/drabe-soft-tissue.png", alt: "Massage and soft-tissue therapy" },
+    href: "/services/soft-tissue-therapy",
+    ctaLabel: "Learn more",
   },
 ];

@@ -3,9 +3,9 @@ export interface SpineSegment {
   /** Short region label, e.g. "Cervical (Neck)". */
   name: string;
   description: string;
-  /** Percentage position of this region's marker on the spine image
-   * (object-contain, 500x500 source), matched by eye against the
-   * region's anatomical location in the artwork. */
+  /** Percentage position of this region's marker on the (portrait) spine
+   * frame, matched by eye against the region's location on the straightened
+   * spine — the clip's last frame, which is what the callouts sit over. */
   position: { x: number; y: number };
   /** Which side of the image this region's callout label renders on. */
   labelSide: "left" | "right";
@@ -14,7 +14,15 @@ export interface SpineSegment {
 export interface SpineOverviewContent {
   eyebrow: string;
   heading: string;
+  /** Straightened last frame — the resting state (and still fallback when
+   * there's no clip / reduced motion). */
   image: { src: string; alt: string };
+  /** Optional posture clip: plays once, hunched→aligned, when the section
+   * scrolls into view, then rests on `image`; callouts fade in once it settles. */
+  video?: string;
+  /** Poster shown before the clip plays — the hunched first frame, so playback
+   * starts with no jump. Defaults to `image.src`. */
+  videoPoster?: string;
   segments: SpineSegment[];
 }
 
@@ -29,34 +37,39 @@ export interface SpineOverviewContent {
 export const spineOverviewContent: SpineOverviewContent = {
   eyebrow: "Understanding the spine",
   heading: "Your spine controls everything",
-  image: { src: "/figma-exports/spine-skeloton.png", alt: "Human spine anatomy, back view" },
+  image: {
+    src: "/figma-exports/spine-straight-poster.jpg",
+    alt: "A spine straightening from a hunched posture to an upright, aligned one",
+  },
+  video: "https://align-the-spine.b-cdn.net/images/spine-straight.mp4",
+  videoPoster: "/figma-exports/spine-hunched-poster.jpg",
   segments: [
     {
       id: "cervical",
       name: "Cervical (Neck)",
       description: "Headaches, neck stiffness, shoulder tension — most originate here.",
-      position: { x: 47, y: 25 },
+      position: { x: 52, y: 22 },
       labelSide: "left",
     },
     {
       id: "thoracic",
       name: "Thoracic (Mid-Back)",
       description: "The most common source of pain. Bears the majority of your body weight.",
-      position: { x: 51, y: 40 },
+      position: { x: 52, y: 44 },
       labelSide: "right",
     },
     {
       id: "lumbar",
       name: "Lumbar (Lower Back)",
       description: "Poor posture, desk work, and stress compress this region daily.",
-      position: { x: 52, y: 68 },
+      position: { x: 52, y: 61 },
       labelSide: "left",
     },
     {
       id: "sacral",
       name: "Sacral (Base)",
       description: "Hip pain, sciatica, and nerve issues often trace back to this area.",
-      position: { x: 50, y: 85 },
+      position: { x: 52, y: 76 },
       labelSide: "right",
     },
   ],

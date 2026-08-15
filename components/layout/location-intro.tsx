@@ -22,49 +22,51 @@ export interface LocationIntroProps {
 export function LocationIntro({ sendHref = "/#contact" }: LocationIntroProps) {
   return (
     <section className="bg-white">
-      <div className="container grid gap-10 pt-28 pb-20 lg:grid-cols-2 lg:items-center lg:gap-16">
-        <div className="flex flex-col gap-8">
+      <div className="container grid gap-10 pt-16 sm:py-20 lg:grid-cols-2 lg:items-center lg:gap-16">
+        <div className="flex flex-col justify-between h-full sm:gap-auto gap-10">
           <h2 className="font-display text-5xl text-navy-900">
             Serving
             <br />
             South Florida
           </h2>
 
-          <div className="flex flex-col gap-5">
-            <div className="flex items-start gap-3">
-              <PinIcon className="size-8 shrink-0 bg-[#58A0A0] rounded-full px-2 text-white" />
-              <address className="font-alt text-footer-copy not-italic text-navy-900">
-                {siteConfig.business.address.line1} {siteConfig.business.address.suite}
-                <br />
-                {siteConfig.business.address.city}, {siteConfig.business.address.state}{" "}
-                {siteConfig.business.address.zip}
-              </address>
+          <div className="flex flex-col sm:gap-8 gap-6">
+            <div className="flex flex-col gap-5">
+              <div className="flex items-start gap-3">
+                <PinIcon className="size-8 shrink-0 bg-[#58A0A0] rounded-full px-2 text-white" />
+                <address className="font-alt text-footer-copy not-italic text-navy-900">
+                  {siteConfig.business.address.line1} {siteConfig.business.address.suite}
+                  <br />
+                  {siteConfig.business.address.city}, {siteConfig.business.address.state}{" "}
+                  {siteConfig.business.address.zip}
+                </address>
+              </div>
+
+              <a
+                href={siteConfig.business.phoneHref}
+                className="flex items-center gap-3 font-alt text-footer-copy text-navy-900 transition-colors hover:text-navy-700"
+              >
+                <PhoneIcon className="size-8 shrink-0 bg-[#58A0A0] rounded-full px-2 text-white" />
+                {siteConfig.business.phone}
+              </a>
+
+              <a
+                href={`mailto:${siteConfig.business.email}`}
+                className="flex min-w-0 items-center gap-3 break-all font-alt text-footer-copy text-navy-900 transition-colors hover:text-navy-700"
+              >
+                <MailIcon className="size-8 shrink-0 bg-[#58A0A0] rounded-full px-2 text-white" />
+                {siteConfig.business.email}
+              </a>
             </div>
 
-            <a
-              href={siteConfig.business.phoneHref}
-              className="flex items-center gap-3 font-alt text-footer-copy text-navy-900 transition-colors hover:text-navy-700"
+            <Link
+              href={sendHref}
+              className="group flex h-12 w-fit items-center justify-center gap-3 rounded-full bg-navy-900 px-8 font-sans text-button text-white transition-colors hover:bg-navy-700"
             >
-              <PhoneIcon className="size-8 shrink-0 bg-[#58A0A0] rounded-full px-2 text-white" />
-              {siteConfig.business.phone}
-            </a>
-
-            <a
-              href={`mailto:${siteConfig.business.email}`}
-              className="flex min-w-0 items-center gap-3 break-all font-alt text-footer-copy text-navy-900 transition-colors hover:text-navy-700"
-            >
-              <MailIcon className="size-8 shrink-0 bg-[#58A0A0] rounded-full px-2 text-white" />
-              {siteConfig.business.email}
-            </a>
+              <span className="pr-10">Send</span>
+              <ArrowRightIcon className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
           </div>
-
-          <Link
-            href={sendHref}
-            className="group flex h-12 w-fit items-center justify-center gap-3 rounded-full bg-navy-900 px-8 font-sans text-button text-white transition-colors hover:bg-navy-700"
-          >
-            <span className="pr-10">Send</span>
-            <ArrowRightIcon className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-          </Link>
         </div>
 
         <div className="relative h-105 overflow-hidden  lg:h-130">

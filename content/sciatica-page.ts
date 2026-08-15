@@ -44,12 +44,12 @@ export const sciaticaSymptoms: string[] = [
 export const sciaticaRelatedMidPage: ConditionRelatedLink[] = [
   { label: "Lower Back Pain", href: "/conditions/back-pain" },
   { label: "Herniated Disc", href: "/services/spinal-decompression" },
-  { label: "Auto Accident Injuries", href: "/auto-accidents" },
+  { label: "Auto Accident Injuries", href: "/car-accident-chiropractor" },
 ];
 
 export const sciaticaHowWeTreat: ConditionTreatmentItem[] = [
   {
-    title: "Myofasial Release/Trigger Point",
+    title: "Myofascial Release/Trigger Point",
     desc: "The piriformis and surrounding muscles often tighten around the sciatic nerve, adding to the pain. The Graston tool releases that tension directly, similar to a deep massage focused on the area compressing the nerve.",
     image: {
       src: "/figma-exports/how-we-treat-1.png",
@@ -61,7 +61,7 @@ export const sciaticaHowWeTreat: ConditionTreatmentItem[] = [
   },
   {
     title: "Adjustment",
-    desc: "Sciatica often stems from a fixation in the lower spine putting pressure on the nerve root. Adjustments restore normal movement to that segment, which is frequently what relieves the radiating pain down the leg.",
+    desc: "When exam findings suggest restricted lower-spine joint motion contributes to symptoms, Dr. Abe may include a controlled adjustment as part of the care plan.",
     image: {
       src: "/figma-exports/how-we-treat-2.png",
       alt: "Dr. Abe performing a chiropractic adjustment",
@@ -72,7 +72,7 @@ export const sciaticaHowWeTreat: ConditionTreatmentItem[] = [
   },
   {
     title: "Traction/Decompression",
-    desc: "When sciatica is caused by a herniated disc or spinal stenosis, traction is the most direct approach — gently separating the vertebrae to take pressure off the compressed nerve root.",
+    desc: "When a disc or narrowing around a nerve may contribute to sciatica symptoms, controlled traction can be considered after evaluation for suitability.",
     image: {
       src: "/figma-exports/how-we-treat-3.png",
       alt: "Spinal traction and decompression therapy",
@@ -90,7 +90,7 @@ export const sciaticaHowWeTreat: ConditionTreatmentItem[] = [
     },
     meta: "Check eligibility",
     ctaLabel: "CHECK ELIGIBILITY",
-    ctaHref: "/home-visits",
+    ctaHref: "/home-visit-chiropractor",
   },
 ];
 
@@ -113,7 +113,7 @@ export const sciaticaFeelsLike: ConditionFeelsLikeItem[] = [
   {
     title: "Muscle weakness",
     desc: 'Difficulty moving the foot or leg, often feeling "heavy" or unresponsive during activity.',
-    learnMoreHref: "/services/massage-soft-tissue",
+    learnMoreHref: "/services/soft-tissue-therapy",
   },
 ];
 
@@ -131,19 +131,19 @@ export const sciaticaWarning: ConditionWarning = {
 };
 
 export const sciaticaAccident: ConditionAccident = {
-  headline: "If impact triggered this, Florida gives you 14 days",
-  body: "Sciatic pain after an accident usually traces back to a disc that shifted on impact and is now pressing on a nerve root. If a collision is anywhere in this story, Florida law gives you 14 days to get evaluated and protect your PIP benefits.",
+  headline: "Did sciatica symptoms begin after a car accident?",
+  body: "A collision can aggravate the lower back and may contribute to radiating leg symptoms. Florida PIP generally requires initial services and care within 14 days of a motor vehicle accident.",
   smallprint:
-    "Missing this window means you may have to pay thousands for medical care out of your own pocket.",
+    "Coverage and payment depend on your policy, eligibility, medical necessity, and the circumstances of your claim.",
 };
 
 export const sciaticaRelatedBottom: ConditionRelatedLink[] = [
   { label: "Lower Back Pain", href: "/conditions/back-pain" },
-  { label: "Auto Accident Injuries", href: "/auto-accidents" },
+  { label: "Auto Accident Injuries", href: "/car-accident-chiropractor" },
   { label: "Neck Pain", href: "/conditions/neck-pain" },
   { label: "Spinal Decompression", href: "/services/spinal-decompression" },
   { label: "Whiplash", href: "/conditions/whiplash" },
-  { label: "Home Visit Care", href: "/home-visits" },
+  { label: "Home Visit Care", href: "/home-visit-chiropractor" },
   { label: "Herniated Disc", href: "/services/spinal-decompression" },
   { label: "View All Treatments", href: "/services" },
 ];
@@ -153,7 +153,7 @@ export const sciaticaFaq: ConditionFaq = {
   items: [
     {
       q: "Can a car accident cause sciatica?",
-      a: 'Often, yes — even from low-speed collisions. Muscle spasm and disc compression can take a day or two to fully present, which is why people who felt "fine" at the scene are limping by day three. If there was any accident involved, mention it at your evaluation so we can bill PIP correctly.',
+      a: "A car accident can aggravate the lower back and may contribute to sciatic nerve symptoms, but an exam is needed to identify likely causes. Mention the collision and symptom timing during your evaluation.",
     },
     {
       q: "How is sciatica different from regular lower back pain?",
@@ -161,11 +161,11 @@ export const sciaticaFaq: ConditionFaq = {
     },
     {
       q: "Will I need surgery for a herniated disc?",
-      a: "Rarely as a first step. Most herniated-disc sciatica responds well to conservative care — adjustments, decompression, and soft-tissue work — and we only discuss surgical referral if that doesn't relieve the nerve pressure.",
+      a: "Not necessarily. Many people begin with clinician-directed conservative care, but progressive weakness, severe symptoms, or certain exam findings can require prompt medical or surgical evaluation.",
     },
     {
       q: "How long does sciatica usually take to improve?",
-      a: "Many cases ease up within a few weeks of consistent care, though it depends on the cause — a muscular flare-up typically resolves faster than nerve compression from a disc issue. We reassess as you go and adjust the plan.",
+      a: "Timing varies with the cause and severity. A muscular flare may improve differently from symptoms involving a disc or nerve, so Dr. Abe reassesses progress and adjusts the plan as needed.",
     },
   ],
 };

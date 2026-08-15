@@ -82,7 +82,7 @@ export const faqs: FAQ[] = [
   {
     question: "How many visits will I need?",
     answer:
-      "It depends on the injury and how long you've had it. Many patients feel relief within a few visits, while more complex or long-standing issues may need several weeks of care. We'll reassess and adjust the plan as you progress.",
+      "It depends on the condition, exam findings, and response to care. Dr. Abe reassesses progress and adjusts the plan rather than promising a fixed number of visits.",
   },
   {
     question: "Do you offer home visits?",

@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { isProduction, siteConfig } from "@/content/site";
+import { isProduction, resolveSiteUrl, siteConfig } from "@/content/site";
 
 describe("isProduction", () => {
   afterEach(() => {
@@ -23,9 +23,33 @@ describe("isProduction", () => {
   });
 });
 
+describe("resolveSiteUrl", () => {
+  afterEach(() => {
+    vi.unstubAllEnvs();
+  });
+
+  it("uses SITE_URL when set, regardless of environment", () => {
+    vi.stubEnv("SITE_URL", "https://example.com");
+    vi.stubEnv("VERCEL_ENV", "production");
+    expect(resolveSiteUrl()).toBe("https://example.com");
+  });
+
+  it("falls back to the real production domain outside production when unset", () => {
+    vi.stubEnv("SITE_URL", undefined);
+    vi.stubEnv("VERCEL_ENV", undefined);
+    expect(resolveSiteUrl()).toBe("https://chirobackpain.com");
+  });
+
+  it("throws in production when SITE_URL is unset — never falls back silently", () => {
+    vi.stubEnv("SITE_URL", undefined);
+    vi.stubEnv("VERCEL_ENV", "production");
+    expect(() => resolveSiteUrl()).toThrow(/SITE_URL must be set/);
+  });
+});
+
 describe("hoursVerified / social.verified gates", () => {
-  it("defaults hoursVerified to false until the client confirms real hours", () => {
-    expect(siteConfig.hoursVerified).toBe(false);
+  it("is true — client-confirmed 7:00 AM-11:00 PM daily hours", () => {
+    expect(siteConfig.hoursVerified).toBe(true);
   });
 
   it("marks every current social link as unverified (all are '#' placeholders today)", () => {

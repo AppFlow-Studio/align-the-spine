@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
 import { AccidentBanner } from "@/components/sections/accident-banner";
 import { ComparisonTable } from "@/components/sections/comparison-table";
 import { ConditionFaq } from "@/components/sections/condition-faq";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
-import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
+import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { RelatedConditions } from "@/components/sections/related-conditions";
+import { ServiceIntro } from "@/components/sections/service-intro";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -30,7 +32,7 @@ import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/con
 import { cn } from "@/lib/cn";
 import { buildRouteMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = buildRouteMetadata(getRoute("/services/massage-soft-tissue"));
+export const metadata: Metadata = buildRouteMetadata(getRoute("/services/soft-tissue-therapy"));
 
 /** /services/massage-soft-tissue — dedicated, hand-built page, same
  * per-page pattern as the condition pages (ATS-137) and
@@ -56,8 +58,7 @@ export const metadata: Metadata = buildRouteMetadata(getRoute("/services/massage
 export default function MassageSoftTissuePage() {
   return (
     <>
-      <Hero
-        variant="condition"
+      <HeroSolidPanel
         background={massageSoftTissueHero.backgroundImage}
         eyebrow={massageSoftTissueHero.eyebrowChip}
         title={massageSoftTissueHero.h1}
@@ -68,15 +69,45 @@ export default function MassageSoftTissuePage() {
           submitLabel: leadFormVariants.heroEval.submitLabel,
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,
-          footerNote: "Call us to check availability in your area.",
+          footerNote:
+            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
         }}
       />
 
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
 
-      <Section>
+      <ServiceIntro
+        eyebrow="Understanding the treatment"
+        heading="The soft-tissue damage a collision leaves behind"
+        divider
+        cta={{ href: "#techniques", label: "Explore the techniques" }}
+        image={{
+          src: "/figma-exports/drabe-softtissue.png",
+          alt: "Dr. Abe performing soft-tissue therapy on a patient",
+        }}
+      >
+        A crash doesn&apos;t only jar your joints — it overloads the muscles, tendons, and fascia
+        that hold them together, leaving the spasm, guarding, and deep bruising behind the pain we
+        see in{" "}
+        <Link href="/conditions/whiplash" className="underline">
+          whiplash
+        </Link>
+        ,{" "}
+        <Link href="/conditions/neck-pain" className="underline">
+          neck pain
+        </Link>
+        , and{" "}
+        <Link href="/conditions/back-pain" className="underline">
+          back pain
+        </Link>{" "}
+        after an accident. Massage and soft-tissue therapy work directly on that tissue — releasing
+        the tension and restoring blood flow so the area can actually heal instead of tightening
+        around the injury.
+      </ServiceIntro>
+
+      <Section id="techniques" className="scroll-mt-[120px]">
         <Container className="flex flex-col gap-14">
-          <SectionHeading eyebrow="Understanding the treatment">
+          <SectionHeading eyebrow="Our techniques">
             Three techniques, matched to what a collision actually did to your tissue.
           </SectionHeading>
           <div className="flex flex-col divide-y divide-navy-900/20 border-t border-navy-900">
@@ -105,7 +136,7 @@ export default function MassageSoftTissuePage() {
                 </div>
                 <Button
                   variant="book"
-                  href="/book"
+                  href="/book-an-appointment"
                   className="w-fit shrink-0 self-start sm:self-center"
                 >
                   Book
@@ -127,7 +158,7 @@ export default function MassageSoftTissuePage() {
             />
           </div>
           <Container className="relative flex flex-col gap-3 py-16 md:py-20">
-            <h2 className="font-display text-5xl text-white">
+            <h2 className="font-display text-h2 font-normal text-white">
               Matched to your injury, not a routine
             </h2>
             <p className="max-w-2xl font-sans text-body-lg text-mute-300">
@@ -140,8 +171,8 @@ export default function MassageSoftTissuePage() {
 
       <Section>
         <Container className="flex flex-col gap-14">
-          <SectionHeading eyebrow="What it treats">
-            Conditions soft tissue therapy relieves
+          <SectionHeading eyebrow="When it may fit">
+            Conditions addressed with soft-tissue care
           </SectionHeading>
           <div className="flex flex-col divide-y divide-navy-900/20 border-t border-navy-900">
             {massageConditions.map((condition, idx) => (
@@ -155,17 +186,21 @@ export default function MassageSoftTissuePage() {
                     alt={condition.image.alt}
                     fill
                     sizes="200px"
-                    className="object-cover"
+                    className="object-cover transition-[filter] duration-500 sm:grayscale sm:brightness-75 sm:group-hover:grayscale-0 sm:group-hover:brightness-100"
                   />
                 </div>
                 <h3
                   className={cn(
-                    "font-display text-3xl text-navy-900 group-hover:text-teal-500 transition-colors duration-300",
+                    "font-display text-h2 font-normal text-ink-500 group-hover:text-navy-900 transition-colors duration-300",
                   )}
                 >
                   {condition.name}
                 </h3>
-                <p className={cn("font-sans text-body-lg text-ink-500", idx === 1 && "font-bold")}>
+                <p
+                  className={cn(
+                    "font-sans text-body-lg text-ink-500 transition-colors duration-300 group-hover:text-navy-900",
+                  )}
+                >
                   {condition.description}
                 </p>
               </div>
@@ -187,7 +222,7 @@ export default function MassageSoftTissuePage() {
 
       <PatientReviews
         featured={homeFeaturedTestimonial}
-        reviews={homeReviews.slice(0, 3)}
+        reviews={homeReviews.slice(1, 4)}
         variant="light"
       />
 
@@ -203,8 +238,8 @@ export default function MassageSoftTissuePage() {
             <h2 className="font-display text-h2 text-white">
               Still have questions about your accident claim?
             </h2>
-            <p className="font-sans text-body-lg text-mute-300">
-              No waiting room, no driving in pain — call and we&apos;ll find a time that works.
+            <p className="font-sans text-body-lg text-mute-300 w-[65%]">
+              Same-day visits, seven days a week — no waiting room, no driving in pain.
             </p>
           </div>
           <Button

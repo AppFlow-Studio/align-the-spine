@@ -7,25 +7,28 @@ export interface DoctorHistoryProps {
   content: DoctorHistoryContent;
 }
 
-/** "HISTORY" long-form bio per the about-drabe artboard (96:2575–96:2586,
- * ATS-090): full-bleed navy band, its own <Section> — rendered as
- * DoctorProfile's `extended` slot (variant="long"), which places it as a
- * sibling of (not nested inside) that component's own white <Section>. */
+/** "HISTORY" long-form bio per the about-drabe artboard (nodes 529:3402–3404):
+ * a plain white section with a centered teal eyebrow + centered Fraunces
+ * SemiBold heading (65/69, navy-900), followed by a centered, left-aligned
+ * body column (Poppins 20/36, ink-900). Rendered as DoctorProfile's `extended`
+ * slot (variant="long"), a sibling of that component's own white <Section>. */
 export function DoctorHistory({ content }: DoctorHistoryProps) {
   const { eyebrow, heading, paragraphs } = content;
   return (
-    <Section className="bg-navy-900">
-      <Container className="flex flex-col gap-6">
-        <div className="flex flex-col gap-3">
-          <Eyebrow variant="onDark">{eyebrow}</Eyebrow>
-          <h2 className="font-display text-h2 text-white">{heading}</h2>
-        </div>
-        <div className="flex flex-col gap-4">
-          {paragraphs.map((paragraph) => (
-            <p key={paragraph} className="font-sans text-body-lg text-mute-300">
-              {paragraph}
-            </p>
-          ))}
+    <Section>
+      <Container>
+        <div className="mx-auto flex max-w-[964px] flex-col items-center">
+          <Eyebrow>{eyebrow}</Eyebrow>
+          <h2 className="mt-3 max-w-[860px] text-center font-display text-display font-semibold text-navy-900">
+            {heading}
+          </h2>
+          <div className="mt-8 flex w-full flex-col gap-6">
+            {paragraphs.map((paragraph) => (
+              <p key={paragraph} className="font-sans text-[20px] leading-9 text-ink-900">
+                {paragraph}
+              </p>
+            ))}
+          </div>
         </div>
       </Container>
     </Section>

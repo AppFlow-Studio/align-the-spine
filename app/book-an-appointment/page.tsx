@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import { LocationFooter } from "@/components/layout/location-footer";
 import { LocationIntro } from "@/components/layout/location-intro";
 import { BookingForm } from "@/components/sections/booking-form";
-import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
+import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
@@ -16,7 +16,7 @@ import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel } from "@/content/testimonials";
 import { buildMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = buildMetadata(getRoute("/book"));
+export const metadata: Metadata = buildMetadata(getRoute("/book-an-appointment"));
 
 /** /book page assembly (ATS-100) per the Book-appt artboard (96:22): dark
  * booking hero with the two-step BookingForm, LocationIntro + LocationFooter
@@ -28,19 +28,20 @@ export default function BookPage() {
       <BreadcrumbJsonLd
         items={[
           { name: "Home", path: "" },
-          { name: "Book", path: "/book" },
+          { name: "Book an Appointment", path: "/book-an-appointment" },
         ]}
       />
-      <Hero
-        variant="condition"
+      <HeroSolidPanel
+        eyebrow="Ready to schedule your evaluation?"
         background={{
           src: "/figma-exports/phone-mockup.png",
           alt: "Patient calling Align the Spine to book an appointment",
         }}
         title="Request a Chiropractic Appointment"
-        subhead="In-office or in-home when it applies. Tell us what's going on and we'll take it from there."
+        subhead="Request an appointment with Dr. Abe in Deerfield Beach, or ask whether a home visit fits your case and location."
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
         formSlot={<BookingForm />}
+        bilingualNote="¿Habla español? Dr. Abe habla su idioma."
       />
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
 

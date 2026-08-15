@@ -73,7 +73,8 @@ export default function CervicogenicHeadachePage() {
           submitLabel: leadFormVariants.heroEval.submitLabel,
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,
-          footerNote: "Call us to check availability in your area.",
+          footerNote:
+            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
         }}
       />
 
@@ -83,31 +84,31 @@ export default function CervicogenicHeadachePage() {
         <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[3fr_2fr] lg:items-start lg:gap-16">
           <div className="flex flex-col gap-6">
             <Eyebrow>Understanding cervicogenic headache</Eyebrow>
-            <h2 className="font-display text-display font-medium text-navy-900">
+            <h2 className="font-display text-display font-normal text-navy-900">
               The headache a car accident leaves behind
             </h2>
             <p className="font-sans text-body-lg text-ink-900">
-              Cervicogenic headaches originate in the cervical spine, not the head itself — which is
-              why they&apos;re one of the most common, and most overlooked, injuries after a car
-              accident. The sudden force of a collision can irritate the joints and nerves at the
-              base of the skull, referring pain upward into a headache that feels like it belongs to
-              your head but is actually coming from your neck. Florida gives you{" "}
-              <Link href="/auto-accidents" className="underline">
+              A cervicogenic headache is pain referred from structures in the neck. It may be felt
+              at the base of the skull, on one side of the head, or with limited neck motion. A car
+              accident can strain the neck, but new, severe, or worsening headaches need prompt
+              medical evaluation to rule out other causes. Florida PIP generally requires initial
+              services and care within{" "}
+              <Link href="/car-accident-chiropractor" className="underline">
                 14 days
               </Link>{" "}
-              to get evaluated and protect your PIP benefits — and if headaches followed your
-              accident,{" "}
+              of a motor vehicle accident, with coverage depending on eligibility and policy terms.
+              If headaches followed the collision,{" "}
               <Link href="/conditions/whiplash" className="underline">
                 whiplash
               </Link>{" "}
-              is often the underlying cause.
+              and neck pain may need to be assessed alongside the headache.
             </p>
             <a
               href="#how-it-feels"
-              className="inline-flex w-fit items-center gap-2 border-t border-mute-300 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors hover:text-navy-700"
+              className="group inline-flex w-fit items-center gap-2 border-t border-mute-300 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors hover:text-navy-700"
             >
               Understand Cervicogenic Headache
-              <ArrowRightIcon className="h-4 w-4" />
+              <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
           </div>
           <div className="relative mx-auto aspect-5/6 w-full max-w-md overflow-hidden lg:mx-0">
@@ -136,8 +137,8 @@ export default function CervicogenicHeadachePage() {
 
       <Section>
         <Container className="flex flex-col gap-14">
-          <SectionHeading eyebrow="What it treats">
-            Conditions cervicogenic headache relieves
+          <SectionHeading eyebrow="Related conditions">
+            Conditions that may overlap with cervicogenic headache
           </SectionHeading>
           <div className="flex flex-col divide-y divide-mute-300 border-t border-mute-300">
             {cervicogenicHeadacheConditions.map((condition) => (
@@ -151,13 +152,13 @@ export default function CervicogenicHeadachePage() {
                     alt={condition.image.alt}
                     fill
                     sizes="200px"
-                    className="object-cover transition-[filter] duration-300 sm:grayscale sm:contrast-110 sm:brightness-90 sm:group-hover:grayscale-0 sm:group-hover:contrast-100 sm:group-hover:brightness-100"
+                    className="object-cover transition-[filter] duration-500 sm:grayscale sm:brightness-75 sm:group-hover:grayscale-0 sm:group-hover:brightness-100"
                   />
                 </div>
-                <h3 className="font-display text-3xl text-navy-900 transition-colors group-hover:text-teal-500">
+                <h3 className="font-display text-h2 text-ink-500 transition-colors duration-300 group-hover:text-navy-900">
                   {condition.name}
                 </h3>
-                <p className="font-sans text-body-lg text-ink-500 transition-colors group-hover:font-semibold group-hover:text-ink-900">
+                <p className="font-sans text-body-lg text-ink-500 transition-colors duration-300 group-hover:text-navy-900">
                   {condition.description}
                 </p>
               </div>
@@ -174,7 +175,7 @@ export default function CervicogenicHeadachePage() {
 
       <PatientReviews
         featured={homeFeaturedTestimonial}
-        reviews={homeReviews.slice(0, 3)}
+        reviews={homeReviews.slice(1, 4)}
         variant="light"
       />
 
@@ -190,8 +191,8 @@ export default function CervicogenicHeadachePage() {
             <h2 className="font-display text-h2 text-white">
               Still have questions about your accident claim?
             </h2>
-            <p className="font-sans text-body-lg text-mute-300">
-              No waiting room, no driving in pain — call and we&apos;ll find a time that works.
+            <p className="font-sans text-body-lg text-mute-300 w-[65%]">
+              Same-day visits, seven days a week — no waiting room, no driving in pain.
             </p>
           </div>
           <Button

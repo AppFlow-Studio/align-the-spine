@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useState, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
 import { Container } from "@/components/ui/container";
 import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
@@ -21,7 +22,7 @@ export interface PointToWhereItHurtsProps {
  * diagram and the mobile region list. */
 function useRovingRadioGroup(
   regions: BodyRegion[],
-  selectedId: string,
+  selectedId: string | null,
   onSelect: (id: string) => void,
 ) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -57,16 +58,16 @@ function RegionLabel({
   return (
     <div
       className={cn(
-        "absolute top-1/2 flex -translate-y-1/2 items-center gap-2 whitespace-nowrap ",
-        side === "left" ? "right-full flex-row-reverse pr-2" : "left-full pl-2",
+        "absolute top-1/2 flex -translate-y-1/2 items-center gap-3 whitespace-nowrap ",
+        side === "left" ? "right-full flex-row-reverse pr-3" : "left-full pl-3",
       )}
     >
       <span aria-hidden="true" className="flex shrink-0 items-center gap-2">
-        <span className="h-px w-12 bg-mute-300" />
+        <span className={cn("h-px bg-mute-300", region.labelLineWidth ?? "w-16")} />
         <span
           className={cn(
             "h-2 w-2 shrink-0 rounded-full",
-            isSelected ? "bg-teal-500" : "bg-mute-300",
+            isSelected ? "bg-[#58A0A0]" : "bg-mute-300",
           )}
         />
       </span>
@@ -105,10 +106,10 @@ function SelectedPanel({
       <p className="mt-2 font-sans text-[15px] leading-[24px] text-ink-500">{region.description}</p>
       <Link
         href={region.href ?? siteConfig.bookingCta.href}
-        className="mt-4 inline-flex items-center gap-2 font-sans text-[13px] uppercase tracking-[1.25px] text-teal-500 transition-colors hover:text-teal-500/80"
+        className="group mt-4 inline-flex items-center gap-2 font-sans text-[13px] uppercase tracking-[1.25px] text-teal-500 transition-colors hover:text-teal-500/80"
       >
         {ctaLabel}
-        <ArrowRightIcon className="h-4 w-4" />
+        <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
       </Link>
     </div>
   );
@@ -120,14 +121,69 @@ function SelectedPanel({
  * positioned per-region). Below md, the diagram is replaced by a tappable list (mobile
  * fallback per spec) sharing the same selection state. */
 export function PointToWhereItHurts({ content }: PointToWhereItHurtsProps) {
-  const { eyebrow, heading, instruction, image, regions, ctaLabel } = content;
-  const [selectedId, setSelectedId] = useState(regions[0].id);
-  const selected = regions.find((region) => region.id === selectedId) ?? regions[0];
+  const { eyebrow, heading, instruction, image, video, videoPoster, regions, ctaLabel } = content;
+  // No region is selected until the visitor picks one — the diagram sits
+  // centered on its own, and the detail panel animates in on first selection.
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const selected = regions.find((region) => region.id === selectedId) ?? null;
+  const selectedIndex = regions.findIndex((region) => region.id === selectedId);
+  // Roving tabindex still needs one tabbable control before anything is picked.
+  const rovingIndex = selectedIndex === -1 ? 0 : selectedIndex;
+  const reduceMotion = useReducedMotion();
 
   const { containerRef: desktopContainerRef, handleKeyDown: desktopHandleKeyDown } =
     useRovingRadioGroup(regions, selectedId, setSelectedId);
   const { containerRef: mobileContainerRef, handleKeyDown: mobileHandleKeyDown } =
     useRovingRadioGroup(regions, selectedId, setSelectedId);
+
+  /** Straightening intro (desktop only). The hotspots are pinned to the
+   * *straightened* spine, so they can't track the body mid-motion — instead of
+   * hiding them on interaction, they start hidden and are revealed once the clip
+   * settles on the aligned frame. The clip plays once, at 2× (~3s), the first
+   * time the diagram scrolls into view; it's preloaded and starts from the
+   * hunched poster so there's no load stutter or first-frame jump. Reduced-motion
+   * and no-clip cases skip straight to the revealed, aligned state. */
+  const spineVideoRef = useRef<HTMLVideoElement>(null);
+  const spineHasPlayedRef = useRef(false);
+  const [hotspotsRevealed, setHotspotsRevealed] = useState(false);
+  useEffect(() => {
+    const diagram = desktopContainerRef.current;
+    const spineVideo = spineVideoRef.current;
+    const desktop = window.matchMedia("(min-width: 768px)").matches;
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // No clip, reduced motion, or mobile: skip the intro — reveal the aligned
+    // hotspots straight away and hold the straightened frame.
+    if (!video || !diagram || !spineVideo || !desktop || prefersReduced) {
+      setHotspotsRevealed(true);
+      if (spineVideo && video) {
+        const toEnd = () => {
+          try {
+            spineVideo.currentTime = spineVideo.duration || 0;
+          } catch {
+            /* metadata not ready yet */
+          }
+        };
+        if (spineVideo.readyState >= 1) toEnd();
+        else spineVideo.addEventListener("loadedmetadata", toEnd, { once: true });
+      }
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting || spineHasPlayedRef.current) continue;
+          spineHasPlayedRef.current = true;
+          observer.disconnect();
+          spineVideo.playbackRate = 2; // ~6s clip → ~3s
+          spineVideo.currentTime = 0;
+          void spineVideo.play().catch(() => setHotspotsRevealed(true));
+        }
+      },
+      { threshold: 0.4 },
+    );
+    observer.observe(diagram);
+    return () => observer.disconnect();
+  }, [video, desktopContainerRef]);
 
   return (
     <Section spacing="lg">
@@ -137,62 +193,102 @@ export function PointToWhereItHurts({ content }: PointToWhereItHurtsProps) {
         </SectionHeading>
 
         <div className="hidden w-full items-center justify-center gap-20 md:flex">
-          <div
+          <motion.div
             ref={desktopContainerRef}
+            layout
+            transition={reduceMotion ? { duration: 0 } : { duration: 0.5, ease: "easeOut" }}
             role="radiogroup"
             aria-label="Body regions"
             onKeyDown={desktopHandleKeyDown}
-            className="relative aspect-square w-full max-w-[560px] shrink-0"
+            className="relative aspect-[1080/1920] w-full max-w-[360px] shrink-0"
           >
-            <Image
-              src={image.src}
-              alt={image.alt}
-              fill
-              sizes="(min-width: 768px) 560px, 100vw"
-              className="object-contain"
-            />
+            {video ? (
+              <video
+                ref={spineVideoRef}
+                src={video}
+                poster={videoPoster ?? image.src}
+                aria-label={image.alt}
+                muted
+                playsInline
+                preload="auto"
+                onEnded={() => setHotspotsRevealed(true)}
+                onError={() => setHotspotsRevealed(true)}
+                className="absolute inset-0 size-full object-cover"
+              />
+            ) : (
+              <Image
+                src={image.src}
+                alt={image.alt}
+                fill
+                sizes="(min-width: 768px) 360px, 100vw"
+                className="object-contain"
+              />
+            )}
 
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-x-0 bottom-0 h-30 bg-linear-to-t from-white to-transparent"
             />
 
-            {regions.map((region) => {
-              const isSelected = region.id === selectedId;
-              return (
-                <div
-                  key={region.id}
-                  className="absolute -translate-x-1/2 -translate-y-1/2"
-                  style={{ top: `${region.position.y}%`, left: `${region.position.x}%` }}
-                >
-                  <button
-                    type="button"
-                    role="radio"
-                    aria-checked={isSelected}
-                    aria-label={region.name}
-                    tabIndex={isSelected ? 0 : -1}
-                    onClick={() => setSelectedId(region.id)}
-                    style={{ width: region.size, height: region.size }}
-                    className={cn(
-                      "relative rounded-full bg-white/25 ring-1 ring-white/50 transition-colors hover:bg-white/40",
-                      "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500",
-                    )}
+            <div
+              className={cn(
+                "absolute inset-0 transition-opacity duration-700 ease-out",
+                hotspotsRevealed ? "opacity-100" : "pointer-events-none opacity-0",
+              )}
+            >
+              {regions.map((region, index) => {
+                const isSelected = region.id === selectedId;
+                return (
+                  <div
+                    key={region.id}
+                    className="absolute -translate-x-1/2 -translate-y-1/2"
+                    style={{ top: `${region.position.y}%`, left: `${region.position.x}%` }}
                   >
-                    {isSelected && (
-                      <span
-                        aria-hidden="true"
-                        className="absolute inset-0 rounded-full ring-2 ring-teal-500 ring-offset-2 motion-safe:animate-pulse motion-reduce:animate-none"
-                      />
-                    )}
-                  </button>
+                    <button
+                      type="button"
+                      role="radio"
+                      aria-checked={isSelected}
+                      aria-label={region.name}
+                      tabIndex={index === rovingIndex ? 0 : -1}
+                      onClick={() => setSelectedId(region.id)}
+                      style={{ width: region.size, height: region.size }}
+                      className={cn(
+                        "relative rounded-full ring-1 transition-colors",
+                        "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500",
+                        isSelected
+                          ? "bg-[#58A0A0]/30 ring-teal-500/60"
+                          : "bg-white/25 ring-white/50 hover:bg-white/40",
+                      )}
+                    >
+                      {isSelected && (
+                        <span
+                          aria-hidden="true"
+                          className="absolute inset-0 rounded-full ring-2 ring-teal-500 ring-offset-2 motion-safe:animate-pulse motion-reduce:animate-none"
+                        />
+                      )}
+                    </button>
 
-                  <RegionLabel region={region} side={region.labelSide} isSelected={isSelected} />
-                </div>
-              );
-            })}
-          </div>
+                    <RegionLabel region={region} side={region.labelSide} isSelected={isSelected} />
+                  </div>
+                );
+              })}
+            </div>
+          </motion.div>
 
-          <SelectedPanel region={selected} ctaLabel={ctaLabel} className="w-[380px] shrink-0" />
+          <AnimatePresence>
+            {selected && (
+              <motion.div
+                key="desktop-panel"
+                initial={reduceMotion ? false : { opacity: 0, x: -32 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={reduceMotion ? { opacity: 0 } : { opacity: 0, x: -32 }}
+                transition={reduceMotion ? { duration: 0 } : { duration: 0.4, ease: "easeOut" }}
+                className="shrink-0"
+              >
+                <SelectedPanel region={selected} ctaLabel={ctaLabel} className="w-[380px]" />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         <div className="flex w-full flex-col gap-3 md:hidden">
@@ -203,7 +299,7 @@ export function PointToWhereItHurts({ content }: PointToWhereItHurtsProps) {
             onKeyDown={mobileHandleKeyDown}
             className="flex flex-col gap-3"
           >
-            {regions.map((region) => {
+            {regions.map((region, index) => {
               const isSelected = region.id === selectedId;
               return (
                 <button
@@ -211,7 +307,7 @@ export function PointToWhereItHurts({ content }: PointToWhereItHurtsProps) {
                   type="button"
                   role="radio"
                   aria-checked={isSelected}
-                  tabIndex={isSelected ? 0 : -1}
+                  tabIndex={index === rovingIndex ? 0 : -1}
                   onClick={() => setSelectedId(region.id)}
                   className={cn(
                     "rounded-20 border-2 px-6 py-4 text-left font-sans text-body-lg transition-colors",
@@ -225,7 +321,19 @@ export function PointToWhereItHurts({ content }: PointToWhereItHurtsProps) {
             })}
           </div>
 
-          <SelectedPanel region={selected} ctaLabel={ctaLabel} className="mt-2 w-full" />
+          <AnimatePresence>
+            {selected && (
+              <motion.div
+                key="mobile-panel"
+                initial={reduceMotion ? false : { opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={reduceMotion ? { duration: 0 } : { duration: 0.3, ease: "easeOut" }}
+              >
+                <SelectedPanel region={selected} ctaLabel={ctaLabel} className="mt-2 w-full" />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </Container>
     </Section>

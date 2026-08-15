@@ -25,7 +25,7 @@ export interface HowWeHelpStepsProps {
 export function HowWeHelpSteps({ heading, steps, cta }: HowWeHelpStepsProps) {
   return (
     <div className="flex flex-col items-center gap-14 text-center">
-      <SectionHeading eyebrow="How We Help" className="max-w-2xl font-semibold items-center">
+      <SectionHeading eyebrow="How We Help" className="max-w-2xl font-medium items-center">
         {heading}
       </SectionHeading>
 

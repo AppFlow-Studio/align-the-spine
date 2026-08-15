@@ -18,6 +18,11 @@
    * this lighter tint instead, not the same token. */
   --color-teal-500: #3f7676;
   --color-teal-300: #7fc0c0;
+  /* Star-rating gold — the one spot on the site that intentionally breaks
+   * from the navy/teal palette, matching the universal "gold star" review
+   * convention so the rating reads instantly instead of blending into the
+   * brand color scheme. Legible against both white and navy-900 surfaces. */
+  --color-gold-400: #fbbf24;
   --color-ink-900: #1a1a1a;
   /* Darkened from #777777 (ATS-134): that shade only hit 4.14:1 against
    * #f6f6f6, just under the 4.5:1 AA text threshold. */
@@ -112,7 +117,53 @@ body {
   color: var(--color-ink-900);
 }
 
+@layer base {
+  /* Tailwind v4's Preflight resets <button> to the native default (arrow)
+   * cursor. Links already show a pointer, so buttons read as *less*
+   * clickable than links — restore the pointer on every interactive control
+   * site-wide (Button/ArrowButton primitives, the booking-form SquareButton,
+   * form submits, nav/accordion toggles, the body-diagram hotspots, etc.).
+   * :not(:disabled) keeps disabled controls on the default cursor. */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
 @layer components {
+  /* Hero trust-badge marquee (HeroTrustLine in hero-solid-panel.tsx): the
+   * track renders its pill content twice back-to-back and slides exactly
+   * one copy-width left, so the loop point is invisible. Plain CSS (not
+   * motion/react) since it just needs to run forever at a constant speed —
+   * no interaction, no exit state. */
+  @keyframes trust-marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-trust-marquee {
+    animation: trust-marquee 34s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-trust-marquee {
+      animation: none;
+    }
+  }
+
+  /* Fades the marquee's hard clip edges instead of hard-cutting a pill
+   * mid-glyph. Written as a plain rule (not an arbitrary Tailwind utility)
+   * so the -webkit- prefix ships too — Safari/iOS ignore unprefixed
+   * mask-image, and this practice's traffic skews heavily iPhone. */
+  .trust-marquee-fade {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  }
+
   .container {
     width: 100%;
     max-width: var(--container-max);

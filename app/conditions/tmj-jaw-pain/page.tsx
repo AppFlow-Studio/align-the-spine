@@ -69,7 +69,8 @@ export default function TmjJawPainPage() {
           submitLabel: leadFormVariants.heroEval.submitLabel,
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,
-          footerNote: "Call us to check availability in your area.",
+          footerNote:
+            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
         }}
       />
 
@@ -79,7 +80,7 @@ export default function TmjJawPainPage() {
         <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[3fr_2fr] lg:items-start lg:gap-16">
           <div className="flex flex-col gap-6">
             <Eyebrow>Understanding TMJ trauma</Eyebrow>
-            <h2 className="font-display text-display font-medium text-navy-900">
+            <h2 className="font-display text-display font-normal text-navy-900">
               The impact your jaw absorbed without you noticing.
             </h2>
             <p className="w-full font-sans text-body-lg text-ink-900">
@@ -93,11 +94,11 @@ export default function TmjJawPainPage() {
               </Link>{" "}
               frequently occur together, treating only the neck while missing the concussion is a
               common gap in accident care. Florida gives you{" "}
-              <Link href="/auto-accidents" className="underline">
+              <Link href="/car-accident-chiropractor" className="underline">
                 14 days
               </Link>{" "}
               to get evaluated and protect your{" "}
-              <Link href="/auto-accidents" className="underline">
+              <Link href="/car-accident-chiropractor" className="underline">
                 PIP benefits
               </Link>
               .
@@ -124,7 +125,7 @@ export default function TmjJawPainPage() {
 
       <PatientReviews
         featured={homeFeaturedTestimonial}
-        reviews={homeReviews.slice(0, 3)}
+        reviews={homeReviews.slice(1, 4)}
         variant="light"
       />
 
@@ -140,8 +141,8 @@ export default function TmjJawPainPage() {
             <h2 className="font-display text-h2 text-white">
               Still have questions about your accident claim?
             </h2>
-            <p className="font-sans text-body-lg text-mute-300">
-              No waiting room, no driving in pain — call and we&apos;ll find a time that works.
+            <p className="font-sans text-body-lg text-mute-300 w-[65%]">
+              Same-day visits, seven days a week — no waiting room, no driving in pain.
             </p>
           </div>
           <Button

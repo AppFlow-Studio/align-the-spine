@@ -61,7 +61,7 @@ export function FitChecklist({ rows }: FitChecklistProps) {
         heading="Usually a good fit"
         headingClassName="text-teal-500"
         icon={<CheckIcon className="h-3.5 w-3.5 text-white" />}
-        iconClassName="bg-teal-500"
+        iconClassName="bg-[#58A0A0]"
         itemClassName="text-ink-900"
         items={rows.map((row) => row.goodFit)}
       />

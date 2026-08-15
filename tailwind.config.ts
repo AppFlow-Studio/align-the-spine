@@ -20,6 +20,9 @@ const config: Config = {
           300: "var(--color-teal-300)",
           500: "var(--color-teal-500)",
         },
+        gold: {
+          400: "var(--color-gold-400)",
+        },
         ink: {
           900: "var(--color-ink-900)",
           500: "var(--color-ink-500)",
@@ -78,16 +81,37 @@ const config: Config = {
           "clamp(30px, 2.14vw + 27.96px, 65px)",
           { lineHeight: "clamp(34px, 2.22vw + 29.69px, 68px)", fontWeight: "500" },
         ],
+        // Bumped to the Figma standard: max 48px (was 35px). The line-height
+        // curve below was already sized for a ~48px heading (66px max ≈ 1.375
+        // ratio), so only the font-size endpoints move — mobile min raised
+        // 24→32px to keep the same ratio at the small end. Same 375→1728px
+        // interpolation as every other fluid token here.
         h2: [
-          "clamp(24px, 0.81vw + 20.95px, 35px)",
+          "clamp(32px, 1.18vw + 27.57px, 48px)",
           { lineHeight: "clamp(45px, 1.55vw + 39.18px, 66px)", fontWeight: "600" },
         ],
+        // Sourced from the Figma "Align the spine — Chiro" file (node 529:3292,
+        // "Schedule Your Car Accident Evaluation"): Fraunces Regular, 27px /
+        // 40px line-height. Pair with `font-display` (which sets the Fraunces
+        // family + SOFT 0 / WONK 1 axes from globals.css). Made fluid to match
+        // the heading family: the 27px/40px Figma values are the desktop max,
+        // with a proportional mobile min (22px/33px), over the same 375→1728px
+        // interpolation as hero/display/h2 above.
+        h1: [
+          "clamp(22px, 0.37vw + 20.61px, 27px)",
+          { lineHeight: "clamp(33px, 0.52vw + 31.06px, 40px)", fontWeight: "400" },
+        ],
         eyebrow: ["16px", { lineHeight: "26px", letterSpacing: "1.25px", fontWeight: "500" }],
-        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+        // Body copy uses leading-loose (line-height: 2) site-wide per design
+        // direction — the value below and the other body-copy tokens
+        // (card-body, faq-a, panel-body, small-print, redflag-bullet,
+        // understanding-intro, footer-copy/tagline) all use the unitless "2"
+        // multiplier so it scales with each token's (sometimes fluid) size.
+        "body-lg": ["18px", { lineHeight: "2", fontWeight: "400" }],
         button: ["16px", { lineHeight: "24px", fontWeight: "400" }],
         nav: ["16px", { lineHeight: "24px", letterSpacing: "0.85px", fontWeight: "400" }],
         "faq-q": ["19px", { lineHeight: "28px", fontWeight: "600" }],
-        "faq-a": ["17px", { lineHeight: "26px", fontWeight: "400" }],
+        "faq-a": ["17px", { lineHeight: "2", fontWeight: "400" }],
         "faq-toggle": ["22px", { lineHeight: "28px", fontWeight: "400" }],
         "alt-label": ["16px", { lineHeight: "24px", fontWeight: "400" }],
         "stat-label": ["15px", { lineHeight: "22px", fontWeight: "500" }],
@@ -98,12 +122,12 @@ const config: Config = {
         "calc-heading": ["19px", { lineHeight: "28px", fontWeight: "500" }],
         "calc-helper": ["14px", { lineHeight: "20px", fontWeight: "400" }],
         "field-error": ["13px", { lineHeight: "18px", fontWeight: "400" }],
-        "footer-tagline": ["16px", { lineHeight: "26px", fontWeight: "400" }],
+        "footer-tagline": ["16px", { lineHeight: "2", fontWeight: "400" }],
         "footer-heading": [
           "17px",
           { lineHeight: "26px", letterSpacing: "1.25px", fontWeight: "500" },
         ],
-        "footer-copy": ["15px", { lineHeight: "24px", fontWeight: "400" }],
+        "footer-copy": ["15px", { lineHeight: "2", fontWeight: "400" }],
         // Fluid clamp() per condition-page-spec §E (ATS-073 responsive pass):
         // was a fixed 35px, which overflowed narrow flex columns at 375px
         // (one-word service names like "Traction/Decompression" in
@@ -113,7 +137,7 @@ const config: Config = {
           "clamp(24px, 0.81vw + 20.95px, 35px)",
           { lineHeight: "clamp(25px, 0.89vw + 21.67px, 37px)", fontWeight: "500" },
         ],
-        "card-body": ["16px", { lineHeight: "26px", fontWeight: "400" }],
+        "card-body": ["16px", { lineHeight: "2", fontWeight: "400" }],
         // Fluid clamp() per condition-page-spec §E. 40px/48px is the
         // existing (desktop-sourced) value, kept as the max; 28px/34px is
         // a judgment-call mobile minimum, not spec-confirmed — no
@@ -128,16 +152,16 @@ const config: Config = {
         // a judgment-call mobile minimum (same caveat as doctor-name above).
         "understanding-intro": [
           "clamp(22px, 0.59vw + 19.78px, 30px)",
-          { lineHeight: "clamp(30px, 0.74vw + 27.23px, 40px)", fontWeight: "400" },
+          { lineHeight: "2", fontWeight: "400" },
         ],
         "type-name": ["22px", { lineHeight: "28px", fontWeight: "600" }],
-        "redflag-bullet": ["17px", { lineHeight: "26px", fontWeight: "400" }],
+        "redflag-bullet": ["17px", { lineHeight: "2", fontWeight: "400" }],
         "selected-label": [
           "25px",
           { lineHeight: "40px", letterSpacing: "1.25px", fontWeight: "600" },
         ],
-        "panel-body": ["22px", { lineHeight: "38px", fontWeight: "400" }],
-        "small-print": ["18px", { lineHeight: "30px", fontWeight: "400" }],
+        "panel-body": ["22px", { lineHeight: "2", fontWeight: "400" }],
+        "small-print": ["18px", { lineHeight: "2", fontWeight: "400" }],
       },
     },
   },

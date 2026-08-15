@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 
 import { AccidentBanner } from "@/components/sections/accident-banner";
@@ -7,12 +6,12 @@ import { AccidentInjuries } from "@/components/sections/accident-injuries";
 import { ComparisonTable } from "@/components/sections/comparison-table";
 import { ConditionFaq } from "@/components/sections/condition-faq";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
-import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
+import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
+import { ServiceIntro } from "@/components/sections/service-intro";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { Eyebrow } from "@/components/ui/eyebrow";
 import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
 import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -24,7 +23,6 @@ import { leadFormVariants } from "@/content/lead-forms";
 import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
-import { cn } from "@/lib/cn";
 import { buildRouteMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildRouteMetadata(
@@ -57,8 +55,7 @@ export const metadata: Metadata = buildRouteMetadata(
 export default function ChiropracticAdjustmentsPage() {
   return (
     <>
-      <Hero
-        variant="condition"
+      <HeroSolidPanel
         background={adjustmentsHero.backgroundImage}
         eyebrow={adjustmentsHero.eyebrowChip}
         title={adjustmentsHero.h1}
@@ -69,62 +66,45 @@ export default function ChiropracticAdjustmentsPage() {
           submitLabel: leadFormVariants.heroEval.submitLabel,
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,
-          footerNote: "Call us to check availability in your area.",
+          footerNote:
+            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
         }}
       />
 
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
 
-      <Section>
-        <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[3fr_2fr] lg:items-start lg:gap-16">
-          <div className="flex flex-col gap-6">
-            <Eyebrow>Understanding the treatment</Eyebrow>
-            <h2 className="font-display text-5xl text-navy-900">
-              Restoring the motion a collision took away
-            </h2>
-            <p className="font-sans text-body-lg text-ink-900">
-              A chiropractic adjustment uses precise, hands-on pressure to restore motion to a joint
-              that&apos;s lost it after impact — what we call a fixation. When a vertebra stops
-              moving properly after a collision, the surrounding muscles and nerves compensate,
-              which is often the real source of pain in{" "}
-              <Link href="/conditions/whiplash" className="underline">
-                whiplash
-              </Link>
-              ,{" "}
-              <Link href="/conditions/neck-pain" className="underline">
-                neck pain
-              </Link>
-              ,{" "}
-              <Link href="/conditions/back-pain" className="underline">
-                back pain
-              </Link>
-              , and{" "}
-              <Link href="/conditions/sciatica" className="underline">
-                sciatica
-              </Link>{" "}
-              following an accident. An adjustment doesn&apos;t just relieve the ache — it restores
-              the mechanics so your body stops working around the injury.
-            </p>
-            <div className="border-t border-mute-350 w-full" />
-            <a
-              href="#how-it-works"
-              className="inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4"
-            >
-              Understand Adjustments
-              <ArrowRightIcon className="h-4 w-4" />
-            </a>
-          </div>
-          <div className="relative mx-auto aspect-5/6 w-full max-w-md overflow-hidden lg:mx-0">
-            <Image
-              src="/figma-exports/drabeadjust.png"
-              alt="Dr. Abe performing a chiropractic adjustment"
-              fill
-              sizes="(min-width: 1024px) 32vw, 100vw"
-              className="object-cover hover:scale-105 transition-transform duration-300"
-            />
-          </div>
-        </Container>
-      </Section>
+      <ServiceIntro
+        eyebrow="Understanding the treatment"
+        heading="Restoring the motion a collision took away"
+        divider
+        cta={{ href: "#how-it-works", label: "Understand Adjustments" }}
+        image={{
+          src: "https://align-the-spine.b-cdn.net/images/chiro-help.png",
+          alt: "Dr. Abe performing a chiropractic adjustment",
+        }}
+      >
+        A chiropractic adjustment uses precise, hands-on pressure to restore motion to a joint
+        that&apos;s lost it after impact — what we call a fixation. When a vertebra stops moving
+        properly after a collision, the surrounding muscles and nerves compensate, which is often
+        the real source of pain in{" "}
+        <Link href="/conditions/whiplash" className="underline">
+          whiplash
+        </Link>
+        ,{" "}
+        <Link href="/conditions/neck-pain" className="underline">
+          neck pain
+        </Link>
+        ,{" "}
+        <Link href="/conditions/back-pain" className="underline">
+          back pain
+        </Link>
+        , and{" "}
+        <Link href="/conditions/sciatica" className="underline">
+          sciatica
+        </Link>{" "}
+        following an accident. An adjustment doesn&apos;t just relieve the ache — it restores the
+        mechanics so your body stops working around the injury.
+      </ServiceIntro>
 
       <div id="how-it-works" className="scroll-mt-[120px]">
         <Section>
@@ -146,7 +126,7 @@ export default function ChiropracticAdjustmentsPage() {
                       className="inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4 group-hover:text-teal-500 group-hover:decoration-teal-500 "
                     >
                       Learn more
-                      <ArrowRightIcon className="h-4 w-4" />
+                      <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                     </Link>
                   )}
                 </div>
@@ -160,42 +140,29 @@ export default function ChiropracticAdjustmentsPage() {
 
       <ComparisonTable />
 
-      <Section>
-        <Container className="grid grid-cols-1 gap-10 lg:grid-cols-[3fr_2fr] lg:items-start lg:gap-16">
-          <div className="flex flex-col gap-6">
-            <Eyebrow>Is it right for you?</Eyebrow>
-            <h2 className="font-display text-h2 text-navy-900">
-              Right for most collision injuries — not every one
-            </h2>
-            <p className="font-sans text-body-lg text-ink-500">
-              Adjustments are appropriate for most mechanical injuries from a collision — the
-              majority of what we see. They&apos;re not the right first step for a fracture,
-              dislocation, or Grade IV whiplash, which need emergency imaging before any hands-on
-              care. For a severely herniated disc with significant nerve compression,{" "}
-              <Link href="/services/spinal-decompression" className="underline">
-                spinal decompression
-              </Link>{" "}
-              may be the better starting point, sometimes combined with adjustment once acute
-              pressure is relieved. If your accident happened within the last 14 days, evaluation
-              now protects your{" "}
-              <Link href="/auto-accidents" className="underline">
-                PIP benefits
-              </Link>{" "}
-              before the window closes.
-            </p>
-            <hr className="border-t border-mute-300" />
-          </div>
-          <div className="relative mx-auto aspect-5/6 w-full max-w-md overflow-hidden lg:mx-0">
-            <Image
-              src="/figma-exports/adjustments-right-for-you.png"
-              alt="Dr. Abe adjusting a patient's neck in the clinic"
-              fill
-              sizes="(min-width: 1024px) 32vw, 100vw"
-              className="object-cover hover:scale-105 transition-transform duration-300"
-            />
-          </div>
-        </Container>
-      </Section>
+      <ServiceIntro
+        eyebrow="Is it right for you?"
+        heading="Right for most collision injuries — not every one"
+        divider
+        image={{
+          src: "/figma-exports/adjustments-right-for-you.png",
+          alt: "Dr. Abe adjusting a patient's neck in the clinic",
+        }}
+      >
+        Adjustments are appropriate for most mechanical injuries from a collision — the majority of
+        what we see. They&apos;re not the right first step for a fracture, dislocation, or Grade IV
+        whiplash, which need emergency imaging before any hands-on care. For a severely herniated
+        disc with significant nerve compression,{" "}
+        <Link href="/services/spinal-decompression" className="underline">
+          spinal decompression
+        </Link>{" "}
+        may be the better starting point, sometimes combined with adjustment once acute pressure is
+        relieved. If your accident happened within the last 14 days, evaluation now protects your{" "}
+        <Link href="/car-accident-chiropractor" className="underline">
+          PIP benefits
+        </Link>{" "}
+        before the window closes.
+      </ServiceIntro>
 
       <DoctorProfile variant="short" content={doctorProfileContent} />
 
@@ -203,7 +170,7 @@ export default function ChiropracticAdjustmentsPage() {
 
       <PatientReviews
         featured={homeFeaturedTestimonial}
-        reviews={homeReviews.slice(0, 3)}
+        reviews={homeReviews.slice(1, 4)}
         variant="light"
       />
 
@@ -216,9 +183,9 @@ export default function ChiropracticAdjustmentsPage() {
       <Section spacing="none" className="bg-navy-900">
         <Container className="flex flex-col gap-6 py-8 sm:flex-row sm:items-center sm:justify-between sm:py-14">
           <div className="flex flex-col gap-2">
-            <h2 className="font-display text-h2 text-white">Ready when you are</h2>
-            <p className="font-sans text-body-lg text-mute-300">
-              No waiting room, no driving in pain — call and we&apos;ll find a time that works.
+            <h2 className="font-display text-h2 text-white font-normal">Ready when you are</h2>
+            <p className="font-sans text-body-lg text-mute-300 w-[65%]">
+              Same-day visits, seven days a week — no waiting room, no driving in pain.
             </p>
           </div>
           <Button

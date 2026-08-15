@@ -54,11 +54,11 @@ const backPainTypes = [
           whiplash
         </Link>
         . Florida gives you{" "}
-        <Link href="/auto-accidents" className="underline">
+        <Link href="/car-accident-chiropractor" className="underline">
           14 days
         </Link>{" "}
         to get evaluated and protect your{" "}
-        <Link href="/auto-accidents" className="underline">
+        <Link href="/car-accident-chiropractor" className="underline">
           PIP benefits
         </Link>
         .
@@ -150,17 +150,18 @@ export default function BackPainPage() {
           submitLabel: leadFormVariants.heroEval.submitLabel,
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,
-          footerNote: "Call us to check availability in your area.",
+          footerNote:
+            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
         }}
       />
 
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
 
       <Section>
-        <Container className="flex justify-between gap-10 lg:items-start">
+        <Container className="flex flex-col justify-between gap-10 lg:flex-row lg:items-start">
           <div className="flex flex-col gap-6">
             <Eyebrow>Understanding Back Pain</Eyebrow>
-            <h2 className="font-display text-display font-medium text-navy-900">
+            <h2 className="font-display text-display font-normal text-navy-900">
               Back pain has a lot of possible
               <br className="hidden lg:inline" />
               causes. Finding yours is the
@@ -170,11 +171,11 @@ export default function BackPainPage() {
             <p className="max-w-2xl font-sans text-body-lg text-ink-900 lg:ml-[10vw]">
               Back pain has a lot of possible causes — finding yours is the first step to fixing it.
               If a car accident is involved, Florida gives you{" "}
-              <Link href="/auto-accidents" className="underline">
+              <Link href="/car-accident-chiropractor" className="underline">
                 14 days
               </Link>{" "}
               to get evaluated and protect your{" "}
-              <Link href="/auto-accidents" className="underline">
+              <Link href="/car-accident-chiropractor" className="underline">
                 PIP benefits
               </Link>
               , since sudden impact can cause the same{" "}
@@ -182,7 +183,7 @@ export default function BackPainPage() {
                 herniated disc
               </Link>{" "}
               or{" "}
-              <Link href="/services/massage-soft-tissue" className="underline">
+              <Link href="/services/soft-tissue-therapy" className="underline">
                 muscle strain
               </Link>{" "}
               that shows up in everyday cases — sometimes with pain that radiates down the leg, a
@@ -193,10 +194,10 @@ export default function BackPainPage() {
               . Everyday back pain follows a similar pattern: sudden strain from lifting or a bad
               movement, or pain that&rsquo;s been building for months from structural wear.
             </p>
-            <div className="h-px bg-mute-350 ml-[10vw]" />
+            <div className="h-[1px] bg-black lg:ml-[10vw]" />
             <a
               href="#types-of-back-pain"
-              className="group inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4 ml-[10vw]"
+              className="group inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4 lg:ml-[10vw]"
             >
               Understand Back Pain
               <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -240,7 +241,7 @@ export default function BackPainPage() {
 
       <PatientReviews
         featured={homeFeaturedTestimonial}
-        reviews={homeReviews.slice(0, 3)}
+        reviews={homeReviews.slice(1, 4)}
         variant="light"
       />
 
@@ -254,7 +255,7 @@ export default function BackPainPage() {
         <Container className="flex flex-col gap-6 py-8 sm:flex-row sm:items-center sm:justify-between sm:py-14">
           <div className="flex flex-col gap-2">
             <h2 className="font-display text-h2 text-white">Still have questions? Just Call</h2>
-            <p className="font-sans text-body-lg text-mute-300">
+            <p className="font-sans text-body-lg text-mute-300 w-[65%]">
               Dr. Abe Answers the phone. No call center, no hold music.
             </p>
           </div>

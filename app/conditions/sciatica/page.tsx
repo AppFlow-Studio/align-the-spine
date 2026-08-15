@@ -110,17 +110,18 @@ export default function SciaticaPage() {
           submitLabel: leadFormVariants.heroEval.submitLabel,
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,
-          footerNote: "Call us to check availability in your area.",
+          footerNote:
+            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
         }}
       />
 
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
 
       <Section>
-        <Container className="flex justify-between gap-10 lg:items-start">
+        <Container className="flex flex-col justify-between gap-10 lg:flex-row lg:items-start">
           <div className="flex flex-col gap-6">
             <Eyebrow>How sciatica escalates</Eyebrow>
-            <h2 className="font-display text-display font-medium text-navy-900">
+            <h2 className="font-display text-display font-normal text-navy-900">
               Sciatica isn&apos;t a condition on
               <br className="hidden lg:inline" />
               its own — it&apos;s a symptom of
@@ -129,9 +130,10 @@ export default function SciaticaPage() {
             </h2>
             <div className="flex flex-col gap-4 lg:ml-[10vw]">
               <p className="max-w-2xl font-sans text-body-lg text-ink-900">
-                Sciatica after a car accident is billed directly to PIP — Dr. Abe Nasser uses a full
-                evaluation to pinpoint the source of nerve compression and build a plan to relieve
-                your leg pain. Sciatica itself is often caused by a{" "}
+                Sciatica describes pain or other symptoms along the sciatic nerve. After a car
+                accident, Dr. Abe Nasser evaluates possible musculoskeletal contributors and
+                documents relevant findings for a PIP claim when applicable. Possible causes include
+                a{" "}
                 <Link href="/services/spinal-decompression" className="underline">
                   herniated disc
                 </Link>{" "}
@@ -139,8 +141,8 @@ export default function SciaticaPage() {
                 <Link href="/services/spinal-decompression" className="underline">
                   spinal stenosis
                 </Link>{" "}
-                compressing the nerve root, whether that compression came from sudden impact or
-                built up over time.
+                that irritates or compresses a nerve root, whether symptoms followed an impact or
+                developed over time.
               </p>
               <div className="w-full h-px bg-mute-350" />
               <a
@@ -189,7 +191,7 @@ export default function SciaticaPage() {
 
       <PatientReviews
         featured={homeFeaturedTestimonial}
-        reviews={homeReviews.slice(0, 3)}
+        reviews={homeReviews.slice(1, 4)}
         variant="light"
       />
 
@@ -203,7 +205,7 @@ export default function SciaticaPage() {
         <Container className="flex flex-col gap-6 py-8 sm:flex-row sm:items-center sm:justify-between sm:py-14">
           <div className="flex flex-col gap-2">
             <h2 className="font-display text-h2 text-white">Still have questions? Just Call</h2>
-            <p className="font-sans text-body-lg text-mute-300">
+            <p className="font-sans text-body-lg text-mute-300 w-[65%]">
               Dr. Abe Answers the phone. No call center, no hold music.
             </p>
           </div>

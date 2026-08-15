@@ -49,7 +49,7 @@ const [subheadBeforePip, subheadAfterPip] = hero.subhead.split("PIP insurance");
 // only pass it to Hero once it's been client-verified.
 const pipStat = flags.pipStat && isVerified(flags.pipStat) ? flags.pipStat.value : undefined;
 
-export const metadata: Metadata = buildMetadata(getRoute("/auto-accidents"));
+export const metadata: Metadata = buildMetadata(getRoute("/car-accident-chiropractor"));
 
 /** /auto-accidents page assembly (ATS-141) per the Figma "auto-accident"
  * frame (file 4mb4VDHszsaj2KEZzyjOjf): HeroSolidPanel (PIP stat callout)
@@ -70,7 +70,7 @@ export default function AutoAccidentsPage() {
       <BreadcrumbJsonLd
         items={[
           { name: "Home", path: "" },
-          { name: "Auto Accidents", path: "/auto-accidents" },
+          { name: "Car Accident Chiropractor", path: "/car-accident-chiropractor" },
         ]}
       />
       <HeroSolidPanel
@@ -78,9 +78,9 @@ export default function AutoAccidentsPage() {
         eyebrow={hero.eyebrowChip}
         title={
           <>
-            Injured in an
+            Car Accident
             <br />
-            Accident?
+            Chiropractor
           </>
         }
         subhead={
@@ -96,12 +96,12 @@ export default function AutoAccidentsPage() {
         bilingualNote="¿Habla español? Dr. Abe habla su idioma."
         stat={pipStat}
         form={{
-          heading: "Schedule Your Evaluation",
-          submitLabel: leadFormVariants.heroEval.submitLabel,
-          variant: leadFormVariants.heroEval.variant,
-          fields: leadFormVariants.heroEval.fields,
+          heading: "Schedule Your Car Accident Evaluation",
+          submitLabel: leadFormVariants.accidentEval.submitLabel,
+          variant: leadFormVariants.accidentEval.variant,
+          fields: leadFormVariants.accidentEval.fields,
           footerNote:
-            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
+            "Visit us in Deerfield Beach, or call to ask whether a home visit fits your case and location.",
         }}
       />
 
@@ -129,9 +129,9 @@ export default function AutoAccidentsPage() {
       <Section spacing="none" className="bg-navy-900">
         <Container className="flex flex-col gap-6 py-8 sm:flex-row sm:items-center sm:justify-between sm:py-14">
           <div className="flex flex-col gap-2">
-            <h2 className="font-display text-h2 text-white">Ready when you are</h2>
-            <p className="font-sans text-body-lg text-mute-300">
-              No waiting room, no driving in pain — call and we&apos;ll find a time that works.
+            <h2 className="font-display text-h2 text-white font-normal">Ready when you are</h2>
+            <p className="font-sans text-body-lg text-mute-300 w-[65%]">
+              Request an office evaluation, or ask whether a home visit fits your case and location.
             </p>
           </div>
           <Button variant="teal" href={siteConfig.bookingCta.href} className="w-fit shrink-0">
@@ -140,9 +140,12 @@ export default function AutoAccidentsPage() {
         </Container>
       </Section>
 
+      {/* slice(1, 4), not (0, 3) — see app/page.tsx's identical fix: avoids
+       * showing homeFeaturedTestimonial (homeReviews[0]) a second time as
+       * the grid's first card. */}
       <PatientReviews
         featured={homeFeaturedTestimonial}
-        reviews={homeReviews.slice(0, 3)}
+        reviews={homeReviews.slice(1, 4)}
         variant="light"
       />
 
@@ -156,7 +159,7 @@ export default function AutoAccidentsPage() {
         <Container className="flex flex-col gap-6 py-8 sm:flex-row sm:items-center sm:justify-between sm:py-14">
           <div className="flex flex-col gap-2">
             <h2 className="font-display text-h2 text-white">Still have questions? Just Call</h2>
-            <p className="font-sans text-body-lg text-mute-300">
+            <p className="font-sans text-body-lg text-mute-300 w-[65%]">
               Dr. Abe Answers the phone. No call center, no hold music.
             </p>
           </div>

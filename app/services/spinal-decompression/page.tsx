@@ -6,10 +6,11 @@ import { AccidentBanner } from "@/components/sections/accident-banner";
 import { ComparisonTable } from "@/components/sections/comparison-table";
 import { ConditionFaq } from "@/components/sections/condition-faq";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
-import { Hero } from "@/components/sections/hero";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
+import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { RelatedConditions } from "@/components/sections/related-conditions";
+import { ServiceIntro } from "@/components/sections/service-intro";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
@@ -39,11 +40,15 @@ const relatedMidPageHeading = "Often needed alongside other post-accident care";
 
 const relatedMidPage: ConditionRelatedLink[] = [
   { label: "Lower Back Pain", href: "/conditions/back-pain" },
-  { label: "Auto Accident Injuries", href: "/auto-accidents", highlighted: true },
+  {
+    label: "Auto Accident Injuries",
+    href: "/car-accident-chiropractor",
+    highlighted: true,
+  },
   { label: "Neck Pain", href: "/conditions/neck-pain" },
   { label: "Spinal Decompression", href: "/services/spinal-decompression" },
   { label: "Whiplash", href: "/conditions/whiplash" },
-  { label: "Home Visit Care", href: "/home-visits" },
+  { label: "Home Visit Care", href: "/home-visit-chiropractor" },
   { label: "Herniated Disc", href: "/services/spinal-decompression" },
   { label: "View All Treatments", href: "/services" },
 ];
@@ -75,8 +80,7 @@ const relatedMidPage: ConditionRelatedLink[] = [
 export default function SpinalDecompressionPage() {
   return (
     <>
-      <Hero
-        variant="condition"
+      <HeroSolidPanel
         background={spinalDecompressionHero.backgroundImage}
         eyebrow={spinalDecompressionHero.eyebrowChip}
         title={spinalDecompressionHero.h1}
@@ -87,45 +91,19 @@ export default function SpinalDecompressionPage() {
           submitLabel: leadFormVariants.heroEval.submitLabel,
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,
-          footerNote: "Call us to check availability in your area.",
+          footerNote:
+            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
         }}
       />
 
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
 
-      <Section>
-        <Container className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
-          <div className="flex flex-col gap-6">
-            <Eyebrow>Understanding the treatment</Eyebrow>
-            <h2 className="font-display text-5xl text-navy-900">
-              The pressure a car accident leaves behind
-            </h2>
-            <p className="font-sans text-body-lg text-ink-900">
-              When a disc bulges or herniates — from a collision&apos;s impact or from years of wear
-              — it can press directly on a nerve root, causing the radiating pain we see in{" "}
-              <Link href="/conditions/sciatica" className="underline">
-                sciatica
-              </Link>{" "}
-              and disc-related{" "}
-              <Link href="/conditions/back-pain" className="underline">
-                back pain
-              </Link>{" "}
-              or{" "}
-              <Link href="/conditions/neck-pain" className="underline">
-                neck pain
-              </Link>
-              . Spinal decompression uses gentle, controlled traction to create negative pressure
-              inside the disc, drawing it back into place and taking pressure off the nerve —
-              without surgery.
-            </p>
-            <a
-              href="#how-it-works"
-              className="inline-flex w-fit items-center gap-2 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors duration-300 hover:text-navy-700 underline decoration-transparent hover:decoration-navy-700 underline-offset-4"
-            >
-              Understand Decompression
-              <ArrowRightIcon className="h-4 w-4" />
-            </a>
-          </div>
+      <ServiceIntro
+        eyebrow="Understanding the treatment"
+        heading="The pressure a car accident leaves behind"
+        columns="1/1"
+        cta={{ href: "#how-it-works", label: "Understand Decompression" }}
+        media={
           <div className="mx-auto flex justify-end w-full max-w-4xl gap-6 lg:mx-0">
             <div className="flex flex-1 flex-col gap-4 w-full group">
               <div className="relative aspect-video w-full overflow-hidden max-w-full">
@@ -166,8 +144,24 @@ export default function SpinalDecompressionPage() {
               </div>
             </div>
           </div>
-        </Container>
-      </Section>
+        }
+      >
+        When a disc bulges or herniates — from a collision&apos;s impact or from years of wear — it
+        can press directly on a nerve root, causing the radiating pain we see in{" "}
+        <Link href="/conditions/sciatica" className="underline">
+          sciatica
+        </Link>{" "}
+        and disc-related{" "}
+        <Link href="/conditions/back-pain" className="underline">
+          back pain
+        </Link>{" "}
+        or{" "}
+        <Link href="/conditions/neck-pain" className="underline">
+          neck pain
+        </Link>
+        . Spinal decompression uses gentle, controlled traction to create negative pressure inside
+        the disc, drawing it back into place and taking pressure off the nerve — without surgery.
+      </ServiceIntro>
 
       <div id="how-it-works" className="relative scroll-mt-[120px] overflow-hidden">
         <div className="absolute inset-0">
@@ -183,7 +177,7 @@ export default function SpinalDecompressionPage() {
           <Container className="flex flex-col gap-14">
             <div className="flex flex-col gap-3">
               <Eyebrow variant="onDark">How it works</Eyebrow>
-              <h2 className="font-display text-h2 text-white">
+              <h2 className="font-display font-normal text-h2 text-white">
                 A gradual process, not a single fix
               </h2>
             </div>
@@ -192,7 +186,7 @@ export default function SpinalDecompressionPage() {
                 <div key={step.title} className="group flex flex-col gap-3">
                   <h3
                     className={cn(
-                      "font-display text-h2 leading-10 text-white transition-colors duration-200 group-hover:text-teal-500",
+                      "font-display text-3xl leading-10 text-white transition-colors duration-200 group-hover:text-teal-500",
                     )}
                   >
                     {step.title}
@@ -211,7 +205,7 @@ export default function SpinalDecompressionPage() {
                       )}
                     >
                       Learn more
-                      <ArrowRightIcon className="h-4 w-4" />
+                      <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                     </Link>
                   )}
                 </div>
@@ -223,8 +217,8 @@ export default function SpinalDecompressionPage() {
 
       <Section>
         <Container className="flex flex-col gap-14">
-          <SectionHeading eyebrow="What it treats">
-            Conditions decompression relieves
+          <SectionHeading eyebrow="When it may fit">
+            Conditions evaluated for spinal decompression
           </SectionHeading>
           <div className="flex flex-col divide-y divide-mute-300 border-t border-mute-300">
             {decompressionConditions.map((condition, idx) => (
@@ -238,17 +232,19 @@ export default function SpinalDecompressionPage() {
                     alt={condition.image.alt}
                     fill
                     sizes="200px"
-                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="object-cover transition-[filter] duration-500 sm:grayscale sm:brightness-75 sm:group-hover:grayscale-0 sm:group-hover:brightness-100"
                   />
                 </div>
                 <h3
                   className={cn(
-                    "font-display text-h2 text-navy-900 group-hover:text-teal-500 transition-colors duration-300",
+                    "font-display text-h2 font-normal text-ink-500 group-hover:text-navy-900 transition-colors duration-300",
                   )}
                 >
                   {condition.name}
                 </h3>
-                <p className="font-sans text-body-lg text-ink-500">{condition.description}</p>
+                <p className="font-sans text-body-lg text-ink-500 transition-colors duration-300 group-hover:text-navy-900">
+                  {condition.description}
+                </p>
               </div>
             ))}
           </div>
@@ -269,7 +265,7 @@ export default function SpinalDecompressionPage() {
 
       <PatientReviews
         featured={homeFeaturedTestimonial}
-        reviews={homeReviews.slice(0, 3)}
+        reviews={homeReviews.slice(1, 4)}
         variant="light"
       />
 
@@ -285,8 +281,8 @@ export default function SpinalDecompressionPage() {
             <h2 className="font-display text-h2 text-white">
               Still have questions about your accident claim?
             </h2>
-            <p className="font-sans text-body-lg text-mute-300">
-              No waiting room, no driving in pain — call and we&apos;ll find a time that works.
+            <p className="font-sans text-body-lg text-mute-300 w-[65%]">
+              Same-day visits, seven days a week — no waiting room, no driving in pain.
             </p>
           </div>
           <Button

@@ -6,6 +6,7 @@ import { HandIcon } from "@/components/ui/icons/hand";
 import { RingsIcon } from "@/components/ui/icons/rings";
 import { WavesIcon } from "@/components/ui/icons/waves";
 import { ZapIcon } from "@/components/ui/icons/zap";
+import { isVerified, mapVerified, verified, type VerifiedValue } from "@/content/verified-value";
 
 export interface Address {
   line1: string;
@@ -53,14 +54,14 @@ export interface SocialLink {
   verified: boolean;
 }
 
-export interface Stat {
-  label: string;
-  value: string;
-}
-
 export interface Geo {
   latitude: number;
   longitude: number;
+}
+
+export interface ReviewsRating {
+  rating: number;
+  count: number;
 }
 
 export interface SiteConfig {
@@ -73,9 +74,8 @@ export interface SiteConfig {
     phoneHref: string;
     email: string;
     address: Address;
-    /** Rooftop geocode for 811 SE 8th Ave Suite #101, Deerfield Beach, FL
-     * 33441, via OpenStreetMap Nominatim. Re-verify against the Google
-     * Business Profile listing if precision ever matters (e.g. a map embed). */
+    /** Client-confirmed rooftop geocode for 811 SE 8th Ave Ste 101,
+     * Deerfield Beach, FL 33441 (SEO Foundation Phase 1). */
     geo: Geo;
   };
   hours: DayHours[];
@@ -103,15 +103,26 @@ export interface SiteConfig {
    * as gated so a future renderer can't accidentally ship placeholder
    * links. */
   social: SocialLink[];
-  /** ATS-E4 (4.3/4.4/4.5/4.7): the "Reviews 152 / Visits Same-day / When it
-   * applies Home visits / Bilingual care EN/ES / Insurance $0 with PIP"
-   * stat row was five unverified claims in one array — review count,
-   * same-day availability, and $0/PIP insurance billing all need client
-   * approval; TopStatsBar/StatChipRow render nothing until this is set. */
-  stats: Stat[];
-  /** True only once the client has confirmed every value in `stats` above.
-   * TopStatsBar and StatChipRow both render nothing while this is false. */
-  statsVerified: boolean;
+  /** SEO Foundation Phase 1: the old "Reviews 152 / Visits Same-day / When
+   * it applies Home visits / Bilingual care EN/ES / Insurance $0 with PIP"
+   * stat row was five unrelated claims gated by one shared boolean — which
+   * is exactly how a stale `statsVerified: true` ended up publishing all
+   * five at once, including a fabricated review count and a banned "$0 with
+   * PIP" coverage claim, with nothing to catch it. Each claim now has its
+   * own gate, so approving one can never leak the others. `pipHandling`
+   * deliberately never states a dollar figure — under Fla. Stat.
+   * 627.736(1)(a), PIP medical benefits are 80% of reasonable expenses
+   * capped at $2,500 unless an MD/DO/dentist/PA/APRN certifies an emergency
+   * medical condition, a determination a chiropractic physician isn't
+   * authorized to make, so "$0" isn't a promise this practice can stand
+   * behind. `reviewsRating` is the single source doctor-profile.ts's rating
+   * badge reads from too, so the two can't drift into the same
+   * contradiction a duplicated, independently-"verified" copy caused before. */
+  sameDayAvailability: VerifiedValue<string>;
+  homeVisitsAvailable: VerifiedValue<string>;
+  bilingualCare: VerifiedValue<string>;
+  pipHandling: VerifiedValue<string>;
+  reviewsRating: VerifiedValue<ReviewsRating>;
 }
 
 const businessHours: DayHours[] = [
@@ -122,7 +133,7 @@ const businessHours: DayHours[] = [
   "Friday",
   "Saturday",
   "Sunday",
-].map((day) => ({ day: day as DayHours["day"], open: "9:00 AM", close: "7:00 PM" }));
+].map((day) => ({ day: day as DayHours["day"], open: "7:00 AM", close: "11:00 PM" }));
 
 /** True only for actual Vercel production deploys. Local dev, CI, and
  * Vercel preview builds are all treated as non-production so metadata/
@@ -132,21 +143,35 @@ export function isProduction(): boolean {
   return process.env.VERCEL_ENV === "production";
 }
 
+/** A missing SITE_URL must never silently fall back in an actual production
+ * deploy — that's exactly how every canonical/sitemap/schema URL on this
+ * site ended up pointing at the wrong (legacy) domain before. Local dev and
+ * CI never set VERCEL_ENV=production, so they still get a safe, real-domain
+ * fallback instead of failing every command that touches this module. */
+export function resolveSiteUrl(): string {
+  const envUrl = process.env.SITE_URL;
+  if (envUrl) return envUrl;
+  if (isProduction()) {
+    throw new Error("content/site.ts: SITE_URL must be set in production — refusing to fall back.");
+  }
+  return "https://chirobackpain.com";
+}
+
 export const siteConfig: SiteConfig = {
-  siteUrl: process.env.SITE_URL ?? "https://alignthespinechiropractic.com",
+  siteUrl: resolveSiteUrl(),
   business: {
     name: "Align the Spine Chiropractic",
     phone: "(954) 573-7192",
     phoneHref: "tel:+19545737192",
     email: "abenasser@alignthespinechiropractic.com",
     address: {
-      line1: "811 Southeast 8th Avenue",
-      suite: "Suite #101",
+      line1: "811 SE 8th Ave",
+      suite: "Ste 101",
       city: "Deerfield Beach",
       state: "FL",
       zip: "33441",
     },
-    geo: { latitude: 26.3061477, longitude: -80.0940209 },
+    geo: { latitude: 26.3067873, longitude: -80.0944778 },
   },
   hours: businessHours,
   // Confirmed against the Figma design (9:00 AM – 7:00 PM every day) —
@@ -179,7 +204,7 @@ export const siteConfig: SiteConfig = {
         },
         {
           label: "Massage / Soft-Tissue",
-          href: "/services/massage-soft-tissue",
+          href: "/services/soft-tissue-therapy",
           description: "Targeted therapy for muscle tension and scar tissue.",
           icon: HandIcon,
           image: {
@@ -191,7 +216,7 @@ export const siteConfig: SiteConfig = {
     },
     {
       label: "Conditions",
-      href: "/auto-accidents",
+      href: "/car-accident-chiropractor",
       menu: [
         {
           label: "Lower Back Pain",
@@ -267,15 +292,14 @@ export const siteConfig: SiteConfig = {
     },
     { label: "About", href: "/about" },
     { label: "Reviews", href: "/reviews" },
-    { label: "Auto Accidents", href: "/auto-accidents" },
+    { label: "Auto Accidents", href: "/car-accident-chiropractor" },
   ],
   // ATS-E3 (3.4): "Request" not "Book" — nothing auto-confirms a slot.
-  bookingCta: { label: "Book Appointment", href: "/book" },
+  bookingCta: { label: "Book Appointment", href: "/book-an-appointment" },
   footer: {
-    tagline:
-      "Premium chiropractic care delivered with medical excellence and patient-first convenience across South Florida.",
+    tagline: "Chiropractic care in Deerfield Beach, from your first exam through recovery.",
     links: [
-      { label: "Accident Care", href: "/auto-accidents" },
+      { label: "Accident Care", href: "/car-accident-chiropractor" },
       { label: "About Dr. Abe", href: "/about" },
       { label: "Reviews", href: "/reviews" },
       // { label: "Contact Us", href: "/contact-us" },
@@ -295,14 +319,50 @@ export const siteConfig: SiteConfig = {
     { platform: "Facebook", url: "#", verified: false },
     { platform: "Instagram", url: "#", verified: false },
   ],
-  /** PLACEHOLDER — not verified. Swap for real, client-confirmed numbers
-   * before launch. */
-  stats: [
-    { label: "Reviews", value: "152" },
-    { label: "Visits", value: "Same-day" },
-    { label: "When it applies", value: "Home visits" },
-    { label: "Bilingual care", value: "EN/ES" },
-    { label: "Insurance", value: "$0 with PIP" },
-  ],
-  statsVerified: true,
+  sameDayAvailability: verified<string>(
+    "Same-day",
+    "Client-confirmed (implementation brief update #4, 2026-08-11)",
+    "2026-08-11",
+  ),
+  homeVisitsAvailable: verified<string>(
+    "Home visits",
+    "Client-confirmed (implementation brief update #4, 2026-08-11)",
+    "2026-08-11",
+  ),
+  bilingualCare: verified<string>(
+    "EN/ES",
+    "Client-confirmed (implementation brief update #4, 2026-08-11)",
+    "2026-08-11",
+  ),
+  pipHandling: verified<string>(
+    "PIP accepted",
+    "Client-confirmed (implementation brief update #4, 2026-08-11) — reworded off the original zero-dollar figure per Fla. Stat. 627.736(1)(a), see docs/CLAIMS_PENDING.md",
+    "2026-08-11",
+  ),
+  reviewsRating: verified<ReviewsRating>(
+    { rating: 5, count: 164 },
+    "Client-confirmed (implementation brief update #4, 2026-08-11)",
+    "2026-08-11",
+  ),
 };
+
+export interface DisplayStat {
+  label: string;
+  value: string;
+}
+
+/** Collapses the individually-gated claims above into a display-ready list —
+ * the single source both TopStatsBar and StatChipRow read from, so the two
+ * can't diverge on which stats they show or how they're worded. */
+export function getVerifiedStats(): DisplayStat[] {
+  const claims: { label: string; claim: VerifiedValue<string> }[] = [
+    { label: "Reviews", claim: mapVerified(siteConfig.reviewsRating, (r) => String(r.count)) },
+    { label: "Visits", claim: siteConfig.sameDayAvailability },
+    { label: "When it applies", claim: siteConfig.homeVisitsAvailable },
+    { label: "Bilingual care", claim: siteConfig.bilingualCare },
+    { label: "Insurance", claim: siteConfig.pipHandling },
+  ];
+  return claims.flatMap(({ label, claim }) =>
+    isVerified(claim) ? [{ label, value: claim.value }] : [],
+  );
+}

@@ -31,7 +31,7 @@ export function ServiceAreas({ image }: ServiceAreasProps) {
         <h3 className="font-sans text-body-lg uppercase tracking-[1.25px] text-ink-900">
           Service Areas
         </h3>
-        <div className="mt-4 h-px w-full bg-teal-500/30" />
+        <div className="mt-4 h-px w-full bg-[#58A0A0]/30" />
         <ul className="mt-2">
           {siteConfig.serviceAreas.map((area) => (
             <li
