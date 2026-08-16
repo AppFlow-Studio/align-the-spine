@@ -130,12 +130,12 @@ export default function NeckPainPage() {
             <Eyebrow>Understanding Neck Pain</Eyebrow>
             <h2 className="font-display text-display font-normal text-navy-900">
               Neck pain ranges from a
-              <br />
+              <br className="hidden lg:inline" />
               stiff morning to something
-              <br />
+              <br className="hidden lg:inline" />
               worth a real evaluation.
             </h2>
-            <p className="max-w-2xl font-sans text-body-lg text-ink-500 lg:ml-[10vw]">
+            <p className="max-w-2xl font-sans text-body-lg text-ink-900 lg:ml-[10vw]">
               Neck pain after a car accident needs a different evaluation than an everyday stiff
               morning. If your neck pain started after a collision, Florida gives you{" "}
               <Link href="/car-accident-chiropractor" className="underline">

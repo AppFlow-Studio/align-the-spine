@@ -78,8 +78,8 @@ const config: Config = {
         // breakpoint frames exist in Figma to sample, per the ATS-002 design
         // doc's own note on this same gap.
         display: [
-          "clamp(36px, 2.14vw + 27.96px, 65px)",
-          { lineHeight: "clamp(38px, 2.22vw + 29.69px, 68px)", fontWeight: "500" },
+          "clamp(30px, 2.14vw + 27.96px, 65px)",
+          { lineHeight: "clamp(34px, 2.22vw + 29.69px, 68px)", fontWeight: "500" },
         ],
         // Bumped to the Figma standard: max 48px (was 35px). The line-height
         // curve below was already sized for a ~48px heading (66px max ≈ 1.375

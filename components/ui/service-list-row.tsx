@@ -34,11 +34,11 @@ export function ServiceListRow({ item, className }: ServiceListRowProps) {
         <h3 className="break-words font-display text-card-title text-navy-900">{item.name}</h3>
         <Divider className="bg-navy-900" />
         <p className="font-sans text-card-body mt-4">
-          <span className="text-ink-500 text-[20px]">
+          <span className="text-ink-500">
             {item.duration} | Contact us {siteConfig.business.phone}
           </span>
           <br />
-          <span className="text-ink-900 text-[20px] leading-loose">{item.summary}</span>
+          <span className="text-ink-900">{item.summary}</span>
         </p>
         <Button
           variant="book"

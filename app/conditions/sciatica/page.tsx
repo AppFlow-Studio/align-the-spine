@@ -123,13 +123,13 @@ export default function SciaticaPage() {
             <Eyebrow>How sciatica escalates</Eyebrow>
             <h2 className="font-display text-display font-normal text-navy-900">
               Sciatica isn&apos;t a condition on
-              <br />
+              <br className="hidden lg:inline" />
               its own — it&apos;s a symptom of
-              <br />
+              <br className="hidden lg:inline" />
               nerve pressure
             </h2>
             <div className="flex flex-col gap-4 lg:ml-[10vw]">
-              <p className="max-w-2xl font-sans text-body-lg text-ink-500">
+              <p className="max-w-2xl font-sans text-body-lg text-ink-900">
                 Sciatica describes pain or other symptoms along the sciatic nerve. After a car
                 accident, Dr. Abe Nasser evaluates possible musculoskeletal contributors and
                 documents relevant findings for a PIP claim when applicable. Possible causes include

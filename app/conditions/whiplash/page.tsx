@@ -138,10 +138,10 @@ export default function WhiplashPage() {
             <Eyebrow>Understanding whiplash</Eyebrow>
             <h2 className="font-display text-display font-normal text-navy-900">
               Whiplash is a soft-tissue neck injury from rapid
-              <br />
+              <br className="hidden lg:inline" />
               motion — usually a car accident, but not always.
             </h2>
-            <div className="flex flex-col gap-4 font-sans text-body-lg text-ink-500 lg:ml-[10vw]">
+            <div className="flex flex-col gap-4 font-sans text-body-lg text-ink-900 lg:ml-[10vw]">
               <p>
                 Whiplash is most commonly caused by{" "}
                 <Link href="/car-accident-chiropractor" className="underline">

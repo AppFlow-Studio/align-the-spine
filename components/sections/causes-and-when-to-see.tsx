@@ -36,7 +36,7 @@ export function CausesAndWhenToSee({
       <Container className="grid grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-16">
         <div className="flex flex-col gap-14">
           <div className="flex flex-col gap-6">
-            <h3 className="font-display text-h2 text-navy-900">{causesHeading}</h3>
+            <h3 className="font-display text-3xl text-navy-900">{causesHeading}</h3>
             <ul className="flex flex-col gap-4">
               {causes.map((cause) => (
                 <li key={cause} className="flex items-center gap-3">
@@ -48,7 +48,7 @@ export function CausesAndWhenToSee({
           </div>
 
           <div className="flex flex-col gap-6">
-            <h3 className="font-display text-h2 text-navy-900">{relatedHeading}</h3>
+            <h3 className="font-display text-3xl text-navy-900">{relatedHeading}</h3>
             <div className="flex flex-col gap-4">
               {relatedLinks.map((link) => (
                 <RelatedPill key={link.label} link={link} />
@@ -58,7 +58,7 @@ export function CausesAndWhenToSee({
         </div>
 
         <div className="flex flex-col gap-6">
-          <h2 className="font-display text-h2 text-navy-900">{whenToSee.heading}</h2>
+          <h2 className="font-display text-5xl text-navy-900">{whenToSee.heading}</h2>
           <p className="font-sans text-body-lg text-ink-500">{whenToSee.body}</p>
           <div className="relative aspect-[906/506] w-full overflow-hidden">
             <Image

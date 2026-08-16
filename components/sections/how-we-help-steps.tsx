@@ -42,7 +42,7 @@ export function HowWeHelpSteps({ heading, steps, cta }: HowWeHelpStepsProps) {
               />
             </div>
             <div className="flex flex-col gap-3">
-              <h3 className="font-display text-h1 text-navy-800 group-hover:text-teal-500 transition-colors duration-300">
+              <h3 className="font-display text-3xl text-navy-800 group-hover:text-teal-500 transition-colors duration-300">
                 {step.title}
               </h3>
               <hr className="border-t border-navy-900 transition-colors duration-300 group-hover:border-teal-500" />

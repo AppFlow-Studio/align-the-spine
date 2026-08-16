@@ -59,7 +59,7 @@ export function CausesAndTypes({
       <Container className="grid grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-16">
         <div className="flex flex-col gap-14">
           <div className="flex flex-col gap-6">
-            <h3 className="font-display text-h2 text-navy-900">{causesHeading}</h3>
+            <h3 className="font-display text-3xl text-navy-900">{causesHeading}</h3>
             <ul className="flex flex-col gap-4">
               {causes.map((cause) => (
                 <li key={cause} className="flex items-center gap-3">
@@ -71,7 +71,7 @@ export function CausesAndTypes({
           </div>
 
           <div className="flex flex-col gap-6">
-            <h3 className="font-display text-h2 text-navy-900">{relatedHeading}</h3>
+            <h3 className="font-display text-3xl text-navy-900">{relatedHeading}</h3>
             <div className="flex flex-col gap-4">
               {relatedLinks.map((link) => (
                 <RelatedPill key={link.label} link={link} />

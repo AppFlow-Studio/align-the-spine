@@ -163,12 +163,12 @@ export default function BackPainPage() {
             <Eyebrow>Understanding Back Pain</Eyebrow>
             <h2 className="font-display text-display font-normal text-navy-900">
               Back pain has a lot of possible
-              <br />
+              <br className="hidden lg:inline" />
               causes. Finding yours is the
-              <br />
+              <br className="hidden lg:inline" />
               first step to fixing it.
             </h2>
-            <p className="max-w-2xl font-sans text-body-lg text-ink-500 lg:ml-[10vw]">
+            <p className="max-w-2xl font-sans text-body-lg text-ink-900 lg:ml-[10vw]">
               Back pain has a lot of possible causes — finding yours is the first step to fixing it.
               If a car accident is involved, Florida gives you{" "}
               <Link href="/car-accident-chiropractor" className="underline">

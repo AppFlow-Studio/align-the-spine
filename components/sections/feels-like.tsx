@@ -84,7 +84,7 @@ export function SymptomWarningCard({ warning, className }: SymptomWarningCardPro
         <Image src={warning.image.src} alt={warning.image.alt} fill className="object-cover" />
       </div>
       <div className="flex flex-col justify-center gap-6 bg-overlay-teal-12 p-8 md:p-12">
-        <h3 className="font-display text-h2 text-navy-900">{warning.heading}</h3>
+        <h3 className="font-display text-3xl text-navy-900">{warning.heading}</h3>
         <ul className="flex flex-col gap-4">
           {warning.bullets.map((bullet) =>
             bullet.href ? (

@@ -42,7 +42,7 @@ export function LocationFooter() {
 
         <div className="flex flex-col gap-2 px-6 py-10 lg:w-[420px] lg:shrink-0 lg:py-16 lg:pl-14">
           <div>
-            <h3 className="font-display text-h2 text-navy-900">Hours of operation</h3>
+            <h3 className="font-display text-3xl text-navy-900">Hours of operation</h3>
             <div className="h-px w-full bg-navy-700" />
           </div>
 

@@ -104,12 +104,12 @@ export default function ConcussionPage() {
             <Eyebrow>Understanding concussion trauma</Eyebrow>
             <h2 className="font-display text-display font-normal text-navy-900">
               The injury a car accident
-              <br />
+              <br className="hidden lg:inline" />
               can cause without you
-              <br />
+              <br className="hidden lg:inline" />
               hitting your head.
             </h2>
-            <p className="w-full font-sans text-body-lg text-ink-500">
+            <p className="w-full font-sans text-body-lg text-ink-900">
               A concussion is a mild traumatic brain injury that can occur without losing
               consciousness or striking the head directly. Headache, dizziness, confusion, vomiting,
               weakness, or worsening symptoms after a collision need prompt medical assessment.

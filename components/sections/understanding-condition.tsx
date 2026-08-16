@@ -41,8 +41,8 @@ export function UnderstandingCondition({ condition, className }: UnderstandingCo
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
             <div className="flex flex-col gap-6">
               <Eyebrow>{eyebrow}</Eyebrow>
-              <h2 className="font-display text-h2 text-navy-900">{heading}</h2>
-              <p className="max-w-md font-sans text-body-lg text-ink-500">{intro}</p>
+              <h2 className="font-display text-5xl text-navy-900">{heading}</h2>
+              <p className="max-w-md font-sans text-body-lg text-ink-900">{intro}</p>
               <a
                 href="#types"
                 className="group inline-flex w-fit items-center gap-2 border-t border-mute-300 pt-4 font-sans text-stat-label uppercase tracking-[1.25px] text-navy-900 transition-colors hover:text-navy-700"
@@ -80,7 +80,7 @@ export function UnderstandingCondition({ condition, className }: UnderstandingCo
           className="flex flex-col gap-10 scroll-mt-[120px] lg:flex-row lg:items-stretch"
         >
           <div className="flex flex-1 flex-col gap-6">
-            <h3 className="font-display text-h2 text-navy-900">Types</h3>
+            <h3 className="font-display text-3xl text-navy-900">Types</h3>
             <div className="flex flex-col gap-6">
               {types.map((type) => (
                 <TypeCard key={type.name} name={type.name} description={type.desc} />
@@ -91,7 +91,7 @@ export function UnderstandingCondition({ condition, className }: UnderstandingCo
           <Divider orientation="vertical" className="hidden lg:block" />
 
           <div className="flex flex-1 flex-col gap-6">
-            <h3 className="font-display text-h2 text-navy-900">Common Causes</h3>
+            <h3 className="font-display text-3xl text-navy-900">Common Causes</h3>
             <ul className="flex flex-col">
               {causes.map((cause) => (
                 <li key={cause}>

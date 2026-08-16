@@ -18,7 +18,7 @@ export function Eyebrow({ as: Tag = "p", variant = "default", className, ...rest
   return (
     <Tag
       className={cn(
-        "font-sans text-eyebrow uppercase",
+        "font-sans text-[14px] leading-[22px] tracking-[1.25px] font-medium uppercase sm:text-eyebrow",
         variant === "onDark" ? "text-teal-300" : "text-teal-500",
         className,
       )}

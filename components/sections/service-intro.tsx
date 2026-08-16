@@ -57,7 +57,7 @@ export function ServiceIntro({
         <div className="flex flex-col gap-6">
           <Eyebrow>{eyebrow}</Eyebrow>
           <h2 className="font-display text-h2 text-navy-900">{heading}</h2>
-          <p className="font-sans text-body-lg text-ink-500">{children}</p>
+          <p className="font-sans text-body-lg text-ink-900">{children}</p>
           {divider && <div className="w-full border-t border-mute-350" />}
           {cta && (
             <a

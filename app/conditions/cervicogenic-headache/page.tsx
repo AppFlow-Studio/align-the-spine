@@ -87,7 +87,7 @@ export default function CervicogenicHeadachePage() {
             <h2 className="font-display text-display font-normal text-navy-900">
               The headache a car accident leaves behind
             </h2>
-            <p className="font-sans text-body-lg text-ink-500">
+            <p className="font-sans text-body-lg text-ink-900">
               A cervicogenic headache is pain referred from structures in the neck. It may be felt
               at the base of the skull, on one side of the head, or with limited neck motion. A car
               accident can strain the neck, but new, severe, or worsening headaches need prompt

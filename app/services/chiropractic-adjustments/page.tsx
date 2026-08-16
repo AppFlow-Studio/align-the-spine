@@ -115,7 +115,7 @@ export default function ChiropracticAdjustmentsPage() {
             <div className="grid grid-cols-1 gap-10 border-t border-mute-300 pt-10 sm:grid-cols-3">
               {adjustmentsHowItWorks.map((step) => (
                 <div key={step.title} className="group flex flex-col gap-3">
-                  <h3 className="font-display text-h2 text-navy-900 transition-colors duration-200 group-hover:text-teal-500">
+                  <h3 className="font-display text-3xl text-navy-900 transition-colors duration-200 group-hover:text-teal-500">
                     {step.title}
                   </h3>
                   <hr className="border-t border-navy-900 transition-colors duration-200 group-hover:border-teal-500" />

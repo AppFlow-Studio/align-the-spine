@@ -63,7 +63,7 @@ export default function ReviewsPage() {
                * (previously max-w-xl on its own) reached far enough right to
                * run into her. */}
               <div className="max-w-lg">
-                <h1 className="font-display text-hero font-medium text-white">
+                <h1 className="font-display text-5xl font-medium text-white">
                   Patient Reviews for Align the Spine Chiropractic
                 </h1>
                 <p className="mt-4 font-sans text-body-lg text-white">
@@ -113,7 +113,7 @@ export default function ReviewsPage() {
           </Container>
         </div>
 
-        <div className="relative flex flex-col bg-navy-900 px-6 pb-16 pt-10 sm:px-10 lg:w-[640px] lg:shrink-0 lg:px-16 lg:pb-0 lg:pt-[170px] xl:w-[760px] 2xl:w-[800px]">
+        <div className="relative flex flex-col bg-navy-900 px-6 pb-16 pt-10 sm:px-10 lg:w-[640px] lg:shrink-0 lg:px-16 lg:pb-16 lg:pt-[170px] xl:w-[760px] 2xl:w-[800px]">
           <LeadForm
             heading="Experience 5-Star Care Yourself"
             variant={leadFormVariants.reviewsEval.variant}
@@ -122,7 +122,7 @@ export default function ReviewsPage() {
             submitVariant="teal"
             fieldOutline
             labelCase="none"
-            headingClassName="mb-4 font-display text-h2 !leading-[1.15] text-white"
+            headingClassName="mb-4 font-display text-3xl text-white"
             className="gap-y-4"
           />
           <p className="mt-6 font-sans text-body-lg text-mute-300">

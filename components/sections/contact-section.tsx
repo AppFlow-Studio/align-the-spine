@@ -16,7 +16,7 @@ export function ContactSection() {
       <Container className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
         <div className="flex flex-col justify-between gap-16">
           <div className="flex flex-col gap-4">
-            <h2 className="font-display text-h2 text-navy-800">Contact us</h2>
+            <h2 className="font-display text-5xl text-navy-800">Contact us</h2>
             <p className="font-sans text-body-lg text-ink-900">
               Injured or just have a question? Reach out <br /> anytime — we respond fast, no call
               center.
@@ -32,7 +32,7 @@ export function ContactSection() {
               className="size-32 shrink-0"
             />
             <div className="flex flex-col">
-              <span className="text-4xl text-[#1A1A1A] font-sans">Align the Spine</span>
+              <span className="text-2xl sm:text-4xl text-[#1A1A1A] font-sans">Align the Spine</span>
               <span className="font-sans text-body-lg text-navy-900">
                 Chiropractic and Wellness Center
               </span>
