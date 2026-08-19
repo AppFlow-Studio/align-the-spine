@@ -103,12 +103,12 @@ export interface HeroSolidPanelProps {
  * look) with the H1/subhead/trust-marquee/call-pill overlaid on it as
  * before, and the lead form lives in a compact LiquidGlass card that
  * overlaps the photo's bottom edge — same card treatment Hero.tsx already
- * uses for its own form, just floating instead of inline. The card is
- * always `twoStep` (name + phone, then a smooth height/opacity expand into
- * the rest) so the first thing below the photo is a two-field ask, never
- * every field at once — see docs/BASELINE.md's CRO audit for why. A
- * full-width call button sits right under the card as an equal-weight
- * alternative. No negative-margin bleed below `lg`: TopStatsBar is
+ * uses for its own form, just floating instead of inline, showing every
+ * field at once like every other form on the site (ATS-147: two-step forms
+ * were removed sitewide — with only 3-5 fields per variant, splitting them
+ * added friction without a real payoff). A full-width call button sits
+ * right under the card as an equal-weight alternative. No negative-margin
+ * bleed below `lg`: TopStatsBar is
  * `hidden` there (components/layout/root-shell.tsx), so the section
  * already starts at the viewport's true top with nothing to cancel out —
  * the H1's own pt-[120px] alone clears the fixed Navbar.
@@ -207,14 +207,16 @@ export function HeroSolidPanel({
 
       {/* Below `lg`: floating card + call button, overlapping the photo's
        * bottom edge. Hidden at `lg`, where the navy panel below takes over
-       * instead. Solid bg-navy-900 (not LiquidGlass) deliberately — this
-       * card's height varies a lot (name+phone collapsed vs. every field
-       * expanded), so it can't be sized to reliably stay over the photo. A
+       * instead. Solid bg-navy-900 (not LiquidGlass) deliberately — a
        * translucent card that spills onto the plain white page below turns
        * "white text on a dark photo" into "white text on white" the moment
        * it does — solid navy is legible regardless of what's behind it.
        * Trust badges live higher up now, in the marquee under the subhead,
-       * not duplicated down here. */}
+       * not duplicated down here. This is the ONE instance of the two
+       * below that keeps LeadForm's default headingAs="h2" — the desktop
+       * panel's copy of the same heading (below) is demoted to a <p> so
+       * the DOM never carries two identical <h2>s at once (both render
+       * regardless of viewport; only CSS toggles which is visible). */}
       <div className="relative z-10 -mt-16 flex flex-col gap-4 px-4 sm:px-8 lg:hidden">
         {(formSlot ?? form) && (
           <div className="rounded-3xl bg-navy-900 p-6 shadow-card">
@@ -231,9 +233,6 @@ export function HeroSolidPanel({
                   labelCase="none"
                   headingClassName="mb-2 font-display text-card-title !leading-[1.15] text-white"
                   className="gap-y-4"
-                  twoStep
-                  stepOneFieldNames={form.stepOneFieldNames}
-                  continueLabel="Request Appointment"
                 />
               ))}
           </div>
@@ -264,13 +263,12 @@ export function HeroSolidPanel({
                 fieldOutline
                 labelCase="none"
                 headingClassName="mb-2 font-display text-h2 !leading-[1.15] text-white"
+                headingAs="p"
                 className="gap-y-4"
-                twoStep={form.twoStep}
-                stepOneFieldNames={form.stepOneFieldNames}
               />
             ))}
           {form?.footerNote && (
-            <p className="mt-6 font-sans text-body-lg text-mute-300">{form.footerNote}</p>
+            <p className="mt-6 font-sans text-body-lg text-white">{form.footerNote}</p>
           )}
         </div>
       )}

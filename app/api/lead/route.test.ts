@@ -2,93 +2,116 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { POST } from "./route";
 
-const { ingestLeadMock, runWorkerMock, envState } = vi.hoisted(() => ({
-  ingestLeadMock: vi.fn(),
-  runWorkerMock: vi.fn(),
-  envState: { supabase: true },
-}));
-
-vi.mock("@/lib/lead/ingest", () => ({ ingestLead: ingestLeadMock }));
-vi.mock("@/lib/lead/worker", () => ({ runDeliveryWorker: runWorkerMock }));
-vi.mock("@/lib/lead/env", () => ({ isSupabaseConfigured: () => envState.supabase }));
-// after() must be a no-op outside a real request scope.
-vi.mock("next/server", async (importOriginal) => {
-  const actual = await importOriginal<typeof import("next/server")>();
-  return { ...actual, after: (fn: () => void) => fn };
-});
-
-function makeRequest(body: unknown, headers: Record<string, string> = {}): Request {
+function request(body: unknown, headers: Record<string, string> = {}) {
   return new Request("http://localhost/api/lead", {
     method: "POST",
-    headers: { "content-type": "application/json", ...headers },
+    headers: {
+      "content-type": "application/json",
+      origin: "http://localhost",
+      "x-forwarded-for": "127.0.0.1",
+      ...headers,
+    },
     body: JSON.stringify(body),
   });
 }
 
-// The client always submits every field (empty string for optionals), so the
-// server schema expects each key present — mirror that here.
-const validContactUs = {
-  variant: "contactUs",
-  values: {
-    name: "Jane",
-    phone: "9545550100",
-    email: "jane@example.com",
-    carAccident: "",
-    message: "hello there",
-  },
-};
+function payload(id: string) {
+  return {
+    clientSubmissionId: id,
+    formId: "booking",
+    formVersion: 1,
+    values: {
+      firstName: "Test",
+      lastName: "Lead",
+      phone: "9545737192",
+      email: "test@example.com",
+      carAccident: "no",
+    },
+    website: "",
+    attribution: { utm_source: "test" },
+    sourcePagePath: "/book-an-appointment",
+  };
+}
 
 describe("POST /api/lead", () => {
   beforeEach(() => {
-    ingestLeadMock.mockReset();
-    ingestLeadMock.mockResolvedValue({ leadId: "x", isNew: true, patientAckQueued: true });
-    runWorkerMock.mockReset();
-    runWorkerMock.mockResolvedValue({ claimed: 0, sent: 0, failed: 0 });
-    envState.supabase = true;
-  });
-  afterEach(() => vi.clearAllMocks());
-
-  it("stores a valid lead and reports success", async () => {
-    const res = await POST(makeRequest(validContactUs));
-    expect(res.status).toBe(200);
-    expect(await res.json()).toEqual({ ok: true });
-    expect(ingestLeadMock).toHaveBeenCalledTimes(1);
+    process.env.LEAD_REPOSITORY_MODE = "fixture";
+    process.env.LEAD_RATE_LIMIT_SECRET = "test-rate-limit-secret";
+    process.env.LEAD_ENCRYPTION_KEY = Buffer.alloc(32, 4).toString("base64");
   });
 
-  it("silently accepts a honeypot hit without storing anything", async () => {
-    const res = await POST(makeRequest({ ...validContactUs, website: "bot" }));
-    expect(res.status).toBe(200);
-    expect(ingestLeadMock).not.toHaveBeenCalled();
+  it("returns success only after fixture persistence and deduplicates retries", async () => {
+    const id = "77777777-7777-4777-8777-777777777777";
+    const first = await POST(request(payload(id)));
+    const second = await POST(request(payload(id)));
+    expect(first.status).toBe(201);
+    expect(second.status).toBe(200);
+    expect(await second.json()).toMatchObject({ ok: true, created: false, submissionId: id });
   });
 
-  it("rejects an unknown variant without storing", async () => {
-    const res = await POST(makeRequest({ variant: "nope", values: {} }));
-    expect(res.status).toBe(400);
-    expect(ingestLeadMock).not.toHaveBeenCalled();
+  it("rejects cross-origin, oversized, and unexpected-field requests", async () => {
+    expect(
+      (await POST(request(payload(crypto.randomUUID()), { origin: "https://evil.test" }))).status,
+    ).toBe(403);
+    expect(
+      (await POST(request(payload(crypto.randomUUID()), { "content-length": "20000" }))).status,
+    ).toBe(413);
+    const invalid = payload(crypto.randomUUID());
+    invalid.values = { ...invalid.values, diagnosis: "forbidden" } as typeof invalid.values;
+    expect((await POST(request(invalid))).status).toBe(422);
   });
 
-  it("rejects a schema failure without storing", async () => {
-    const res = await POST(makeRequest({ variant: "contactUs", values: {} }));
-    expect(res.status).toBe(422);
-    expect(ingestLeadMock).not.toHaveBeenCalled();
+  it("returns indistinguishable success for a filled honeypot without storing", async () => {
+    const response = await POST(request({ ...payload(crypto.randomUUID()), website: "spam" }));
+    expect(response.status).toBe(200);
+    expect(await response.json()).toEqual({ ok: true });
   });
 
-  it("fails closed (503) when the store is unavailable — no false success", async () => {
-    envState.supabase = false;
-    const res = await POST(makeRequest(validContactUs));
-    expect(res.status).toBe(503);
-    expect(ingestLeadMock).not.toHaveBeenCalled();
+  it("rejects a non-US request loudly, without storing", async () => {
+    const response = await POST(
+      request(payload(crypto.randomUUID()), { "x-vercel-ip-country": "CA" }),
+    );
+    expect(response.status).toBe(403);
+    expect(await response.json()).toEqual({ ok: false, error: "region_not_supported" });
   });
 
-  it("rejects an oversized payload before parsing", async () => {
-    const res = await POST(makeRequest(validContactUs, { "content-length": "30000" }));
-    expect(res.status).toBe(413);
-    expect(ingestLeadMock).not.toHaveBeenCalled();
+  it("allows a request with no geo header, same as local dev/non-Vercel hosting", async () => {
+    const id = crypto.randomUUID();
+    const response = await POST(request(payload(id)));
+    expect(response.status).toBe(201);
+    expect(await response.json()).toMatchObject({ ok: true, created: true, submissionId: id });
   });
 
-  it("returns 503 (not false success) if ingestion throws", async () => {
-    ingestLeadMock.mockRejectedValue(new Error("db down"));
-    const res = await POST(makeRequest(validContactUs));
-    expect(res.status).toBe(503);
+  describe("with a Turnstile secret configured", () => {
+    beforeEach(() => {
+      process.env.TURNSTILE_SECRET_KEY = "test-turnstile-secret";
+    });
+    afterEach(() => {
+      delete process.env.TURNSTILE_SECRET_KEY;
+      vi.unstubAllGlobals();
+    });
+
+    it("stores the lead when Turnstile verification succeeds", async () => {
+      vi.stubGlobal(
+        "fetch",
+        vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true }))),
+      );
+      const id = crypto.randomUUID();
+      const response = await POST(request({ ...payload(id), turnstileToken: "real-token" }));
+      expect(response.status).toBe(201);
+      expect(await response.json()).toMatchObject({ ok: true, created: true, submissionId: id });
+    });
+
+    it("rejects loudly, without storing, when Turnstile verification fails", async () => {
+      vi.stubGlobal(
+        "fetch",
+        vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: false }))),
+      );
+      const response = await POST(
+        request({ ...payload(crypto.randomUUID()), turnstileToken: "bad-token" }),
+      );
+      expect(response.status).toBe(403);
+      expect(await response.json()).toEqual({ ok: false, error: "bot_check_failed" });
+    });
   });
 });

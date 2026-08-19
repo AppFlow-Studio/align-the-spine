@@ -11,14 +11,6 @@ declare global {
 export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 export const GOOGLE_ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
 export const GOOGLE_ADS_CONVERSION_LABEL = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL;
-/** Turns on Enhanced Conversions for Leads (gtag's `user_data` set call)
- * below. Requires Enhanced Conversions to be turned on for this Google Ads
- * account first — sending user_data before that's done is a harmless no-op,
- * but there's no reason to send it before the account can use it, and this
- * keeps the behavior explicit/auditable like every other analytics flag
- * here rather than always-on. */
-export const GOOGLE_ADS_ENHANCED_CONVERSIONS =
-  process.env.NEXT_PUBLIC_GOOGLE_ADS_ENHANCED_CONVERSIONS === "true";
 /** Separate from GA4/Ads above — the client's own GTM container, installed
  * verbatim per their install instructions (ATS-132). Kept independent so
  * whoever manages the GTM container can add other tags (ad-platform pixels,
@@ -60,18 +52,6 @@ export function classifyLeadPriority(
   return "standard";
 }
 
-/** Normalizes a free-text US phone entry to E.164 (+19545737192) for
- * Enhanced Conversions' `phone_number` field, which requires it. Returns
- * undefined for anything that isn't a clean 10-digit US number rather than
- * guessing — Google discards a malformed value anyway, so there's no upside
- * to forcing a bad one through. */
-function toE164(phone: string): string | undefined {
-  const digits = phone.replace(/\D/g, "");
-  if (digits.length === 10) return `+1${digits}`;
-  if (digits.length === 11 && digits.startsWith("1")) return `+${digits}`;
-  return undefined;
-}
-
 /** Fires on every successful lead-form submit — both the POST-then-redirect
  * path (LeadForm/UnderlineForm/BookingForm's default) and the inline-success
  * `onSubmit` override path (the homepage contact form) — since both already
@@ -79,24 +59,10 @@ function toE164(phone: string): string | undefined {
  * on /thank-you, means the inline-success form (which never navigates to
  * /thank-you) still counts as a conversion.
  *
- * `values` is optional so every existing no-arg call site keeps working;
- * passing it enables lead-priority classification and (when
- * GOOGLE_ADS_ENHANCED_CONVERSIONS is on) Enhanced Conversions' user_data
- * call. Email/phone are sent to gtag.js exactly as documented for the
- * "Google tag" method — gtag.js hashes them client-side before
- * transmission; this codebase never hashes or persists the raw values itself. */
+ * `values` is used only for local priority classification. No contact field,
+ * sensitive value, or user_data payload is ever sent to analytics. */
 export function trackLeadConversion(variant: string, values: Record<string, string> = {}) {
   const priority = classifyLeadPriority(variant, values);
-
-  if (GOOGLE_ADS_ENHANCED_CONVERSIONS && (values.email || values.phone)) {
-    const phoneNumber = values.phone ? toE164(values.phone) : undefined;
-    if (values.email || phoneNumber) {
-      gtag("set", "user_data", {
-        ...(values.email ? { email: values.email } : {}),
-        ...(phoneNumber ? { phone_number: phoneNumber } : {}),
-      });
-    }
-  }
 
   gtag("event", "generate_lead", { lead_form_variant: variant, lead_priority: priority });
   if (GOOGLE_ADS_ID && GOOGLE_ADS_CONVERSION_LABEL) {

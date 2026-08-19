@@ -2,11 +2,13 @@ import { describe, expect, it } from "vitest";
 
 import { servicesGrid } from "@/content/services-grid";
 import { siteConfig } from "@/content/site";
+import { isVerified } from "@/content/verified-value";
 
 import {
   buildBreadcrumbList,
   buildFAQPage,
   buildMedicalBusiness,
+  buildMedicalWebPage,
   buildOrganization,
   buildPerson,
   buildService,
@@ -68,20 +70,30 @@ describe("buildMedicalBusiness", () => {
     });
   });
 
-  it("includes openingHoursSpecification — hours are client-confirmed", () => {
-    expect(siteConfig.hoursVerified).toBe(true);
-    const spec = buildMedicalBusiness().openingHoursSpecification;
-    expect(spec).toHaveLength(7);
-    expect(spec?.[0]).toEqual({
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: "Monday",
-      opens: "07:00",
-      closes: "23:00",
-    });
+  it("omits openingHoursSpecification while public sources conflict", () => {
+    expect(siteConfig.hoursVerified).toBe(false);
+    expect(buildMedicalBusiness().openingHoursSpecification).toBeUndefined();
+  });
+
+  it("includes service areas once client-confirmed, omits them otherwise", () => {
+    expect(siteConfig.serviceAreasVerified).toBe(true);
+    expect(buildMedicalBusiness().areaServed).toEqual(
+      siteConfig.serviceAreas.map((city) => ({ "@type": "City", name: city })),
+    );
   });
 
   it("links back to the Organization entity via parentOrganization", () => {
     expect(buildMedicalBusiness().parentOrganization).toEqual({ "@id": ORGANIZATION_ID });
+  });
+
+  it("includes aggregateRating once the client-confirmed rating is verified", () => {
+    expect(isVerified(siteConfig.reviewsRating)).toBe(true);
+    if (!isVerified(siteConfig.reviewsRating)) throw new Error("unreachable");
+    expect(buildMedicalBusiness().aggregateRating).toEqual({
+      "@type": "AggregateRating",
+      ratingValue: siteConfig.reviewsRating.value.rating,
+      reviewCount: siteConfig.reviewsRating.value.count,
+    });
   });
 });
 
@@ -160,6 +172,49 @@ describe("buildService", () => {
     expect(service.provider).toEqual({ "@id": MEDICAL_BUSINESS_ID });
     expect(service.name).toBe("Adjustment");
     expect(service.description).toBe("Test summary.");
+  });
+});
+
+describe("buildMedicalWebPage", () => {
+  it("links to the shared author/publisher entities and the page's own url", () => {
+    const page = buildMedicalWebPage({
+      path: "/service-areas/example",
+      name: "Example page",
+      description: "Example description.",
+      dateModified: "2026-08-18T00:00:00.000Z",
+      aboutTopic: "Chiropractic care after a motor vehicle accident",
+    });
+    expect(page["@type"]).toBe("MedicalWebPage");
+    expect(page.url).toBe(`${siteConfig.siteUrl}/service-areas/example`);
+    expect(page.mainEntityOfPage).toBe(page.url);
+    expect(page.author).toEqual({ "@id": DR_ABE_PERSON_ID });
+    expect(page.publisher).toEqual({ "@id": ORGANIZATION_ID });
+  });
+
+  it("never asserts a clinical review — the site discloses one hasn't happened", () => {
+    // reviewedBy/lastReviewed would contradict GATE_RESULT's disclosed
+    // recommendation in static-service-area-repository.ts that medical
+    // review has NOT been performed for this content.
+    const page = buildMedicalWebPage({
+      path: "/blog/example",
+      name: "Example post",
+      description: "Example description.",
+      dateModified: "2026-08-18T00:00:00.000Z",
+      aboutTopic: "Example topic",
+    });
+    expect(page).not.toHaveProperty("reviewedBy");
+    expect(page).not.toHaveProperty("lastReviewed");
+  });
+
+  it("omits datePublished when not given rather than fabricating one", () => {
+    const page = buildMedicalWebPage({
+      path: "/blog/example",
+      name: "Example post",
+      description: "Example description.",
+      dateModified: "2026-08-18T00:00:00.000Z",
+      aboutTopic: "Example topic",
+    });
+    expect(page).not.toHaveProperty("datePublished");
   });
 });
 

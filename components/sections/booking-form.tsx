@@ -7,17 +7,16 @@ import { useForm, type Resolver } from "react-hook-form";
 
 import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
 import { Input } from "@/components/ui/input";
+import { LeadConsent } from "@/components/ui/lead-consent";
 import type { LeadFormValues } from "@/components/ui/lead-form";
 import { Select } from "@/components/ui/select";
 import { leadFormVariants } from "@/content/lead-forms";
 import { trackLeadConversion } from "@/lib/analytics";
-import { getStoredAttribution } from "@/lib/attribution";
 import { buildLeadFormSchema } from "@/lib/lead-form-schema";
-import { newSubmissionId } from "@/lib/lead/submission-id";
+import { submitLead } from "@/lib/leads/client";
 import { formatUsPhoneAsYouType } from "@/lib/phone-format";
 
 const config = leadFormVariants.booking;
-const STEP_ONE_FIELDS = ["firstName", "phone"] as const;
 
 function SquareButton({
   children,
@@ -34,35 +33,24 @@ function SquareButton({
   );
 }
 
-/** Two-step booking form per the Book-appt artboard (ATS-100): step 1 asks
- * first name + phone ("Continue"), step 2 the remaining fields ("Schedule My
- * Evaluation"). Submits through the ATS-031 pipeline (/api/lead → /thank-you)
- * with the "booking" variant re-validated server-side. */
+/** Single-step booking form: every field (first name, last name, email,
+ * phone, car-accident) visible and submittable at once — no "Continue"
+ * gate. Submits through the ATS-031 pipeline (/api/lead → /thank-you) with
+ * the "booking" variant re-validated server-side. */
 export function BookingForm() {
   const router = useRouter();
-  const [step, setStep] = useState<1 | 2>(1);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [submissionId] = useState(newSubmissionId);
+  const [submissionId, setSubmissionId] = useState<string | null>(null);
 
   const {
     register,
     handleSubmit,
-    trigger,
     reset,
     formState: { errors, isSubmitting },
   } = useForm<LeadFormValues>({
     resolver: zodResolver(buildLeadFormSchema(config.fields)) as Resolver<LeadFormValues>,
     defaultValues: Object.fromEntries(config.fields.map((field) => [field.name, ""])),
   });
-
-  const visibleFields =
-    step === 1
-      ? config.fields.filter((field) => (STEP_ONE_FIELDS as readonly string[]).includes(field.name))
-      : config.fields;
-
-  const onContinue = async () => {
-    if (await trigger([...STEP_ONE_FIELDS])) setStep(2);
-  };
 
   const onValid = async (values: LeadFormValues, event?: BaseSyntheticEvent) => {
     setSubmitError(null);
@@ -77,21 +65,11 @@ export function BookingForm() {
     }
 
     try {
-      const response = await fetch("/api/lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          variant: config.variant,
-          values,
-          submissionId,
-          website: "",
-          attribution: getStoredAttribution(),
-        }),
-      });
-      if (!response.ok) {
-        throw new Error(`Lead submission failed with status ${response.status}`);
-      }
+      const stableSubmissionId = submissionId ?? crypto.randomUUID();
+      if (!submissionId) setSubmissionId(stableSubmissionId);
+      await submitLead(stableSubmissionId, config.variant, values, "");
       trackLeadConversion(config.variant, values);
+      setSubmissionId(null);
       router.push("/thank-you");
     } catch {
       setSubmitError("Something went wrong. Please try again.");
@@ -113,7 +91,9 @@ export function BookingForm() {
         />
       </div>
 
-      {visibleFields.map((field) => {
+      <LeadConsent dark />
+
+      {config.fields.map((field) => {
         const label = field.label.toUpperCase();
         const error = errors[field.name]?.message;
         if (field.type === "select") {
@@ -150,25 +130,11 @@ export function BookingForm() {
             />
           );
         }
-        if (field.type === "email") {
-          return (
-            <Input
-              key={field.name}
-              label={label}
-              type="email"
-              inputMode="email"
-              variant="dark"
-              autoComplete={field.autoComplete}
-              error={error}
-              {...register(field.name)}
-            />
-          );
-        }
         return (
           <Input
             key={field.name}
             label={label}
-            type="text"
+            type={field.type === "email" ? "email" : "text"}
             variant="dark"
             autoComplete={field.autoComplete}
             error={error}
@@ -177,19 +143,10 @@ export function BookingForm() {
         );
       })}
 
-      <div className="mt-2 flex flex-col gap-2">
-        {step === 1 ? (
-          <SquareButton type="button" onClick={onContinue}>
-            Continue
-          </SquareButton>
-        ) : (
-          <SquareButton type="submit" disabled={isSubmitting} aria-busy={isSubmitting || undefined}>
-            {isSubmitting ? "Sending…" : config.submitLabel}
-          </SquareButton>
-        )}
-        <p className="text-center font-sans text-field-error font-light text-white">
-          Step {step} of 2
-        </p>
+      <div className="mt-2">
+        <SquareButton type="submit" disabled={isSubmitting} aria-busy={isSubmitting || undefined}>
+          {isSubmitting ? "Sending…" : config.submitLabel}
+        </SquareButton>
       </div>
 
       {submitError && (

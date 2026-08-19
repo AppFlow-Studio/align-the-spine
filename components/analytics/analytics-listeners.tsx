@@ -29,11 +29,13 @@ export function AnalyticsListeners() {
   const pathname = usePathname();
 
   useEffect(() => {
+    if (pathname.startsWith("/admin") || pathname.startsWith("/preview")) return;
     trackPageView(pathname);
     captureAttribution();
   }, [pathname]);
 
   useEffect(() => {
+    if (pathname.startsWith("/admin") || pathname.startsWith("/preview")) return;
     function handleClick(event: MouseEvent) {
       const anchor = (event.target as HTMLElement).closest("a");
       const href = anchor?.getAttribute("href");
@@ -43,7 +45,7 @@ export function AnalyticsListeners() {
     }
     document.addEventListener("click", handleClick);
     return () => document.removeEventListener("click", handleClick);
-  }, []);
+  }, [pathname]);
 
   return null;
 }

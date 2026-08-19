@@ -71,7 +71,7 @@ export function NavbarDrawer({ open, onClose }: { open: boolean; onClose: () => 
   // drawer down to a sliver at the top of the screen instead of covering
   // the full height.
   return createPortal(
-    <div className="lg:hidden" aria-hidden={!open} inert={!open}>
+    <div className="xl:hidden" aria-hidden={!open} inert={!open}>
       <div
         onClick={onClose}
         className={`fixed inset-0 z-50 bg-navy-900/60 transition-opacity duration-300 ${
@@ -83,20 +83,34 @@ export function NavbarDrawer({ open, onClose }: { open: boolean; onClose: () => 
         role="dialog"
         aria-modal="true"
         aria-label="Site navigation"
-        className={`fixed right-0 top-0 z-50 flex h-full w-4/5 max-w-sm flex-col gap-8 overflow-y-auto bg-navy-900 p-8 shadow-card transition-transform duration-300 ${
+        // A plain shell now, not itself the scroll/padding container — with
+        // 19 service areas the nav list can genuinely be taller than the
+        // screen, and this used to be one big `flex-col overflow-y-auto`
+        // box with the CTA button as its last child. Once that list
+        // actually overflowed, the button (sized only by its own content,
+        // no explicit width) stopped getting stretched to the container's
+        // width by flex's default cross-axis stretch and rendered
+        // shrink-wrapped instead (ATS-146). Splitting into a pinned header,
+        // a scrollable nav region, and a pinned CTA footer fixes that
+        // (each region's width is independent of the others' content) and
+        // is also the right UX for a drawer that can overflow: the primary
+        // CTA should never require scrolling past the whole nav to reach.
+        className={`fixed right-0 top-0 z-50 flex h-full w-4/5 max-w-sm flex-col bg-navy-900 shadow-card transition-transform duration-300 ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <button
-          type="button"
-          aria-label="Close menu"
-          onClick={onClose}
-          className="self-end text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-        >
-          <CloseIcon className="h-6 w-6" />
-        </button>
+        <div className="flex shrink-0 justify-end p-8 pb-4">
+          <button
+            type="button"
+            aria-label="Close menu"
+            onClick={onClose}
+            className="flex h-11 w-11 items-center justify-center text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          >
+            <CloseIcon className="h-6 w-6" />
+          </button>
+        </div>
 
-        <ul className="flex flex-col gap-6">
+        <ul className="flex flex-1 flex-col gap-6 overflow-y-auto px-8 pb-8">
           {siteConfig.nav.map((link) => {
             if (!link.menu) {
               return (
@@ -165,13 +179,15 @@ export function NavbarDrawer({ open, onClose }: { open: boolean; onClose: () => 
           })}
         </ul>
 
-        <Link
-          href={siteConfig.bookingCta.href}
-          onClick={onClose}
-          className="mt-auto flex h-[52px] items-center justify-center rounded-full bg-white px-6 text-button text-navy-900 transition-colors duration-300 hover:bg-teal-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-900"
-        >
-          {siteConfig.bookingCta.label}
-        </Link>
+        <div className="shrink-0 border-t border-white/10 p-8 pt-6">
+          <Link
+            href={siteConfig.bookingCta.href}
+            onClick={onClose}
+            className="flex h-[52px] w-full items-center justify-center rounded-full bg-white px-6 text-button text-navy-900 transition-colors duration-300 hover:bg-teal-500 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy-900"
+          >
+            {siteConfig.bookingCta.label}
+          </Link>
+        </div>
       </div>
     </div>,
     document.body,

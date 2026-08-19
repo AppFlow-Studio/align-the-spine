@@ -1,4 +1,7 @@
+"use client";
+
 import type { ReactNode } from "react";
+import { usePathname } from "next/navigation";
 
 import { Footer } from "./footer";
 import { Navbar } from "./navbar";
@@ -14,6 +17,21 @@ interface RootShellProps {
  * import and place them directly — see app/page.tsx), not part of this
  * shell. */
 export function RootShell({ children }: RootShellProps) {
+  const pathname = usePathname();
+  const editorial = pathname.startsWith("/admin") || pathname.startsWith("/preview");
+  if (editorial) {
+    return (
+      <>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-20 focus:bg-white focus:px-4 focus:py-2 focus:text-ink-900"
+        >
+          Skip to content
+        </a>
+        {children}
+      </>
+    );
+  }
   return (
     <>
       <a

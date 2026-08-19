@@ -14,6 +14,14 @@ import { NavbarLinks } from "./navbar-links";
 
 export const SOLID_NAV_ROUTES = ["/privacy-policy", "/home-visit-chiropractor", "/thank-you"];
 
+function usesSolidNavbar(pathname: string) {
+  return (
+    SOLID_NAV_ROUTES.includes(pathname) ||
+    pathname.startsWith("/blog") ||
+    pathname.startsWith("/service-areas")
+  );
+}
+
 /** Pages whose Hero renders a solid navy-900 right-column panel
  * (components/sections/hero-solid-panel.tsx, or /reviews's matching
  * hand-built hero) — the same color as the default filled "Book
@@ -47,7 +55,7 @@ export function Navbar({ variant }: { variant?: NavbarVariant } = {}) {
   const [prevPathname, setPrevPathname] = useState(pathname);
 
   const resolvedVariant: NavbarVariant =
-    variant ?? (SOLID_NAV_ROUTES.includes(pathname) ? "solid" : "transparent");
+    variant ?? (usesSolidNavbar(pathname) ? "solid" : "transparent");
   const isGlass = resolvedVariant === "solid" || scrolled;
   const outlineCta = OUTLINE_CTA_ROUTES.includes(pathname) && !isGlass;
 
@@ -90,11 +98,11 @@ export function Navbar({ variant }: { variant?: NavbarVariant } = {}) {
             />
           </Link>
 
-          <NavbarLinks isGlass={isGlass} className="hidden lg:flex" />
+          <NavbarLinks isGlass={isGlass} className="hidden xl:flex" />
 
           <Link
             href={siteConfig.bookingCta.href}
-            className={`group hidden h-[52px] items-center gap-2 rounded-full px-6 text-button transition-colors duration-300 lg:flex ${
+            className={`group hidden h-[52px] items-center gap-2 whitespace-nowrap rounded-full px-6 text-button transition-colors duration-300 xl:flex ${
               isGlass
                 ? "bg-white text-navy-900"
                 : outlineCta
@@ -111,7 +119,7 @@ export function Navbar({ variant }: { variant?: NavbarVariant } = {}) {
             aria-label="Open menu"
             aria-expanded={drawerOpen}
             onClick={() => setDrawerOpen(true)}
-            className="flex h-10 w-10 items-center justify-center text-white lg:hidden"
+            className="flex h-11 w-11 items-center justify-center text-white xl:hidden"
           >
             <MenuIcon className="h-6 w-6" />
           </button>

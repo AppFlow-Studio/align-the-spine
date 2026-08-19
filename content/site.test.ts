@@ -48,8 +48,8 @@ describe("resolveSiteUrl", () => {
 });
 
 describe("hoursVerified / social.verified gates", () => {
-  it("is true — client-confirmed 7:00 AM-11:00 PM daily hours", () => {
-    expect(siteConfig.hoursVerified).toBe(true);
+  it("fails closed while current public hours conflict", () => {
+    expect(siteConfig.hoursVerified).toBe(false);
   });
 
   it("marks every current social link as unverified (all are '#' placeholders today)", () => {

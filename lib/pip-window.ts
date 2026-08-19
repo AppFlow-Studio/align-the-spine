@@ -47,7 +47,7 @@ export function calculatePipWindow(accidentDate: Date, today: Date = new Date())
       status: "urgent",
       daysRemaining,
       message:
-        "Today is the last day of your 14-day PIP window — call us right now to protect your benefits.",
+        "The general 14-day initial-care timing period ends today. Coverage depends on the policy and circumstances; contact your insurer or a qualified professional for guidance.",
     };
   }
 
@@ -55,14 +55,14 @@ export function calculatePipWindow(accidentDate: Date, today: Date = new Date())
     return {
       status: "urgent",
       daysRemaining,
-      message: `Only ${daysRemaining} ${daysRemaining === 1 ? "day" : "days"} left in your 14-day PIP window — call us today to protect your benefits.`,
+      message: `${daysRemaining} ${daysRemaining === 1 ? "day remains" : "days remain"} in the general 14-day initial-care timing period. Coverage depends on the policy and circumstances.`,
     };
   }
 
   return {
     status: "active",
     daysRemaining,
-    message: `You have ${daysRemaining} days left in your 14-day PIP window. Schedule your evaluation now to protect your benefits.`,
+    message: `${daysRemaining} days remain in the general 14-day initial-care timing period. Coverage and eligibility depend on the policy and circumstances.`,
   };
 }
 

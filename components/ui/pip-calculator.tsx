@@ -12,7 +12,8 @@ export interface PipCalculatorProps {
   className?: string;
 }
 
-const PROMPT = "Enter a date to see how many days you have left to protect your PIP benefits.";
+const PROMPT =
+  "Enter a date to estimate the general 14-day initial-care timing period. This is not a coverage determination.";
 const INVALID = "That doesn't look like a valid date — use mm/dd/yyyy.";
 
 /** 14-day PIP window date calculator (ATS-032), embedded in the accident
