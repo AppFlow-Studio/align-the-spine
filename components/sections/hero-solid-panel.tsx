@@ -8,8 +8,9 @@ import { FadeIn } from "@/components/ui/fade-in";
 import { CheckIcon } from "@/components/ui/icons/check";
 import { PhoneIcon } from "@/components/ui/icons/phone";
 import { LeadForm } from "@/components/ui/lead-form";
+import { MobileLeadPreviewCard } from "@/components/ui/mobile-lead-preview-card";
 import { Rating } from "@/components/ui/rating";
-import { leadFormVariants } from "@/content/lead-forms";
+import { leadFormVariants, type LeadFormVariant } from "@/content/lead-forms";
 import { getVerifiedStats, siteConfig } from "@/content/site";
 import { isVerified } from "@/content/verified-value";
 
@@ -205,37 +206,32 @@ export function HeroSolidPanel({
         </Container>
       </div>
 
-      {/* Below `lg`: floating card + call button, overlapping the photo's
-       * bottom edge. Hidden at `lg`, where the navy panel below takes over
-       * instead. Solid bg-navy-900 (not LiquidGlass) deliberately — a
-       * translucent card that spills onto the plain white page below turns
-       * "white text on a dark photo" into "white text on white" the moment
-       * it does — solid navy is legible regardless of what's behind it.
-       * Trust badges live higher up now, in the marquee under the subhead,
-       * not duplicated down here. This is the ONE instance of the two
-       * below that keeps LeadForm's default headingAs="h2" — the desktop
-       * panel's copy of the same heading (below) is demoted to a <p> so
-       * the DOM never carries two identical <h2>s at once (both render
-       * regardless of viewport; only CSS toggles which is visible). */}
+      {/* Below `lg`: compact tap-to-expand preview card + call button,
+       * overlapping the photo's bottom edge. Hidden at `lg`, where the full
+       * navy panel below takes over instead. Owner direction 2026-08-19
+       * (matching a reference client's mobile CRO pattern): a mobile
+       * visitor now sees a two-field preview and one CTA, not every field
+       * at once — tapping it opens the exact same validated LeadForm in
+       * the site's existing popup (ATS-142), so nothing about submission,
+       * validation, or delivery changes, only how much is visible before
+       * the visitor commits to filling anything in. `formSlot` callers
+       * (e.g. /book-an-appointment's BookingForm, which brings its own
+       * card styling) are unaffected — this only replaces the generic
+       * `form` config path. `form.onSubmit` has no current call site
+       * (grepped repo-wide); if one is ever added, it needs its own
+       * inline-form escape hatch here rather than silently being dropped
+       * by the popup path. */}
       <div className="relative z-10 -mt-16 flex flex-col gap-4 px-4 sm:px-8 lg:hidden">
-        {(formSlot ?? form) && (
-          <div className="rounded-3xl bg-navy-900 p-6 shadow-card">
-            {formSlot ??
-              (form && (
-                <LeadForm
-                  heading={form.heading}
-                  variant={form.variant}
-                  fields={form.fields ?? leadFormVariants.heroEval.fields}
-                  submitLabel={form.submitLabel}
-                  onSubmit={form.onSubmit}
-                  submitVariant="teal"
-                  fieldOutline
-                  labelCase="none"
-                  headingClassName="mb-2 font-display text-card-title !leading-[1.15] text-white"
-                  className="gap-y-4"
-                />
-              ))}
-          </div>
+        {formSlot ? (
+          <div className="rounded-3xl bg-navy-900 p-6 shadow-card">{formSlot}</div>
+        ) : (
+          form && (
+            <MobileLeadPreviewCard
+              heading={form.heading}
+              formVariant={form.variant as LeadFormVariant}
+              submitLabel={form.submitLabel}
+            />
+          )
         )}
 
         {callPill && (

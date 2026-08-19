@@ -69,7 +69,16 @@ export default function ReviewsPage() {
            * shot for no reason. */}
           <div className="absolute inset-0 bg-[#2a2318]/45 lg:bg-gradient-to-r lg:from-[#2a2318]/70 lg:via-[#2a2318]/35 lg:to-transparent" />
           <Container>
-            <div className="container relative z-10 flex h-full flex-col justify-start pt-[120px] pb-16 lg:pb-16 lg:pt-[170px] lg:pr-12">
+            {/* pt-[224px] lg:pt-[276px], not the original pt-[120px]: this
+             * section bleeds up over the fixed 100px navbar the same way
+             * BlogHero/ServiceAreaHero do (-mt-[100px] lg:-mt-[176px] above),
+             * so content only actually clears the navbar once padding-top
+             * exceeds that bleed by a safe margin. 120px netted just 20px of
+             * real clearance, putting the H1 mostly behind the opaque navbar
+             * on mobile (reported: "the header ... blocks the header"). These
+             * values match BlogHero's own already-verified-safe numbers for
+             * the identical bleed pattern. */}
+            <div className="container relative z-10 flex h-full flex-col justify-start pt-[224px] pb-16 lg:pb-16 lg:pt-[276px] lg:pr-12">
               {/* max-w-lg caps the whole text column, not just the H1 — at
                * lg+ the photo is wide enough that an unconstrained subhead
                * (previously max-w-xl on its own) reached far enough right to

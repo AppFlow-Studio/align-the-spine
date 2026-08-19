@@ -9,6 +9,8 @@ import { listPublicContent } from "@/lib/content/public-content";
 import { buildMedicalBusiness } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo/metadata";
 
+const GOOGLE_MAPS_URL = "https://share.google/9ln6JLZdTiphHnmzF";
+
 export const metadata: Metadata = buildMetadata({
   path: "/service-areas",
   title: "Service Areas | Deerfield Beach Chiropractic Office",
@@ -34,7 +36,22 @@ export default async function ServiceAreasPage() {
       <ServiceAreaHero
         eyebrow="One verified office"
         title="One Deerfield Beach office. Clearly explained service areas."
-        subhead="Align the Spine Chiropractic has one office at 811 SE 8th Ave, Ste 101, Deerfield Beach, FL 33441. People may visit that office from a legitimately served nearby community. In limited eligible car-accident/PIP circumstances, they may also ask whether a home visit fits the case and location."
+        subhead={
+          <>
+            Align the Spine Chiropractic has one office at{" "}
+            <a
+              href={GOOGLE_MAPS_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="underline decoration-white/50 underline-offset-2 hover:decoration-white"
+            >
+              811 SE 8th Ave, Ste 101, Deerfield Beach, FL 33441
+            </a>
+            . People may visit that office from a legitimately served nearby community. In limited
+            eligible car-accident/PIP circumstances, they may also ask whether a home visit fits the
+            case and location.
+          </>
+        }
       >
         <div className="mt-6 flex flex-wrap gap-3">
           <a
@@ -130,16 +147,24 @@ export default async function ServiceAreasPage() {
       <section className="container mt-14 grid gap-8 rounded-40 bg-white p-8 sm:p-12 lg:grid-cols-2">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.12em] text-teal-500">Office</p>
-          <h2 className="mt-3 font-display text-4xl text-navy-800">811 SE 8th Ave, Ste 101</h2>
+          <a
+            href={GOOGLE_MAPS_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-3 block font-display text-4xl text-navy-800 underline decoration-navy-800/30 underline-offset-4 hover:decoration-navy-800"
+          >
+            811 SE 8th Ave, Ste 101
+          </a>
           <address className="mt-4 not-italic leading-7 text-ink-500">
             Deerfield Beach, FL 33441
           </address>
           <a
-            href="https://www.google.com/maps/dir/?api=1&destination=811+SE+8th+Ave+Ste+101+Deerfield+Beach+FL+33441"
+            href={GOOGLE_MAPS_URL}
+            target="_blank"
             rel="noreferrer"
             className="mt-6 inline-flex min-h-11 items-center rounded-full bg-navy-900 px-6 font-semibold text-white transition-colors hover:bg-navy-700"
           >
-            Get variable route directions
+            Get directions
           </a>
         </div>
         <div>

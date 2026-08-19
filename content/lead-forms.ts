@@ -21,19 +21,16 @@ const zipField: LeadFieldConfig = {
   autoComplete: "postal-code",
 };
 
-/** Shared across every variant so a lead can always be filtered/prioritized
- * by whether it's accident-related, regardless of which page or form it
- * came through — lib/analytics.ts's classifyLeadPriority reads this field
- * first, ahead of any page/variant-based inference. Left optional: on an
- * already accident-framed form (e.g. /car-accident-chiropractor) re-asking
- * would be pure friction, and classifyLeadPriority's variant-based fallback
- * covers a blank answer there — see accidentEval below, which drops this
- * question entirely for exactly that reason. */
+/** Shared across every lead form on the site so a lead can always be
+ * filtered/prioritized by whether it's accident-related, and so every form
+ * captures the same core field set — lib/analytics.ts's classifyLeadPriority
+ * reads this field first, ahead of any page/variant-based inference. Owner
+ * direction 2026-08-19: required on every form, no exceptions, including
+ * accidentEval (which also collects a specific accident date alongside it). */
 const carAccidentField: LeadFieldConfig = {
   name: "carAccident",
   label: "Is this related to a car accident?",
   type: "select",
-  required: false,
   placeholder: "Select one",
   options: [
     { label: "Yes", value: "yes" },
@@ -66,25 +63,23 @@ export const leadFormVariants = {
     fields: [...baseFields, carAccidentField],
     submitLabel: "Schedule My Evaluation",
   },
-  /** /car-accident-chiropractor hero form: same First/Last/Phone/Email
-   * fields as heroEval, but accidentDateField instead of carAccidentField
-   * — see that field's own doc comment for why. Already in
-   * lib/analytics.ts's HIGH_PRIORITY_VARIANTS, so dropping carAccidentField
-   * here doesn't lose priority classification — the variant alone is
-   * enough since the whole page is accident-framed. */
+  /** /car-accident-chiropractor hero form: First/Last/Phone/Email plus
+   * BOTH accidentDateField (narrows Florida's 14-day PIP window — see that
+   * field's own doc comment) and carAccidentField (uniform across every
+   * form site-wide, owner direction 2026-08-19). */
   accidentEval: {
     variant: "accidentEval",
-    fields: [...baseFields, accidentDateField],
+    fields: [...baseFields, accidentDateField, carAccidentField],
     submitLabel: "Schedule My Evaluation",
   },
-  /** /contact-us hero form: single Name field (not First/Last), Phone,
-   * Email, and a Message textarea — matches the Figma hero card exactly. */
+  /** /contact-us hero form. Owner direction 2026-08-19: same First/Last
+   * split as every other form (previously a single Name field, matching
+   * the original Figma hero card) plus Phone, Email, and a Message
+   * textarea. */
   contactUs: {
     variant: "contactUs",
     fields: [
-      { name: "name", label: "Name", half: true, autoComplete: "name" },
-      { name: "phone", label: "Phone", type: "tel", half: true, autoComplete: "tel" },
-      { name: "email", label: "Email", type: "email", autoComplete: "email" },
+      ...baseFields,
       carAccidentField,
       { name: "message", label: "Message", type: "textarea" },
     ],
@@ -120,11 +115,13 @@ export const leadFormVariants = {
     ],
     submitLabel: "Contact Us",
   },
-  /** No email field by design — the home-visits eligibility check (ATS-110)
-   * only asks for name, phone, and zip. */
+  /** ATS-110's original design omitted email (name/phone/zip only). Owner
+   * direction 2026-08-19: every form now collects the same core field set,
+   * so email is included here too, alongside the zip this form still
+   * uniquely needs for the home-visit-eligibility check itself. */
   eligibility: {
     variant: "eligibility",
-    fields: [...baseFields.filter((field) => field.name !== "email"), zipField, carAccidentField],
+    fields: [...baseFields, zipField, carAccidentField],
     submitLabel: "Check Eligibility",
   },
   /** Single-step /book form: first name, last name, email, phone, and the

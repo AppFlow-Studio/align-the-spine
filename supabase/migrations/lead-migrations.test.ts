@@ -15,6 +15,10 @@ const contentMigration = readFileSync(
   join(root, "supabase/migrations/202608160001_content_platform.sql"),
   "utf8",
 ).toLowerCase();
+const uniformFieldsMigration = readFileSync(
+  join(root, "supabase/migrations/202608190002_uniform_required_lead_fields.sql"),
+  "utf8",
+);
 
 describe("lead CRM migration security contract", () => {
   it("creates every required normalized table with RLS", () => {
@@ -63,6 +67,32 @@ describe("lead CRM migration security contract", () => {
       "booking",
     ]) {
       expect(migration003).toContain(`('${form.toLowerCase()}', 1`);
+    }
+  });
+
+  it("keeps the DB contract's required core fields in sync with content/lead-forms.ts (202608190002)", () => {
+    for (const form of [
+      "heroEval",
+      "accidentEval",
+      "contactUs",
+      "carAccident",
+      "reviewsEval",
+      "contact",
+      "eligibility",
+      "booking",
+    ]) {
+      const clause = uniformFieldsMigration
+        .split(/^update /m)
+        .find((block) => block.includes(`form_id = '${form}'`) || block.includes(`'${form}'`));
+      expect(clause, `no corrective UPDATE found for ${form}`).toBeDefined();
+      for (const name of ["firstName", "lastName", "phone", "email", "carAccident"]) {
+        expect(clause, `${form} missing "${name}" in the corrective migration`).toContain(
+          `"name":"${name}"`,
+        );
+      }
+      expect(clause, `${form}'s carAccident isn't required in the corrective migration`).toMatch(
+        /"name":"carAccident"[^}]*"required":true/,
+      );
     }
   });
 });

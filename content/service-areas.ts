@@ -188,17 +188,6 @@ export const serviceAreas: ServiceAreaContent[] = [
         text: "A home visit typically starts the same way an in-office evaluation would: a review of how the accident happened, a hands-on exam of the affected area, and a plan for next steps. The setting changes — the clinical process doesn't.",
       },
       {
-        id: "block-19",
-        type: "heading",
-        level: 2,
-        text: "How chiropractic manipulation is billed",
-      },
-      {
-        id: "block-20",
-        type: "paragraph",
-        text: "Chiropractic manipulative treatment is typically billed using CPT codes 98940 through 98943, based on how many regions of the spine are treated — 98940 covers one to two regions, 98941 covers three to four, 98942 covers five, and 98943 applies to extraspinal regions. Florida's PIP statute has historically excluded massage therapy and acupuncture from PIP-reimbursable treatment, regardless of who performs it. This is general information about how claims are typically coded, not billing or legal advice — ask your insurer or a qualified professional how it applies to your policy.",
-      },
-      {
         id: "block-21",
         type: "heading",
         level: 2,
@@ -414,17 +403,6 @@ export const serviceAreas: ServiceAreaContent[] = [
         text: "A home visit typically starts the same way an in-office evaluation would: a review of how the accident happened, a hands-on exam of the affected area, and a plan for next steps. The setting changes — the clinical process doesn't.",
       },
       {
-        id: "block-19",
-        type: "heading",
-        level: 2,
-        text: "How chiropractic manipulation is billed",
-      },
-      {
-        id: "block-20",
-        type: "paragraph",
-        text: "Chiropractic manipulative treatment is typically billed using CPT codes 98940 through 98943, based on how many regions of the spine are treated — 98940 covers one to two regions, 98941 covers three to four, 98942 covers five, and 98943 applies to extraspinal regions. Florida's PIP statute has historically excluded massage therapy and acupuncture from PIP-reimbursable treatment, regardless of who performs it. This is general information about how claims are typically coded, not billing or legal advice — ask your insurer or a qualified professional how it applies to your policy.",
-      },
-      {
         id: "block-21",
         type: "heading",
         level: 2,
@@ -632,17 +610,6 @@ export const serviceAreas: ServiceAreaContent[] = [
         id: "block-18",
         type: "paragraph",
         text: "A home visit typically starts the same way an in-office evaluation would: a review of how the accident happened, a hands-on exam of the affected area, and a plan for next steps. The setting changes — the clinical process doesn't.",
-      },
-      {
-        id: "block-19",
-        type: "heading",
-        level: 2,
-        text: "How chiropractic manipulation is billed",
-      },
-      {
-        id: "block-20",
-        type: "paragraph",
-        text: "Chiropractic manipulative treatment is typically billed using CPT codes 98940 through 98943, based on how many regions of the spine are treated — 98940 covers one to two regions, 98941 covers three to four, 98942 covers five, and 98943 applies to extraspinal regions. Florida's PIP statute has historically excluded massage therapy and acupuncture from PIP-reimbursable treatment, regardless of who performs it. This is general information about how claims are typically coded, not billing or legal advice — ask your insurer or a qualified professional how it applies to your policy.",
       },
       {
         id: "block-21",
@@ -853,17 +820,6 @@ export const serviceAreas: ServiceAreaContent[] = [
         id: "block-18",
         type: "paragraph",
         text: "A home visit typically starts the same way an in-office evaluation would: a review of how the accident happened, a hands-on exam of the affected area, and a plan for next steps. The setting changes — the clinical process doesn't.",
-      },
-      {
-        id: "block-19",
-        type: "heading",
-        level: 2,
-        text: "How chiropractic manipulation is billed",
-      },
-      {
-        id: "block-20",
-        type: "paragraph",
-        text: "Chiropractic manipulative treatment is typically billed using CPT codes 98940 through 98943, based on how many regions of the spine are treated — 98940 covers one to two regions, 98941 covers three to four, 98942 covers five, and 98943 applies to extraspinal regions. Florida's PIP statute has historically excluded massage therapy and acupuncture from PIP-reimbursable treatment, regardless of who performs it. This is general information about how claims are typically coded, not billing or legal advice — ask your insurer or a qualified professional how it applies to your policy.",
       },
       {
         id: "block-21",
@@ -1080,17 +1036,6 @@ export const serviceAreas: ServiceAreaContent[] = [
         text: "A home visit typically starts the same way an in-office evaluation would: a review of how the accident happened, a hands-on exam of the affected area, and a plan for next steps. The setting changes — the clinical process doesn't.",
       },
       {
-        id: "block-19",
-        type: "heading",
-        level: 2,
-        text: "How chiropractic manipulation is billed",
-      },
-      {
-        id: "block-20",
-        type: "paragraph",
-        text: "Chiropractic manipulative treatment is typically billed using CPT codes 98940 through 98943, based on how many regions of the spine are treated — 98940 covers one to two regions, 98941 covers three to four, 98942 covers five, and 98943 applies to extraspinal regions. Florida's PIP statute has historically excluded massage therapy and acupuncture from PIP-reimbursable treatment, regardless of who performs it. This is general information about how claims are typically coded, not billing or legal advice — ask your insurer or a qualified professional how it applies to your policy.",
-      },
-      {
         id: "block-21",
         type: "heading",
         level: 2,
@@ -1305,17 +1250,6 @@ export const serviceAreas: ServiceAreaContent[] = [
         text: "A home visit typically starts the same way an in-office evaluation would: a review of how the accident happened, a hands-on exam of the affected area, and a plan for next steps. The setting changes — the clinical process doesn't.",
       },
       {
-        id: "block-19",
-        type: "heading",
-        level: 2,
-        text: "How chiropractic manipulation is billed",
-      },
-      {
-        id: "block-20",
-        type: "paragraph",
-        text: "Chiropractic manipulative treatment is typically billed using CPT codes 98940 through 98943, based on how many regions of the spine are treated — 98940 covers one to two regions, 98941 covers three to four, 98942 covers five, and 98943 applies to extraspinal regions. Florida's PIP statute has historically excluded massage therapy and acupuncture from PIP-reimbursable treatment, regardless of who performs it. This is general information about how claims are typically coded, not billing or legal advice — ask your insurer or a qualified professional how it applies to your policy.",
-      },
-      {
         id: "block-21",
         type: "heading",
         level: 2,
@@ -1528,17 +1462,6 @@ export const serviceAreas: ServiceAreaContent[] = [
         id: "block-18",
         type: "paragraph",
         text: "A home visit typically starts the same way an in-office evaluation would: a review of how the accident happened, a hands-on exam of the affected area, and a plan for next steps. The setting changes — the clinical process doesn't.",
-      },
-      {
-        id: "block-19",
-        type: "heading",
-        level: 2,
-        text: "How chiropractic manipulation is billed",
-      },
-      {
-        id: "block-20",
-        type: "paragraph",
-        text: "Chiropractic manipulative treatment is typically billed using CPT codes 98940 through 98943, based on how many regions of the spine are treated — 98940 covers one to two regions, 98941 covers three to four, 98942 covers five, and 98943 applies to extraspinal regions. Florida's PIP statute has historically excluded massage therapy and acupuncture from PIP-reimbursable treatment, regardless of who performs it. This is general information about how claims are typically coded, not billing or legal advice — ask your insurer or a qualified professional how it applies to your policy.",
       },
       {
         id: "block-21",
@@ -1757,17 +1680,6 @@ export const serviceAreas: ServiceAreaContent[] = [
         text: "A home visit typically starts the same way an in-office evaluation would: a review of how the accident happened, a hands-on exam of the affected area, and a plan for next steps. The setting changes — the clinical process doesn't.",
       },
       {
-        id: "block-19",
-        type: "heading",
-        level: 2,
-        text: "How chiropractic manipulation is billed",
-      },
-      {
-        id: "block-20",
-        type: "paragraph",
-        text: "Chiropractic manipulative treatment is typically billed using CPT codes 98940 through 98943, based on how many regions of the spine are treated — 98940 covers one to two regions, 98941 covers three to four, 98942 covers five, and 98943 applies to extraspinal regions. Florida's PIP statute has historically excluded massage therapy and acupuncture from PIP-reimbursable treatment, regardless of who performs it. This is general information about how claims are typically coded, not billing or legal advice — ask your insurer or a qualified professional how it applies to your policy.",
-      },
-      {
         id: "block-21",
         type: "heading",
         level: 2,
@@ -1977,17 +1889,6 @@ export const serviceAreas: ServiceAreaContent[] = [
         text: "A home visit typically starts the same way an in-office evaluation would: a review of how the accident happened, a hands-on exam of the affected area, and a plan for next steps. The setting changes — the clinical process doesn't.",
       },
       {
-        id: "block-19",
-        type: "heading",
-        level: 2,
-        text: "How chiropractic manipulation is billed",
-      },
-      {
-        id: "block-20",
-        type: "paragraph",
-        text: "Chiropractic manipulative treatment is typically billed using CPT codes 98940 through 98943, based on how many regions of the spine are treated — 98940 covers one to two regions, 98941 covers three to four, 98942 covers five, and 98943 applies to extraspinal regions. Florida's PIP statute has historically excluded massage therapy and acupuncture from PIP-reimbursable treatment, regardless of who performs it. This is general information about how claims are typically coded, not billing or legal advice — ask your insurer or a qualified professional how it applies to your policy.",
-      },
-      {
         id: "block-21",
         type: "heading",
         level: 2,
@@ -2193,17 +2094,6 @@ export const serviceAreas: ServiceAreaContent[] = [
         text: "A home visit typically starts the same way an in-office evaluation would: a review of how the accident happened, a hands-on exam of the affected area, and a plan for next steps. The setting changes — the clinical process doesn't.",
       },
       {
-        id: "block-19",
-        type: "heading",
-        level: 2,
-        text: "How chiropractic manipulation is billed",
-      },
-      {
-        id: "block-20",
-        type: "paragraph",
-        text: "Chiropractic manipulative treatment is typically billed using CPT codes 98940 through 98943, based on how many regions of the spine are treated — 98940 covers one to two regions, 98941 covers three to four, 98942 covers five, and 98943 applies to extraspinal regions. Florida's PIP statute has historically excluded massage therapy and acupuncture from PIP-reimbursable treatment, regardless of who performs it. This is general information about how claims are typically coded, not billing or legal advice — ask your insurer or a qualified professional how it applies to your policy.",
-      },
-      {
         id: "block-21",
         type: "heading",
         level: 2,
@@ -2407,17 +2297,6 @@ export const serviceAreas: ServiceAreaContent[] = [
         id: "block-18",
         type: "paragraph",
         text: "A home visit typically starts the same way an in-office evaluation would: a review of how the accident happened, a hands-on exam of the affected area, and a plan for next steps. The setting changes — the clinical process doesn't.",
-      },
-      {
-        id: "block-19",
-        type: "heading",
-        level: 2,
-        text: "How chiropractic manipulation is billed",
-      },
-      {
-        id: "block-20",
-        type: "paragraph",
-        text: "Chiropractic manipulative treatment is typically billed using CPT codes 98940 through 98943, based on how many regions of the spine are treated — 98940 covers one to two regions, 98941 covers three to four, 98942 covers five, and 98943 applies to extraspinal regions. Florida's PIP statute has historically excluded massage therapy and acupuncture from PIP-reimbursable treatment, regardless of who performs it. This is general information about how claims are typically coded, not billing or legal advice — ask your insurer or a qualified professional how it applies to your policy.",
       },
       {
         id: "block-21",
@@ -2634,17 +2513,6 @@ export const serviceAreas: ServiceAreaContent[] = [
         text: "A home visit typically starts the same way an in-office evaluation would: a review of how the accident happened, a hands-on exam of the affected area, and a plan for next steps. The setting changes — the clinical process doesn't.",
       },
       {
-        id: "block-19",
-        type: "heading",
-        level: 2,
-        text: "How chiropractic manipulation is billed",
-      },
-      {
-        id: "block-20",
-        type: "paragraph",
-        text: "Chiropractic manipulative treatment is typically billed using CPT codes 98940 through 98943, based on how many regions of the spine are treated — 98940 covers one to two regions, 98941 covers three to four, 98942 covers five, and 98943 applies to extraspinal regions. Florida's PIP statute has historically excluded massage therapy and acupuncture from PIP-reimbursable treatment, regardless of who performs it. This is general information about how claims are typically coded, not billing or legal advice — ask your insurer or a qualified professional how it applies to your policy.",
-      },
-      {
         id: "block-21",
         type: "heading",
         level: 2,
@@ -2856,17 +2724,6 @@ export const serviceAreas: ServiceAreaContent[] = [
         text: "A home visit typically starts the same way an in-office evaluation would: a review of how the accident happened, a hands-on exam of the affected area, and a plan for next steps. The setting changes — the clinical process doesn't.",
       },
       {
-        id: "block-19",
-        type: "heading",
-        level: 2,
-        text: "How chiropractic manipulation is billed",
-      },
-      {
-        id: "block-20",
-        type: "paragraph",
-        text: "Chiropractic manipulative treatment is typically billed using CPT codes 98940 through 98943, based on how many regions of the spine are treated — 98940 covers one to two regions, 98941 covers three to four, 98942 covers five, and 98943 applies to extraspinal regions. Florida's PIP statute has historically excluded massage therapy and acupuncture from PIP-reimbursable treatment, regardless of who performs it. This is general information about how claims are typically coded, not billing or legal advice — ask your insurer or a qualified professional how it applies to your policy.",
-      },
-      {
         id: "block-21",
         type: "heading",
         level: 2,
@@ -3071,17 +2928,6 @@ export const serviceAreas: ServiceAreaContent[] = [
         id: "block-18",
         type: "paragraph",
         text: "A home visit typically starts the same way an in-office evaluation would: a review of how the accident happened, a hands-on exam of the affected area, and a plan for next steps. The setting changes — the clinical process doesn't.",
-      },
-      {
-        id: "block-19",
-        type: "heading",
-        level: 2,
-        text: "How chiropractic manipulation is billed",
-      },
-      {
-        id: "block-20",
-        type: "paragraph",
-        text: "Chiropractic manipulative treatment is typically billed using CPT codes 98940 through 98943, based on how many regions of the spine are treated — 98940 covers one to two regions, 98941 covers three to four, 98942 covers five, and 98943 applies to extraspinal regions. Florida's PIP statute has historically excluded massage therapy and acupuncture from PIP-reimbursable treatment, regardless of who performs it. This is general information about how claims are typically coded, not billing or legal advice — ask your insurer or a qualified professional how it applies to your policy.",
       },
       {
         id: "block-21",
@@ -3292,17 +3138,6 @@ export const serviceAreas: ServiceAreaContent[] = [
         id: "block-18",
         type: "paragraph",
         text: "A home visit typically starts the same way an in-office evaluation would: a review of how the accident happened, a hands-on exam of the affected area, and a plan for next steps. The setting changes — the clinical process doesn't.",
-      },
-      {
-        id: "block-19",
-        type: "heading",
-        level: 2,
-        text: "How chiropractic manipulation is billed",
-      },
-      {
-        id: "block-20",
-        type: "paragraph",
-        text: "Chiropractic manipulative treatment is typically billed using CPT codes 98940 through 98943, based on how many regions of the spine are treated — 98940 covers one to two regions, 98941 covers three to four, 98942 covers five, and 98943 applies to extraspinal regions. Florida's PIP statute has historically excluded massage therapy and acupuncture from PIP-reimbursable treatment, regardless of who performs it. This is general information about how claims are typically coded, not billing or legal advice — ask your insurer or a qualified professional how it applies to your policy.",
       },
       {
         id: "block-21",
@@ -3520,17 +3355,6 @@ export const serviceAreas: ServiceAreaContent[] = [
         text: "A home visit typically starts the same way an in-office evaluation would: a review of how the accident happened, a hands-on exam of the affected area, and a plan for next steps. The setting changes — the clinical process doesn't.",
       },
       {
-        id: "block-19",
-        type: "heading",
-        level: 2,
-        text: "How chiropractic manipulation is billed",
-      },
-      {
-        id: "block-20",
-        type: "paragraph",
-        text: "Chiropractic manipulative treatment is typically billed using CPT codes 98940 through 98943, based on how many regions of the spine are treated — 98940 covers one to two regions, 98941 covers three to four, 98942 covers five, and 98943 applies to extraspinal regions. Florida's PIP statute has historically excluded massage therapy and acupuncture from PIP-reimbursable treatment, regardless of who performs it. This is general information about how claims are typically coded, not billing or legal advice — ask your insurer or a qualified professional how it applies to your policy.",
-      },
-      {
         id: "block-21",
         type: "heading",
         level: 2,
@@ -3745,17 +3569,6 @@ export const serviceAreas: ServiceAreaContent[] = [
         text: "A home visit typically starts the same way an in-office evaluation would: a review of how the accident happened, a hands-on exam of the affected area, and a plan for next steps. The setting changes — the clinical process doesn't.",
       },
       {
-        id: "block-19",
-        type: "heading",
-        level: 2,
-        text: "How chiropractic manipulation is billed",
-      },
-      {
-        id: "block-20",
-        type: "paragraph",
-        text: "Chiropractic manipulative treatment is typically billed using CPT codes 98940 through 98943, based on how many regions of the spine are treated — 98940 covers one to two regions, 98941 covers three to four, 98942 covers five, and 98943 applies to extraspinal regions. Florida's PIP statute has historically excluded massage therapy and acupuncture from PIP-reimbursable treatment, regardless of who performs it. This is general information about how claims are typically coded, not billing or legal advice — ask your insurer or a qualified professional how it applies to your policy.",
-      },
-      {
         id: "block-21",
         type: "heading",
         level: 2,
@@ -3963,17 +3776,6 @@ export const serviceAreas: ServiceAreaContent[] = [
         id: "block-18",
         type: "paragraph",
         text: "A home visit typically starts the same way an in-office evaluation would: a review of how the accident happened, a hands-on exam of the affected area, and a plan for next steps. The setting changes — the clinical process doesn't.",
-      },
-      {
-        id: "block-19",
-        type: "heading",
-        level: 2,
-        text: "How chiropractic manipulation is billed",
-      },
-      {
-        id: "block-20",
-        type: "paragraph",
-        text: "Chiropractic manipulative treatment is typically billed using CPT codes 98940 through 98943, based on how many regions of the spine are treated — 98940 covers one to two regions, 98941 covers three to four, 98942 covers five, and 98943 applies to extraspinal regions. Florida's PIP statute has historically excluded massage therapy and acupuncture from PIP-reimbursable treatment, regardless of who performs it. This is general information about how claims are typically coded, not billing or legal advice — ask your insurer or a qualified professional how it applies to your policy.",
       },
       {
         id: "block-21",
@@ -4184,17 +3986,6 @@ export const serviceAreas: ServiceAreaContent[] = [
         id: "block-18",
         type: "paragraph",
         text: "A home visit typically starts the same way an in-office evaluation would: a review of how the accident happened, a hands-on exam of the affected area, and a plan for next steps. The setting changes — the clinical process doesn't.",
-      },
-      {
-        id: "block-19",
-        type: "heading",
-        level: 2,
-        text: "How chiropractic manipulation is billed",
-      },
-      {
-        id: "block-20",
-        type: "paragraph",
-        text: "Chiropractic manipulative treatment is typically billed using CPT codes 98940 through 98943, based on how many regions of the spine are treated — 98940 covers one to two regions, 98941 covers three to four, 98942 covers five, and 98943 applies to extraspinal regions. Florida's PIP statute has historically excluded massage therapy and acupuncture from PIP-reimbursable treatment, regardless of who performs it. This is general information about how claims are typically coded, not billing or legal advice — ask your insurer or a qualified professional how it applies to your policy.",
       },
       {
         id: "block-21",
