@@ -4,3 +4,5 @@ out
 build
 package-lock.json
 public
+# Raw SQL migrations — Prettier has no SQL parser; formatted by hand.
+supabase
