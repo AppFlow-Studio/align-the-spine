@@ -6,7 +6,7 @@ import {
   isSuccessfulSheetsResponse,
   protectSpreadsheetCell,
   resendFromAddress,
-  resendToAddress,
+  resendToAddresses,
   sanitizeDeliveryError,
 } from "./delivery";
 import { renderOfficeNotification } from "./email/office-notification";
@@ -27,9 +27,14 @@ describe("lead delivery safety", () => {
 
   it("falls back to siteConfig's business email when LEAD_TO_EMAIL is blank, not just unset", () => {
     process.env.LEAD_TO_EMAIL = "";
-    expect(resendToAddress()).not.toBe("");
+    expect(resendToAddresses()).not.toEqual([]);
     process.env.LEAD_TO_EMAIL = "office@example.com";
-    expect(resendToAddress()).toBe("office@example.com");
+    expect(resendToAddresses()).toEqual(["office@example.com"]);
+  });
+
+  it("splits LEAD_TO_EMAIL on commas so an office notification can reach more than one inbox", () => {
+    process.env.LEAD_TO_EMAIL = "chiromarketing27@gmail.com, info@chirobackpain.com";
+    expect(resendToAddresses()).toEqual(["chiromarketing27@gmail.com", "info@chirobackpain.com"]);
   });
 
   it("neutralizes spreadsheet formulas and control characters", () => {

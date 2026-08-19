@@ -269,8 +269,7 @@ export const routes: RouteMeta[] = [
   {
     path: "/contact-us",
     title: `Contact ${siteConfig.business.shortName} | Deerfield Beach, FL`,
-    description:
-      "Contact Align the Spine Chiropractic at 811 SE 8th Ave, Suite 101, Deerfield Beach, FL, or call (954) 573-7192 about an appointment or visit.",
+    description: `Contact Align the Spine Chiropractic at 811 SE 8th Ave, Suite 101, Deerfield Beach, FL, or call ${siteConfig.business.phone} about an appointment or visit.`,
     changeFrequency: "monthly",
     priority: 0.6,
     lastModified: "2026-08-12",

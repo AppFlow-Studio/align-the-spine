@@ -98,8 +98,17 @@ export function resendFromAddress() {
   return process.env.LEAD_FROM_EMAIL || "Align the Spine Website <onboarding@resend.dev>";
 }
 
-export function resendToAddress() {
-  return process.env.LEAD_TO_EMAIL || siteConfig.business.email;
+// Comma-separated so office notifications can go to more than one inbox at
+// once (owner direction 2026-08-19: the client's Gmail AND the new
+// info@chirobackpain.com workspace inbox, both, not either/or). Falls back
+// to siteConfig.business.email — same blank-string reasoning as
+// resendFromAddress above.
+export function resendToAddresses(): string[] {
+  const raw = process.env.LEAD_TO_EMAIL || siteConfig.business.email;
+  return raw
+    .split(",")
+    .map((address) => address.trim())
+    .filter(Boolean);
 }
 
 function leadDisplayName(fields: Record<string, string>) {
@@ -118,7 +127,7 @@ function attributionSummary(attribution: Record<string, unknown>) {
 
 async function sendResendEmail(options: {
   eventId: string;
-  to: string;
+  to: string | string[];
   replyTo?: string;
   subject: string;
   html: string;
@@ -135,7 +144,7 @@ async function sendResendEmail(options: {
     },
     body: JSON.stringify({
       from: resendFromAddress(),
-      to: [options.to],
+      to: Array.isArray(options.to) ? options.to : [options.to],
       reply_to: options.replyTo || undefined,
       subject: options.subject,
       html: options.html,
@@ -178,7 +187,7 @@ async function deliverResendOffice(event: ClaimedDelivery) {
   });
   return sendResendEmail({
     eventId: event.event_id,
-    to: resendToAddress(),
+    to: resendToAddresses(),
     replyTo: fields.email,
     subject: doc.subject,
     html: doc.html,

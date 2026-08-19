@@ -174,7 +174,7 @@ export default async function BlogPage({
                 Browse all resources
               </Link>
               <a
-                href="tel:+19545737192"
+                href={siteConfig.business.phoneHref}
                 className="inline-flex min-h-11 items-center rounded-full border border-navy-900 px-6 font-semibold text-navy-900 transition-colors hover:bg-navy-900 hover:text-white"
               >
                 Call the office
@@ -199,7 +199,7 @@ export default async function BlogPage({
                 Explore services
               </Link>
               <a
-                href="tel:+19545737192"
+                href={siteConfig.business.phoneHref}
                 className="inline-flex min-h-11 items-center rounded-full border border-navy-900 px-6 font-semibold text-navy-900 transition-colors hover:bg-navy-900 hover:text-white"
               >
                 Call the office

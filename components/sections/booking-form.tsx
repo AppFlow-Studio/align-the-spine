@@ -11,6 +11,7 @@ import { LeadConsent } from "@/components/ui/lead-consent";
 import type { LeadFormValues } from "@/components/ui/lead-form";
 import { Select } from "@/components/ui/select";
 import { leadFormVariants } from "@/content/lead-forms";
+import { siteConfig } from "@/content/site";
 import { trackLeadConversion } from "@/lib/analytics";
 import { buildLeadFormSchema } from "@/lib/lead-form-schema";
 import { submitLead } from "@/lib/leads/client";
@@ -119,7 +120,7 @@ export function BookingForm() {
               inputMode="tel"
               variant="dark"
               autoComplete={field.autoComplete}
-              placeholder="(954) 573-7192"
+              placeholder={siteConfig.business.phone}
               maxLength={14}
               error={error}
               {...telField}
