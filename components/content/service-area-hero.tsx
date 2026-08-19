@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
 
-import { Button } from "@/components/ui/button";
 import { CheckIcon } from "@/components/ui/icons/check";
 import { LeadForm } from "@/components/ui/lead-form";
 import { MobileLeadPreviewCard } from "@/components/ui/mobile-lead-preview-card";
@@ -27,11 +26,12 @@ import { siteConfig } from "@/content/site";
  * sits right at that converged edge as a deliberate "this is where the
  * section ends" mark, rather than leaving the fade to imply it on its own.
  *
- * Below `lg` there's no side-by-side split to reconcile (photo, then a
- * stacked solid-navy card, then the next section, all sequential) — the
- * card is solid navy-900 there too for the same homepage-match reason, in
- * a plain positive-gap stack under the photo (see that block's own comment
- * for why a positive gap, never a negative margin, is used here). */
+ * Below `lg` there's no side-by-side split to reconcile — instead a compact
+ * tap-to-expand eligibility card (MobileLeadPreviewCard) sits in normal
+ * document flow inside the photo column itself, between the Call button and
+ * the Office/Call row (owner direction 2026-08-19, repositioned there for
+ * visibility — see that block's own comment for why flow placement also
+ * resolved an old overlap bug this file used to work around here). */
 export function ServiceAreaHero({
   eyebrow,
   title,
@@ -129,7 +129,14 @@ export function ServiceAreaHero({
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-8 text-white">{subhead}</p>
 
-          <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+          {/* hidden below `lg` (owner direction 2026-08-19): freed-up
+           * vertical space so the mobile card below (which replaces this
+           * information anyway — the same eligibility/PIP/county framing
+           * lives in its own heading + form) isn't competing with it for
+           * room above the fold. Desktop keeps it — that column has the
+           * separate navy form panel instead, so this is still useful
+           * context there. */}
+          <ul className="mt-6 hidden flex-wrap gap-x-6 gap-y-2 lg:flex">
             {trustChips.map((chip) => (
               <li key={chip} className="flex items-center gap-2 text-sm font-medium text-white">
                 <CheckIcon className="h-4 w-4 shrink-0 text-teal-300" />
@@ -139,6 +146,29 @@ export function ServiceAreaHero({
           </ul>
 
           {children}
+
+          {/* Mobile-only compact tap-to-expand card, in NORMAL DOCUMENT
+           * FLOW between the Call button and the Office/Call block below —
+           * owner direction 2026-08-19: "more visible and accessible"
+           * than its previous position at the very bottom of the mobile
+           * layout, after the whole hero. Being real flow (not a
+           * negative-margin overlap) also fully resolves the old ATS-145
+           * overlap risk this file used to document here: a flow element
+           * can never overlap the content before or after it regardless of
+           * either one's height, unlike the negative-offset approach that
+           * caused that bug. No separate "Call Now" button here (the old
+           * mobile-only block below the card had one) — the Call button
+           * immediately above and the Office/Call block immediately below
+           * already cover it; a third call CTA sandwiching this card
+           * would work against the same "more accessible" goal. */}
+          <div id="eligibility-form-mobile" className="mt-6 lg:hidden">
+            <MobileLeadPreviewCard
+              heading={eligibilityHeading}
+              formVariant={leadFormVariants.eligibility.variant as "eligibility"}
+              submitLabel={leadFormVariants.eligibility.submitLabel}
+              microcopy="Same-day availability considered — no obligation."
+            />
+          </div>
 
           <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-white/15 pt-6">
             <div>
@@ -205,39 +235,6 @@ export function ServiceAreaHero({
        * width so it reads as one mark across both the photo and the navy
        * panel below `lg`... */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 hidden h-px bg-gradient-to-r from-transparent via-teal-300/50 to-transparent lg:block" />
-
-      {/* Mobile-only compact tap-to-expand card, right under the content
-       * column — owner direction 2026-08-19 (matching a reference client's
-       * mobile CRO pattern, same conversion already applied to
-       * HeroSolidPanel/Hero): two field previews + one CTA instead of the
-       * full multi-field eligibility form shown immediately. Tapping it
-       * opens the exact same validated LeadForm in the site's existing
-       * popup (ATS-142) — no new submission path.
-       *
-       * Still a plain positive gap, NOT a negative-margin overlap onto the
-       * photo/content column above: that column's height varies (trust
-       * chips wrap 2-3 lines depending on city-name length), and a fixed
-       * negative offset previously landed on the real Office/Call text at
-       * some wrap width regardless of how short the card itself was — the
-       * risk is in the unpredictable position of what's above it, not the
-       * card's own height (ATS-145, reported twice — do not reintroduce a
-       * negative margin here even though HeroSolidPanel's own mobile card
-       * uses one; that page doesn't have this variable-height trust-chip/
-       * Office row above it). This intentionally diverges from a reference
-       * screenshot's literal photo-overlapping card for that reason. */}
-      <div className="container relative z-10 mt-3 flex flex-col gap-4 pb-10 lg:hidden">
-        <div id="eligibility-form-mobile">
-          <MobileLeadPreviewCard
-            heading={eligibilityHeading}
-            formVariant={leadFormVariants.eligibility.variant as "eligibility"}
-            submitLabel={leadFormVariants.eligibility.submitLabel}
-            microcopy="Same-day availability considered — no obligation."
-          />
-        </div>
-        <Button variant="white" href={phoneHref} className="w-full justify-center">
-          Call Now: {phone}
-        </Button>
-      </div>
     </section>
   );
 }

@@ -168,8 +168,8 @@ export const siteConfig: SiteConfig = {
   business: {
     name: "Align the Spine Chiropractic",
     shortName: "Align the Spine",
-    phone: "(305) 330-9668",
-    phoneHref: "tel:+13053309668",
+    phone: "(954) 202-1801",
+    phoneHref: "tel:+19542021801",
     email: "info@chirobackpain.com",
     address: {
       line1: "811 SE 8th Ave",
