@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import {
   classifyLeadPriority,
@@ -42,6 +42,27 @@ describe("tracking helpers", () => {
     expect(() => trackBookCtaClick()).not.toThrow();
     expect(() => trackPageView("/about")).not.toThrow();
   });
+
+  it("emits only non-PII lead dimensions", () => {
+    const gtag = vi.fn();
+    (globalThis as { window?: unknown }).window = { gtag };
+    trackLeadConversion("heroEval", {
+      email: "patient@example.com",
+      phone: "9545737192",
+      message: "private",
+      carAccident: "yes",
+    });
+    const serialized = JSON.stringify(gtag.mock.calls);
+    expect(serialized).toContain("generate_lead");
+    expect(serialized).toContain("high");
+    expect(serialized).not.toContain("patient@example.com");
+    expect(serialized).not.toContain("9545737192");
+    expect(serialized).not.toContain("private");
+  });
+});
+
+afterEach(() => {
+  delete (globalThis as { window?: unknown }).window;
 });
 
 describe("classifyLeadPriority", () => {

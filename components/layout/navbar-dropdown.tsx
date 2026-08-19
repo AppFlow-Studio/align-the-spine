@@ -8,9 +8,16 @@ import { AnimatePresence, motion } from "motion/react";
 
 import { ChevronDownIcon } from "@/components/ui/icons/chevron-down";
 import { siteConfig, type NavLink as NavLinkConfig } from "@/content/site";
-import { buildMapEmbedSrc } from "@/lib/maps";
 
 const CLOSE_DELAY_MS = 120;
+/** Above this many items, the list becomes a 2-column grid (Conditions and
+ * Service Areas both run to 7) and the image preview column is dropped —
+ * a single-column list that long plus a fixed-width preview pushed the
+ * panel past the bottom of the viewport (ATS-141). The map that used to
+ * live under the preview image is gone entirely: it only ever made sense
+ * for Service Areas, not Conditions, and was a large part of what made
+ * the tall menus overflow. */
+const GRID_THRESHOLD = 4;
 
 /** Desktop mega-menu dropdown for a nav item that carries `menu` items
  * (Services, Conditions — content/site.ts) — same idea as Aceternity UI's
@@ -30,6 +37,7 @@ export function NavbarDropdown({ link }: { link: NavLinkConfig }) {
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const items = link.menu ?? [];
   const activeItem = items.find((item) => item.href === activeHref) ?? items[0];
+  const useGrid = items.length > GRID_THRESHOLD;
 
   /* Conditions has no real hub page, so its own href borrows /auto-accidents
    * as a click-through destination — but that route already belongs to the
@@ -79,10 +87,18 @@ export function NavbarDropdown({ link }: { link: NavLinkConfig }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
-            className="absolute left-1/2 top-full w-[min(94vw,50rem)] -translate-x-1/2 pt-3"
+            className={`absolute left-1/2 top-full -translate-x-1/2 pt-3 ${
+              useGrid ? "w-[min(94vw,44rem)]" : "w-[min(94vw,50rem)]"
+            }`}
           >
-            <div className="flex gap-4 rounded-30 border border-white/15 bg-navy-900/80 p-4 shadow-card backdrop-blur-2xl">
-              <ul className={"flex flex-1 flex-col gap-2"}>
+            <div className="flex max-h-[calc(100vh-140px)] gap-4 overflow-y-auto rounded-30 border border-white/15 bg-navy-900/80 p-4 shadow-card backdrop-blur-2xl">
+              <ul
+                className={
+                  useGrid
+                    ? "grid flex-1 grid-cols-1 gap-2 sm:grid-cols-2"
+                    : "flex flex-1 flex-col gap-2"
+                }
+              >
                 {items.map((item) => {
                   const ItemIcon = item.icon;
                   return (
@@ -112,49 +128,30 @@ export function NavbarDropdown({ link }: { link: NavLinkConfig }) {
                 })}
               </ul>
 
-              <div className="hidden w-80 shrink-0 flex-col gap-3 sm:flex">
-                <div
-                  className={`relative w-full overflow-hidden rounded-20 bg-black/20 ${
-                    items.length > 3 ? "aspect-[16/9] shrink-0" : "flex-1"
-                  }`}
-                >
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={activeItem.href}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.2, ease: "easeOut" }}
-                      className="absolute inset-0"
-                    >
-                      <Image
-                        src={activeItem.image.src}
-                        alt={activeItem.image.alt}
-                        fill
-                        sizes="320px"
-                        className="object-cover"
-                      />
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-
-                {items.length > 3 && (
-                  <div className="relative min-h-24 flex-1 overflow-hidden rounded-20 bg-black/20">
-                    <iframe
-                      title={`Map to ${siteConfig.business.name}`}
-                      src={buildMapEmbedSrc()}
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                      className="absolute inset-0 h-full w-full border-0 opacity-90"
-                    />
-                    <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-900/90 to-transparent px-3 pb-2 pt-4">
-                      <span className="font-sans text-[13px] font-medium text-white">
-                        {siteConfig.business.name}
-                      </span>
-                    </div>
+              {!useGrid && (
+                <div className="hidden w-80 shrink-0 flex-col gap-3 sm:flex">
+                  <div className="relative w-full flex-1 overflow-hidden rounded-20 bg-black/20">
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={activeItem.href}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="absolute inset-0"
+                      >
+                        <Image
+                          src={activeItem.image.src}
+                          alt={activeItem.image.alt}
+                          fill
+                          sizes="320px"
+                          className="object-cover"
+                        />
+                      </motion.div>
+                    </AnimatePresence>
                   </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </motion.div>
         )}

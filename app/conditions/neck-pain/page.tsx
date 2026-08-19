@@ -118,7 +118,7 @@ export default function NeckPainPage() {
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,
           footerNote:
-            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
+            "One verified office in Deerfield Beach; call to confirm whether an office visit or limited eligible accident-related home visit fits.",
         }}
       />
 

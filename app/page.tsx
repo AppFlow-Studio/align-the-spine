@@ -52,7 +52,7 @@ export default function Home() {
             Chiropractor
           </>
         }
-        badge="Office Visits are $50"
+        badge="We accept cash visits"
         bilingualNote="¿Habla español? Dr. Abe habla su idioma."
         subhead="Chiropractic care in Deerfield Beach for back pain, neck pain, mobility concerns, and injuries — with focused evaluations after car accidents."
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}

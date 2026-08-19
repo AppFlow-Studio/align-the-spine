@@ -1,7 +1,7 @@
 import type { LegalSection } from "@/content/legal/types";
 import { siteConfig } from "@/content/site";
 
-export const privacyPolicyEffectiveDate = "Effective July 1, 2026";
+export const privacyPolicyEffectiveDate = "Effective August 16, 2026";
 
 /** /privacy-policy sections (ATS-120), copy from the privacy-policy artboard. */
 export const privacyPolicySections: LegalSection[] = [
@@ -13,6 +13,7 @@ export const privacyPolicySections: LegalSection[] = [
       "When you request an appointment, contact us, or use this website, we may collect the information you provide directly — name, phone number, email address, and any details you share about your condition or reason for visiting.",
       "If you become a patient, we collect health information as part of your care, including exam findings, treatment notes, and — where applicable — accident and insurance details needed to bill Personal Injury Protection (PIP) or other coverage.",
       "Like most websites, we automatically collect some technical information when you visit: IP address, browser type, device type, pages viewed, and how you arrived at the site (including whether you clicked an ad).",
+      "For website requests, we may retain path-only landing pages, the referring site’s host name, and allowlisted campaign, advertising-click, and analytics session identifiers. We do not intentionally place full referring URLs or raw page query strings in the lead record.",
     ],
   },
   {
@@ -51,6 +52,7 @@ export const privacyPolicySections: LegalSection[] = [
     body: [
       "We do not sell your personal information.",
       "We share information only as needed to provide care and process claims: with insurers and PIP carriers for billing, with attorneys you've authorized to coordinate on your case, with service providers who help us operate (such as scheduling or hosting tools) under confidentiality obligations, and when required by law.",
+      "Website request delivery may use an email delivery provider and a restricted administrative spreadsheet. Sensitive free-text messages and exact accident dates are not sent to the spreadsheet.",
     ],
   },
   {
@@ -69,6 +71,7 @@ export const privacyPolicySections: LegalSection[] = [
     heading: "How we protect information",
     body: [
       "We use reasonable administrative, technical, and physical safeguards to protect the information we hold, consistent with HIPAA security requirements for protected health information. No method of transmission or storage is completely secure, and we can't guarantee absolute security.",
+      "The website stores free-text messages and exact accident dates separately from ordinary lead fields using authenticated encryption. They are not included in advertising analytics or routine lead exports.",
     ],
   },
   {

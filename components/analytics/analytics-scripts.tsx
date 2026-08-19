@@ -1,3 +1,6 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import Script from "next/script";
 
 import { GA_MEASUREMENT_ID, GOOGLE_ADS_ID } from "@/lib/analytics";
@@ -11,8 +14,10 @@ import { GA_MEASUREMENT_ID, GOOGLE_ADS_ID } from "@/lib/analytics";
  * client-side route change in this App Router site. AnalyticsListeners
  * drives page_view manually instead, on every pathname change. */
 export function AnalyticsScripts() {
+  const pathname = usePathname();
   const ids = [GA_MEASUREMENT_ID, GOOGLE_ADS_ID].filter((id): id is string => Boolean(id));
-  if (ids.length === 0) return null;
+  if (ids.length === 0 || pathname.startsWith("/admin") || pathname.startsWith("/preview"))
+    return null;
 
   return (
     <>

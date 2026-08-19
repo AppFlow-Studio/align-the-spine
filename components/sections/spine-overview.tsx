@@ -106,7 +106,14 @@ function SpineClip({
  * marker dot out to the label, label text on the far side — mirrors
  * PointToWhereItHurts' RegionLabel, but static (no selection state) and
  * with a longer line since these labels sit well outside the (smaller,
- * non-interactive) diagram rather than hugging its edge. */
+ * non-interactive) diagram rather than hugging its edge.
+ *
+ * Renders its label as a styled <p>, not an <h3> — the `lg:hidden` stacked
+ * list below (mobile-first: what mobile-first indexing actually sees) is
+ * the one instance of each region name that's a real heading. Both this
+ * desktop diagram and that list always render regardless of viewport
+ * (only CSS toggles which is visible), so if both used <h3> the DOM would
+ * carry every region name as a duplicate heading twice over. */
 function SegmentCallout({ segment }: { segment: SpineSegment }) {
   const { name, description, labelSide } = segment;
   const isLeft = labelSide === "left";
@@ -126,7 +133,7 @@ function SegmentCallout({ segment }: { segment: SpineSegment }) {
         className="h-px w-10 shrink-0 bg-[#58A0A0] sm:w-20 md:w-32 lg:w-44"
       />
       <div className="flex w-[260px] flex-col gap-1 text-left sm:w-[380px]">
-        <h3 className="font-display text-card-title text-navy-800">
+        <p className="font-display text-card-title text-navy-800">
           {regionName}
           {regionDetail && (
             <>
@@ -134,7 +141,7 @@ function SegmentCallout({ segment }: { segment: SpineSegment }) {
               {regionDetail}
             </>
           )}
-        </h3>
+        </p>
         <p className="font-sans text-body-lg text-ink-500">{description}</p>
       </div>
     </div>
@@ -213,6 +220,8 @@ export function SpineOverview({ content }: SpineOverviewProps) {
               className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-white to-transparent"
             />
           </div>
+          {/* The canonical <h3> per region — see SegmentCallout's doc
+           * comment for why the desktop diagram's copy above is a <p>. */}
           <ul className="flex flex-col gap-6 text-left">
             {segments.map((segment) => (
               <li key={segment.id} className="border-l-2 border-teal-500 pl-5">

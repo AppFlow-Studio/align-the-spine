@@ -92,6 +92,7 @@ export function FadeIn({
   whenInView = false,
 }: FadeInProps) {
   const reduceMotion = Boolean(useReducedMotion());
+  void offset;
   const MotionTag = as === "span" ? motion.span : motion.div;
   const visible = { opacity: 1, y: 0 };
   const transition = buildRevealTransition(duration, delay, reduceMotion);
@@ -99,7 +100,10 @@ export function FadeIn({
   return (
     <MotionTag
       className={className}
-      initial={{ opacity: 0, y: reduceMotion ? 0 : offset }}
+      /* Fail visible. The previous opacity:0 initial state remained stuck in
+       * rendered Chrome baselines when Motion hydration did not complete,
+       * hiding headings and CTAs. Core content must never depend on JS. */
+      initial={false}
       transition={transition}
       {...(whenInView
         ? { whileInView: visible, viewport: { once: true, margin: "-80px" } }

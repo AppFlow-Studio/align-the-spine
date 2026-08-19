@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // A separate lockfile exists above this repository on the development
+  // machine. Pin Turbopack to this app so it never infers/scans the parent
+  // home directory (and so local/CI resolution matches production).
+  turbopack: {
+    root: process.cwd(),
+  },
   allowedDevOrigins: ["192.168.100.91"],
   images: {
     remotePatterns: [

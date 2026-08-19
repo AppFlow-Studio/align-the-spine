@@ -12,7 +12,7 @@ export function NavbarLinks({ isGlass, className = "" }: { isGlass: boolean; cla
 
   return (
     <ul
-      className={`items-center gap-10 rounded-40 px-8 py-2 transition-colors duration-300  ${className}`}
+      className={`items-center gap-5 rounded-40 px-6 py-2 transition-colors duration-300 xl:gap-7 2xl:gap-9 ${className}`}
     >
       {siteConfig.nav.map((link) => {
         if (link.menu) return <NavbarDropdown key={link.label} link={link} />;

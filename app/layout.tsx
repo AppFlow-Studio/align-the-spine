@@ -3,7 +3,8 @@ import { Fraunces, Geist, Poppins } from "next/font/google";
 
 import { AnalyticsListeners } from "@/components/analytics/analytics-listeners";
 import { AnalyticsScripts } from "@/components/analytics/analytics-scripts";
-import { GtmNoscript, GtmScript } from "@/components/analytics/gtm-scripts";
+import { GtmScript } from "@/components/analytics/gtm-scripts";
+import { TurnstileScript } from "@/components/analytics/turnstile-script";
 import { RootShell } from "@/components/layout/root-shell";
 import { isProduction, siteConfig } from "@/content/site";
 
@@ -76,10 +77,10 @@ export default function RootLayout({
       className={`${fraunces.variable} ${poppins.variable} ${geist.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <GtmNoscript />
         <GtmScript />
         <AnalyticsScripts />
         <AnalyticsListeners />
+        <TurnstileScript />
         <RootShell>{children}</RootShell>
       </body>
     </html>
