@@ -107,9 +107,20 @@ export function ServiceAreaHero({
          * bottom edge; two fades of the same fixed height, sharing that
          * same bottom edge (flex stretch keeps both columns equal-height),
          * converge at the same rate and reach solid panel-100 at the same
-         * point — nothing left to seam. */}
-        <div className="absolute inset-x-0 bottom-0 z-[1] h-40 bg-gradient-to-b from-transparent via-[#f6f6f6]/60 to-[#f6f6f6] sm:h-52 lg:h-64" />
-        <div className="container relative z-10 pb-16 pt-[224px] lg:pb-[60px] lg:pt-[276px] lg:pr-10">
+         * point — nothing left to seam. The `lg:h-64` value stays
+         * cross-synced with the desktop navy panel's own matching fade (see
+         * that div below) — do not change it. `h-40` below is mobile-only
+         * (this section hides the navy panel entirely below `lg`, so
+         * nothing there depends on it) — shrunk to `h-28` (owner-reported:
+         * the Office/Call row below was landing inside the washed-out
+         * portion of this fade, reading as low-contrast against it). */}
+        <div className="absolute inset-x-0 bottom-0 z-[1] h-28 bg-gradient-to-b from-transparent via-[#f6f6f6]/60 to-[#f6f6f6] sm:h-52 lg:h-64" />
+        {/* pb-24, not pb-16: extra clearance between the Office/Call row
+         * (this container's last child) and the fade zone above — same
+         * contrast fix as the shrunk fade height, applied from the other
+         * direction. lg:pb-[60px] unchanged (desktop's Office/Call row
+         * lives in the separate navy panel below, not this photo column). */}
+        <div className="container relative z-10 pb-24 pt-[224px] lg:pb-[60px] lg:pt-[276px] lg:pr-10">
           <span className="inline-flex items-center rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-teal-300 backdrop-blur-sm">
             {eyebrow}
           </span>

@@ -90,10 +90,17 @@ export default async function ServiceAreaPage({ params }: { params: Promise<{ sl
           >
             Call {siteConfig.business.phone}
           </a>
+          {/* Hidden below `lg` (owner direction 2026-08-19): the compact
+           * tap-to-expand eligibility card further down the mobile layout
+           * (ServiceAreaHero's own MobileLeadPreviewCard) already serves as
+           * this same CTA on mobile — showing this button too duplicated
+           * it. Desktop keeps it since the always-visible full form panel
+           * there is a separate, further-down element this button still
+           * usefully jumps to. */}
           <LeadFormPopup
             formHeading={`Check Eligibility in ${item.serviceArea?.communityName ?? item.title}`}
             formVariant="eligibility"
-            triggerClassName="inline-flex min-h-11 items-center rounded-full border border-white px-6 font-semibold text-white transition-colors hover:border-teal-500 hover:bg-teal-500"
+            triggerClassName="hidden min-h-11 items-center rounded-full border border-white px-6 font-semibold text-white transition-colors hover:border-teal-500 hover:bg-teal-500 lg:inline-flex"
           >
             Hurt in a car accident? See a chiropractor today
           </LeadFormPopup>
