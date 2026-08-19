@@ -212,6 +212,16 @@ export const siteConfig: SiteConfig = {
             alt: "Massage and soft-tissue therapy session",
           },
         },
+        {
+          label: "Cupping Therapy",
+          href: "/services/cupping-therapy",
+          description: "Localized suction for selected areas of muscle tension.",
+          icon: RingsIcon,
+          image: {
+            src: "/figma-exports/cupping-drabe.png",
+            alt: "Cupping therapy treatment",
+          },
+        },
       ],
     },
     {

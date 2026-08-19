@@ -1,9 +1,18 @@
 import type { ServiceCardItem } from "@/components/ui/service-card";
+import { getRouteHref } from "@/content/seo";
 
-/** "/services" ServiceGrid content (ATS-081): 6 core service cards. Reuses
+/** "/services" ServiceGrid content (ATS-081): 8 service cards. Reuses
  * ServiceGrid/ServiceCard like the homepage's AccidentInjuries grid does
  * (duration is unused by the card). Separate from content/services.ts, which
- * feeds the homepage's ServiceListRow list and its own distinct copy. */
+ * feeds the homepage's ServiceListRow list and its own distinct copy.
+ *
+ * IA-03 (LINK-01 DoD item): the "Car Accidents" and "Cupping Therapy" cards
+ * were added so every homepage-listed service's owning page is reachable
+ * from this hub too, not just the homepage. Their `href` is resolved
+ * through getRouteHref() rather than hardcoded — cupping-therapy is
+ * currently `status: "draft"` (pending clinician sign-off, IA-02), so its
+ * card falls back to "Book now" until it publishes, instead of linking to a
+ * noindex route (LINK-01). The 6 original cards' hrefs are untouched. */
 export const servicesGrid: ServiceCardItem[] = [
   {
     slug: "adjustments",
@@ -66,6 +75,29 @@ export const servicesGrid: ServiceCardItem[] = [
       "Myofascial release and targeted soft-tissue care for muscle tension, restricted motion, and injury-related soreness.",
     image: { src: "/figma-exports/drabe-soft-tissue.png", alt: "Massage and soft-tissue therapy" },
     href: "/services/soft-tissue-therapy",
+    ctaLabel: "Learn more",
+  },
+  {
+    slug: "car-accidents",
+    name: "Car Accidents",
+    duration: "",
+    summary:
+      "After a car accident, request a chiropractic evaluation for neck pain, back pain, stiffness, whiplash symptoms, and other musculoskeletal concerns.",
+    image: {
+      src: "/figma-exports/drabe-consult.png",
+      alt: "Car accident consultation with Dr. Abe",
+    },
+    href: getRouteHref("/car-accident-chiropractor") ?? undefined,
+    ctaLabel: "Learn more",
+  },
+  {
+    slug: "cupping-therapy",
+    name: "Cupping Therapy",
+    duration: "",
+    summary:
+      "Cupping applies localized suction to selected areas of muscle tension and may be included when appropriate for neck, back, or other soft-tissue concerns.",
+    image: { src: "/figma-exports/cupping-drabe.png", alt: "Cupping therapy treatment" },
+    href: getRouteHref("/services/cupping-therapy") ?? undefined,
     ctaLabel: "Learn more",
   },
 ];

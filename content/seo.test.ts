@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { getRoute, getRouteHref, routes } from "@/content/seo";
+import { getRoute, getRouteHref, isPublished, routes } from "@/content/seo";
 
 describe("routes registry", () => {
   it("has no duplicate paths", () => {
@@ -37,6 +37,27 @@ describe("routes registry", () => {
 
   it("excludes the legacy /auto-accident route", () => {
     expect(routes.map((route) => route.path)).not.toContain("/auto-accident");
+  });
+});
+
+describe("IA-01: every route has a recorded, justified indexing decision", () => {
+  it("gives every route a non-empty justification", () => {
+    for (const route of routes) {
+      expect(route.justification.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("gives every route a non-empty primaryQuery", () => {
+    for (const route of routes) {
+      expect(route.primaryQuery.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("never lets two indexable routes target the same primary query", () => {
+    const indexableQueries = routes
+      .filter((route) => isPublished(route))
+      .map((route) => route.primaryQuery);
+    expect(new Set(indexableQueries).size).toBe(indexableQueries.length);
   });
 });
 
