@@ -1,15 +1,20 @@
-# Lead CRM operations
+# Lead pipeline operations
 
-Last updated: 2026-08-16
+Last updated: 2026-08-19
+
+There is no admin dashboard for leads. Supabase is the durable store (so a
+submission is never lost even if a downstream delivery fails), and the
+**Google Sheet is the interface the client actually uses** to see and monitor
+form submissions. A copy of every submission is also emailed directly.
 
 ## Boundaries
 
-Supabase is the only lead system of record. Google Sheets and Resend are
-downstream operational copies. Editorial CMS records remain separate. The CRM
-does not store diagnoses, treatment details, claim numbers, or accident
-narratives. The existing `contactUs.message` and `accidentEval.accidentDate`
-fields are encrypted separately and never enter ordinary JSON, analytics,
-logs, URLs, or Sheets.
+Supabase is the lead system of record; Google Sheets and email are downstream
+operational copies. Editorial CMS records remain separate. Nothing here stores
+diagnoses, treatment details, claim numbers, or accident narratives. The
+existing `contactUs.message` and `accidentEval.accidentDate` fields are
+encrypted separately and never enter ordinary JSON, analytics, logs, URLs, or
+Sheets.
 
 ## Staging setup
 
@@ -25,9 +30,8 @@ logs, URLs, or Sheets.
    `GOOGLE_SHEETS_WEBHOOK_SECRET`. The encryption key must be exactly 32 bytes
    before base64 encoding.
 6. Set `LEAD_REPOSITORY_MODE=supabase` only in the approved staging environment.
-7. Provision users administratively. Use `profiles.role=lead_manager` for CRM
-   staff and `admin` only for staff who truly need both systems. There is no
-   public registration.
+7. Set `LEAD_TO_EMAIL` to the client's monitoring inbox
+   (`chiromarketing27@gmail.com`) and `RESEND_API_KEY` to a real key.
 8. Exercise synthetic, non-patient test submissions before any real traffic.
 
 ## Google Sheets webhook
@@ -62,14 +66,22 @@ that can be automated from this repository):
 9. Re-running step 5 as **New deployment** (not "Manage deployments → Edit")
    is required after any `Code.gs` change — Apps Script web app URLs are
    pinned to a specific deployed version.
+10. Give the client (or whoever monitors submissions) edit/view access to the
+    Sheet itself — that's the only interface they need.
 
 The webhook rejects signatures outside a five-minute window, uses an exact
 event-ID ledger under a script lock, and neutralizes spreadsheet formulas a
 second time. The `_delivery_events` sheet is hidden but should remain protected.
 
-The webhook rejects signatures outside a five-minute window, uses an exact
-event-ID ledger under a script lock, and neutralizes spreadsheet formulas a
-second time. The `_delivery_events` sheet is hidden but should remain protected.
+## Email delivery
+
+Every submission is also emailed via Resend to `LEAD_TO_EMAIL`
+(`chiromarketing27@gmail.com` — the client's monitoring inbox). The email is
+plain text: lead fields, form/priority/intent, source page, and campaign
+attribution. It never contains a link to any internal dashboard — there isn't
+one. `LEAD_EMAIL_INCLUDE_SENSITIVE` (default `false`) keeps the free-text
+`message`/`accidentDate` fields out of the email body entirely unless
+explicitly turned on.
 
 ## Worker schedule and delivery
 
@@ -100,16 +112,21 @@ The worker atomically claims available events with `FOR UPDATE SKIP LOCKED`,
 recovers stale locks, writes an attempt record, and completes each event as
 delivered, retry, or dead-letter. Retry delay is exponential with jitter. The
 default maximum is eight attempts; change the database column default before
-production if operations approves a different value.
+production if a different value is needed.
 
-## Daily operations
+## Investigating a problem
 
-- Review `/admin/leads` for new requests and delivery health.
-- Status changes require a reason and append to the timeline.
-- A manual retry is available only for retry/dead-letter events.
-- Do not copy sensitive values into status reasons or other ordinary fields.
-- Investigate dead letters using sanitized codes/details and provider logs;
-  never paste provider payloads into the CRM.
+There is no UI for this — go straight to Supabase:
+
+- `select * from lead_submissions order by created_at desc limit 50;` for
+  recent submissions.
+- `select * from lead_delivery_outbox where state in ('retry','dead_letter');`
+  for anything stuck. `last_error_code`/`last_error_detail` are sanitized
+  (no PII, no raw provider payloads).
+- A dead-lettered event can be requeued by hand:
+  `update lead_delivery_outbox set state='retry', available_at=now(),
+max_attempts=max_attempts+1 where id='<event-id>';` — the next worker pass
+  picks it up.
 
 ## Key rotation
 
@@ -126,7 +143,3 @@ does not implement browser-visible sensitive payload access.
 2. Back up/export lead records and encrypted payloads.
 3. Apply `202608160004_lead_delivery_outbox.down.sql`.
 4. Apply `202608160003_lead_crm_attribution.down.sql`.
-
-The `lead_manager` enum label remains after rollback because PostgreSQL cannot
-safely remove one enum value in place. It grants nothing without the CRM
-policies and functions.

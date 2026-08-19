@@ -109,7 +109,7 @@ consent receipt, initial status event, and Resend/Sheets outbox records. Only
 then does the browser emit a non-PII conversion event and navigate to
 `/thank-you`. Resend and Google Sheets are retryable downstream destinations;
 they are never the source of truth and their failure does not invalidate the
-lead. See `docs/lead-crm-operations.md`.
+lead. See `docs/lead-pipeline-operations.md`.
 
 ## Spam guard
 

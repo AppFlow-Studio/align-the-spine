@@ -19,14 +19,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <li>
                 <Link
                   className="inline-flex min-h-11 items-center rounded-full px-4 text-navy-800 hover:bg-panel-100"
-                  href="/admin/leads"
-                >
-                  Leads
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="inline-flex min-h-11 items-center rounded-full px-4 text-navy-800 hover:bg-panel-100"
                   href="/admin/content"
                 >
                   Content
