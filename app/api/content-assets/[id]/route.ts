@@ -5,8 +5,8 @@ import { fixtureAssets } from "@/lib/content/fixtures";
 
 const assetIdPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
-export async function GET(request: Request, context: RouteContext<"/api/content-assets/[id]">) {
-  const { id } = await context.params;
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   if (!assetIdPattern.test(id)) return new Response(null, { status: 404 });
 
   let assetUrl: string | undefined;
