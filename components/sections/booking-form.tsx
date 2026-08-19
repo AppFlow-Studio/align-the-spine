@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import type { LeadFormValues } from "@/components/ui/lead-form";
 import { Select } from "@/components/ui/select";
 import { leadFormVariants } from "@/content/lead-forms";
-import { trackLeadConversion } from "@/lib/analytics";
+import { stashPendingConversion } from "@/lib/analytics";
 import { getStoredAttribution } from "@/lib/attribution";
 import { buildLeadFormSchema } from "@/lib/lead-form-schema";
 import { formatUsPhoneAsYouType } from "@/lib/phone-format";
@@ -88,7 +88,9 @@ export function BookingForm() {
       if (!response.ok) {
         throw new Error(`Lead submission failed with status ${response.status}`);
       }
-      trackLeadConversion(config.variant, values);
+      // Conversion fires on /thank-you itself (ThankYouConversion), not
+      // here — see lib/analytics.ts's stashPendingConversion() doc comment.
+      stashPendingConversion(config.variant, values);
       router.push("/thank-you");
     } catch {
       setSubmitError("Something went wrong. Please try again.");

@@ -1,10 +1,11 @@
 import { after, NextResponse } from "next/server";
 
 import { leadFormVariants, type LeadFormVariant } from "@/content/lead-forms";
-import { siteConfig } from "@/content/site";
 import { classifyLeadPriority } from "@/lib/analytics";
-import { sanitizeAttribution, type Attribution } from "@/lib/attribution";
+import { sanitizeAttribution } from "@/lib/attribution";
+import { deliverLead } from "@/lib/lead-delivery";
 import { buildLeadFormSchema } from "@/lib/lead-form-schema";
+import { persistLead } from "@/lib/lead-store";
 
 interface LeadPayload {
   variant?: unknown;
@@ -20,63 +21,20 @@ function isVariant(value: unknown): value is LeadFormVariant {
   return typeof value === "string" && value in leadFormVariants;
 }
 
-function formatAttributionLines(attribution: Attribution): string[] {
-  const entries = Object.entries(attribution).filter(([, value]) => value);
-  if (entries.length === 0) return [];
-  return ["", "Attribution:", ...entries.map(([key, value]) => `  ${key}: ${value}`)];
-}
-
-async function deliverLead(
-  variant: LeadFormVariant,
-  values: Record<string, string>,
-  attribution: Attribution,
-) {
-  const config = leadFormVariants[variant];
-  const lines = config.fields.map((field) => `${field.label}: ${values[field.name] || "—"}`);
-  const attributionLines = formatAttributionLines(attribution);
-  const priority = classifyLeadPriority(variant, values);
-  const apiKey = process.env.RESEND_API_KEY;
-
-  // Local/dev fallback so forms stay demoable before the key is provisioned.
-  if (!apiKey) {
-    console.warn(`[lead] RESEND_API_KEY not set — logging lead instead of emailing.`);
-    console.warn(`[lead] ${variant} (${priority})\n${[...lines, ...attributionLines].join("\n")}`);
-    return;
-  }
-
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: process.env.LEAD_FROM_EMAIL ?? "Align the Spine Website <onboarding@resend.dev>",
-      to: [process.env.LEAD_TO_EMAIL ?? siteConfig.business.email],
-      reply_to: values.email || undefined,
-      // Priority prefix lets office staff triage from the inbox list
-      // without opening every message — accident leads are the primary
-      // commercial goal (see lib/analytics.ts's classifyLeadPriority).
-      subject: `${priority === "high" ? "[PRIORITY] " : ""}New lead — ${config.submitLabel}`,
-      // Attribution (gclid/utm_*) isn't fed back into gtag — Google's own
-      // click-id cookie already handles that automatically as long as the
-      // visitor converts in the same browser. It's included here so a real
-      // gclid is on record for a manual/offline conversion import if a lead
-      // converts to a patient after the click-id cookie would've expired.
-      text: `New "${variant}" lead from the website (priority: ${priority}):\n\n${[...lines, ...attributionLines].join("\n")}`,
-    }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`Resend responded ${response.status}: ${await response.text()}`);
-  }
-}
-
-/** Receives LeadForm submissions (ATS-031). Re-validates with the same
- * zod schema the client used and enforces the honeypot server-side, so
- * direct POSTs can't bypass the client-side guards. Responds as soon as
- * validation passes; email delivery runs lazily after the response, so the
- * visitor never waits on (or sees errors from) the email provider. */
+/** Receives LeadForm submissions (ATS-031, rewritten under ATS-E5).
+ * Re-validates with the same zod schema the client used and enforces the
+ * honeypot server-side, so direct POSTs can't bypass the client-side
+ * guards.
+ *
+ * Required lifecycle (ATS-E5 §"Required submission lifecycle"): validate →
+ * persist durably (lib/lead-store.ts) → return success ONLY once
+ * persistence has resolved → queue notification delivery
+ * (lib/lead-delivery.ts) after the response via `after()`. The previous
+ * version returned success right after validation and ran email delivery
+ * in `after()` as the *only* record of the lead — a missing API key or a
+ * Resend outage meant a visitor saw "success" for a lead that was never
+ * captured anywhere. `after()` here exists solely for delivery, never for
+ * storage (5.11). */
 export async function POST(request: Request) {
   let payload: LeadPayload;
   try {
@@ -85,7 +43,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Invalid JSON" }, { status: 400 });
   }
 
-  // Spam guard: pretend success so bots learn nothing.
+  // Spam guard: pretend success so bots learn nothing. Deliberately never
+  // persisted — this is bot traffic, not a lead.
   if (typeof payload.website === "string" && payload.website.trim() !== "") {
     return NextResponse.json({ ok: true });
   }
@@ -105,15 +64,40 @@ export async function POST(request: Request) {
 
   const variant = payload.variant;
   const attribution = sanitizeAttribution(payload.attribution);
-  after(async () => {
-    try {
-      await deliverLead(variant, parsed.data, attribution);
-    } catch (error) {
-      console.error("[lead] delivery failed:", error);
-    }
-  });
+  const priority = classifyLeadPriority(variant, parsed.data);
 
-  return NextResponse.json({ ok: true });
+  let lead: Awaited<ReturnType<typeof persistLead>>["lead"];
+  try {
+    // Awaited — the response below must never precede this resolving
+    // (ATS-E5 5.10, the ticket's explicit acceptance point). A rejection
+    // here means the lead was NOT captured anywhere, so it must not be
+    // reported as a success.
+    ({ lead } = await persistLead({ variant, values: parsed.data, attribution, priority }));
+  } catch (error) {
+    console.error("[lead] persistence failed — lead was NOT captured:", error);
+    return NextResponse.json(
+      { ok: false, error: "Could not save your request. Please call us instead." },
+      { status: 503 },
+    );
+  }
+
+  // Scheduling delivery is deliberately OUTSIDE the try/catch above — the
+  // lead is already durably persisted at this point, so a failure to even
+  // schedule the after() callback must never turn into a false "not
+  // captured" response to the visitor. Delivery's own failure handling
+  // lives entirely inside lib/lead-delivery.ts.
+  try {
+    after(async () => {
+      await deliverLead(lead);
+    });
+  } catch (error) {
+    console.error(
+      `[lead] failed to schedule delivery for already-persisted lead ${lead.id}:`,
+      error,
+    );
+  }
+
+  return NextResponse.json({ ok: true, leadId: lead.id });
 }
 
 function formatIssues(error: { issues: { path: PropertyKey[]; message: string }[] }) {

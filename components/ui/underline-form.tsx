@@ -8,7 +8,7 @@ import { useForm, type Resolver } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { errorId } from "@/components/ui/field";
 import type { LeadFormValues } from "@/components/ui/lead-form";
-import { trackLeadConversion } from "@/lib/analytics";
+import { stashPendingConversion } from "@/lib/analytics";
 import { getStoredAttribution } from "@/lib/attribution";
 import { cn } from "@/lib/cn";
 import {
@@ -86,7 +86,9 @@ export function UnderlineForm({
       if (!response.ok) {
         throw new Error(`Lead submission failed with status ${response.status}`);
       }
-      trackLeadConversion(variant, values);
+      // Conversion fires on /thank-you itself (ThankYouConversion), not
+      // here — see lib/analytics.ts's stashPendingConversion() doc comment.
+      stashPendingConversion(variant, values);
       router.push("/thank-you");
     } catch {
       setSubmitError("Something went wrong. Please try again.");

@@ -11,7 +11,7 @@ import { type FieldVariant } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { trackLeadConversion } from "@/lib/analytics";
+import { stashPendingConversion, trackLeadConversion } from "@/lib/analytics";
 import { getStoredAttribution } from "@/lib/attribution";
 import { cn } from "@/lib/cn";
 import {
@@ -297,7 +297,9 @@ export function LeadForm({
       if (!response.ok) {
         throw new Error(`Lead submission failed with status ${response.status}`);
       }
-      trackLeadConversion(variant, values);
+      // Conversion fires on /thank-you itself (ThankYouConversion), not
+      // here — see lib/analytics.ts's stashPendingConversion() doc comment.
+      stashPendingConversion(variant, values);
       router.push("/thank-you");
     } catch {
       setSubmitError("Something went wrong. Please try again.");
