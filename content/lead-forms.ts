@@ -5,11 +5,6 @@ export interface LeadFormVariantConfig {
   variant: string;
   fields: LeadFieldConfig[];
   submitLabel: string;
-  /** Contract version recorded on every stored lead (leads.form_version) so a
-   * lead always points at the exact field set it was collected under. Defaults
-   * to 1 when omitted; bumped only when a variant's fields actually change —
-   * see eligibility/booking v2, which added the email field. */
-  version?: number;
 }
 
 const baseFields: LeadFieldConfig[] = [
@@ -130,15 +125,11 @@ export const leadFormVariants = {
     ],
     submitLabel: "Contact Us",
   },
-  /** v2 (dual-email platform): now collects a validated email so the home-visit
-   * eligibility check can also send the patient acknowledgment. v1 (name/phone/
-   * zip, no email) is retained as historical record in lead_form_definitions.
-   * Field order keeps email next to phone, ahead of zip, to preserve the
-   * top-down mobile flow. */
+  /** No email field by design — the home-visits eligibility check (ATS-110)
+   * only asks for name, phone, and zip. */
   eligibility: {
     variant: "eligibility",
-    version: 2,
-    fields: [...baseFields, zipField, carAccidentField],
+    fields: [...baseFields.filter((field) => field.name !== "email"), zipField, carAccidentField],
     submitLabel: "Check Eligibility",
   },
   /** Two-step /book hero form per the Book-appt artboard: step 1 collects
@@ -150,11 +141,9 @@ export const leadFormVariants = {
    * alongside a second, redundant accident question on this one form. */
   booking: {
     variant: "booking",
-    version: 2,
     fields: [
       { name: "firstName", label: "First Name", autoComplete: "given-name" },
       { name: "phone", label: "Phone", type: "tel", autoComplete: "tel" },
-      { name: "email", label: "Email", type: "email", autoComplete: "email" },
       { name: "lastName", label: "Last Name", autoComplete: "family-name" },
       {
         name: "reason",

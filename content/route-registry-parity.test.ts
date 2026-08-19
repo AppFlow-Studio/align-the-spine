@@ -6,11 +6,9 @@ import { routes } from "@/content/seo";
 
 /** Routes that intentionally have a page.tsx but no content/seo.ts entry —
  * see content/seo.ts's own comment on why /thank-you is absent (noindex,
- * post-conversion, doesn't belong in the sitemap). The /admin/leads CRM pages
- * are noindex, auth-gated (proxy.ts Basic auth), and must never appear in the
- * sitemap. Keep this list small and explicit; it's the only escape hatch this
- * test allows. */
-const UNREGISTERED_ALLOWLIST = new Set(["/thank-you", "/admin/leads", "/admin/leads/[id]"]);
+ * post-conversion, doesn't belong in the sitemap). Keep this list small and
+ * explicit; it's the only escape hatch this test allows. */
+const UNREGISTERED_ALLOWLIST = new Set(["/thank-you"]);
 
 const appDir = join(__dirname, "..", "app");
 

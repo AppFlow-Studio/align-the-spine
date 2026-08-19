@@ -101,23 +101,13 @@ hook (`trackLeadConversion` pushes a `lead_form_submit` event to
 retryable error.
 
 The route re-validates server-side with the same `buildLeadFormSchema`
-(`lib/lead-form-schema.ts`) keyed by `variant`, re-checks the honeypot, and
-enforces origin + body-size guards. It then **durably ingests** the lead
-(`lib/lead/ingest.ts` → the `ingest_lead` RPC: lead + consent receipt + delivery
-outbox rows, one transaction) and only then responds `{ ok: true }` — it never
-reports success before the lead is stored, and never sends email synchronously.
-Office/patient emails are delivered from the outbox by the worker
-(`app/api/internal/deliver` + a post-response `after()` drain). If the durable
-store is unconfigured/unavailable the route **fails closed (503)** rather than
-dropping the lead. See `docs/lead-crm-email-architecture.md`.
-
-## Form versioning
-
-Each variant carries an optional `version` (default 1), recorded on every stored
-lead as `form_version`. `eligibility` and `booking` are **v2** — they now
-collect a validated email so those forms can also send the patient
-acknowledgment. Their v1 (no-email) contracts remain as immutable history in
-`lead_form_definitions`.
+(`lib/lead-form-schema.ts`) keyed by `variant` and re-checks the honeypot. It
+responds `{ ok: true }` as soon as validation passes; the Resend email to
+`LEAD_TO_EMAIL` (defaults to `siteConfig.business.email`) is sent lazily after
+the response via `after()`, so visitors never wait on — or see errors from —
+the email provider (delivery failures are logged server-side). Without
+`RESEND_API_KEY` it logs the lead to the server console so local dev stays
+demoable — see `.env.example`.
 
 ## Spam guard
 

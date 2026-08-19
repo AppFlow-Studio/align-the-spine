@@ -19,7 +19,6 @@ import {
   type LeadFieldConfig,
   type LeadFieldType,
 } from "@/lib/lead-form-schema";
-import { newSubmissionId } from "@/lib/lead/submission-id";
 import { formatUsPhoneAsYouType } from "@/lib/phone-format";
 
 export type LeadFormValues = Record<string, string>;
@@ -216,9 +215,6 @@ export function LeadForm({
   });
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  // Stable per-instance idempotency key — reused across retries so a
-  // double-submit collapses to one lead server-side.
-  const [submissionId] = useState(newSubmissionId);
   const [step, setStep] = useState<1 | 2>(1);
   // Step-1-only errors, shown before `step` advances — kept separate from
   // RHF's own `errors` since those are validated independently below
@@ -294,7 +290,6 @@ export function LeadForm({
         body: JSON.stringify({
           variant,
           values,
-          submissionId,
           website: honeypot?.value ?? "",
           attribution: getStoredAttribution(),
         }),

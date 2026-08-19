@@ -13,7 +13,6 @@ import { leadFormVariants } from "@/content/lead-forms";
 import { trackLeadConversion } from "@/lib/analytics";
 import { getStoredAttribution } from "@/lib/attribution";
 import { buildLeadFormSchema } from "@/lib/lead-form-schema";
-import { newSubmissionId } from "@/lib/lead/submission-id";
 import { formatUsPhoneAsYouType } from "@/lib/phone-format";
 
 const config = leadFormVariants.booking;
@@ -42,7 +41,6 @@ export function BookingForm() {
   const router = useRouter();
   const [step, setStep] = useState<1 | 2>(1);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [submissionId] = useState(newSubmissionId);
 
   const {
     register,
@@ -83,7 +81,6 @@ export function BookingForm() {
         body: JSON.stringify({
           variant: config.variant,
           values,
-          submissionId,
           website: "",
           attribution: getStoredAttribution(),
         }),
@@ -147,20 +144,6 @@ export function BookingForm() {
                 event.target.value = formatUsPhoneAsYouType(event.target.value);
                 onChange(event);
               }}
-            />
-          );
-        }
-        if (field.type === "email") {
-          return (
-            <Input
-              key={field.name}
-              label={label}
-              type="email"
-              inputMode="email"
-              variant="dark"
-              autoComplete={field.autoComplete}
-              error={error}
-              {...register(field.name)}
             />
           );
         }

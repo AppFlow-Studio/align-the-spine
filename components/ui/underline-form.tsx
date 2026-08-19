@@ -16,7 +16,6 @@ import {
   type LeadFieldConfig,
   type LeadFieldType,
 } from "@/lib/lead-form-schema";
-import { newSubmissionId } from "@/lib/lead/submission-id";
 import { formatUsPhoneAsYouType } from "@/lib/phone-format";
 
 export interface UnderlineFormProps {
@@ -59,7 +58,6 @@ export function UnderlineForm({
   });
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [submissionId] = useState(newSubmissionId);
 
   const onValid = async (values: LeadFormValues, event?: BaseSyntheticEvent) => {
     setSubmitted(false);
@@ -81,7 +79,6 @@ export function UnderlineForm({
         body: JSON.stringify({
           variant,
           values,
-          submissionId,
           website: honeypot?.value ?? "",
           attribution: getStoredAttribution(),
         }),
