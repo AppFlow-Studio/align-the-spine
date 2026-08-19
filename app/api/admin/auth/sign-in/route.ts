@@ -24,10 +24,7 @@ export async function POST(request: Request) {
       : { data: null };
     if (!profile?.active)
       return NextResponse.redirect(new URL("/admin/login?error=inactive", request.url), 303);
-    return NextResponse.redirect(
-      new URL(profile.role === "lead_manager" ? "/admin/leads" : "/admin/content", request.url),
-      303,
-    );
+    return NextResponse.redirect(new URL("/admin/content", request.url), 303);
   } catch {
     return NextResponse.redirect(new URL("/admin/login?error=unavailable", request.url), 303);
   }

@@ -34,7 +34,6 @@ export async function requireEditorialActor(): Promise<EditorialActor> {
     .eq("id", user.id)
     .single();
   if (!profile?.active) redirect("/admin/login?error=inactive");
-  if (profile.role === "lead_manager") redirect("/admin/leads");
   if (!(["admin", "editor", "clinician_reviewer"] as string[]).includes(profile.role))
     redirect("/admin/login?error=unauthorized");
   return {

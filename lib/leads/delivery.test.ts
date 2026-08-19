@@ -1,15 +1,37 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 
 import {
-  buildResendEmailLines,
   buildSheetsPayload,
   buildSignedSheetsRequest,
   isSuccessfulSheetsResponse,
   protectSpreadsheetCell,
+  resendFromAddress,
+  resendToAddress,
   sanitizeDeliveryError,
 } from "./delivery";
+import { renderOfficeNotification } from "./email/office-notification";
+import { renderPatientAcknowledgment } from "./email/patient-acknowledgment";
 
 describe("lead delivery safety", () => {
+  afterEach(() => {
+    delete process.env.LEAD_FROM_EMAIL;
+    delete process.env.LEAD_TO_EMAIL;
+  });
+
+  it("falls back to the sandbox from-address when LEAD_FROM_EMAIL is blank, not just unset", () => {
+    process.env.LEAD_FROM_EMAIL = "";
+    expect(resendFromAddress()).toBe("Align the Spine Website <onboarding@resend.dev>");
+    process.env.LEAD_FROM_EMAIL = "Office <appointments@chirobackpain.com>";
+    expect(resendFromAddress()).toBe("Office <appointments@chirobackpain.com>");
+  });
+
+  it("falls back to siteConfig's business email when LEAD_TO_EMAIL is blank, not just unset", () => {
+    process.env.LEAD_TO_EMAIL = "";
+    expect(resendToAddress()).not.toBe("");
+    process.env.LEAD_TO_EMAIL = "office@example.com";
+    expect(resendToAddress()).toBe("office@example.com");
+  });
+
   it("neutralizes spreadsheet formulas and control characters", () => {
     expect(protectSpreadsheetCell("=IMPORTXML('x')")).toBe("'=IMPORTXML('x')");
     expect(protectSpreadsheetCell("+1\n2")).toBe("'+1 2");
@@ -36,26 +58,68 @@ describe("lead delivery safety", () => {
     expect(JSON.stringify(payload)).not.toContain("2026-01-01");
   });
 
-  it("excludes sensitive fields from the Resend email body unless explicitly included", () => {
-    const record = {
-      lead: {
-        id: "lead-1",
-        form_id: "contactUs",
-        form_version: 1,
-        priority: "standard",
-        intent: "general",
-        source_page_path: "/contact-us",
-        contact_fields: { name: "A", phone: "123", email: "a@example.com" },
-      },
-      attribution: {},
+  it("excludes sensitive fields from the office notification email unless explicitly included", () => {
+    const baseProps = {
+      shortSubmissionId: "lead-1",
+      formId: "contactUs",
+      formVersion: 1,
+      intent: "general" as const,
+      priority: "standard" as const,
+      createdAtLocal: "Aug 16, 2026, 12:00 AM",
+      name: "A",
+    };
+    const excluded = renderOfficeNotification({ ...baseProps, sensitive: null });
+    expect(excluded.html).not.toContain("private");
+    expect(excluded.text).not.toContain("private");
+    const included = renderOfficeNotification({
+      ...baseProps,
       sensitive: { message: "private", accidentDate: "2026-01-01" },
-    } as never;
-    const excluded = buildResendEmailLines(record, false).join("\n");
-    expect(excluded).not.toContain("private");
-    expect(excluded).not.toContain("2026-01-01");
-    const included = buildResendEmailLines(record, true).join("\n");
-    expect(included).toContain("private");
-    expect(included).toContain("2026-01-01");
+    });
+    expect(included.html).toContain("private");
+    expect(included.text).toContain("private");
+    expect(included.text).toContain("2026-01-01");
+  });
+
+  it("never includes an internal dashboard/CRM link in either lead email", () => {
+    const office = renderOfficeNotification({
+      shortSubmissionId: "lead-1",
+      formId: "contactUs",
+      formVersion: 1,
+      intent: "general",
+      priority: "standard",
+      createdAtLocal: "Aug 16, 2026, 12:00 AM",
+      name: "A",
+    });
+    expect(office.html.toLowerCase()).not.toContain("admin");
+    expect(office.html.toLowerCase()).not.toContain("/crm");
+    const patient = renderPatientAcknowledgment({ firstName: "A", intent: "general" });
+    expect(patient.html.toLowerCase()).not.toContain("admin");
+    expect(patient.html.toLowerCase()).not.toContain("/crm");
+  });
+
+  it("varies patient-acknowledgment copy by intent without asserting specifics", () => {
+    const general = renderPatientAcknowledgment({ firstName: "Jane", intent: "general" });
+    const accident = renderPatientAcknowledgment({ firstName: "Jane", intent: "car_accident" });
+    expect(general.subject).not.toBe(accident.subject);
+    expect(accident.html).toContain("14 days");
+    expect(general.html).not.toContain("14 days");
+    // Tells the lead we'll follow up, regardless of intent.
+    expect(general.html).toContain("confirm your appointment");
+    expect(accident.html).toContain("confirm your appointment");
+  });
+
+  it("escapes HTML-significant characters in office notification field values", () => {
+    const doc = renderOfficeNotification({
+      shortSubmissionId: "lead-1",
+      formId: "contactUs",
+      formVersion: 1,
+      intent: "general",
+      priority: "standard",
+      createdAtLocal: "Aug 16, 2026, 12:00 AM",
+      name: `<script>alert(1)</script>`,
+    });
+    expect(doc.html).not.toContain("<script>alert(1)</script>");
+    expect(doc.html).toContain("&lt;script&gt;");
   });
 
   it("sanitizes errors before audit storage", () => {

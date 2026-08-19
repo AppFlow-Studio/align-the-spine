@@ -95,7 +95,7 @@ export async function POST(request: Request) {
     // deliver) and only in Supabase mode (see deliveryEnabled() above).
     // Errors are swallowed here on purpose: a delivery failure already
     // lands the outbox row in its own retry state for the next worker run
-    // to pick up — see docs/lead-crm-operations.md's "Worker schedule and
+    // to pick up — see docs/lead-pipeline-operations.md's "Worker schedule and
     // delivery" for that periodic run, which stays in place as the safety
     // net for whatever this immediate attempt doesn't catch.
     if (result.created && deliveryEnabled()) {

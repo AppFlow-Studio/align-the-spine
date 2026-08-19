@@ -4,12 +4,14 @@ import { siteConfig } from "@/content/site";
 import { createSupabaseServiceClient } from "@/lib/supabase/server";
 
 import { decryptLeadSensitiveFields, postgresByteaToBase64 } from "./crypto";
+import { renderOfficeNotification } from "./email/office-notification";
+import { renderPatientAcknowledgment } from "./email/patient-acknowledgment";
 
 export interface ClaimedDelivery {
   event_id: string;
   attempt_id: string;
   lead_id: string;
-  destination: "resend" | "google_sheets";
+  destination: "resend_office" | "resend_patient" | "google_sheets";
   payload: Record<string, unknown>;
   attempt_number: number;
 }
@@ -87,47 +89,57 @@ export async function claimLeadDeliveries(workerId: string, batchSize = 10) {
   return (data ?? []) as ClaimedDelivery[];
 }
 
-export function buildResendEmailLines(
-  record: Awaited<ReturnType<typeof loadLead>>,
-  includeSensitive: boolean,
-) {
-  const { lead, attribution, sensitive } = record;
-  const fields = lead.contact_fields as Record<string, string>;
-  return [
-    `Lead ID: ${lead.id}`,
-    `Form: ${lead.form_id} v${lead.form_version}`,
-    `Priority: ${lead.priority}`,
-    `Intent: ${lead.intent}`,
-    ...Object.entries(fields).map(([key, value]) => `${key}: ${value}`),
-    ...(includeSensitive
-      ? Object.entries(sensitive).map(([key, value]) => `${key}: ${value}`)
-      : []),
-    `Source page: ${lead.source_page_path}`,
-    `Campaign: ${attribution.utm_source ?? "—"} / ${attribution.utm_medium ?? "—"} / ${attribution.utm_campaign ?? "—"}`,
-  ];
+// `||`, not `??`: an explicitly-blank LEAD_FROM_EMAIL/LEAD_TO_EMAIL (the
+// documented "leave blank until configured" state in .env.example) is an
+// empty string, not undefined/null, so `??` would silently send `from: ""`
+// to Resend instead of falling back — Resend rejects that with a 422
+// "domain is invalid" that looks unrelated to the real cause.
+export function resendFromAddress() {
+  return process.env.LEAD_FROM_EMAIL || "Align the Spine Website <onboarding@resend.dev>";
 }
 
-async function deliverResend(event: ClaimedDelivery) {
+export function resendToAddress() {
+  return process.env.LEAD_TO_EMAIL || siteConfig.business.email;
+}
+
+function leadDisplayName(fields: Record<string, string>) {
+  if (fields.firstName || fields.lastName)
+    return [fields.firstName, fields.lastName].filter(Boolean).join(" ");
+  return fields.name || null;
+}
+
+function attributionSummary(attribution: Record<string, unknown>) {
+  const source = attribution.utm_source as string | undefined;
+  const medium = attribution.utm_medium as string | undefined;
+  const campaign = attribution.utm_campaign as string | undefined;
+  if (!source && !medium && !campaign) return null;
+  return `${source ?? "—"} / ${medium ?? "—"} / ${campaign ?? "—"}`;
+}
+
+async function sendResendEmail(options: {
+  eventId: string;
+  to: string;
+  replyTo?: string;
+  subject: string;
+  html: string;
+  text: string;
+}) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) throw new Error("resend_not_configured");
-  const includeSensitive = process.env.LEAD_EMAIL_INCLUDE_SENSITIVE === "true";
-  const record = await loadLead(event.lead_id, includeSensitive);
-  const { lead } = record;
-  const fields = lead.contact_fields as Record<string, string>;
-  const lines = buildResendEmailLines(record, includeSensitive);
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${apiKey}`,
       "Content-Type": "application/json",
-      "Idempotency-Key": event.event_id,
+      "Idempotency-Key": options.eventId,
     },
     body: JSON.stringify({
-      from: process.env.LEAD_FROM_EMAIL ?? "Align the Spine Website <onboarding@resend.dev>",
-      to: [process.env.LEAD_TO_EMAIL ?? siteConfig.business.email],
-      reply_to: fields.email || undefined,
-      subject: `${lead.priority === "high" ? "[PRIORITY] " : ""}New website request — ${lead.form_id}`,
-      text: lines.join("\n"),
+      from: resendFromAddress(),
+      to: [options.to],
+      reply_to: options.replyTo || undefined,
+      subject: options.subject,
+      html: options.html,
+      text: options.text,
     }),
   });
   const body = (await response.json().catch(() => null)) as {
@@ -136,6 +148,60 @@ async function deliverResend(event: ClaimedDelivery) {
   } | null;
   if (!response.ok) throw new Error(`resend_http_${response.status}`);
   return { providerId: body?.id, httpStatus: response.status };
+}
+
+async function deliverResendOffice(event: ClaimedDelivery) {
+  const includeSensitive = process.env.LEAD_EMAIL_INCLUDE_SENSITIVE === "true";
+  const record = await loadLead(event.lead_id, includeSensitive);
+  const { lead, attribution, sensitive } = record;
+  const fields = lead.contact_fields as Record<string, string>;
+  const doc = renderOfficeNotification({
+    shortSubmissionId: lead.id.slice(0, 8),
+    formId: lead.form_id,
+    formVersion: lead.form_version,
+    intent: lead.intent,
+    priority: lead.priority,
+    createdAtLocal: new Date(lead.submitted_at).toLocaleString("en-US", {
+      timeZone: "America/New_York",
+      dateStyle: "medium",
+      timeStyle: "short",
+    }),
+    name: leadDisplayName(fields),
+    phone: fields.phone ?? null,
+    email: fields.email ?? null,
+    zip: fields.zip ?? null,
+    bestTime: fields.bestTime ?? null,
+    carAccident: fields.carAccident ?? null,
+    sourcePath: lead.source_page_path,
+    attributionSummary: attributionSummary(attribution),
+    sensitive: includeSensitive ? sensitive : null,
+  });
+  return sendResendEmail({
+    eventId: event.event_id,
+    to: resendToAddress(),
+    replyTo: fields.email,
+    subject: doc.subject,
+    html: doc.html,
+    text: doc.text,
+  });
+}
+
+async function deliverResendPatient(event: ClaimedDelivery) {
+  const record = await loadLead(event.lead_id, false);
+  const { lead } = record;
+  const fields = lead.contact_fields as Record<string, string>;
+  if (!fields.email) throw new Error("patient_email_missing");
+  const doc = renderPatientAcknowledgment({
+    firstName: fields.firstName ?? null,
+    intent: lead.intent,
+  });
+  return sendResendEmail({
+    eventId: event.event_id,
+    to: fields.email,
+    subject: doc.subject,
+    html: doc.html,
+    text: doc.text,
+  });
 }
 
 export function buildSheetsPayload(eventId: string, record: Awaited<ReturnType<typeof loadLead>>) {
@@ -220,9 +286,11 @@ export async function processLeadDeliveryBatch(workerId: string, batchSize = 10)
   for (const event of claimed) {
     try {
       const result =
-        event.destination === "resend"
-          ? await deliverResend(event)
-          : await deliverGoogleSheets(event);
+        event.destination === "resend_office"
+          ? await deliverResendOffice(event)
+          : event.destination === "resend_patient"
+            ? await deliverResendPatient(event)
+            : await deliverGoogleSheets(event);
       const { error } = await client.rpc("complete_lead_delivery_attempt", {
         target_attempt_id: event.attempt_id,
         worker: workerId,

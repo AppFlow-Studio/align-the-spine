@@ -1,14 +1,18 @@
 # Blog CMS → Supabase reference
 
 For building the blog CMS as its own repo/project against the existing Supabase database
-(`tsbbpjmuvoydojwthofv`, "Align The Spine"). This is the live, current schema as of 2026-08-18 —
+(`qaaptlxxwfvxzgyzjhub`, "Align The Spine"). This is the live, current schema as of 2026-08-19 —
 verified directly against the database, not from memory. Service areas share the same tables
 (`content_type = 'service_area'`) but this doc focuses on `blog_post`.
 
+Note: this project replaces an earlier one (`tsbbpjmuvoydojwthofv`) that this doc used to
+reference. The schema is identical — same migrations, just reapplied to the project the team
+standardized on — but any old connection details from that project no longer work.
+
 ## Connection
 
-- Project URL: `https://tsbbpjmuvoydojwthofv.supabase.co`
-- Anon/publishable key (safe client-side): `sb_publishable_epNtMj0e4-x14xKo8inkew_AVNdiZ2y`
+- Project URL: `https://qaaptlxxwfvxzgyzjhub.supabase.co`
+- Anon/publishable key (safe client-side): `sb_publishable_r7Ie6LMugdylYeow9m0Yag_3GVnDNyf`
 - For writes: RLS on every table below requires the acting Postgres role to either (a) use the
   **service role key** (bypasses RLS — keep it server-only, never in a browser bundle), or
   (b) be an authenticated Supabase user whose `profiles.role` is `admin` or `editor` (checked via
