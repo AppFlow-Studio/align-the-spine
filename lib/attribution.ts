@@ -1,69 +1,122 @@
-/** Ad-click / campaign attribution params worth capturing on these pages
- * once they're running as Google Ads landing pages and sitelinks. gclid is
- * the one that matters most — it's what lets a lead be matched back to the
- * exact ad click, including for a manual/offline conversion import later
- * (e.g. "this lead became a real patient 3 weeks later"). */
 const ATTRIBUTION_PARAMS = [
-  "gclid",
-  "gbraid",
-  "wbraid",
   "utm_source",
   "utm_medium",
   "utm_campaign",
   "utm_term",
   "utm_content",
+  "utm_id",
+  "gclid",
+  "gbraid",
+  "wbraid",
+  "dclid",
+  "msclkid",
+  "fbclid",
+  "ttclid",
+  "li_fat_id",
 ] as const;
 
-type AttributionKey = (typeof ATTRIBUTION_PARAMS)[number];
-export type Attribution = Partial<Record<AttributionKey, string>>;
+const CONTEXT_KEYS = [
+  "initialLandingPath",
+  "latestLandingPath",
+  "referrerHost",
+  "fbc",
+  "fbp",
+  "gaClientId",
+  "gaSessionId",
+  "gaSessionNumber",
+] as const;
 
-const STORAGE_KEY = "ats_attribution";
-/** Google Click IDs run long but aren't unbounded — this is generous
- * headroom over any real one, just a ceiling against something absurd
- * ending up in the URL. */
+type AttributionParam = (typeof ATTRIBUTION_PARAMS)[number];
+type ContextKey = (typeof CONTEXT_KEYS)[number];
+export type Attribution = Partial<Record<AttributionParam | ContextKey, string | number>>;
+
+const STORAGE_KEY = "ats_attribution_v2";
 const MAX_VALUE_LENGTH = 512;
 
-/** Captures attribution params from the current URL and merges them into
- * whatever's already stored, without overwriting an existing value with a
- * blank one — so a visitor who clicks a Google ad to /auto-accidents, then
- * browses to /about before converting, still has their gclid attached when
- * they eventually submit a form on a page whose own URL never carried it. */
-export function captureAttribution(): void {
-  if (typeof window === "undefined") return;
-
-  const params = new URLSearchParams(window.location.search);
-  const found: Attribution = {};
-  for (const key of ATTRIBUTION_PARAMS) {
-    const value = params.get(key);
-    if (value) found[key] = value.slice(0, MAX_VALUE_LENGTH);
-  }
-  if (Object.keys(found).length === 0) return;
-
+function pathOnly(value: string) {
   try {
-    const existing = getStoredAttribution();
-    window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify({ ...existing, ...found }));
+    const url = new URL(value, window.location.origin);
+    return url.origin === window.location.origin ? url.pathname.slice(0, 512) || "/" : undefined;
   } catch {
-    // sessionStorage can throw in private-browsing/storage-restricted
-    // contexts — attribution capture is a nice-to-have, never worth
-    // breaking the page over.
+    return undefined;
   }
 }
 
-/** Validates an untrusted `attribution` payload from a direct POST to
- * /api/lead (a normal submit sends whatever getStoredAttribution() had, but
- * nothing stops a direct request from sending anything) — picks only the
- * known keys, keeps only string values, and re-applies the same length
- * ceiling capture applies client-side. Never throws; anything malformed is
- * simply dropped rather than rejecting the whole lead over it. */
+function cookie(name: string) {
+  const prefix = `${name}=`;
+  return document.cookie
+    .split(";")
+    .map((part) => part.trim())
+    .find((part) => part.startsWith(prefix))
+    ?.slice(prefix.length, prefix.length + MAX_VALUE_LENGTH);
+}
+
+function gaContext(): Pick<Attribution, "gaClientId" | "gaSessionId" | "gaSessionNumber"> {
+  const ga = cookie("_ga")?.split(".");
+  const sessionCookie = document.cookie
+    .split(";")
+    .map((part) => part.trim())
+    .find((part) => part.startsWith("_ga_") && !part.startsWith("_ga="))
+    ?.split("=")[1]
+    ?.split(".");
+  return {
+    ...(ga && ga.length >= 4 ? { gaClientId: `${ga.at(-2)}.${ga.at(-1)}` } : {}),
+    ...(sessionCookie && sessionCookie.length >= 3
+      ? {
+          gaSessionId: sessionCookie[2],
+          gaSessionNumber: Number.isFinite(Number(sessionCookie[3]))
+            ? Number(sessionCookie[3])
+            : undefined,
+        }
+      : {}),
+  };
+}
+
+export function captureAttribution(): void {
+  if (typeof window === "undefined") return;
+  try {
+    const existing = getStoredAttribution();
+    const params = new URLSearchParams(window.location.search);
+    const currentPath = pathOnly(window.location.href) ?? "/";
+    const found: Attribution = {
+      ...existing,
+      initialLandingPath: existing.initialLandingPath ?? currentPath,
+      latestLandingPath: currentPath,
+      ...(cookie("_fbc") ? { fbc: cookie("_fbc") } : {}),
+      ...(cookie("_fbp") ? { fbp: cookie("_fbp") } : {}),
+      ...gaContext(),
+    };
+    if (!existing.referrerHost && document.referrer) {
+      try {
+        found.referrerHost = new URL(document.referrer).hostname.slice(0, 255);
+      } catch {
+        // Invalid referrers are ignored; full referrer URLs are never retained.
+      }
+    }
+    for (const key of ATTRIBUTION_PARAMS) {
+      const value = params.get(key);
+      if (value) found[key] = value.slice(0, MAX_VALUE_LENGTH);
+    }
+    window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(found));
+  } catch {
+    // Attribution is optional and must never break navigation or forms.
+  }
+}
+
 export function sanitizeAttribution(input: unknown): Attribution {
   if (typeof input !== "object" || input === null) return {};
   const record = input as Record<string, unknown>;
   const result: Attribution = {};
-  for (const key of ATTRIBUTION_PARAMS) {
+  for (const key of [...ATTRIBUTION_PARAMS, ...CONTEXT_KEYS]) {
     const value = record[key];
-    if (typeof value === "string" && value.length > 0) {
-      result[key] = value.slice(0, MAX_VALUE_LENGTH);
+    if (key === "gaSessionNumber") {
+      if (typeof value === "number" && Number.isInteger(value) && value >= 0) result[key] = value;
+      continue;
     }
+    if (typeof value !== "string" || !value) continue;
+    if ((key === "initialLandingPath" || key === "latestLandingPath") && !/^\/[^?#]*$/.test(value))
+      continue;
+    result[key] = value.slice(0, MAX_VALUE_LENGTH);
   }
   return result;
 }
@@ -72,10 +125,7 @@ export function getStoredAttribution(): Attribution {
   if (typeof window === "undefined") return {};
   try {
     const raw = window.sessionStorage.getItem(STORAGE_KEY);
-    if (!raw) return {};
-    const parsed: unknown = JSON.parse(raw);
-    if (typeof parsed !== "object" || parsed === null) return {};
-    return parsed as Attribution;
+    return raw ? sanitizeAttribution(JSON.parse(raw)) : {};
   } catch {
     return {};
   }

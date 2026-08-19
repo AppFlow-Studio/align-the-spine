@@ -117,6 +117,22 @@ body {
   color: var(--color-ink-900);
 }
 
+/* LeadFormPopup (lead-form-popup.tsx) portals its overlay to document.body
+ * with a .lead-popup-overlay marker class, so :has() here can key off its
+ * mere presence in the DOM instead of needing shared React state between the
+ * popup and every hero that also renders its own on-page form — while the
+ * popup is open, its own on-page form/fields hide instead of sitting behind
+ * it, so a visitor is never looking at two copies of the same eligibility
+ * form at once (requested: "dont show the website form when the pop up form
+ * is on"). visibility, not display: none — keeps the layout space reserved
+ * so nothing reflows/jumps once the popup closes and the form reappears. */
+body:has(.lead-popup-overlay) #eligibility-form-desktop,
+body:has(.lead-popup-overlay) #eligibility-form-mobile,
+body:has(.lead-popup-overlay) #blog-form-desktop,
+body:has(.lead-popup-overlay) #blog-form-mobile {
+  visibility: hidden;
+}
+
 @layer base {
   /* Tailwind v4's Preflight resets <button> to the native default (arrow)
    * cursor. Links already show a pointer, so buttons read as *less*
@@ -131,6 +147,105 @@ body {
 }
 
 @layer components {
+  .article-prose {
+    max-width: 820px;
+    font-family: var(--font-sans);
+    color: var(--color-ink-900);
+    font-size: 1.0625rem;
+    line-height: 1.85;
+  }
+
+  .article-prose > * + * {
+    margin-top: 1.5rem;
+  }
+
+  .article-prose h2,
+  .article-prose h3,
+  .article-prose h4 {
+    scroll-margin-top: 8rem;
+    color: var(--color-navy-800);
+    font-family: var(--font-display);
+    line-height: 1.2;
+  }
+
+  .article-prose h2 {
+    margin-top: 3.5rem;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+  }
+  .article-prose h3 {
+    margin-top: 2.5rem;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+  }
+  .article-prose h4 {
+    margin-top: 2rem;
+    font-size: 1.35rem;
+  }
+  .article-prose ul {
+    list-style: disc;
+    padding-left: 1.4rem;
+  }
+  .article-prose ol {
+    list-style: decimal;
+    padding-left: 1.4rem;
+  }
+  .article-prose li + li {
+    margin-top: 0.65rem;
+  }
+  .article-prose figcaption,
+  .article-prose caption {
+    color: var(--color-ink-500);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  .article-prose figcaption {
+    margin-top: 0.75rem;
+  }
+  .article-prose table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 36rem;
+  }
+  .article-prose caption {
+    padding-bottom: 0.75rem;
+    text-align: left;
+  }
+  .article-prose th,
+  .article-prose td {
+    border: 1px solid var(--color-mute-300);
+    padding: 0.75rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  .article-prose th {
+    background: var(--color-panel-100);
+    color: var(--color-navy-800);
+  }
+
+  .content-callout {
+    border-radius: var(--radius-20);
+    padding: 1.5rem;
+  }
+  .content-callout h2 {
+    margin-top: 0;
+    font-size: 1.65rem;
+  }
+  .content-callout p {
+    margin-top: 0.75rem;
+  }
+  .content-callout-answer,
+  .content-callout-info {
+    background: #e9f7f5;
+    border: 1px solid rgba(63, 118, 118, 0.35);
+  }
+  .content-callout-warning {
+    background: #fff7ed;
+    border: 1px solid #fdba74;
+  }
+  .content-callout-emergency {
+    background: #fef2f2;
+    border: 1px solid #fca5a5;
+  }
+
   /* Hero trust-badge marquee (HeroTrustLine in hero-solid-panel.tsx): the
    * track renders its pill content twice back-to-back and slides exactly
    * one copy-width left, so the loop point is invisible. Plain CSS (not
@@ -153,6 +268,25 @@ body {
     .animate-trust-marquee {
       animation: none;
     }
+  }
+
+  /* Slower, gentler ping than Tailwind's built-in animate-ping (1s) — used
+   * by AccidentImpactVisual's radiating rings. motion-reduce:hidden on the
+   * elements themselves is the real reduced-motion guard; this class only
+   * controls speed/easing for everyone else. */
+  @keyframes ping-slow {
+    0% {
+      transform: scale(0.9);
+      opacity: 0.6;
+    }
+    100% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  .animate-ping-slow {
+    animation: ping-slow 2.6s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
 
   /* Fades the marquee's hard clip edges instead of hard-cutting a pill
@@ -183,5 +317,28 @@ body {
     .container {
       padding-inline: 2rem;
     }
+  }
+}
+
+@media print {
+  footer,
+  nav,
+  aside,
+  button,
+  [role="status"] {
+    display: none !important;
+  }
+  body {
+    color: #000;
+    background: #fff;
+  }
+  .article-prose {
+    max-width: none;
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+  a {
+    color: inherit;
+    text-decoration: underline;
   }
 }

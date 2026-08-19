@@ -11,7 +11,7 @@ import { isProduction, siteConfig } from "@/content/site";
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: isProduction()
-      ? { userAgent: "*", allow: "/", disallow: ["/api/", "/thank-you"] }
+      ? { userAgent: "*", allow: "/", disallow: ["/api/", "/admin/", "/preview/", "/thank-you"] }
       : { userAgent: "*", disallow: "/" },
     sitemap: `${siteConfig.siteUrl}/sitemap.xml`,
   };

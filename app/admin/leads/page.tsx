@@ -1,118 +1,259 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 
-import { listLeadsWithDelivery, type LeadDeliverySummary } from "@/lib/lead/admin";
-import { isSupabaseConfigured } from "@/lib/lead/env";
-import { formatEastern, formLabel, leadDisplayName } from "@/lib/lead/present";
-import type { OutboxRow } from "@/lib/lead/types";
+import { requireCrmActor } from "@/lib/leads/authorization";
+import { listCrmLeads, type LeadFilters } from "@/lib/leads/crm";
 
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = { robots: { index: false, follow: false } };
 
-function DeliveryBadge({ label, row }: { label: string; row?: OutboxRow }) {
-  if (!row) return <span className="text-xs text-gray-400">{label}: —</span>;
-  const state = row.delivery_state ?? row.status;
-  const tone =
-    row.status === "dead_letter" ||
-    row.delivery_state === "bounced" ||
-    row.delivery_state === "complained"
-      ? "bg-red-100 text-red-700"
-      : row.status === "sent" || row.delivery_state === "delivered"
-        ? "bg-green-100 text-green-700"
-        : row.status === "suppressed"
-          ? "bg-amber-100 text-amber-800"
-          : "bg-gray-100 text-gray-600";
-  return (
-    <span className={`inline-block rounded px-2 py-0.5 text-xs font-medium ${tone}`}>
-      {label}: {state}
-    </span>
-  );
+const FORM_OPTIONS = [
+  "heroEval",
+  "accidentEval",
+  "contactUs",
+  "carAccident",
+  "reviewsEval",
+  "contact",
+  "eligibility",
+  "booking",
+];
+
+function value(input: string | string[] | undefined) {
+  return typeof input === "string" ? input : undefined;
 }
 
-function DeliveryCell({ delivery }: { delivery: LeadDeliverySummary }) {
-  return (
-    <div className="flex flex-wrap gap-1">
-      <DeliveryBadge label="office" row={delivery.office} />
-      <DeliveryBadge label="patient" row={delivery.patient} />
-      {delivery.sheets ? <DeliveryBadge label="sheets" row={delivery.sheets} /> : null}
-    </div>
+export default async function LeadsPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const actor = await requireCrmActor();
+  const params = await searchParams;
+  const filters: LeadFilters = Object.fromEntries(
+    Object.entries(params).map(([key, entry]) => [key, value(entry)]),
   );
-}
-
-export default async function AdminLeadsPage() {
-  if (!isSupabaseConfigured()) {
-    return (
-      <main className="mx-auto max-w-3xl p-8 font-sans">
-        <h1 className="text-xl font-semibold">Lead CRM</h1>
-        <p className="mt-4 text-sm text-gray-600">
-          The lead store is not configured (SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY). Set these to
-          view leads.
-        </p>
-      </main>
-    );
-  }
-
-  const items = await listLeadsWithDelivery(100);
+  const leads = await listCrmLeads(filters);
 
   return (
-    <main className="mx-auto max-w-6xl p-8 font-sans">
-      <h1 className="text-xl font-semibold text-gray-900">Lead CRM</h1>
-      <p className="mt-1 text-sm text-gray-500">{items.length} most recent leads</p>
-
-      <div className="mt-6 overflow-x-auto rounded-lg border border-gray-200">
-        <table className="w-full border-collapse text-left text-sm">
-          <thead className="bg-gray-50 text-xs uppercase tracking-wide text-gray-500">
-            <tr>
-              <th className="px-4 py-3">Received (ET)</th>
-              <th className="px-4 py-3">Form</th>
-              <th className="px-4 py-3">Priority</th>
-              <th className="px-4 py-3">Contact</th>
-              <th className="px-4 py-3">Delivery</th>
-              <th className="px-4 py-3"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {items.map(({ lead, delivery }) => (
-              <tr key={lead.id} className="border-t border-gray-100 align-top">
-                <td className="px-4 py-3 whitespace-nowrap text-gray-600">
-                  {formatEastern(lead.created_at)}
-                </td>
-                <td className="px-4 py-3 text-gray-700">
-                  {formLabel(lead.form_variant)}
-                  <span className="ml-1 text-xs text-gray-400">v{lead.form_version}</span>
-                </td>
-                <td className="px-4 py-3">
-                  <span
-                    className={
-                      lead.priority === "high"
-                        ? "rounded bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-800"
-                        : "text-xs text-gray-500"
-                    }
-                  >
-                    {lead.priority}
-                  </span>
-                </td>
-                <td className="px-4 py-3 text-gray-700">
-                  <div className="font-medium">{leadDisplayName(lead) ?? "—"}</div>
-                  <div className="text-xs text-gray-500">{lead.phone ?? "—"}</div>
-                  <div className="text-xs text-gray-500">{lead.email ?? "—"}</div>
-                </td>
-                <td className="px-4 py-3">
-                  <DeliveryCell delivery={delivery} />
-                </td>
-                <td className="px-4 py-3">
-                  <Link
-                    href={`/admin/leads/${lead.id}`}
-                    className="text-sm text-blue-600 hover:underline"
-                  >
-                    Open
-                  </Link>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <main className="container py-10 lg:py-14">
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="text-sm font-semibold uppercase tracking-[0.12em] text-teal-700">
+            Lead CRM
+          </p>
+          <h1 className="mt-2 font-display text-4xl text-navy-900 sm:text-5xl">Website requests</h1>
+          <p className="mt-2 text-ink-500">
+            Signed in as {actor.displayName}. Sensitive fields stay sealed.
+          </p>
+        </div>
+        <div className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-navy-800 shadow-sm">
+          {leads.length} result{leads.length === 1 ? "" : "s"}
+        </div>
       </div>
+
+      <form
+        className="mt-8 grid gap-3 rounded-3xl bg-white p-5 shadow-sm sm:grid-cols-2 lg:grid-cols-4"
+        aria-label="Filter leads"
+      >
+        <label className="text-sm font-semibold text-navy-900">
+          Search
+          <input
+            name="query"
+            defaultValue={filters.query}
+            className="mt-2 min-h-11 w-full rounded-xl border border-mute-300 px-3"
+            placeholder="Name, phone, or email"
+          />
+        </label>
+        <label className="text-sm font-semibold text-navy-900">
+          From
+          <input
+            name="from"
+            type="date"
+            defaultValue={filters.from}
+            className="mt-2 min-h-11 w-full rounded-xl border border-mute-300 px-3"
+          />
+        </label>
+        <label className="text-sm font-semibold text-navy-900">
+          To
+          <input
+            name="to"
+            type="date"
+            defaultValue={filters.to}
+            className="mt-2 min-h-11 w-full rounded-xl border border-mute-300 px-3"
+          />
+        </label>
+        <FilterSelect name="form" label="Form" value={filters.form} options={FORM_OPTIONS} />
+        <FilterSelect
+          name="status"
+          label="Status"
+          value={filters.status}
+          options={["new", "contacted", "qualified", "scheduled", "closed", "spam"]}
+        />
+        <FilterSelect
+          name="priority"
+          label="Priority"
+          value={filters.priority}
+          options={["high", "standard"]}
+        />
+        <FilterSelect
+          name="intent"
+          label="Intent"
+          value={filters.intent}
+          options={["car_accident", "general"]}
+        />
+        <label className="text-sm font-semibold text-navy-900">
+          Source
+          <input
+            name="source"
+            defaultValue={filters.source}
+            className="mt-2 min-h-11 w-full rounded-xl border border-mute-300 px-3"
+          />
+        </label>
+        <label className="text-sm font-semibold text-navy-900">
+          Medium
+          <input
+            name="medium"
+            defaultValue={filters.medium}
+            className="mt-2 min-h-11 w-full rounded-xl border border-mute-300 px-3"
+          />
+        </label>
+        <label className="text-sm font-semibold text-navy-900">
+          Campaign
+          <input
+            name="campaign"
+            defaultValue={filters.campaign}
+            className="mt-2 min-h-11 w-full rounded-xl border border-mute-300 px-3"
+          />
+        </label>
+        <div className="flex items-end gap-2 lg:col-span-2">
+          <button
+            className="min-h-11 rounded-full bg-navy-900 px-5 font-semibold text-white"
+            type="submit"
+          >
+            Apply filters
+          </button>
+          <Link
+            href="/admin/leads"
+            className="inline-flex min-h-11 items-center rounded-full px-5 font-semibold text-navy-800"
+          >
+            Clear
+          </Link>
+        </div>
+      </form>
+
+      {leads.length === 0 ? (
+        <section className="mt-8 rounded-3xl border border-dashed border-mute-300 bg-white p-10 text-center">
+          <h2 className="font-display text-3xl text-navy-900">No leads match these filters</h2>
+          <p className="mt-2 text-ink-500">Local fixture mode intentionally starts empty.</p>
+        </section>
+      ) : (
+        <div
+          className="mt-8 overflow-x-auto rounded-3xl bg-white shadow-sm"
+          tabIndex={0}
+          aria-label="Lead results table"
+        >
+          <table className="w-full min-w-[900px] border-collapse text-left text-sm">
+            <thead className="bg-navy-900 text-white">
+              <tr>
+                {[
+                  "Submitted",
+                  "Contact",
+                  "Form",
+                  "Intent",
+                  "Priority",
+                  "Status",
+                  "Campaign",
+                  "Delivery",
+                  "",
+                ].map((heading) => (
+                  <th className="px-4 py-3" key={heading}>
+                    {heading}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {leads.map((lead) => {
+                const fields = lead.contact_fields as Record<string, string>;
+                const attribution = Array.isArray(lead.lead_attribution)
+                  ? lead.lead_attribution[0]
+                  : lead.lead_attribution;
+                return (
+                  <tr key={lead.id} className="border-b border-mute-200 last:border-0">
+                    <td className="px-4 py-4">
+                      {new Date(lead.submitted_at).toLocaleString("en-US")}
+                    </td>
+                    <td className="px-4 py-4">
+                      <strong className="block text-navy-900">
+                        {fields.firstName
+                          ? `${fields.firstName} ${fields.lastName ?? ""}`
+                          : fields.name}
+                      </strong>
+                      <span className="text-ink-500">{fields.phone || fields.email}</span>
+                    </td>
+                    <td className="px-4 py-4">{lead.form_id}</td>
+                    <td className="px-4 py-4">{lead.intent}</td>
+                    <td className="px-4 py-4">{lead.priority}</td>
+                    <td className="px-4 py-4">{lead.status}</td>
+                    <td className="px-4 py-4">{attribution?.utm_campaign ?? "—"}</td>
+                    <td className="px-4 py-4">
+                      <DeliveryBadge status={lead.delivery_status} />
+                    </td>
+                    <td className="px-4 py-4">
+                      <Link
+                        className="inline-flex min-h-11 items-center rounded-full px-3 font-semibold text-teal-700"
+                        href={`/admin/leads/${lead.id}`}
+                      >
+                        View
+                      </Link>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
     </main>
+  );
+}
+
+function FilterSelect({
+  name,
+  label,
+  value: selected,
+  options,
+}: {
+  name: string;
+  label: string;
+  value?: string;
+  options: string[];
+}) {
+  return (
+    <label className="text-sm font-semibold text-navy-900">
+      {label}
+      <select
+        name={name}
+        defaultValue={selected ?? ""}
+        className="mt-2 min-h-11 w-full rounded-xl border border-mute-300 bg-white px-3"
+      >
+        <option value="">All</option>
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option.replaceAll("_", " ")}
+          </option>
+        ))}
+      </select>
+    </label>
+  );
+}
+
+function DeliveryBadge({ status }: { status: string }) {
+  const tone =
+    status === "delivered"
+      ? "bg-teal-100 text-teal-800"
+      : status === "failed"
+        ? "bg-red-100 text-red-800"
+        : "bg-amber-100 text-amber-900";
+  return (
+    <span className={`inline-flex rounded-full px-3 py-1 font-semibold ${tone}`}>{status}</span>
   );
 }

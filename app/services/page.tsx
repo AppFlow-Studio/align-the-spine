@@ -58,7 +58,7 @@ export default function ServicesPage() {
           variant: leadFormVariants.carAccident.variant,
           fields: leadFormVariants.carAccident.fields,
           footerNote:
-            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
+            "One verified office in Deerfield Beach; call to confirm current service and visit eligibility.",
         }}
       />
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />

@@ -93,5 +93,5 @@ export function buildLeadFormSchema(fields: LeadFieldConfig[]) {
     shape[field.name] = required ? fieldSchema : z.literal("").or(fieldSchema);
   }
 
-  return z.object(shape);
+  return z.object(shape).strict();
 }

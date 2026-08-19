@@ -19,6 +19,15 @@ const variants = {
     "p-4 gap-3 bg-navy-900 font-sans text-button text-white hover:bg-navy-700 focus-visible:outline-navy-900",
   /* Teal/calc: #58a0a0, Poppins Medium 16 white, trailing arrow */
   teal: "p-4 gap-3 bg-[#58A0A0] font-sans text-button font-medium text-white hover:brightness-110 focus-visible:outline-teal-500",
+  /* White-on-dark primary action (form submit buttons on a solid navy-900
+   * panel, e.g. ServiceAreaHero/BlogHero/LeadFormPopup): a flat teal fill
+   * at rest read as an odd, out-of-place accent color there (reported) —
+   * white matches every other filled CTA on those same dark panels (e.g.
+   * the "Call" button), with teal reserved for the hover state instead, so
+   * it still reads as this site's accent color without being the button's
+   * resting color. */
+  white:
+    "p-4 gap-3 bg-white font-sans text-button text-navy-900 hover:bg-teal-500 hover:text-white focus-visible:outline-white",
   /* Big CTA: #253067, Poppins 22 white, circular arrow badge left.
    * Scales down below sm so it can't outgrow a 375px viewport (ATS-112). */
   cta: "p-4 gap-4 bg-navy-900 font-sans text-button text-white hover:bg-navy-700 focus-visible:outline-navy-900 sm:p-5 sm:gap-6 sm:text-btn-lg",
@@ -43,6 +52,7 @@ const variants = {
 const arrowSize = {
   primary: "h-5 w-5",
   teal: "h-5 w-5",
+  white: "h-5 w-5",
   cta: "h-6 w-6",
   glass: "",
   ghost: "h-5 w-5",
@@ -110,6 +120,7 @@ export function Button({
       )}
       {(variant === "primary" ||
         variant === "teal" ||
+        variant === "white" ||
         variant === "ghost" ||
         variant === "nav-pill") &&
         (loading ? (

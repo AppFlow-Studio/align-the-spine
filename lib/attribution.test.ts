@@ -2,23 +2,24 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 import { captureAttribution, getStoredAttribution, sanitizeAttribution } from "./attribution";
 
-/** No jsdom in this project (vitest.config.ts runs a plain node
- * environment) — these two functions only touch `window.location.search`
- * and `window.sessionStorage`, so a minimal mock covers them without
- * pulling in a browser DOM implementation for one test file. `store` lives
- * outside `navigateTo` so it persists across calls within a test, the same
- * way real sessionStorage persists across page navigations in one tab. */
 let store: Map<string, string>;
 
-function navigateTo(search: string) {
+function navigateTo(search: string, pathname = "/landing") {
   (globalThis as { window?: unknown }).window = {
-    location: { search },
+    location: {
+      search,
+      pathname,
+      origin: "https://example.test",
+      href: `https://example.test${pathname}${search}`,
+    },
     sessionStorage: {
       getItem: (key: string) => store.get(key) ?? null,
-      setItem: (key: string, value: string) => {
-        store.set(key, value);
-      },
+      setItem: (key: string, value: string) => store.set(key, value),
     },
+  };
+  (globalThis as { document?: unknown }).document = {
+    referrer: "https://google.com/search?q=private-query",
+    cookie: "_ga=GA1.1.123.456; _fbp=fb.1.abc",
   };
 }
 
@@ -27,69 +28,55 @@ describe("attribution capture", () => {
     store = new Map();
     navigateTo("");
   });
-
   afterEach(() => {
     delete (globalThis as { window?: unknown }).window;
+    delete (globalThis as { document?: unknown }).document;
   });
 
-  it("captures gclid from the URL", () => {
-    navigateTo("?gclid=abc123");
+  it("captures allowlisted click/campaign values plus first-party context", () => {
+    navigateTo("?gclid=abc123&utm_source=google&utm_id=campaign-1&irrelevant=private");
     captureAttribution();
-    expect(getStoredAttribution()).toEqual({ gclid: "abc123" });
-  });
-
-  it("captures every known attribution param present, ignoring unknown ones", () => {
-    navigateTo("?gclid=abc123&utm_source=google&utm_campaign=accident-lp&irrelevant=1");
-    captureAttribution();
-    expect(getStoredAttribution()).toEqual({
+    expect(getStoredAttribution()).toMatchObject({
       gclid: "abc123",
       utm_source: "google",
-      utm_campaign: "accident-lp",
+      utm_id: "campaign-1",
+      initialLandingPath: "/landing",
+      latestLandingPath: "/landing",
+      referrerHost: "google.com",
+      gaClientId: "123.456",
+      fbp: "fb.1.abc",
     });
+    expect(JSON.stringify(getStoredAttribution())).not.toContain("private-query");
+    expect(JSON.stringify(getStoredAttribution())).not.toContain("irrelevant");
   });
 
-  it("does nothing when the URL carries no attribution params", () => {
-    navigateTo("?ref=nav");
+  it("preserves the initial landing and updates only the latest path", () => {
     captureAttribution();
-    expect(getStoredAttribution()).toEqual({});
-  });
-
-  it("merges a later page's params without dropping an earlier gclid", () => {
-    navigateTo("?gclid=abc123");
+    navigateTo("", "/contact-us");
     captureAttribution();
-
-    navigateTo(""); // visitor navigates to a page with no query params
-    captureAttribution();
-
-    expect(getStoredAttribution()).toEqual({ gclid: "abc123" });
-  });
-
-  it("returns an empty object when nothing has been captured yet", () => {
-    expect(getStoredAttribution()).toEqual({});
+    expect(getStoredAttribution()).toMatchObject({
+      initialLandingPath: "/landing",
+      latestLandingPath: "/contact-us",
+    });
   });
 });
 
-describe("sanitizeAttribution (server-side, untrusted input)", () => {
-  it("keeps only known keys with string values", () => {
-    expect(sanitizeAttribution({ gclid: "abc123", evil: "<script>", nested: { a: 1 } })).toEqual({
-      gclid: "abc123",
-    });
+describe("sanitizeAttribution", () => {
+  it("keeps only allowlisted typed values and path-only landing data", () => {
+    expect(
+      sanitizeAttribution({
+        gclid: "abc123",
+        initialLandingPath: "/safe",
+        latestLandingPath: "/unsafe?secret=1",
+        gaSessionNumber: 3,
+        evil: "<script>",
+      }),
+    ).toEqual({ gclid: "abc123", initialLandingPath: "/safe", gaSessionNumber: 3 });
   });
 
-  it("drops non-string values for known keys instead of coercing them", () => {
-    expect(sanitizeAttribution({ gclid: 12345 })).toEqual({});
-    expect(sanitizeAttribution({ gclid: null })).toEqual({});
-    expect(sanitizeAttribution({ gclid: ["abc"] })).toEqual({});
-  });
-
-  it("caps an absurdly long value instead of rejecting the whole payload", () => {
-    const result = sanitizeAttribution({ gclid: "a".repeat(1000) });
-    expect(result.gclid).toHaveLength(512);
-  });
-
-  it("returns an empty object for non-object input", () => {
+  it("caps values and rejects malformed input", () => {
+    expect(sanitizeAttribution({ gclid: "a".repeat(1000) }).gclid).toHaveLength(512);
     expect(sanitizeAttribution(null)).toEqual({});
-    expect(sanitizeAttribution("not an object")).toEqual({});
-    expect(sanitizeAttribution(undefined)).toEqual({});
+    expect(sanitizeAttribution({ gaSessionNumber: "3" })).toEqual({});
   });
 });

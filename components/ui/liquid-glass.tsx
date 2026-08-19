@@ -18,11 +18,13 @@ export function LiquidGlass({
   children,
   className,
   radius = "rounded-3xl",
+  id,
 }: {
   children: ReactNode;
   className?: string;
   /** Tailwind rounding utility applied to the card and every glass layer. */
   radius?: string;
+  id?: string;
 }) {
   const glassBody: CSSProperties = {
     filter: "drop-shadow(-8px -10px 46px #0000005f)",
@@ -36,7 +38,7 @@ export function LiquidGlass({
   };
 
   return (
-    <div className={cn("relative overflow-hidden", radius, className)}>
+    <div id={id} className={cn("relative overflow-hidden", radius, className)}>
       <div className={cn("absolute inset-0", radius)} style={glassBody}>
         <div className={cn("absolute inset-0", radius)} style={edgeHighlight} />
       </div>

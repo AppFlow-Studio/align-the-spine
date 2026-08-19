@@ -24,7 +24,7 @@ describe("robots", () => {
     expect(robots().rules).toEqual({
       userAgent: "*",
       allow: "/",
-      disallow: ["/api/", "/thank-you"],
+      disallow: ["/api/", "/admin/", "/preview/", "/thank-you"],
     });
   });
 

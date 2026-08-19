@@ -83,16 +83,25 @@ function RegionLabel({
 /** Detail panel for the selected region. Always rendered in one dedicated slot — beside the
  * diagram on desktop, below the list on mobile — rather than floating next to the selected
  * hotspot: with real copy the panel (~400px+ tall) dwarfs the 56-130px gaps between hotspots,
- * so a per-region floating position overlaps neighboring labels and the section heading. */
+ * so a per-region floating position overlaps neighboring labels and the section heading.
+ *
+ * Both the desktop and mobile branches mount their own copy of this panel once a region is
+ * selected (only CSS/`hidden md:flex`/`md:hidden` toggles which is visible), so `headingAs`
+ * defaults to "h3" for the mobile instance (mobile-first: what mobile-first indexing sees)
+ * and the desktop call site passes "p" — otherwise selecting a region would put the same
+ * region name into the DOM as two identical <h3>s at once. */
 function SelectedPanel({
   region,
   ctaLabel,
   className,
+  headingAs = "h3",
 }: {
   region: BodyRegion;
   ctaLabel: string;
   className?: string;
+  headingAs?: "h3" | "p";
 }) {
+  const HeadingTag = headingAs;
   return (
     <div
       className={cn(" border-l-4 border-teal-500 bg-white p-6 text-left shadow-card", className)}
@@ -100,9 +109,9 @@ function SelectedPanel({
       <p className="font-sans text-[13px] font-semibold uppercase tracking-[1.25px] text-teal-500">
         Selected
       </p>
-      <h3 className="mt-2 font-display text-[20px] leading-[26px] font-medium text-navy-800">
+      <HeadingTag className="mt-2 font-display text-[20px] leading-[26px] font-medium text-navy-800">
         {region.name}
-      </h3>
+      </HeadingTag>
       <p className="mt-2 font-sans text-[15px] leading-[24px] text-ink-500">{region.description}</p>
       <Link
         href={region.href ?? siteConfig.bookingCta.href}
@@ -285,7 +294,12 @@ export function PointToWhereItHurts({ content }: PointToWhereItHurtsProps) {
                 transition={reduceMotion ? { duration: 0 } : { duration: 0.4, ease: "easeOut" }}
                 className="shrink-0"
               >
-                <SelectedPanel region={selected} ctaLabel={ctaLabel} className="w-[380px]" />
+                <SelectedPanel
+                  region={selected}
+                  ctaLabel={ctaLabel}
+                  className="w-[380px]"
+                  headingAs="p"
+                />
               </motion.div>
             )}
           </AnimatePresence>

@@ -81,7 +81,9 @@ export function LocationIntro({ sendHref = "/#contact" }: LocationIntroProps) {
             radius="rounded-none"
             className="absolute p-7 w-[90%] mx-auto max-w-md left-7 bottom-7 bg-white border-l-4 border-teal-500"
           >
-            <h2 className="font-display text-3xl text-button">Palm Plaza</h2>
+            {/* h3, not h2: this is a photo caption inside the "Serving South
+             * Florida" section above, not its own top-level section. */}
+            <h3 className="font-display text-3xl text-button">Palm Plaza</h3>
             <p className="mt-1 font-alt text-footer-copy text-lg">
               After you enter the plaza, we are the building on the far-right corner.
             </p>
