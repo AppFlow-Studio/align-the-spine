@@ -15,6 +15,7 @@ import { HowWeTreat } from "@/components/sections/how-we-treat";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { PointToWhereItHurts } from "@/components/sections/point-to-where-it-hurts";
 import { RelatedConditions } from "@/components/sections/related-conditions";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
@@ -99,6 +100,12 @@ const sciaticaTypes = [
 export default function SciaticaPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "" },
+          { name: "Sciatica", path: "/conditions/sciatica" },
+        ]}
+      />
       <HeroSolidPanel
         background={sciaticaHero.backgroundImage}
         eyebrow={sciaticaHero.eyebrowChip}
@@ -111,7 +118,7 @@ export default function SciaticaPage() {
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,
           footerNote:
-            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
+            "One verified office in Deerfield Beach; call to confirm whether an office visit or limited eligible accident-related home visit fits.",
         }}
       />
 

@@ -39,7 +39,8 @@ export function StaggerGroup({
   return (
     <motion.div
       className={className}
-      initial="hidden"
+      /* Fail visible when client animation cannot initialize. */
+      initial={false}
       whileInView="visible"
       viewport={{ once: true, margin: "-80px" }}
       variants={containerVariants}

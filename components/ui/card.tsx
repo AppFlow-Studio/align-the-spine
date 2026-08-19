@@ -3,9 +3,9 @@ import type { ElementType, HTMLAttributes } from "react";
 import { cn } from "@/lib/cn";
 
 const radii = {
-  15: "",
-  20: "",
-  30: "",
+  15: "rounded-15",
+  20: "rounded-20",
+  30: "rounded-30",
 } as const;
 
 const shadows = {

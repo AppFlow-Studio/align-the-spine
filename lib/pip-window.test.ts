@@ -13,14 +13,15 @@ describe("calculatePipWindow", () => {
     const result = calculatePipWindow(daysAgo(0), TODAY);
     expect(result.status).toBe("active");
     expect(result.daysRemaining).toBe(PIP_WINDOW_DAYS);
-    expect(result.message).toContain("14 days left");
+    expect(result.message).toContain("14 days remain");
+    expect(result.message).toContain("Coverage and eligibility depend");
   });
 
   it("mid-window → correct days remaining, active", () => {
     const result = calculatePipWindow(daysAgo(5), TODAY);
     expect(result.status).toBe("active");
     expect(result.daysRemaining).toBe(9);
-    expect(result.message).toContain("9 days left");
+    expect(result.message).toContain("9 days remain");
   });
 
   it("last active day before urgency threshold", () => {
@@ -33,21 +34,22 @@ describe("calculatePipWindow", () => {
     const result = calculatePipWindow(daysAgo(11), TODAY);
     expect(result.status).toBe("urgent");
     expect(result.daysRemaining).toBe(3);
-    expect(result.message).toContain("Only 3 days left");
+    expect(result.message).toContain("3 days remain");
   });
 
   it("1 day left → urgent, singular copy", () => {
     const result = calculatePipWindow(daysAgo(13), TODAY);
     expect(result.status).toBe("urgent");
     expect(result.daysRemaining).toBe(1);
-    expect(result.message).toContain("Only 1 day left");
+    expect(result.message).toContain("1 day remains");
   });
 
   it("day 14 → last day, urgent", () => {
     const result = calculatePipWindow(daysAgo(14), TODAY);
     expect(result.status).toBe("urgent");
     expect(result.daysRemaining).toBe(0);
-    expect(result.message).toContain("last day");
+    expect(result.message).toContain("ends today");
+    expect(result.message).toContain("qualified professional");
   });
 
   it("day 15 → expired", () => {

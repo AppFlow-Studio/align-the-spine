@@ -40,7 +40,7 @@ export function HeroReviewsCarousel({ testimonials }: HeroReviewsCarouselProps) 
 
   return (
     <div
-      className="bg-white py-5 relative"
+      className="bg-white py-2 relative"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
@@ -48,11 +48,11 @@ export function HeroReviewsCarousel({ testimonials }: HeroReviewsCarouselProps) 
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-linear-to-t from-white via-white/80 to-transparent"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-white via-white/80 to-transparent"
       />
 
       <div className="container">
-        <div className="bg-white py-18">
+        <div className="bg-white py-8">
           {/* ATS-E4 (4.11): omitted entirely when there are no real,
            * client-approved testimonials — an empty bordered row with
            * nothing in it read as a layout bug, not "nothing to show yet". */}

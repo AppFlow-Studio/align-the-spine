@@ -2,6 +2,7 @@ import { doctorCredentials, doctorProfileContent } from "@/content/doctor-profil
 import type { FAQ } from "@/content/faqs";
 import type { Service } from "@/content/services";
 import { siteConfig } from "@/content/site";
+import { isVerified } from "@/content/verified-value";
 
 /** Stable @id anchors reused across every builder in this file and every
  * page that references another entity (e.g. Person.worksFor, WebSite.
@@ -88,6 +89,12 @@ export interface OpeningHoursSpec {
   closes: string;
 }
 
+export interface AggregateRatingSchema {
+  "@type": "AggregateRating";
+  ratingValue: number;
+  reviewCount: number;
+}
+
 export interface MedicalBusinessSchema {
   "@context": "https://schema.org";
   "@type": "MedicalBusiness";
@@ -105,9 +112,10 @@ export interface MedicalBusinessSchema {
     addressCountry: string;
   };
   geo: { "@type": "GeoCoordinates"; latitude: number; longitude: number };
-  areaServed: { "@type": "City"; name: string }[];
+  areaServed?: { "@type": "City"; name: string }[];
   parentOrganization: { "@id": string };
   openingHoursSpecification?: OpeningHoursSpec[];
+  aggregateRating?: AggregateRatingSchema;
 }
 
 /** MedicalBusiness entity for the practice (ATS schema ticket §2.2/§2.3) —
@@ -117,9 +125,12 @@ export interface MedicalBusinessSchema {
  * `["MedicalClinic", "LocalBusiness"]` type array. `openingHoursSpecification`
  * only renders once siteConfig.hoursVerified is true (§2.9) — every day is
  * currently the same untouched 9-7 placeholder, unconfirmed by the client.
- * `parentOrganization` links this clinic entity back to the brand-level
- * Organization entity (buildOrganization) so a JSON-LD consumer sees one
- * connected graph instead of two same-named, unrelated entities. */
+ * `aggregateRating` only renders once siteConfig.reviewsRating is verified,
+ * same gating pattern — the rating/count it publishes is the exact figure
+ * already shown on /reviews and in the homepage hero's trust line, never a
+ * placeholder. `parentOrganization` links this clinic entity back to the
+ * brand-level Organization entity (buildOrganization) so a JSON-LD consumer
+ * sees one connected graph instead of two same-named, unrelated entities. */
 export function buildMedicalBusiness(): MedicalBusinessSchema {
   return {
     "@context": "https://schema.org",
@@ -142,7 +153,14 @@ export function buildMedicalBusiness(): MedicalBusinessSchema {
       latitude: siteConfig.business.geo.latitude,
       longitude: siteConfig.business.geo.longitude,
     },
-    areaServed: siteConfig.serviceAreas.map((city) => ({ "@type": "City", name: city })),
+    ...(siteConfig.serviceAreasVerified
+      ? {
+          areaServed: siteConfig.serviceAreas.map((city) => ({
+            "@type": "City" as const,
+            name: city,
+          })),
+        }
+      : {}),
     parentOrganization: { "@id": ORGANIZATION_ID },
     ...(siteConfig.hoursVerified
       ? {
@@ -152,6 +170,15 @@ export function buildMedicalBusiness(): MedicalBusinessSchema {
             opens: to24Hour(hours.open),
             closes: to24Hour(hours.close),
           })),
+        }
+      : {}),
+    ...(isVerified(siteConfig.reviewsRating)
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating" as const,
+            ratingValue: siteConfig.reviewsRating.value.rating,
+            reviewCount: siteConfig.reviewsRating.value.count,
+          },
         }
       : {}),
   };
@@ -236,7 +263,7 @@ export interface ServiceSchema {
   name: string;
   description: string;
   provider: { "@id": string };
-  areaServed: { "@type": "City"; name: string }[];
+  areaServed?: { "@type": "City"; name: string }[];
   url: string;
 }
 
@@ -258,8 +285,98 @@ export function buildService(service: Service): ServiceSchema {
     name: service.name,
     description: service.summary,
     provider: { "@id": MEDICAL_BUSINESS_ID },
-    areaServed: siteConfig.serviceAreas.map((city) => ({ "@type": "City", name: city })),
+    ...(siteConfig.serviceAreasVerified
+      ? {
+          areaServed: siteConfig.serviceAreas.map((city) => ({
+            "@type": "City" as const,
+            name: city,
+          })),
+        }
+      : {}),
     url,
+  };
+}
+
+export interface ServiceAreaSchemaInput {
+  slug: string;
+  communityName: string;
+  metaDescription: string;
+}
+
+/** Service entity scoped to one published service-area page's own verified
+ * community — never the global (unverified) siteConfig.serviceAreas list.
+ * Safe by construction: publication-gates.ts already requires evidence and
+ * an approved relationship before a service-area record can be public, so
+ * any item this runs against has already passed that gate. */
+export function buildServiceAreaSchema(item: ServiceAreaSchemaInput): ServiceSchema {
+  const url = `${siteConfig.siteUrl}/service-areas/${item.slug}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": url,
+    name: `Chiropractic care for ${item.communityName} residents`,
+    description: item.metaDescription,
+    provider: { "@id": MEDICAL_BUSINESS_ID },
+    areaServed: [{ "@type": "City", name: item.communityName }],
+    url,
+  };
+}
+
+export interface MedicalWebPageSchema {
+  "@context": "https://schema.org";
+  "@type": "MedicalWebPage";
+  "@id": string;
+  url: string;
+  name: string;
+  description: string;
+  inLanguage: "en-US";
+  datePublished?: string;
+  dateModified: string;
+  author: { "@id": string };
+  publisher: { "@id": string };
+  mainEntityOfPage: string;
+  medicalAudience: { "@type": "MedicalAudience"; audienceType: string };
+  about: { "@type": "MedicalTherapy"; name: string };
+}
+
+export interface MedicalWebPageInput {
+  path: string;
+  name: string;
+  description: string;
+  dateModified: string;
+  datePublished?: string;
+  /** What the page is substantively about, e.g. "Chiropractic care after a
+   * motor vehicle accident" — kept generic/topical, not a diagnosis claim. */
+  aboutTopic: string;
+}
+
+/** MedicalWebPage entity for content pages discussing chiropractic/injury
+ * care (service-area and blog-article pages) — distinct from the
+ * MedicalBusiness/Service entities, which describe the practice and its
+ * offerings, not this specific page's content, authorship, and freshness.
+ * Deliberately omits `reviewedBy`/`lastReviewed`: this codebase's own
+ * publication gate discloses that formal clinician medical review has NOT
+ * happened for this content (see static-service-area-repository.ts's
+ * GATE_RESULT) — claiming a review via schema would contradict that
+ * disclosure, so only authorship/dates/audience are asserted, nothing that
+ * implies clinical sign-off. */
+export function buildMedicalWebPage(input: MedicalWebPageInput): MedicalWebPageSchema {
+  const url = `${siteConfig.siteUrl}${input.path}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "@id": `${url}#webpage`,
+    url,
+    name: input.name,
+    description: input.description,
+    inLanguage: "en-US",
+    ...(input.datePublished ? { datePublished: input.datePublished } : {}),
+    dateModified: input.dateModified,
+    author: { "@id": DR_ABE_PERSON_ID },
+    publisher: { "@id": ORGANIZATION_ID },
+    mainEntityOfPage: url,
+    medicalAudience: { "@type": "MedicalAudience", audienceType: "Patient" },
+    about: { "@type": "MedicalTherapy", name: input.aboutTopic },
   };
 }
 

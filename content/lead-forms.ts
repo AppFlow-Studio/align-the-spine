@@ -68,15 +68,10 @@ export const leadFormVariants = {
   },
   /** /car-accident-chiropractor hero form: same First/Last/Phone/Email
    * fields as heroEval, but accidentDateField instead of carAccidentField
-   * — see that field's own doc comment for why. Single-step (not
-   * heroEval's twoStep on desktop — this page's HeroSolidPanel doesn't set
-   * `twoStep`), matching every other HeroSolidPanel page's desktop form;
-   * the mobile floating card is always two-step regardless of variant (see
-   * hero-solid-panel.tsx), so that stays consistent with every other page
-   * automatically. Already in lib/analytics.ts's HIGH_PRIORITY_VARIANTS,
-   * so dropping carAccidentField here doesn't lose priority
-   * classification — the variant alone is enough since the whole page is
-   * accident-framed. */
+   * — see that field's own doc comment for why. Already in
+   * lib/analytics.ts's HIGH_PRIORITY_VARIANTS, so dropping carAccidentField
+   * here doesn't lose priority classification — the variant alone is
+   * enough since the whole page is accident-framed. */
   accidentEval: {
     variant: "accidentEval",
     fields: [...baseFields, accidentDateField],
@@ -132,34 +127,12 @@ export const leadFormVariants = {
     fields: [...baseFields.filter((field) => field.name !== "email"), zipField, carAccidentField],
     submitLabel: "Check Eligibility",
   },
-  /** Two-step /book hero form per the Book-appt artboard: step 1 collects
-   * first name + phone, step 2 the rest. No email field by design.
-   * ATS-E3 (3.4): the free-text "notes" field is gone — a broad reason
-   * select only, no open-ended detailed health notes. Also carries its own
-   * "Accident" option in `reason`, which classifyLeadPriority treats as
-   * equivalent to carAccidentField — kept as-is rather than duplicated
-   * alongside a second, redundant accident question on this one form. */
+  /** Single-step /book form: first name, last name, email, phone, and the
+   * same carAccidentField every other full form uses — no free-text
+   * "reason" select, no two-step gating. */
   booking: {
     variant: "booking",
-    fields: [
-      { name: "firstName", label: "First Name", autoComplete: "given-name" },
-      { name: "phone", label: "Phone", type: "tel", autoComplete: "tel" },
-      { name: "lastName", label: "Last Name", autoComplete: "family-name" },
-      {
-        name: "reason",
-        label: "Reason for Visit",
-        type: "select",
-        placeholder: "Select a reason",
-        options: [
-          { label: "Back pain", value: "back-pain" },
-          { label: "Neck pain", value: "neck-pain" },
-          { label: "Sciatica", value: "sciatica" },
-          { label: "Accident", value: "accident" },
-          { label: "Home visit", value: "home-visit" },
-          { label: "Other", value: "other" },
-        ],
-      },
-    ],
+    fields: [...baseFields, carAccidentField],
     submitLabel: "Schedule My Evaluation",
   },
 } satisfies Record<string, LeadFormVariantConfig>;
