@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { errorId } from "@/components/ui/field";
 import { LeadConsent } from "@/components/ui/lead-consent";
 import type { LeadFormValues } from "@/components/ui/lead-form";
+import { siteConfig } from "@/content/site";
 import { trackLeadConversion } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
 import {
@@ -122,7 +123,7 @@ export function UnderlineForm({
               type={inputType(type)}
               inputMode={type === "zip" ? "numeric" : undefined}
               autoComplete={field.autoComplete}
-              placeholder={type === "tel" ? "(954) 573-7192" : field.placeholder}
+              placeholder={type === "tel" ? siteConfig.business.phone : field.placeholder}
               maxLength={type === "tel" ? 14 : undefined}
               aria-invalid={error ? true : undefined}
               aria-describedby={error ? errorId(`underline-${field.name}`) : undefined}

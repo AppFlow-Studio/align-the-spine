@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { LeadConsent } from "@/components/ui/lead-consent";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { siteConfig } from "@/content/site";
 import { trackLeadConversion } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
 import {
@@ -143,7 +144,7 @@ function renderField(field: LeadFieldConfig, opts: RenderFieldOptions) {
         inputMode="tel"
         variant={fieldVariant}
         outline={fieldOutline}
-        placeholder={field.placeholder ?? "(954) 573-7192"}
+        placeholder={field.placeholder ?? siteConfig.business.phone}
         autoComplete={field.autoComplete}
         error={error}
         className={spanClass}

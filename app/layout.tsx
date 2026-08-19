@@ -44,8 +44,7 @@ export const metadata: Metadata = {
     default: `${siteConfig.business.name} | South Florida's Chiropractor`,
     template: `%s | ${siteConfig.business.name}`,
   },
-  description:
-    "Spinal health care in Deerfield Beach, FL — car accident evaluations and home visits when it fits your case. Call (954) 573-7192.",
+  description: `Spinal health care in Deerfield Beach, FL — car accident evaluations and home visits when it fits your case. Call ${siteConfig.business.phone}.`,
   openGraph: {
     siteName: siteConfig.business.name,
     type: "website",

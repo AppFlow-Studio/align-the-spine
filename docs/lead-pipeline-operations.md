@@ -30,8 +30,10 @@ Sheets.
    `GOOGLE_SHEETS_WEBHOOK_SECRET`. The encryption key must be exactly 32 bytes
    before base64 encoding.
 6. Set `LEAD_REPOSITORY_MODE=supabase` only in the approved staging environment.
-7. Set `LEAD_TO_EMAIL` to the client's monitoring inbox
-   (`chiromarketing27@gmail.com`) and `RESEND_API_KEY` to a real key.
+7. Set `LEAD_TO_EMAIL` to the comma-separated monitoring inboxes
+   (`chiromarketing27@gmail.com,info@chirobackpain.com`), `LEAD_FROM_EMAIL`
+   to a real address on the Resend-verified sending domain
+   (`info@chirobackpain.com`), and `RESEND_API_KEY` to a real key.
 8. Exercise synthetic, non-patient test submissions before any real traffic.
 
 ## Google Sheets webhook
@@ -75,13 +77,23 @@ second time. The `_delivery_events` sheet is hidden but should remain protected.
 
 ## Email delivery
 
-Every submission is also emailed via Resend to `LEAD_TO_EMAIL`
-(`chiromarketing27@gmail.com` — the client's monitoring inbox). The email is
-plain text: lead fields, form/priority/intent, source page, and campaign
-attribution. It never contains a link to any internal dashboard — there isn't
-one. `LEAD_EMAIL_INCLUDE_SENSITIVE` (default `false`) keeps the free-text
-`message`/`accidentDate` fields out of the email body entirely unless
-explicitly turned on.
+Two branded HTML emails (`lib/leads/email/`) send via Resend on every
+submission, plain-text fallback included on both:
+
+- **Office notification** — to every address in `LEAD_TO_EMAIL` (comma-
+  separated; currently `chiromarketing27@gmail.com,info@chirobackpain.com`).
+  Reply-To is the lead's own email, so replying reaches the patient directly.
+  It never contains a link to any internal dashboard — there isn't one.
+  `LEAD_EMAIL_INCLUDE_SENSITIVE` (default `false`) keeps the free-text
+  `message`/`accidentDate` fields out of the email body entirely unless
+  explicitly turned on.
+- **Patient acknowledgment** — to the lead's own email, when the submitted
+  form collected one. Confirms the request was received, never that an
+  appointment is confirmed; copy varies only by the `general`/`car_accident`
+  intent already computed server-side.
+
+Both send from `LEAD_FROM_EMAIL` (a real address on the Resend-verified
+`chirobackpain.com` sending domain — currently `info@chirobackpain.com`).
 
 ## Worker schedule and delivery
 

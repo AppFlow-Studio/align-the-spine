@@ -5,6 +5,7 @@ import { ServiceAreaHero } from "@/components/content/service-area-hero";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { JsonLd } from "@/components/seo/json-ld";
 import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
+import { siteConfig } from "@/content/site";
 import { listPublicContent } from "@/lib/content/public-content";
 import { buildMedicalBusiness } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -55,10 +56,10 @@ export default async function ServiceAreasPage() {
       >
         <div className="mt-6 flex flex-wrap gap-3">
           <a
-            href="tel:+19545737192"
+            href={siteConfig.business.phoneHref}
             className="inline-flex min-h-11 items-center rounded-full bg-white px-6 font-semibold text-navy-900 transition-colors hover:bg-mute-300"
           >
-            Call (954) 573-7192
+            Call {siteConfig.business.phone}
           </a>
           <Link
             href="/book-an-appointment"

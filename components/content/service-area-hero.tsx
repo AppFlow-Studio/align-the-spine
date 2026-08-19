@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { CheckIcon } from "@/components/ui/icons/check";
 import { LeadForm } from "@/components/ui/lead-form";
+import { MobileLeadPreviewCard } from "@/components/ui/mobile-lead-preview-card";
 import { leadFormVariants } from "@/content/lead-forms";
 import { siteConfig } from "@/content/site";
 
@@ -194,21 +195,33 @@ export function ServiceAreaHero({
        * panel below `lg`... */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 hidden h-px bg-gradient-to-r from-transparent via-teal-300/50 to-transparent lg:block" />
 
-      {/* Mobile-only form card, right under the content column. A plain
-       * positive gap, not a negative-margin overlap onto the content
-       * column's bottom edge: that column's height varies (trust chips can
-       * wrap 2-3 lines depending on city-name length), and every negative
-       * value tried here still ended up landing on the real Office/Call
-       * text at some wrap width instead of staying inside the card's own
-       * padding (ATS-145, reported twice — do not reintroduce a negative
-       * margin here even though HeroSolidPanel's own mobile card uses one;
-       * that page doesn't have this variable-height trust-chip/Office row
-       * above it). A positive gap can't ever overlap regardless of how tall
-       * the content above it gets. Solid navy-900, not glass, here too —
-       * matching the desktop panel and the homepage's own mobile card. */}
+      {/* Mobile-only compact tap-to-expand card, right under the content
+       * column — owner direction 2026-08-19 (matching a reference client's
+       * mobile CRO pattern, same conversion already applied to
+       * HeroSolidPanel/Hero): two field previews + one CTA instead of the
+       * full multi-field eligibility form shown immediately. Tapping it
+       * opens the exact same validated LeadForm in the site's existing
+       * popup (ATS-142) — no new submission path.
+       *
+       * Still a plain positive gap, NOT a negative-margin overlap onto the
+       * photo/content column above: that column's height varies (trust
+       * chips wrap 2-3 lines depending on city-name length), and a fixed
+       * negative offset previously landed on the real Office/Call text at
+       * some wrap width regardless of how short the card itself was — the
+       * risk is in the unpredictable position of what's above it, not the
+       * card's own height (ATS-145, reported twice — do not reintroduce a
+       * negative margin here even though HeroSolidPanel's own mobile card
+       * uses one; that page doesn't have this variable-height trust-chip/
+       * Office row above it). This intentionally diverges from a reference
+       * screenshot's literal photo-overlapping card for that reason. */}
       <div className="container relative z-10 mt-3 flex flex-col gap-4 pb-10 lg:hidden">
-        <div className="rounded-3xl bg-navy-900 p-6 shadow-card" id="eligibility-form-mobile">
-          {formFields("h2")}
+        <div id="eligibility-form-mobile">
+          <MobileLeadPreviewCard
+            heading={eligibilityHeading}
+            formVariant={leadFormVariants.eligibility.variant as "eligibility"}
+            submitLabel={leadFormVariants.eligibility.submitLabel}
+            microcopy="Same-day availability considered — no obligation."
+          />
         </div>
         <Button variant="white" href={phoneHref} className="w-full justify-center">
           Call Now: {phone}
