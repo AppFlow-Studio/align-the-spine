@@ -92,7 +92,7 @@ export default function SpinalDecompressionPage() {
         subhead={spinalDecompressionHero.subhead}
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
         form={{
-          heading: "Schedule Your Evaluation",
+          heading: "Request Your Evaluation",
           submitLabel: leadFormVariants.heroEval.submitLabel,
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,
@@ -295,7 +295,7 @@ export default function SpinalDecompressionPage() {
             href={siteConfig.bookingCta.href}
             className="w-fit shrink-0 rounded-none!"
           >
-            Schedule my Evaluation
+            Request My Evaluation
           </Button>
         </Container>
       </Section>

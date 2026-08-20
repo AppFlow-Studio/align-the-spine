@@ -1,3 +1,4 @@
+import { pointToWhereItHurtsContent } from "@/content/point-to-where-it-hurts";
 import type { LeadFieldConfig } from "@/lib/lead-form-schema";
 
 export interface LeadFormVariantConfig {
@@ -64,7 +65,7 @@ export const leadFormVariants = {
   heroEval: {
     variant: "heroEval",
     fields: [...baseFields, carAccidentField],
-    submitLabel: "Schedule My Evaluation",
+    submitLabel: "Request a Chiropractic Appointment",
   },
   /** /car-accident-chiropractor hero form: same First/Last/Phone/Email
    * fields as heroEval, but accidentDateField instead of carAccidentField
@@ -77,10 +78,15 @@ export const leadFormVariants = {
    * so dropping carAccidentField here doesn't lose priority
    * classification — the variant alone is enough since the whole page is
    * accident-framed. */
+  // ATS-E5b Step 1A: deliberately kept without email — decision confirmed
+  // 2026-08-20 (owner: Munis dev) to match the Figma hero card exactly
+  // rather than grow the card's height. Known trade-off: a lead with a
+  // mistyped phone number and no email is unreachable. Revisit if accident
+  // lead follow-up ever becomes a problem in practice.
   accidentEval: {
     variant: "accidentEval",
     fields: [...baseFields, accidentDateField],
-    submitLabel: "Schedule My Evaluation",
+    submitLabel: "Request My Evaluation",
   },
   /** /contact-us hero form: single Name field (not First/Last), Phone,
    * Email, and a Message textarea — matches the Figma hero card exactly. */
@@ -101,7 +107,7 @@ export const leadFormVariants = {
   carAccident: {
     variant: "carAccident",
     fields: [...baseFields, carAccidentField],
-    submitLabel: "Schedule My Car Accident Evaluation",
+    submitLabel: "Request My Evaluation",
   },
   /** /reviews hero form — same fields as heroEval, own variant key purely
    * so leads from this placement are distinguishable in the /api/lead log
@@ -110,7 +116,7 @@ export const leadFormVariants = {
   reviewsEval: {
     variant: "reviewsEval",
     fields: [...baseFields, carAccidentField],
-    submitLabel: "Schedule My Evaluation",
+    submitLabel: "Request a Chiropractic Appointment",
   },
   contact: {
     variant: "contact",
@@ -133,18 +139,31 @@ export const leadFormVariants = {
     submitLabel: "Check Eligibility",
   },
   /** Two-step /book hero form per the Book-appt artboard: step 1 collects
-   * first name + phone, step 2 the rest. No email field by design.
-   * ATS-E3 (3.4): the free-text "notes" field is gone — a broad reason
-   * select only, no open-ended detailed health notes. Also carries its own
-   * "Accident" option in `reason`, which classifyLeadPriority treats as
-   * equivalent to carAccidentField — kept as-is rather than duplicated
-   * alongside a second, redundant accident question on this one form. */
+   * first name + phone, step 2 the rest.
+   *
+   * ATS-E5b: carries the full general field model (§3) — was missing email
+   * and area-of-pain entirely. Field order matters here: the form renders
+   * `half: true` pairs two-per-row, so first/last and phone/email must be
+   * adjacent pairs, not first/phone/last/reason (which rendered as
+   * First+Phone on row one, Last+Reason on row two — an incoherent grid).
+   * `painArea` options are derived from the body-map content
+   * (content/point-to-where-it-hurts.ts), not hand-duplicated — that file
+   * feeds both this form and the body-map component itself, so the two
+   * region lists can't drift apart.
+   *
+   * ATS-E3 (3.4): the free-text "notes" field is still gone — a broad
+   * reason select only, no open-ended detailed health notes. `reason` also
+   * still carries its own "Accident" option, which classifyLeadPriority
+   * treats as equivalent to carAccidentField — kept as-is rather than
+   * duplicated alongside a second, redundant accident question on this one
+   * form. */
   booking: {
     variant: "booking",
     fields: [
-      { name: "firstName", label: "First Name", autoComplete: "given-name" },
-      { name: "phone", label: "Phone", type: "tel", autoComplete: "tel" },
-      { name: "lastName", label: "Last Name", autoComplete: "family-name" },
+      { name: "firstName", label: "First Name", half: true, autoComplete: "given-name" },
+      { name: "lastName", label: "Last Name", half: true, autoComplete: "family-name" },
+      { name: "phone", label: "Phone", type: "tel", half: true, autoComplete: "tel" },
+      { name: "email", label: "Email", type: "email", half: true, autoComplete: "email" },
       {
         name: "reason",
         label: "Reason for Visit",
@@ -159,8 +178,18 @@ export const leadFormVariants = {
           { label: "Other", value: "other" },
         ],
       },
+      {
+        name: "painArea",
+        label: "Area of Pain",
+        type: "select",
+        placeholder: "Select an area",
+        options: pointToWhereItHurtsContent.regions.map((region) => ({
+          label: region.name,
+          value: region.id,
+        })),
+      },
     ],
-    submitLabel: "Schedule My Evaluation",
+    submitLabel: "Request an Appointment",
   },
 } satisfies Record<string, LeadFormVariantConfig>;
 

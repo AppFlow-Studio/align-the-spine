@@ -110,7 +110,7 @@ export default function NeckPainPage() {
         subhead={neckPainHero.subhead}
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
         form={{
-          heading: "Schedule Your Evaluation",
+          heading: "Request Your Evaluation",
           submitLabel: leadFormVariants.heroEval.submitLabel,
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,

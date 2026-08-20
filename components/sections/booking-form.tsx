@@ -34,9 +34,12 @@ function SquareButton({
 }
 
 /** Two-step booking form per the Book-appt artboard (ATS-100): step 1 asks
- * first name + phone ("Continue"), step 2 the remaining fields ("Schedule My
- * Evaluation"). Submits through the ATS-031 pipeline (/api/lead → /thank-you)
- * with the "booking" variant re-validated server-side. */
+ * first name + phone ("Continue"), step 2 the remaining fields
+ * ("Request an Appointment", ATS-E5b). Submits through the ATS-031 pipeline
+ * (/api/lead → /thank-you) with the "booking" variant re-validated
+ * server-side. Renders `config.fields` generically in a single column —
+ * `field.half` is ignored here (unlike the grid <LeadForm> uses), so
+ * content/lead-forms.ts's field order controls the visible order directly. */
 export function BookingForm() {
   const router = useRouter();
   const [step, setStep] = useState<1 | 2>(1);

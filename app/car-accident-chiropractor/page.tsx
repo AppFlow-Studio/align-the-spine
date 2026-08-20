@@ -93,7 +93,7 @@ export default function AutoAccidentsPage() {
         bilingualNote="¿Habla español? Dr. Abe habla su idioma."
         stat={pipStat}
         form={{
-          heading: "Schedule Your Car Accident Evaluation",
+          heading: "Request Your Evaluation",
           submitLabel: leadFormVariants.accidentEval.submitLabel,
           variant: leadFormVariants.accidentEval.variant,
           fields: leadFormVariants.accidentEval.fields,
@@ -132,7 +132,7 @@ export default function AutoAccidentsPage() {
             </p>
           </div>
           <Button variant="teal" href={siteConfig.bookingCta.href} className="w-fit shrink-0">
-            Schedule my Evaluation
+            Request My Evaluation
           </Button>
         </Container>
       </Section>

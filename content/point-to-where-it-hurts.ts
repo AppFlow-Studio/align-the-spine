@@ -48,7 +48,7 @@ export const pointToWhereItHurtsContent: PointToWhereItHurtsContent = {
   },
   video: "https://align-the-spine.b-cdn.net/images/spine-straight.mp4",
   videoPoster: "/figma-exports/spine-hunched-poster.jpg",
-  ctaLabel: "Schedule now",
+  ctaLabel: "Request Now",
   regions: [
     {
       id: "headaches",
