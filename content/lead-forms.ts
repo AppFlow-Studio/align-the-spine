@@ -1,4 +1,3 @@
-import { pointToWhereItHurtsContent } from "@/content/point-to-where-it-hurts";
 import type { LeadFieldConfig } from "@/lib/lead-form-schema";
 
 export interface LeadFormVariantConfig {

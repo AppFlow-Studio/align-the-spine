@@ -16,8 +16,19 @@ const appDir = join(__dirname);
  * intentionally minimal (see app/thank-you/page.tsx's own doc comment) —
  * a breadcrumb trail back to pages the visitor just finished with adds
  * nothing there. Not in content/seo.ts's registry either, for the same
- * reason (see that file's own comment). */
+ * reason (see that file's own comment). /admin/* is internal, auth-gated
+ * tooling, not part of the site's public SEO structure — LINK-02 is about
+ * crawlable pages, and admin routes are neither crawlable nor meant to be. */
 const EXCLUDED_ROUTES = new Set(["", "/thank-you"]);
+const EXCLUDED_PREFIXES = ["/admin"];
+
+/** /blog/[slug] genuinely renders visible breadcrumbs, just through nested
+ * components (ContentArticle → BlogArticleHero, or ContentArticle's own
+ * fallback nav when there's no featured image) that this source-scanning
+ * check can't see into — the page itself never types `breadcrumbs={` or
+ * `<BreadcrumbTrail` literally. Verified directly in both components'
+ * source rather than assumed. */
+const NESTED_BREADCRUMB_ALLOWLIST = new Set(["/blog/[slug]"]);
 
 function collectPageFiles(dir: string, routePath = ""): { route: string; file: string }[] {
   const found: { route: string; file: string }[] = [];
@@ -34,11 +45,25 @@ function collectPageFiles(dir: string, routePath = ""): { route: string; file: s
 }
 
 describe("LINK-02: breadcrumbs render on every non-home page", () => {
-  const pages = collectPageFiles(appDir).filter(({ route }) => !EXCLUDED_ROUTES.has(route));
+  const pages = collectPageFiles(appDir).filter(
+    ({ route }) =>
+      !EXCLUDED_ROUTES.has(route) &&
+      !EXCLUDED_PREFIXES.some((prefix) => route.startsWith(prefix)) &&
+      !NESTED_BREADCRUMB_ALLOWLIST.has(route),
+  );
 
   it.each(pages)("$route has breadcrumbs wired in", ({ file }) => {
     const source = readFileSync(file, "utf8");
     const hasBreadcrumbs = /breadcrumbs=\{/.test(source) || /<BreadcrumbTrail\b/.test(source);
     expect(hasBreadcrumbs, `${file} has no breadcrumbs prop or <BreadcrumbTrail>`).toBe(true);
+  });
+
+  it("keeps the nested-breadcrumb allowlist free of stale entries", () => {
+    const routes = new Set(collectPageFiles(appDir).map((p) => p.route));
+    for (const route of NESTED_BREADCRUMB_ALLOWLIST) {
+      expect(routes.has(route), `${route} no longer exists — remove it from the allowlist`).toBe(
+        true,
+      );
+    }
   });
 });

@@ -397,6 +397,9 @@ export const routes: RouteMeta[] = [
     changeFrequency: "weekly",
     priority: 0.8,
     lastModified: "2026-08-16",
+    primaryQuery: "chiropractic & accident-recovery editorial hub",
+    justification:
+      "Owns long-tail informational/blog intent distinct from every commercial page — individual articles (/blog/[slug]) are the actual ranking targets, this index just lists them.",
   },
   {
     path: "/service-areas",
@@ -410,6 +413,9 @@ export const routes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.7,
     lastModified: "2026-08-16",
+    primaryQuery: "nearby-city service-area coverage index",
+    justification:
+      "Owns the coverage-area explainer; deliberately does not build thin near-duplicate per-city landing pages (see the SEO task list's explicit 'do not build thin near-duplicate city pages' rule) — individual /service-areas/[slug] pages must stay genuinely differentiated, not templated city swaps.",
   },
 ];
 

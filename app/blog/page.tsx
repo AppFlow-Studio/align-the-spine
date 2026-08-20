@@ -52,15 +52,16 @@ export default async function BlogPage({
     const qs = query.toString();
     return qs ? `/blog?${qs}` : "/blog";
   };
+  const breadcrumbs = [
+    { name: "Home", path: "" },
+    { name: "Blog", path: "/blog" },
+  ];
+
   return (
     <div className="bg-panel-100 pb-24">
-      <BreadcrumbJsonLd
-        items={[
-          { name: "Home", path: "" },
-          { name: "Blog", path: "/blog" },
-        ]}
-      />
+      <BreadcrumbJsonLd items={breadcrumbs} />
       <BlogHero
+        breadcrumbs={breadcrumbs}
         eyebrow="Patient resources"
         title="Chiropractic & Accident Recovery Resources"
         subhead="Clear information for everyday mobility, preparing for care, and navigating the days after a car accident—grounded in one Deerfield Beach office and careful about what still needs confirmation."
