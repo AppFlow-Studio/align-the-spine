@@ -9,7 +9,6 @@ import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel
 import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { HowHePractices } from "@/components/sections/how-he-practices";
 import { PhotoGallery } from "@/components/sections/photo-gallery";
-import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { JsonLd } from "@/components/seo/json-ld";
 import { doctorHistoryContent, doctorProfileContent } from "@/content/doctor-profile";
 import { getRoute } from "@/content/seo";
@@ -34,13 +33,11 @@ export default function AboutPage() {
   return (
     <>
       <JsonLd data={buildPerson()} />
-      <BreadcrumbJsonLd
-        items={[
+      <HeroSolidPanel
+        breadcrumbs={[
           { name: "Home", path: "" },
           { name: "About", path: "/about" },
         ]}
-      />
-      <HeroSolidPanel
         background={{
           src: "/figma-exports/dr-abe-neck.png",
           alt: "Dr. Abe Nasser treating a patient's neck",

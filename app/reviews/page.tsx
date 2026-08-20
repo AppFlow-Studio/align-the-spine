@@ -5,6 +5,8 @@ import { LocationFooter } from "@/components/layout/location-footer";
 import { LocationIntro } from "@/components/layout/location-intro";
 import { ContactSection } from "@/components/sections/contact-section";
 import { ReviewsCarousel } from "@/components/sections/reviews-carousel";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { BreadcrumbTrail } from "@/components/seo/breadcrumb-trail";
 import { Container } from "@/components/ui/container";
 import { LeadForm } from "@/components/ui/lead-form";
 import { Rating } from "@/components/ui/rating";
@@ -36,8 +38,14 @@ export default function ReviewsPage() {
   const reviews = siteConfig.reviewsRating;
   const otherStats = getVerifiedStats().filter((stat) => stat.label !== "Reviews");
 
+  const breadcrumbs = [
+    { name: "Home", path: "" },
+    { name: "Reviews", path: "/reviews" },
+  ];
+
   return (
     <>
+      <BreadcrumbJsonLd items={breadcrumbs} />
       <section className="relative flex flex-col overflow-hidden lg:-mt-[176px] lg:min-h-[860px] lg:flex-row pt-10">
         <div className="relative min-h-[560px] min-w-0 lg:min-h-full lg:flex-1">
           <Image
@@ -63,6 +71,7 @@ export default function ReviewsPage() {
                * (previously max-w-xl on its own) reached far enough right to
                * run into her. */}
               <div className="max-w-lg">
+                <BreadcrumbTrail items={breadcrumbs} className="mb-4" />
                 <h1 className="font-display text-5xl font-medium text-white">
                   Patient Reviews for Align the Spine Chiropractic
                 </h1>

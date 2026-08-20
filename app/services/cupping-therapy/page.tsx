@@ -31,6 +31,11 @@ export default function CuppingTherapyPage() {
   return (
     <>
       <HeroSolidPanel
+        breadcrumbs={[
+          { name: "Home", path: "" },
+          { name: "Services", path: "/services" },
+          { name: "Cupping Therapy", path: "/services/cupping-therapy" },
+        ]}
         background={cuppingTherapyHero.backgroundImage}
         eyebrow={cuppingTherapyHero.eyebrowChip}
         title={cuppingTherapyHero.h1}

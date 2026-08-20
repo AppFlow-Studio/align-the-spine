@@ -100,6 +100,10 @@ export default function SciaticaPage() {
   return (
     <>
       <HeroSolidPanel
+        breadcrumbs={[
+          { name: "Home", path: "" },
+          { name: "Sciatica", path: "/conditions/sciatica" },
+        ]}
         background={sciaticaHero.backgroundImage}
         eyebrow={sciaticaHero.eyebrowChip}
         title={sciaticaHero.h1}

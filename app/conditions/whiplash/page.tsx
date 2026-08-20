@@ -106,6 +106,10 @@ export default function WhiplashPage() {
   return (
     <>
       <HeroSolidPanel
+        breadcrumbs={[
+          { name: "Home", path: "" },
+          { name: "Whiplash", path: "/conditions/whiplash" },
+        ]}
         background={whiplashHero.backgroundImage}
         eyebrow={whiplashHero.eyebrowChip}
         title={whiplashHero.h1}

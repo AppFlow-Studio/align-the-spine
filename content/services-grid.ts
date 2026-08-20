@@ -6,13 +6,15 @@ import { getRouteHref } from "@/content/seo";
  * (duration is unused by the card). Separate from content/services.ts, which
  * feeds the homepage's ServiceListRow list and its own distinct copy.
  *
- * IA-03 (LINK-01 DoD item): the "Car Accidents" and "Cupping Therapy" cards
- * were added so every homepage-listed service's owning page is reachable
- * from this hub too, not just the homepage. Their `href` is resolved
- * through getRouteHref() rather than hardcoded — cupping-therapy is
- * currently `status: "draft"` (pending clinician sign-off, IA-02), so its
- * card falls back to "Book now" until it publishes, instead of linking to a
- * noindex route (LINK-01). The 6 original cards' hrefs are untouched. */
+ * LINK-01: every `href` here is resolved through getRouteHref() rather than
+ * hardcoded. The 3 original cards (adjustments, spinal-decompression,
+ * massage-soft-tissue) previously hardcoded their target path even though
+ * those pages are `status: "draft"` (pending clinician sign-off, IA-02) —
+ * a live violation of "no link may point to a route where indexable: false
+ * or status: draft." Fixed here alongside the "Car Accidents" and "Cupping
+ * Therapy" cards (added under IA-03) and "Headache & Migraine" (newly
+ * mapped to /conditions/cervicogenic-headache). Every one of these falls
+ * back to "Book now" until its target actually publishes. */
 export const servicesGrid: ServiceCardItem[] = [
   {
     slug: "adjustments",
@@ -24,7 +26,7 @@ export const servicesGrid: ServiceCardItem[] = [
       src: "/figma-exports/drabeadjust.png",
       alt: "Dr. Abe performing a chiropractic adjustment",
     },
-    href: "/services/chiropractic-adjustments",
+    href: getRouteHref("/services/chiropractic-adjustments") ?? undefined,
     ctaLabel: "Learn more",
   },
   {
@@ -37,6 +39,8 @@ export const servicesGrid: ServiceCardItem[] = [
       src: "/figma-exports/abe-back-turn.png",
       alt: "Sports injury assessment and treatment",
     },
+    // No dedicated sports-injury page exists — no invented target
+    // (IA-03's "do not invent services" rule).
   },
   {
     slug: "posture-corrective",
@@ -45,6 +49,7 @@ export const servicesGrid: ServiceCardItem[] = [
     summary:
       "Chiropractic evaluation and care for postural strain that can build from desk work, driving, or repetitive movement.",
     image: { src: "/figma-exports/drabe-spine.png", alt: "Posture and corrective spinal care" },
+    // No dedicated posture/corrective page exists either — same rule.
   },
   {
     slug: "spinal-decompression",
@@ -56,7 +61,7 @@ export const servicesGrid: ServiceCardItem[] = [
       src: "/figma-exports/drabe-traction_compression.png",
       alt: "Spinal traction and decompression therapy",
     },
-    href: "/services/spinal-decompression",
+    href: getRouteHref("/services/spinal-decompression") ?? undefined,
     ctaLabel: "Learn more",
   },
   {
@@ -66,6 +71,8 @@ export const servicesGrid: ServiceCardItem[] = [
     summary:
       "Neck-focused evaluation and chiropractic care for headaches with a possible musculoskeletal or cervical component.",
     image: { src: "/figma-exports/drabe-headache.png", alt: "Headache and migraine treatment" },
+    href: getRouteHref("/conditions/cervicogenic-headache") ?? undefined,
+    ctaLabel: "Learn more",
   },
   {
     slug: "massage-soft-tissue",
@@ -74,7 +81,7 @@ export const servicesGrid: ServiceCardItem[] = [
     summary:
       "Myofascial release and targeted soft-tissue care for muscle tension, restricted motion, and injury-related soreness.",
     image: { src: "/figma-exports/drabe-soft-tissue.png", alt: "Massage and soft-tissue therapy" },
-    href: "/services/soft-tissue-therapy",
+    href: getRouteHref("/services/soft-tissue-therapy") ?? undefined,
     ctaLabel: "Learn more",
   },
   {

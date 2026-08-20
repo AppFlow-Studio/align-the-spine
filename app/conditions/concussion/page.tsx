@@ -13,7 +13,6 @@ import { HowWeTreat } from "@/components/sections/how-we-treat";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { RelatedConditions } from "@/components/sections/related-conditions";
 import { SymptomChecklist } from "@/components/sections/symptom-checklist";
-import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
@@ -74,13 +73,11 @@ export const metadata: Metadata = buildRouteMetadata(getRoute("/conditions/concu
 export default function ConcussionPage() {
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
+      <HeroSolidPanel
+        breadcrumbs={[
           { name: "Home", path: "" },
           { name: "Concussion", path: "/conditions/concussion" },
         ]}
-      />
-      <HeroSolidPanel
         background={concussionHero.backgroundImage}
         eyebrow={concussionHero.eyebrowChip}
         title={concussionHero.h1}

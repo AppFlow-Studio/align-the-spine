@@ -56,6 +56,11 @@ export default function ChiropracticAdjustmentsPage() {
   return (
     <>
       <HeroSolidPanel
+        breadcrumbs={[
+          { name: "Home", path: "" },
+          { name: "Services", path: "/services" },
+          { name: "Chiropractic Adjustments", path: "/services/chiropractic-adjustments" },
+        ]}
         background={adjustmentsHero.backgroundImage}
         eyebrow={adjustmentsHero.eyebrowChip}
         title={adjustmentsHero.h1}

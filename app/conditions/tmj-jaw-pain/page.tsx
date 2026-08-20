@@ -10,7 +10,6 @@ import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel
 import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { RelatedConditions } from "@/components/sections/related-conditions";
-import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
@@ -52,13 +51,11 @@ export const metadata: Metadata = buildRouteMetadata(getRoute("/conditions/tmj-j
 export default function TmjJawPainPage() {
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
+      <HeroSolidPanel
+        breadcrumbs={[
           { name: "Home", path: "" },
           { name: "TMJ / Jaw Pain", path: "/conditions/tmj-jaw-pain" },
         ]}
-      />
-      <HeroSolidPanel
         background={tmjJawPainHero.backgroundImage}
         eyebrow={tmjJawPainHero.eyebrowChip}
         title={tmjJawPainHero.h1}

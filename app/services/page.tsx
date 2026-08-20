@@ -8,7 +8,6 @@ import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel
 import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { ServiceCatalog } from "@/components/sections/service-catalog";
-import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { JsonLd } from "@/components/seo/json-ld";
 import { doctorProfileContent } from "@/content/doctor-profile";
 import { leadFormVariants } from "@/content/lead-forms";
@@ -34,16 +33,14 @@ export const metadata: Metadata = buildMetadata(getRoute("/services"));
 export default function ServicesPage() {
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: "Home", path: "" },
-          { name: "Services", path: "/services" },
-        ]}
-      />
       {servicesGrid.map((service) => (
         <JsonLd key={service.slug} data={buildService(service)} />
       ))}
       <HeroSolidPanel
+        breadcrumbs={[
+          { name: "Home", path: "" },
+          { name: "Services", path: "/services" },
+        ]}
         background={{
           src: "/figma-exports/dr-abe-neck.png",
           alt: "Dr. Abe Nasser treating a patient's neck",

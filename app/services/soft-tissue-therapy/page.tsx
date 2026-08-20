@@ -59,6 +59,11 @@ export default function MassageSoftTissuePage() {
   return (
     <>
       <HeroSolidPanel
+        breadcrumbs={[
+          { name: "Home", path: "" },
+          { name: "Services", path: "/services" },
+          { name: "Massage & Soft Tissue", path: "/services/soft-tissue-therapy" },
+        ]}
         background={massageSoftTissueHero.backgroundImage}
         eyebrow={massageSoftTissueHero.eyebrowChip}
         title={massageSoftTissueHero.h1}

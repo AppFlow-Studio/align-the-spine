@@ -81,6 +81,11 @@ export default function SpinalDecompressionPage() {
   return (
     <>
       <HeroSolidPanel
+        breadcrumbs={[
+          { name: "Home", path: "" },
+          { name: "Services", path: "/services" },
+          { name: "Spinal Decompression", path: "/services/spinal-decompression" },
+        ]}
         background={spinalDecompressionHero.backgroundImage}
         eyebrow={spinalDecompressionHero.eyebrowChip}
         title={spinalDecompressionHero.h1}

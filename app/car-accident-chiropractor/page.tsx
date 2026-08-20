@@ -9,7 +9,6 @@ import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel
 import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { HowWeHelpSteps } from "@/components/sections/how-we-help-steps";
 import { PatientReviews } from "@/components/sections/patient-reviews";
-import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
@@ -67,13 +66,11 @@ export const metadata: Metadata = buildMetadata(getRoute("/car-accident-chiropra
 export default function AutoAccidentsPage() {
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
+      <HeroSolidPanel
+        breadcrumbs={[
           { name: "Home", path: "" },
           { name: "Car Accident Chiropractor", path: "/car-accident-chiropractor" },
         ]}
-      />
-      <HeroSolidPanel
         background={hero.backgroundImage}
         eyebrow={hero.eyebrowChip}
         title={
