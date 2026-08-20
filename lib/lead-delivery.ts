@@ -93,6 +93,27 @@ async function sendLeadEmail(lead: LeadRecord): Promise<EmailResult> {
   return { providerResponseId, providerResponseBody: bodyText };
 }
 
+/** ATS-E5a: buckets a failure into a small, fixed set of safe categories —
+ * never the raw error message/response body, which can echo back
+ * request-derived text (a rejected email address, a malformed field, etc.)
+ * and is exactly how PII leaks into a place (the leads table) with looser
+ * access control than the alert email itself. Stored in `error_category`;
+ * see LeadRecord.errorCategory's doc comment. */
+function categorizeDeliveryError(cause: unknown): string {
+  const message = cause instanceof Error ? cause.message : String(cause);
+  if (message.includes("RESEND_API_KEY not set")) return "missing_api_key";
+  if (/^Resend responded 5\d\d/.test(message)) return "provider_outage";
+  if (/^Resend responded 4\d\d/.test(message)) return "provider_rejected";
+  if (
+    message.includes("fetch failed") ||
+    message.includes("ENOTFOUND") ||
+    message.includes("ECONNREFUSED")
+  ) {
+    return "network_error";
+  }
+  return "unknown";
+}
+
 /** 5.6: alerts operators by referencing `leadId` ONLY — the sensitive
  * payload (name, phone, injury details, etc.) never appears in this email,
  * only in the leads table an operator with dashboard access can query.
@@ -154,6 +175,7 @@ export async function deliverLead(lead: LeadRecord): Promise<void> {
       deliveryStatus: "failed",
       retryCount: 0,
       finalFailureState: true,
+      errorCategory: "missing_api_key",
     });
     await alertOperatorsOfFailedDelivery(lead.id, new Error("RESEND_API_KEY not set"));
     return;
@@ -182,6 +204,44 @@ export async function deliverLead(lead: LeadRecord): Promise<void> {
     deliveryStatus: "failed",
     retryCount: MAX_ATTEMPTS - 1,
     finalFailureState: true,
+    errorCategory: categorizeDeliveryError(lastError),
   });
   await alertOperatorsOfFailedDelivery(lead.id, lastError);
+}
+
+/** ATS-E5a Step 6: a distinct, one-shot escalation — "the stuck-pending
+ * safety net itself may be broken" (the retry cron isn't running, or
+ * Supabase itself is unreachable), not "this one lead needs attention"
+ * (that's alertOperatorsOfFailedDelivery, per-lead). Called from
+ * app/api/cron/retry-leads/route.ts after it processes whatever it could
+ * reach — a non-zero count here means leads are accumulating faster than
+ * the net catches them. */
+export async function alertOperatorsOfStuckPendingBacklog(count: number): Promise<void> {
+  const apiKey = process.env.RESEND_API_KEY;
+  const message = `${count} lead(s) have been stuck in 'pending' for over 30 minutes — the retry cron may not be running, or the datastore may be unreachable.`;
+
+  if (!apiKey) {
+    console.error(`[lead-delivery] ESCALATION: ${message}`);
+    return;
+  }
+
+  try {
+    await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: process.env.LEAD_FROM_EMAIL ?? "Align the Spine Website <onboarding@resend.dev>",
+        to: [
+          process.env.LEAD_ALERT_EMAIL ?? process.env.LEAD_TO_EMAIL ?? siteConfig.business.email,
+        ],
+        subject: `[Lead pipeline] ${count} lead(s) stuck pending`,
+        text: `${message}\n\nCheck the leads table directly (delivery_status = 'pending', created_at older than 30 minutes) and confirm the retry cron (app/api/cron/retry-leads) is actually running on schedule.`,
+      }),
+    });
+  } catch (error) {
+    console.error("[lead-delivery] ESCALATION delivery itself failed:", error);
+  }
 }

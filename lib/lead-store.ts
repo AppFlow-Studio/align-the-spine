@@ -23,6 +23,11 @@ export interface LeadRecord {
   retryCount: number;
   finalFailureState: boolean;
   deliveredAt: string | null;
+  /** ATS-E5a: a safe category string (e.g. "provider_error",
+   * "missing_api_key") — never a raw error body/response text, which is
+   * exactly how PII leaks back in through a "debugging" side door. */
+  errorCategory: string | null;
+  failedAt: string | null;
   createdAt: string;
 }
 
@@ -74,6 +79,8 @@ interface LeadRow {
   retry_count: number;
   final_failure_state: boolean;
   delivered_at: string | null;
+  error_category: string | null;
+  failed_at: string | null;
   created_at: string;
 }
 
@@ -91,6 +98,8 @@ function rowToRecord(row: LeadRow): LeadRecord {
     retryCount: row.retry_count,
     finalFailureState: row.final_failure_state,
     deliveredAt: row.delivered_at,
+    errorCategory: row.error_category,
+    failedAt: row.failed_at,
     createdAt: row.created_at,
   };
 }
@@ -154,12 +163,16 @@ export interface DeliveryUpdate {
   providerResponseBody?: string | null;
   retryCount: number;
   finalFailureState: boolean;
+  /** ATS-E5a: safe category only (see LeadRecord.errorCategory's doc
+   * comment) — set on final failure, left undefined on success. */
+  errorCategory?: string | null;
 }
 
 /** Records delivery outcome on an already-durable lead (5.5) — called only
  * from lib/lead-delivery.ts, after persistLead has already resolved. */
 export async function recordDeliveryOutcome(leadId: string, update: DeliveryUpdate): Promise<void> {
   const supabase = getSupabaseAdmin();
+  const now = new Date().toISOString();
   const { error } = await supabase
     .from("leads")
     .update({
@@ -168,7 +181,9 @@ export async function recordDeliveryOutcome(leadId: string, update: DeliveryUpda
       provider_response_body: update.providerResponseBody ?? null,
       retry_count: update.retryCount,
       final_failure_state: update.finalFailureState,
-      delivered_at: update.deliveryStatus === "delivered" ? new Date().toISOString() : null,
+      delivered_at: update.deliveryStatus === "delivered" ? now : null,
+      error_category: update.deliveryStatus === "failed" ? (update.errorCategory ?? null) : null,
+      failed_at: update.deliveryStatus === "failed" ? now : null,
     })
     .eq("id", leadId);
 
@@ -178,4 +193,50 @@ export async function recordDeliveryOutcome(leadId: string, update: DeliveryUpda
     // for operators, not a lost lead, so this logs rather than throwing.
     console.error(`[lead-store] failed to record delivery outcome for ${leadId}:`, error.message);
   }
+}
+
+/** ATS-E5a Step 5: leads whose after() delivery attempt never ran or never
+ * completed — a platform-level miss (function crash/timeout), not a normal
+ * delivery failure (those already resolve to 'failed' via
+ * recordDeliveryOutcome and are never picked up here). `olderThanMs` avoids
+ * racing a lead whose after() callback is still legitimately in flight.
+ * Consumed by app/api/cron/retry-leads/route.ts. */
+export async function findStuckPendingLeads(
+  olderThanMs: number,
+  limit = 20,
+): Promise<LeadRecord[]> {
+  const supabase = getSupabaseAdmin();
+  const cutoff = new Date(Date.now() - olderThanMs).toISOString();
+  const { data, error } = await supabase
+    .from("leads")
+    .select()
+    .eq("delivery_status", "pending")
+    .lt("created_at", cutoff)
+    .order("created_at", { ascending: true })
+    .limit(limit);
+
+  if (error) {
+    throw new Error(`lib/lead-store.ts: failed to query stuck pending leads — ${error.message}`);
+  }
+  return (data as LeadRow[]).map(rowToRecord);
+}
+
+/** ATS-E5a Step 6 (reconciliation): count of leads still pending well past
+ * the retry cron's own cutoff — non-zero means either the cron isn't
+ * running or Supabase itself is unreachable. Used for the escalation alert
+ * distinct from findStuckPendingLeads()'s per-lead retry (this is "is the
+ * safety net itself broken", not "retry this one lead"). */
+export async function countStuckPendingLeads(olderThanMs: number): Promise<number> {
+  const supabase = getSupabaseAdmin();
+  const cutoff = new Date(Date.now() - olderThanMs).toISOString();
+  const { count, error } = await supabase
+    .from("leads")
+    .select("id", { count: "exact", head: true })
+    .eq("delivery_status", "pending")
+    .lt("created_at", cutoff);
+
+  if (error) {
+    throw new Error(`lib/lead-store.ts: failed to count stuck pending leads — ${error.message}`);
+  }
+  return count ?? 0;
 }

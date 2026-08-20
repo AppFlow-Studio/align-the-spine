@@ -31,6 +31,8 @@ describe("lib/lead-delivery: forced failure path", () => {
     retryCount: 0,
     finalFailureState: false,
     deliveredAt: null,
+    errorCategory: null,
+    failedAt: null,
     createdAt: new Date().toISOString(),
   };
 
@@ -39,11 +41,15 @@ describe("lib/lead-delivery: forced failure path", () => {
     vi.mocked(recordDeliveryOutcome).mockClear();
     // Every call to the provider — all MAX_ATTEMPTS retries, plus the
     // operator-alert email — fails. This is the "forced failure" the ticket
-    // asks for.
+    // asks for. mockImplementation (not mockResolvedValue) — a Response
+    // body can only be read once, and sendLeadEmail calls .text() on it, so
+    // reusing one instance across all 4 calls made every attempt after the
+    // first throw an unrelated "body already read" error instead of the
+    // intended 500, masking the real failure category (ATS-E5a caught this).
     global.fetch = vi
       .fn()
-      .mockResolvedValue(
-        new Response("simulated Resend outage", { status: 500 }),
+      .mockImplementation(() =>
+        Promise.resolve(new Response("simulated Resend outage", { status: 500 })),
       ) as unknown as typeof fetch;
   });
 
@@ -60,6 +66,20 @@ describe("lib/lead-delivery: forced failure path", () => {
       lead.id,
       expect.objectContaining({ deliveryStatus: "failed", finalFailureState: true }),
     );
+  });
+
+  it("ATS-E5a: categorizes a provider 5xx as 'provider_outage', never the raw response body", async () => {
+    const { deliverLead } = await import("@/lib/lead-delivery");
+    await deliverLead(lead);
+
+    expect(recordDeliveryOutcome).toHaveBeenCalledWith(
+      lead.id,
+      expect.objectContaining({ errorCategory: "provider_outage" }),
+    );
+    const call = vi
+      .mocked(recordDeliveryOutcome)
+      .mock.calls.find(([, update]) => update.deliveryStatus === "failed");
+    expect(call?.[1].errorCategory).not.toContain("simulated Resend outage");
   });
 
   it("(c) never marks the lead 'delivered' when every attempt fails", async () => {
