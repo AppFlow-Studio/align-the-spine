@@ -7,15 +7,17 @@ import { useForm, type Resolver } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import { errorId } from "@/components/ui/field";
+import { LeadConsent } from "@/components/ui/lead-consent";
 import type { LeadFormValues } from "@/components/ui/lead-form";
-import { stashPendingConversion } from "@/lib/analytics";
-import { getStoredAttribution } from "@/lib/attribution";
+import { siteConfig } from "@/content/site";
+import { trackLeadConversion } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
 import {
   buildLeadFormSchema,
   type LeadFieldConfig,
   type LeadFieldType,
 } from "@/lib/lead-form-schema";
+import { submitLead } from "@/lib/leads/client";
 import { formatUsPhoneAsYouType } from "@/lib/phone-format";
 
 export interface UnderlineFormProps {
@@ -58,6 +60,7 @@ export function UnderlineForm({
   });
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submissionId, setSubmissionId] = useState<string | null>(null);
 
   const onValid = async (values: LeadFormValues, event?: BaseSyntheticEvent) => {
     setSubmitted(false);
@@ -73,22 +76,11 @@ export function UnderlineForm({
     }
 
     try {
-      const response = await fetch("/api/lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          variant,
-          values,
-          website: honeypot?.value ?? "",
-          attribution: getStoredAttribution(),
-        }),
-      });
-      if (!response.ok) {
-        throw new Error(`Lead submission failed with status ${response.status}`);
-      }
-      // Conversion fires on /thank-you itself (ThankYouConversion), not
-      // here — see lib/analytics.ts's stashPendingConversion() doc comment.
-      stashPendingConversion(variant, values);
+      const stableSubmissionId = submissionId ?? crypto.randomUUID();
+      if (!submissionId) setSubmissionId(stableSubmissionId);
+      await submitLead(stableSubmissionId, variant, values, honeypot?.value ?? "");
+      trackLeadConversion(variant, values);
+      setSubmissionId(null);
       router.push("/thank-you");
     } catch {
       setSubmitError("Something went wrong. Please try again.");
@@ -131,7 +123,7 @@ export function UnderlineForm({
               type={inputType(type)}
               inputMode={type === "zip" ? "numeric" : undefined}
               autoComplete={field.autoComplete}
-              placeholder={type === "tel" ? "(954) 573-7192" : field.placeholder}
+              placeholder={type === "tel" ? siteConfig.business.phone : field.placeholder}
               maxLength={type === "tel" ? 14 : undefined}
               aria-invalid={error ? true : undefined}
               aria-describedby={error ? errorId(`underline-${field.name}`) : undefined}
@@ -164,6 +156,8 @@ export function UnderlineForm({
           {submitLabel}
         </Button>
       </div>
+
+      <LeadConsent className="sm:col-span-2" />
 
       {submitError && (
         <p role="alert" className="font-sans text-field-error text-error sm:col-span-2">

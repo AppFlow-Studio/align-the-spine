@@ -77,7 +77,7 @@ export const isIndexable = isPublished;
 export const routes: RouteMeta[] = [
   {
     path: "",
-    title: `Chiropractor in Deerfield Beach, FL | ${siteConfig.business.name}`,
+    title: `Chiropractor in Deerfield Beach, FL | ${siteConfig.business.shortName}`,
     description:
       "Chiropractic care in Deerfield Beach for back pain, neck pain, mobility concerns, and injuries, with focused evaluations after car accidents.",
     image: { src: "/figma-exports/interior-reception.png", alt: "Align the Spine reception area" },
@@ -99,7 +99,7 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/services",
-    title: `Chiropractic Services in Deerfield Beach, FL | ${siteConfig.business.name}`,
+    title: `Chiropractic Services in Deerfield Beach, FL | ${siteConfig.business.shortName}`,
     description:
       "Explore chiropractic services in Deerfield Beach, including adjustments, spinal decompression, soft-tissue care, and sports-injury care from Dr. Abe.",
     image: {
@@ -117,7 +117,7 @@ export const routes: RouteMeta[] = [
     // ATS-E3 (3.4): renamed from "Book" — nothing on this form auto-confirms
     // a slot, it's a request that gets a callback, so "Book" overpromised.
     path: "/book-an-appointment",
-    title: `Request a Chiropractic Appointment | Deerfield Beach, FL | ${siteConfig.business.name}`,
+    title: `Request a Chiropractic Appointment | Deerfield Beach, FL | ${siteConfig.business.shortName}`,
     description:
       "Request a chiropractic appointment with Dr. Abe in Deerfield Beach. Ask whether an office evaluation or eligible home visit fits your needs.",
     image: {
@@ -134,7 +134,7 @@ export const routes: RouteMeta[] = [
   {
     // ATS-E3 (3.1): "Auto" -> "Car" to match the ticket's specified title.
     path: "/car-accident-chiropractor",
-    title: `Car Accident Chiropractor in Deerfield Beach, FL | ${siteConfig.business.name}`,
+    title: `Car Accident Chiropractor in Deerfield Beach, FL | ${siteConfig.business.shortName}`,
     description:
       "See Dr. Abe for a car accident chiropractic evaluation in Deerfield Beach, including care for neck pain, back pain, stiffness, and whiplash symptoms.",
     image: {
@@ -156,7 +156,7 @@ export const routes: RouteMeta[] = [
   // and this file is updated with their name + review date.
   {
     path: "/conditions/back-pain",
-    title: `${backPainHero.h1} | ${siteConfig.business.name}`,
+    title: `${backPainHero.h1} | ${siteConfig.business.shortName}`,
     description: backPainHero.subhead,
     image: backPainHero.backgroundImage,
     changeFrequency: "monthly",
@@ -169,7 +169,7 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/conditions/neck-pain",
-    title: `${neckPainHero.h1} | ${siteConfig.business.name}`,
+    title: `${neckPainHero.h1} | ${siteConfig.business.shortName}`,
     description: neckPainHero.subhead,
     image: neckPainHero.backgroundImage,
     changeFrequency: "monthly",
@@ -182,7 +182,7 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/conditions/sciatica",
-    title: `${sciaticaHero.h1} | ${siteConfig.business.name}`,
+    title: `${sciaticaHero.h1} | ${siteConfig.business.shortName}`,
     description: sciaticaHero.subhead,
     image: sciaticaHero.backgroundImage,
     changeFrequency: "monthly",
@@ -195,7 +195,7 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/conditions/whiplash",
-    title: `${whiplashHero.h1} | ${siteConfig.business.name}`,
+    title: `${whiplashHero.h1} | ${siteConfig.business.shortName}`,
     description: whiplashHero.subhead,
     image: whiplashHero.backgroundImage,
     changeFrequency: "monthly",
@@ -208,7 +208,7 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/conditions/cervicogenic-headache",
-    title: `${cervicogenicHeadacheHero.h1} | ${siteConfig.business.name}`,
+    title: `${cervicogenicHeadacheHero.h1} | ${siteConfig.business.shortName}`,
     description: cervicogenicHeadacheHero.subhead,
     image: cervicogenicHeadacheHero.backgroundImage,
     changeFrequency: "monthly",
@@ -221,7 +221,7 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/conditions/concussion",
-    title: `${concussionHero.h1} | ${siteConfig.business.name}`,
+    title: `${concussionHero.h1} | ${siteConfig.business.shortName}`,
     description: concussionHero.subhead,
     image: concussionHero.backgroundImage,
     changeFrequency: "monthly",
@@ -234,7 +234,7 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/conditions/tmj-jaw-pain",
-    title: `${tmjJawPainHero.h1} | ${siteConfig.business.name}`,
+    title: `${tmjJawPainHero.h1} | ${siteConfig.business.shortName}`,
     description: tmjJawPainHero.subhead,
     image: tmjJawPainHero.backgroundImage,
     changeFrequency: "monthly",
@@ -250,7 +250,7 @@ export const routes: RouteMeta[] = [
   // dislocation..."), so it stays draft until a clinician signs off too.
   {
     path: "/services/chiropractic-adjustments",
-    title: `${adjustmentsHero.h1} | ${siteConfig.business.name}`,
+    title: `${adjustmentsHero.h1} | ${siteConfig.business.shortName}`,
     description: adjustmentsHero.subhead,
     image: adjustmentsHero.backgroundImage,
     changeFrequency: "monthly",
@@ -266,7 +266,7 @@ export const routes: RouteMeta[] = [
   // draft until a clinician signs off too.
   {
     path: "/services/spinal-decompression",
-    title: `${spinalDecompressionHero.h1} | ${siteConfig.business.name}`,
+    title: `${spinalDecompressionHero.h1} | ${siteConfig.business.shortName}`,
     description: spinalDecompressionHero.subhead,
     image: spinalDecompressionHero.backgroundImage,
     changeFrequency: "monthly",
@@ -282,7 +282,7 @@ export const routes: RouteMeta[] = [
   // draft until a clinician signs off too.
   {
     path: "/services/soft-tissue-therapy",
-    title: `${massageSoftTissueHero.h1} | ${siteConfig.business.name}`,
+    title: `${massageSoftTissueHero.h1} | ${siteConfig.business.shortName}`,
     description: massageSoftTissueHero.subhead,
     image: massageSoftTissueHero.backgroundImage,
     changeFrequency: "monthly",
@@ -315,7 +315,7 @@ export const routes: RouteMeta[] = [
   // (noindex, out of the sitemap) until that's confirmed.
   {
     path: "/home-visit-chiropractor",
-    title: `Home Visit Chiropractor in Deerfield Beach, FL | ${siteConfig.business.name}`,
+    title: `Home Visit Chiropractor in Deerfield Beach, FL | ${siteConfig.business.shortName}`,
     description:
       "Ask about a chiropractic home visit from Dr. Abe when travel is difficult and the service fits your case and location. Check eligibility before booking.",
     image: {
@@ -334,7 +334,7 @@ export const routes: RouteMeta[] = [
   // landed in content/testimonials.ts (2026-08-12) — see ReviewsCarousel.
   {
     path: "/reviews",
-    title: `Patient Reviews | ${siteConfig.business.name}`,
+    title: `Patient Reviews | ${siteConfig.business.shortName}`,
     description:
       "Verified patient reviews for Align the Spine Chiropractic in Deerfield Beach, FL.",
     changeFrequency: "monthly",
@@ -364,9 +364,8 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/contact-us",
-    title: `Contact ${siteConfig.business.name} | Deerfield Beach, FL`,
-    description:
-      "Contact Align the Spine Chiropractic at 811 SE 8th Ave, Suite 101, Deerfield Beach, FL, or call (954) 573-7192 about an appointment or visit.",
+    title: `Contact ${siteConfig.business.shortName} | Deerfield Beach, FL`,
+    description: `Contact Align the Spine Chiropractic at 811 SE 8th Ave, Suite 101, Deerfield Beach, FL, or call ${siteConfig.business.phone} about an appointment or visit.`,
     changeFrequency: "monthly",
     priority: 0.6,
     lastModified: "2026-08-12",
@@ -376,7 +375,7 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/privacy-policy",
-    title: `Privacy Policy | ${siteConfig.business.name}`,
+    title: `Privacy Policy | ${siteConfig.business.shortName}`,
     description:
       "How Align the Spine Chiropractic collects, uses, and protects your information, including HIPAA-protected health information.",
     changeFrequency: "yearly",
@@ -385,6 +384,32 @@ export const routes: RouteMeta[] = [
     primaryQuery: "legal/compliance boilerplate — not a search-intent page",
     justification:
       "Required legal page, not built to rank; kept indexable (low priority) since noindexing a privacy policy has no SEO benefit and it's linked from the footer.",
+  },
+  {
+    path: "/blog",
+    title: `Chiropractic & Accident Recovery Resources | ${siteConfig.business.shortName}`,
+    description:
+      "Helpful, source-aware chiropractic, mobility, accident-care, and Florida PIP resources from Align the Spine Chiropractic in Deerfield Beach.",
+    image: {
+      src: "/figma-exports/interior-reception.png",
+      alt: "Align the Spine Chiropractic reception area in Deerfield Beach",
+    },
+    changeFrequency: "weekly",
+    priority: 0.8,
+    lastModified: "2026-08-16",
+  },
+  {
+    path: "/service-areas",
+    title: `Service Areas | ${siteConfig.business.shortName}`,
+    description:
+      "See the verified Deerfield Beach office and how nearby in-office visits differ from limited, case-and-location-confirmed accident home-visit eligibility.",
+    image: {
+      src: "/figma-exports/exterior-img.png",
+      alt: "Exterior of the Deerfield Beach office building",
+    },
+    changeFrequency: "monthly",
+    priority: 0.7,
+    lastModified: "2026-08-16",
   },
 ];
 

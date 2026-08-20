@@ -53,7 +53,7 @@ export default function HomeVisitsPage() {
           variant: leadFormVariants.eligibility.variant,
           fields: leadFormVariants.eligibility.fields,
           footerNote:
-            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
+            "One verified office in Deerfield Beach; home visits are limited to eligible car-accident/PIP circumstances and require case and location confirmation.",
         }}
       />
 

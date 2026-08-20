@@ -11,6 +11,8 @@ import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { RelatedConditions } from "@/components/sections/related-conditions";
 import { ServiceIntro } from "@/components/sections/service-intro";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
@@ -23,6 +25,7 @@ import type { ConditionRelatedLink } from "@/content/conditions/types";
 import { doctorProfileContent } from "@/content/doctor-profile";
 import { leadFormVariants } from "@/content/lead-forms";
 import { getRoute } from "@/content/seo";
+import { servicesGrid } from "@/content/services-grid";
 import { siteConfig } from "@/content/site";
 import {
   decompressionConditions,
@@ -32,9 +35,12 @@ import {
 } from "@/content/spinal-decompression-page";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
 import { cn } from "@/lib/cn";
+import { buildService } from "@/lib/schema";
 import { buildRouteMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildRouteMetadata(getRoute("/services/spinal-decompression"));
+
+const service = servicesGrid.find((item) => item.slug === "spinal-decompression")!;
 
 const relatedMidPageHeading = "Often needed alongside other post-accident care";
 
@@ -80,6 +86,14 @@ const relatedMidPage: ConditionRelatedLink[] = [
 export default function SpinalDecompressionPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "" },
+          { name: "Services", path: "/services" },
+          { name: "Spinal Decompression", path: "/services/spinal-decompression" },
+        ]}
+      />
+      <JsonLd data={buildService(service)} />
       <HeroSolidPanel
         breadcrumbs={[
           { name: "Home", path: "" },
@@ -97,7 +111,7 @@ export default function SpinalDecompressionPage() {
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,
           footerNote:
-            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
+            "One verified office in Deerfield Beach; call to confirm whether an office visit or limited eligible accident-related home visit fits.",
         }}
       />
 

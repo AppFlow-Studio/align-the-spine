@@ -1,3 +1,6 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import Script from "next/script";
 
 import { GTM_ID } from "@/lib/analytics";
@@ -9,7 +12,8 @@ import { GTM_ID } from "@/lib/analytics";
  * written for static HTML; Google's Next.js integration docs use this same
  * pattern). Renders nothing when NEXT_PUBLIC_GTM_ID is unset. */
 export function GtmScript() {
-  if (!GTM_ID) return null;
+  const pathname = usePathname();
+  if (!GTM_ID || pathname.startsWith("/admin") || pathname.startsWith("/preview")) return null;
 
   return (
     <Script id="gtm-init" strategy="afterInteractive">

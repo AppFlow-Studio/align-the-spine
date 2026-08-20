@@ -10,6 +10,8 @@ import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel
 import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { ServiceIntro } from "@/components/sections/service-intro";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
@@ -21,9 +23,13 @@ import { autoAccidentCondition } from "@/content/conditions/auto-accident";
 import { doctorProfileContent } from "@/content/doctor-profile";
 import { leadFormVariants } from "@/content/lead-forms";
 import { getRoute } from "@/content/seo";
+import { servicesGrid } from "@/content/services-grid";
 import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
+import { buildService } from "@/lib/schema";
 import { buildRouteMetadata } from "@/lib/seo/metadata";
+
+const service = servicesGrid.find((item) => item.slug === "adjustments")!;
 
 export const metadata: Metadata = buildRouteMetadata(
   getRoute("/services/chiropractic-adjustments"),
@@ -55,6 +61,14 @@ export const metadata: Metadata = buildRouteMetadata(
 export default function ChiropracticAdjustmentsPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "" },
+          { name: "Services", path: "/services" },
+          { name: "Chiropractic Adjustments", path: "/services/chiropractic-adjustments" },
+        ]}
+      />
+      <JsonLd data={buildService(service)} />
       <HeroSolidPanel
         breadcrumbs={[
           { name: "Home", path: "" },
@@ -72,7 +86,7 @@ export default function ChiropracticAdjustmentsPage() {
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,
           footerNote:
-            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
+            "One verified office in Deerfield Beach; call to confirm whether an office visit or limited eligible accident-related home visit fits.",
         }}
       />
 
@@ -162,11 +176,12 @@ export default function ChiropracticAdjustmentsPage() {
           spinal decompression
         </Link>{" "}
         may be the better starting point, sometimes combined with adjustment once acute pressure is
-        relieved. If your accident happened within the last 14 days, evaluation now protects your{" "}
+        relieved. Florida PIP rules can involve time-sensitive initial-care requirements; coverage
+        and eligibility depend on the policy and circumstances. An evaluation does not guarantee{" "}
         <Link href="/car-accident-chiropractor" className="underline">
           PIP benefits
-        </Link>{" "}
-        before the window closes.
+        </Link>
+        .
       </ServiceIntro>
 
       <DoctorProfile variant="short" content={doctorProfileContent} />

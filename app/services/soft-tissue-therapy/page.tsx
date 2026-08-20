@@ -11,6 +11,8 @@ import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { RelatedConditions } from "@/components/sections/related-conditions";
 import { ServiceIntro } from "@/components/sections/service-intro";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -27,12 +29,16 @@ import {
 } from "@/content/massage-soft-tissue-page";
 import { sciaticaRelatedBottom } from "@/content/sciatica-page";
 import { getRoute } from "@/content/seo";
+import { servicesGrid } from "@/content/services-grid";
 import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
 import { cn } from "@/lib/cn";
+import { buildService } from "@/lib/schema";
 import { buildRouteMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildRouteMetadata(getRoute("/services/soft-tissue-therapy"));
+
+const service = servicesGrid.find((item) => item.slug === "massage-soft-tissue")!;
 
 /** /services/massage-soft-tissue — dedicated, hand-built page, same
  * per-page pattern as the condition pages (ATS-137) and
@@ -58,6 +64,14 @@ export const metadata: Metadata = buildRouteMetadata(getRoute("/services/soft-ti
 export default function MassageSoftTissuePage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "" },
+          { name: "Services", path: "/services" },
+          { name: "Massage & Soft-Tissue Therapy", path: "/services/soft-tissue-therapy" },
+        ]}
+      />
+      <JsonLd data={buildService(service)} />
       <HeroSolidPanel
         breadcrumbs={[
           { name: "Home", path: "" },
@@ -75,7 +89,7 @@ export default function MassageSoftTissuePage() {
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,
           footerNote:
-            "Serving Deerfield Beach, Boca Raton, Fort Lauderdale, and surrounding South Florida communities.",
+            "One verified office in Deerfield Beach; call to confirm whether an office visit or limited eligible accident-related home visit fits.",
         }}
       />
 

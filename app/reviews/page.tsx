@@ -7,15 +7,19 @@ import { ContactSection } from "@/components/sections/contact-section";
 import { ReviewsCarousel } from "@/components/sections/reviews-carousel";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { BreadcrumbTrail } from "@/components/seo/breadcrumb-trail";
+import { JsonLd } from "@/components/seo/json-ld";
+import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { LeadForm } from "@/components/ui/lead-form";
 import { Rating } from "@/components/ui/rating";
+import { ScrollToFormButton } from "@/components/ui/scroll-to-form-button";
 import { Section } from "@/components/ui/section";
 import { leadFormVariants } from "@/content/lead-forms";
 import { getRoute } from "@/content/seo";
 import { getVerifiedStats, siteConfig } from "@/content/site";
 import { testimonials } from "@/content/testimonials";
 import { isVerified } from "@/content/verified-value";
+import { buildMedicalBusiness } from "@/lib/schema";
 import { buildRouteMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildRouteMetadata(getRoute("/reviews"));
@@ -45,8 +49,14 @@ export default function ReviewsPage() {
 
   return (
     <>
-      <BreadcrumbJsonLd items={breadcrumbs} />
-      <section className="relative flex flex-col overflow-hidden lg:-mt-[176px] lg:min-h-[860px] lg:flex-row pt-10">
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "" },
+          { name: "Reviews", path: "/reviews" },
+        ]}
+      />
+      <JsonLd data={buildMedicalBusiness()} />
+      <section className="relative flex flex-col overflow-hidden -mt-[100px] lg:-mt-[176px] lg:min-h-[860px] lg:flex-row">
         <div className="relative min-h-[560px] min-w-0 lg:min-h-full lg:flex-1">
           <Image
             src="https://align-the-spine.b-cdn.net/images/review-page-hero.png"
@@ -54,7 +64,7 @@ export default function ReviewsPage() {
             fill
             priority
             sizes="(min-width: 1024px) 62vw, 100vw"
-            className="object-cover object-[75%_center]"
+            className="object-cover object-[75%_15%] lg:object-[75%_center]"
           />
           {/* Warm charcoal (not flat black) wash. Below `lg` the photo is
            * full-bleed and the text column spans its full width, so it
@@ -65,7 +75,16 @@ export default function ReviewsPage() {
            * shot for no reason. */}
           <div className="absolute inset-0 bg-[#2a2318]/45 lg:bg-gradient-to-r lg:from-[#2a2318]/70 lg:via-[#2a2318]/35 lg:to-transparent" />
           <Container>
-            <div className="container relative z-10 flex h-full flex-col justify-start pt-[120px] pb-16 lg:pb-16 lg:pt-[170px] lg:pr-12">
+            {/* pt-[224px] lg:pt-[276px], not the original pt-[120px]: this
+             * section bleeds up over the fixed 100px navbar the same way
+             * BlogHero/ServiceAreaHero do (-mt-[100px] lg:-mt-[176px] above),
+             * so content only actually clears the navbar once padding-top
+             * exceeds that bleed by a safe margin. 120px netted just 20px of
+             * real clearance, putting the H1 mostly behind the opaque navbar
+             * on mobile (reported: "the header ... blocks the header"). These
+             * values match BlogHero's own already-verified-safe numbers for
+             * the identical bleed pattern. */}
+            <div className="container relative z-10 flex h-full flex-col justify-start pt-[224px] pb-16 lg:pb-16 lg:pt-[276px] lg:pr-12">
               {/* max-w-lg caps the whole text column, not just the H1 — at
                * lg+ the photo is wide enough that an unconstrained subhead
                * (previously max-w-xl on its own) reached far enough right to
@@ -79,6 +98,24 @@ export default function ReviewsPage() {
                   A perfect 5.0 rating from 164 real patients speaks for itself — see why South
                   Florida trusts Dr. Abe with their recovery, then start yours today.
                 </p>
+
+                {/* Mobile-only, above the fold: the real request form sits
+                 * further down the page (in normal flow, not floating), so
+                 * without this a mobile visitor had to scroll past the
+                 * whole rating/stat block before reaching any CTA at all
+                 * (ATS-145). Desktop already shows the form beside the
+                 * photo, so this is redundant there. */}
+                <div className="mt-6 flex flex-wrap gap-3 lg:hidden">
+                  <Button variant="teal" href={siteConfig.business.phoneHref} className="w-fit">
+                    Call Now: {siteConfig.business.phone}
+                  </Button>
+                  <ScrollToFormButton
+                    targetIds={["reviews-form"]}
+                    triggerClassName="inline-flex min-h-11 items-center rounded-full border border-white px-6 font-semibold text-white transition-colors hover:bg-white/10"
+                  >
+                    Request an appointment
+                  </ScrollToFormButton>
+                </div>
 
                 {/* Big rating callout — the page's central trust signal, per
                  * the CRO brief: a 5.0/164-review social-proof anchor sized
@@ -122,7 +159,10 @@ export default function ReviewsPage() {
           </Container>
         </div>
 
-        <div className="relative flex flex-col bg-navy-900 px-6 pb-16 pt-10 sm:px-10 lg:w-[640px] lg:shrink-0 lg:px-16 lg:pb-16 lg:pt-[170px] xl:w-[760px] 2xl:w-[800px]">
+        <div
+          id="reviews-form"
+          className="relative flex flex-col bg-navy-900 px-6 pb-16 pt-10 sm:px-10 lg:w-[640px] lg:shrink-0 lg:px-16 lg:pb-16 lg:pt-[170px] xl:w-[760px] 2xl:w-[800px]"
+        >
           <LeadForm
             heading="Experience 5-Star Care Yourself"
             variant={leadFormVariants.reviewsEval.variant}
@@ -135,8 +175,8 @@ export default function ReviewsPage() {
             className="gap-y-4"
           />
           <p className="mt-6 font-sans text-body-lg text-mute-300">
-            Same-day appointments often available. Serving Deerfield Beach, Boca Raton, Fort
-            Lauderdale, and surrounding South Florida communities.
+            Align the Spine Chiropractic has one verified office in Deerfield Beach. Call to confirm
+            current appointment availability.
           </p>
         </div>
       </section>

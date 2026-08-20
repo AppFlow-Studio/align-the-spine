@@ -15,12 +15,13 @@ const appDir = join(__dirname, "..", "app");
 /** Walks app/ collecting every route path with a page.tsx — "" for the root
  * page, "/services" for app/services/page.tsx, etc. */
 function collectPageRoutes(dir: string, routePath = ""): string[] {
+  if (routePath.startsWith("/admin")) return [];
   const found: string[] = [];
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
     const fullPath = join(dir, entry.name);
     if (entry.isDirectory()) {
       found.push(...collectPageRoutes(fullPath, `${routePath}/${entry.name}`));
-    } else if (entry.name === "page.tsx") {
+    } else if (entry.name === "page.tsx" && !routePath.includes("[")) {
       found.push(routePath);
     }
   }

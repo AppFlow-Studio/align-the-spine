@@ -3,22 +3,23 @@
 import { useState, type BaseSyntheticEvent } from "react";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useForm, type Resolver, type UseFormRegister } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import { type FieldVariant } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { LeadConsent } from "@/components/ui/lead-consent";
 import { Select } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { stashPendingConversion, trackLeadConversion } from "@/lib/analytics";
-import { getStoredAttribution } from "@/lib/attribution";
+import { siteConfig } from "@/content/site";
+import { trackLeadConversion } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
 import {
   buildLeadFormSchema,
   type LeadFieldConfig,
   type LeadFieldType,
 } from "@/lib/lead-form-schema";
+import { submitLead } from "@/lib/leads/client";
 import { formatUsPhoneAsYouType } from "@/lib/phone-format";
 
 export type LeadFormValues = Record<string, string>;
@@ -50,30 +51,28 @@ export interface LeadFormProps {
   labelCase?: "upper" | "none";
   /** Submit button color — defaults to "primary" (navy); the solid-panel
    * Hero variant uses "teal" to match its design. */
-  submitVariant?: "primary" | "teal";
+  submitVariant?: "primary" | "teal" | "white";
   /** Overrides the heading's default sans/navy-or-white styling entirely
    * (e.g. the solid-panel Hero variant's serif display heading). */
   headingClassName?: string;
-  /** Renders only `stepOneFieldNames` behind a "Continue" button first; the
-   * rest of `fields` (and the real submit button) smoothly expand into view
-   * once those validate — a height/opacity reveal (motion/react), not a
-   * hard swap, so growing the form doesn't jump-cut the layout. Same
-   * two-step idea as components/sections/booking-form.tsx, for hero
-   * placements where showing every field at once would push the fold past
-   * what's visible on a phone screen. */
-  twoStep?: boolean;
-  /** Field names shown in step 1 when `twoStep` is true. Defaults to
-   * ["firstName", "phone"] — the shortest field set that's still a usable lead. */
-  stepOneFieldNames?: string[];
-  continueLabel?: string;
+  /** Overrides the consent line's default fieldVariant-driven color (grey
+   * on dark, ink-500 on light). A `dark`-variant form whose bottom actually
+   * sits inside a fade-to-white background — not solid navy the whole way
+   * down, e.g. ServiceAreaHero/BlogHero's own hero panels — needs this
+   * line dark (near-black), since the default grey has poor contrast on
+   * BOTH ends of a navy-to-white gradient at once, not just one (reported:
+   * grey consent text blending into the hero's bottom fade). Forms that
+   * stay on a solid dark background the whole way down (e.g.
+   * LeadFormPopup's dialog) should leave this unset. */
+  consentClassName?: string;
+  /** Heading element for `heading`, defaults to "h2". Pages that render this
+   * form twice for a responsive mobile/desktop swap (one always `display:
+   * none` at a given breakpoint) should pass "p" on whichever instance
+   * isn't the semantic one, so the DOM never carries two identical <h2>s at
+   * once — see hero-solid-panel.tsx and service-area-hero.tsx. */
+  headingAs?: "h2" | "p";
   className?: string;
 }
-
-// First+Last together (they render as a paired half-width row) plus Phone
-// — keeps a real contact method in the fast first step. Dropping Phone to
-// step 2 would mean anyone who abandons after step 1 leaves a name with no
-// way to reach them, which defeats the point of asking early.
-const DEFAULT_STEP_ONE_FIELDS = ["firstName", "lastName", "phone"];
 
 function inputType(type: LeadFieldType) {
   if (type === "tel" || type === "email" || type === "date") return type;
@@ -91,19 +90,14 @@ function todayIsoDate(): string {
 
 interface RenderFieldOptions {
   register: UseFormRegister<LeadFormValues>;
-  /** Plain field-name -> message map — deliberately not react-hook-form's
-   * own FieldErrors shape, so callers can supply either RHF's formState
-   * errors or a hand-built map (see LeadForm's stepOneErrors) through the
-   * same prop. */
   errors: Record<string, string | undefined>;
   fieldVariant: FieldVariant;
   fieldOutline: boolean;
   labelCase: "upper" | "none";
 }
 
-/** Renders one field per its `type` — shared by the single-step path and
- * both halves of the two-step path so there's exactly one place that knows
- * how a select/textarea/tel/text field maps to its input component. */
+/** Renders one field per its `type` — the one place that knows how a
+ * select/textarea/tel/text field maps to its input component. */
 function renderField(field: LeadFieldConfig, opts: RenderFieldOptions) {
   const { register, errors, fieldVariant, fieldOutline, labelCase } = opts;
   const type = field.type ?? "text";
@@ -150,7 +144,7 @@ function renderField(field: LeadFieldConfig, opts: RenderFieldOptions) {
         inputMode="tel"
         variant={fieldVariant}
         outline={fieldOutline}
-        placeholder={field.placeholder ?? "(954) 573-7192"}
+        placeholder={field.placeholder ?? siteConfig.business.phone}
         autoComplete={field.autoComplete}
         error={error}
         className={spanClass}
@@ -183,7 +177,11 @@ function renderField(field: LeadFieldConfig, opts: RenderFieldOptions) {
 
 /** Config-driven lead-capture form (ATS-030). Every lead form on the site is a
  * fields config passed to this engine — see content/lead-forms.ts for the
- * variant presets and docs/lead-form-contract.md for the props contract. */
+ * variant presets and docs/lead-form-contract.md for the props contract.
+ * Always single-step, on every surface including mobile: with 3-5 fields
+ * per variant, splitting into a "Continue" step first only added friction
+ * without a real payoff (owner direction 2026-08-18 — see git history for
+ * the two-step version this replaced, ATS-147). */
 export function LeadForm({
   heading,
   variant = "heroEval",
@@ -196,18 +194,14 @@ export function LeadForm({
   labelCase = "upper",
   submitVariant = "primary",
   headingClassName,
-  twoStep = false,
-  stepOneFieldNames = DEFAULT_STEP_ONE_FIELDS,
-  continueLabel = "Continue",
+  consentClassName,
+  headingAs = "h2",
   className,
 }: LeadFormProps) {
   const router = useRouter();
-  const reduceMotion = Boolean(useReducedMotion());
   const {
     register,
     handleSubmit,
-    getValues,
-    reset,
     formState: { errors, isSubmitting, touchedFields, isSubmitted },
   } = useForm<LeadFormValues>({
     resolver: zodResolver(buildLeadFormSchema(fields)) as Resolver<LeadFormValues>,
@@ -215,18 +209,8 @@ export function LeadForm({
   });
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [step, setStep] = useState<1 | 2>(1);
-  // Step-1-only errors, shown before `step` advances — kept separate from
-  // RHF's own `errors` since those are validated independently below
-  // (buildLeadFormSchema(stepOneFields), not the full-form resolver).
-  const [stepOneErrors, setStepOneErrors] = useState<Record<string, string>>({});
+  const [submissionId, setSubmissionId] = useState<string | null>(null);
 
-  const stepOneFields = twoStep
-    ? fields.filter((field) => stepOneFieldNames.includes(field.name))
-    : fields;
-  const stepTwoFields = twoStep
-    ? fields.filter((field) => !stepOneFieldNames.includes(field.name))
-    : [];
   // Defensive: only surface an RHF error once its field has actually been
   // touched or a real submit was attempted, never on mere mount — cheap
   // insurance against ever flagging a field "Required" before the visitor
@@ -238,27 +222,10 @@ export function LeadForm({
   );
   const fieldOpts: RenderFieldOptions = {
     register,
-    errors: twoStep && step === 1 ? stepOneErrors : rhfErrors,
+    errors: rhfErrors,
     fieldVariant,
     fieldOutline,
     labelCase,
-  };
-
-  const onContinue = () => {
-    const values = getValues();
-    const result = buildLeadFormSchema(stepOneFields).safeParse(
-      Object.fromEntries(stepOneFieldNames.map((name) => [name, values[name] ?? ""])),
-    );
-    if (!result.success) {
-      const nextErrors: Record<string, string> = {};
-      for (const issue of result.error.issues) {
-        nextErrors[String(issue.path[0])] = issue.message;
-      }
-      setStepOneErrors(nextErrors);
-      return;
-    }
-    setStepOneErrors({});
-    setStep(2);
   };
 
   const onValid = async (values: LeadFormValues, event?: BaseSyntheticEvent) => {
@@ -271,40 +238,27 @@ export function LeadForm({
     // Spam guard: a filled honeypot fakes success without submitting anything.
     if (honeypot?.value) {
       setSubmitted(true);
-      reset();
       return;
     }
 
     try {
+      const stableSubmissionId = submissionId ?? crypto.randomUUID();
+      if (!submissionId) setSubmissionId(stableSubmissionId);
+      await submitLead(stableSubmissionId, variant, values, honeypot?.value ?? "");
+      trackLeadConversion(variant, values);
+      setSubmissionId(null);
       if (onSubmit) {
         await onSubmit(values);
-        trackLeadConversion(variant, values);
         setSubmitted(true);
-        reset();
         return;
       }
-
-      const response = await fetch("/api/lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          variant,
-          values,
-          website: honeypot?.value ?? "",
-          attribution: getStoredAttribution(),
-        }),
-      });
-      if (!response.ok) {
-        throw new Error(`Lead submission failed with status ${response.status}`);
-      }
-      // Conversion fires on /thank-you itself (ThankYouConversion), not
-      // here — see lib/analytics.ts's stashPendingConversion() doc comment.
-      stashPendingConversion(variant, values);
       router.push("/thank-you");
     } catch {
       setSubmitError("Something went wrong. Please try again.");
     }
   };
+
+  const HeadingTag = headingAs;
 
   return (
     <form
@@ -316,7 +270,7 @@ export function LeadForm({
         className,
       )}
     >
-      <h2
+      <HeadingTag
         className={cn(
           "col-span-2 mb-3 text-2xl",
           headingClassName ??
@@ -327,77 +281,25 @@ export function LeadForm({
         )}
       >
         {heading}
-      </h2>
+      </HeadingTag>
 
       <div aria-hidden="true" className="absolute h-0 w-0 overflow-hidden">
         <label htmlFor="lead-form-website">Website</label>
         <input id="lead-form-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
-      {stepOneFields.map((field) => renderField(field, fieldOpts))}
+      {fields.map((field) => renderField(field, fieldOpts))}
 
-      {twoStep && (
-        <AnimatePresence initial={false}>
-          {step === 2 && (
-            <motion.div
-              key="step-two-fields"
-              initial={reduceMotion ? false : { height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={reduceMotion ? undefined : { height: 0, opacity: 0 }}
-              transition={{ duration: reduceMotion ? 0 : 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="col-span-2 overflow-hidden"
-            >
-              <div className={cn("grid grid-cols-2 gap-x-4", fieldOutline ? "gap-y-6" : "gap-y-5")}>
-                {stepTwoFields.map((field) => renderField(field, fieldOpts))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      )}
+      <Button
+        type="submit"
+        variant={submitVariant}
+        loading={isSubmitting}
+        className="col-span-2 w-full"
+      >
+        {submitLabel}
+      </Button>
 
-      {/* Explicit, distinct `key`s here are load-bearing, not decoration:
-       * without them React sees the same component type at the same tree
-       * position across the step-1/step-2 branches and patches the
-       * existing <button> DOM node in place rather than replacing it. That
-       * means the *same* node has its `type` attribute flip from "button"
-       * to "submit" while the browser is still processing the very click
-       * that caused the flip — so the click which should only advance the
-       * step also submits the (still step-1) form in the same tick, faux
-       * "Required" errors and all. Traced by logging formState + the
-       * native SubmitEvent's `submitter` across renders; distinct keys
-       * force a real unmount/remount instead. */}
-      {twoStep && step === 1 ? (
-        <Button
-          key="continue-button"
-          type="button"
-          variant={submitVariant}
-          onClick={onContinue}
-          className="col-span-2 w-full"
-        >
-          {continueLabel}
-        </Button>
-      ) : (
-        <Button
-          key="submit-button"
-          type="submit"
-          variant={submitVariant}
-          loading={isSubmitting}
-          className="col-span-2 w-full"
-        >
-          {submitLabel}
-        </Button>
-      )}
-
-      {twoStep && (
-        <p
-          className={cn(
-            "col-span-2 text-center font-sans text-stat-label",
-            fieldVariant === "dark" ? "text-mute-300" : "text-ink-500",
-          )}
-        >
-          Step {step} of 2
-        </p>
-      )}
+      <LeadConsent dark={fieldVariant === "dark"} className={cn("col-span-2", consentClassName)} />
 
       {submitError && (
         <p role="alert" className="col-span-2 font-sans text-field text-error">

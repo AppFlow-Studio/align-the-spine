@@ -8,7 +8,8 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { FadeIn } from "@/components/ui/fade-in";
 import { LeadForm, type LeadFieldConfig, type LeadFormValues } from "@/components/ui/lead-form";
 import { LiquidGlass } from "@/components/ui/liquid-glass";
-import { leadFormVariants } from "@/content/lead-forms";
+import { MobileLeadPreviewCard } from "@/components/ui/mobile-lead-preview-card";
+import { leadFormVariants, type LeadFormVariant } from "@/content/lead-forms";
 import { siteConfig } from "@/content/site";
 import { cn } from "@/lib/cn";
 import type { BreadcrumbItemInput } from "@/lib/schema";
@@ -28,11 +29,6 @@ export interface HeroFormConfig {
   fields?: LeadFieldConfig[];
   footerNote?: string;
   onSubmit?: (values: LeadFormValues) => Promise<void>;
-  /** Short-form-first: shows only stepOneFieldNames behind a "Continue"
-   * button before revealing the rest — keeps the hero form's mobile
-   * footprint short instead of showing every field at once. */
-  twoStep?: boolean;
-  stepOneFieldNames?: string[];
 }
 
 export interface HeroProps {
@@ -193,21 +189,45 @@ export function Hero({
           )}
         </div>
 
-        <div className="flex flex-col items-end gap-6">
-          {formSlot ??
-            (form && (
-              <LiquidGlass className="w-full p-8 shadow-card sm:w-4/5">
-                <LeadForm
-                  heading={form.heading}
-                  variant={form.variant}
-                  fields={form.fields ?? leadFormVariants.heroEval.fields}
-                  submitLabel={form.submitLabel}
-                  onSubmit={form.onSubmit}
-                />
-              </LiquidGlass>
-            ))}
+        <div className="flex w-full flex-col items-end gap-6">
+          {/* Below `lg`: compact tap-to-expand preview card, same pattern
+           * and reasoning as HeroSolidPanel's own mobile block (owner
+           * direction 2026-08-19) — a mobile visitor sees two field
+           * previews and one CTA, not the full form, until they tap to
+           * open it in the site's existing popup (ATS-142). `formSlot`
+           * callers keep their own markup unconditionally, same as before.
+           * `form.onSubmit` has no current call site (grepped repo-wide);
+           * see hero-solid-panel.tsx's identical note. */}
+          {formSlot ? (
+            formSlot
+          ) : (
+            <>
+              {form && (
+                <div className="w-full lg:hidden">
+                  <MobileLeadPreviewCard
+                    heading={form.heading}
+                    formVariant={form.variant as LeadFormVariant}
+                    submitLabel={form.submitLabel}
+                  />
+                </div>
+              )}
+              {form && (
+                <LiquidGlass className="hidden w-full p-8 shadow-card sm:w-4/5 lg:block">
+                  <LeadForm
+                    heading={form.heading}
+                    variant={form.variant}
+                    fields={form.fields ?? leadFormVariants.heroEval.fields}
+                    submitLabel={form.submitLabel}
+                    onSubmit={form.onSubmit}
+                  />
+                </LiquidGlass>
+              )}
+            </>
+          )}
           {form?.footerNote && (
-            <p className="font-sans text-body-lg text-mute-300 sm:w-4/5">{form.footerNote}</p>
+            <p className="hidden font-sans text-body-lg text-white sm:w-4/5 lg:block">
+              {form.footerNote}
+            </p>
           )}
         </div>
       </div>

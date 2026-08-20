@@ -22,19 +22,16 @@ const zipField: LeadFieldConfig = {
   autoComplete: "postal-code",
 };
 
-/** Shared across every variant so a lead can always be filtered/prioritized
- * by whether it's accident-related, regardless of which page or form it
- * came through — lib/analytics.ts's classifyLeadPriority reads this field
- * first, ahead of any page/variant-based inference. Left optional: on an
- * already accident-framed form (e.g. /car-accident-chiropractor) re-asking
- * would be pure friction, and classifyLeadPriority's variant-based fallback
- * covers a blank answer there — see accidentEval below, which drops this
- * question entirely for exactly that reason. */
+/** Shared across every lead form on the site so a lead can always be
+ * filtered/prioritized by whether it's accident-related, and so every form
+ * captures the same core field set — lib/analytics.ts's classifyLeadPriority
+ * reads this field first, ahead of any page/variant-based inference. Owner
+ * direction 2026-08-19: required on every form, no exceptions, including
+ * accidentEval (which also collects a specific accident date alongside it). */
 const carAccidentField: LeadFieldConfig = {
   name: "carAccident",
   label: "Is this related to a car accident?",
   type: "select",
-  required: false,
   placeholder: "Select one",
   options: [
     { label: "Yes", value: "yes" },
@@ -67,35 +64,23 @@ export const leadFormVariants = {
     fields: [...baseFields, carAccidentField],
     submitLabel: "Request a Chiropractic Appointment",
   },
-  /** /car-accident-chiropractor hero form: same First/Last/Phone/Email
-   * fields as heroEval, but accidentDateField instead of carAccidentField
-   * — see that field's own doc comment for why. Single-step (not
-   * heroEval's twoStep on desktop — this page's HeroSolidPanel doesn't set
-   * `twoStep`), matching every other HeroSolidPanel page's desktop form;
-   * the mobile floating card is always two-step regardless of variant (see
-   * hero-solid-panel.tsx), so that stays consistent with every other page
-   * automatically. Already in lib/analytics.ts's HIGH_PRIORITY_VARIANTS,
-   * so dropping carAccidentField here doesn't lose priority
-   * classification — the variant alone is enough since the whole page is
-   * accident-framed. */
-  // ATS-E5b Step 1A: deliberately kept without email — decision confirmed
-  // 2026-08-20 (owner: Munis dev) to match the Figma hero card exactly
-  // rather than grow the card's height. Known trade-off: a lead with a
-  // mistyped phone number and no email is unreachable. Revisit if accident
-  // lead follow-up ever becomes a problem in practice.
+  /** /car-accident-chiropractor hero form: First/Last/Phone/Email plus
+   * BOTH accidentDateField (narrows Florida's 14-day PIP window — see that
+   * field's own doc comment) and carAccidentField (uniform across every
+   * form site-wide, owner direction 2026-08-19). */
   accidentEval: {
     variant: "accidentEval",
-    fields: [...baseFields, accidentDateField],
-    submitLabel: "Request My Evaluation",
+    fields: [...baseFields, accidentDateField, carAccidentField],
+    submitLabel: "Schedule My Evaluation",
   },
-  /** /contact-us hero form: single Name field (not First/Last), Phone,
-   * Email, and a Message textarea — matches the Figma hero card exactly. */
+  /** /contact-us hero form. Owner direction 2026-08-19: same First/Last
+   * split as every other form (previously a single Name field, matching
+   * the original Figma hero card) plus Phone, Email, and a Message
+   * textarea. */
   contactUs: {
     variant: "contactUs",
     fields: [
-      { name: "name", label: "Name", half: true, autoComplete: "name" },
-      { name: "phone", label: "Phone", type: "tel", half: true, autoComplete: "tel" },
-      { name: "email", label: "Email", type: "email", autoComplete: "email" },
+      ...baseFields,
       carAccidentField,
       { name: "message", label: "Message", type: "textarea" },
     ],
@@ -131,65 +116,22 @@ export const leadFormVariants = {
     ],
     submitLabel: "Contact Us",
   },
-  /** No email field by design — the home-visits eligibility check (ATS-110)
-   * only asks for name, phone, and zip. */
+  /** ATS-110's original design omitted email (name/phone/zip only). Owner
+   * direction 2026-08-19: every form now collects the same core field set,
+   * so email is included here too, alongside the zip this form still
+   * uniquely needs for the home-visit-eligibility check itself. */
   eligibility: {
     variant: "eligibility",
-    fields: [...baseFields.filter((field) => field.name !== "email"), zipField, carAccidentField],
+    fields: [...baseFields, zipField, carAccidentField],
     submitLabel: "Check Eligibility",
   },
-  /** Two-step /book hero form per the Book-appt artboard: step 1 collects
-   * first name + phone, step 2 the rest.
-   *
-   * ATS-E5b: carries the full general field model (§3) — was missing email
-   * and area-of-pain entirely. Field order matters here: the form renders
-   * `half: true` pairs two-per-row, so first/last and phone/email must be
-   * adjacent pairs, not first/phone/last/reason (which rendered as
-   * First+Phone on row one, Last+Reason on row two — an incoherent grid).
-   * `painArea` options are derived from the body-map content
-   * (content/point-to-where-it-hurts.ts), not hand-duplicated — that file
-   * feeds both this form and the body-map component itself, so the two
-   * region lists can't drift apart.
-   *
-   * ATS-E3 (3.4): the free-text "notes" field is still gone — a broad
-   * reason select only, no open-ended detailed health notes. `reason` also
-   * still carries its own "Accident" option, which classifyLeadPriority
-   * treats as equivalent to carAccidentField — kept as-is rather than
-   * duplicated alongside a second, redundant accident question on this one
-   * form. */
+  /** Single-step /book form: first name, last name, email, phone, and the
+   * same carAccidentField every other full form uses — no free-text
+   * "reason" select, no two-step gating. */
   booking: {
     variant: "booking",
-    fields: [
-      { name: "firstName", label: "First Name", half: true, autoComplete: "given-name" },
-      { name: "lastName", label: "Last Name", half: true, autoComplete: "family-name" },
-      { name: "phone", label: "Phone", type: "tel", half: true, autoComplete: "tel" },
-      { name: "email", label: "Email", type: "email", half: true, autoComplete: "email" },
-      {
-        name: "reason",
-        label: "Reason for Visit",
-        type: "select",
-        placeholder: "Select a reason",
-        options: [
-          { label: "Back pain", value: "back-pain" },
-          { label: "Neck pain", value: "neck-pain" },
-          { label: "Sciatica", value: "sciatica" },
-          { label: "Accident", value: "accident" },
-          { label: "Home visit", value: "home-visit" },
-          { label: "Other", value: "other" },
-        ],
-      },
-      {
-        name: "painArea",
-        label: "Area of Pain",
-        type: "select",
-        placeholder: "Select an area",
-        options: pointToWhereItHurtsContent.regions.map((region) => ({
-          label: region.name,
-          value: region.id,
-        })),
-      },
-    ],
-    submitLabel: "Request an Appointment",
+    fields: [...baseFields, carAccidentField],
+    submitLabel: "Schedule My Evaluation",
   },
 } satisfies Record<string, LeadFormVariantConfig>;
 

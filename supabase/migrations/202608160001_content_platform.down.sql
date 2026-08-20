@@ -1,0 +1,25 @@
+-- Destructive rollback. Use only after backup and explicit approval.
+drop view if exists public.public_content_items;
+drop function if exists public.is_public_content(public.content_items);
+drop function if exists public.public_reviewer_name(uuid);
+drop function if exists public.current_editorial_role();
+drop table if exists public.publication_events;
+drop table if exists public.redirects;
+drop table if exists public.content_revisions;
+drop table if exists public.content_relations;
+drop table if exists public.content_sources;
+drop table if exists public.sources;
+drop table if exists public.content_tags;
+drop table if exists public.content_categories;
+drop table if exists public.tags;
+drop table if exists public.categories;
+drop table if exists public.content_items;
+drop table if exists public.authors;
+drop table if exists public.assets;
+drop table if exists public.profiles;
+drop type if exists public.source_verification;
+drop type if exists public.approval_state;
+drop type if exists public.asset_provider;
+drop type if exists public.content_status;
+drop type if exists public.content_type;
+drop type if exists public.editorial_role;
