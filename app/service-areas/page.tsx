@@ -25,16 +25,17 @@ export const metadata: Metadata = buildMetadata({
 
 export default async function ServiceAreasPage() {
   const result = await listPublicContent({ contentType: "service_area", pageSize: 24 });
+  const breadcrumbs = [
+    { name: "Home", path: "" },
+    { name: "Service areas", path: "/service-areas" },
+  ];
+
   return (
     <div className="bg-panel-100 pb-24">
       <JsonLd data={buildMedicalBusiness()} />
-      <BreadcrumbJsonLd
-        items={[
-          { name: "Home", path: "" },
-          { name: "Service areas", path: "/service-areas" },
-        ]}
-      />
+      <BreadcrumbJsonLd items={breadcrumbs} />
       <ServiceAreaHero
+        breadcrumbs={breadcrumbs}
         eyebrow="One verified office"
         title="One Deerfield Beach office. Clearly explained service areas."
         subhead={

@@ -95,13 +95,18 @@ export default function SpinalDecompressionPage() {
       />
       <JsonLd data={buildService(service)} />
       <HeroSolidPanel
+        breadcrumbs={[
+          { name: "Home", path: "" },
+          { name: "Services", path: "/services" },
+          { name: "Spinal Decompression", path: "/services/spinal-decompression" },
+        ]}
         background={spinalDecompressionHero.backgroundImage}
         eyebrow={spinalDecompressionHero.eyebrowChip}
         title={spinalDecompressionHero.h1}
         subhead={spinalDecompressionHero.subhead}
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
         form={{
-          heading: "Schedule Your Evaluation",
+          heading: "Request Your Evaluation",
           submitLabel: leadFormVariants.heroEval.submitLabel,
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,
@@ -304,7 +309,7 @@ export default function SpinalDecompressionPage() {
             href={siteConfig.bookingCta.href}
             className="w-fit shrink-0 rounded-none!"
           >
-            Schedule my Evaluation
+            Request My Evaluation
           </Button>
         </Container>
       </Section>

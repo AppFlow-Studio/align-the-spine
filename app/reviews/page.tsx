@@ -6,6 +6,7 @@ import { LocationIntro } from "@/components/layout/location-intro";
 import { ContactSection } from "@/components/sections/contact-section";
 import { ReviewsCarousel } from "@/components/sections/reviews-carousel";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { BreadcrumbTrail } from "@/components/seo/breadcrumb-trail";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
@@ -40,6 +41,11 @@ export const metadata: Metadata = buildRouteMetadata(getRoute("/reviews"));
 export default function ReviewsPage() {
   const reviews = siteConfig.reviewsRating;
   const otherStats = getVerifiedStats().filter((stat) => stat.label !== "Reviews");
+
+  const breadcrumbs = [
+    { name: "Home", path: "" },
+    { name: "Reviews", path: "/reviews" },
+  ];
 
   return (
     <>
@@ -84,6 +90,7 @@ export default function ReviewsPage() {
                * (previously max-w-xl on its own) reached far enough right to
                * run into her. */}
               <div className="max-w-lg">
+                <BreadcrumbTrail items={breadcrumbs} className="mb-4" />
                 <h1 className="font-display text-5xl font-medium text-white">
                   Patient Reviews for Align the Spine Chiropractic
                 </h1>

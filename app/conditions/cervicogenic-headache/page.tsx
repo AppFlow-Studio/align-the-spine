@@ -10,7 +10,6 @@ import { FeelsLikeBand } from "@/components/sections/feels-like-band";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
 import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
-import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
@@ -56,20 +55,18 @@ export const metadata: Metadata = buildRouteMetadata(getRoute("/conditions/cervi
 export default function CervicogenicHeadachePage() {
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
+      <HeroSolidPanel
+        breadcrumbs={[
           { name: "Home", path: "" },
           { name: "Cervicogenic Headache", path: "/conditions/cervicogenic-headache" },
         ]}
-      />
-      <HeroSolidPanel
         background={cervicogenicHeadacheHero.backgroundImage}
         eyebrow={cervicogenicHeadacheHero.eyebrowChip}
         title={cervicogenicHeadacheHero.h1}
         subhead={cervicogenicHeadacheHero.subhead}
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
         form={{
-          heading: "Schedule Your Evaluation",
+          heading: "Request Your Evaluation",
           submitLabel: leadFormVariants.heroEval.submitLabel,
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,
@@ -200,7 +197,7 @@ export default function CervicogenicHeadachePage() {
             href={siteConfig.bookingCta.href}
             className="w-fit shrink-0 rounded-none!"
           >
-            Schedule my Evaluation
+            Request My Evaluation
           </Button>
         </Container>
       </Section>

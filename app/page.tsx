@@ -13,6 +13,7 @@ import { ServicesSection } from "@/components/sections/services-section";
 import { WhyChoose } from "@/components/sections/why-choose";
 import { PracticeJsonLd } from "@/components/seo/practice-json-ld";
 import { doctorProfileContent } from "@/content/doctor-profile";
+import { leadFormVariants } from "@/content/lead-forms";
 import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { spineOverviewContent } from "@/content/spine-overview";
@@ -57,8 +58,8 @@ export default function Home() {
         subhead="Chiropractic care in Deerfield Beach for back pain, neck pain, mobility concerns, and injuries — with focused evaluations after car accidents."
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
         form={{
-          heading: "Schedule Your Chiropractic Evaluation",
-          submitLabel: "Schedule My Evaluation",
+          heading: "Request Your Chiropractic Evaluation",
+          submitLabel: leadFormVariants.heroEval.submitLabel,
           footerNote:
             "Visit us in Deerfield Beach, or call to ask whether a home visit fits your case and location.",
         }}

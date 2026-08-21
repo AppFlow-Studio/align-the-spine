@@ -107,13 +107,17 @@ export default function SciaticaPage() {
         ]}
       />
       <HeroSolidPanel
+        breadcrumbs={[
+          { name: "Home", path: "" },
+          { name: "Sciatica", path: "/conditions/sciatica" },
+        ]}
         background={sciaticaHero.backgroundImage}
         eyebrow={sciaticaHero.eyebrowChip}
         title={sciaticaHero.h1}
         subhead={sciaticaHero.subhead}
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
         form={{
-          heading: "Schedule Your Evaluation",
+          heading: "Request Your Evaluation",
           submitLabel: leadFormVariants.heroEval.submitLabel,
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,

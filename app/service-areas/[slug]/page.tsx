@@ -46,15 +46,15 @@ export default async function ServiceAreaPage({ params }: { params: Promise<{ sl
   const item = await getPublicContentBySlug("service_area", slug);
   if (!item) notFound();
   const relatedItems = await listPublicContentByIds(item.relatedContentIds);
+  const breadcrumbs = [
+    { name: "Home", path: "" },
+    { name: "Service areas", path: "/service-areas" },
+    { name: item.title, path: `/service-areas/${item.slug}` },
+  ];
+
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: "Home", path: "" },
-          { name: "Service areas", path: "/service-areas" },
-          { name: item.title, path: `/service-areas/${item.slug}` },
-        ]}
-      />
+      <BreadcrumbJsonLd items={breadcrumbs} />
       {item.serviceArea ? (
         <JsonLd
           data={buildServiceAreaSchema({
@@ -77,6 +77,7 @@ export default async function ServiceAreaPage({ params }: { params: Promise<{ sl
         })}
       />
       <ServiceAreaHero
+        breadcrumbs={breadcrumbs}
         eyebrow={item.serviceArea?.county ? `${item.serviceArea.county} County` : "Service area"}
         title={item.title}
         subhead={item.excerpt}

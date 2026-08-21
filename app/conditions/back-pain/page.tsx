@@ -16,7 +16,6 @@ import { PatientReviews } from "@/components/sections/patient-reviews";
 import { PointToWhereItHurts } from "@/components/sections/point-to-where-it-hurts";
 import { RelatedConditions } from "@/components/sections/related-conditions";
 import { TypesGrid } from "@/components/sections/types-grid";
-import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
@@ -133,20 +132,18 @@ const backPainTypes = [
 export default function BackPainPage() {
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
+      <HeroSolidPanel
+        breadcrumbs={[
           { name: "Home", path: "" },
           { name: "Back Pain", path: "/conditions/back-pain" },
         ]}
-      />
-      <HeroSolidPanel
         background={backPainHero.backgroundImage}
         eyebrow={backPainHero.eyebrowChip}
         title={backPainHero.h1}
         subhead={backPainHero.subhead}
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
         form={{
-          heading: "Schedule Your Evaluation",
+          heading: "Request Your Evaluation",
           submitLabel: leadFormVariants.heroEval.submitLabel,
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,

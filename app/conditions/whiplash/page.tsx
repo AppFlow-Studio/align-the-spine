@@ -113,13 +113,17 @@ export default function WhiplashPage() {
         ]}
       />
       <HeroSolidPanel
+        breadcrumbs={[
+          { name: "Home", path: "" },
+          { name: "Whiplash", path: "/conditions/whiplash" },
+        ]}
         background={whiplashHero.backgroundImage}
         eyebrow={whiplashHero.eyebrowChip}
         title={whiplashHero.h1}
         subhead={whiplashHero.subhead}
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}
         form={{
-          heading: "Schedule Your Evaluation",
+          heading: "Request Your Evaluation",
           submitLabel: leadFormVariants.heroEval.submitLabel,
           variant: leadFormVariants.heroEval.variant,
           fields: leadFormVariants.heroEval.fields,
