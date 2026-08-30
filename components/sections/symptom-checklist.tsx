@@ -4,15 +4,16 @@ import { useState } from "react";
 
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
-import { cn } from "@/lib/cn";
 
 export interface SymptomChecklistProps {
   heading: string;
   symptoms: string[];
-  /** Encouragement copy shown once at least one symptom is checked — no
-   * threshold language ("worth a conversation" applies from the first
-   * checked box, not some minimum count), so this doesn't read as a
-   * diagnostic tool. */
+  /** Always rendered, unconditionally — see ATS-SEO-056: this previously
+   * only showed once `checked.size > 0`, which meant a concussion-safety
+   * note never appeared in the server-rendered HTML at all and stayed
+   * invisible to any visitor who didn't interact with the checklist. Urgent
+   * warning content must be prominent and server-rendered regardless of
+   * interaction. */
   note: string;
   className?: string;
 }
@@ -60,17 +61,12 @@ export function SymptomChecklist({ heading, symptoms, note, className }: Symptom
           </ul>
         </div>
 
-        <div
-          className={cn(
-            "flex flex-col gap-3 bg-overlay-teal-12 p-8",
-            checked.size === 0 && "opacity-60",
-          )}
-        >
+        <div className="flex flex-col gap-3 bg-overlay-teal-12 p-8">
           <span className="font-display text-7xl text-navy-900">{checked.size}</span>
           <span className="font-sans text-stat-label uppercase text-ink-500">
             symptoms selected
           </span>
-          {checked.size > 0 && <p className="font-sans text-body-lg text-navy-900">{note}</p>}
+          <p className="font-sans text-body-lg text-navy-900">{note}</p>
         </div>
       </Container>
     </Section>
