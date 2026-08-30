@@ -42,7 +42,26 @@ import { buildRouteMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildRouteMetadata(getRoute("/conditions/neck-pain"));
 
+// ATS-SEO-053: "Everyday causes" moved first (was second, behind "From an
+// accident") — see neckPainHero's doc comment on content/neck-pain-page.ts
+// for why: this page's registered intent is non-accident neck pain, and the
+// category order was leading with the opposite framing.
 const neckPainTypeCategories = [
+  {
+    label: "Everyday causes",
+    items: [
+      {
+        name: "Cervical muscle strain",
+        description:
+          "The most common type — tension from posture, stress, or sleep position. Responds well to adjustment and soft-tissue work.",
+      },
+      {
+        name: "Cervical stenosis",
+        description:
+          "Narrowing of the spinal canal in the neck, often age-related — more common with age but can be aggravated by trauma.",
+      },
+    ],
+  },
   {
     label: "From an accident",
     items: [
@@ -61,21 +80,6 @@ const neckPainTypeCategories = [
         name: "Facet joint syndrome",
         description:
           "Joint inflammation from impact or wear — a common source of persistent neck pain after a collision that doesn't resolve on its own.",
-      },
-    ],
-  },
-  {
-    label: "Everyday causes",
-    items: [
-      {
-        name: "Cervical muscle strain",
-        description:
-          "The most common type — tension from posture, stress, or sleep position. Responds well to adjustment and soft-tissue work.",
-      },
-      {
-        name: "Cervical stenosis",
-        description:
-          "Narrowing of the spinal canal in the neck, often age-related — more common with age but can be aggravated by trauma.",
       },
     ],
   },
@@ -134,13 +138,16 @@ export default function NeckPainPage() {
               worth a real evaluation.
             </h2>
             <p className="max-w-2xl font-sans text-body-lg text-ink-900 lg:ml-[10vw]">
-              Neck pain after a car accident needs a different evaluation than an everyday stiff
-              morning. If your neck pain started after a collision, Florida gives you{" "}
+              A stiff neck is tightness or restricted motion anywhere from the base of the skull to
+              the top of the shoulders, most often from muscle tension tied to posture, stress, or
+              sleep position — sometimes with pain or tightness that spreads into the shoulder or
+              upper back. A car accident is a different kind of evaluation: if your neck pain
+              started after a collision, Florida gives you{" "}
               <Link href="/car-accident-chiropractor" className="underline">
                 14 days
               </Link>{" "}
               for initial services and care under Florida PIP, with coverage depending on policy
-              terms. Accident-related neck pain may involve{" "}
+              terms, and accident-related neck pain may involve{" "}
               <Link href="/conditions/whiplash" className="underline">
                 whiplash
               </Link>{" "}
@@ -148,8 +155,8 @@ export default function NeckPainPage() {
               <Link href="/services#adjustments" className="underline">
                 cervical spine
               </Link>
-              . Neck pain can also involve muscle tension from posture, stress, or sleep position,
-              so an evaluation helps determine the likely source and appropriate next step.
+              . Either way, an evaluation helps determine the likely source and appropriate next
+              step.
             </p>
             <div className="h-[1px] bg-black lg:ml-[10vw]" />
             <a
