@@ -37,11 +37,20 @@ export interface MassageTechnique {
   image: { src: string; alt: string };
 }
 
+// ATS-SEO-058: all 3 descriptions previously assumed a collision as the
+// sole cause ("from a collision," "after impact," "from the crash") —
+// contradicted the general hero eyebrow ("Muscle tightness or soft-tissue
+// soreness?") and this page's registered non-accident-exclusive
+// primaryQuery (content/seo.ts). Broadened to cover the everyday cases
+// these same techniques already serve, matching content/services-grid.ts's
+// own broader framing for this service. bestFor lists (still genuinely
+// accident-relevant in places) left as-is — those are use-case tags, not a
+// claim that accident is the only cause.
 export const massageTechniques: MassageTechnique[] = [
   {
     title: "Graston Technique / Trigger Point",
     description:
-      "Uses a stainless steel tool to break up scar tissue and muscle spasm from a collision — similar to a deep massage, but more targeted.",
+      "Uses a stainless steel tool to break up scar tissue and muscle spasm — similar to a deep massage, but more targeted.",
     bestFor: "muscle spasm, scar tissue, chronic tension",
     image: {
       src: "/figma-exports/drabe-releasetool.png",
@@ -51,14 +60,14 @@ export const massageTechniques: MassageTechnique[] = [
   {
     title: "Myofascial Release",
     description:
-      "Sustained pressure on the fascia surrounding muscles releases tightness that built up in the days after impact.",
+      "Sustained pressure on the fascia surrounding muscles releases tightness that's built up over time, including in the days after an impact.",
     bestFor: "restricted movement, whiplash-related stiffness",
     image: { src: "/figma-exports/drabe-backpain.png", alt: "Myofascial release treatment" },
   },
   {
     title: "Deep Tissue Therapy",
     description:
-      "Slow, firm pressure reaches deeper muscle layers affected by bruising or strain from the crash.",
+      "Slow, firm pressure reaches deeper muscle layers affected by bruising, guarding, or strain, whether from a crash or from overuse.",
     bestFor: "deep bruising, muscle guarding, post-accident soreness",
     image: { src: "/figma-exports/drabe-soft-tissue.png", alt: "Deep tissue therapy treatment" },
   },
@@ -86,7 +95,8 @@ export const massageConditions: MassageCondition[] = [
   },
   {
     name: "Neck Pain",
-    description: "For tension and stiffness following a collision, not just everyday strain.",
+    description:
+      "Muscle tension and stiffness in the neck, whether from a collision or everyday strain.",
     image: {
       src: "https://align-the-spine.b-cdn.net/images/dr-abe-neck.png",
       alt: "Dr. Abe Nasser treating a patient's neck and shoulder",

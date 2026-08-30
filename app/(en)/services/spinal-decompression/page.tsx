@@ -121,7 +121,7 @@ export default function SpinalDecompressionPage() {
 
       <ServiceIntro
         eyebrow="Understanding the treatment"
-        heading="The pressure a car accident leaves behind"
+        heading="The pressure behind disc and nerve pain"
         columns="1/1"
         cta={{ href: "#how-it-works", label: "Understand Decompression" }}
         media={
@@ -181,7 +181,7 @@ export default function SpinalDecompressionPage() {
           neck pain
         </Link>
         . Spinal decompression uses gentle, controlled traction to create negative pressure inside
-        the disc, drawing it back into place and taking pressure off the nerve — without surgery.
+        the disc — helping draw it back into place and ease pressure on the nerve — without surgery.
       </ServiceIntro>
 
       <div id="how-it-works" className="relative scroll-mt-[120px] overflow-hidden">
