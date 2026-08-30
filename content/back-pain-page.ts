@@ -26,10 +26,18 @@ import { siteConfig } from "@/content/site";
  * verbatim. */
 
 export const backPainHero = {
-  eyebrowChip: "Back pain after a car accident?",
+  // ATS-SEO-052: was "Back pain after a car accident?" — led with accident
+  // framing on a page whose registered primaryQuery (content/seo.ts) and
+  // ATS-SEO-004 keyword-map destination are both ordinary, non-accident back
+  // pain; accident-flavored back pain intent is intentionally owned by
+  // /car-accident-chiropractor instead (see that doc's cannibalization risk
+  // #4). Reworded to lead with the page's actual primary intent — the
+  // accident angle still gets its own dedicated section/bridge further down
+  // the page (backPainAccident), just not the first thing a visitor reads.
+  eyebrowChip: "Lower back pain that won't let up?",
   h1: "Back Pain Chiropractor in Deerfield Beach, FL",
   subhead:
-    "Chiropractic evaluation for lower back pain, stiffness, and pain that may travel into the hip or leg, including symptoms after a car accident.",
+    "Chiropractic evaluation for lower back pain, stiffness, and pain that may travel into the hip or leg — whether it built up gradually or started after a car accident.",
   backgroundImage: {
     src: "/figma-exports/drabe-backpain-front.png",
     alt: "Hands-on lower-back soft-tissue treatment",
@@ -151,7 +159,15 @@ export const backPainWarning: ConditionWarning = {
       label: "Pain that worsens at night or doesn't improve with rest",
       href: "/services/spinal-decompression",
     },
-    { label: "Loss of bladder or bowel control — seek emergency care" },
+    // ATS-SEO-052: named the recognized clinical term this combination of
+    // symptoms is a known warning sign for (cauda equina syndrome) —
+    // grounds the guidance in real, established medical terminology without
+    // diagnosing the individual reader; still routes to emergency care, not
+    // a specific diagnosis claim.
+    {
+      label:
+        "Loss of bladder or bowel control (a recognized warning sign of cauda equina syndrome) — seek emergency care",
+    },
   ],
 };
 

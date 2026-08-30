@@ -74,8 +74,8 @@ const backPainTypes = [
     name: "Disc-related",
     description: (
       <>
-        Pain originating from a bulging or herniated disc pressing on surrounding structures — may
-        stay localized or radiate depending on severity. See{" "}
+        Pain originating from a bulging or herniated disc (sometimes called a slipped disc) pressing
+        on surrounding structures — may stay localized or radiate depending on severity. See{" "}
         <Link href="/services/spinal-decompression" className="underline">
           Spinal Decompression
         </Link>{" "}
@@ -167,8 +167,10 @@ export default function BackPainPage() {
               first step to fixing it.
             </h2>
             <p className="max-w-2xl font-sans text-body-lg text-ink-900 lg:ml-[10vw]">
-              Back pain has a lot of possible causes — finding yours is the first step to fixing it.
-              If a car accident is involved, Florida gives you{" "}
+              Back pain is discomfort anywhere from the lower ribs to the pelvis, most often caused
+              by muscle or ligament strain, a stiff or fixated joint, or pressure from a disc in the
+              lower spine. It has a lot of possible causes — finding yours is the first step to
+              fixing it. If a car accident is involved, Florida gives you{" "}
               <Link href="/car-accident-chiropractor" className="underline">
                 14 days
               </Link>{" "}
