@@ -55,15 +55,27 @@ export const autoAccidentCondition: Condition = {
       "Airbag deployment force",
       "Being a passenger during a low-speed impact",
     ],
+    // ATS-SEO-051: this whole `understanding` block (intro/types/causes/
+    // redFlags) was defined but never rendered by app/(en)/car-accident-
+    // chiropractor/page.tsx — wired the red-flag guidance in via
+    // RedFlagCard (page.tsx) per this ticket. Added an explicit "seek
+    // emergency care" instruction to the most severe item (chest/abdominal
+    // pain after a collision is a recognized internal-injury warning sign),
+    // matching the pattern used on every condition page's own most-severe
+    // red-flag bullet.
     redFlags: [
       "Numbness, tingling, or weakness in your arms or legs",
       "Severe headache, dizziness, or confusion after the crash",
-      "Chest, abdominal, or worsening pain of any kind",
+      "Chest, abdominal, or worsening pain of any kind — seek emergency care",
     ],
   },
   accident: {
     headline: "Florida PIP has a 14-day initial-care window",
-    body: "Florida PIP generally requires initial services and care within 14 days of a motor vehicle accident. Eligibility, reimbursement, and benefit limits depend on the policy and circumstances.",
+    // ATS-SEO-051: cited the statute for this page's central material PIP
+    // claim — same treatment given to the whiplash page (ATS-SEO-055); the
+    // number was already used in codebase doc comments (lib/pip-window.ts,
+    // content/site.ts) but not previously in visible page copy here.
+    body: "Florida PIP generally requires initial services and care within 14 days of a motor vehicle accident (Fla. Stat. § 627.736). Eligibility, reimbursement, and benefit limits depend on the policy and circumstances.",
     smallprint: DEFAULT_ACCIDENT_SMALLPRINT,
   },
   comparisonRows: [...comparisonTableRows, ...autoAccidentComparisonRows],
@@ -84,7 +96,7 @@ export const autoAccidentCondition: Condition = {
       },
       {
         q: "What happens after the 14-day window has passed?",
-        a: "You can still seek appropriate medical care, but Florida PIP payment generally depends on receiving initial services and care within 14 days. Ask your insurer or a qualified legal professional about your specific coverage.",
+        a: "You can still seek appropriate medical care, but Florida PIP payment generally depends on receiving initial services and care within 14 days (Fla. Stat. § 627.736). Ask your insurer or a qualified legal professional about your specific coverage — this is general information, not legal advice.",
       },
     ],
   },
