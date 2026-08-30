@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { Container } from "@/components/ui/container";
+import { Eyebrow } from "@/components/ui/eyebrow";
 import { StoryVideo } from "@/components/ui/kibo-ui/stories";
 import { Section } from "@/components/ui/section";
 import {
@@ -43,23 +44,41 @@ function GalleryMedia({ photo, sizes }: { photo: GalleryPhoto; sizes: string }) 
 export interface PhotoGalleryProps {
   hero?: GalleryPhoto;
   photos?: GalleryPhoto[];
+  /** Optional eyebrow + heading rendered above the grid. Undefined by
+   * default (no heading at all) so the existing Spanish /dr-abe-nasser
+   * usage, which doesn't pass either, renders exactly as before — ATS-SEO-059
+   * passes both explicitly from the English /about page only, since a
+   * hardcoded English default here would otherwise leak onto the Spanish
+   * page's photo strip. */
+  eyebrow?: string;
+  heading?: string;
 }
 
 export function PhotoGallery({
   hero = interiorGalleryHero,
   photos = interiorGalleryPhotos,
+  eyebrow,
+  heading,
 }: PhotoGalleryProps = {}) {
   return (
     <Section spacing="none">
-      <Container className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-        <div className="group relative aspect-[1566/874] overflow-hidden w-full sm:col-span-3">
-          <GalleryMedia photo={hero} sizes="100vw" />
-        </div>
-        {photos.map((photo) => (
-          <div key={photo.src} className="group relative aspect-[507/378] overflow-hidden w-full">
-            <GalleryMedia photo={photo} sizes="(min-width: 640px) 33vw, 100vw" />
+      <Container className="flex flex-col gap-6">
+        {heading && (
+          <div className="flex flex-col items-center gap-3 text-center">
+            {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+            <h2 className="font-display text-h2 text-navy-800">{heading}</h2>
           </div>
-        ))}
+        )}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+          <div className="group relative aspect-[1566/874] overflow-hidden w-full sm:col-span-3">
+            <GalleryMedia photo={hero} sizes="100vw" />
+          </div>
+          {photos.map((photo) => (
+            <div key={photo.src} className="group relative aspect-[507/378] overflow-hidden w-full">
+              <GalleryMedia photo={photo} sizes="(min-width: 640px) 33vw, 100vw" />
+            </div>
+          ))}
+        </div>
       </Container>
     </Section>
   );

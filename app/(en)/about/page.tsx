@@ -64,7 +64,8 @@ export default function AboutPage() {
       <HowHePractices />
       {/* ATS-SEO-041: /about had no outbound link to /services or
        * /car-accident-chiropractor anywhere in its own body content —
-       * only the shared global nav covered either. */}
+       * only the shared global nav covered either. ATS-SEO-059 added the
+       * /reviews link — same gap, this page never linked to it either. */}
       <Section spacing="sm">
         <Container className="flex flex-wrap justify-center gap-8 text-center font-sans text-card-body">
           <Link href="/services" className="text-navy-900 underline underline-offset-4">
@@ -76,9 +77,15 @@ export default function AboutPage() {
           >
             Car accident care with Dr. Abe
           </Link>
+          <Link href="/reviews" className="text-navy-900 underline underline-offset-4">
+            Read patient reviews
+          </Link>
         </Container>
       </Section>
-      <PhotoGallery />
+      <PhotoGallery
+        eyebrow="Inside the office"
+        heading="The Deerfield Beach office you'll actually visit"
+      />
       <LocationIntro />
       <LocationFooter />
       <ContactSection />
