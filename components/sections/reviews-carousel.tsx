@@ -98,9 +98,14 @@ function ReviewCard({
       >
         &ldquo;{highlightReviewKeywords(quote.text)}&rdquo;
       </p>
+      {/* ATS-SEO-060: GoogleIcon is aria-hidden (decorative) — added the
+       * visible "Google review" text so the source is actually announced
+       * to screen readers and present as real crawlable text, not just a
+       * small logo. */}
       <span className="inline-flex items-center gap-2 font-sans text-stat-label uppercase tracking-wide text-mute-300">
         {review.author}
         <GoogleIcon className="h-4 w-4" />
+        Google review
       </span>
     </motion.div>
   );
