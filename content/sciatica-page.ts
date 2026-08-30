@@ -126,7 +126,15 @@ export const sciaticaWarning: ConditionWarning = {
   bullets: [
     { label: "Pain radiating below the knee", href: "/services/spinal-decompression" },
     { label: "Numbness or weakness in the foot", href: "/conditions/back-pain" },
-    { label: "Loss of bladder or bowel control — seek emergency care" },
+    // ATS-SEO-054: same fix as back-pain-page.ts's equivalent bullet
+    // (ATS-SEO-052) — names the recognized clinical term this symptom
+    // combination flags (cauda equina syndrome, a lumbar-spine concern,
+    // consistent with this being a lower-back/leg condition), grounding the
+    // guidance in real terminology without diagnosing the reader.
+    {
+      label:
+        "Loss of bladder or bowel control (a recognized warning sign of cauda equina syndrome) — seek emergency care",
+    },
   ],
 };
 
