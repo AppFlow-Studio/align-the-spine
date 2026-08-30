@@ -70,9 +70,16 @@ describe("buildMedicalBusiness", () => {
     });
   });
 
-  it("omits openingHoursSpecification while public sources conflict", () => {
-    expect(siteConfig.hoursVerified).toBe(false);
-    expect(buildMedicalBusiness().openingHoursSpecification).toBeUndefined();
+  it("includes openingHoursSpecification once client-confirmed hours are verified", () => {
+    expect(siteConfig.hoursVerified).toBe(true);
+    expect(buildMedicalBusiness().openingHoursSpecification).toEqual(
+      siteConfig.hours.map((hours) => ({
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: hours.day,
+        opens: to24Hour(hours.open),
+        closes: to24Hour(hours.close),
+      })),
+    );
   });
 
   it("includes service areas once client-confirmed, omits them otherwise", () => {
