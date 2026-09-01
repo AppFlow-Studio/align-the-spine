@@ -6,7 +6,9 @@ import { ArticleFaqSection } from "@/components/content/article-faq-section";
 import { BlogArticleHero } from "@/components/content/blog-article-hero";
 import { ContentBlocks, TableOfContents } from "@/components/content/content-blocks";
 import { RelatedContent } from "@/components/content/related-content";
+import { RelatedConditions } from "@/components/sections/related-conditions";
 import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
+import { buildBlogRelatedPageLinks } from "@/content/blog-related-links";
 import { siteConfig } from "@/content/site";
 import { cn } from "@/lib/cn";
 import type { PublicContentItem } from "@/lib/content/types";
@@ -31,6 +33,14 @@ export function ContentArticle({
 }) {
   const published = item.publishedAt ? new Date(item.publishedAt) : undefined;
   const updated = new Date(item.updatedAt);
+  // ATS-SEO-062: only for blog posts — /service-areas/[slug] (area=true)
+  // is a different content type/architecture, out of this ticket's scope.
+  const relatedPageLinks = !area
+    ? buildBlogRelatedPageLinks(item.categorySlugs, {
+        currentPath: `/blog/${item.slug}`,
+        highlightPath: "/book-an-appointment",
+      })
+    : [];
   // Blog articles get the full photo hero (matching /blog's own hero) when
   // there's a featured image to build it from; content published as
   // deliberately decorative-image-free falls back to the plain header below.
@@ -148,6 +158,13 @@ export function ContentArticle({
                   ))}
                 </ol>
               </section>
+            ) : null}
+            {relatedPageLinks.length ? (
+              <RelatedConditions
+                items={relatedPageLinks}
+                heading="Related care"
+                className="border-t border-mute-300"
+              />
             ) : null}
             {relatedItems.length ? <RelatedContent items={relatedItems} area={area} /> : null}
             <ArticleFaqSection faqs={item.faqs} />
