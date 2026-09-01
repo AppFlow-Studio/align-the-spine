@@ -390,7 +390,12 @@ export const esRoutes: RouteMeta[] = [
     },
     changeFrequency: "monthly",
     priority: 0.9,
-    lastModified: "2026-08-26",
+    // ATS-SEO-061: reviewed against the English source's leadFormVariants
+    // change (booking.submitLabel: "Schedule My Evaluation" -> "Request a
+    // Chiropractic Appointment") — no Spanish copy change needed, this
+    // page's "Solicitar mi evaluación" already avoided the same overclaim
+    // (see content/es/lead-forms.ts's doc comment on this exact variant).
+    lastModified: "2026-09-01",
     primaryQuery: "Spanish-language appointment-request conversion action",
     justification:
       "Owns the Spanish booking-form action itself, not a topical query — the CTA target every Spanish page links to, so it can't cannibalize anything.",
