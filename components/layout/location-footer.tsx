@@ -20,15 +20,19 @@ interface LocationFooterCopy {
   day: Record<string, string>;
 }
 
+const ENGLISH_COPY: LocationFooterCopy = {
+  ourLocation: "Our Location",
+  hours: "Hours of operation",
+  bookCta: "Book Your Visit",
+  mapTitlePrefix: "Map to",
+  confirmHours: (phone) => `Call ${phone} to confirm today's hours.`,
+  day: {},
+};
+
+// pt/ht fall back to the English copy pending real translation
+// (ATS-SEO-135/136) — no pt/ht page exists yet to render this component.
 const COPY: Record<Locale, LocationFooterCopy> = {
-  en: {
-    ourLocation: "Our Location",
-    hours: "Hours of operation",
-    bookCta: "Book Your Visit",
-    mapTitlePrefix: "Map to",
-    confirmHours: (phone) => `Call ${phone} to confirm today's hours.`,
-    day: {},
-  },
+  en: ENGLISH_COPY,
   es: {
     ourLocation: "Nuestra ubicación",
     hours: "Horario de atención",
@@ -45,6 +49,8 @@ const COPY: Record<Locale, LocationFooterCopy> = {
       Sunday: "Domingo",
     },
   },
+  pt: ENGLISH_COPY,
+  ht: ENGLISH_COPY,
 };
 
 export function LocationFooter({ locale = DEFAULT_LOCALE }: { locale?: Locale } = {}) {

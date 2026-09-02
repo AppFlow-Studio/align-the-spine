@@ -15,9 +15,14 @@ export interface ServiceListRowProps {
   locale?: Locale;
 }
 
+// pt/ht fall back to English pending real translation (ATS-SEO-135/136) —
+// no pt/ht page exists yet to render this component.
+const ENGLISH_ROW_COPY = { contact: "Contact us", book: "Book", learnMore: "Learn more" };
 const COPY: Record<Locale, { contact: string; book: string; learnMore: string }> = {
-  en: { contact: "Contact us", book: "Book", learnMore: "Learn more" },
+  en: ENGLISH_ROW_COPY,
   es: { contact: "Contáctenos al", book: "Solicitar", learnMore: "Más información" },
+  pt: ENGLISH_ROW_COPY,
+  ht: ENGLISH_ROW_COPY,
 };
 
 /** Services-list row per Figma (file NHwBqbGepOspY0GrCnECnj, node 96:155,

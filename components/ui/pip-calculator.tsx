@@ -29,16 +29,19 @@ interface PipCalculatorCopy {
 
 /** Both prompts are non-promissory and say plainly that this is not a
  * coverage determination — see lib/pip-window.ts for the statutory
- * reasoning. The Spanish mirrors the English claim-for-claim. */
+ * reasoning. The Spanish mirrors the English claim-for-claim. pt/ht fall
+ * back to the English copy pending real translation (ATS-SEO-135/136) —
+ * no pt/ht page exists yet to render this component. */
+const ENGLISH_PIP_COPY: PipCalculatorCopy = {
+  heading: "When did the accident happen?",
+  prompt:
+    "Enter a date to estimate the general 14-day initial-care timing period. This is not a coverage determination.",
+  invalid: "That doesn't look like a valid date — use mm/dd/yyyy.",
+  dateLabel: "Accident date",
+  callPrefix: "Call",
+};
 const COPY: Record<Locale, PipCalculatorCopy> = {
-  en: {
-    heading: "When did the accident happen?",
-    prompt:
-      "Enter a date to estimate the general 14-day initial-care timing period. This is not a coverage determination.",
-    invalid: "That doesn't look like a valid date — use mm/dd/yyyy.",
-    dateLabel: "Accident date",
-    callPrefix: "Call",
-  },
+  en: ENGLISH_PIP_COPY,
   es: {
     heading: "¿Cuándo ocurrió el accidente?",
     prompt:
@@ -51,6 +54,8 @@ const COPY: Record<Locale, PipCalculatorCopy> = {
     dateLabel: "Fecha del accidente",
     callPrefix: "Llamar al",
   },
+  pt: ENGLISH_PIP_COPY,
+  ht: ENGLISH_PIP_COPY,
 };
 
 /** 14-day PIP window date calculator (ATS-032), embedded in the accident

@@ -22,10 +22,14 @@ export interface ServiceCardProps {
   locale?: Locale;
 }
 
-/** Fallback CTA label when an item declares no `ctaLabel` of its own. */
+/** Fallback CTA label when an item declares no `ctaLabel` of its own. pt/ht
+ * fall back to English pending real translation (ATS-SEO-135/136) — no
+ * pt/ht page exists yet to render this component. */
 const DEFAULT_CTA_LABEL: Record<Locale, string> = {
   en: "Book now",
   es: "Solicitar cita",
+  pt: "Book now",
+  ht: "Book now",
 };
 
 /** Service card per condition-page-spec §B9: image (square corners,

@@ -88,23 +88,31 @@ export interface LeadFormProps {
 }
 
 /** Strings the form renders itself, as opposed to the ones its caller
- * supplies (heading, field labels, submit label). */
+ * supplies (heading, field labels, submit label). pt/ht fall back to the
+ * English copy — including `successHref: "/thank-you"`, the only
+ * thank-you page that actually exists — pending real translation and a
+ * real pt/ht thank-you page (ATS-SEO-135/136). Falling back to `/es/gracias`
+ * for pt/ht would send a non-Spanish-reading visitor to a Spanish page,
+ * which is worse than sending them to the English one. */
+const ENGLISH_FORM_COPY = {
+  submitError: "Something went wrong. Please try again.",
+  success: "Thanks — we'll be in touch shortly.",
+  honeypotLabel: "Website",
+  successHref: "/thank-you",
+};
 const FORM_COPY: Record<
   Locale,
   { submitError: string; success: string; honeypotLabel: string; successHref: string }
 > = {
-  en: {
-    submitError: "Something went wrong. Please try again.",
-    success: "Thanks — we'll be in touch shortly.",
-    honeypotLabel: "Website",
-    successHref: "/thank-you",
-  },
+  en: ENGLISH_FORM_COPY,
   es: {
     submitError: "Algo salió mal. Vuelva a intentarlo.",
     success: "Gracias — nos comunicaremos con usted en breve.",
     honeypotLabel: "Sitio web",
     successHref: "/es/gracias",
   },
+  pt: ENGLISH_FORM_COPY,
+  ht: ENGLISH_FORM_COPY,
 };
 
 function inputType(type: LeadFieldType) {

@@ -77,10 +77,19 @@ function HeroTrustLine({ className }: { className?: string }) {
 }
 
 /** The handful of strings this component renders itself, rather than
- * receiving from its caller. */
+ * receiving from its caller. pt/ht fall back to English pending real
+ * translation (ATS-SEO-135/136) — no pt/ht page exists yet to render this
+ * component. */
+const ENGLISH_HERO_COPY = {
+  continueLabel: "Request Appointment",
+  callNow: "Call Now:",
+  callPrefix: /^Call /,
+};
 const HERO_COPY: Record<Locale, { continueLabel: string; callNow: string; callPrefix: RegExp }> = {
-  en: { continueLabel: "Request Appointment", callNow: "Call Now:", callPrefix: /^Call / },
+  en: ENGLISH_HERO_COPY,
   es: { continueLabel: "Solicitar cita", callNow: "Llame ahora:", callPrefix: /^Llamar al / },
+  pt: ENGLISH_HERO_COPY,
+  ht: ENGLISH_HERO_COPY,
 };
 
 export interface HeroSolidPanelProps {

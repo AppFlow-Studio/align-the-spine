@@ -140,9 +140,15 @@ function groupHeadings(headings: HeadingBlock[]) {
   return groups;
 }
 
-/** The only two strings this component owns, so the Spanish service-area
- * pages can reuse it rather than fork it. */
-const TOC_LABEL: Record<Locale, string> = { en: "On this page", es: "En esta página" };
+/** The only strings this component owns, so localized pages can reuse it
+ * rather than fork it. pt/ht fall back to English pending real translation
+ * (ATS-SEO-135/136) — no pt/ht page exists yet to render this component. */
+const TOC_LABEL: Record<Locale, string> = {
+  en: "On this page",
+  es: "En esta página",
+  pt: "On this page",
+  ht: "On this page",
+};
 
 export function TableOfContents({
   blocks,

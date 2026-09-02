@@ -17,22 +17,28 @@ interface LocationIntroCopy {
   plazaCaption: string;
 }
 
+const ENGLISH_COPY: LocationIntroCopy = {
+  headingLines: ["Serving", "South Florida"],
+  sendLabel: "Send",
+  exteriorAlt: "Palm Plaza exterior, home of Align the Spine Chiropractic",
+  plazaCaption: "After you enter the plaza, we are the building on the far-right corner.",
+};
+
 /** The plaza name and the "far-right corner" wayfinding note are real,
  * already-published location facts — the Spanish version translates
- * them rather than inventing new ones. */
+ * them rather than inventing new ones. pt/ht fall back to the English copy
+ * pending real translation (ATS-SEO-135/136) — no pt/ht page exists yet to
+ * render this component. */
 const COPY: Record<Locale, LocationIntroCopy> = {
-  en: {
-    headingLines: ["Serving", "South Florida"],
-    sendLabel: "Send",
-    exteriorAlt: "Palm Plaza exterior, home of Align the Spine Chiropractic",
-    plazaCaption: "After you enter the plaza, we are the building on the far-right corner.",
-  },
+  en: ENGLISH_COPY,
   es: {
     headingLines: ["Atendemos al", "sur de la Florida"],
     sendLabel: esLocationCopy.sendLabel,
     exteriorAlt: "Fachada de Palm Plaza, donde se encuentra Align the Spine Chiropractic",
     plazaCaption: "Al entrar a la plaza, somos el edificio de la esquina del extremo derecho.",
   },
+  pt: ENGLISH_COPY,
+  ht: ENGLISH_COPY,
 };
 
 export interface LocationIntroProps {

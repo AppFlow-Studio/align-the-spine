@@ -4,11 +4,19 @@ import { esBookingCta, esFooter, esNav } from "@/content/es/chrome";
 import { esRoutes } from "@/content/es/seo";
 import {
   buildAlternates,
+  buildAlternatesForRoute,
   counterpartPath,
+  DEFAULT_LOCALE,
   HREFLANG,
+  HTML_LANG,
+  LOCALE_ENDONYM,
+  LOCALE_PREFIX,
+  localeFromPath,
   LOCALES,
   localizedRoutes,
+  OG_LOCALE,
   serviceAreaLocalizedRoutes,
+  type LocalizedRoute,
 } from "@/content/i18n";
 import { isPublished, routes } from "@/content/seo";
 import { siteConfig } from "@/content/site";
@@ -177,9 +185,16 @@ describe("hreflang", () => {
     }
   });
 
-  it("uses valid language-region codes", () => {
+  it("uses valid hreflang codes — a language-region pair, or a bare ISO 639-1 code", () => {
+    // Most locales are a language-region pair (en-US, es-US, pt-BR). Haitian
+    // Creole has no widely-used region-qualified variant, so "ht" alone is
+    // the correct value (a bare ISO 639-1 code is valid hreflang syntax) —
+    // see content/i18n.ts's HTML_LANG doc comment for the reasoning.
     for (const locale of LOCALES) {
-      expect(/^[a-z]{2}-[A-Z]{2}$/.test(HREFLANG[locale])).toBe(true);
+      const code = HREFLANG[locale];
+      const isLanguageRegion = /^[a-z]{2}-[A-Z]{2}$/.test(code);
+      const isBareLanguage = /^[a-z]{2}$/.test(code);
+      expect(isLanguageRegion || isBareLanguage).toBe(true);
     }
   });
 });
@@ -277,6 +292,143 @@ describe("publication parity", () => {
       if (es && isPublished(es)) {
         expect(en && isPublished(en)).toBe(true);
       }
+    }
+  });
+});
+
+/** ATS-SEO-134: generalized locale config / route-family coverage. These
+ * prove the 4-locale architecture actually works, not just that it compiles
+ * — including the N-way hreflang logic for pt/ht, which the real route
+ * table can't exercise directly (every entry currently has pt/ht: null; see
+ * content/i18n.ts's header comment for why that's deliberate, not
+ * unfinished). */
+describe("ATS-SEO-134: locale config completeness", () => {
+  it("declares exactly the epic's required 4 locales", () => {
+    expect(LOCALES).toEqual(["en", "es", "pt", "ht"]);
+  });
+
+  it("English remains the default locale and x-default target", () => {
+    expect(DEFAULT_LOCALE).toBe("en");
+  });
+
+  it("has an endonym, html-lang, hreflang, og:locale, and URL prefix for every locale", () => {
+    for (const locale of LOCALES) {
+      expect(LOCALE_ENDONYM[locale]).toBeTruthy();
+      expect(HTML_LANG[locale]).toBeTruthy();
+      expect(HREFLANG[locale]).toBeTruthy();
+      expect(OG_LOCALE[locale]).toBeTruthy();
+      // English's prefix is legitimately "" (site root) — every other
+      // locale must have a real, non-empty prefix.
+      if (locale !== "en") expect(LOCALE_PREFIX[locale]).toBeTruthy();
+    }
+  });
+
+  it("matches the parent epic's exact required locale model", () => {
+    expect(LOCALE_PREFIX).toEqual({ en: "", es: "/es", pt: "/pt", ht: "/ht" });
+    expect(HREFLANG.pt).toBe("pt-BR");
+    expect(HREFLANG.ht).toBe("ht");
+  });
+
+  it("centralizes the 4 language endonyms exactly as specified", () => {
+    expect(LOCALE_ENDONYM).toEqual({
+      en: "English",
+      es: "Español",
+      pt: "Português",
+      ht: "Kreyòl Ayisyen",
+    });
+  });
+
+  it("preserves the existing live en-US/es-US hreflang values (no regression)", () => {
+    // These 2 are already indexed on 9 published pages — changing them to
+    // match the parent epic doc's bare "en"/"es" shorthand would be a real,
+    // live hreflang change, not a neutral cleanup. See content/i18n.ts's
+    // HTML_LANG doc comment.
+    expect(HREFLANG.en).toBe("en-US");
+    expect(HREFLANG.es).toBe("es-US");
+  });
+});
+
+describe("ATS-SEO-134: localeFromPath detects every locale's prefix", () => {
+  it("identifies each locale from a path under its prefix", () => {
+    expect(localeFromPath("/")).toBe("en");
+    expect(localeFromPath("/car-accident-chiropractor")).toBe("en");
+    expect(localeFromPath("/es")).toBe("es");
+    expect(localeFromPath("/es/servicios")).toBe("es");
+    expect(localeFromPath("/pt")).toBe("pt");
+    expect(localeFromPath("/pt/servicos")).toBe("pt");
+    expect(localeFromPath("/ht")).toBe("ht");
+    expect(localeFromPath("/ht/sevis")).toBe("ht");
+  });
+
+  it("does not false-positive on an English path that merely starts with another locale's prefix letters", () => {
+    // /esteban or /pterodactyl-shaped-slug should never be mistaken for
+    // /es or /pt — the check requires an exact prefix or prefix + "/".
+    expect(localeFromPath("/esteban")).toBe("en");
+    expect(localeFromPath("/pterodactyl")).toBe("en");
+    expect(localeFromPath("/html-tips")).toBe("en");
+  });
+});
+
+describe("ATS-SEO-134: buildAlternatesForRoute — N-way hreflang", () => {
+  const siteUrl = siteConfig.siteUrl;
+
+  it("emits all 4 locales plus x-default when every locale has a page", () => {
+    const route: LocalizedRoute = {
+      id: "test:full",
+      en: "/example",
+      es: "/es/ejemplo",
+      pt: "/pt/exemplo",
+      ht: "/ht/egzanp",
+    };
+    const alternates = buildAlternatesForRoute(siteUrl, route);
+    expect(alternates).not.toBeNull();
+    expect(alternates?.languages).toEqual({
+      "en-US": `${siteUrl}/example`,
+      "es-US": `${siteUrl}/es/ejemplo`,
+      "pt-BR": `${siteUrl}/pt/exemplo`,
+      ht: `${siteUrl}/ht/egzanp`,
+      "x-default": `${siteUrl}/example`,
+    });
+  });
+
+  it("emits only the locales that actually have a page — proves pt/ht can be added independently", () => {
+    const route: LocalizedRoute = {
+      id: "test:pt-only",
+      en: "/example",
+      es: null,
+      pt: "/pt/exemplo",
+      ht: null,
+    };
+    const alternates = buildAlternatesForRoute(siteUrl, route);
+    expect(alternates?.languages).toEqual({
+      "en-US": `${siteUrl}/example`,
+      "pt-BR": `${siteUrl}/pt/exemplo`,
+      "x-default": `${siteUrl}/example`,
+    });
+    expect(alternates?.languages["es-US"]).toBeUndefined();
+    expect(alternates?.languages.ht).toBeUndefined();
+  });
+
+  it("returns null (no indexable mixed-language annotation) when only English exists", () => {
+    const route: LocalizedRoute = {
+      id: "test:en-only",
+      en: "/example",
+      es: null,
+      pt: null,
+      ht: null,
+    };
+    expect(buildAlternatesForRoute(siteUrl, route)).toBeNull();
+  });
+
+  it("real route table: no pt/ht hreflang is emitted anywhere yet (matches pt/ht: null everywhere)", () => {
+    // This is the "no indexable mixed-language 200" guarantee for the
+    // *current* state of the site: since every real route has pt/ht: null,
+    // buildAlternates can never emit a pt-BR or ht entry today, no matter
+    // which real path it's called with.
+    for (const route of localizedRoutes) {
+      const alternates = buildAlternatesForRoute(siteUrl, route);
+      expect(alternates?.languages["pt-BR"]).toBeUndefined();
+      expect(alternates?.languages.ht).toBeUndefined();
     }
   });
 });

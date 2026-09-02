@@ -6,18 +6,23 @@ import { leadFormVariants } from "@/content/lead-forms";
 
 /** The two decorative field previews and the default microcopy, per locale.
  * These are the only strings this card owns; everything else comes from the
- * caller or from the lead-form preset. */
+ * caller or from the lead-form preset. pt/ht fall back to English pending
+ * real translation (ATS-SEO-135/136) — no pt/ht page exists yet to render
+ * this component. */
+const ENGLISH_COPY = {
+  firstName: "First Name",
+  phone: "Phone Number",
+  microcopy: "Takes less than a minute — no obligation.",
+};
 const COPY: Record<Locale, { firstName: string; phone: string; microcopy: string }> = {
-  en: {
-    firstName: "First Name",
-    phone: "Phone Number",
-    microcopy: "Takes less than a minute — no obligation.",
-  },
+  en: ENGLISH_COPY,
   es: {
     firstName: "Nombre",
     phone: "Teléfono",
     microcopy: "Toma menos de un minuto — sin compromiso.",
   },
+  pt: ENGLISH_COPY,
+  ht: ENGLISH_COPY,
 };
 
 export interface MobileLeadPreviewCardProps {

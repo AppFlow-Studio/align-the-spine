@@ -1,3 +1,5 @@
+import type { Locale } from "@/content/i18n";
+
 export interface Testimonial {
   /** The review exactly as the patient wrote it. Never edited. */
   quote: string;
@@ -91,16 +93,19 @@ export interface ResolvedQuote {
 /** Picks the quote text to render for a locale, and reports honestly which
  * one it picked. On /es this returns the Spanish translation when one
  * exists (translated: true) and otherwise falls back to the untouched
- * English original (translated: false) rather than hiding the review. */
-export function resolveTestimonialQuote(
-  testimonial: Testimonial,
-  locale: "en" | "es",
-): ResolvedQuote {
+ * English original (translated: false) rather than hiding the review.
+ *
+ * ATS-SEO-134: widened from `"en" | "es"` to the full `Locale` so this
+ * compiles for pt/ht call sites too — behaviorally unchanged for pt/ht,
+ * which simply have no `quotePt`/`quoteHt` field yet (no Testimonial does)
+ * and so always fall through to the same untranslated-English-original
+ * behavior "es" already gets when `quoteEs` is absent. This is the same
+ * "never fabricate a translation" policy already established for Spanish,
+ * now applying uniformly instead of being hardcoded to recognize only
+ * "es". */
+export function resolveTestimonialQuote(testimonial: Testimonial, locale: Locale): ResolvedQuote {
   if (locale === "es" && testimonial.quoteEs) {
     return { text: testimonial.quoteEs, lang: "es-US", translated: true };
-  }
-  if (locale === "es") {
-    return { text: testimonial.quote, lang: "en-US", translated: false };
   }
   return { text: testimonial.quote, lang: "en-US", translated: false };
 }
