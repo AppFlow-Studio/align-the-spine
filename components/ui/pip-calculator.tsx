@@ -12,6 +12,7 @@ import {
   enPipWindowMessages,
   esPipWindowMessages,
   parseUsDate,
+  ptPipWindowMessages,
 } from "@/lib/pip-window";
 
 export interface PipCalculatorProps {
@@ -29,9 +30,9 @@ interface PipCalculatorCopy {
 
 /** Both prompts are non-promissory and say plainly that this is not a
  * coverage determination — see lib/pip-window.ts for the statutory
- * reasoning. The Spanish mirrors the English claim-for-claim. pt/ht fall
- * back to the English copy pending real translation (ATS-SEO-135/136) —
- * no pt/ht page exists yet to render this component. */
+ * reasoning. The Spanish/Portuguese mirror the English claim-for-claim.
+ * ht falls back to the English copy pending real translation
+ * (ATS-SEO-136) — no ht page exists yet to render this component. */
 const ENGLISH_PIP_COPY: PipCalculatorCopy = {
   heading: "When did the accident happen?",
   prompt:
@@ -54,7 +55,17 @@ const COPY: Record<Locale, PipCalculatorCopy> = {
     dateLabel: "Fecha del accidente",
     callPrefix: "Llamar al",
   },
-  pt: ENGLISH_PIP_COPY,
+  pt: {
+    heading: "Quando o acidente aconteceu?",
+    prompt:
+      "Digite uma data para estimar o prazo geral de 14 dias para iniciar o atendimento. Isto não é uma determinação de cobertura.",
+    // mm/dd/aaaa, não dd/mm/aaaa: o campo é uma entrada de data dos EUA
+    // interpretada por parseUsDate, e o consultório, seus pacientes e as
+    // seguradoras estão todos na Flórida.
+    invalid: "Essa data não parece válida — use o formato mm/dd/aaaa.",
+    dateLabel: "Data do acidente",
+    callPrefix: "Ligar para",
+  },
   ht: ENGLISH_PIP_COPY,
 };
 
@@ -64,7 +75,12 @@ const COPY: Record<Locale, PipCalculatorCopy> = {
 export function PipCalculator({ className, locale = DEFAULT_LOCALE }: PipCalculatorProps) {
   const [value, setValue] = useState("");
   const copy = COPY[locale];
-  const windowMessages = locale === "es" ? esPipWindowMessages : enPipWindowMessages;
+  const windowMessages =
+    locale === "es"
+      ? esPipWindowMessages
+      : locale === "pt"
+        ? ptPipWindowMessages
+        : enPipWindowMessages;
 
   const date = parseUsDate(value);
   // Only call the input invalid once it's shaped like a full date (4-digit

@@ -17,6 +17,7 @@ import {
   buildLeadFormSchema,
   enLeadFormMessages,
   esLeadFormMessages,
+  ptLeadFormMessages,
   type LeadFieldConfig,
   type LeadFieldType,
 } from "@/lib/lead-form-schema";
@@ -35,9 +36,10 @@ export interface UnderlineFormProps {
   className?: string;
 }
 
-// pt/ht fall back to the English copy — including successHref: "/thank-you",
-// the only thank-you page that actually exists — pending real translation
-// and a real pt/ht thank-you page (ATS-SEO-135/136).
+// ht falls back to the English copy pending real translation
+// (ATS-SEO-136). Portuguese has real copy but keeps the English
+// `/thank-you` successHref — no Portuguese thank-you page exists yet, see
+// lead-form.tsx's identical note.
 const ENGLISH_FORM_COPY = {
   submitError: "Something went wrong. Please try again.",
   success: "Thanks — we'll be in touch shortly.",
@@ -50,7 +52,11 @@ const FORM_COPY: Record<Locale, { submitError: string; success: string; successH
     success: "Gracias — nos comunicaremos con usted en breve.",
     successHref: "/es/gracias",
   },
-  pt: ENGLISH_FORM_COPY,
+  pt: {
+    submitError: "Algo deu errado. Tente novamente.",
+    success: "Obrigado — entraremos em contato em breve.",
+    successHref: "/thank-you",
+  },
   ht: ENGLISH_FORM_COPY,
 };
 
@@ -77,7 +83,12 @@ export function UnderlineForm({
 }: UnderlineFormProps) {
   const router = useRouter();
   const copy = FORM_COPY[locale];
-  const validationMessages = locale === "es" ? esLeadFormMessages : enLeadFormMessages;
+  const validationMessages =
+    locale === "es"
+      ? esLeadFormMessages
+      : locale === "pt"
+        ? ptLeadFormMessages
+        : enLeadFormMessages;
   const resolvedSuccessMessage = successMessage ?? copy.success;
   const {
     register,

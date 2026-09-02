@@ -160,6 +160,10 @@ describe("hreflang", () => {
       expect(alternates?.languages).toEqual({
         [HREFLANG.en]: `${siteConfig.siteUrl}${route.en}`,
         [HREFLANG.es]: `${siteConfig.siteUrl}${route.es}`,
+        // ATS-SEO-135 gave nine of these pairs a real /pt counterpart too —
+        // include it whenever the route has one, same reciprocal-hreflang
+        // rule as Spanish.
+        ...(route.pt ? { [HREFLANG.pt]: `${siteConfig.siteUrl}${route.pt}` } : {}),
         "x-default": `${siteConfig.siteUrl}${route.en}`,
       });
     }
@@ -420,14 +424,18 @@ describe("ATS-SEO-134: buildAlternatesForRoute — N-way hreflang", () => {
     expect(buildAlternatesForRoute(siteUrl, route)).toBeNull();
   });
 
-  it("real route table: no pt/ht hreflang is emitted anywhere yet (matches pt/ht: null everywhere)", () => {
-    // This is the "no indexable mixed-language 200" guarantee for the
-    // *current* state of the site: since every real route has pt/ht: null,
-    // buildAlternates can never emit a pt-BR or ht entry today, no matter
-    // which real path it's called with.
+  it("real route table: pt-BR hreflang is emitted only for the nine ATS-SEO-135 pairs, never ht yet", () => {
+    // ATS-SEO-135 gave nine routes a real /pt path — those, and only those,
+    // may emit a pt-BR alternate. Every other route (and ht, everywhere —
+    // ATS-SEO-136's job) must still emit nothing, so a route table typo
+    // can't silently start claiming a Portuguese page that doesn't exist.
     for (const route of localizedRoutes) {
       const alternates = buildAlternatesForRoute(siteUrl, route);
-      expect(alternates?.languages["pt-BR"]).toBeUndefined();
+      if (route.pt) {
+        expect(alternates?.languages["pt-BR"]).toBe(`${siteUrl}${route.pt}`);
+      } else {
+        expect(alternates?.languages["pt-BR"]).toBeUndefined();
+      }
       expect(alternates?.languages.ht).toBeUndefined();
     }
   });

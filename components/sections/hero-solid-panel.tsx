@@ -15,6 +15,7 @@ import { Rating } from "@/components/ui/rating";
 import { esLeadFormVariants } from "@/content/es/lead-forms";
 import { DEFAULT_LOCALE, type Locale } from "@/content/i18n";
 import { leadFormVariants, type LeadFormVariant } from "@/content/lead-forms";
+import { ptLeadFormVariants } from "@/content/pt/lead-forms";
 import { getVerifiedStats, siteConfig } from "@/content/site";
 import { isVerified } from "@/content/verified-value";
 import type { BreadcrumbItemInput } from "@/lib/schema";
@@ -77,8 +78,8 @@ function HeroTrustLine({ className }: { className?: string }) {
 }
 
 /** The handful of strings this component renders itself, rather than
- * receiving from its caller. pt/ht fall back to English pending real
- * translation (ATS-SEO-135/136) — no pt/ht page exists yet to render this
+ * receiving from its caller. ht falls back to English pending real
+ * translation (ATS-SEO-136) — no ht page exists yet to render this
  * component. */
 const ENGLISH_HERO_COPY = {
   continueLabel: "Request Appointment",
@@ -88,7 +89,7 @@ const ENGLISH_HERO_COPY = {
 const HERO_COPY: Record<Locale, { continueLabel: string; callNow: string; callPrefix: RegExp }> = {
   en: ENGLISH_HERO_COPY,
   es: { continueLabel: "Solicitar cita", callNow: "Llame ahora:", callPrefix: /^Llamar al / },
-  pt: ENGLISH_HERO_COPY,
+  pt: { continueLabel: "Solicitar Consulta", callNow: "Ligar agora:", callPrefix: /^Ligar para / },
   ht: ENGLISH_HERO_COPY,
 };
 
@@ -168,7 +169,11 @@ export function HeroSolidPanel({
 }: HeroSolidPanelProps) {
   const heroCopy = HERO_COPY[locale];
   const defaultFields =
-    locale === "es" ? esLeadFormVariants.heroEval.fields : leadFormVariants.heroEval.fields;
+    locale === "es"
+      ? esLeadFormVariants.heroEval.fields
+      : locale === "pt"
+        ? ptLeadFormVariants.heroEval.fields
+        : leadFormVariants.heroEval.fields;
   // Pages like /about pass no form/formSlot — don't render the empty navy
   // panel there; let the photo column (lg:flex-1) fill the full width instead.
   const hasForm = Boolean(formSlot || form);

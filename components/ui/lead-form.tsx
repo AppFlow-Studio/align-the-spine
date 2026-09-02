@@ -19,6 +19,7 @@ import {
   buildLeadFormSchema,
   enLeadFormMessages,
   esLeadFormMessages,
+  ptLeadFormMessages,
   type LeadFieldConfig,
   type LeadFieldType,
 } from "@/lib/lead-form-schema";
@@ -88,12 +89,13 @@ export interface LeadFormProps {
 }
 
 /** Strings the form renders itself, as opposed to the ones its caller
- * supplies (heading, field labels, submit label). pt/ht fall back to the
- * English copy — including `successHref: "/thank-you"`, the only
- * thank-you page that actually exists — pending real translation and a
- * real pt/ht thank-you page (ATS-SEO-135/136). Falling back to `/es/gracias`
- * for pt/ht would send a non-Spanish-reading visitor to a Spanish page,
- * which is worse than sending them to the English one. */
+ * supplies (heading, field labels, submit label). ht falls back to the
+ * English copy pending real translation (ATS-SEO-136). Portuguese has real
+ * copy (ATS-SEO-135) but `successHref` still points at the English
+ * `/thank-you` — no Portuguese thank-you page exists (out of this ticket's
+ * 9-route scope, see content/pt/seo.ts), and sending a Portuguese-reading
+ * visitor to `/es/gracias` would be worse than sending them to the English
+ * one. */
 const ENGLISH_FORM_COPY = {
   submitError: "Something went wrong. Please try again.",
   success: "Thanks — we'll be in touch shortly.",
@@ -111,7 +113,12 @@ const FORM_COPY: Record<
     honeypotLabel: "Sitio web",
     successHref: "/es/gracias",
   },
-  pt: ENGLISH_FORM_COPY,
+  pt: {
+    submitError: "Algo deu errado. Tente novamente.",
+    success: "Obrigado — entraremos em contato em breve.",
+    honeypotLabel: "Site",
+    successHref: "/thank-you",
+  },
   ht: ENGLISH_FORM_COPY,
 };
 
@@ -243,7 +250,12 @@ export function LeadForm({
 }: LeadFormProps) {
   const router = useRouter();
   const copy = FORM_COPY[locale];
-  const validationMessages = locale === "es" ? esLeadFormMessages : enLeadFormMessages;
+  const validationMessages =
+    locale === "es"
+      ? esLeadFormMessages
+      : locale === "pt"
+        ? ptLeadFormMessages
+        : enLeadFormMessages;
   const resolvedSuccessMessage = successMessage ?? copy.success;
   const resolvedSuccessHref = successHref ?? copy.successHref;
   const {

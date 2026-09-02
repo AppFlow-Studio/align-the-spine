@@ -29,8 +29,8 @@ const ENGLISH_COPY: LocationFooterCopy = {
   day: {},
 };
 
-// pt/ht fall back to the English copy pending real translation
-// (ATS-SEO-135/136) — no pt/ht page exists yet to render this component.
+// ht falls back to the English copy pending real translation
+// (ATS-SEO-136) — no ht page exists yet to render this component.
 const COPY: Record<Locale, LocationFooterCopy> = {
   en: ENGLISH_COPY,
   es: {
@@ -49,8 +49,30 @@ const COPY: Record<Locale, LocationFooterCopy> = {
       Sunday: "Domingo",
     },
   },
-  pt: ENGLISH_COPY,
+  pt: {
+    ourLocation: "Nossa localização",
+    hours: "Horário de atendimento",
+    bookCta: "Solicitar sua consulta",
+    mapTitlePrefix: "Mapa até",
+    confirmHours: (phone) => `Ligue para ${phone} para confirmar o horário de hoje.`,
+    day: {
+      Monday: "Segunda-feira",
+      Tuesday: "Terça-feira",
+      Wednesday: "Quarta-feira",
+      Thursday: "Quinta-feira",
+      Friday: "Sexta-feira",
+      Saturday: "Sábado",
+      Sunday: "Domingo",
+    },
+  },
   ht: ENGLISH_COPY,
+};
+
+const BOOKING_HREF: Record<Locale, string> = {
+  en: siteConfig.bookingCta.href,
+  es: "/es/solicitar-cita",
+  pt: "/pt/solicitar-consulta",
+  ht: siteConfig.bookingCta.href,
 };
 
 export function LocationFooter({ locale = DEFAULT_LOCALE }: { locale?: Locale } = {}) {
@@ -128,7 +150,7 @@ export function LocationFooter({ locale = DEFAULT_LOCALE }: { locale?: Locale } 
 
           <div className=" gap-4 pt-4 sm:flex-row sm:items-center">
             <Link
-              href={locale === "es" ? "/es/solicitar-cita" : siteConfig.bookingCta.href}
+              href={BOOKING_HREF[locale]}
               className="group flex h-12 items-center justify-center gap-3 rounded-full bg-navy-900 px-8 font-sans text-button text-white transition-colors hover:bg-navy-700"
             >
               {copy.bookCta}

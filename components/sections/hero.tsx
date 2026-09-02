@@ -12,6 +12,7 @@ import { MobileLeadPreviewCard } from "@/components/ui/mobile-lead-preview-card"
 import { esLeadFormVariants } from "@/content/es/lead-forms";
 import { DEFAULT_LOCALE, type Locale } from "@/content/i18n";
 import { leadFormVariants, type LeadFormVariant } from "@/content/lead-forms";
+import { ptLeadFormVariants } from "@/content/pt/lead-forms";
 import { siteConfig } from "@/content/site";
 import { cn } from "@/lib/cn";
 import type { BreadcrumbItemInput } from "@/lib/schema";
@@ -106,7 +107,11 @@ export function Hero({
   locale = DEFAULT_LOCALE,
 }: HeroProps) {
   const defaultFields =
-    locale === "es" ? esLeadFormVariants.heroEval.fields : leadFormVariants.heroEval.fields;
+    locale === "es"
+      ? esLeadFormVariants.heroEval.fields
+      : locale === "pt"
+        ? ptLeadFormVariants.heroEval.fields
+        : leadFormVariants.heroEval.fields;
 
   return (
     // Margins pull Hero up to bleed behind TopStatsBar/Navbar. TopStatsBar's

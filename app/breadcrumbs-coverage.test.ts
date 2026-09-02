@@ -21,8 +21,9 @@ const appDir = join(__dirname);
  * crawlable pages, and admin routes are neither crawlable nor meant to be.
  * /es and /es/gracias are the Spanish home page and the Spanish
  * post-conversion page — excluded for exactly the same reasons as their
- * English counterparts. */
-const EXCLUDED_ROUTES = new Set(["", "/thank-you", "/es", "/es/gracias"]);
+ * English counterparts. /pt is the Portuguese home page (ATS-SEO-135),
+ * excluded for the same reason. */
+const EXCLUDED_ROUTES = new Set(["", "/thank-you", "/es", "/es/gracias", "/pt"]);
 const EXCLUDED_PREFIXES = ["/admin"];
 
 /** /blog/[slug] genuinely renders visible breadcrumbs, just through nested

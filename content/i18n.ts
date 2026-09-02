@@ -183,34 +183,38 @@ export interface LocalizedRoute {
  * second convention (see §URL normalization in the report).
  */
 export const localizedRoutes: LocalizedRoute[] = [
-  { id: "home", en: "", es: "/es", pt: null, ht: null },
+  { id: "home", en: "", es: "/es", pt: "/pt", ht: null },
   {
     id: "carAccident",
     en: "/car-accident-chiropractor",
     es: "/es/quiropractico-accidentes-de-auto",
-    pt: null,
+    pt: "/pt/quiropratico-acidentes-de-carro",
     ht: null,
   },
-  { id: "services", en: "/services", es: "/es/servicios", pt: null, ht: null },
-  { id: "about", en: "/about", es: "/es/dr-abe-nasser", pt: null, ht: null },
-  { id: "reviews", en: "/reviews", es: "/es/resenas", pt: null, ht: null },
-  { id: "contact", en: "/contact-us", es: "/es/contacto", pt: null, ht: null },
+  { id: "services", en: "/services", es: "/es/servicios", pt: "/pt/servicos", ht: null },
+  { id: "about", en: "/about", es: "/es/dr-abe-nasser", pt: "/pt/dr-abe-nasser", ht: null },
+  { id: "reviews", en: "/reviews", es: "/es/resenas", pt: "/pt/avaliacoes", ht: null },
+  { id: "contact", en: "/contact-us", es: "/es/contacto", pt: "/pt/contato", ht: null },
   {
     id: "bookAppointment",
     en: "/book-an-appointment",
     es: "/es/solicitar-cita",
-    pt: null,
+    pt: "/pt/solicitar-consulta",
     ht: null,
   },
 
   // --- Hub pages whose children are NOT all paired ---------------------
-  // Both hubs are real Spanish pages. What differs is what sits under
-  // them, and why.
+  // Both hubs are real Spanish/Portuguese pages. What differs is what sits
+  // under them, and why.
   // /conditions now has a Spanish hub, because its children do too — the
-  // hub follows its children. /blog stays English-only (no Spanish
-  // editorial pipeline); /service-areas has a Spanish hub but deliberately
-  // no Spanish children — see below.
-  { id: "conditionsHub", en: "/conditions", es: "/es/condiciones", pt: null, ht: null },
+  // hub follows its children. /blog stays English-only (no Spanish/
+  // Portuguese editorial pipeline); /service-areas has Spanish and
+  // Portuguese hubs but deliberately no non-English children — see below.
+  // The Portuguese conditions hub exists (ATS-SEO-135's published-parity
+  // scope includes it) even though none of its children do yet — it
+  // currently links onward to the accident/services pages instead, same
+  // pattern as a hub whose children haven't published.
+  { id: "conditionsHub", en: "/conditions", es: "/es/condiciones", pt: "/pt/condicoes", ht: null },
   // The service-area HUB is paired: /es/areas-de-servicio is a real
   // Spanish page (one office, named communities, honest limits).
   //
@@ -230,7 +234,13 @@ export const localizedRoutes: LocalizedRoute[] = [
   // hrefLang="en" and a visible "(en inglés)" label. A city earns a
   // Spanish page when it has genuinely city-specific Spanish material to
   // put on it, one city at a time, on evidence.
-  { id: "serviceAreas", en: "/service-areas", es: "/es/areas-de-servicio", pt: null, ht: null },
+  {
+    id: "serviceAreas",
+    en: "/service-areas",
+    es: "/es/areas-de-servicio",
+    pt: "/pt/areas-de-atendimento",
+    ht: null,
+  },
 
   // --- English-only, deliberately (es/pt/ht: null) ----------------------
   // Every route below is either noindex today or unsafe to translate

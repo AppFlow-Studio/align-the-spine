@@ -68,6 +68,22 @@ export const esPipWindowMessages: PipWindowMessages = {
     `Quedan ${days} días del plazo general de 14 días para iniciar la atención. La cobertura y la elegibilidad dependen de su póliza y de las circunstancias.`,
 };
 
+/** Brazilian Portuguese rendering (ATS-SEO-135) — same claim-for-claim
+ * discipline as the Spanish set: identical hedging, identical referral to
+ * the insurer/a qualified professional, no extra assurance in either
+ * direction. */
+export const ptPipWindowMessages: PipWindowMessages = {
+  future: "Essa data está no futuro — verifique a data do seu acidente.",
+  expired:
+    "O prazo de 14 dias do PIP já passou, mas você ainda pode ter opções — ligue para conversarmos sobre o seu caso.",
+  lastDay:
+    "O prazo geral de 14 dias para iniciar o atendimento termina hoje. A cobertura depende da sua apólice e das circunstâncias; consulte sua seguradora ou um profissional qualificado.",
+  urgent: (days) =>
+    `${days === 1 ? "Falta 1 dia" : `Faltam ${days} dias`} do prazo geral de 14 dias para iniciar o atendimento. A cobertura depende da apólice e das circunstâncias.`,
+  active: (days) =>
+    `Faltam ${days} dias do prazo geral de 14 dias para iniciar o atendimento. A cobertura e a elegibilidade dependem da apólice e das circunstâncias.`,
+};
+
 export function calculatePipWindow(
   accidentDate: Date,
   today: Date = new Date(),

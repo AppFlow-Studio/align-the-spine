@@ -1,21 +1,30 @@
 import { enChromeLabels, esBookingCta, esChromeLabels, esFooter, esNav } from "@/content/es/chrome";
 import type { Locale } from "@/content/i18n";
+import { ptBookingCta, ptChromeLabels, ptFooter, ptNav } from "@/content/pt/chrome";
 import { getVerifiedStats, siteConfig, type DisplayStat, type NavLink } from "@/content/site";
 
 /** Locale accessors for the shared site chrome.
  *
- * The navbar, drawer, and footer are one set of components rendered in both
- * languages — there is no Spanish copy of any of them. They read their
- * labels and links through these accessors instead of importing siteConfig
- * directly, which is what keeps a design change from having to be made
- * twice (and from being made once and silently missed in Spanish).
+ * The navbar, drawer, and footer are one set of components rendered in
+ * every language — there is no per-language copy of any of them. They read
+ * their labels and links through these accessors instead of importing
+ * siteConfig directly, which is what keeps a design change from having to
+ * be made twice (and from being made once and silently missed in a
+ * non-English locale). ht has no content module yet (ATS-SEO-136) — every
+ * accessor below falls through to English for "ht" until then, same
+ * documented-fallback pattern established across the codebase by
+ * ATS-SEO-134.
  */
 export function getNav(locale: Locale): NavLink[] {
-  return locale === "es" ? esNav : siteConfig.nav;
+  if (locale === "es") return esNav;
+  if (locale === "pt") return ptNav;
+  return siteConfig.nav;
 }
 
 export function getBookingCta(locale: Locale): NavLink {
-  return locale === "es" ? esBookingCta : siteConfig.bookingCta;
+  if (locale === "es") return esBookingCta;
+  if (locale === "pt") return ptBookingCta;
+  return siteConfig.bookingCta;
 }
 
 export interface FooterConfig {
@@ -47,6 +56,20 @@ export function getFooterConfig(locale: Locale): FooterConfig {
     };
   }
 
+  if (locale === "pt") {
+    return {
+      tagline: ptFooter.tagline,
+      links: ptFooter.links,
+      copyrightName: ptFooter.copyrightName,
+      contactHeading: "Contato",
+      siteHeading: "Site",
+      privacyLabel: ptFooter.privacyPolicy.label,
+      privacyHref: ptFooter.privacyPolicy.href,
+      privacyIsForeignLanguage: true,
+      licenseLine: "Licenciado no estado da Flórida.",
+    };
+  }
+
   return {
     tagline: siteConfig.footer.tagline,
     links: siteConfig.footer.links,
@@ -61,7 +84,9 @@ export function getFooterConfig(locale: Locale): FooterConfig {
 }
 
 export function getChromeLabels(locale: Locale) {
-  return locale === "es" ? esChromeLabels : enChromeLabels;
+  if (locale === "es") return esChromeLabels;
+  if (locale === "pt") return ptChromeLabels;
+  return enChromeLabels;
 }
 
 /** getVerifiedStats() with the labels (and the display strings that are
@@ -75,9 +100,10 @@ export function getChromeLabels(locale: Locale) {
 export function getLocalizedStats(locale: Locale): DisplayStat[] {
   const stats = getVerifiedStats();
   if (locale === "en") return stats;
+  const labels = locale === "pt" ? ptChromeLabels : esChromeLabels;
 
   return stats.map((stat) => ({
-    label: esChromeLabels.stats[stat.label] ?? stat.label,
-    value: esChromeLabels.statValues[stat.value] ?? stat.value,
+    label: labels.stats[stat.label] ?? stat.label,
+    value: labels.statValues[stat.value] ?? stat.value,
   }));
 }

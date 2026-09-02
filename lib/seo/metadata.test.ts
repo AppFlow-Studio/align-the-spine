@@ -14,8 +14,9 @@ describe("buildMetadata", () => {
     expect(metadata.alternates?.canonical).toBe(`${siteConfig.siteUrl}/services`);
   });
 
-  // /services has a Spanish counterpart registered in content/i18n.ts, so
-  // it gets reciprocal hreflang alongside its self-canonical.
+  // /services has Spanish AND Portuguese counterparts registered in
+  // content/i18n.ts (ATS-SEO-135 added the Portuguese one), so it gets
+  // reciprocal hreflang for both alongside its self-canonical.
   it("adds reciprocal hreflang for a route that has a counterpart in the other language", () => {
     const metadata = buildMetadata({
       title: "Title",
@@ -25,6 +26,7 @@ describe("buildMetadata", () => {
     expect(metadata.alternates?.languages).toEqual({
       "en-US": `${siteConfig.siteUrl}/services`,
       "es-US": `${siteConfig.siteUrl}/es/servicios`,
+      "pt-BR": `${siteConfig.siteUrl}/pt/servicos`,
       "x-default": `${siteConfig.siteUrl}/services`,
     });
   });
@@ -43,6 +45,7 @@ describe("buildMetadata", () => {
     expect(metadata.alternates?.languages).toEqual({
       "en-US": `${siteConfig.siteUrl}/services`,
       "es-US": `${siteConfig.siteUrl}/es/servicios`,
+      "pt-BR": `${siteConfig.siteUrl}/pt/servicos`,
       "x-default": `${siteConfig.siteUrl}/services`,
     });
   });

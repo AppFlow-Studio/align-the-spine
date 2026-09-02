@@ -46,6 +46,12 @@ export const OUTLINE_CTA_ROUTES = [
   "/es/quiropractico-accidentes-de-auto",
   "/es/servicios",
   "/es/resenas",
+  // Brazilian Portuguese counterparts of the routes above (ATS-SEO-135) —
+  // same HeroSolidPanel/solid-navy hero, same outlined-pill treatment.
+  "/pt",
+  "/pt/quiropratico-acidentes-de-carro",
+  "/pt/servicos",
+  "/pt/avaliacoes",
   "/conditions/back-pain",
   "/conditions/cervicogenic-headache",
   "/conditions/concussion",
@@ -66,7 +72,7 @@ export function Navbar({
   const pathname = usePathname();
   const bookingCta = getBookingCta(locale);
   const labels = getChromeLabels(locale);
-  const homeHref = locale === "es" ? "/es" : "/";
+  const homeHref = locale === "es" ? "/es" : locale === "pt" ? "/pt" : "/";
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [prevPathname, setPrevPathname] = useState(pathname);

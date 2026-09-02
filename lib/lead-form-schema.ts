@@ -102,6 +102,19 @@ export const esLeadFormMessages: LeadFormMessages = {
   futureDate: "La fecha no puede ser futura",
 };
 
+/** Brazilian Portuguese rendering (ATS-SEO-135), same rules as the Spanish
+ * set above — only wording differs, and /api/lead still re-validates every
+ * submission server-side with the English defaults. */
+export const ptLeadFormMessages: LeadFormMessages = {
+  required: "Campo obrigatório",
+  tooLong: "Muito longo",
+  email: "Digite um e-mail válido",
+  zip: "Digite um CEP válido",
+  date: "Digite uma data válida",
+  phone: "Digite um número de telefone válido com 10 dígitos",
+  futureDate: "A data não pode ser futura",
+};
+
 /** Each variant's schema is derived from its fields config: every field is
  * trimmed and length-capped regardless of type; required fields must be
  * non-empty after trimming; tel/email/zip enforce their format whenever

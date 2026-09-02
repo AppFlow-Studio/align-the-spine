@@ -3,12 +3,13 @@ import { esLeadFormVariants } from "@/content/es/lead-forms";
 import { DEFAULT_LOCALE, type Locale } from "@/content/i18n";
 import type { LeadFormVariant } from "@/content/lead-forms";
 import { leadFormVariants } from "@/content/lead-forms";
+import { ptLeadFormVariants } from "@/content/pt/lead-forms";
 
 /** The two decorative field previews and the default microcopy, per locale.
  * These are the only strings this card owns; everything else comes from the
- * caller or from the lead-form preset. pt/ht fall back to English pending
- * real translation (ATS-SEO-135/136) — no pt/ht page exists yet to render
- * this component. */
+ * caller or from the lead-form preset. ht falls back to English pending
+ * real translation (ATS-SEO-136) — no ht page exists yet to render this
+ * component. */
 const ENGLISH_COPY = {
   firstName: "First Name",
   phone: "Phone Number",
@@ -21,7 +22,11 @@ const COPY: Record<Locale, { firstName: string; phone: string; microcopy: string
     phone: "Teléfono",
     microcopy: "Toma menos de un minuto — sin compromiso.",
   },
-  pt: ENGLISH_COPY,
+  pt: {
+    firstName: "Nome",
+    phone: "Telefone",
+    microcopy: "Leva menos de um minuto — sem compromisso.",
+  },
   ht: ENGLISH_COPY,
 };
 
@@ -63,7 +68,9 @@ export function MobileLeadPreviewCard({
   const preset =
     locale === "es" && formVariant in esLeadFormVariants
       ? esLeadFormVariants[formVariant as keyof typeof esLeadFormVariants]
-      : leadFormVariants[formVariant];
+      : locale === "pt" && formVariant in ptLeadFormVariants
+        ? ptLeadFormVariants[formVariant as keyof typeof ptLeadFormVariants]
+        : leadFormVariants[formVariant];
   const ctaLabel = submitLabel ?? preset.submitLabel;
   const resolvedMicrocopy = microcopy ?? copy.microcopy;
 

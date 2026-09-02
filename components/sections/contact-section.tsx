@@ -7,7 +7,19 @@ import { esLeadFormVariants } from "@/content/es/lead-forms";
 import { esContactSectionCopy } from "@/content/es/pages";
 import { DEFAULT_LOCALE, type Locale } from "@/content/i18n";
 import { leadFormVariants } from "@/content/lead-forms";
+import { ptLeadFormVariants } from "@/content/pt/lead-forms";
+import { ptContactSectionCopy } from "@/content/pt/pages";
 import { siteConfig } from "@/content/site";
+
+const ENGLISH_COPY = {
+  heading: "Contact us",
+  body: (
+    <>
+      Injured or just have a question? Reach out <br /> anytime — we respond fast, no call center.
+    </>
+  ),
+  lockupSubtitle: "Chiropractic and Wellness Center",
+};
 
 /** Homepage "Contact us" block per the contact-us-final design: copy + logo
  * lockup on the left, a borderless/underline-only field form on the right
@@ -17,19 +29,13 @@ export function ContactSection({ locale = DEFAULT_LOCALE }: { locale?: Locale } 
   // The business name lockup below is never translated — it's the
   // practice's registered name and its search entity.
   const copy =
+    locale === "es" ? esContactSectionCopy : locale === "pt" ? ptContactSectionCopy : ENGLISH_COPY;
+  const formVariant =
     locale === "es"
-      ? esContactSectionCopy
-      : {
-          heading: "Contact us",
-          body: (
-            <>
-              Injured or just have a question? Reach out <br /> anytime — we respond fast, no call
-              center.
-            </>
-          ),
-          lockupSubtitle: "Chiropractic and Wellness Center",
-        };
-  const formVariant = locale === "es" ? esLeadFormVariants.contact : leadFormVariants.contact;
+      ? esLeadFormVariants.contact
+      : locale === "pt"
+        ? ptLeadFormVariants.contact
+        : leadFormVariants.contact;
 
   return (
     <Section id="contact" spacing="lg">
