@@ -14,6 +14,7 @@ import {
   type ComparisonRow,
 } from "@/content/comparison-table";
 import { esComparisonCopy } from "@/content/es/auto-accident";
+import { htComparisonCopy } from "@/content/ht/auto-accident";
 import { DEFAULT_LOCALE, type Locale } from "@/content/i18n";
 import { ptComparisonCopy } from "@/content/pt/auto-accident";
 import { cn } from "@/lib/cn";
@@ -41,7 +42,13 @@ export function ComparisonTable({
   locale = DEFAULT_LOCALE,
 }: ComparisonTableProps) {
   const localizedCopy =
-    locale === "es" ? esComparisonCopy : locale === "pt" ? ptComparisonCopy : null;
+    locale === "es"
+      ? esComparisonCopy
+      : locale === "pt"
+        ? ptComparisonCopy
+        : locale === "ht"
+          ? htComparisonCopy
+          : null;
   const copy = localizedCopy
     ? {
         eyebrow: localizedCopy.eyebrow,

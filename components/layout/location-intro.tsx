@@ -25,10 +25,8 @@ const ENGLISH_COPY: LocationIntroCopy = {
 };
 
 /** The plaza name and the "far-right corner" wayfinding note are real,
- * already-published location facts — the Spanish/Portuguese versions
- * translate them rather than inventing new ones. ht falls back to the
- * English copy pending real translation (ATS-SEO-136) — no ht page exists
- * yet to render this component. */
+ * already-published location facts — every localized version translates
+ * them rather than inventing new ones. */
 const COPY: Record<Locale, LocationIntroCopy> = {
   en: ENGLISH_COPY,
   es: {
@@ -43,7 +41,12 @@ const COPY: Record<Locale, LocationIntroCopy> = {
     exteriorAlt: "Fachada do Palm Plaza, onde fica a Align the Spine Chiropractic",
     plazaCaption: "Ao entrar na praça, somos o prédio no canto do extremo direito.",
   },
-  ht: ENGLISH_COPY,
+  ht: {
+    headingLines: ["Nou sèvi", "sid Florid"],
+    sendLabel: "Voye",
+    exteriorAlt: "Fasad Palm Plaza, kote Align the Spine Chiropractic ye",
+    plazaCaption: "Lè ou antre nan plaza a, nou se bilding nan kwen adwat la.",
+  },
 };
 
 export interface LocationIntroProps {
@@ -61,7 +64,14 @@ export interface LocationIntroProps {
 export function LocationIntro({ sendHref, locale = DEFAULT_LOCALE }: LocationIntroProps = {}) {
   const copy = COPY[locale];
   const resolvedSendHref =
-    sendHref ?? (locale === "es" ? "/es#contact" : locale === "pt" ? "/pt#contact" : "/#contact");
+    sendHref ??
+    (locale === "es"
+      ? "/es#contact"
+      : locale === "pt"
+        ? "/pt#contact"
+        : locale === "ht"
+          ? "/ht#contact"
+          : "/#contact");
 
   return (
     <section className="bg-white">

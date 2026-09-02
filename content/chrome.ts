@@ -1,4 +1,5 @@
 import { enChromeLabels, esBookingCta, esChromeLabels, esFooter, esNav } from "@/content/es/chrome";
+import { htBookingCta, htChromeLabels, htFooter, htNav } from "@/content/ht/chrome";
 import type { Locale } from "@/content/i18n";
 import { ptBookingCta, ptChromeLabels, ptFooter, ptNav } from "@/content/pt/chrome";
 import { getVerifiedStats, siteConfig, type DisplayStat, type NavLink } from "@/content/site";
@@ -10,20 +11,19 @@ import { getVerifiedStats, siteConfig, type DisplayStat, type NavLink } from "@/
  * their labels and links through these accessors instead of importing
  * siteConfig directly, which is what keeps a design change from having to
  * be made twice (and from being made once and silently missed in a
- * non-English locale). ht has no content module yet (ATS-SEO-136) — every
- * accessor below falls through to English for "ht" until then, same
- * documented-fallback pattern established across the codebase by
- * ATS-SEO-134.
+ * non-English locale).
  */
 export function getNav(locale: Locale): NavLink[] {
   if (locale === "es") return esNav;
   if (locale === "pt") return ptNav;
+  if (locale === "ht") return htNav;
   return siteConfig.nav;
 }
 
 export function getBookingCta(locale: Locale): NavLink {
   if (locale === "es") return esBookingCta;
   if (locale === "pt") return ptBookingCta;
+  if (locale === "ht") return htBookingCta;
   return siteConfig.bookingCta;
 }
 
@@ -70,6 +70,20 @@ export function getFooterConfig(locale: Locale): FooterConfig {
     };
   }
 
+  if (locale === "ht") {
+    return {
+      tagline: htFooter.tagline,
+      links: htFooter.links,
+      copyrightName: htFooter.copyrightName,
+      contactHeading: "Kontak",
+      siteHeading: "Sit la",
+      privacyLabel: htFooter.privacyPolicy.label,
+      privacyHref: htFooter.privacyPolicy.href,
+      privacyIsForeignLanguage: true,
+      licenseLine: "Gen lisans nan eta Florid.",
+    };
+  }
+
   return {
     tagline: siteConfig.footer.tagline,
     links: siteConfig.footer.links,
@@ -86,6 +100,7 @@ export function getFooterConfig(locale: Locale): FooterConfig {
 export function getChromeLabels(locale: Locale) {
   if (locale === "es") return esChromeLabels;
   if (locale === "pt") return ptChromeLabels;
+  if (locale === "ht") return htChromeLabels;
   return enChromeLabels;
 }
 
@@ -100,7 +115,8 @@ export function getChromeLabels(locale: Locale) {
 export function getLocalizedStats(locale: Locale): DisplayStat[] {
   const stats = getVerifiedStats();
   if (locale === "en") return stats;
-  const labels = locale === "pt" ? ptChromeLabels : esChromeLabels;
+  const labels =
+    locale === "pt" ? ptChromeLabels : locale === "ht" ? htChromeLabels : esChromeLabels;
 
   return stats.map((stat) => ({
     label: labels.stats[stat.label] ?? stat.label,

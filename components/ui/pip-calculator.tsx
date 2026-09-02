@@ -11,6 +11,7 @@ import {
   calculatePipWindow,
   enPipWindowMessages,
   esPipWindowMessages,
+  htPipWindowMessages,
   parseUsDate,
   ptPipWindowMessages,
 } from "@/lib/pip-window";
@@ -66,7 +67,17 @@ const COPY: Record<Locale, PipCalculatorCopy> = {
     dateLabel: "Data do acidente",
     callPrefix: "Ligar para",
   },
-  ht: ENGLISH_PIP_COPY,
+  ht: {
+    heading: "Kilè aksidan an te rive?",
+    prompt:
+      "Antre yon dat pou estime peryòd jeneral 14 jou pou kòmanse tretman an. Sa se pa yon detèminasyon kouvèti.",
+    // mm/dd/aaaa, pa dd/mm/aaaa: chan an se yon antre dat Ozetazini
+    // parseUsDate entèprete, epi biwo a, pasyan li yo, ak konpayi asirans
+    // yo tout nan Florid.
+    invalid: "Dat sa a pa sanble valab — itilize fòma mm/dd/aaaa.",
+    dateLabel: "Dat aksidan an",
+    callPrefix: "Rele",
+  },
 };
 
 /** 14-day PIP window date calculator (ATS-032), embedded in the accident
@@ -80,7 +91,9 @@ export function PipCalculator({ className, locale = DEFAULT_LOCALE }: PipCalcula
       ? esPipWindowMessages
       : locale === "pt"
         ? ptPipWindowMessages
-        : enPipWindowMessages;
+        : locale === "ht"
+          ? htPipWindowMessages
+          : enPipWindowMessages;
 
   const date = parseUsDate(value);
   // Only call the input invalid once it's shaped like a full date (4-digit

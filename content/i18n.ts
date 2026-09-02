@@ -26,41 +26,44 @@
  *    separate runtime UI translation from, and nothing that could leak an
  *    API key client-side.
  *
- * PT-BR and HT currently have zero real pages — every route below has
- * `pt: null, ht: null`, same documented-null convention Spanish's draft
- * routes already use. That is deliberate, not a placeholder to fill in
- * later by guessing: a route only gets a non-null pt/ht path once
- * ATS-SEO-135/136 actually build that page. Until then, `buildAlternates()`
- * simply never emits a pt/ht hreflang entry for it, which is exactly the
- * "no indexable mixed-language 200" guarantee this ticket asks for — it
- * falls directly out of the existing null-means-no-page convention, not a
- * new mechanism.
+ * ATS-SEO-135 (Portuguese) and ATS-SEO-136 (Haitian Creole) have each
+ * built the same nine route families — home, car-accident hub, services
+ * hub, about, reviews, contact, book-an-appointment, conditions hub,
+ * service-areas hub — so those nine `localizedRoutes` entries carry real
+ * `pt`/`ht` paths. Every other route (the draft condition/service pages,
+ * the 19 city pages, /privacy-policy, /blog, /home-visit-chiropractor)
+ * still keeps `pt: null, ht: null`, same documented-null convention
+ * Spanish's own draft routes use: a route only gets a non-null path once
+ * a ticket actually builds that page, never guessed. `buildAlternates()`
+ * simply never emits a pt/ht hreflang entry for a null route, which is the
+ * "no indexable mixed-language 200" guarantee both tickets asked for — it
+ * falls directly out of the null-means-no-page convention, not a new
+ * mechanism.
  *
- * Known, catalogued follow-up for ATS-SEO-135/136 (not addressed here —
- * see docs/multilingual-seo-baseline.md and this ticket's own "not an
- * application-wide rewrite" guidance): a number of shared components
- * resolve locale-specific *content* (not routes) via a binary
- * `locale === "es" ? esValue : enValue` ternary — content/chrome.ts,
- * content/testimonials.ts, components/ui/{pip-calculator,lead-form,
- * lead-consent,lead-form-popup,underline-form,mobile-lead-preview-card}.tsx,
+ * Every shared component that resolves locale-specific *content* (not
+ * routes) — content/chrome.ts, content/testimonials.ts,
+ * components/ui/{pip-calculator,lead-form,lead-consent,lead-form-popup,
+ * underline-form,mobile-lead-preview-card}.tsx,
  * components/sections/{contact-section,hero,comparison-table,
  * hero-solid-panel}.tsx, components/layout/{location-intro,location-footer,
- * navbar,navbar-drawer}.tsx, components/content/{service-area-hero,
- * accident-impact-visual}.tsx. Each already receives a fully generalized
- * `Locale` (so nothing here breaks for pt/ht — those branches just aren't
- * reachable yet, since no pt/ht page exists to pass "pt"/"ht" in), but each
- * will need its own pt/ht branch added *when* 135/136 wire in real content
- * for that component — a small, localized edit per function, not a
- * route-table change. Not rewritten speculatively here since there is no
- * real pt/ht content yet to migrate to, and guessing at the right fallback
- * shape without real content would be worse than leaving the well-understood
- * two-way ternary in place until there's something real to branch to.
- * `LanguageSwitcher` itself is deliberately NOT touched by this ticket —
+ * navbar,navbar-drawer}.tsx — now has real `pt` and `ht` branches wired in
+ * by ATS-SEO-135/136, alongside their Spanish ones. The remaining
+ * `components/content/{service-area-hero,accident-impact-visual,
+ * es-service-area-article,es-condition-page}.tsx` files stay Spanish-only
+ * on purpose: they're each coupled to Spanish-only data (the nineteen
+ * Spanish city pages, the seven Spanish condition pages) that has no
+ * Portuguese/Haitian-Creole counterpart yet, so the Portuguese and Haitian
+ * Creole service-area pages are bespoke markup instead of reusing that
+ * component — see app/(pt)/pt/areas-de-atendimento/page.tsx and
+ * app/(ht)/ht/zon-nou-sevi/page.tsx's own comments.
+ *
+ * `LanguageSwitcher` itself is deliberately NOT touched by either ticket —
  * its 2-way EN⇄ES toggle UI becomes a 4-way equivalent-page menu under
  * ATS-SEO-137 ("Build four-language switcher and equivalent-page
- * navigation"), which owns that redesign; this ticket only guarantees the
- * data (`counterpartPath`, `HREFLANG`, the route table) that component
- * depends on is already correct for N locales.
+ * navigation"), which owns that redesign. Until then, `pt`/`ht` pages fall
+ * back to switching straight to English (their `target` resolves to "en",
+ * same as Spanish's own fallback shape) — functional and never a broken
+ * link, just not yet a real 4-way menu.
  */
 
 import { esServiceAreaCities } from "@/content/es/service-areas-cities";
@@ -183,24 +186,48 @@ export interface LocalizedRoute {
  * second convention (see §URL normalization in the report).
  */
 export const localizedRoutes: LocalizedRoute[] = [
-  { id: "home", en: "", es: "/es", pt: "/pt", ht: null },
+  { id: "home", en: "", es: "/es", pt: "/pt", ht: "/ht" },
   {
     id: "carAccident",
     en: "/car-accident-chiropractor",
     es: "/es/quiropractico-accidentes-de-auto",
     pt: "/pt/quiropratico-acidentes-de-carro",
-    ht: null,
+    ht: "/ht/kiwoprate-pou-aksidan-machin",
   },
-  { id: "services", en: "/services", es: "/es/servicios", pt: "/pt/servicos", ht: null },
-  { id: "about", en: "/about", es: "/es/dr-abe-nasser", pt: "/pt/dr-abe-nasser", ht: null },
-  { id: "reviews", en: "/reviews", es: "/es/resenas", pt: "/pt/avaliacoes", ht: null },
-  { id: "contact", en: "/contact-us", es: "/es/contacto", pt: "/pt/contato", ht: null },
+  {
+    id: "services",
+    en: "/services",
+    es: "/es/servicios",
+    pt: "/pt/servicos",
+    ht: "/ht/sevis",
+  },
+  {
+    id: "about",
+    en: "/about",
+    es: "/es/dr-abe-nasser",
+    pt: "/pt/dr-abe-nasser",
+    ht: "/ht/dr-abe-nasser",
+  },
+  {
+    id: "reviews",
+    en: "/reviews",
+    es: "/es/resenas",
+    pt: "/pt/avaliacoes",
+    ht: "/ht/komante-pasyan",
+  },
+  {
+    id: "contact",
+    en: "/contact-us",
+    es: "/es/contacto",
+    pt: "/pt/contato",
+    ht: "/ht/kontakte-nou",
+  },
   {
     id: "bookAppointment",
     en: "/book-an-appointment",
     es: "/es/solicitar-cita",
     pt: "/pt/solicitar-consulta",
-    ht: null,
+    ht: "/ht/mande-yon-randevou",
   },
 
   // --- Hub pages whose children are NOT all paired ---------------------
@@ -214,7 +241,13 @@ export const localizedRoutes: LocalizedRoute[] = [
   // scope includes it) even though none of its children do yet — it
   // currently links onward to the accident/services pages instead, same
   // pattern as a hub whose children haven't published.
-  { id: "conditionsHub", en: "/conditions", es: "/es/condiciones", pt: "/pt/condicoes", ht: null },
+  {
+    id: "conditionsHub",
+    en: "/conditions",
+    es: "/es/condiciones",
+    pt: "/pt/condicoes",
+    ht: "/ht/kondisyon-nou-trete",
+  },
   // The service-area HUB is paired: /es/areas-de-servicio is a real
   // Spanish page (one office, named communities, honest limits).
   //
@@ -239,7 +272,7 @@ export const localizedRoutes: LocalizedRoute[] = [
     en: "/service-areas",
     es: "/es/areas-de-servicio",
     pt: "/pt/areas-de-atendimento",
-    ht: null,
+    ht: "/ht/zon-nou-sevi",
   },
 
   // --- English-only, deliberately (es/pt/ht: null) ----------------------

@@ -19,6 +19,7 @@ import {
   buildLeadFormSchema,
   enLeadFormMessages,
   esLeadFormMessages,
+  htLeadFormMessages,
   ptLeadFormMessages,
   type LeadFieldConfig,
   type LeadFieldType,
@@ -89,13 +90,12 @@ export interface LeadFormProps {
 }
 
 /** Strings the form renders itself, as opposed to the ones its caller
- * supplies (heading, field labels, submit label). ht falls back to the
- * English copy pending real translation (ATS-SEO-136). Portuguese has real
- * copy (ATS-SEO-135) but `successHref` still points at the English
- * `/thank-you` — no Portuguese thank-you page exists (out of this ticket's
- * 9-route scope, see content/pt/seo.ts), and sending a Portuguese-reading
- * visitor to `/es/gracias` would be worse than sending them to the English
- * one. */
+ * supplies (heading, field labels, submit label). Portuguese and Haitian
+ * Creole both have real copy (ATS-SEO-135/136) but `successHref` still
+ * points at the English `/thank-you` — neither has a thank-you page (out
+ * of scope for both tickets' 9-route sets, see content/pt/seo.ts and
+ * content/ht/seo.ts), and sending a non-Spanish-reading visitor to
+ * `/es/gracias` would be worse than sending them to the English one. */
 const ENGLISH_FORM_COPY = {
   submitError: "Something went wrong. Please try again.",
   success: "Thanks — we'll be in touch shortly.",
@@ -119,7 +119,12 @@ const FORM_COPY: Record<
     honeypotLabel: "Site",
     successHref: "/thank-you",
   },
-  ht: ENGLISH_FORM_COPY,
+  ht: {
+    submitError: "Gen yon bagay ki mal pase. Tanpri eseye ankò.",
+    success: "Mèsi — nou pral kontakte ou byento.",
+    honeypotLabel: "Sitwèb",
+    successHref: "/thank-you",
+  },
 };
 
 function inputType(type: LeadFieldType) {
@@ -255,7 +260,9 @@ export function LeadForm({
       ? esLeadFormMessages
       : locale === "pt"
         ? ptLeadFormMessages
-        : enLeadFormMessages;
+        : locale === "ht"
+          ? htLeadFormMessages
+          : enLeadFormMessages;
   const resolvedSuccessMessage = successMessage ?? copy.success;
   const resolvedSuccessHref = successHref ?? copy.successHref;
   const {

@@ -4,6 +4,7 @@ import {
   LEAD_CONSENT_VERSION,
   LEAD_CONSENT_WORDING,
   LEAD_CONSENT_WORDING_ES,
+  LEAD_CONSENT_WORDING_HT,
   LEAD_CONSENT_WORDING_PT,
 } from "@/lib/leads/contracts";
 
@@ -11,7 +12,7 @@ const CONSENT_WORDING: Record<Locale, string> = {
   en: LEAD_CONSENT_WORDING,
   es: LEAD_CONSENT_WORDING_ES,
   pt: LEAD_CONSENT_WORDING_PT,
-  ht: LEAD_CONSENT_WORDING,
+  ht: LEAD_CONSENT_WORDING_HT,
 };
 
 /** The consent line shown above every lead form. `data-consent-version` is

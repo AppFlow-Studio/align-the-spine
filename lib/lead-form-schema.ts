@@ -115,6 +115,18 @@ export const ptLeadFormMessages: LeadFormMessages = {
   futureDate: "A data não pode ser futura",
 };
 
+/** Haitian Creole rendering (ATS-SEO-136), same rules again — genuine
+ * Kreyòl Ayisyen wording, not French. */
+export const htLeadFormMessages: LeadFormMessages = {
+  required: "Ou dwe ranpli chan sa a",
+  tooLong: "Twò long",
+  email: "Antre yon imel ki valab",
+  zip: "Antre yon kòd postal ki valab",
+  date: "Antre yon dat ki valab",
+  phone: "Antre yon nimewo telefòn 10 chif ki valab",
+  futureDate: "Dat la pa ka nan lavni",
+};
+
 /** Each variant's schema is derived from its fields config: every field is
  * trimmed and length-capped regardless of type; required fields must be
  * non-empty after trimming; tel/email/zip enforce their format whenever

@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import { esRoutes } from "@/content/es/seo";
+import { htRoutes } from "@/content/ht/seo";
 import { ptRoutes } from "@/content/pt/seo";
 import { routes } from "@/content/seo";
 
@@ -53,7 +54,9 @@ describe("route registry ↔ filesystem parity", () => {
   // exactly the same rule as an English one — it must be registered (and
   // therefore have a canonical, a title and a description) or be
   // explicitly allowlisted.
-  const registeredPaths = new Set([...routes, ...esRoutes, ...ptRoutes].map((route) => route.path));
+  const registeredPaths = new Set(
+    [...routes, ...esRoutes, ...ptRoutes, ...htRoutes].map((route) => route.path),
+  );
   const filesystemPaths = new Set(filesystemRoutes);
 
   it("registers every page.tsx route, or lists it in the allowlist", () => {

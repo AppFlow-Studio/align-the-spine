@@ -5,6 +5,8 @@ import { Section } from "@/components/ui/section";
 import { UnderlineForm } from "@/components/ui/underline-form";
 import { esLeadFormVariants } from "@/content/es/lead-forms";
 import { esContactSectionCopy } from "@/content/es/pages";
+import { htLeadFormVariants } from "@/content/ht/lead-forms";
+import { htContactSectionCopy } from "@/content/ht/pages";
 import { DEFAULT_LOCALE, type Locale } from "@/content/i18n";
 import { leadFormVariants } from "@/content/lead-forms";
 import { ptLeadFormVariants } from "@/content/pt/lead-forms";
@@ -29,13 +31,21 @@ export function ContactSection({ locale = DEFAULT_LOCALE }: { locale?: Locale } 
   // The business name lockup below is never translated — it's the
   // practice's registered name and its search entity.
   const copy =
-    locale === "es" ? esContactSectionCopy : locale === "pt" ? ptContactSectionCopy : ENGLISH_COPY;
+    locale === "es"
+      ? esContactSectionCopy
+      : locale === "pt"
+        ? ptContactSectionCopy
+        : locale === "ht"
+          ? htContactSectionCopy
+          : ENGLISH_COPY;
   const formVariant =
     locale === "es"
       ? esLeadFormVariants.contact
       : locale === "pt"
         ? ptLeadFormVariants.contact
-        : leadFormVariants.contact;
+        : locale === "ht"
+          ? htLeadFormVariants.contact
+          : leadFormVariants.contact;
 
   return (
     <Section id="contact" spacing="lg">

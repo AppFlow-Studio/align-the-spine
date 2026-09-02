@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 
 import { esRoutes } from "@/content/es/seo";
 import { esServiceAreaPages } from "@/content/es/service-areas-cities";
+import { htRoutes } from "@/content/ht/seo";
 import { buildAlternates, type Locale } from "@/content/i18n";
 import { ptRoutes } from "@/content/pt/seo";
 import { isPublished, routes, type RouteMeta } from "@/content/seo";
@@ -18,10 +19,10 @@ import { listPublicContent } from "@/lib/content/public-content";
  * content/seo.ts) are excluded here too. Blog posts and service-area pages
  * are appended from the CMS at the end.
  *
- * Spanish (content/es/seo.ts) and Brazilian Portuguese (content/pt/seo.ts,
- * ATS-SEO-135) are appended through the same filter and the same shape, so
- * /es and /pt URLs are discoverable without a separate sitemap or a
- * sitemap index.
+ * Spanish (content/es/seo.ts), Brazilian Portuguese (content/pt/seo.ts,
+ * ATS-SEO-135), and Haitian Creole (content/ht/seo.ts, ATS-SEO-136) are
+ * appended through the same filter and the same shape, so /es, /pt, and
+ * /ht URLs are discoverable without a separate sitemap or a sitemap index.
  *
  * Per-URL `alternates.languages` comes from content/i18n.ts's
  * buildAlternates() — the identical function lib/seo/metadata.ts uses for
@@ -73,6 +74,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...routes.filter(isPublished).map((route) => toSitemapEntry(route, "en")),
     ...esRoutes.filter(isPublished).map((route) => toSitemapEntry(route, "es")),
     ...ptRoutes.filter(isPublished).map((route) => toSitemapEntry(route, "pt")),
+    ...htRoutes.filter(isPublished).map((route) => toSitemapEntry(route, "ht")),
   ];
 
   const [posts, areas] = await Promise.all([

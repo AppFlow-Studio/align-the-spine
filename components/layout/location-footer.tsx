@@ -29,8 +29,6 @@ const ENGLISH_COPY: LocationFooterCopy = {
   day: {},
 };
 
-// ht falls back to the English copy pending real translation
-// (ATS-SEO-136) — no ht page exists yet to render this component.
 const COPY: Record<Locale, LocationFooterCopy> = {
   en: ENGLISH_COPY,
   es: {
@@ -65,14 +63,29 @@ const COPY: Record<Locale, LocationFooterCopy> = {
       Sunday: "Domingo",
     },
   },
-  ht: ENGLISH_COPY,
+  ht: {
+    ourLocation: "Kote nou ye",
+    hours: "Lè nou louvri",
+    bookCta: "Mande Vizit Ou",
+    mapTitlePrefix: "Kat pou rive nan",
+    confirmHours: (phone) => `Rele ${phone} pou konfime lè jodi a.`,
+    day: {
+      Monday: "Lendi",
+      Tuesday: "Madi",
+      Wednesday: "Mèkredi",
+      Thursday: "Jedi",
+      Friday: "Vandredi",
+      Saturday: "Samdi",
+      Sunday: "Dimanch",
+    },
+  },
 };
 
 const BOOKING_HREF: Record<Locale, string> = {
   en: siteConfig.bookingCta.href,
   es: "/es/solicitar-cita",
   pt: "/pt/solicitar-consulta",
-  ht: siteConfig.bookingCta.href,
+  ht: "/ht/mande-yon-randevou",
 };
 
 export function LocationFooter({ locale = DEFAULT_LOCALE }: { locale?: Locale } = {}) {

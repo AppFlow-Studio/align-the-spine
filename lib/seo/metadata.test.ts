@@ -14,9 +14,9 @@ describe("buildMetadata", () => {
     expect(metadata.alternates?.canonical).toBe(`${siteConfig.siteUrl}/services`);
   });
 
-  // /services has Spanish AND Portuguese counterparts registered in
-  // content/i18n.ts (ATS-SEO-135 added the Portuguese one), so it gets
-  // reciprocal hreflang for both alongside its self-canonical.
+  // /services has Spanish, Portuguese AND Haitian Creole counterparts
+  // registered in content/i18n.ts (ATS-SEO-135/136), so it gets reciprocal
+  // hreflang for all three alongside its self-canonical.
   it("adds reciprocal hreflang for a route that has a counterpart in the other language", () => {
     const metadata = buildMetadata({
       title: "Title",
@@ -27,6 +27,7 @@ describe("buildMetadata", () => {
       "en-US": `${siteConfig.siteUrl}/services`,
       "es-US": `${siteConfig.siteUrl}/es/servicios`,
       "pt-BR": `${siteConfig.siteUrl}/pt/servicos`,
+      ht: `${siteConfig.siteUrl}/ht/sevis`,
       "x-default": `${siteConfig.siteUrl}/services`,
     });
   });
@@ -46,6 +47,7 @@ describe("buildMetadata", () => {
       "en-US": `${siteConfig.siteUrl}/services`,
       "es-US": `${siteConfig.siteUrl}/es/servicios`,
       "pt-BR": `${siteConfig.siteUrl}/pt/servicos`,
+      ht: `${siteConfig.siteUrl}/ht/sevis`,
       "x-default": `${siteConfig.siteUrl}/services`,
     });
   });
