@@ -35,6 +35,12 @@ import { siteConfig } from "@/content/site";
  * "Kiwopratè" leads titles (not the French "chiropracteur") — the same
  * head-term reasoning as the Spanish "Quiropráctico" and Portuguese
  * "Quiroprático" (see content/es/seo.ts, content/pt/seo.ts).
+ *
+ * ATS-SEO-142: see SEO_QA_EVIDENCE/multilingual-keyword-map.md for the
+ * consolidated locale/cluster/intent/target-page-family/funnel table —
+ * every Haitian Creole row there is `NEEDS MORE EVIDENCE — documented
+ * tooling limitation`, which is why these titles stay evidence-conservative
+ * rather than guessing at an SEO-optimized phrasing no data supports.
  */
 export const htRoutes: RouteMeta[] = [
   {
