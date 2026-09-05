@@ -142,13 +142,24 @@ export const whiplashWarning: ConditionWarning = {
   bullets: [
     { label: "Pain radiating down the arm", href: "/conditions/neck-pain" },
     { label: "Severe headache that won't resolve", href: "/conditions/neck-pain" },
-    { label: "Vision changes or dizziness" },
+    // ATS-SEO-055: this is the "most severe, no href" bullet per
+    // ConditionWarningBullet's own doc comment, but unlike every other
+    // condition page's equivalent bullet it didn't actually say what to do
+    // about it — added the explicit instruction for consistency (vision
+    // changes/dizziness after a collision are recognized indicators for
+    // prompt medical evaluation).
+    { label: "Vision changes or dizziness — seek emergency care" },
   ],
 };
 
 export const whiplashAccident: ConditionAccident = {
   headline: "Florida gives you 14 days from the accident",
-  body: "Whiplash symptoms can build after the collision. Florida PIP generally requires initial services and care within 14 days of a motor vehicle accident; coverage depends on eligibility and policy terms.",
+  // ATS-SEO-055: added the statute citation for this page's central
+  // material PIP claim — the number itself (Fla. Stat. 627.736) is already
+  // used elsewhere in the codebase (content/site.ts, content/service-areas.ts's
+  // doc comments) but wasn't previously cited in any visible page copy;
+  // this ticket explicitly asks to cite material medical/PIP statements.
+  body: "Whiplash symptoms can build after the collision. Florida PIP generally requires initial services and care within 14 days of a motor vehicle accident (Fla. Stat. § 627.736); coverage depends on eligibility and policy terms.",
   smallprint:
     "Coverage and payment depend on your policy, eligibility, medical necessity, and the circumstances of your claim.",
 };
@@ -176,7 +187,7 @@ export const whiplashFaq: ConditionFaq = {
     },
     {
       q: 'What does a whiplash "grade" mean?',
-      a: "A whiplash grade describes severity, from neck symptoms without physical signs to fracture or dislocation. A qualified clinician should assess the injury rather than relying on symptoms alone.",
+      a: "A whiplash grade — based on the Quebec Task Force classification, the standard grading framework — describes severity, from neck symptoms without physical signs to fracture or dislocation. A qualified clinician should assess the injury rather than relying on symptoms alone.",
     },
     {
       q: "Can whiplash cause headaches weeks later?",

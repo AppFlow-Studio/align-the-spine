@@ -70,6 +70,20 @@ export const concussionSymptoms: string[] = [
 export const concussionSymptomNote =
   "Seek prompt medical evaluation for possible concussion symptoms after an accident, and emergency care for severe or worsening symptoms.";
 
+// ATS-SEO-056: extracted from concussionSupportItems' 4th card ("Ongoing
+// reassessment") below, not new claims — that card's warning language was
+// easy to miss inside a 4-card treatment grid, so it's restated here as a
+// dedicated, prominent RedFlagCard (rendered server-side, unconditionally,
+// per this ticket's explicit "urgent warning information must be prominent
+// and server-rendered" requirement for this page specifically).
+export const concussionRedFlags: string[] = [
+  "Repeated vomiting",
+  "Confusion, difficulty waking up, or slurred speech",
+  "New weakness, numbness, or loss of coordination",
+  "Worsening headache that won't ease up",
+  "Loss of consciousness, even briefly — seek emergency care",
+];
+
 export const concussionSupportItems: ConditionTreatmentItem[] = [
   {
     title: "Medical evaluation first",

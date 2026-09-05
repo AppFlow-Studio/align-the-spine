@@ -178,8 +178,11 @@ export const siteConfig: SiteConfig = {
   business: {
     name: "Align the Spine Chiropractic",
     shortName: "Align the Spine",
-    phone: "954-282-1801 ",
-    phoneHref: "tel:+19542821801 ",
+    // ATS-SEO-061: trailing whitespace removed from both values — was
+    // rendering literally (a stray space after the phone number in call
+    // buttons/CTAs, and inside the tel: URI itself).
+    phone: "954-282-1801",
+    phoneHref: "tel:+19542821801",
     email: "info@chirobackpain.com",
     address: {
       line1: "811 SE 8th Ave",

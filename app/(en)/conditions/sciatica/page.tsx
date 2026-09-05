@@ -142,10 +142,12 @@ export default function SciaticaPage() {
             </h2>
             <div className="flex flex-col gap-4 lg:ml-[10vw]">
               <p className="max-w-2xl font-sans text-body-lg text-ink-900">
-                Sciatica describes pain or other symptoms along the sciatic nerve. After a car
-                accident, Dr. Abe Nasser evaluates possible musculoskeletal contributors and
-                documents relevant findings for a PIP claim when applicable. Possible causes include
-                a{" "}
+                Sciatica is pain, numbness, or tingling that radiates from the lower back through
+                the buttock and down the leg — what many patients describe as lower back and leg
+                pain, or pain down the leg — caused by irritation or compression of the sciatic
+                nerve itself. Not all leg pain is sciatica: pain confined to the muscles or joints
+                without that nerve involvement is a different picture, which is exactly what an
+                evaluation is for. Possible causes include a{" "}
                 <Link href="/services/spinal-decompression" className="underline">
                   herniated disc
                 </Link>{" "}
@@ -154,7 +156,9 @@ export default function SciaticaPage() {
                   spinal stenosis
                 </Link>{" "}
                 that irritates or compresses a nerve root, whether symptoms followed an impact or
-                developed over time.
+                developed over time. After a car accident, Dr. Abe Nasser evaluates possible
+                musculoskeletal contributors and documents relevant findings for a PIP claim when
+                applicable.
               </p>
               <div className="w-full h-px bg-mute-350" />
               <a

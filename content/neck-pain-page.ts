@@ -21,23 +21,36 @@ import { siteConfig } from "@/content/site";
  * frame. Kept genuinely neck-pain-specific copy for both instead. */
 
 export const neckPainHero = {
-  eyebrowChip: "Neck pain after a car accident?",
+  // ATS-SEO-053: was "Neck pain after a car accident?" — same intent
+  // mismatch fixed on back-pain under ATS-SEO-052, but more pronounced
+  // here: this page's registered primaryQuery (content/seo.ts) and the
+  // ATS-SEO-004 keyword map both assign ordinary, non-accident neck pain to
+  // this route, while "neck pain after car accident" is explicitly routed
+  // to /conditions/whiplash instead (that page owns "Whiplash after an
+  // accident?" framing) — see the keyword-map doc's cannibalization risk
+  // #2. Reworded to lead with everyday neck pain; the accident angle keeps
+  // its own section/bridge further down the page (neckPainAccident).
+  eyebrowChip: "Stiff neck that won't loosen up?",
   h1: "Neck Pain Chiropractor in Deerfield Beach, FL",
   subhead:
-    "Chiropractic evaluation for neck pain, stiffness, and limited motion, including neck pain that begins after a car accident or whiplash injury.",
+    "Chiropractic evaluation for neck pain, stiffness, and limited motion — whether it built up from posture and tension or started after a car accident.",
   backgroundImage: {
     src: "/figma-exports/dr-abe-neck.png",
     alt: "Dr. Abe Nasser examining a patient's neck",
   },
 };
 
+// ATS-SEO-053: reordered so the two accident-related causes sit last,
+// matching this page's non-accident primary intent (see neckPainHero's doc
+// comment) — same everyday-first ordering already used on
+// backPainCauses.
 export const neckPainCauses: string[] = [
-  "Car accidents and sudden impact",
-  "Whiplash from a rear-end collision",
   "Poor sleep posture",
   'Prolonged screen time ("tech neck")',
   "Stress-related muscle tension",
   "Degenerative joint changes",
+  "Whiplash from a rear-end collision",
+  "Car accidents and sudden impact",
 ];
 
 // ATS-SEO-043: plain path config — see content/back-pain-page.ts's
@@ -126,7 +139,15 @@ export const neckPainWarning: ConditionWarning = {
   bullets: [
     { label: "Numbness or tingling radiating into the arm or hand", href: "/conditions/whiplash" },
     { label: "Weakness in the arm or grip", href: "/services/spinal-decompression" },
-    { label: "Loss of bladder or bowel control — seek emergency care" },
+    // ATS-SEO-053: named the recognized clinical concern this combination
+    // of symptoms flags — cervical spinal cord compression, not cauda
+    // equina syndrome (that term is specific to the lumbar spine and was
+    // used on back-pain-page.ts's equivalent bullet instead) — grounds the
+    // guidance in accurate terminology without diagnosing the reader.
+    {
+      label:
+        "Loss of bladder or bowel control, or new weakness in both arms and legs (recognized warning signs of spinal cord compression) — seek emergency care",
+    },
   ],
 };
 

@@ -1,7 +1,9 @@
 import { describe, expect, it } from "vitest";
 
 import { esRoutes } from "@/content/es/seo";
-import { buildAlternates } from "@/content/i18n";
+import { htRoutes } from "@/content/ht/seo";
+import { buildAlternates, type Locale } from "@/content/i18n";
+import { ptRoutes } from "@/content/pt/seo";
 import { isPublished, routes } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 
@@ -44,15 +46,37 @@ describe("sitemap", () => {
     }
   });
 
-  it("lists the static routes English-first, then Spanish", async () => {
-    // CMS-driven blog/service-area entries are appended after both, so this
-    // only pins the ordering of the two static registries relative to each
-    // other.
+  // ATS-SEO-135
+  it("includes every published Portuguese route exactly once", async () => {
     const paths = (await sitemap()).map((entry) => entry.url.replace(siteConfig.siteUrl, ""));
-    const staticCount = routes.filter(isPublished).length + esRoutes.filter(isPublished).length;
+    for (const route of ptRoutes.filter(isPublished)) {
+      expect(paths.filter((path) => path === route.path)).toHaveLength(1);
+    }
+  });
+
+  // ATS-SEO-136
+  it("includes every published Haitian Creole route exactly once", async () => {
+    const paths = (await sitemap()).map((entry) => entry.url.replace(siteConfig.siteUrl, ""));
+    for (const route of htRoutes.filter(isPublished)) {
+      expect(paths.filter((path) => path === route.path)).toHaveLength(1);
+    }
+  });
+
+  it("lists the static routes English-first, then Spanish, then Portuguese, then Haitian Creole", async () => {
+    // CMS-driven blog/service-area entries are appended after all four, so
+    // this only pins the ordering of the static registries relative to
+    // each other.
+    const paths = (await sitemap()).map((entry) => entry.url.replace(siteConfig.siteUrl, ""));
+    const staticCount =
+      routes.filter(isPublished).length +
+      esRoutes.filter(isPublished).length +
+      ptRoutes.filter(isPublished).length +
+      htRoutes.filter(isPublished).length;
     expect(paths.slice(0, staticCount)).toEqual([
       ...routes.filter(isPublished).map((route) => route.path),
       ...esRoutes.filter(isPublished).map((route) => route.path),
+      ...ptRoutes.filter(isPublished).map((route) => route.path),
+      ...htRoutes.filter(isPublished).map((route) => route.path),
     ]);
   });
 
@@ -75,7 +99,10 @@ describe("sitemap", () => {
     for (const entry of await sitemap()) {
       const path = entry.url.replace(siteConfig.siteUrl, "");
       const isSpanish = path === "/es" || path.startsWith("/es/");
-      const expected = buildAlternates(siteConfig.siteUrl, path, isSpanish ? "es" : "en");
+      const isPortuguese = path === "/pt" || path.startsWith("/pt/");
+      const isHaitianCreole = path === "/ht" || path.startsWith("/ht/");
+      const locale: Locale = isSpanish ? "es" : isPortuguese ? "pt" : isHaitianCreole ? "ht" : "en";
+      const expected = buildAlternates(siteConfig.siteUrl, path, locale);
       if (expected) {
         expect(entry.alternates).toEqual({ languages: expected.languages });
       } else {

@@ -14,7 +14,9 @@ import {
   type ComparisonRow,
 } from "@/content/comparison-table";
 import { esComparisonCopy } from "@/content/es/auto-accident";
+import { htComparisonCopy } from "@/content/ht/auto-accident";
 import { DEFAULT_LOCALE, type Locale } from "@/content/i18n";
+import { ptComparisonCopy } from "@/content/pt/auto-accident";
 import { cn } from "@/lib/cn";
 
 export interface ComparisonTableProps {
@@ -39,39 +41,51 @@ export function ComparisonTable({
   className,
   locale = DEFAULT_LOCALE,
 }: ComparisonTableProps) {
-  const copy =
+  const localizedCopy =
     locale === "es"
-      ? {
-          eyebrow: esComparisonCopy.eyebrow,
-          heading: esComparisonCopy.heading,
-          subheading: esComparisonCopy.subheading,
-          columnHeadings: esComparisonCopy.columnHeadings,
-          footnote: esComparisonCopy.footnote,
-          rows: esComparisonCopy.rows,
-          autoAccidentRows: esComparisonCopy.autoAccidentRows,
-        }
-      : {
-          eyebrow: comparisonTableEyebrow,
-          heading: comparisonTableHeading,
-          subheading: comparisonTableSubheading,
-          columnHeadings: comparisonTableColumnHeadings,
-          footnote: comparisonTableFootnote,
-          rows: comparisonTableRows,
-          autoAccidentRows: autoAccidentComparisonRows,
-        };
+      ? esComparisonCopy
+      : locale === "pt"
+        ? ptComparisonCopy
+        : locale === "ht"
+          ? htComparisonCopy
+          : null;
+  const copy = localizedCopy
+    ? {
+        eyebrow: localizedCopy.eyebrow,
+        heading: localizedCopy.heading,
+        subheading: localizedCopy.subheading,
+        columnHeadings: localizedCopy.columnHeadings,
+        footnote: localizedCopy.footnote,
+        rows: localizedCopy.rows,
+        autoAccidentRows: localizedCopy.autoAccidentRows,
+      }
+    : {
+        eyebrow: comparisonTableEyebrow,
+        heading: comparisonTableHeading,
+        subheading: comparisonTableSubheading,
+        columnHeadings: comparisonTableColumnHeadings,
+        footnote: comparisonTableFootnote,
+        rows: comparisonTableRows,
+        autoAccidentRows: autoAccidentComparisonRows,
+      };
   const rows = variant === "auto-accident" ? [...copy.rows, ...copy.autoAccidentRows] : copy.rows;
 
   return (
     <Section className={className}>
       <Container>
         <div className="flex flex-col gap-10 md:gap-12">
+          {/* Was hardcoded to the English constants regardless of `locale`
+           * (pre-existing — this heading never actually localized, on
+           * Spanish either). Switched to `copy` while touching this file
+           * for ATS-SEO-135 so Portuguese callers don't leak English text
+           * into their primary section heading. */}
           <SectionHeading
-            eyebrow={comparisonTableEyebrow}
+            eyebrow={copy.eyebrow}
             tone="navy-900"
-            sub={comparisonTableSubheading}
+            sub={copy.subheading}
             className="mx-auto max-w-2xl font-semibold items-center text-center"
           >
-            {comparisonTableHeading}
+            {copy.heading}
           </SectionHeading>
 
           <Card radius={30} shadow="comparison" className="hidden overflow-hidden lg:block">

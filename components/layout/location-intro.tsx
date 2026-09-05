@@ -17,21 +17,35 @@ interface LocationIntroCopy {
   plazaCaption: string;
 }
 
+const ENGLISH_COPY: LocationIntroCopy = {
+  headingLines: ["Serving", "South Florida"],
+  sendLabel: "Send",
+  exteriorAlt: "Palm Plaza exterior, home of Align the Spine Chiropractic",
+  plazaCaption: "After you enter the plaza, we are the building on the far-right corner.",
+};
+
 /** The plaza name and the "far-right corner" wayfinding note are real,
- * already-published location facts — the Spanish version translates
+ * already-published location facts — every localized version translates
  * them rather than inventing new ones. */
 const COPY: Record<Locale, LocationIntroCopy> = {
-  en: {
-    headingLines: ["Serving", "South Florida"],
-    sendLabel: "Send",
-    exteriorAlt: "Palm Plaza exterior, home of Align the Spine Chiropractic",
-    plazaCaption: "After you enter the plaza, we are the building on the far-right corner.",
-  },
+  en: ENGLISH_COPY,
   es: {
     headingLines: ["Atendemos al", "sur de la Florida"],
     sendLabel: esLocationCopy.sendLabel,
     exteriorAlt: "Fachada de Palm Plaza, donde se encuentra Align the Spine Chiropractic",
     plazaCaption: "Al entrar a la plaza, somos el edificio de la esquina del extremo derecho.",
+  },
+  pt: {
+    headingLines: ["Atendemos o", "sul da Flórida"],
+    sendLabel: "Enviar",
+    exteriorAlt: "Fachada do Palm Plaza, onde fica a Align the Spine Chiropractic",
+    plazaCaption: "Ao entrar na praça, somos o prédio no canto do extremo direito.",
+  },
+  ht: {
+    headingLines: ["Nou sèvi", "sid Florid"],
+    sendLabel: "Voye",
+    exteriorAlt: "Fasad Palm Plaza, kote Align the Spine Chiropractic ye",
+    plazaCaption: "Lè ou antre nan plaza a, nou se bilding nan kwen adwat la.",
   },
 };
 
@@ -49,7 +63,15 @@ export interface LocationIntroProps {
  * Services, About, Book, Contact Us. */
 export function LocationIntro({ sendHref, locale = DEFAULT_LOCALE }: LocationIntroProps = {}) {
   const copy = COPY[locale];
-  const resolvedSendHref = sendHref ?? (locale === "es" ? "/es#contact" : "/#contact");
+  const resolvedSendHref =
+    sendHref ??
+    (locale === "es"
+      ? "/es#contact"
+      : locale === "pt"
+        ? "/pt#contact"
+        : locale === "ht"
+          ? "/ht#contact"
+          : "/#contact");
 
   return (
     <section className="bg-white">

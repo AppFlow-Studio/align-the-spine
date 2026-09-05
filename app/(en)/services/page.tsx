@@ -45,7 +45,14 @@ export default function ServicesPage() {
           src: "/figma-exports/dr-abe-neck.png",
           alt: "Dr. Abe Nasser treating a patient's neck",
         }}
-        eyebrow="Every treatment built around your accident"
+        // ATS-SEO-057: was "Every treatment built around your accident" —
+        // narrowed this page's registered broad intent ("general-care
+        // services hub" per content/seo.ts's primaryQuery) to accident-only
+        // framing, same intent-mismatch pattern fixed on the back-pain/
+        // neck-pain hero eyebrows earlier in Epic F. The grid below already
+        // covers general care (adjustments, posture, massage) alongside
+        // accident care, so the intro should too.
+        eyebrow="Every treatment built around you"
         title="Chiropractic Services in Deerfield Beach, FL"
         subhead="From routine adjustments to specialized recovery care — same doctor, every visit, at the office or your home when it applies."
         callPill={{ eyebrow: "Speak with us today", phone: `Call ${siteConfig.business.phone}` }}

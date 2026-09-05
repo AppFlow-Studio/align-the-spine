@@ -20,15 +20,17 @@ interface LocationFooterCopy {
   day: Record<string, string>;
 }
 
+const ENGLISH_COPY: LocationFooterCopy = {
+  ourLocation: "Our Location",
+  hours: "Hours of operation",
+  bookCta: "Book Your Visit",
+  mapTitlePrefix: "Map to",
+  confirmHours: (phone) => `Call ${phone} to confirm today's hours.`,
+  day: {},
+};
+
 const COPY: Record<Locale, LocationFooterCopy> = {
-  en: {
-    ourLocation: "Our Location",
-    hours: "Hours of operation",
-    bookCta: "Book Your Visit",
-    mapTitlePrefix: "Map to",
-    confirmHours: (phone) => `Call ${phone} to confirm today's hours.`,
-    day: {},
-  },
+  en: ENGLISH_COPY,
   es: {
     ourLocation: "Nuestra ubicación",
     hours: "Horario de atención",
@@ -45,6 +47,45 @@ const COPY: Record<Locale, LocationFooterCopy> = {
       Sunday: "Domingo",
     },
   },
+  pt: {
+    ourLocation: "Nossa localização",
+    hours: "Horário de atendimento",
+    bookCta: "Solicitar sua consulta",
+    mapTitlePrefix: "Mapa até",
+    confirmHours: (phone) => `Ligue para ${phone} para confirmar o horário de hoje.`,
+    day: {
+      Monday: "Segunda-feira",
+      Tuesday: "Terça-feira",
+      Wednesday: "Quarta-feira",
+      Thursday: "Quinta-feira",
+      Friday: "Sexta-feira",
+      Saturday: "Sábado",
+      Sunday: "Domingo",
+    },
+  },
+  ht: {
+    ourLocation: "Kote nou ye",
+    hours: "Lè nou louvri",
+    bookCta: "Mande Vizit Ou",
+    mapTitlePrefix: "Kat pou rive nan",
+    confirmHours: (phone) => `Rele ${phone} pou konfime lè jodi a.`,
+    day: {
+      Monday: "Lendi",
+      Tuesday: "Madi",
+      Wednesday: "Mèkredi",
+      Thursday: "Jedi",
+      Friday: "Vandredi",
+      Saturday: "Samdi",
+      Sunday: "Dimanch",
+    },
+  },
+};
+
+const BOOKING_HREF: Record<Locale, string> = {
+  en: siteConfig.bookingCta.href,
+  es: "/es/solicitar-cita",
+  pt: "/pt/solicitar-consulta",
+  ht: "/ht/mande-yon-randevou",
 };
 
 export function LocationFooter({ locale = DEFAULT_LOCALE }: { locale?: Locale } = {}) {
@@ -122,7 +163,7 @@ export function LocationFooter({ locale = DEFAULT_LOCALE }: { locale?: Locale } 
 
           <div className=" gap-4 pt-4 sm:flex-row sm:items-center">
             <Link
-              href={locale === "es" ? "/es/solicitar-cita" : siteConfig.bookingCta.href}
+              href={BOOKING_HREF[locale]}
               className="group flex h-12 items-center justify-center gap-3 rounded-full bg-navy-900 px-8 font-sans text-button text-white transition-colors hover:bg-navy-700"
             >
               {copy.bookCta}

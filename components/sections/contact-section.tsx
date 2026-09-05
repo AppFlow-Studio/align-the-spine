@@ -5,9 +5,23 @@ import { Section } from "@/components/ui/section";
 import { UnderlineForm } from "@/components/ui/underline-form";
 import { esLeadFormVariants } from "@/content/es/lead-forms";
 import { esContactSectionCopy } from "@/content/es/pages";
+import { htLeadFormVariants } from "@/content/ht/lead-forms";
+import { htContactSectionCopy } from "@/content/ht/pages";
 import { DEFAULT_LOCALE, type Locale } from "@/content/i18n";
 import { leadFormVariants } from "@/content/lead-forms";
+import { ptLeadFormVariants } from "@/content/pt/lead-forms";
+import { ptContactSectionCopy } from "@/content/pt/pages";
 import { siteConfig } from "@/content/site";
+
+const ENGLISH_COPY = {
+  heading: "Contact us",
+  body: (
+    <>
+      Injured or just have a question? Reach out <br /> anytime — we respond fast, no call center.
+    </>
+  ),
+  lockupSubtitle: "Chiropractic and Wellness Center",
+};
 
 /** Homepage "Contact us" block per the contact-us-final design: copy + logo
  * lockup on the left, a borderless/underline-only field form on the right
@@ -19,17 +33,19 @@ export function ContactSection({ locale = DEFAULT_LOCALE }: { locale?: Locale } 
   const copy =
     locale === "es"
       ? esContactSectionCopy
-      : {
-          heading: "Contact us",
-          body: (
-            <>
-              Injured or just have a question? Reach out <br /> anytime — we respond fast, no call
-              center.
-            </>
-          ),
-          lockupSubtitle: "Chiropractic and Wellness Center",
-        };
-  const formVariant = locale === "es" ? esLeadFormVariants.contact : leadFormVariants.contact;
+      : locale === "pt"
+        ? ptContactSectionCopy
+        : locale === "ht"
+          ? htContactSectionCopy
+          : ENGLISH_COPY;
+  const formVariant =
+    locale === "es"
+      ? esLeadFormVariants.contact
+      : locale === "pt"
+        ? ptLeadFormVariants.contact
+        : locale === "ht"
+          ? htLeadFormVariants.contact
+          : leadFormVariants.contact;
 
   return (
     <Section id="contact" spacing="lg">

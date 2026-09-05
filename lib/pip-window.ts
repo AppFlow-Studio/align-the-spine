@@ -68,6 +68,40 @@ export const esPipWindowMessages: PipWindowMessages = {
     `Quedan ${days} días del plazo general de 14 días para iniciar la atención. La cobertura y la elegibilidad dependen de su póliza y de las circunstancias.`,
 };
 
+/** Brazilian Portuguese rendering (ATS-SEO-135) — same claim-for-claim
+ * discipline as the Spanish set: identical hedging, identical referral to
+ * the insurer/a qualified professional, no extra assurance in either
+ * direction. */
+export const ptPipWindowMessages: PipWindowMessages = {
+  future: "Essa data está no futuro — verifique a data do seu acidente.",
+  expired:
+    "O prazo de 14 dias do PIP já passou, mas você ainda pode ter opções — ligue para conversarmos sobre o seu caso.",
+  lastDay:
+    "O prazo geral de 14 dias para iniciar o atendimento termina hoje. A cobertura depende da sua apólice e das circunstâncias; consulte sua seguradora ou um profissional qualificado.",
+  urgent: (days) =>
+    `${days === 1 ? "Falta 1 dia" : `Faltam ${days} dias`} do prazo geral de 14 dias para iniciar o atendimento. A cobertura depende da apólice e das circunstâncias.`,
+  active: (days) =>
+    `Faltam ${days} dias do prazo geral de 14 dias para iniciar o atendimento. A cobertura e a elegibilidade dependem da apólice e das circunstâncias.`,
+};
+
+/** Haitian Creole rendering (ATS-SEO-136) — same claim-for-claim discipline
+ * as the Spanish/Portuguese sets: identical hedging, identical referral to
+ * the insurance company/a qualified professional, no extra assurance. PIP
+ * stays untranslated, matching every other language on this site — it's
+ * the Florida legal term (Personal Injury Protection), not a concept with
+ * a natural Kreyòl name. */
+export const htPipWindowMessages: PipWindowMessages = {
+  future: "Dat sa a nan lavni — tcheke dat aksidan an ankò.",
+  expired:
+    "Peryòd 14 jou PIP la deja pase, men ou ka toujou gen opsyon — rele nou pou nou pale sou ka ou a.",
+  lastDay:
+    "Peryòd jeneral 14 jou pou kòmanse tretman an fini jodi a. Kouvèti a depann de kontra asirans ou ak sikonstans yo; kontakte konpayi asirans ou oswa yon pwofesyonèl kalifye.",
+  urgent: (days) =>
+    `${days === 1 ? "Rete 1 jou" : `Rete ${days} jou`} nan peryòd jeneral 14 jou pou kòmanse tretman an. Kouvèti a depann de kontra asirans ou ak sikonstans yo.`,
+  active: (days) =>
+    `Rete ${days} jou nan peryòd jeneral 14 jou pou kòmanse tretman an. Kouvèti ak elijibilite depann de kontra asirans ou ak sikonstans yo.`,
+};
+
 export function calculatePipWindow(
   accidentDate: Date,
   today: Date = new Date(),

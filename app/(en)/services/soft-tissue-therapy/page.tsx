@@ -115,7 +115,7 @@ export default function MassageSoftTissuePage() {
 
       <ServiceIntro
         eyebrow="Understanding the treatment"
-        heading="The soft-tissue damage a collision leaves behind"
+        heading="The soft-tissue damage behind the pain"
         divider
         cta={{ href: "#techniques", label: "Explore the techniques" }}
         image={{
@@ -123,9 +123,9 @@ export default function MassageSoftTissuePage() {
           alt: "Dr. Abe performing soft-tissue therapy on a patient",
         }}
       >
-        A crash doesn&apos;t only jar your joints — it overloads the muscles, tendons, and fascia
-        that hold them together, leaving the spasm, guarding, and deep bruising behind the pain we
-        see in{" "}
+        Injury and everyday strain don&apos;t only affect the joint — they overload the muscles,
+        tendons, and fascia that hold it together, leaving the spasm, guarding, and soreness behind
+        the pain we see in{" "}
         <Link href="/conditions/whiplash" className="underline">
           whiplash
         </Link>
@@ -136,16 +136,16 @@ export default function MassageSoftTissuePage() {
         , and{" "}
         <Link href="/conditions/back-pain" className="underline">
           back pain
-        </Link>{" "}
-        after an accident. Massage and soft-tissue therapy work directly on that tissue — releasing
-        the tension and restoring blood flow so the area can actually heal instead of tightening
-        around the injury.
+        </Link>
+        , whether that followed a collision or built up from posture and overuse. Massage and
+        soft-tissue therapy work directly on that tissue — releasing tension and helping restore
+        blood flow instead of letting the area tighten around the injury.
       </ServiceIntro>
 
       <Section id="techniques" className="scroll-mt-[120px]">
         <Container className="flex flex-col gap-14">
           <SectionHeading eyebrow="Our techniques">
-            Three techniques, matched to what a collision actually did to your tissue.
+            Three techniques, matched to what your tissue actually needs.
           </SectionHeading>
           <div className="flex flex-col divide-y divide-navy-900/20 border-t border-navy-900">
             {massageTechniques.map((technique) => (
@@ -199,8 +199,8 @@ export default function MassageSoftTissuePage() {
               Matched to your injury, not a routine
             </h2>
             <p className="max-w-2xl font-sans text-body-lg text-mute-300">
-              We identify exactly which tissue was affected by the collision, then apply the
-              technique built for it — not a generic massage sequence.
+              We identify exactly which tissue was affected, then apply the technique built for it —
+              not a generic massage sequence.
             </p>
           </Container>
         </div>

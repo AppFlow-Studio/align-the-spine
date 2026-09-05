@@ -15,6 +15,18 @@ export const LEAD_CONSENT_WORDING =
 export const LEAD_CONSENT_WORDING_ES =
   "Al enviar este formulario, usted acepta que Align the Spine Chiropractic pueda comunicarse con usted sobre su solicitud. No incluya información médica urgente ni altamente sensible.";
 
+/** Brazilian Portuguese rendering of the SAME consent (ATS-SEO-135), under
+ * the SAME LEAD_CONSENT_VERSION for the same reason as the Spanish one: one
+ * consent, shown in three languages, not a third, weaker one. */
+export const LEAD_CONSENT_WORDING_PT =
+  "Ao enviar este formulário, você concorda que a Align the Spine Chiropractic pode entrar em contato com você sobre sua solicitação. Não inclua informações médicas urgentes ou altamente sensíveis.";
+
+/** Haitian Creole rendering of the SAME consent (ATS-SEO-136), under the
+ * SAME LEAD_CONSENT_VERSION — one consent, shown in four languages, not a
+ * fourth, weaker one. */
+export const LEAD_CONSENT_WORDING_HT =
+  "Lè ou soumèt fòm sa a, ou dakò Align the Spine Chiropractic ka kontakte ou konsènan demann ou an. Pa mete okenn enfòmasyon medikal ijan oswa trè sansib.";
+
 export const SENSITIVE_FIELDS = new Set(["message", "accidentDate"]);
 
 export function isLeadFormVariant(value: unknown): value is LeadFormVariant {

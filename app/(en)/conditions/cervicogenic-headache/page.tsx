@@ -96,8 +96,8 @@ export default function CervicogenicHeadachePage() {
               <Link href="/car-accident-chiropractor" className="underline">
                 14 days
               </Link>{" "}
-              of a motor vehicle accident, with coverage depending on eligibility and policy terms.
-              If headaches followed the collision,{" "}
+              of a motor vehicle accident (Fla. Stat. § 627.736), with coverage depending on
+              eligibility and policy terms. If headaches followed the collision,{" "}
               <Link href="/conditions/whiplash" className="underline">
                 whiplash
               </Link>{" "}

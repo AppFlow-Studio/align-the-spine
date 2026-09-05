@@ -82,24 +82,28 @@ export default function TmjJawPainPage() {
               The impact your jaw absorbed without you noticing.
             </h2>
             <p className="w-full font-sans text-body-lg text-ink-900">
-              A concussion doesn&apos;t require losing consciousness or striking your head directly
-              — the sudden whiplash motion of a car accident alone can cause the brain to move
-              inside the skull, resulting in a mild traumatic brain injury. Post-concussion syndrome
-              develops when symptoms like headaches, dizziness, or brain fog persist beyond the
-              first few weeks. Because concussion and{" "}
-              <Link href="/conditions/whiplash" className="underline">
-                whiplash
+              TMJ (temporomandibular joint) dysfunction is pain, tightness, or clicking in the jaw
+              joint and the muscles that move it. A car accident can strain the joint when the jaw
+              is clenched tight during impact, and the same clenching pattern can build up over
+              weeks afterward without any single moment you&apos;d point to. Because the jaw shares
+              muscles and nerves with the neck, TMJ symptoms often overlap with{" "}
+              <Link href="/conditions/cervicogenic-headache" className="underline">
+                headaches
               </Link>{" "}
-              frequently occur together, treating only the neck while missing the concussion is a
-              common gap in accident care. Florida gives you{" "}
+              or{" "}
+              <Link href="/conditions/neck-pain" className="underline">
+                neck pain
+              </Link>{" "}
+              — an evaluation helps determine which structure is actually driving the pain. Florida
+              gives you{" "}
               <Link href="/car-accident-chiropractor" className="underline">
                 14 days
               </Link>{" "}
               to get evaluated and protect your{" "}
               <Link href="/car-accident-chiropractor" className="underline">
                 PIP benefits
-              </Link>
-              .
+              </Link>{" "}
+              (Fla. Stat. § 627.736) if a collision was involved.
             </p>
             <div className="w-full border-t border-mute-300" />
           </div>

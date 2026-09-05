@@ -4,7 +4,16 @@ import {
   LEAD_CONSENT_VERSION,
   LEAD_CONSENT_WORDING,
   LEAD_CONSENT_WORDING_ES,
+  LEAD_CONSENT_WORDING_HT,
+  LEAD_CONSENT_WORDING_PT,
 } from "@/lib/leads/contracts";
+
+const CONSENT_WORDING: Record<Locale, string> = {
+  en: LEAD_CONSENT_WORDING,
+  es: LEAD_CONSENT_WORDING_ES,
+  pt: LEAD_CONSENT_WORDING_PT,
+  ht: LEAD_CONSENT_WORDING_HT,
+};
 
 /** The consent line shown above every lead form. `data-consent-version` is
  * the same in both languages on purpose — the Spanish text is the same
@@ -24,7 +33,7 @@ export function LeadConsent({
       data-consent-version={LEAD_CONSENT_VERSION}
       className={cn("text-xs leading-5", dark ? "text-mute-300" : "text-ink-500", className)}
     >
-      {locale === "es" ? LEAD_CONSENT_WORDING_ES : LEAD_CONSENT_WORDING}
+      {CONSENT_WORDING[locale]}
     </p>
   );
 }

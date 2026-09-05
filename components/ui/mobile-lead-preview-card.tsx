@@ -1,22 +1,35 @@
 import { LeadFormPopup } from "@/components/ui/lead-form-popup";
 import { esLeadFormVariants } from "@/content/es/lead-forms";
+import { htLeadFormVariants } from "@/content/ht/lead-forms";
 import { DEFAULT_LOCALE, type Locale } from "@/content/i18n";
 import type { LeadFormVariant } from "@/content/lead-forms";
 import { leadFormVariants } from "@/content/lead-forms";
+import { ptLeadFormVariants } from "@/content/pt/lead-forms";
 
 /** The two decorative field previews and the default microcopy, per locale.
  * These are the only strings this card owns; everything else comes from the
  * caller or from the lead-form preset. */
+const ENGLISH_COPY = {
+  firstName: "First Name",
+  phone: "Phone Number",
+  microcopy: "Takes less than a minute — no obligation.",
+};
 const COPY: Record<Locale, { firstName: string; phone: string; microcopy: string }> = {
-  en: {
-    firstName: "First Name",
-    phone: "Phone Number",
-    microcopy: "Takes less than a minute — no obligation.",
-  },
+  en: ENGLISH_COPY,
   es: {
     firstName: "Nombre",
     phone: "Teléfono",
     microcopy: "Toma menos de un minuto — sin compromiso.",
+  },
+  pt: {
+    firstName: "Nome",
+    phone: "Telefone",
+    microcopy: "Leva menos de um minuto — sem compromisso.",
+  },
+  ht: {
+    firstName: "Non",
+    phone: "Nimewo Telefòn",
+    microcopy: "Sa pran mwens pase yon minit — pa gen okenn obligasyon.",
   },
 };
 
@@ -58,7 +71,11 @@ export function MobileLeadPreviewCard({
   const preset =
     locale === "es" && formVariant in esLeadFormVariants
       ? esLeadFormVariants[formVariant as keyof typeof esLeadFormVariants]
-      : leadFormVariants[formVariant];
+      : locale === "pt" && formVariant in ptLeadFormVariants
+        ? ptLeadFormVariants[formVariant as keyof typeof ptLeadFormVariants]
+        : locale === "ht" && formVariant in htLeadFormVariants
+          ? htLeadFormVariants[formVariant as keyof typeof htLeadFormVariants]
+          : leadFormVariants[formVariant];
   const ctaLabel = submitLabel ?? preset.submitLabel;
   const resolvedMicrocopy = microcopy ?? copy.microcopy;
 

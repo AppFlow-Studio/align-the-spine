@@ -94,7 +94,7 @@ export default function ChiropracticAdjustmentsPage() {
 
       <ServiceIntro
         eyebrow="Understanding the treatment"
-        heading="Restoring the motion a collision took away"
+        heading="Restoring the motion pain takes away"
         divider
         cta={{ href: "#how-it-works", label: "Understand Adjustments" }}
         image={{
@@ -103,9 +103,9 @@ export default function ChiropracticAdjustmentsPage() {
         }}
       >
         A chiropractic adjustment uses precise, hands-on pressure to restore motion to a joint
-        that&apos;s lost it after impact — what we call a fixation. When a vertebra stops moving
-        properly after a collision, the surrounding muscles and nerves compensate, which is often
-        the real source of pain in{" "}
+        that&apos;s lost it — what we call a fixation. When a vertebra stops moving properly,
+        whether from a collision, posture, or everyday wear, the surrounding muscles and nerves
+        compensate, which is often the real source of pain in{" "}
         <Link href="/conditions/whiplash" className="underline">
           whiplash
         </Link>
@@ -120,16 +120,16 @@ export default function ChiropracticAdjustmentsPage() {
         , and{" "}
         <Link href="/conditions/sciatica" className="underline">
           sciatica
-        </Link>{" "}
-        following an accident. An adjustment doesn&apos;t just relieve the ache — it restores the
-        mechanics so your body stops working around the injury.
+        </Link>
+        . An adjustment doesn&apos;t just aim to relieve the ache — it works to restore the
+        mechanics so your body can stop working around the injury.
       </ServiceIntro>
 
       <div id="how-it-works" className="scroll-mt-[120px]">
         <Section>
           <Container className="flex flex-col gap-14">
             <SectionHeading eyebrow="How it works">
-              From the collision to feeling like yourself again
+              From evaluation to feeling like yourself again
             </SectionHeading>
             <div className="grid grid-cols-1 gap-10 border-t border-mute-300 pt-10 sm:grid-cols-3">
               {adjustmentsHowItWorks.map((step) => (
@@ -161,23 +161,24 @@ export default function ChiropracticAdjustmentsPage() {
 
       <ServiceIntro
         eyebrow="Is it right for you?"
-        heading="Right for most collision injuries — not every one"
+        heading="Right for most mechanical injuries — not every one"
         divider
         image={{
           src: "/figma-exports/adjustments-right-for-you.png",
           alt: "Dr. Abe adjusting a patient's neck in the clinic",
         }}
       >
-        Adjustments are appropriate for most mechanical injuries from a collision — the majority of
-        what we see. They&apos;re not the right first step for a fracture, dislocation, or Grade IV
-        whiplash, which need emergency imaging before any hands-on care. For a severely herniated
-        disc with significant nerve compression,{" "}
+        Adjustments are appropriate for most mechanical injuries, whether from a collision or
+        everyday wear — the majority of what we see. They&apos;re not the right first step for a
+        fracture, dislocation, or Grade IV whiplash, which need emergency imaging before any
+        hands-on care. For a severely herniated disc with significant nerve compression,{" "}
         <Link href="/services/spinal-decompression" className="underline">
           spinal decompression
         </Link>{" "}
         may be the better starting point, sometimes combined with adjustment once acute pressure is
-        relieved. Florida PIP rules can involve time-sensitive initial-care requirements; coverage
-        and eligibility depend on the policy and circumstances. An evaluation does not guarantee{" "}
+        relieved. Florida PIP rules can involve time-sensitive initial-care requirements (Fla. Stat.
+        § 627.736); coverage and eligibility depend on the policy and circumstances. An evaluation
+        does not guarantee{" "}
         <Link href="/car-accident-chiropractor" className="underline">
           PIP benefits
         </Link>

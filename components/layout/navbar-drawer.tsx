@@ -95,7 +95,15 @@ export function NavbarDrawer({
         ref={containerRef}
         role="dialog"
         aria-modal="true"
-        aria-label={locale === "es" ? "Navegación del sitio" : "Site navigation"}
+        aria-label={
+          locale === "es"
+            ? "Navegación del sitio"
+            : locale === "pt"
+              ? "Navegação do site"
+              : locale === "ht"
+                ? "Navigasyon sit la"
+                : "Site navigation"
+        }
         // A plain shell now, not itself the scroll/padding container — with
         // 19 service areas the nav list can genuinely be taller than the
         // screen, and this used to be one big `flex-col overflow-y-auto`

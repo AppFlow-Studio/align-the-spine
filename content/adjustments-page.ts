@@ -39,8 +39,12 @@ export interface AdjustmentsStep {
 export const adjustmentsHowItWorks: AdjustmentsStep[] = [
   {
     title: "Full evaluation",
+    // ATS-SEO-058: was "...lost motion in the collision..." — assumed every
+    // visit follows a car accident, contradicting this page's own general
+    // hero eyebrow ("Joint stiffness or limited motion?") and its
+    // registered non-accident-specific primaryQuery (content/seo.ts).
     description:
-      "We identify exactly which segments lost motion in the collision and rule out anything needing imaging or referral first.",
+      "We identify exactly which segments have lost motion and rule out anything needing imaging or referral first — whether that followed a collision or built up on its own.",
     learnMoreHref: "/car-accident-chiropractor",
   },
   {

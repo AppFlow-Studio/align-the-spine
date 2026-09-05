@@ -3,6 +3,8 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import { esRoutes } from "@/content/es/seo";
+import { htRoutes } from "@/content/ht/seo";
+import { ptRoutes } from "@/content/pt/seo";
 import { routes } from "@/content/seo";
 
 /** Routes that intentionally have a page.tsx but no content/seo.ts entry —
@@ -48,10 +50,13 @@ function collectPageRoutes(dir: string, routePath = ""): string[] {
  * canonical, or a stale registry entry points at nothing. */
 describe("route registry ↔ filesystem parity", () => {
   const filesystemRoutes = collectPageRoutes(appDir);
-  // Both locales' registries: a Spanish page is held to exactly the same
-  // rule as an English one — it must be registered (and therefore have a
-  // canonical, a title and a description) or be explicitly allowlisted.
-  const registeredPaths = new Set([...routes, ...esRoutes].map((route) => route.path));
+  // All locales' registries: a Spanish or Portuguese page is held to
+  // exactly the same rule as an English one — it must be registered (and
+  // therefore have a canonical, a title and a description) or be
+  // explicitly allowlisted.
+  const registeredPaths = new Set(
+    [...routes, ...esRoutes, ...ptRoutes, ...htRoutes].map((route) => route.path),
+  );
   const filesystemPaths = new Set(filesystemRoutes);
 
   it("registers every page.tsx route, or lists it in the allowlist", () => {

@@ -42,14 +42,18 @@ export interface DecompressionStep {
 export const decompressionHowItWorks: DecompressionStep[] = [
   {
     title: "Full evaluation & imaging review",
+    // ATS-SEO-058: broadened off "whether the collision caused or
+    // worsened a disc injury" — this page's registered intent (content/seo.ts)
+    // is general "spinal decompression," not accident-exclusive, and disc
+    // symptoms just as often build up without any collision.
     description:
-      "We confirm whether the collision caused or worsened a disc injury, and review any imaging you already have.",
+      "We confirm what's driving the disc or nerve symptoms — whether that's a collision or something that built up over time — and review any imaging you already have.",
     learnMoreHref: "/car-accident-chiropractor",
   },
   {
     title: "Controlled traction sessions",
     description:
-      "A specific pull is applied to the spine, gradually relieving the pressure a crash put on the disc and nerve.",
+      "A specific pull is applied to the spine, gradually relieving pressure on the disc and nerve, whatever originally caused it.",
     learnMoreHref: "/services/spinal-decompression",
   },
   {
@@ -97,8 +101,11 @@ export const decompressionConditions: DecompressionCondition[] = [
   },
   {
     name: "Herniated Disc (Neck)",
+    // ATS-SEO-058: reworded to match its "Herniated Disc (Back)" sibling
+    // row above, which was already appropriately general — this one
+    // assumed a collision cause where the other didn't.
     description:
-      "When the force of a crash affects a disc in the neck, not just the surrounding muscle.",
+      "A neck disc condition that may irritate nearby nerves and affect movement — from a collision or from everyday wear.",
     image: {
       src: "https://align-the-spine.b-cdn.net/images/drabe-head.png",
       alt: "Hands treating a patient's neck for a herniated disc",

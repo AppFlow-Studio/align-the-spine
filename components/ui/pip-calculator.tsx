@@ -11,7 +11,9 @@ import {
   calculatePipWindow,
   enPipWindowMessages,
   esPipWindowMessages,
+  htPipWindowMessages,
   parseUsDate,
+  ptPipWindowMessages,
 } from "@/lib/pip-window";
 
 export interface PipCalculatorProps {
@@ -29,16 +31,19 @@ interface PipCalculatorCopy {
 
 /** Both prompts are non-promissory and say plainly that this is not a
  * coverage determination — see lib/pip-window.ts for the statutory
- * reasoning. The Spanish mirrors the English claim-for-claim. */
+ * reasoning. The Spanish/Portuguese mirror the English claim-for-claim.
+ * ht falls back to the English copy pending real translation
+ * (ATS-SEO-136) — no ht page exists yet to render this component. */
+const ENGLISH_PIP_COPY: PipCalculatorCopy = {
+  heading: "When did the accident happen?",
+  prompt:
+    "Enter a date to estimate the general 14-day initial-care timing period. This is not a coverage determination.",
+  invalid: "That doesn't look like a valid date — use mm/dd/yyyy.",
+  dateLabel: "Accident date",
+  callPrefix: "Call",
+};
 const COPY: Record<Locale, PipCalculatorCopy> = {
-  en: {
-    heading: "When did the accident happen?",
-    prompt:
-      "Enter a date to estimate the general 14-day initial-care timing period. This is not a coverage determination.",
-    invalid: "That doesn't look like a valid date — use mm/dd/yyyy.",
-    dateLabel: "Accident date",
-    callPrefix: "Call",
-  },
+  en: ENGLISH_PIP_COPY,
   es: {
     heading: "¿Cuándo ocurrió el accidente?",
     prompt:
@@ -51,6 +56,28 @@ const COPY: Record<Locale, PipCalculatorCopy> = {
     dateLabel: "Fecha del accidente",
     callPrefix: "Llamar al",
   },
+  pt: {
+    heading: "Quando o acidente aconteceu?",
+    prompt:
+      "Digite uma data para estimar o prazo geral de 14 dias para iniciar o atendimento. Isto não é uma determinação de cobertura.",
+    // mm/dd/aaaa, não dd/mm/aaaa: o campo é uma entrada de data dos EUA
+    // interpretada por parseUsDate, e o consultório, seus pacientes e as
+    // seguradoras estão todos na Flórida.
+    invalid: "Essa data não parece válida — use o formato mm/dd/aaaa.",
+    dateLabel: "Data do acidente",
+    callPrefix: "Ligar para",
+  },
+  ht: {
+    heading: "Kilè aksidan an te rive?",
+    prompt:
+      "Antre yon dat pou estime peryòd jeneral 14 jou pou kòmanse tretman an. Sa se pa yon detèminasyon kouvèti.",
+    // mm/dd/aaaa, pa dd/mm/aaaa: chan an se yon antre dat Ozetazini
+    // parseUsDate entèprete, epi biwo a, pasyan li yo, ak konpayi asirans
+    // yo tout nan Florid.
+    invalid: "Dat sa a pa sanble valab — itilize fòma mm/dd/aaaa.",
+    dateLabel: "Dat aksidan an",
+    callPrefix: "Rele",
+  },
 };
 
 /** 14-day PIP window date calculator (ATS-032), embedded in the accident
@@ -59,7 +86,14 @@ const COPY: Record<Locale, PipCalculatorCopy> = {
 export function PipCalculator({ className, locale = DEFAULT_LOCALE }: PipCalculatorProps) {
   const [value, setValue] = useState("");
   const copy = COPY[locale];
-  const windowMessages = locale === "es" ? esPipWindowMessages : enPipWindowMessages;
+  const windowMessages =
+    locale === "es"
+      ? esPipWindowMessages
+      : locale === "pt"
+        ? ptPipWindowMessages
+        : locale === "ht"
+          ? htPipWindowMessages
+          : enPipWindowMessages;
 
   const date = parseUsDate(value);
   // Only call the input invalid once it's shaped like a full date (4-digit

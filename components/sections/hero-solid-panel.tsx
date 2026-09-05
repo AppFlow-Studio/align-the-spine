@@ -13,8 +13,10 @@ import { LeadForm } from "@/components/ui/lead-form";
 import { MobileLeadPreviewCard } from "@/components/ui/mobile-lead-preview-card";
 import { Rating } from "@/components/ui/rating";
 import { esLeadFormVariants } from "@/content/es/lead-forms";
+import { htLeadFormVariants } from "@/content/ht/lead-forms";
 import { DEFAULT_LOCALE, type Locale } from "@/content/i18n";
 import { leadFormVariants, type LeadFormVariant } from "@/content/lead-forms";
+import { ptLeadFormVariants } from "@/content/pt/lead-forms";
 import { getVerifiedStats, siteConfig } from "@/content/site";
 import { isVerified } from "@/content/verified-value";
 import type { BreadcrumbItemInput } from "@/lib/schema";
@@ -78,9 +80,16 @@ function HeroTrustLine({ className }: { className?: string }) {
 
 /** The handful of strings this component renders itself, rather than
  * receiving from its caller. */
+const ENGLISH_HERO_COPY = {
+  continueLabel: "Request Appointment",
+  callNow: "Call Now:",
+  callPrefix: /^Call /,
+};
 const HERO_COPY: Record<Locale, { continueLabel: string; callNow: string; callPrefix: RegExp }> = {
-  en: { continueLabel: "Request Appointment", callNow: "Call Now:", callPrefix: /^Call / },
+  en: ENGLISH_HERO_COPY,
   es: { continueLabel: "Solicitar cita", callNow: "Llame ahora:", callPrefix: /^Llamar al / },
+  pt: { continueLabel: "Solicitar Consulta", callNow: "Ligar agora:", callPrefix: /^Ligar para / },
+  ht: { continueLabel: "Mande Randevou", callNow: "Rele Kounye a:", callPrefix: /^Rele / },
 };
 
 export interface HeroSolidPanelProps {
@@ -159,7 +168,13 @@ export function HeroSolidPanel({
 }: HeroSolidPanelProps) {
   const heroCopy = HERO_COPY[locale];
   const defaultFields =
-    locale === "es" ? esLeadFormVariants.heroEval.fields : leadFormVariants.heroEval.fields;
+    locale === "es"
+      ? esLeadFormVariants.heroEval.fields
+      : locale === "pt"
+        ? ptLeadFormVariants.heroEval.fields
+        : locale === "ht"
+          ? htLeadFormVariants.heroEval.fields
+          : leadFormVariants.heroEval.fields;
   // Pages like /about pass no form/formSlot — don't render the empty navy
   // panel there; let the photo column (lg:flex-1) fill the full width instead.
   const hasForm = Boolean(formSlot || form);

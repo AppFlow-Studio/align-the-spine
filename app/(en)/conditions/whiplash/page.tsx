@@ -169,7 +169,7 @@ export default function WhiplashPage() {
                 <Link href="/car-accident-chiropractor" className="underline">
                   PIP benefits
                 </Link>{" "}
-                — don&apos;t wait for symptoms to peak before calling.
+                (Fla. Stat. § 627.736) — don&apos;t wait for symptoms to peak before calling.
               </p>
               <p>
                 Left untreated, whiplash can involve the{" "}
@@ -180,8 +180,9 @@ export default function WhiplashPage() {
                 <Link href="/services/spinal-decompression" className="underline">
                   herniated disc
                 </Link>
-                . Early evaluation is what determines whether whiplash resolves in weeks or becomes
-                chronic.
+                . Early evaluation is one factor that can influence whether whiplash resolves in
+                weeks or lingers longer — not a guarantee either way, since severity and individual
+                healing vary.
               </p>
             </div>
             <div className="h-[1px] bg-black lg:ml-[10vw]" />

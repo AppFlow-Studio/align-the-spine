@@ -130,7 +130,12 @@ export const leadFormVariants = {
   booking: {
     variant: "booking",
     fields: [...baseFields, carAccidentField],
-    submitLabel: "Schedule My Evaluation",
+    // ATS-SEO-061: was "Schedule My Evaluation" — same overclaim the route
+    // itself was already renamed away from (see /book-an-appointment's
+    // registry entry: "nothing on this form auto-confirms a slot, it's a
+    // request that gets a callback"). Matches this page's own H1/title
+    // ("Request a Chiropractic Appointment") instead.
+    submitLabel: "Request a Chiropractic Appointment",
   },
 } satisfies Record<string, LeadFormVariantConfig>;
 

@@ -113,3 +113,35 @@ export function buildEsRouteMetadata(route: RouteMeta): Metadata {
     locale: "es",
   });
 }
+
+/** Brazilian Portuguese counterpart of buildRouteMetadata() (ATS-SEO-135) —
+ * the only thing a page under app/(pt)/ should call. Same reasoning as
+ * buildEsRouteMetadata(): `locale: "pt"` switches `og:locale` to pt_BR and
+ * orients buildAlternates()'s reciprocal hreflang lookup around the
+ * Portuguese path. */
+export function buildPtRouteMetadata(route: RouteMeta): Metadata {
+  return buildMetadata({
+    title: route.title,
+    description: route.description,
+    path: route.path,
+    image: route.image,
+    robots: isPublished(route) ? undefined : { index: false, follow: false },
+    locale: "pt",
+  });
+}
+
+/** Haitian Creole counterpart of buildRouteMetadata() (ATS-SEO-136) — the
+ * only thing a page under app/(ht)/ should call. Same reasoning as
+ * buildEsRouteMetadata()/buildPtRouteMetadata(): `locale: "ht"` switches
+ * `og:locale` to ht_US and orients buildAlternates()'s reciprocal hreflang
+ * lookup around the Haitian Creole path. */
+export function buildHtRouteMetadata(route: RouteMeta): Metadata {
+  return buildMetadata({
+    title: route.title,
+    description: route.description,
+    path: route.path,
+    image: route.image,
+    robots: isPublished(route) ? undefined : { index: false, follow: false },
+    locale: "ht",
+  });
+}

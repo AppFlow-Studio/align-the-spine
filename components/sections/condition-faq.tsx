@@ -23,15 +23,21 @@ export interface ConditionFaqProps {
   locale?: Locale;
 }
 
+const ENGLISH_COPY = {
+  eyebrow: "Frequently asked questions",
+  headingLead: "Everything you need to know about",
+};
+
+// pt/ht fall back to English pending real translation (ATS-SEO-135/136) —
+// no pt/ht page exists yet to render this component.
 const COPY: Record<Locale, { eyebrow: string; headingLead: string }> = {
-  en: {
-    eyebrow: "Frequently asked questions",
-    headingLead: "Everything you need to know about",
-  },
+  en: ENGLISH_COPY,
   es: {
     eyebrow: "Preguntas frecuentes",
     headingLead: "Todo lo que necesita saber sobre",
   },
+  pt: ENGLISH_COPY,
+  ht: ENGLISH_COPY,
 };
 
 /** FAQ section per condition-page-spec §B11/§C. Takes the faq fields

@@ -9,9 +9,12 @@ import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel
 import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { HowWeHelpSteps } from "@/components/sections/how-we-help-steps";
 import { PatientReviews } from "@/components/sections/patient-reviews";
+import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
+import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
+import { RedFlagCard } from "@/components/ui/red-flag-card";
 import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { autoAccidentAttorneyQuote, autoAccidentSteps } from "@/content/auto-accident";
@@ -23,6 +26,7 @@ import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
 import { isVerified } from "@/content/verified-value";
+import { buildMedicalWebPage } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 /** Code-split (Epic 12): keep these interactive, below-the-fold sections
@@ -35,7 +39,7 @@ const FaqAccordion = dynamic(() =>
   import("@/components/ui/faq-accordion").then((m) => m.FaqAccordion),
 );
 
-const { hero, faq, flags } = autoAccidentCondition;
+const { hero, faq, flags, understanding } = autoAccidentCondition;
 // FaqAccordion/FaqJsonLd expect {question, answer} (content/faqs.ts' FAQ
 // shape); Condition.faq.items uses {q, a} (content/conditions/types.ts'
 // ConditionFaqItem) — map between the two.
@@ -48,7 +52,8 @@ const [subheadBeforePip, subheadAfterPip] = hero.subhead.split("PIP insurance");
 // only pass it to Hero once it's been client-verified.
 const pipStat = flags.pipStat && isVerified(flags.pipStat) ? flags.pipStat.value : undefined;
 
-export const metadata: Metadata = buildMetadata(getRoute("/car-accident-chiropractor"));
+const route = getRoute("/car-accident-chiropractor");
+export const metadata: Metadata = buildMetadata(route);
 
 /** /auto-accidents page assembly (ATS-141) per the Figma "auto-accident"
  * frame (file 4mb4VDHszsaj2KEZzyjOjf): HeroSolidPanel (PIP stat callout)
@@ -63,14 +68,26 @@ export const metadata: Metadata = buildMetadata(getRoute("/car-accident-chiropra
  * inline pattern) → FAQ. No LocationIntro/LocationFooter/ContactSection —
  * the Figma frame goes straight from FAQ to the standard footer. Navbar/
  * TopStatsBar-slot and the standard navy footer come from RootShell. */
+const breadcrumbs = [
+  { name: "Home", path: "" },
+  { name: "Car Accident Chiropractor", path: "/car-accident-chiropractor" },
+];
+
 export default function AutoAccidentsPage() {
   return (
     <>
+      <BreadcrumbJsonLd items={breadcrumbs} />
+      <JsonLd
+        data={buildMedicalWebPage({
+          path: route.path,
+          name: route.title,
+          description: route.description,
+          dateModified: route.lastModified,
+          aboutTopic: "Chiropractic care after a motor vehicle accident",
+        })}
+      />
       <HeroSolidPanel
-        breadcrumbs={[
-          { name: "Home", path: "" },
-          { name: "Car Accident Chiropractor", path: "/car-accident-chiropractor" },
-        ]}
+        breadcrumbs={breadcrumbs}
         background={hero.backgroundImage}
         eyebrow={hero.eyebrowChip}
         title={
@@ -109,6 +126,17 @@ export default function AutoAccidentsPage() {
       <div id="pip-calculator">
         <AccidentBanner accident={autoAccidentCondition.accident} />
       </div>
+
+      {/* ATS-SEO-051: this content already existed on
+       * autoAccidentCondition.understanding.redFlags but was never rendered
+       * anywhere on this page — wired in via the same RedFlagCard every
+       * condition page's warning content ultimately renders through. */}
+      <Section spacing="sm" className="container">
+        <RedFlagCard
+          title="See a doctor promptly if you notice:"
+          bullets={understanding.redFlags}
+        />
+      </Section>
 
       <Section spacing="lg" className="container">
         <HowWeHelpSteps

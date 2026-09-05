@@ -16,12 +16,14 @@ import { SymptomChecklist } from "@/components/sections/symptom-checklist";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
+import { RedFlagCard } from "@/components/ui/red-flag-card";
 import { Section } from "@/components/ui/section";
 import { autoAccidentAttorneyQuote } from "@/content/auto-accident";
 import {
   concussionCauseCategories,
   concussionFaq,
   concussionHero,
+  concussionRedFlags,
   concussionRelatedMidPageConfig,
   concussionRelatedMidPageHeading,
   concussionRelatedTypesConfig,
@@ -121,7 +123,8 @@ export default function ConcussionPage() {
               <Link href="/car-accident-chiropractor" className="underline">
                 14 days
               </Link>{" "}
-              of a motor vehicle accident, with coverage depending on eligibility and policy terms.
+              of a motor vehicle accident (Fla. Stat. § 627.736), with coverage depending on
+              eligibility and policy terms.
             </p>
             <div className="w-full border-t border-mute-300" />
           </div>
@@ -142,6 +145,15 @@ export default function ConcussionPage() {
         symptoms={concussionSymptoms}
         note={concussionSymptomNote}
       />
+
+      {/* ATS-SEO-056: dedicated, always server-rendered emergency callout —
+       * see concussionRedFlags' doc comment in content/concussion-page.ts. */}
+      <Section spacing="sm" className="container">
+        <RedFlagCard
+          title="Seek emergency care right away if you notice:"
+          bullets={concussionRedFlags}
+        />
+      </Section>
 
       <ConditionTypesWithCauses
         heading={concussionTypesHeading}

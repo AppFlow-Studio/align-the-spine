@@ -17,6 +17,8 @@ import {
   buildLeadFormSchema,
   enLeadFormMessages,
   esLeadFormMessages,
+  htLeadFormMessages,
+  ptLeadFormMessages,
   type LeadFieldConfig,
   type LeadFieldType,
 } from "@/lib/lead-form-schema";
@@ -35,16 +37,30 @@ export interface UnderlineFormProps {
   className?: string;
 }
 
+// Portuguese and Haitian Creole both have real copy but keep the English
+// `/thank-you` successHref — neither has a thank-you page yet, see
+// lead-form.tsx's identical note.
+const ENGLISH_FORM_COPY = {
+  submitError: "Something went wrong. Please try again.",
+  success: "Thanks — we'll be in touch shortly.",
+  successHref: "/thank-you",
+};
 const FORM_COPY: Record<Locale, { submitError: string; success: string; successHref: string }> = {
-  en: {
-    submitError: "Something went wrong. Please try again.",
-    success: "Thanks — we'll be in touch shortly.",
-    successHref: "/thank-you",
-  },
+  en: ENGLISH_FORM_COPY,
   es: {
     submitError: "Algo salió mal. Vuelva a intentarlo.",
     success: "Gracias — nos comunicaremos con usted en breve.",
     successHref: "/es/gracias",
+  },
+  pt: {
+    submitError: "Algo deu errado. Tente novamente.",
+    success: "Obrigado — entraremos em contato em breve.",
+    successHref: "/thank-you",
+  },
+  ht: {
+    submitError: "Gen yon bagay ki mal pase. Tanpri eseye ankò.",
+    success: "Mèsi — nou pral kontakte ou byento.",
+    successHref: "/thank-you",
   },
 };
 
@@ -71,7 +87,14 @@ export function UnderlineForm({
 }: UnderlineFormProps) {
   const router = useRouter();
   const copy = FORM_COPY[locale];
-  const validationMessages = locale === "es" ? esLeadFormMessages : enLeadFormMessages;
+  const validationMessages =
+    locale === "es"
+      ? esLeadFormMessages
+      : locale === "pt"
+        ? ptLeadFormMessages
+        : locale === "ht"
+          ? htLeadFormMessages
+          : enLeadFormMessages;
   const resolvedSuccessMessage = successMessage ?? copy.success;
   const {
     register,

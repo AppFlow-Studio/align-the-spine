@@ -19,6 +19,8 @@ import {
   buildLeadFormSchema,
   enLeadFormMessages,
   esLeadFormMessages,
+  htLeadFormMessages,
+  ptLeadFormMessages,
   type LeadFieldConfig,
   type LeadFieldType,
 } from "@/lib/lead-form-schema";
@@ -88,22 +90,40 @@ export interface LeadFormProps {
 }
 
 /** Strings the form renders itself, as opposed to the ones its caller
- * supplies (heading, field labels, submit label). */
+ * supplies (heading, field labels, submit label). Portuguese and Haitian
+ * Creole both have real copy (ATS-SEO-135/136) but `successHref` still
+ * points at the English `/thank-you` — neither has a thank-you page (out
+ * of scope for both tickets' 9-route sets, see content/pt/seo.ts and
+ * content/ht/seo.ts), and sending a non-Spanish-reading visitor to
+ * `/es/gracias` would be worse than sending them to the English one. */
+const ENGLISH_FORM_COPY = {
+  submitError: "Something went wrong. Please try again.",
+  success: "Thanks — we'll be in touch shortly.",
+  honeypotLabel: "Website",
+  successHref: "/thank-you",
+};
 const FORM_COPY: Record<
   Locale,
   { submitError: string; success: string; honeypotLabel: string; successHref: string }
 > = {
-  en: {
-    submitError: "Something went wrong. Please try again.",
-    success: "Thanks — we'll be in touch shortly.",
-    honeypotLabel: "Website",
-    successHref: "/thank-you",
-  },
+  en: ENGLISH_FORM_COPY,
   es: {
     submitError: "Algo salió mal. Vuelva a intentarlo.",
     success: "Gracias — nos comunicaremos con usted en breve.",
     honeypotLabel: "Sitio web",
     successHref: "/es/gracias",
+  },
+  pt: {
+    submitError: "Algo deu errado. Tente novamente.",
+    success: "Obrigado — entraremos em contato em breve.",
+    honeypotLabel: "Site",
+    successHref: "/thank-you",
+  },
+  ht: {
+    submitError: "Gen yon bagay ki mal pase. Tanpri eseye ankò.",
+    success: "Mèsi — nou pral kontakte ou byento.",
+    honeypotLabel: "Sitwèb",
+    successHref: "/thank-you",
   },
 };
 
@@ -235,7 +255,14 @@ export function LeadForm({
 }: LeadFormProps) {
   const router = useRouter();
   const copy = FORM_COPY[locale];
-  const validationMessages = locale === "es" ? esLeadFormMessages : enLeadFormMessages;
+  const validationMessages =
+    locale === "es"
+      ? esLeadFormMessages
+      : locale === "pt"
+        ? ptLeadFormMessages
+        : locale === "ht"
+          ? htLeadFormMessages
+          : enLeadFormMessages;
   const resolvedSuccessMessage = successMessage ?? copy.success;
   const resolvedSuccessHref = successHref ?? copy.successHref;
   const {

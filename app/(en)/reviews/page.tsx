@@ -8,7 +8,6 @@ import { ContactSection } from "@/components/sections/contact-section";
 import { ReviewsCarousel } from "@/components/sections/reviews-carousel";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { BreadcrumbTrail } from "@/components/seo/breadcrumb-trail";
-import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { LeadForm } from "@/components/ui/lead-form";
@@ -20,7 +19,6 @@ import { getRoute } from "@/content/seo";
 import { getVerifiedStats, siteConfig } from "@/content/site";
 import { testimonials } from "@/content/testimonials";
 import { isVerified } from "@/content/verified-value";
-import { buildMedicalBusiness } from "@/lib/schema";
 import { buildRouteMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildRouteMetadata(getRoute("/reviews"));
@@ -50,18 +48,32 @@ export default function ReviewsPage() {
 
   return (
     <>
+      {/* ATS-SEO-060: this page previously also rendered
+       * <JsonLd data={buildMedicalBusiness()} /> — MedicalBusiness schema
+       * includes aggregateRating whenever siteConfig.reviewsRating is
+       * verified (it is), which is self-serving rating markup on the one
+       * page whose entire purpose is displaying that same rating — exactly
+       * what this ticket (coordinating with Sardor's ATS-SEO-032) says not
+       * to reintroduce. It also violated PracticeJsonLd's own documented
+       * scope ("rendered on the homepage and /contact-us only"), which this
+       * page's direct call bypassed. Removed; BreadcrumbList is sufficient
+       * page-identity schema here. */}
       <BreadcrumbJsonLd
         items={[
           { name: "Home", path: "" },
           { name: "Reviews", path: "/reviews" },
         ]}
       />
-      <JsonLd data={buildMedicalBusiness()} />
       <section className="relative flex flex-col overflow-hidden -mt-[100px] lg:-mt-[176px] lg:min-h-[860px] lg:flex-row">
         <div className="relative min-h-[560px] min-w-0 lg:min-h-full lg:flex-1">
           <Image
             src="https://align-the-spine.b-cdn.net/images/review-page-hero.png"
-            alt="Align the Spine Chiropractic and Wellness Center"
+            // ATS-SEO-060: was "...and Wellness Center" — no such name
+            // exists anywhere in the repo (siteConfig.business.name is
+            // "Align the Spine Chiropractic"); corrected to the real,
+            // already-established name + location instead of an invented
+            // one.
+            alt="Align the Spine Chiropractic office in Deerfield Beach, FL"
             fill
             priority
             sizes="(min-width: 1024px) 62vw, 100vw"
@@ -187,13 +199,24 @@ export default function ReviewsPage() {
         {/* ATS-SEO-041: the page's own request path was a same-page form
          * scroll (ScrollToFormButton, a <button>, not a link) plus a tel:
          * link — no real <a href> to /book-an-appointment or /contact-us
-         * anywhere in the page's own body content. */}
+         * anywhere in the page's own body content. ATS-SEO-060 added
+         * /services and /car-accident-chiropractor — same gap for the
+         * "relevant care pages" this ticket's checklist calls for. */}
         <div className="mt-10 flex flex-wrap justify-center gap-8 text-center font-sans text-card-body">
           <Link href="/book-an-appointment" className="text-navy-900 underline underline-offset-4">
             Request an appointment
           </Link>
           <Link href="/contact-us" className="text-navy-900 underline underline-offset-4">
             Contact our Deerfield Beach office
+          </Link>
+          <Link href="/services" className="text-navy-900 underline underline-offset-4">
+            Explore our services
+          </Link>
+          <Link
+            href="/car-accident-chiropractor"
+            className="text-navy-900 underline underline-offset-4"
+          >
+            Car accident care with Dr. Abe
           </Link>
         </div>
       </Section>
