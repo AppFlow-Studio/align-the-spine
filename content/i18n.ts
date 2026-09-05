@@ -118,19 +118,26 @@ export const HTML_LANG: Record<Locale, string> = {
 export const HREFLANG: Record<Locale, string> = HTML_LANG;
 
 /** OpenGraph `og:locale` uses underscores, not the hyphens hreflang uses.
- * Facebook's og:locale list has no defined Haitian Creole entry; "ht_US"
- * mirrors the "this variety as spoken by our actual audience" reasoning
- * already applied to es-US (rather than "ht_HT", which would describe
- * Haiti-based readers, not the South Florida audience this site serves).
- * Low-confidence choice — flagged, not asserted — since there's no strong
- * precedent to check it against; if a consumer (Facebook, a validator)
- * doesn't recognize it, og:locale is simply ignored, not broken, so this is
- * safe to ship provisionally. */
-export const OG_LOCALE: Record<Locale, string> = {
+ *
+ * ht is deliberately `undefined`, not a guessed string: Facebook's
+ * documented og:locale list (developers.facebook.com/docs/internationalization)
+ * is a fixed enumeration of real locale codes it recognizes, and Haitian
+ * Creole isn't on it in any form — there is no "ht_US"/"ht_HT" Facebook
+ * actually supports. An earlier draft of this file shipped "ht_US" anyway,
+ * reasoned as harmless because an unrecognized value is ignored rather than
+ * rejected — but "ignored" is exactly the problem: ATS-SEO-140 calls out
+ * "do not invent unsupported Open Graph locale identifiers" by name, and a
+ * fabricated code that silently does nothing is still a fabricated code.
+ * `lib/seo/metadata.ts`'s buildMetadata() omits the `openGraph.locale` field
+ * entirely when this is undefined, so a Haitian Creole page's Open Graph
+ * data has no locale claim at all rather than a false one — the same
+ * "correct absence over a guessed presence" principle this codebase already
+ * applies to hreflang for a route with no translation. */
+export const OG_LOCALE: Record<Locale, string | undefined> = {
   en: "en_US",
   es: "es_US",
   pt: "pt_BR",
-  ht: "ht_US",
+  ht: undefined,
 };
 
 /** Path prefix owned by a locale. English lives at the site root (its URLs

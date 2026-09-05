@@ -132,9 +132,11 @@ export function buildPtRouteMetadata(route: RouteMeta): Metadata {
 
 /** Haitian Creole counterpart of buildRouteMetadata() (ATS-SEO-136) — the
  * only thing a page under app/(ht)/ should call. Same reasoning as
- * buildEsRouteMetadata()/buildPtRouteMetadata(): `locale: "ht"` switches
- * `og:locale` to ht_US and orients buildAlternates()'s reciprocal hreflang
- * lookup around the Haitian Creole path. */
+ * buildEsRouteMetadata()/buildPtRouteMetadata(): `locale: "ht"` orients
+ * buildAlternates()'s reciprocal hreflang lookup around the Haitian Creole
+ * path. It does NOT set `og:locale` (see content/i18n.ts's OG_LOCALE doc
+ * comment, ATS-SEO-140) — Facebook has no real Haitian Creole locale code,
+ * so this omits the field entirely rather than inventing one. */
 export function buildHtRouteMetadata(route: RouteMeta): Metadata {
   return buildMetadata({
     title: route.title,

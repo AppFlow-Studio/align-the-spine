@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { esBookingCta, esFooter, esNav } from "@/content/es/chrome";
 import { esRoutes } from "@/content/es/seo";
+import { htBookingCta, htFooter, htNav } from "@/content/ht/chrome";
 import { htRoutes } from "@/content/ht/seo";
 import {
   buildAlternates,
@@ -19,6 +20,7 @@ import {
   serviceAreaLocalizedRoutes,
   type LocalizedRoute,
 } from "@/content/i18n";
+import { ptBookingCta, ptFooter, ptNav } from "@/content/pt/chrome";
 import { ptRoutes } from "@/content/pt/seo";
 import { isPublished, routes } from "@/content/seo";
 import { siteConfig } from "@/content/site";
@@ -180,6 +182,101 @@ describe("Spanish metadata completeness", () => {
   });
 });
 
+/** ATS-SEO-140: the same completeness/uniqueness/no-leakage guarantees
+ * Spanish already had, generalized to Portuguese and Haitian Creole — this
+ * ticket's acceptance criteria name both "unique, natural titles/
+ * descriptions" and "no Spanish metadata leaks into PT/HT or English
+ * metadata into localized pages" explicitly, and neither locale had this
+ * coverage before now. */
+describe("Portuguese metadata completeness", () => {
+  it("gives every Portuguese route a title, description and lastModified", () => {
+    for (const route of ptRoutes) {
+      expect(route.title.trim().length).toBeGreaterThan(0);
+      expect(route.description.trim().length).toBeGreaterThan(0);
+      expect(route.lastModified).toBeTruthy();
+    }
+  });
+
+  it("keeps Portuguese descriptions to a sensible length", () => {
+    for (const route of ptRoutes) {
+      expect(route.description.length).toBeGreaterThanOrEqual(70);
+      expect(route.description.length).toBeLessThanOrEqual(200);
+    }
+  });
+
+  it("gives every Portuguese route a unique title and description", () => {
+    const titles = ptRoutes.map((route) => route.title);
+    expect(new Set(titles).size).toBe(titles.length);
+
+    const descriptions = ptRoutes.map((route) => route.description);
+    expect(new Set(descriptions).size).toBe(descriptions.length);
+  });
+
+  it("writes Portuguese titles and descriptions in Portuguese, not English or Spanish", () => {
+    // Same brand-name exception as the Spanish check: "Align the Spine
+    // Chiropractic" stays English in every language by design (NAP
+    // consistency), so its "the" isn't an untranslated word.
+    const englishTells = /\b(the|and|your|with|after|our)\b/i;
+    // "Quiropráctico" (with the extra "c") is the Spanish spelling of the
+    // head term this ticket's titles use; Portuguese spells it
+    // "Quiroprático". A title carrying the Spanish spelling is exactly the
+    // "Spanish metadata leaks into PT" regression this ticket names.
+    const spanishSpelling = /Quiropráctico/;
+    const withoutBrand = (value: string) => value.split("Align the Spine").join("");
+
+    for (const route of ptRoutes) {
+      expect(englishTells.test(withoutBrand(route.title))).toBe(false);
+      expect(englishTells.test(withoutBrand(route.description))).toBe(false);
+      expect(spanishSpelling.test(route.title)).toBe(false);
+      expect(spanishSpelling.test(route.description)).toBe(false);
+    }
+  });
+});
+
+describe("Haitian Creole metadata completeness", () => {
+  it("gives every Haitian Creole route a title, description and lastModified", () => {
+    for (const route of htRoutes) {
+      expect(route.title.trim().length).toBeGreaterThan(0);
+      expect(route.description.trim().length).toBeGreaterThan(0);
+      expect(route.lastModified).toBeTruthy();
+    }
+  });
+
+  it("keeps Haitian Creole descriptions to a sensible length", () => {
+    for (const route of htRoutes) {
+      expect(route.description.length).toBeGreaterThanOrEqual(50);
+      expect(route.description.length).toBeLessThanOrEqual(200);
+    }
+  });
+
+  it("gives every Haitian Creole route a unique title and description", () => {
+    const titles = htRoutes.map((route) => route.title);
+    expect(new Set(titles).size).toBe(titles.length);
+
+    const descriptions = htRoutes.map((route) => route.description);
+    expect(new Set(descriptions).size).toBe(descriptions.length);
+  });
+
+  it("writes Haitian Creole titles and descriptions in Kreyòl, not English, Spanish, or Portuguese", () => {
+    const englishTells = /\b(the|and|your|with|after|our)\b/i;
+    // "Kiwopratè" is this site's Kreyòl head term (content/ht/seo.ts's own
+    // header comment: not the French "chiropracteur"). A title carrying
+    // either Romance-language spelling of the same word is exactly the
+    // "Spanish/English metadata leaks into HT" regression this ticket
+    // names — Portuguese's "Quiroprático" and Spanish's "Quiropráctico"
+    // are close enough to each other that one regex catches both.
+    const romanceSpelling = /Quiroprát[iy]co/;
+    const withoutBrand = (value: string) => value.split("Align the Spine").join("");
+
+    for (const route of htRoutes) {
+      expect(englishTells.test(withoutBrand(route.title))).toBe(false);
+      expect(englishTells.test(withoutBrand(route.description))).toBe(false);
+      expect(romanceSpelling.test(route.title)).toBe(false);
+      expect(romanceSpelling.test(route.description)).toBe(false);
+    }
+  });
+});
+
 describe("hreflang", () => {
   it("emits reciprocal annotations from both sides of every pair", () => {
     for (const route of pairsWithSpanish) {
@@ -300,6 +397,57 @@ describe("Spanish internal link graph", () => {
   });
 });
 
+/** ATS-SEO-140: "make contextual internal links stay inside the active
+ * locale whenever an equivalent destination exists" — Spanish already had
+ * this guarantee; Portuguese and Haitian Creole did not. Both navs are
+ * flat (no mega-menu `.menu` submenus and no city pages, unlike Spanish —
+ * see content/pt/chrome.ts's own header comment on why), so there's no
+ * derived city-path table to union in here. */
+describe("Portuguese internal link graph", () => {
+  const portugueseHrefs = [
+    ...ptNav.map((link) => link.href),
+    ptBookingCta.href,
+    ...ptFooter.links.map((link) => link.href),
+  ];
+
+  it("points every Portuguese nav, CTA and footer link at a registered Portuguese route", () => {
+    for (const href of portugueseHrefs) {
+      expect(ptPaths.has(href), `unregistered Portuguese link: ${href}`).toBe(true);
+    }
+  });
+
+  it("keeps the Portuguese chrome inside Portuguese", () => {
+    // The one deliberate exception is the privacy-policy link, declared
+    // separately and rendered with an explicit hrefLang="en" (see
+    // content/chrome.ts's getFooterConfig).
+    for (const href of portugueseHrefs) {
+      expect(href.startsWith("/pt")).toBe(true);
+    }
+    expect(ptFooter.privacyPolicy.href).toBe("/privacy-policy");
+  });
+});
+
+describe("Haitian Creole internal link graph", () => {
+  const haitianCreoleHrefs = [
+    ...htNav.map((link) => link.href),
+    htBookingCta.href,
+    ...htFooter.links.map((link) => link.href),
+  ];
+
+  it("points every Haitian Creole nav, CTA and footer link at a registered Haitian Creole route", () => {
+    for (const href of haitianCreoleHrefs) {
+      expect(htPaths.has(href), `unregistered Haitian Creole link: ${href}`).toBe(true);
+    }
+  });
+
+  it("keeps the Haitian Creole chrome inside Haitian Creole", () => {
+    for (const href of haitianCreoleHrefs) {
+      expect(href.startsWith("/ht")).toBe(true);
+    }
+    expect(htFooter.privacyPolicy.href).toBe("/privacy-policy");
+  });
+});
+
 describe("publication parity", () => {
   /** Both directions, because each failure mode is real and different:
    *
@@ -356,15 +504,31 @@ describe("ATS-SEO-134: locale config completeness", () => {
     expect(DEFAULT_LOCALE).toBe("en");
   });
 
-  it("has an endonym, html-lang, hreflang, og:locale, and URL prefix for every locale", () => {
+  it("has an endonym, html-lang, hreflang, and URL prefix for every locale", () => {
     for (const locale of LOCALES) {
       expect(LOCALE_ENDONYM[locale]).toBeTruthy();
       expect(HTML_LANG[locale]).toBeTruthy();
       expect(HREFLANG[locale]).toBeTruthy();
-      expect(OG_LOCALE[locale]).toBeTruthy();
       // English's prefix is legitimately "" (site root) — every other
       // locale must have a real, non-empty prefix.
       if (locale !== "en") expect(LOCALE_PREFIX[locale]).toBeTruthy();
+    }
+  });
+
+  // ATS-SEO-140: og:locale is deliberately the ONE exception to "every
+  // locale has a value" — ht is undefined on purpose (see OG_LOCALE's own
+  // doc comment) because Facebook has no real Haitian Creole locale code,
+  // and this ticket explicitly forbids inventing one. Every other locale
+  // must still have a real, Facebook-recognized-shaped value.
+  it("gives every locale except Haitian Creole a real og:locale, and leaves ht deliberately undefined", () => {
+    for (const locale of LOCALES) {
+      if (locale === "ht") {
+        expect(OG_LOCALE.ht).toBeUndefined();
+        continue;
+      }
+      expect(OG_LOCALE[locale]).toBeTruthy();
+      // Facebook's og:locale format is always <lowercase-language>_<UPPERCASE-region>.
+      expect(/^[a-z]{2}_[A-Z]{2}$/.test(OG_LOCALE[locale] as string)).toBe(true);
     }
   });
 
