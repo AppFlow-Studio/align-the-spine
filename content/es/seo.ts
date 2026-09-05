@@ -58,7 +58,7 @@ export const esRoutes: RouteMeta[] = [
     },
     changeFrequency: "weekly",
     priority: 1,
-    lastModified: "2026-08-26",
+    lastModified: "2026-09-04",
     primaryQuery: "Spanish-language Deerfield Beach general chiropractic intent",
     justification:
       "Owns broad 'quiropráctico Deerfield Beach' intent for Spanish searchers. Does not compete with the English home page — the two are hreflang alternates of one another, each serving a different language's version of the same intent.",
@@ -90,7 +90,7 @@ export const esRoutes: RouteMeta[] = [
     },
     changeFrequency: "monthly",
     priority: 0.9,
-    lastModified: "2026-08-26",
+    lastModified: "2026-09-04",
     primaryQuery: "Spanish-language general-care services hub",
     justification:
       "Owns 'servicios quiroprácticos Deerfield Beach' hub intent in Spanish. Individual service pages are English-only and draft today, so nothing under it competes with it.",

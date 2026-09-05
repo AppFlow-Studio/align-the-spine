@@ -90,7 +90,7 @@ function treatmentCards(descriptions: [string, string, string, string]): Conditi
     {
       title: "Ajuste quiropráctico",
       image: {
-        src: "/figma-exports/how-we-treat-2.png",
+        src: "/figma-exports/adjustment-image.jpeg",
         alt: "El Dr. Abe realizando un ajuste quiropráctico",
       },
       meta: "1 h",
@@ -788,7 +788,7 @@ export const esConcussion: EsCondition = {
         title: "Revisión de cuello y latigazo cervical",
         desc: "Después del alta médica, el Dr. Abe puede evaluar si existen además dolor de cuello, rigidez o problemas musculoesqueléticos relacionados con un latigazo cervical.",
         image: {
-          src: "/figma-exports/how-we-treat-2.png",
+          src: "/figma-exports/adjustment-image.jpeg",
           alt: "Evaluación del cuello después del alta médica",
         },
         meta: "Después del alta",

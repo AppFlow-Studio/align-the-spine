@@ -23,7 +23,7 @@ export const servicesGrid: ServiceCardItem[] = [
     summary:
       "Hands-on chiropractic adjustments using controlled pressure to improve joint motion in the neck, mid back, or lower back when appropriate.",
     image: {
-      src: "/figma-exports/drabeadjust.png",
+      src: "/figma-exports/adjustment-image.jpeg",
       alt: "Dr. Abe performing a chiropractic adjustment",
     },
     href: getRouteHref("/services/chiropractic-adjustments") ?? undefined,

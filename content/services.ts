@@ -73,7 +73,7 @@ const allServices: Service[] = [
     summary:
       "Chiropractic adjustments use controlled pressure to improve motion in selected joints of the neck, mid back, or lower back after an appropriate evaluation.",
     image: {
-      src: "/figma-exports/drabeadjust.png",
+      src: "/figma-exports/adjustment-image.jpeg",
       alt: "Dr. Abe performing a chiropractic adjustment",
     },
     href: "/services/chiropractic-adjustments",
