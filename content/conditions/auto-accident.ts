@@ -93,7 +93,7 @@ export const autoAccidentCondition: Condition = {
       title: "Adjustments",
       desc: "Hands-on adjustments that restore motion to the segments most commonly jarred loose by a collision.",
       image: {
-        src: "/figma-exports/drabeadjust.png",
+        src: "/figma-exports/adjustment-image.jpeg",
         alt: "Dr. Abe performing a chiropractic adjustment",
       },
       href: "/services/chiropractic-adjustments",

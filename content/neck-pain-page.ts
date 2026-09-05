@@ -63,7 +63,7 @@ export const neckPainHowWeTreat: ConditionTreatmentItem[] = [
     title: "Adjustment",
     desc: "Everyday stiffness often comes from small fixations in the neck's vertebrae — segments that aren't moving the way they should. Adjustments restore that motion, which is usually what turns a stiff neck into a fully mobile one again.",
     image: {
-      src: "/figma-exports/how-we-treat-2.png",
+      src: "/figma-exports/adjustment-image.jpeg",
       alt: "Dr. Abe performing a chiropractic adjustment",
     },
     meta: "1 hr",

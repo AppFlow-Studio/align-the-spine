@@ -85,7 +85,7 @@ export const backPainHowWeTreat: ConditionTreatmentItem[] = [
     title: "Adjustment",
     desc: "Back pain frequently comes from fixations — segments of the spine, especially in the low back, that have lost their normal movement. Adjustments restore that motion so the surrounding muscles can stop compensating.",
     image: {
-      src: "/figma-exports/how-we-treat-2.png",
+      src: "/figma-exports/adjustment-image.jpeg",
       alt: "Dr. Abe performing a chiropractic adjustment",
     },
     meta: "1 hr",

@@ -79,7 +79,7 @@ export const whiplashHowWeTreat: ConditionTreatmentItem[] = [
     title: "Adjustment",
     desc: "After whiplash, selected neck joints may have restricted motion. If appropriate after evaluation, a controlled adjustment may be included to address that restriction.",
     image: {
-      src: "/figma-exports/how-we-treat-2.png",
+      src: "/figma-exports/adjustment-image.jpeg",
       alt: "Dr. Abe performing a chiropractic adjustment",
     },
     meta: "1 hr",

@@ -74,7 +74,7 @@ export const decompressionConditions: DecompressionCondition[] = [
     description:
       "Radiating leg pain that may involve irritation or compression of a lower-back nerve.",
     image: {
-      src: "/figma-exports/decompression-sciatica.png",
+      src: "/figma-exports/adjustment-image.jpeg",
       alt: "Chiropractor treating a patient's lower back for sciatica",
     },
   },

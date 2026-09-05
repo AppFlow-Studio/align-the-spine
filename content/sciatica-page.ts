@@ -63,7 +63,7 @@ export const sciaticaHowWeTreat: ConditionTreatmentItem[] = [
     title: "Adjustment",
     desc: "When exam findings suggest restricted lower-spine joint motion contributes to symptoms, Dr. Abe may include a controlled adjustment as part of the care plan.",
     image: {
-      src: "/figma-exports/how-we-treat-2.png",
+      src: "/figma-exports/adjustment-image.jpeg",
       alt: "Dr. Abe performing a chiropractic adjustment",
     },
     meta: "1 hr",
