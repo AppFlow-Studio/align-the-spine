@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { esBookingCta, esFooter, esNav } from "@/content/es/chrome";
 import { esRoutes } from "@/content/es/seo";
+import { htRoutes } from "@/content/ht/seo";
 import {
   buildAlternates,
   buildAlternatesForRoute,
@@ -18,6 +19,7 @@ import {
   serviceAreaLocalizedRoutes,
   type LocalizedRoute,
 } from "@/content/i18n";
+import { ptRoutes } from "@/content/pt/seo";
 import { isPublished, routes } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 
@@ -35,7 +37,11 @@ import { siteConfig } from "@/content/site";
 
 const enPaths = new Set(routes.map((route) => route.path));
 const esPaths = new Set(esRoutes.map((route) => route.path));
+const ptPaths = new Set(ptRoutes.map((route) => route.path));
+const htPaths = new Set(htRoutes.map((route) => route.path));
 const pairsWithSpanish = localizedRoutes.filter((route) => route.es !== null);
+const pairsWithPortuguese = localizedRoutes.filter((route) => route.pt !== null);
+const pairsWithHaitianCreole = localizedRoutes.filter((route) => route.ht !== null);
 
 describe("locale route map ↔ route registries", () => {
   it("registers every pair's English path in content/seo.ts", () => {
@@ -51,6 +57,34 @@ describe("locale route map ↔ route registries", () => {
   it("pairs every route in the Spanish registry", () => {
     const paired = new Set(pairsWithSpanish.map((route) => route.es as string));
     const orphans = [...esPaths].filter((path) => !paired.has(path));
+    expect(orphans).toEqual([]);
+  });
+
+  // ATS-SEO-135/138: the same drift Spanish already guards against — a
+  // route-table entry claiming a Portuguese path content/pt/seo.ts never
+  // registered (target doesn't exist), or a Portuguese registry entry with
+  // no route-table pair pointing at it (orphan, so no hreflang/language
+  // switcher ever reaches it).
+  it("registers every pair's Portuguese path in content/pt/seo.ts", () => {
+    const missing = pairsWithPortuguese.filter((route) => !ptPaths.has(route.pt as string));
+    expect(missing.map((route) => route.id)).toEqual([]);
+  });
+
+  it("pairs every route in the Portuguese registry", () => {
+    const paired = new Set(pairsWithPortuguese.map((route) => route.pt as string));
+    const orphans = [...ptPaths].filter((path) => !paired.has(path));
+    expect(orphans).toEqual([]);
+  });
+
+  // ATS-SEO-136/138: identical guarantee for Haitian Creole.
+  it("registers every pair's Haitian Creole path in content/ht/seo.ts", () => {
+    const missing = pairsWithHaitianCreole.filter((route) => !htPaths.has(route.ht as string));
+    expect(missing.map((route) => route.id)).toEqual([]);
+  });
+
+  it("pairs every route in the Haitian Creole registry", () => {
+    const paired = new Set(pairsWithHaitianCreole.map((route) => route.ht as string));
+    const orphans = [...htPaths].filter((path) => !paired.has(path));
     expect(orphans).toEqual([]);
   });
 
@@ -72,6 +106,12 @@ describe("locale route map ↔ route registries", () => {
 
     const es = pairsWithSpanish.map((route) => route.es);
     expect(new Set(es).size).toBe(es.length);
+
+    const pt = pairsWithPortuguese.map((route) => route.pt);
+    expect(new Set(pt).size).toBe(pt.length);
+
+    const ht = pairsWithHaitianCreole.map((route) => route.ht);
+    expect(new Set(ht).size).toBe(ht.length);
   });
 });
 
