@@ -57,8 +57,6 @@ export const ptChromeLabels = {
   closeMenu: "Fechar menu",
   viewAll: (label: string) => `Ver tudo: ${label}`,
   callUs: "Fale conosco hoje",
-  languageSwitch: "View this page in English",
-  languageSwitchShort: "English",
   /** Spanish labels for content/site.ts's verified stat chips. Only the
    * label is translated — the values are verified factual claims and stay
    * as approved (see getVerifiedStats). */

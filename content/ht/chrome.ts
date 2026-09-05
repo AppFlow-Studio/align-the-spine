@@ -53,8 +53,6 @@ export const htChromeLabels = {
   closeMenu: "Fèmen meni",
   viewAll: (label: string) => `Wè tout: ${label}`,
   callUs: "Rele nou jodi a",
-  languageSwitch: "View this page in English",
-  languageSwitchShort: "English",
   /** Haitian Creole labels for content/site.ts's verified stat chips. Only
    * the label is translated — the values are verified factual claims and
    * stay as approved (see getVerifiedStats). */

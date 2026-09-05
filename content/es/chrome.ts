@@ -320,8 +320,6 @@ export const esChromeLabels = {
    * "All Servicios" on the Spanish drawer. */
   viewAll: (label: string) => `Ver todo: ${label}`,
   callUs: "Llámenos hoy",
-  languageSwitch: "View this page in English",
-  languageSwitchShort: "English",
   /** Spanish labels for content/site.ts's verified stat chips. Only the
    * label is translated — the values are verified factual claims and stay
    * as approved (see getVerifiedStats). */
@@ -350,6 +348,4 @@ export const enChromeLabels = {
   closeMenu: "Close menu",
   viewAll: (label: string) => `All ${label}`,
   callUs: "Speak with us today",
-  languageSwitch: "Ver esta página en español",
-  languageSwitchShort: "Español",
 };

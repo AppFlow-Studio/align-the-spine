@@ -82,7 +82,7 @@ export function Footer({ locale = DEFAULT_LOCALE }: { locale?: Locale } = {}) {
           {year} {footer.copyrightName}. {footer.licenseLine}
         </p>
         <div className="flex flex-wrap items-center gap-6 text-mute-300">
-          <LanguageSwitcher locale={locale} className="text-mute-300 hover:text-white" />
+          <LanguageSwitcher locale={locale} className="text-mute-300 hover:text-white" openUpward />
           {/* On /es this crosses into the English privacy notice (no Spanish
            * version exists yet — see content/i18n.ts), so it carries an
            * explicit hrefLang/lang rather than pretending to be Spanish. */}
