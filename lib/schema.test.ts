@@ -1,6 +1,7 @@
+import { readdirSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
-import { servicesGrid } from "@/content/services-grid";
 import { siteConfig } from "@/content/site";
 import { isVerified } from "@/content/verified-value";
 
@@ -12,6 +13,7 @@ import {
   buildOrganization,
   buildPerson,
   buildService,
+  buildWebPage,
   buildWebSite,
   DR_ABE_PERSON_ID,
   MEDICAL_BUSINESS_ID,
@@ -236,5 +238,158 @@ describe("buildFAQPage", () => {
         acceptedAnswer: { "@type": "Answer", text: "A1." },
       },
     ]);
+  });
+});
+
+describe("buildWebPage", () => {
+  it("builds a WebPage keyed by #webpage under the page's own URL", () => {
+    const page = buildWebPage({
+      path: "/es/servicios",
+      name: "Servicios",
+      description: "Descripción.",
+      inLanguage: "es-US",
+    });
+    expect(page["@type"]).toBe("WebPage");
+    expect(page.url).toBe(`${siteConfig.siteUrl}/es/servicios`);
+    expect(page["@id"]).toBe(`${page.url}#webpage`);
+  });
+
+  it("links to the shared WebSite and MedicalBusiness entities, not a new per-locale one", () => {
+    const page = buildWebPage({
+      path: "/pt/servicos",
+      name: "Serviços",
+      description: "Descrição.",
+      inLanguage: "pt-BR",
+    });
+    expect(page.isPartOf).toEqual({ "@id": WEBSITE_ID });
+    expect(page.about).toEqual({ "@id": MEDICAL_BUSINESS_ID });
+  });
+
+  it("passes through the caller's own inLanguage rather than assuming en-US", () => {
+    expect(
+      buildWebPage({ path: "/ht/sevis", name: "N", description: "D", inLanguage: "ht" }).inLanguage,
+    ).toBe("ht");
+  });
+});
+
+/** ATS-SEO-141: "preserve one stable underlying ATS practice entity/@id
+ * where the current graph supports it; locale pages should not imply four
+ * separate practices" — and the negative constraints ("do not blindly
+ * attach availableLanguage", "no fabricated review/credential/service
+ * data") stated as regression tests, not just prose. */
+describe("ATS-SEO-141: one coherent entity graph across locales", () => {
+  it("buildOrganization/buildWebSite/buildMedicalBusiness/buildPerson take no locale argument — there is structurally only one of each", () => {
+    // Verified by construction (arity), not by calling with fake locale
+    // arguments that don't exist: a builder that accepted a "locale" param
+    // would be exactly how a second, per-language business entity could
+    // get minted by accident.
+    expect(buildOrganization.length).toBe(0);
+    expect(buildWebSite.length).toBe(0);
+    expect(buildMedicalBusiness.length).toBe(0);
+    expect(buildPerson.length).toBe(0);
+  });
+
+  it("every WebPage entity built for any locale references the SAME MedicalBusiness and WebSite @id, never a locale-derived one", () => {
+    const locales: { path: string; inLanguage: string }[] = [
+      { path: "/services", inLanguage: "en-US" },
+      { path: "/es/servicios", inLanguage: "es-US" },
+      { path: "/pt/servicos", inLanguage: "pt-BR" },
+      { path: "/ht/sevis", inLanguage: "ht" },
+    ];
+    const pages = locales.map((l) =>
+      buildWebPage({ path: l.path, name: "N", description: "D", inLanguage: l.inLanguage }),
+    );
+    for (const page of pages) {
+      expect(page.about).toEqual({ "@id": MEDICAL_BUSINESS_ID });
+      expect(page.isPartOf).toEqual({ "@id": WEBSITE_ID });
+    }
+    // Not just equal in value — every call must resolve to the literal
+    // same constant, so there is no code path that could derive a
+    // different id per locale even by typo.
+    expect(new Set(pages.map((p) => p.about["@id"])).size).toBe(1);
+  });
+
+  it("buildMedicalBusiness()/buildOrganization()/buildPerson() are idempotent — calling them again (as every locale page does) never drifts the @id", () => {
+    expect(buildMedicalBusiness()["@id"]).toBe(buildMedicalBusiness()["@id"]);
+    expect(buildOrganization()["@id"]).toBe(buildOrganization()["@id"]);
+    expect(buildPerson()["@id"]).toBe(buildPerson()["@id"]);
+  });
+
+  it("never emits availableLanguage on any built schema object", () => {
+    // ATS-SEO-140/141: a translated website alone is not proof of
+    // staff/phone support in that language — content/site.ts's
+    // bilingualCare is verified for EN/ES only, not PT/HT, and no
+    // ContactPoint/ServiceChannel with verified availability exists in
+    // this codebase to hang a real availableLanguage claim off of. This
+    // walks every builder's actual output rather than grepping source, so
+    // it also catches a future builder that constructs the field
+    // dynamically instead of typing it literally.
+    function assertNoAvailableLanguage(value: unknown, path = "$"): void {
+      if (Array.isArray(value)) {
+        value.forEach((item, index) => assertNoAvailableLanguage(item, `${path}[${index}]`));
+        return;
+      }
+      if (value && typeof value === "object") {
+        for (const [key, nested] of Object.entries(value)) {
+          expect(key, `unexpected availableLanguage at ${path}`).not.toBe("availableLanguage");
+          assertNoAvailableLanguage(nested, `${path}.${key}`);
+        }
+      }
+    }
+
+    assertNoAvailableLanguage(buildOrganization());
+    assertNoAvailableLanguage(buildWebSite());
+    assertNoAvailableLanguage(buildMedicalBusiness());
+    assertNoAvailableLanguage(buildPerson());
+    assertNoAvailableLanguage(
+      buildWebPage({ path: "/pt/servicos", name: "N", description: "D", inLanguage: "pt-BR" }),
+    );
+    assertNoAvailableLanguage(
+      buildMedicalWebPage({
+        path: "/service-areas/example",
+        name: "N",
+        description: "D",
+        dateModified: "2026-08-18T00:00:00.000Z",
+        aboutTopic: "Example",
+      }),
+    );
+  });
+
+  // ATS-SEO-141: "structured data must match visible content" — every
+  // ES/PT/HT page.tsx passes buildWebPage's name/description straight from
+  // its own route.title/route.description, the exact same object
+  // buildEsRouteMetadata()/buildPtRouteMetadata()/buildHtRouteMetadata()
+  // read for the <title>/<meta description>, so the two can't drift.
+  // Source-scanning rather than importing every page module: these are
+  // Next.js Server Components with no jsdom/testing-library setup in this
+  // repo (same convention as content/route-registry-parity.test.ts).
+  it("every localized page.tsx that calls buildWebPage feeds it the same route.title/route.description its metadata uses", () => {
+    const appDir = join(__dirname, "..", "app");
+    const offenders: string[] = [];
+
+    function walk(dir: string) {
+      for (const entry of readdirSync(dir, { withFileTypes: true })) {
+        const fullPath = join(dir, entry.name);
+        if (entry.isDirectory()) {
+          walk(fullPath);
+        } else if (entry.name === "page.tsx") {
+          const source = readFileSync(fullPath, "utf8");
+          if (!source.includes("buildWebPage(")) continue;
+          const call = source.slice(
+            source.indexOf("buildWebPage("),
+            source.indexOf("buildWebPage(") + 300,
+          );
+          if (
+            !call.includes("name: route.title") ||
+            !call.includes("description: route.description")
+          ) {
+            offenders.push(fullPath);
+          }
+        }
+      }
+    }
+    walk(appDir);
+
+    expect(offenders).toEqual([]);
   });
 });
