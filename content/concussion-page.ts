@@ -100,7 +100,7 @@ export const concussionSupportItems: ConditionTreatmentItem[] = [
     title: "Neck and whiplash review",
     desc: "After medical clearance, Dr. Abe can evaluate whether separate neck pain, stiffness, or whiplash-related musculoskeletal concerns are present.",
     image: {
-      src: "/figma-exports/how-we-treat-2.png",
+      src: "/figma-exports/adjustment-image.jpeg",
       alt: "Dr. Abe performing a chiropractic adjustment",
     },
     meta: "After clearance",

@@ -95,7 +95,7 @@ export const esServicesGrid: ServiceCardItem[] = [
     summary:
       "Ajustes manuales con presión controlada para mejorar el movimiento de las articulaciones del cuello, la espalda media o la espalda baja cuando corresponde.",
     image: {
-      src: "/figma-exports/drabeadjust.png",
+      src: "/figma-exports/adjustment-image.jpeg",
       alt: "El Dr. Abe realizando un ajuste quiropráctico",
     },
   },

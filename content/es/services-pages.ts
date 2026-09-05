@@ -123,7 +123,7 @@ export const esDecompressionConditions: DecompressionCondition[] = [
     description:
       "Dolor irradiado hacia la pierna que puede implicar irritación o compresión de un nervio de la espalda baja.",
     image: {
-      src: "/figma-exports/decompression-sciatica.png",
+      src: "/figma-exports/adjustment-image.jpeg",
       alt: "Quiropráctico tratando la espalda baja de un paciente por ciática",
     },
   },

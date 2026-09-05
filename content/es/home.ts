@@ -99,7 +99,7 @@ export const esServices: Service[] = [
     summary:
       "Los ajustes quiroprácticos aplican presión controlada para mejorar el movimiento de articulaciones seleccionadas del cuello, la espalda media o la espalda baja, después de una evaluación adecuada.",
     image: {
-      src: "/figma-exports/drabeadjust.png",
+      src: "/figma-exports/adjustment-image.jpeg",
       alt: "El Dr. Abe realizando un ajuste quiropráctico",
     },
   },
