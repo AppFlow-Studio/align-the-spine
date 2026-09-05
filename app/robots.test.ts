@@ -41,6 +41,23 @@ describe("robots", () => {
     expect(rules.disallow).toContain("/es/gracias");
   });
 
+  // ATS-SEO-139: identical guarantee for Portuguese and Haitian Creole —
+  // both are primary content under content/pt/ and content/ht/
+  // (ATS-SEO-135/136), not duplicates, so neither subtree may be blocked.
+  // Unlike Spanish, /pt and /ht have no post-conversion page of their own
+  // to exclude (ATS-SEO-135/136 deliberately built no /pt/gracias or
+  // /ht/gracias — their forms redirect to the English /thank-you instead,
+  // see components/ui/lead-form.tsx's FORM_COPY), so there is nothing to
+  // assert is present in `disallow` for them, only that nothing blocks them.
+  it("never blocks the /pt or /ht subtrees in production", () => {
+    vi.stubEnv("VERCEL_ENV", "production");
+    const rules = robots().rules as { disallow?: string[] };
+    for (const rule of rules.disallow ?? []) {
+      expect(rule === "/pt" || rule === "/pt/").toBe(false);
+      expect(rule === "/ht" || rule === "/ht/").toBe(false);
+    }
+  });
+
   it("always references the canonical sitemap URL", () => {
     vi.stubEnv("VERCEL_ENV", "preview");
     expect(robots().sitemap).toBe(`${siteConfig.siteUrl}/sitemap.xml`);

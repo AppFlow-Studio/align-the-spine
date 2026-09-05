@@ -138,4 +138,52 @@ describe("sitemap", () => {
       expect(paths).not.toContain(path);
     }
   });
+
+  // ATS-SEO-139: the same "never leaks a draft page" guarantee as above,
+  // but derived from the registries themselves rather than a hand-picked
+  // path list — so it stays correct as routes flip between draft/published
+  // (including a future PT/HT draft, which the hardcoded list above has
+  // never had one of to catch).
+  it("never includes a draft-status route from any of the four registries", async () => {
+    const paths = new Set(
+      (await sitemap()).map((entry) => entry.url.replace(siteConfig.siteUrl, "")),
+    );
+    for (const registry of [routes, esRoutes, ptRoutes, htRoutes]) {
+      for (const route of registry.filter((r) => !isPublished(r))) {
+        expect(paths.has(route.path), `draft route "${route.path}" leaked into the sitemap`).toBe(
+          false,
+        );
+      }
+    }
+  });
+
+  // ATS-SEO-139: "No staging/noncanonical URL in sitemap" as its own,
+  // explicit acceptance criterion — content/hreflang-cluster-validation.test.ts
+  // already checks this for the underlying route tables, but not for
+  // sitemap.ts's actual output specifically.
+  it("never emits a staging or non-production host", async () => {
+    const FORBIDDEN_HOST_PATTERNS = [
+      /localhost/i,
+      /127\.0\.0\.1/,
+      /\.vercel\.app/i,
+      /staging/i,
+      /\bpreview\b/i,
+    ];
+    for (const entry of await sitemap()) {
+      for (const pattern of FORBIDDEN_HOST_PATTERNS) {
+        expect(pattern.test(entry.url), `sitemap URL "${entry.url}" leaks a staging host`).toBe(
+          false,
+        );
+      }
+      for (const url of Object.values(entry.alternates?.languages ?? {})) {
+        const urlString = String(url);
+        for (const pattern of FORBIDDEN_HOST_PATTERNS) {
+          expect(
+            pattern.test(urlString),
+            `sitemap alternate "${urlString}" leaks a staging host`,
+          ).toBe(false);
+        }
+      }
+    }
+  });
 });
