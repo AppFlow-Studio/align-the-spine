@@ -50,13 +50,14 @@ describe("attribution capture", () => {
 
   it("captures all whitelisted click IDs and UTMs, ignoring unknown fields", () => {
     navigateTo(
-      "?gclid=g1&gbraid=b1&wbraid=w1&utm_source=google&utm_medium=cpc&utm_campaign=accident&utm_term=chiro&utm_content=ad1&reason=accident",
+      "?gclid=g1&gbraid=b1&wbraid=w1&utm_id=99887766&utm_source=google&utm_medium=cpc&utm_campaign=accident&utm_term=chiro&utm_content=ad1&reason=accident",
     );
     captureAttribution();
     expect(getStoredAttribution()).toEqual({
       gclid: "g1",
       gbraid: "b1",
       wbraid: "w1",
+      utm_id: "99887766",
       utm_source: "google",
       utm_medium: "cpc",
       utm_campaign: "accident",

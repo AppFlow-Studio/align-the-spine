@@ -3,6 +3,7 @@ const ATTRIBUTION_PARAMS = [
   "gclid",
   "gbraid",
   "wbraid",
+  "utm_id",
   "utm_source",
   "utm_medium",
   "utm_campaign",
