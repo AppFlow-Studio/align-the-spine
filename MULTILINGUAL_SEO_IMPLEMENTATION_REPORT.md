@@ -285,7 +285,33 @@ Full per-commit file lists are reproducible via `git show --name-only <hash>` fo
 
 ---
 
-## 14. Summary for Bilal
+## 14. Epic-level full-site locale sweep (ATS-SEO-E10 close-out, 2026-09-07)
+
+ATS-SEO-144's raw evidence (§6b) sampled 3 representative route families. At the epic's request, this section extends that to **every route family in the registry, every locale it has** — 61 of 61 route×locale combinations, run against the same production build (`next build` + `next start`), via a scripted `curl` sweep (no browser tool was available in this environment; see §8's a11y caveat for the one thing that genuinely requires one).
+
+**Result: 61/61 clean.**
+
+| Check                                                                                                                                                            | Result                                  |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| HTTP status                                                                                                                                                      | 61/61 return 200                        |
+| `<html lang>` present and locale-correct                                                                                                                         | 61/61                                   |
+| `<title>` present                                                                                                                                                | 61/61                                   |
+| Self-referencing canonical                                                                                                                                       | 61/61                                   |
+| H1 present, non-empty, locale-appropriate                                                                                                                        | 61/61                                   |
+| Hreflang cluster size matches the route's real translation count (5 for all-4-locale families incl. x-default, 3 for EN+ES-only, 0 for EN-only)                  | 61/61                                   |
+| Hreflang lang-set identical across every locale variant of the same family (no drift between, e.g., what `/pt/servicos` claims and what `/services` claims back) | 23/23 families consistent, 0 mismatches |
+
+**Locale-mixing / English-leakage spot check:** fetched all 9 PT and all 9 HT pages, stripped tags/scripts, and scanned visible body text for 14 common English UI phrases ("Book Appointment," "Read More," "Contact Us," "Request Appointment," etc.). **All 18 pages clean** — no leaked English UI string found in any PT/HT page's visible content.
+
+**Language-switcher missing-translation behavior, live:** confirmed on `/es/condiciones/ciatica` (a page that exists in EN+ES only) — both switcher instances (desktop nav + mobile drawer) correctly render English as an active link, Spanish as the checked/current item, and Portuguese + Haitian Creole as `aria-disabled="true"` inert spans — never a broken or silently-wrong link to a PT/HT homepage.
+
+This closes the epic's definition-of-done requirement that "canonical/hreflang/indexability are validated from raw output" and "all intended locale URLs are represented" at full-site scope, not just the 3-family sample.
+
+**What this sweep does _not_ cover** (same caveat as ATS-SEO-143/144): visual/pixel rendering, real keyboard navigation, and screen-reader behavior — no browser tool is available in this environment, so those remain code-reviewed, not browser-verified. If the team wants that closed out, it needs either a manual pass in an actual browser or a browser-automation tool added to the toolchain.
+
+---
+
+## 15. Summary for Bilal
 
 The multilingual implementation (EN/ES/PT/HT) is technically sound and load-bearing evidence — not just claims — backs every canonical/hreflang/sitemap/robots/404/structured-data claim in this report, gathered against a real `next build` + `next start`, not the dev server. The engineering gate (lint/typecheck/test/build) is fully green. Two things remain before this is launch-ready:
 
