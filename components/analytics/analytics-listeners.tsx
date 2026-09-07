@@ -40,8 +40,8 @@ export function AnalyticsListeners() {
       const anchor = (event.target as HTMLElement).closest("a");
       const href = anchor?.getAttribute("href");
       if (!href) return;
-      if (isPhoneLink(href)) trackPhoneClick();
-      else if (isBookCtaLink(href)) trackBookCtaClick();
+      if (isPhoneLink(href)) trackPhoneClick(pathname);
+      else if (isBookCtaLink(href)) trackBookCtaClick(pathname);
     }
     document.addEventListener("click", handleClick);
     return () => document.removeEventListener("click", handleClick);
