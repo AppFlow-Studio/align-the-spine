@@ -1,3 +1,5 @@
+import { getLocalizedRoute, localeFromPath, LOCALES } from "@/content/i18n";
+
 declare global {
   interface Window {
     dataLayer?: unknown[];
@@ -52,12 +54,18 @@ export function classifyLeadPriority(
   return "standard";
 }
 
-export function trackPhoneClick() {
-  gtag("event", "phone_click");
+/** ATS-SEO-143: "locale may be measured with generic values such as en, es,
+ * pt-BR, ht." Uses this site's own bare Locale codes (en/es/pt/ht — the
+ * same values content/i18n.ts's LOCALES/LOCALE_ENDONYM key on) rather than
+ * the region-qualified hreflang codes (en-US/es-US/pt-BR/ht): a generic
+ * locale dimension for GA4 segmentation, never a page's precise identity —
+ * exactly what the ticket asks for, nothing more specific. */
+export function trackPhoneClick(path: string) {
+  gtag("event", "phone_click", { locale: localeFromPath(path) });
 }
 
-export function trackBookCtaClick() {
-  gtag("event", "book_cta_click");
+export function trackBookCtaClick(path: string) {
+  gtag("event", "book_cta_click", { locale: localeFromPath(path) });
 }
 
 /** Fires a GA4 page_view for the given path. gtag's automatic pageview only
@@ -65,17 +73,30 @@ export function trackBookCtaClick() {
  * false`) — client-side route changes in the App Router need this called
  * manually, from AnalyticsListeners' pathname effect. */
 export function trackPageView(path: string) {
-  gtag("event", "page_view", { page_path: path });
+  gtag("event", "page_view", { page_path: path, locale: localeFromPath(path) });
 }
 
 export function isPhoneLink(href: string): boolean {
   return href.startsWith("tel:");
 }
 
+/** Every locale's booking-CTA path, read from content/i18n.ts's route table
+ * (the single source of truth every nav/footer/hero booking link already
+ * points at) rather than hardcoded here a second time — a route slug
+ * changing in one place could otherwise silently stop matching in this
+ * unrelated file. */
+const BOOK_CTA_PATHS: readonly string[] = LOCALES.map(
+  (locale) => getLocalizedRoute("bookAppointment")[locale],
+).filter((path): path is string => path !== null);
+
+/** ATS-SEO-143: this used to match only the English `/book-an-appointment`
+ * path, so `book_cta_click` never fired for a Spanish, Portuguese, or
+ * Haitian Creole visitor clicking their own locale's booking CTA — a
+ * conversion-tracking gap the ticket's "language selection must not break
+ * conversion tracking" requirement exists to catch. Now checks every
+ * locale's own booking path. */
 export function isBookCtaLink(href: string): boolean {
-  return (
-    href === "/book-an-appointment" ||
-    href.startsWith("/book-an-appointment?") ||
-    href.startsWith("/book-an-appointment#")
+  return BOOK_CTA_PATHS.some(
+    (path) => href === path || href.startsWith(`${path}?`) || href.startsWith(`${path}#`),
   );
 }

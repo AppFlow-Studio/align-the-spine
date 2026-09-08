@@ -10,26 +10,40 @@ import { fontVariables } from "./fonts";
 
 import "./globals.css";
 
-/** Global 404 — the handler for URLs that match no route in either locale.
+/** Global 404 — the handler for URLs that match no route in any locale.
  *
- * Why this file exists: with one root layout per locale (app/(en)/layout.tsx
- * and app/(es)/layout.tsx) there is no single root layout left at app/ for a
- * top-level not-found to compose against, so Next routes unmatched URLs here
- * instead. That's also why it declares its own <html>/<body> and imports
- * globals.css and the fonts directly — it bypasses both layouts.
+ * Why this file exists: with one root layout per locale (app/(en)/layout.tsx,
+ * app/(es)/layout.tsx, app/(pt)/layout.tsx, app/(ht)/layout.tsx) there is no
+ * single root layout left at app/ for a top-level not-found to compose
+ * against, so Next routes unmatched URLs here instead. That's also why it
+ * declares its own <html>/<body> and imports globals.css and the fonts
+ * directly — it bypasses every locale's layout.
  *
  * The per-locale not-found files (app/(en)/not-found.tsx,
- * app/(es)/not-found.tsx) still exist and still handle a `notFound()` thrown
- * from inside their own segment; they are simply not what an unmatched URL
- * reaches.
+ * app/(es)/not-found.tsx, app/(pt)/not-found.tsx, app/(ht)/not-found.tsx)
+ * still exist and still handle a `notFound()` thrown from inside their own
+ * segment; they are simply not what a genuinely unmatched URL reaches — see
+ * their own doc comments.
  *
- * It's bilingual by design rather than by detection. This component receives
- * no props, and reading the request path via headers() would opt the whole
- * page into dynamic rendering just to pick a language for a 404 — so instead
- * the page leads in English (the site's hreflang x-default) and offers a
- * Spanish line and a Spanish home link beneath it, marked `lang`/`hrefLang`
- * so a Spanish speaker who mistyped an /es URL isn't stranded on an
- * English-only dead end.
+ * ATS-SEO-139: an earlier pass at this ticket tried adding a per-locale
+ * catch-all route (`app/(es)/es/[...catchAll]/page.tsx` calling
+ * `notFound()`) specifically so an unknown `/es/...`/`/pt/...`/`/ht/...` URL
+ * would render fully in its own language. That approach was reverted: this
+ * file's own not-found.tsx boundaries all sit behind a `loading.tsx`
+ * (ATS-SEO-135/136), so React's streaming had already flushed a 200-status
+ * shell by the time notFound() ran — trading this file's guaranteed
+ * pre-stream 404 status for a same-language body that Next.js's own docs
+ * call a "soft 404." The correct 404 status matters more than a fully
+ * localized 404 body, so it stays here, unmatched-route detection running
+ * before any layout (and therefore before any streaming) begins.
+ *
+ * It's multilingual by design rather than by detection. This component
+ * receives no props, and reading the request path via headers() would opt
+ * the whole page into dynamic rendering just to pick a language for a 404 —
+ * so instead the page leads in English (the site's hreflang x-default) and
+ * offers a line + home link in each other locale beneath it, marked
+ * `lang`/`hrefLang` so a Spanish/Portuguese/Haitian-Creole reader who
+ * mistyped a locale URL isn't stranded on an English-only dead end.
  *
  * Next injects `<meta name="robots" content="noindex">` automatically for
  * anything returning a 404 status; the explicit `robots` below states the
@@ -65,6 +79,12 @@ export default function GlobalNotFound() {
               <p lang={HTML_LANG.es} className="font-sans text-body text-ink-500">
                 La página que busca no existe o fue movida.
               </p>
+              <p lang={HTML_LANG.pt} className="font-sans text-body text-ink-500">
+                A página que você procura não existe ou foi movida.
+              </p>
+              <p lang={HTML_LANG.ht} className="font-sans text-body text-ink-500">
+                Paj ou ap chèche a pa egziste oswa yo deplase li.
+              </p>
 
               <div className="flex flex-wrap items-center justify-center gap-4">
                 <Button href="/" variant="primary">
@@ -72,6 +92,12 @@ export default function GlobalNotFound() {
                 </Button>
                 <Button href="/es" variant="ghost" hrefLang={HTML_LANG.es} lang={HTML_LANG.es}>
                   Ir al Inicio
+                </Button>
+                <Button href="/pt" variant="ghost" hrefLang={HTML_LANG.pt} lang={HTML_LANG.pt}>
+                  Ir para o Início
+                </Button>
+                <Button href="/ht" variant="ghost" hrefLang={HTML_LANG.ht} lang={HTML_LANG.ht}>
+                  Tounen nan Paj Prensipal
                 </Button>
               </div>
             </div>

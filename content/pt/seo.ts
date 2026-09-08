@@ -34,6 +34,13 @@ import { siteConfig } from "@/content/site";
  * bug (see the synthesis doc) — flagged `NEEDS LINGUISTIC REVIEW` per this
  * ticket's own acceptance criterion where a passage makes a specific
  * clinical/legal claim rather than being safely conservative.
+ *
+ * ATS-SEO-142: see SEO_QA_EVIDENCE/multilingual-keyword-map.md for the
+ * consolidated locale/cluster/intent/target-page-family/funnel table this
+ * file's titles are drawn from — every pt-BR row there is labeled `NEEDS
+ * MORE EVIDENCE`, which is why these titles target plain, evidence-backed
+ * everyday terms rather than an SEO-optimized keyword set that doesn't
+ * exist yet.
  */
 export const ptRoutes: RouteMeta[] = [
   {

@@ -72,6 +72,23 @@ describe("buildMetadata", () => {
       buildMetadata({ title: "T", description: "D", path: "/es/servicios", locale: "es" }).openGraph
         ?.locale,
     ).toBe("es_US");
+    expect(
+      buildMetadata({ title: "T", description: "D", path: "/pt/servicos", locale: "pt" }).openGraph
+        ?.locale,
+    ).toBe("pt_BR");
+  });
+
+  // ATS-SEO-140: "do not invent unsupported Open Graph locale identifiers."
+  // Facebook has no real Haitian Creole locale code, so a Haitian Creole
+  // page's og:locale must be entirely absent, not a fabricated "ht_US".
+  it("omits og:locale entirely for Haitian Creole rather than inventing an unsupported value", () => {
+    const metadata = buildMetadata({
+      title: "T",
+      description: "D",
+      path: "/ht/sevis",
+      locale: "ht",
+    });
+    expect(metadata.openGraph?.locale).toBeUndefined();
   });
 
   it("wraps title in { absolute } so the root layout's title.template can't double-suffix it", () => {
