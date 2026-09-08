@@ -92,17 +92,17 @@ export function ComparisonTable({
             <div className="grid grid-cols-3">
               <div className="bg-panel-100 px-3 py-4 md:px-8">
                 <p className="font-display text-3xl font-normal text-ink-900">
-                  {comparisonTableColumnHeadings.careBenefits}
+                  {copy.columnHeadings.careBenefits}
                 </p>
               </div>
               <div className=" bg-navy-900 px-3 py-4 md:px-8">
                 <p className="font-display text-3xl font-normal text-white">
-                  {comparisonTableColumnHeadings.alignTheSpine}
+                  {copy.columnHeadings.alignTheSpine}
                 </p>
               </div>
               <div className="px-3 py-4 md:px-8">
                 <p className="font-display text-3xl font-normal text-mute-350">
-                  {comparisonTableColumnHeadings.traditionalClinic}
+                  {copy.columnHeadings.traditionalClinic}
                 </p>
               </div>
 
@@ -112,16 +112,16 @@ export function ComparisonTable({
             </div>
 
             <p className="border-t border-mute-300 px-6 py-6 text-center font-sans text-small-print text-mute-400 md:px-8">
-              {comparisonTableFootnote}
+              {copy.footnote}
             </p>
           </Card>
 
           <div className="flex flex-col gap-4 lg:hidden">
             {rows.map((row) => (
-              <ComparisonRowCard key={row.label} row={row} />
+              <ComparisonRowCard key={row.label} row={row} columnHeadings={copy.columnHeadings} />
             ))}
             <p className="px-2 text-center font-sans text-small-print text-mute-400">
-              {comparisonTableFootnote}
+              {copy.footnote}
             </p>
           </div>
         </div>
@@ -149,7 +149,13 @@ function ComparisonRowCells({ row, isLast }: { row: ComparisonRow; isLast: boole
 
 /** <lg row card: label, then the two options stacked instead of side by
  * side, so nothing needs a min-width or horizontal scroll to stay legible. */
-function ComparisonRowCard({ row }: { row: ComparisonRow }) {
+function ComparisonRowCard({
+  row,
+  columnHeadings,
+}: {
+  row: ComparisonRow;
+  columnHeadings: { careBenefits: string; alignTheSpine: string; traditionalClinic: string };
+}) {
   return (
     <Card radius={20} shadow="card" className="overflow-hidden">
       <div className="border-b border-mute-300 p-3">
@@ -159,14 +165,14 @@ function ComparisonRowCard({ row }: { row: ComparisonRow }) {
         <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-teal-500" />
         <div className="flex flex-col gap-0.5">
           <span className="font-sans text-[11px] uppercase tracking-wide text-mute-300">
-            {comparisonTableColumnHeadings.alignTheSpine}
+            {columnHeadings.alignTheSpine}
           </span>
           <span className="font-sans text-stat-label text-white">{row.alignTheSpine}</span>
         </div>
       </div>
       <div className="flex flex-col gap-0.5 p-3">
         <span className="font-sans text-[11px] uppercase tracking-wide text-mute-400">
-          {comparisonTableColumnHeadings.traditionalClinic}
+          {columnHeadings.traditionalClinic}
         </span>
         <span className="font-sans text-stat-label text-ink-500">{row.traditionalClinic}</span>
       </div>
