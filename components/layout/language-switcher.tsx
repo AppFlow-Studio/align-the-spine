@@ -6,7 +6,14 @@ import { usePathname } from "next/navigation";
 import { CheckIcon } from "@/components/ui/icons/check";
 import { ChevronDownIcon } from "@/components/ui/icons/chevron-down";
 import { GlobeIcon } from "@/components/ui/icons/globe";
-import { findRouteByPath, HREFLANG, LOCALE_ENDONYM, LOCALES, type Locale } from "@/content/i18n";
+import {
+  findRouteByPath,
+  HREFLANG,
+  LOCALE_ENDONYM,
+  LOCALES,
+  routeHref,
+  type Locale,
+} from "@/content/i18n";
 import { getLanguageSwitcherCopy } from "@/content/language-switcher-labels";
 import { cn } from "@/lib/cn";
 
@@ -110,7 +117,7 @@ export function LanguageSwitcher({
   const options: LanguageOption[] = LOCALES.map((loc) => ({
     locale: loc,
     endonym: LOCALE_ENDONYM[loc],
-    href: route[loc],
+    href: routeHref(route[loc]),
     isCurrent: loc === locale,
   }));
 

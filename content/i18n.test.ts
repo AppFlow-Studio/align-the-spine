@@ -17,6 +17,7 @@ import {
   LOCALES,
   localizedRoutes,
   OG_LOCALE,
+  routeHref,
   serviceAreaLocalizedRoutes,
   type LocalizedRoute,
 } from "@/content/i18n";
@@ -554,6 +555,27 @@ describe("ATS-SEO-134: locale config completeness", () => {
     // HTML_LANG doc comment.
     expect(HREFLANG.en).toBe("en-US");
     expect(HREFLANG.es).toBe("es-US");
+  });
+});
+
+describe("routeHref: turns a route-table path into a real link href", () => {
+  it('turns the registered English home path ("") into "/"', () => {
+    // A bug fix: content/i18n.ts registers English home as "" (correct for
+    // building an absolute URL — see the doc comment on routeHref), but
+    // <a href=""> re-requests the CURRENT document rather than navigating
+    // to "/". The language switcher passed the raw route value straight
+    // into an <a href>, so switching to English from any non-English page
+    // silently reloaded that same page instead of navigating home.
+    expect(routeHref("")).toBe("/");
+  });
+
+  it("leaves every other real path untouched", () => {
+    expect(routeHref("/es")).toBe("/es");
+    expect(routeHref("/car-accident-chiropractor")).toBe("/car-accident-chiropractor");
+  });
+
+  it("leaves null as null (no counterpart page)", () => {
+    expect(routeHref(null)).toBeNull();
   });
 });
 

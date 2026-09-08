@@ -445,6 +445,18 @@ export function localePath(id: string, locale: Locale): string | null {
   return getLocalizedRoute(id)[locale];
 }
 
+/** The English home page is registered as "" (see `normalizePath` below for
+ * why), which is exactly right for building an absolute URL
+ * (`${siteUrl}${path}` yields a bare origin) but wrong for an `<a href>`:
+ * `<a href="">` re-requests the CURRENT document, not "/", so a language
+ * switcher on `/es` linking to English home with a raw `route.en` silently
+ * reloaded the Spanish page instead of navigating to English. Every caller
+ * that turns a route-table path into a real link href — not a hreflang/
+ * canonical URL — should go through this rather than use the raw value. */
+export function routeHref(path: string | null): string | null {
+  return path === null ? null : path || "/";
+}
+
 /** The English home page is registered as "" (so `${siteUrl}${path}` yields
  * a bare origin, the convention content/seo.ts has always used), but every
  * runtime source of a path — usePathname(), a request URL, a link href —
