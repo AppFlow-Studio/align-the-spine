@@ -10,6 +10,37 @@ import { resolveTestimonialQuote, type Testimonial } from "@/content/testimonial
 import { cn } from "@/lib/cn";
 import { highlightReviewKeywords } from "@/lib/highlight-review-keywords";
 
+/** The block's own chrome — eyebrow, "verified" byline, and the
+ * translation-disclosure line — as distinct from the reviews themselves.
+ * Review quotes stay in the reviewer's original words (resolveTestimonialQuote
+ * only translates when a real quoteEs/quotePt/quoteHt exists), but this UI
+ * copy is ours to localize regardless of whether any quote below it is. */
+const COPY: Record<Locale, { eyebrow: string; verifiedLabel: string; translationNote: string }> = {
+  en: {
+    eyebrow: "Patient success",
+    verifiedLabel: "Verified Google review",
+    translationNote:
+      "Reviews translated from English. The original text is what each patient wrote.",
+  },
+  es: {
+    eyebrow: "Éxito de nuestros pacientes",
+    verifiedLabel: "Reseña verificada de Google",
+    translationNote:
+      "Reseñas traducidas del inglés. El texto original es el que escribió cada paciente.",
+  },
+  pt: {
+    eyebrow: "Sucesso dos pacientes",
+    verifiedLabel: "Avaliação verificada do Google",
+    translationNote:
+      "Avaliações traduzidas do inglês. O texto original é o que cada paciente escreveu.",
+  },
+  ht: {
+    eyebrow: "Siksè pasyan yo",
+    verifiedLabel: "Kòmantè Google verifye",
+    translationNote: "Kòmantè tradwi nan lang angle. Tèks orijinal la se sa chak pasyan te ekri.",
+  },
+};
+
 export interface PatientReviewsProps {
   /** ATS-E4 (4.11): both optional/possibly-empty — content/testimonials.ts
    * has no real, client-approved reviews yet. Renders nothing at all when
@@ -41,6 +72,7 @@ export function PatientReviews({
 }: PatientReviewsProps) {
   if (!featured && reviews.length === 0) return null;
 
+  const copy = COPY[locale];
   const dark = variant === "dark";
   const featuredQuote = featured ? resolveTestimonialQuote(featured, locale) : null;
   const cardQuotes = reviews.map((review) => resolveTestimonialQuote(review, locale));
@@ -55,7 +87,7 @@ export function PatientReviews({
       <Container className="flex flex-col items-center gap-14">
         {featured && (
           <div className="flex max-w-3xl flex-col items-center gap-6 text-center">
-            <Eyebrow variant={dark ? "onDark" : "default"}>Patient success</Eyebrow>
+            <Eyebrow variant={dark ? "onDark" : "default"}>{copy.eyebrow}</Eyebrow>
             <p
               className={cn(
                 "font-sans text-xl md:text-2xl leading-tight",
@@ -78,7 +110,7 @@ export function PatientReviews({
               <span
                 className={cn("font-sans text-stat-label", dark ? "text-mute-300" : "text-ink-500")}
               >
-                Verified Google review
+                {copy.verifiedLabel}
               </span>
             </div>
           </div>
@@ -131,7 +163,7 @@ export function PatientReviews({
               dark ? "text-mute-300" : "text-ink-500",
             )}
           >
-            Reseñas traducidas del inglés. El texto original es el que escribió cada paciente.
+            {copy.translationNote}
           </p>
         )}
 
