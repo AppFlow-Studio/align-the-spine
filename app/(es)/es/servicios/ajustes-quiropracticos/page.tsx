@@ -227,7 +227,7 @@ export default function EsAdjustmentsPage() {
               {esServicePageCopy.readyBody}
             </p>
           </div>
-          <Button variant="teal" href="/es/solicitar-cita" className="w-fit shrink-0 rounded-none!">
+          <Button variant="teal" href="/es/solicitar-cita" className="w-fit shrink-0">
             {esServicePageCopy.readyCta}
           </Button>
         </Container>
