@@ -15,14 +15,15 @@ export interface ServiceListRowProps {
   locale?: Locale;
 }
 
-// pt/ht fall back to English pending real translation (ATS-SEO-135/136) —
-// no pt/ht page exists yet to render this component.
-const ENGLISH_ROW_COPY = { contact: "Contact us", book: "Book", learnMore: "Learn more" };
 const COPY: Record<Locale, { contact: string; book: string; learnMore: string }> = {
-  en: ENGLISH_ROW_COPY,
+  en: { contact: "Contact us", book: "Book", learnMore: "Learn more" },
   es: { contact: "Contáctenos al", book: "Solicitar", learnMore: "Más información" },
-  pt: ENGLISH_ROW_COPY,
-  ht: ENGLISH_ROW_COPY,
+  // "Solicitar"/"Mande", not "Reservar"/"Rezève" — matches this component's
+  // own English "Book"→ES "Solicitar" precedent (ATS-E3 3.4: nothing here
+  // auto-confirms a slot) and the booking-form submitLabel wording already
+  // established for these locales (content/pt/lead-forms.ts, content/ht/lead-forms.ts).
+  pt: { contact: "Fale conosco pelo", book: "Solicitar", learnMore: "Saiba mais" },
+  ht: { contact: "Kontakte nou nan", book: "Mande", learnMore: "Aprann plis" },
 };
 
 /** Services-list row per Figma (file NHwBqbGepOspY0GrCnECnj, node 96:155,
