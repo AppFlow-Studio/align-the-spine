@@ -81,7 +81,13 @@ export function SymptomWarningCard({ warning, className }: SymptomWarningCardPro
   return (
     <div className={cn("grid grid-cols-1 gap-0 overflow-hidden lg:grid-cols-2", className)}>
       <div className="relative aspect-[4/3] w-full lg:aspect-auto">
-        <Image src={warning.image.src} alt={warning.image.alt} fill className="object-cover" />
+        <Image
+          src={warning.image.src}
+          alt={warning.image.alt}
+          fill
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          className="object-cover"
+        />
       </div>
       <div className="flex flex-col justify-center gap-6 bg-overlay-teal-12 p-8 md:p-12">
         <h3 className="font-display text-3xl text-navy-900">{warning.heading}</h3>

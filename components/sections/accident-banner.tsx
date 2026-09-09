@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { CitationLink } from "@/components/ui/citation";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { PipCalculator } from "@/components/ui/pip-calculator";
@@ -41,6 +42,7 @@ export function AccidentBanner({
             src="/figma-exports/accident-banner-spine-bg.png"
             alt="Cervical spine x-ray in a dark blue gradient"
             fill
+            sizes="100vw"
             className="object-cover"
           />
         </div>
@@ -50,7 +52,15 @@ export function AccidentBanner({
             <h2 className="font-display text-h2 md:text-understanding-intro text-white">
               {accident.headline}
             </h2>
-            <p className="font-sans text-body-lg text-mute-300">{accident.body}</p>
+            <p className="font-sans text-body-lg text-mute-300">
+              {accident.body}
+              {accident.citations?.map((citation) => (
+                <span key={citation.id} className="whitespace-nowrap">
+                  {" "}
+                  (<CitationLink citation={citation} className="text-white" />)
+                </span>
+              ))}
+            </p>
 
             <div className="flex items-start gap-4 rounded-30 bg-overlay-white-15 px-5 py-4 lg:items-center lg:rounded-full mt-20">
               <span

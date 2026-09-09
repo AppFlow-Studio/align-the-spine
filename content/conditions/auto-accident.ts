@@ -1,3 +1,4 @@
+import { CITATIONS } from "@/content/citations";
 import { autoAccidentComparisonRows, comparisonTableRows } from "@/content/comparison-table";
 import { DEFAULT_ACCIDENT_SMALLPRINT, type Condition } from "@/content/conditions/types";
 import { verified } from "@/content/verified-value";
@@ -71,17 +72,28 @@ export const autoAccidentCondition: Condition = {
   },
   accident: {
     headline: "Florida PIP has a 14-day initial-care window",
-    // ATS-SEO-051: cited the statute for this page's central material PIP
-    // claim — same treatment given to the whiplash page (ATS-SEO-055); the
-    // number was already used in codebase doc comments (lib/pip-window.ts,
-    // content/site.ts) but not previously in visible page copy here.
-    body: "Florida PIP generally requires initial services and care within 14 days of a motor vehicle accident (Fla. Stat. § 627.736). Eligibility, reimbursement, and benefit limits depend on the policy and circumstances.",
+    // ATS-SEO-070: statute citation is now a real, crawlable link (see
+    // CITATIONS.floridaPip14Day / CitationLink in AccidentBanner) instead of
+    // dead parenthetical text — replaces the ATS-SEO-051 version of this
+    // comment/citation, which predates the reusable citation primitive.
+    body: "Florida PIP generally requires initial services and care within 14 days of a motor vehicle accident. Eligibility, reimbursement, and benefit limits depend on the policy and circumstances.",
     smallprint: DEFAULT_ACCIDENT_SMALLPRINT,
+    citations: [CITATIONS.floridaPip14Day],
   },
   comparisonRows: [...comparisonTableRows, ...autoAccidentComparisonRows],
   faq: {
     headerTail: "car accident injuries",
     items: [
+      // ATS-SEO-071: answers two of the ticket's candidate AEO/GEO query
+      // formats ("What should I do after a car accident if my neck hurts?",
+      // "When should I get evaluated after a car accident?") from content
+      // already on this page — understanding.redFlags and the 14-day PIP
+      // window — no new claims introduced. Placed first: it's the most
+      // urgent/primary intent match for this page.
+      {
+        q: "What should I do if my neck hurts after a car accident?",
+        a: "If you have numbness, tingling, or weakness in your arms or legs, a severe headache, dizziness, or confusion, or any chest, abdominal, or worsening pain, seek emergency care right away. Otherwise, get evaluated as soon as you can — some accident-related symptoms take hours or days to appear, and Florida PIP generally requires initial services and care within 14 days of the accident.",
+      },
       {
         q: "I feel fine — do I really need to be seen?",
         a: "Some accident-related symptoms can appear later. Seek urgent medical care for severe or worsening symptoms; otherwise, a timely evaluation can document concerns and determine whether treatment or referral is appropriate.",

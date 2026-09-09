@@ -32,7 +32,13 @@ export function FeelsLikeBand({
     <Section spacing="none" className={className}>
       <div className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <Image src={background.src} alt={background.alt} fill className="object-cover" />
+          <Image
+            src={background.src}
+            alt={background.alt}
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
           {/* <div className="absolute inset-0 bg-navy-900/40" /> */}
         </div>
         <Container className="relative flex flex-col gap-10 py-16 md:py-20">

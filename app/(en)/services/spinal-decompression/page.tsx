@@ -190,6 +190,7 @@ export default function SpinalDecompressionPage() {
             src="/figma-exports/whiplash-feels-band-bg.png"
             alt="Close-up of a hand reaching toward a shoulder in soft, warm light"
             fill
+            sizes="100vw"
             className="object-cover"
           />
           <div className="absolute inset-0" />
