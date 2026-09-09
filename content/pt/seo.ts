@@ -11,14 +11,15 @@ import { siteConfig } from "@/content/site";
  * drift. content/i18n.test.ts asserts every path here is registered as the
  * `pt` half of a pair in content/i18n.ts (and vice versa).
  *
- * Scope (ATS-SEO-135): the 9 routes that are actually published in both
- * English and Spanish today — home, car-accident hub, services hub, about,
- * reviews, contact, book-an-appointment, conditions hub, service-areas hub.
- * The draft condition/service pages (back pain, neck pain, adjustments,
- * etc.) and the 19 service-area city pages are deliberately NOT built here
- * — see docs/multilingual-seo-baseline.md's page-family strategy: build the
- * published set first, extend once there's real content/evidence for more,
- * same discipline already applied to Spanish's own city-page decision.
+ * Scope: originally the 9 routes published in both English and Spanish
+ * (ATS-SEO-135) — home, car-accident hub, services hub, about, reviews,
+ * contact, book-an-appointment, conditions hub, service-areas hub. Extended
+ * to include the seven condition pages and four service pages mirroring
+ * Spanish's own `status: "draft"` set (ATS-SEO-070 follow-up), now that
+ * real Portuguese content exists for them — see content/pt/conditions.ts
+ * and content/pt/services-pages.ts. The 19 service-area city pages remain
+ * deliberately NOT built here — see docs/multilingual-seo-baseline.md's
+ * page-family strategy on why those stay out of scope regardless of locale.
  *
  * Titles/descriptions are written against Brazilian Portuguese search
  * intent (see SEO_QA_EVIDENCE/ahrefs-2026-09/synthesis-part2-and-final-labels.md's
@@ -89,7 +90,7 @@ export const ptRoutes: RouteMeta[] = [
     lastModified: "2026-09-02",
     primaryQuery: "Brazilian Portuguese-language general-care services hub",
     justification:
-      "Owns 'serviços quiropráticos Deerfield Beach' hub intent in Brazilian Portuguese. Individual service pages are not built yet (English/Spanish originals are still draft), so nothing under it competes with it.",
+      "Owns 'serviços quiropráticos Deerfield Beach' hub intent in Brazilian Portuguese, and now links onward to the four real (draft) Portuguese service pages under it.",
   },
   {
     path: "/pt/dr-abe-nasser",
@@ -172,7 +173,7 @@ export const ptRoutes: RouteMeta[] = [
     lastModified: "2026-09-02",
     primaryQuery: "Brazilian Portuguese-language conditions overview hub",
     justification:
-      "Owns the conditions-directory intent in Brazilian Portuguese. Individual condition pages are not built yet (English/Spanish originals still draft), so this hub currently links onward primarily to the accident and services pages instead.",
+      "Owns the conditions-directory intent in Brazilian Portuguese, and now links onward to the seven real (draft) Portuguese condition pages under it.",
   },
   {
     path: "/pt/areas-de-atendimento",
@@ -189,6 +190,200 @@ export const ptRoutes: RouteMeta[] = [
     primaryQuery: "Brazilian Portuguese-language nearby-city service-area coverage index",
     justification:
       "Owns the service-area-coverage query in Brazilian Portuguese, states the one-office truth plainly. No individual PT city pages exist yet — see this file's header comment.",
+  },
+  // ── Condition pages ──────────────────────────────────────────────────
+  // All seven are `status: "draft"`, mirroring their English/Spanish
+  // originals: real, finished pages awaiting clinician review of their
+  // medical content. Served noindex and kept out of the sitemap, but
+  // reachable and linkable from the Portuguese nav.
+  {
+    path: "/pt/condicoes/dor-nas-costas",
+    title: `Quiroprático para Dor nas Costas em Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    description:
+      "Avaliação quiroprática para dor lombar, rigidez e dor que pode se espalhar para o quadril ou a perna, incluindo sintomas após um acidente de carro.",
+    image: {
+      src: "/figma-exports/drabe-backpain-front.png",
+      alt: "Tratamento manual de tecidos moles na lombar",
+    },
+    changeFrequency: "monthly",
+    priority: 0.8,
+    lastModified: "2026-09-09",
+    status: "draft",
+    primaryQuery: "Brazilian Portuguese-language back pain condition intent",
+    justification:
+      "Owns 'dor nas costas quiroprático Deerfield Beach'. Distinct from the sciatica page, which owns radiating leg pain. Draft until the English original clears clinician review.",
+  },
+  {
+    path: "/pt/condicoes/dor-no-pescoco",
+    title: `Quiroprático para Dor no Pescoço em Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    description:
+      "Avaliação quiroprática para dor no pescoço, rigidez e mobilidade limitada, incluindo dor que começa após um acidente de carro ou torcicolo cervical.",
+    image: {
+      src: "/figma-exports/dr-abe-neck.png",
+      alt: "Dr. Abe Nasser avaliando o pescoço de um paciente",
+    },
+    changeFrequency: "monthly",
+    priority: 0.8,
+    lastModified: "2026-09-09",
+    status: "draft",
+    primaryQuery: "Brazilian Portuguese-language neck pain condition intent",
+    justification:
+      "Owns 'dor no pescoço quiroprático Deerfield Beach'. Distinct from the whiplash page, which owns the collision-injury framing. Draft until the English original clears review.",
+  },
+  {
+    path: "/pt/condicoes/ciatica",
+    title: `Quiroprático para Ciática em Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    description:
+      "Avaliação e tratamento focado em descompressão para dor ciática e dor nervosa irradiada, com visitas domiciliares quando indicado para o seu caso.",
+    image: {
+      src: "/figma-exports/drabe-backpain-front.png",
+      alt: "Dr. Abe avaliando um paciente com ciática",
+    },
+    changeFrequency: "monthly",
+    priority: 0.8,
+    lastModified: "2026-09-09",
+    status: "draft",
+    primaryQuery: "Brazilian Portuguese-language sciatica condition intent",
+    justification:
+      "Owns 'ciática quiroprático Deerfield Beach' — radiating nerve pain, distinct from the back-pain page's localized intent. Draft until the English original clears review.",
+  },
+  {
+    path: "/pt/condicoes/torcicolo-cervical",
+    title: `Quiroprático para Torcicolo Cervical em Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    description:
+      "O torcicolo cervical é uma lesão no pescoço por movimento brusco, comum em colisões traseiras. Avaliação de rigidez, mobilidade limitada e dores de cabeça.",
+    image: {
+      src: "/figma-exports/drabe-whiplash-man.png",
+      alt: "Dr. Abe tratando um paciente com torcicolo cervical",
+    },
+    changeFrequency: "monthly",
+    priority: 0.8,
+    lastModified: "2026-09-09",
+    status: "draft",
+    primaryQuery: "Brazilian Portuguese-language whiplash condition intent",
+    justification:
+      "Owns 'torcicolo cervical quiroprático' collision-injury intent, distinct from the general neck-pain page. Draft until the English original clears review.",
+  },
+  {
+    path: "/pt/condicoes/dor-de-cabeca-cervicogenica",
+    title: `Quiroprático para Dor de Cabeça Cervicogênica | Deerfield Beach | ${siteConfig.business.shortName}`,
+    description:
+      "A dor de cabeça cervicogênica é dor referida a partir do pescoço. Avaliação da mobilidade cervical e de outros fatores musculoesqueléticos antes de recomendar atendimento.",
+    image: {
+      src: "/figma-exports/drabe-headache.png",
+      alt: "Avaliação de tensão cervical relacionada à dor de cabeça",
+    },
+    changeFrequency: "monthly",
+    priority: 0.8,
+    lastModified: "2026-09-09",
+    status: "draft",
+    primaryQuery: "Brazilian Portuguese-language cervicogenic headache condition intent",
+    justification:
+      "Owns 'dor de cabeça que vem do pescoço' intent in Brazilian Portuguese, distinct from both the neck-pain and concussion pages. Draft until the English original clears review.",
+  },
+  {
+    path: "/pt/condicoes/concussao",
+    title: `Sintomas de Concussão Depois de um Acidente de Carro | ${siteConfig.business.shortName}`,
+    description:
+      "Uma concussão é uma lesão cerebral traumática leve que precisa de avaliação médica. O atendimento quiroprático não substitui uma avaliação de emergência ou neurológica.",
+    image: {
+      src: "/figma-exports/drabe-headache.png",
+      alt: "Dr. Abe avaliando um paciente depois de um acidente",
+    },
+    changeFrequency: "monthly",
+    priority: 0.8,
+    lastModified: "2026-09-09",
+    status: "draft",
+    primaryQuery: "Brazilian Portuguese-language concussion-after-accident informational intent",
+    justification:
+      "Owns post-accident concussion symptom queries in Brazilian Portuguese. Informational and safety-first by design — routes readers to medical evaluation rather than booking. Draft until the English original clears review.",
+  },
+  {
+    path: "/pt/condicoes/dor-na-mandibula-atm",
+    title: `Quiroprático para ATM e Dor na Mandíbula | Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    description:
+      "Avaliação do movimento da articulação da mandíbula, da tensão muscular ao redor e dos fatores cervicais antes de decidir se o atendimento quiroprático é indicado.",
+    image: {
+      src: "/figma-exports/drabe-headache.png",
+      alt: "Dr. Abe avaliando a mandíbula de um paciente",
+    },
+    changeFrequency: "monthly",
+    priority: 0.7,
+    lastModified: "2026-09-09",
+    status: "draft",
+    primaryQuery: "Brazilian Portuguese-language TMJ/jaw pain condition intent",
+    justification:
+      "Owns 'dor na mandíbula ATM' intent in Brazilian Portuguese, distinct from the cervicogenic-headache page it commonly co-occurs with. Draft until the English original clears review.",
+  },
+  // ── Service pages ─────────────────────────────────────────────────────
+  // All four are `status: "draft"`, mirroring their English/Spanish
+  // originals: they carry clinical guidance that hasn't had a clinician's
+  // sign-off, so they're served noindex and kept out of the sitemap while
+  // remaining reachable (and linkable from the Portuguese nav) by direct URL.
+  {
+    path: "/pt/servicos/ajustes-quiropraticos",
+    title: `Ajustes Quiropráticos em Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    description:
+      "Ajustes quiropráticos em Deerfield Beach: pressão controlada para melhorar o movimento articular do pescoço, da parte média ou baixa das costas, após avaliação.",
+    image: {
+      src: "/figma-exports/adjustments-hero.png",
+      alt: "Sala de tratamento preparada para um ajuste quiroprático",
+    },
+    changeFrequency: "monthly",
+    priority: 0.7,
+    lastModified: "2026-09-09",
+    status: "draft",
+    primaryQuery: "Brazilian Portuguese-language chiropractic adjustment treatment intent",
+    justification:
+      "Owns 'ajuste quiroprático Deerfield Beach' treatment intent in Brazilian Portuguese. Draft until the English original clears clinician review; hreflang alternate of /services/chiropractic-adjustments.",
+  },
+  {
+    path: "/pt/servicos/descompressao-da-coluna",
+    title: `Descompressão da Coluna em Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    description:
+      "Descompressão da coluna não cirúrgica em Deerfield Beach: tração controlada para reduzir a pressão sobre discos e articulações, quando a avaliação indicar.",
+    image: {
+      src: "/figma-exports/spinal-decompression-hero.png",
+      alt: "Sala de tratamento preparada para terapia de descompressão da coluna",
+    },
+    changeFrequency: "monthly",
+    priority: 0.7,
+    lastModified: "2026-09-09",
+    status: "draft",
+    primaryQuery: "Brazilian Portuguese-language spinal decompression treatment intent",
+    justification:
+      "Owns 'descompressão da coluna Deerfield Beach' intent in Brazilian Portuguese, distinct from the adjustment page's. Draft until the English original clears clinician review.",
+  },
+  {
+    path: "/pt/servicos/terapia-de-tecidos-moles",
+    title: `Massagem e Terapia de Tecidos Moles | Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    description:
+      "Terapia de tecidos moles em Deerfield Beach: liberação miofascial, técnica Graston e tecido profundo para tensão muscular e dor após uma lesão.",
+    image: {
+      src: "/figma-exports/massage-soft-tissue-hero.png",
+      alt: "Sala de tratamento de massagem e terapia de tecidos moles",
+    },
+    changeFrequency: "monthly",
+    priority: 0.7,
+    lastModified: "2026-09-09",
+    status: "draft",
+    primaryQuery: "Brazilian Portuguese-language soft-tissue therapy treatment intent",
+    justification:
+      "Owns 'terapia de tecidos moles / massagem quiroprática' intent in Brazilian Portuguese. Draft until the English original clears clinician review.",
+  },
+  {
+    path: "/pt/servicos/terapia-de-ventosas",
+    title: `Terapia de Ventosas em Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    description:
+      "Terapia de ventosas em Deerfield Beach: sucção localizada em áreas selecionadas de tensão muscular, usada quando indicado junto com uma avaliação quiroprática.",
+    image: { src: "/figma-exports/cupping-drabe.png", alt: "Sessão de terapia de ventosas" },
+    changeFrequency: "monthly",
+    priority: 0.6,
+    lastModified: "2026-09-09",
+    status: "draft",
+    primaryQuery: "Brazilian Portuguese-language cupping therapy treatment intent",
+    justification:
+      "Owns 'terapia de ventosas Deerfield Beach' intent in Brazilian Portuguese — a single technique, distinct from the broader soft-tissue page. Draft until the English original clears clinician review.",
   },
 ];
 

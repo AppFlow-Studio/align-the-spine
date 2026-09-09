@@ -15,12 +15,23 @@ import { highlightReviewKeywords } from "@/lib/highlight-review-keywords";
 export interface ReviewsCarouselProps {
   reviews: Testimonial[];
   className?: string;
-  /** Language this carousel renders in. On "es" each review shows its
-   * Spanish translation (content/testimonials.ts's `quoteEs`) marked
-   * `lang="es-US"`, with a visible "traducidas del inglés" note — falling
-   * back to the untouched English original where no translation exists. */
+  /** Language this carousel renders in. On "es"/"pt"/"ht" each review shows
+   * its translation (content/testimonials.ts's `quoteEs`/`quotePt`/`quoteHt`)
+   * marked with the matching `lang` tag, falling back to the untouched
+   * English original where no translation exists. */
   locale?: Locale;
 }
+
+/** "Google review" source label under each card — ATS-SEO-070 follow-up:
+ * this was hardcoded English regardless of `locale` (the prop only ever
+ * reached resolveTestimonialQuote()), unlike the equivalent label in
+ * patient-reviews.tsx's own COPY map. */
+const GOOGLE_REVIEW_LABEL: Record<Locale, string> = {
+  en: "Google review",
+  es: "Reseña de Google",
+  pt: "Avaliação do Google",
+  ht: "Kòmantè Google",
+};
 
 const AUTO_ADVANCE_MS = 6500;
 const SWIPE_THRESHOLD_PX = 60;
@@ -105,7 +116,7 @@ function ReviewCard({
       <span className="inline-flex items-center gap-2 font-sans text-stat-label uppercase tracking-wide text-mute-300">
         {review.author}
         <GoogleIcon className="h-4 w-4" />
-        Google review
+        {GOOGLE_REVIEW_LABEL[locale]}
       </span>
     </motion.div>
   );

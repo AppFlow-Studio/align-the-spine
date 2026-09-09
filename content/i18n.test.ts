@@ -488,6 +488,59 @@ describe("publication parity", () => {
       }
     }
   });
+
+  // ATS-SEO-070 follow-up: the same guarantee, generalized to Portuguese and
+  // Haitian Creole now that both locales have real condition/service pages
+  // sitting alongside their published set (previously untestable — every
+  // pt/ht pair was one of the 9 already-published routes, so this couldn't
+  // catch a status mismatch until there was a draft pt/ht page to check).
+  it("keeps both halves of every EN/PT hreflang pair at the same publication status", () => {
+    const mismatched = pairsWithPortuguese
+      .map((route) => {
+        const en = routes.find((entry) => entry.path === route.en);
+        const pt = ptRoutes.find((entry) => entry.path === route.pt);
+        if (!en || !pt) return null;
+        return isPublished(en) === isPublished(pt)
+          ? null
+          : `${route.en} (${isPublished(en) ? "published" : "draft"}) <-> ${route.pt} (${isPublished(pt) ? "published" : "draft"})`;
+      })
+      .filter(Boolean);
+    expect(mismatched).toEqual([]);
+  });
+
+  it("never publishes a Portuguese page whose English original is still draft", () => {
+    for (const route of pairsWithPortuguese) {
+      const en = routes.find((entry) => entry.path === route.en);
+      const pt = ptRoutes.find((entry) => entry.path === route.pt);
+      if (pt && isPublished(pt)) {
+        expect(en && isPublished(en)).toBe(true);
+      }
+    }
+  });
+
+  it("keeps both halves of every EN/HT hreflang pair at the same publication status", () => {
+    const mismatched = pairsWithHaitianCreole
+      .map((route) => {
+        const en = routes.find((entry) => entry.path === route.en);
+        const ht = htRoutes.find((entry) => entry.path === route.ht);
+        if (!en || !ht) return null;
+        return isPublished(en) === isPublished(ht)
+          ? null
+          : `${route.en} (${isPublished(en) ? "published" : "draft"}) <-> ${route.ht} (${isPublished(ht) ? "published" : "draft"})`;
+      })
+      .filter(Boolean);
+    expect(mismatched).toEqual([]);
+  });
+
+  it("never publishes a Haitian Creole page whose English original is still draft", () => {
+    for (const route of pairsWithHaitianCreole) {
+      const en = routes.find((entry) => entry.path === route.en);
+      const ht = htRoutes.find((entry) => entry.path === route.ht);
+      if (ht && isPublished(ht)) {
+        expect(en && isPublished(en)).toBe(true);
+      }
+    }
+  });
 });
 
 /** ATS-SEO-134: generalized locale config / route-family coverage. These
