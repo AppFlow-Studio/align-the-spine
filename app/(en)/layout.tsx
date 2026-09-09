@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 
 import { AnalyticsListeners } from "@/components/analytics/analytics-listeners";
 import { AnalyticsScripts } from "@/components/analytics/analytics-scripts";
-import { CallRailScript } from "@/components/analytics/callrail-script";
 import { GtmScript } from "@/components/analytics/gtm-scripts";
 import { TurnstileScript } from "@/components/analytics/turnstile-script";
 import { RootShell } from "@/components/layout/root-shell";
@@ -78,7 +77,6 @@ export default function EnRootLayout({
         <GtmScript />
         <AnalyticsScripts />
         <AnalyticsListeners />
-        <CallRailScript />
         <TurnstileScript />
         <RootShell locale="en">{children}</RootShell>
       </body>
