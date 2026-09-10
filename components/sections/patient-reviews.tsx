@@ -12,9 +12,10 @@ import { highlightReviewKeywords } from "@/lib/highlight-review-keywords";
 
 /** The block's own chrome — eyebrow, "verified" byline, and the
  * translation-disclosure line — as distinct from the reviews themselves.
- * Review quotes stay in the reviewer's original words (resolveTestimonialQuote
- * only translates when a real quoteEs/quotePt/quoteHt exists), but this UI
- * copy is ours to localize regardless of whether any quote below it is. */
+ * Review quotes stay in the reviewer's original words unless a real
+ * quoteEs/quotePt/quoteHt exists (resolveTestimonialQuote never fabricates
+ * one), but this UI copy is ours to localize regardless of whether any
+ * quote below it is. */
 const COPY: Record<Locale, { eyebrow: string; verifiedLabel: string; translationNote: string }> = {
   en: {
     eyebrow: "Patient success",
@@ -50,10 +51,10 @@ export interface PatientReviewsProps {
   /** "dark" (default) is the original navy-900/white homepage treatment;
    * "light" is white/navy-900 (used on /auto-accidents). */
   variant?: "dark" | "light";
-  /** Language this block renders in. On "es" each review shows its Spanish
-   * translation (content/testimonials.ts's `quoteEs`) with a visible
-   * "traducidas del inglés" note beneath, falling back to the untouched
-   * English original where no translation exists. */
+  /** Language this block renders in. On "es"/"pt"/"ht" each review shows
+   * its translation (content/testimonials.ts's `quoteEs`/`quotePt`/`quoteHt`)
+   * with a visible translation-disclosure note beneath, falling back to the
+   * untouched English original where no translation exists. */
   locale?: Locale;
   /** The "read all reviews" cross-link. Defaults to the English /reviews
    * page; the Spanish pages pass /es/resenas. */

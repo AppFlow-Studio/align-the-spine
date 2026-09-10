@@ -26,19 +26,22 @@
  *    separate runtime UI translation from, and nothing that could leak an
  *    API key client-side.
  *
- * ATS-SEO-135 (Portuguese) and ATS-SEO-136 (Haitian Creole) have each
- * built the same nine route families — home, car-accident hub, services
+ * ATS-SEO-135 (Portuguese) and ATS-SEO-136 (Haitian Creole) each built the
+ * original nine published route families — home, car-accident hub, services
  * hub, about, reviews, contact, book-an-appointment, conditions hub,
- * service-areas hub — so those nine `localizedRoutes` entries carry real
- * `pt`/`ht` paths. Every other route (the draft condition/service pages,
- * the 19 city pages, /privacy-policy, /blog, /home-visit-chiropractor)
- * still keeps `pt: null, ht: null`, same documented-null convention
- * Spanish's own draft routes use: a route only gets a non-null path once
- * a ticket actually builds that page, never guessed. `buildAlternates()`
- * simply never emits a pt/ht hreflang entry for a null route, which is the
- * "no indexable mixed-language 200" guarantee both tickets asked for — it
- * falls directly out of the null-means-no-page convention, not a new
- * mechanism.
+ * service-areas hub. An ATS-SEO-070 follow-up extended both locales to the
+ * eleven `status: "draft"` condition/service routes too, once real
+ * Portuguese/Haitian Creole content existed for them (see
+ * content/pt/conditions.ts, content/pt/services-pages.ts, and their `ht`
+ * counterparts) — so those twenty `localizedRoutes` entries carry real
+ * `pt`/`ht` paths. Every other route (the 19 city pages, /privacy-policy,
+ * /blog, /home-visit-chiropractor) still keeps `pt: null, ht: null`, same
+ * documented-null convention Spanish's own untranslated routes use: a route
+ * only gets a non-null path once a ticket actually builds that page, never
+ * guessed. `buildAlternates()` simply never emits a pt/ht hreflang entry for
+ * a null route, which is the "no indexable mixed-language 200" guarantee
+ * both tickets asked for — it falls directly out of the null-means-no-page
+ * convention, not a new mechanism.
  *
  * Every shared component that resolves locale-specific *content* (not
  * routes) — content/chrome.ts, content/testimonials.ts,
@@ -303,89 +306,89 @@ export const localizedRoutes: LocalizedRoute[] = [
   // doubles the exposure instead of halving it; they get Spanish pages
   // once (and only once) the English originals clear clinical review.
   { id: "homeVisit", en: "/home-visit-chiropractor", es: null, pt: null, ht: null },
-  // The four service pages now have Spanish counterparts. Both sides stay
+  // The four service pages now have Spanish, Portuguese, and Haitian Creole
+  // counterparts (ATS-SEO-070 follow-up). All four locales stay
   // `status: "draft"` in their registries (noindex, out of the sitemap)
-  // until a clinician signs off on the English originals — the Spanish
-  // pages exist so the Spanish nav's Servicios dropdown has real Spanish
-  // destinations, not so unreviewed medical copy gets indexed.
-  // content/i18n.test.ts enforces that a Spanish page can't be published
-  // while its English original is draft.
+  // until a clinician signs off on the English original — the pages exist
+  // so each locale's Services nav has real destinations, not so unreviewed
+  // medical copy gets indexed. content/i18n.test.ts enforces that a
+  // translated page can't be published while its English original is draft.
   {
     id: "serviceAdjustments",
     en: "/services/chiropractic-adjustments",
     es: "/es/servicios/ajustes-quiropracticos",
-    pt: null,
-    ht: null,
+    pt: "/pt/servicos/ajustes-quiropraticos",
+    ht: "/ht/sevis/ajisteman-kiwopratik",
   },
   {
     id: "serviceDecompression",
     en: "/services/spinal-decompression",
     es: "/es/servicios/descompresion-espinal",
-    pt: null,
-    ht: null,
+    pt: "/pt/servicos/descompressao-da-coluna",
+    ht: "/ht/sevis/dekonpresyon-kolon",
   },
   {
     id: "serviceSoftTissue",
     en: "/services/soft-tissue-therapy",
     es: "/es/servicios/terapia-de-tejidos-blandos",
-    pt: null,
-    ht: null,
+    pt: "/pt/servicos/terapia-de-tecidos-moles",
+    ht: "/ht/sevis/terapi-tisi-mou",
   },
   {
     id: "serviceCupping",
     en: "/services/cupping-therapy",
     es: "/es/servicios/terapia-de-ventosas",
-    pt: null,
-    ht: null,
+    pt: "/pt/servicos/terapia-de-ventosas",
+    ht: "/ht/sevis/terapi-vantouz",
   },
   {
     id: "conditionBackPain",
     en: "/conditions/back-pain",
     es: "/es/condiciones/dolor-de-espalda",
-    pt: null,
-    ht: null,
+    pt: "/pt/condicoes/dor-nas-costas",
+    ht: "/ht/kondisyon-nou-trete/doule-do",
   },
   {
     id: "conditionNeckPain",
     en: "/conditions/neck-pain",
     es: "/es/condiciones/dolor-de-cuello",
-    pt: null,
-    ht: null,
+    pt: "/pt/condicoes/dor-no-pescoco",
+    ht: "/ht/kondisyon-nou-trete/doule-kou",
   },
   {
     id: "conditionSciatica",
     en: "/conditions/sciatica",
     es: "/es/condiciones/ciatica",
-    pt: null,
-    ht: null,
+    pt: "/pt/condicoes/ciatica",
+    ht: "/ht/kondisyon-nou-trete/syatik",
   },
   {
     id: "conditionWhiplash",
     en: "/conditions/whiplash",
     es: "/es/condiciones/latigazo-cervical",
-    pt: null,
-    ht: null,
+    pt: "/pt/condicoes/torcicolo-cervical",
+    ht: "/ht/kondisyon-nou-trete/antos-kou",
   },
   {
     id: "conditionCervicogenic",
     en: "/conditions/cervicogenic-headache",
     es: "/es/condiciones/dolor-de-cabeza-cervicogenico",
-    pt: null,
-    ht: null,
+    pt: "/pt/condicoes/dor-de-cabeca-cervicogenica",
+    ht: "/ht/kondisyon-nou-trete/tet-fe-mal-sevikojenik",
   },
   {
     id: "conditionConcussion",
     en: "/conditions/concussion",
     es: "/es/condiciones/conmocion-cerebral",
-    pt: null,
-    ht: null,
+    pt: "/pt/condicoes/concussao",
+    ht: "/ht/kondisyon-nou-trete/konmosyon-serebral",
   },
   {
     id: "conditionTmj",
     en: "/conditions/tmj-jaw-pain",
     es: "/es/condiciones/dolor-de-mandibula-atm",
-    pt: null,
-    ht: null,
+    pt: "/pt/condicoes/dor-na-mandibula-atm",
+    ht: "/ht/kondisyon-nou-trete/doule-machwa-atm",
   },
 ];
 

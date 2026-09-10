@@ -191,6 +191,7 @@ export default function MassageSoftTissuePage() {
               src="/figma-exports/massage-matched-to-injury-bg.png"
               alt="A therapist selecting massage tools from a bag of soft-tissue equipment"
               fill
+              sizes="100vw"
               className="object-cover"
             />
           </div>

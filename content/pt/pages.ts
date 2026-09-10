@@ -96,6 +96,9 @@ export const ptServicesGrid: ServiceCardItem[] = [
       src: "/figma-exports/drabeadjust.png",
       alt: "Dr. Abe realizando um ajuste quiroprático",
     },
+    // ATS-SEO-070 follow-up: this card's own page now exists in Portuguese.
+    href: "/pt/servicos/ajustes-quiropraticos",
+    ctaLabel: "Saiba mais",
   },
   {
     slug: "sports-injury",
@@ -129,6 +132,8 @@ export const ptServicesGrid: ServiceCardItem[] = [
       src: "/figma-exports/drabe-traction_compression.png",
       alt: "Terapia de tração e descompressão da coluna",
     },
+    href: "/pt/servicos/descompressao-da-coluna",
+    ctaLabel: "Saiba mais",
   },
   {
     slug: "headache-migraine",
@@ -161,6 +166,8 @@ export const ptServicesGrid: ServiceCardItem[] = [
     summary:
       "A terapia de ventosas aplica sucção localizada em áreas selecionadas de tensão muscular e pode ser incluída, quando indicado, para desconfortos no pescoço, nas costas ou em outros tecidos moles.",
     image: { src: "/figma-exports/cupping-drabe.png", alt: "Sessão de terapia de ventosas" },
+    href: "/pt/servicos/terapia-de-ventosas",
+    ctaLabel: "Saiba mais",
   },
   {
     slug: "massage-soft-tissue",
@@ -172,6 +179,8 @@ export const ptServicesGrid: ServiceCardItem[] = [
       src: "/figma-exports/drabe-soft-tissue.png",
       alt: "Terapia de massagem e tecidos moles",
     },
+    href: "/pt/servicos/terapia-de-tecidos-moles",
+    ctaLabel: "Saiba mais",
   },
 ];
 
@@ -244,13 +253,16 @@ export const ptReviewsPage = {
     "Estas são avaliações reais de pacientes em Deerfield Beach. Veja por que o sul da Flórida confia no Dr. Abe, e depois comece a sua própria recuperação.",
   ratingSuffix: "avaliações cinco estrelas",
   ratingTail: "e contando",
-  /** Reviews render verbatim in the language each patient wrote them — the
-   * same policy the Spanish page states (content/es/pages.ts's
-   * esReviewsPage.languageNote): presenting a translation as the reviewer's
-   * own words would make it a fabricated review under Google's review
-   * policies. */
+  /** ATS-SEO-070 follow-up: reviews now show a real Portuguese translation
+   * (content/testimonials.ts's `quotePt`), same policy/wording as the
+   * Spanish page (content/es/pages.ts's esReviewsPage.languageNote) — this
+   * note used to say the opposite (no translated version published) back
+   * when no `quotePt` existed; updated to match once it did, since the old
+   * wording would now be false. The English original is what each patient
+   * actually wrote; the translation is disclosed, never presented as their
+   * own wording. */
   languageNote:
-    "Estas avaliações foram escritas em inglês pelos nossos pacientes. O texto original em inglês é mantido sem alterações — não publicamos uma versão traduzida como se fossem as palavras do próprio paciente.",
+    "Estas avaliações foram escritas em inglês pelos nossos pacientes e estão traduzidas para o português. O texto original em inglês é mantido sem alterações na versão em inglês desta página.",
   formHeading: "Receba o mesmo atendimento 5 estrelas",
   formFootnote:
     "Com frequência há horários disponíveis no mesmo dia. Atendemos em Deerfield Beach e comunidades próximas do sul da Flórida.",

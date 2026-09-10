@@ -98,6 +98,10 @@ export const esServicesGrid: ServiceCardItem[] = [
       src: "/figma-exports/adjustment-image.jpeg",
       alt: "El Dr. Abe realizando un ajuste quiropráctico",
     },
+    // ATS-SEO-070 follow-up: this card's own page now exists in Spanish
+    // (was previously unlinked pending that page's own build).
+    href: "/es/servicios/ajustes-quiropracticos",
+    ctaLabel: "Más información",
   },
   {
     slug: "sports-injury",
@@ -131,6 +135,8 @@ export const esServicesGrid: ServiceCardItem[] = [
       src: "/figma-exports/drabe-traction_compression.png",
       alt: "Terapia de tracción y descompresión espinal",
     },
+    href: "/es/servicios/descompresion-espinal",
+    ctaLabel: "Más información",
   },
   {
     slug: "headache-migraine",
@@ -153,9 +159,6 @@ export const esServicesGrid: ServiceCardItem[] = [
       src: "/figma-exports/drabe-consult.png",
       alt: "Consulta con el Dr. Abe después de un accidente de auto",
     },
-    // The one card here that DOES link: its destination is the Spanish
-    // accident page, which is published. The rest stay unlinked because
-    // their owning pages are English-only drafts.
     href: "/es/quiropractico-accidentes-de-auto",
     ctaLabel: "Más información",
   },
@@ -166,6 +169,8 @@ export const esServicesGrid: ServiceCardItem[] = [
     summary:
       "La terapia de ventosas aplica succión localizada en zonas seleccionadas de tensión muscular y puede incluirse cuando corresponde para molestias de cuello, espalda u otros tejidos blandos.",
     image: { src: "/figma-exports/cupping-drabe.png", alt: "Sesión de terapia de ventosas" },
+    href: "/es/servicios/terapia-de-ventosas",
+    ctaLabel: "Más información",
   },
   {
     slug: "massage-soft-tissue",
@@ -177,6 +182,8 @@ export const esServicesGrid: ServiceCardItem[] = [
       src: "/figma-exports/drabe-soft-tissue.png",
       alt: "Terapia de masaje y tejidos blandos",
     },
+    href: "/es/servicios/terapia-de-tejidos-blandos",
+    ctaLabel: "Más información",
   },
 ];
 

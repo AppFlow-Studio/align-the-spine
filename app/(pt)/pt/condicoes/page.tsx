@@ -11,6 +11,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import type { ServiceCardItem } from "@/components/ui/service-card";
 import { ServiceGrid } from "@/components/ui/service-grid";
 import { HREFLANG } from "@/content/i18n";
+import { ptConditions } from "@/content/pt/conditions";
 import { getPtRoute } from "@/content/pt/seo";
 import { siteConfig } from "@/content/site";
 import { buildWebPage } from "@/lib/schema";
@@ -21,41 +22,25 @@ const route = getPtRoute("/pt/condicoes");
 export const metadata: Metadata = buildPtRouteMetadata(route);
 
 /** /pt/condicoes — Brazilian Portuguese counterpart of the /conditions and
- * /es/condiciones hubs (ATS-SEO-135).
+ * /es/condiciones hubs.
  *
- * Unlike the English/Spanish hubs, this one does NOT link out to individual
- * condition pages: those pages are still `status: "draft"` even in English
- * (awaiting clinician review — content/seo.ts), so no Portuguese condition
- * page exists to build a real directory from. Rather than fabricate cards
- * pointing at pages that don't exist, this hub links to the two published
- * Portuguese pages that actually cover condition-adjacent content today —
- * the accident page and the services hub — matching the strategy documented
- * in content/pt/seo.ts's header comment and docs/multilingual-seo-baseline.md.
- * Individual Portuguese condition pages are a documented follow-up once
- * their English/Spanish originals are reviewed and published.
+ * Built entirely from each Portuguese condition page's own hero content,
+ * same as the Spanish hub — a real directory of the seven Portuguese
+ * condition pages (ATS-SEO-070 follow-up), not a placeholder linking
+ * elsewhere. Every card links directly to a `status: "draft"` page, exactly
+ * as the English/Spanish hubs do: real, finished pages awaiting clinical
+ * review, not broken ones — their own `draft` status still forces noindex
+ * on each target.
  */
-const cards: ServiceCardItem[] = [
-  {
-    slug: "acidentes-de-carro",
-    name: "Acidentes de carro",
-    duration: "",
-    summary:
-      "Avaliação quiroprática após um acidente de carro para dor no pescoço, dor nas costas, rigidez e torcicolo cervical, com orientação sobre o prazo de 14 dias do PIP na Flórida.",
-    image: { src: "/figma-exports/drabe-whiplash.png", alt: "Tratamento após acidente de carro" },
-    href: "/pt/quiropratico-acidentes-de-carro",
-    ctaLabel: "Saiba mais",
-  },
-  {
-    slug: "servicos",
-    name: "Serviços quiropráticos",
-    duration: "",
-    summary:
-      "Ajustes, descompressão da coluna e terapia de tecidos moles — o serviço indicado depende da sua avaliação com o Dr. Abe.",
-    image: { src: "/figma-exports/dr-abe-neck.png", alt: "Dr. Abe Nasser avaliando um paciente" },
-    href: "/pt/servicos",
-    ctaLabel: "Ver serviços",
-  },
-];
+const cards: ServiceCardItem[] = ptConditions.map((condition) => ({
+  slug: condition.slug,
+  name: condition.hero.h1,
+  duration: "",
+  summary: condition.hero.subhead,
+  image: condition.hero.backgroundImage,
+  href: condition.path,
+  ctaLabel: "Saiba mais",
+}));
 
 export default function PtConditionsHubPage() {
   return (
@@ -94,9 +79,9 @@ export default function PtConditionsHubPage() {
               Condições que tratamos
             </SectionHeading>
             <p className="mt-4 font-sans text-body-lg text-ink-900">
-              Explore o que o Dr. Abe Nasser avalia e trata na Align the Spine Chiropractic, em
-              Deerfield Beach. Páginas específicas por condição em português estão a caminho — por
-              enquanto, os links abaixo levam ao atendimento após acidente e à página de serviços.
+              Explore as condições que o Dr. Abe Nasser avalia e trata na Align the Spine
+              Chiropractic, em Deerfield Beach. Cada página explica o que é avaliado, o que esperar
+              na consulta e o que muda quando um acidente de carro está envolvido.
             </p>
           </div>
           <ServiceGrid items={cards} locale="pt" />

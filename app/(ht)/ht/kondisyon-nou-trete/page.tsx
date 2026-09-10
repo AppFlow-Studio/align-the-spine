@@ -10,6 +10,7 @@ import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
 import type { ServiceCardItem } from "@/components/ui/service-card";
 import { ServiceGrid } from "@/components/ui/service-grid";
+import { htConditions } from "@/content/ht/conditions";
 import { getHtRoute } from "@/content/ht/seo";
 import { HREFLANG } from "@/content/i18n";
 import { siteConfig } from "@/content/site";
@@ -21,38 +22,25 @@ const route = getHtRoute("/ht/kondisyon-nou-trete");
 export const metadata: Metadata = buildHtRouteMetadata(route);
 
 /** /ht/kondisyon-nou-trete — Haitian Creole counterpart of the /conditions
- * and /pt/condicoes hubs (ATS-SEO-136).
+ * and /pt/condicoes hubs.
  *
- * Unlike the English/Spanish hubs, this one does NOT link out to
- * individual condition pages: those pages are still `status: "draft"`
- * even in English (awaiting clinician review — content/seo.ts), so no
- * Haitian Creole condition page exists to build a real directory from.
- * Same strategy content/pt/seo.ts's conditions hub uses — links to the two
- * published Haitian Creole pages that actually cover condition-adjacent
- * content today instead of fabricating cards for pages that don't exist.
+ * Built entirely from each Haitian Creole condition page's own hero
+ * content, same as the Spanish/Portuguese hubs — a real directory of the
+ * seven Haitian Creole condition pages (ATS-SEO-070 follow-up), not a
+ * placeholder linking elsewhere. Every card links directly to a
+ * `status: "draft"` page, exactly as the English/Spanish/Portuguese hubs
+ * do: real, finished pages awaiting clinical review, not broken ones —
+ * their own `draft` status still forces noindex on each target.
  */
-const cards: ServiceCardItem[] = [
-  {
-    slug: "aksidan-machin",
-    name: "Aksidan machin",
-    duration: "",
-    summary:
-      "Evalyasyon kiwopratik apre yon aksidan machin pou doulè kou, doulè do, rèd, ak blesi kou, ak konsèy sou delè 14 jou PIP nan Florid.",
-    image: { src: "/figma-exports/drabe-whiplash.png", alt: "Tretman apre aksidan machin" },
-    href: "/ht/kiwoprate-pou-aksidan-machin",
-    ctaLabel: "Aprann plis",
-  },
-  {
-    slug: "sevis",
-    name: "Sèvis kiwopratik",
-    duration: "",
-    summary:
-      "Ajisteman, dekonpresyon kolòn, ak terapi tisi mou — sèvis ki apwopriye a depann de evalyasyon ou ak Dr. Abe.",
-    image: { src: "/figma-exports/dr-abe-neck.png", alt: "Dr. Abe Nasser ap evalye yon pasyan" },
-    href: "/ht/sevis",
-    ctaLabel: "Wè sèvis yo",
-  },
-];
+const cards: ServiceCardItem[] = htConditions.map((condition) => ({
+  slug: condition.slug,
+  name: condition.hero.h1,
+  duration: "",
+  summary: condition.hero.subhead,
+  image: condition.hero.backgroundImage,
+  href: condition.path,
+  ctaLabel: "Aprann plis",
+}));
 
 export default function HtConditionsHubPage() {
   return (
@@ -88,9 +76,9 @@ export default function HtConditionsHubPage() {
               Kondisyon nou trete
             </SectionHeading>
             <p className="mt-4 font-sans text-body-lg text-ink-900">
-              Dekouvri sa Dr. Abe Nasser evalye e trete nan Align the Spine Chiropractic, nan
-              Deerfield Beach. Paj espesifik pou chak kondisyon an Kreyòl ap vini — pou kounye a,
-              lyen anba yo mennen nan swen apre aksidan ak nan paj sèvis yo.
+              Dekouvri kondisyon Dr. Abe Nasser evalye e trete nan Align the Spine Chiropractic, nan
+              Deerfield Beach. Chak paj eksplike sa ki evalye, sa pou tann nan konsiltasyon an, ak
+              sa ki chanje lè yon aksidan machin enplike.
             </p>
           </div>
           <ServiceGrid items={cards} locale="ht" />

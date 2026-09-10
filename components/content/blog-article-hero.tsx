@@ -32,7 +32,7 @@ export function BlogArticleHero({
 
   return (
     <section className="relative -mt-[100px] min-h-[480px] overflow-hidden sm:min-h-[520px] lg:-mt-[176px] lg:min-h-[600px]">
-      <Image src={image.url} alt="" fill priority sizes="100vw" className="object-cover" />
+      <Image src={image.url} alt={image.alt} fill priority sizes="100vw" className="object-cover" />
       {/* A uniform wash over the whole photo (the previous version) hid the
        * photo almost entirely to keep the text readable everywhere — but
        * the text only ever occupies the left column, so the rest of the
