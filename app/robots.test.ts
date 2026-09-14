@@ -19,26 +19,37 @@ describe("robots", () => {
     expect(robots().rules).toEqual({ userAgent: "*", disallow: "/" });
   });
 
-  it("allows crawling except /api/ and the thank-you pages in production", () => {
+  it("allows crawling except /api/, /admin/, and /preview/ in production", () => {
     vi.stubEnv("VERCEL_ENV", "production");
     expect(robots().rules).toEqual({
       userAgent: "*",
       allow: "/",
-      disallow: ["/api/", "/admin/", "/preview/", "/thank-you", "/es/gracias"],
+      disallow: ["/api/", "/admin/", "/preview/"],
     });
+  });
+
+  // ATS-SEO-124: /thank-you and /es/gracias must NOT be in `disallow` — a
+  // Disallow rule stops Googlebot from ever fetching the page, so it never
+  // sees the page-level `robots: { index: false }` meta tag either. Letting
+  // crawlers fetch the page and read its own noindex is the correct way to
+  // keep it out of the index; robots.txt is for crawl access, not indexing.
+  it("does not disallow the thank-you pages in production, so crawlers can read their page-level noindex", () => {
+    vi.stubEnv("VERCEL_ENV", "production");
+    const rules = robots().rules as { disallow?: string[] };
+    expect(rules.disallow).not.toContain("/thank-you");
+    expect(rules.disallow).not.toContain("/es/gracias");
   });
 
   // Guards the single most damaging way this file could break the Spanish
   // layer: a disallow rule broad enough to swallow /es. Every Spanish page
   // is primary content, not a duplicate of its English counterpart, so
-  // nothing under /es may be blocked apart from the post-conversion page.
+  // nothing under /es may be blocked.
   it("never blocks the /es subtree in production", () => {
     vi.stubEnv("VERCEL_ENV", "production");
     const rules = robots().rules as { disallow?: string[] };
     for (const rule of rules.disallow ?? []) {
       expect(rule === "/es" || rule === "/es/").toBe(false);
     }
-    expect(rules.disallow).toContain("/es/gracias");
   });
 
   // ATS-SEO-139: identical guarantee for Portuguese and Haitian Creole —
