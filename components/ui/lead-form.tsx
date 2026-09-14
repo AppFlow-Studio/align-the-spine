@@ -157,6 +157,11 @@ function renderField(field: LeadFieldConfig, opts: RenderFieldOptions) {
   const spanClass = field.half ? undefined : "col-span-2";
   const error = errors[field.name];
   const label = labelCase === "none" ? field.label : field.label.toUpperCase();
+  // Matches buildLeadFormSchema's own default (lib/lead-form-schema.ts) —
+  // a field is required unless explicitly opted out. Forwarded as a real
+  // `required` attribute so required-ness is exposed to AT/autofill before
+  // a failed submit surfaces the zod error message (ATS-SEO-092).
+  const required = field.required !== false;
 
   if (type === "select") {
     return (
@@ -168,6 +173,7 @@ function renderField(field: LeadFieldConfig, opts: RenderFieldOptions) {
         options={field.options ?? []}
         placeholder={field.placeholder}
         error={error}
+        required={required}
         className={spanClass}
         {...register(field.name)}
       />
@@ -182,6 +188,7 @@ function renderField(field: LeadFieldConfig, opts: RenderFieldOptions) {
         outline={fieldOutline}
         placeholder={field.placeholder}
         error={error}
+        required={required}
         className={spanClass}
         {...register(field.name)}
       />
@@ -200,6 +207,7 @@ function renderField(field: LeadFieldConfig, opts: RenderFieldOptions) {
         placeholder={field.placeholder ?? siteConfig.business.phone}
         autoComplete={field.autoComplete}
         error={error}
+        required={required}
         className={spanClass}
         maxLength={14}
         {...telField}
@@ -222,6 +230,7 @@ function renderField(field: LeadFieldConfig, opts: RenderFieldOptions) {
       placeholder={field.placeholder}
       autoComplete={field.autoComplete}
       error={error}
+      required={required}
       className={spanClass}
       {...register(field.name)}
     />

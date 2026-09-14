@@ -78,6 +78,7 @@ export function HeroReviewsCarousel({
                   {testimonials.map((testimonial, i) => (
                     <div
                       key={i}
+                      aria-hidden={i !== index}
                       className="flex shrink-0 flex-col gap-2 pr-4 sm:flex-row sm:items-center sm:gap-3"
                       style={{ width: `${100 / testimonials.length}%` }}
                     >

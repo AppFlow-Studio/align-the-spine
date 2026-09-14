@@ -4,7 +4,9 @@ import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
 import { cn } from "@/lib/cn";
 
 const sizes = {
-  sm: "h-10 w-10 [&_svg]:h-4 [&_svg]:w-4",
+  // h-11/w-11 (44px), not h-10/w-10 (40px): the WCAG 2.5.8 minimum tap
+  // target size (ATS-SEO-092).
+  sm: "h-11 w-11 [&_svg]:h-4 [&_svg]:w-4",
   md: "h-16 w-16 [&_svg]:h-6 [&_svg]:w-6",
 } as const;
 

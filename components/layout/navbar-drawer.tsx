@@ -2,13 +2,14 @@
 
 import { useEffect, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { createPortal } from "react-dom";
 
 import { ChevronDownIcon } from "@/components/ui/icons/chevron-down";
 import { CloseIcon } from "@/components/ui/icons/close";
 import { getBookingCta, getChromeLabels, getNav } from "@/content/chrome";
 import { DEFAULT_LOCALE, type Locale } from "@/content/i18n";
+import { registerOverlayClosed, registerOverlayOpen } from "@/lib/ui/overlay-open-store";
 
 import { LanguageSwitcher } from "./language-switcher";
 import { useFocusTrap } from "./use-focus-trap";
@@ -40,6 +41,7 @@ export function NavbarDrawer({
   locale?: Locale;
 }) {
   const containerRef = useFocusTrap(open);
+  const reduceMotion = Boolean(useReducedMotion());
   const nav = getNav(locale);
   const bookingCta = getBookingCta(locale);
   const labels = getChromeLabels(locale);
@@ -58,10 +60,14 @@ export function NavbarDrawer({
 
     document.addEventListener("keydown", onKeyDown);
     document.body.style.overflow = "hidden";
+    // Lets MobileConversionBar (ATS-SEO-093) hide itself instead of
+    // stacking a second competing CTA behind this drawer.
+    registerOverlayOpen("navbar-drawer");
 
     return () => {
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = "";
+      registerOverlayClosed("navbar-drawer");
     };
   }, [open, onClose]);
 
@@ -131,74 +137,78 @@ export function NavbarDrawer({
           </button>
         </div>
 
-        <ul className="flex flex-1 flex-col gap-6 overflow-y-auto px-8 pb-8">
-          {nav.map((link) => {
-            if (!link.menu) {
+        <nav aria-label="Mobile" className="flex flex-1 flex-col overflow-y-auto px-8 pb-8">
+          <ul className="flex flex-1 flex-col gap-6">
+            {nav.map((link) => {
+              if (!link.menu) {
+                return (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      onClick={onClose}
+                      className="inline-flex min-h-11 w-full items-center text-nav uppercase text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                );
+              }
+
+              const isExpanded = expanded.has(link.label);
               return (
                 <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    onClick={onClose}
-                    className="inline-flex min-h-11 w-full items-center text-nav uppercase text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  <button
+                    type="button"
+                    aria-expanded={isExpanded}
+                    onClick={() => toggleExpanded(link.label)}
+                    className="flex min-h-11 w-full items-center justify-between text-nav uppercase text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                   >
                     {link.label}
-                  </Link>
-                </li>
-              );
-            }
-
-            const isExpanded = expanded.has(link.label);
-            return (
-              <li key={link.label}>
-                <button
-                  type="button"
-                  aria-expanded={isExpanded}
-                  onClick={() => toggleExpanded(link.label)}
-                  className="flex min-h-11 w-full items-center justify-between text-nav uppercase text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                >
-                  {link.label}
-                  <ChevronDownIcon
-                    className={`h-4 w-4 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}
-                  />
-                </button>
-                <AnimatePresence initial={false}>
-                  {isExpanded && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.25, ease: "easeInOut" }}
-                      className="overflow-hidden"
-                    >
-                      <ul className="mt-2 flex flex-col border-l border-white/15 pl-4">
-                        <li>
-                          <Link
-                            href={link.href}
-                            onClick={onClose}
-                            className="inline-flex min-h-11 w-full items-center font-alt text-alt-label text-mute-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                          >
-                            {labels.viewAll(link.label)}
-                          </Link>
-                        </li>
-                        {link.menu.map((item) => (
-                          <li key={item.href}>
+                    <ChevronDownIcon
+                      className={`h-4 w-4 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}
+                    />
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {isExpanded && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={
+                          reduceMotion ? { duration: 0 } : { duration: 0.25, ease: "easeInOut" }
+                        }
+                        className="overflow-hidden"
+                      >
+                        <ul className="mt-2 flex flex-col border-l border-white/15 pl-4">
+                          <li>
                             <Link
-                              href={item.href}
+                              href={link.href}
                               onClick={onClose}
-                              className="inline-flex min-h-11 w-full items-center font-alt text-alt-label text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                              className="inline-flex min-h-11 w-full items-center font-alt text-alt-label text-mute-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                             >
-                              {item.label}
+                              {labels.viewAll(link.label)}
                             </Link>
                           </li>
-                        ))}
-                      </ul>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </li>
-            );
-          })}
-        </ul>
+                          {link.menu.map((item) => (
+                            <li key={item.href}>
+                              <Link
+                                href={item.href}
+                                onClick={onClose}
+                                className="inline-flex min-h-11 w-full items-center font-alt text-alt-label text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                              >
+                                {item.label}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
 
         {/* Mobile language switch. Pinned above the CTA and inside the focus
          * trap so it's keyboard-reachable, and it renders nothing at all on

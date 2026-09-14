@@ -17,8 +17,12 @@ const variants = {
   /* Primary submit: #253067, Poppins 20 white, trailing arrow */
   primary:
     "p-4 gap-3 bg-navy-900 font-sans text-button text-white hover:bg-navy-700 focus-visible:outline-navy-900",
-  /* Teal/calc: #58a0a0, Poppins Medium 16 white, trailing arrow */
-  teal: "p-4 gap-3 bg-[#58A0A0] font-sans text-button font-medium text-white hover:brightness-110 focus-visible:outline-teal-500",
+  /* Teal/calc: Poppins Medium 16 white, trailing arrow. Uses the teal-500
+   * design token (#3f7676), not the lighter #58A0A0 this used to be
+   * hardcoded to — that hex only reaches 3.02:1 contrast with white text
+   * (fails WCAG AA's 4.5:1 for normal text, ATS-SEO-092), while teal-500
+   * reaches 5.17:1. */
+  teal: "p-4 gap-3 bg-teal-500 font-sans text-button font-medium text-white hover:brightness-110 focus-visible:outline-teal-500",
   /* White-on-dark primary action (form submit buttons on a solid navy-900
    * panel, e.g. ServiceAreaHero/BlogHero/LeadFormPopup): a flat teal fill
    * at rest read as an odd, out-of-place accent color there (reported) —
@@ -108,7 +112,7 @@ export function Button({
         (loading ? (
           <Spinner className="h-6 w-6" />
         ) : (
-          <PhoneIcon className="size-7 shrink-0 rounded-full bg-[#58A0A0] p-1 text-white [&_path]:stroke-current [&_path]:[stroke-linejoin:round] [&_path]:[stroke-width:0.75] sm:size-9 sm:p-1.5 xl:size-11 xl:p-2" />
+          <PhoneIcon className="size-7 shrink-0 rounded-full bg-teal-500 p-1 text-white [&_path]:stroke-current [&_path]:[stroke-linejoin:round] [&_path]:[stroke-width:0.75] sm:size-9 sm:p-1.5 xl:size-11 xl:p-2" />
         ))}
       {variant === "glass" && eyebrow ? (
         <span className="flex flex-col items-start text-left">
