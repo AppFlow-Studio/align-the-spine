@@ -92,9 +92,9 @@ export default function AutoAccidentsPage() {
         eyebrow={hero.eyebrowChip}
         title={
           <>
-            Car Accident
+            Car Accident Chiropractor
             <br />
-            Chiropractor
+            in Deerfield Beach, FL
           </>
         }
         subhead={

@@ -49,7 +49,7 @@ import { siteConfig } from "@/content/site";
 
 export const concussionHero = {
   eyebrowChip: "Hit your head or felt dazed after a car accident?",
-  h1: "Concussion Symptoms After a Car Accident",
+  h1: "Concussion Symptoms After a Car Accident in Deerfield Beach, FL",
   subhead:
     "A concussion is a mild traumatic brain injury that needs medical evaluation. Chiropractic care is not a substitute for emergency or neurological assessment.",
   backgroundImage: {

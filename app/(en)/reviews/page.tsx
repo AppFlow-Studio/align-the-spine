@@ -108,8 +108,8 @@ export default function ReviewsPage() {
                   Patient Reviews for Align the Spine Chiropractic
                 </h1>
                 <p className="mt-4 font-sans text-body-lg text-white">
-                  A perfect 5.0 rating from 164 real patients speaks for itself — see why South
-                  Florida trusts Dr. Abe with their recovery, then start yours today.
+                  A perfect 5.0 rating from 164 real patients speaks for itself — see why Deerfield
+                  Beach and South Florida trust Dr. Abe with their recovery, then start yours today.
                 </p>
 
                 {/* Mobile-only, above the fold: the real request form sits
