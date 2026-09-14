@@ -56,6 +56,7 @@ export function FeelsLikeBand({
                 {item.learnMoreHref && (
                   <Link
                     href={item.learnMoreHref}
+                    aria-label={`Learn more about ${item.title}`}
                     className="inline-flex w-fit items-center gap-2 font-sans text-stat-label uppercase text-white underline-offset-4 transition-colors group-hover:text-teal-500 group-hover:underline"
                   >
                     Learn more

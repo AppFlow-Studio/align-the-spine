@@ -63,9 +63,12 @@ export function AccidentBanner({
             </p>
 
             <div className="flex items-start gap-4 rounded-30 bg-overlay-white-15 px-5 py-4 lg:items-center lg:rounded-full mt-20">
+              {/* teal-500, not the stale #58A0A0 hex: fails WCAG AA text
+               * contrast with white text (3.02:1 vs the 4.5:1 required) —
+               * same issue already fixed in button.tsx's teal variant. */}
               <span
                 aria-hidden="true"
-                className="flex size-12 shrink-0 items-center justify-center rounded-full bg-[#58A0A0] font-sans text-xl font-bold text-white"
+                className="flex size-12 shrink-0 items-center justify-center rounded-full bg-teal-500 font-sans text-xl font-bold text-white"
               >
                 !
               </span>

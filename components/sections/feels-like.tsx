@@ -49,6 +49,7 @@ export function FeelsLike({ items, heading, warning, className }: FeelsLikeProps
                 {item.learnMoreHref && (
                   <Link
                     href={item.learnMoreHref}
+                    aria-label={`Learn more about ${item.title}`}
                     className="inline-flex w-fit items-center gap-2 font-sans text-stat-label uppercase text-navy-900 group-hover:text-teal-500 hover:text-navy-700 underline decoration-transparent group-hover:decoration-navy-700 underline-offset-4 transition-colors duration-300"
                   >
                     Learn more
