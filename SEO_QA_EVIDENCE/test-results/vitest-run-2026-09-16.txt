@@ -1,0 +1,544 @@
+
+ RUN  v4.1.10 /Users/munistursunov/Projects/APPFLOW_STUDIO/align-the-spine
+
+ ✓ lib/lead-store.test.ts > lib/lead-store > persists a new lead and returns isDuplicate: false 32ms
+ ✓ lib/lead-store.test.ts > lib/lead-store > deduplicates an identical resubmission and preserves the original row 1ms
+ ✓ lib/lead-store.test.ts > lib/lead-store > throws (never silently succeeds) when the datastore itself fails 1ms
+ ✓ lib/lead-store.test.ts > lib/lead-store > records a failed delivery outcome without throwing 1ms
+ ✓ lib/lead-store.test.ts > lib/lead-store > records a safe error_category, never the raw failure reason, on a failed outcome 0ms
+ ✓ lib/lead-store.test.ts > lib/lead-store: findStuckPendingLeads / countStuckPendingLeads (ATS-E5a) > findStuckPendingLeads only returns pending leads older than the threshold 0ms
+ ✓ lib/lead-store.test.ts > lib/lead-store: findStuckPendingLeads / countStuckPendingLeads (ATS-E5a) > countStuckPendingLeads counts pending leads past the escalation threshold 0ms
+ ✓ app/api/cron/retry-leads/route.test.ts > GET /api/cron/retry-leads (ATS-E5a Step 5/6) > rejects a request with no bearer token 58ms
+ ✓ app/api/cron/retry-leads/route.test.ts > GET /api/cron/retry-leads (ATS-E5a Step 5/6) > rejects a request with the wrong secret 1ms
+ ✓ app/api/cron/retry-leads/route.test.ts > GET /api/cron/retry-leads (ATS-E5a Step 5/6) > fails closed when CRON_SECRET itself isn't configured 1ms
+ ✓ app/api/cron/retry-leads/route.test.ts > GET /api/cron/retry-leads (ATS-E5a Step 5/6) > retries every stuck-pending lead found, in order 3ms
+ ✓ app/api/cron/retry-leads/route.test.ts > GET /api/cron/retry-leads (ATS-E5a Step 5/6) > escalates when leads are still stuck past the 30-minute reconciliation threshold 1ms
+ ✓ app/api/cron/retry-leads/route.test.ts > GET /api/cron/retry-leads (ATS-E5a Step 5/6) > does NOT escalate when nothing is stuck past the threshold 1ms
+ ✓ content/content-safety.test.ts > content safety (ATS-E4 4.17) > does not contain the forbidden string "'(954) 123-4576'" ('placeholder phone number') 80ms
+ ✓ content/content-safety.test.ts > content safety (ATS-E4 4.17) > does not contain the forbidden string "'Priority for emergency cases'" ('removed emergency-priority claim') 20ms
+ ✓ content/content-safety.test.ts > content safety (ATS-E4 4.17) > does not contain the forbidden string "'$0'" ('unverified $0/PIP insurance claim') 24ms
+ ✓ lib/schema.test.ts > buildOrganization > uses the stable #organization @id 2ms
+ ✓ lib/schema.test.ts > buildOrganization > has no sameAs when no social link is verified 0ms
+ ✓ lib/schema.test.ts > buildOrganization > references the real, already-shipping logo asset 0ms
+ ✓ lib/schema.test.ts > buildWebSite > uses the stable #website @id and publishes to the Organization @id 0ms
+ ✓ lib/schema.test.ts > buildMedicalBusiness > uses MedicalBusiness as the sole @type — never Chiropractic or LocalBusiness 0ms
+ ✓ lib/schema.test.ts > buildMedicalBusiness > uses the stable #business @id 0ms
+ ✓ lib/schema.test.ts > buildMedicalBusiness > includes verified NAP and geo 0ms
+ ✓ lib/schema.test.ts > buildMedicalBusiness > includes openingHoursSpecification once client-confirmed hours are verified 0ms
+ ✓ lib/schema.test.ts > buildMedicalBusiness > includes service areas once client-confirmed, omits them otherwise 0ms
+ ✓ lib/schema.test.ts > buildMedicalBusiness > links back to the Organization entity via parentOrganization 0ms
+ ✓ lib/schema.test.ts > buildMedicalBusiness > includes aggregateRating once the client-confirmed rating is verified 0ms
+ ✓ lib/schema.test.ts > to24Hour > converts a morning AM time to 24-hour format 0ms
+ ✓ lib/schema.test.ts > to24Hour > converts an evening PM time to 24-hour format 0ms
+ ✓ lib/schema.test.ts > to24Hour > keeps 12:00 PM (noon) as 12:00, the classic 12-hour boundary case 0ms
+ ✓ lib/schema.test.ts > to24Hour > converts 12:00 AM (midnight) to 00:00 0ms
+ ✓ lib/schema.test.ts > to24Hour > throws on an unparseable time string instead of returning NaN:undefined 0ms
+ ✓ lib/schema.test.ts > buildPerson > uses Person, never Physician, per the vocabulary rule 0ms
+ ✓ lib/schema.test.ts > buildPerson > uses the stable /about#dr-abe @id 0ms
+ ✓ lib/schema.test.ts > buildPerson > links to the practice via worksFor 0ms
+ ✓ lib/schema.test.ts > buildPerson > omits alumniOf/hasCredential while doctorCredentials is unverified 0ms
+ ✓ lib/schema.test.ts > buildBreadcrumbList > builds a 1-indexed ListItem per entry with absolute item URLs 0ms
+ ✓ lib/schema.test.ts > buildService > builds a Service entity keyed by #{slug}, provided by the practice 0ms
+ ✓ lib/schema.test.ts > buildMedicalWebPage > links to the shared author/publisher entities and the page's own url 0ms
+ ✓ lib/schema.test.ts > buildMedicalWebPage > never asserts a clinical review — the site discloses one hasn't happened 1ms
+ ✓ lib/schema.test.ts > buildMedicalWebPage > omits datePublished when not given rather than fabricating one 0ms
+ ✓ lib/schema.test.ts > buildMedicalWebPage > omits mainEntity and isPartOf when not requested 0ms
+ ✓ lib/schema.test.ts > buildMedicalWebPage > links mainEntity/isPartOf when the caller opts in (ATS-SEO-126) 0ms
+ ✓ lib/schema.test.ts > buildTopicService > builds a Service entity keyed by the page's own #service anchor, provided by the practice 0ms
+ ✓ lib/schema.test.ts > buildCollectionPage > uses CollectionPage, never MedicalCondition, for a hub/index page 0ms
+ ✓ lib/schema.test.ts > buildCollectionPage > links to the shared WebSite and MedicalBusiness entities 0ms
+ ✓ lib/schema.test.ts > buildCollectionPage > builds a 1-indexed ItemList mirroring the passed-in items, in order 0ms
+ ✓ lib/schema.test.ts > buildFAQPage > builds one Question/Answer pair per FAQ item 1ms
+ ✓ lib/schema.test.ts > buildWebPage > builds a WebPage keyed by #webpage under the page's own URL 1ms
+ ✓ lib/schema.test.ts > buildWebPage > links to the shared WebSite and MedicalBusiness entities, not a new per-locale one 0ms
+ ✓ lib/schema.test.ts > buildWebPage > passes through the caller's own inLanguage rather than assuming en-US 0ms
+ ✓ lib/schema.test.ts > ATS-SEO-141: one coherent entity graph across locales > buildOrganization/buildWebSite/buildMedicalBusiness/buildPerson take no locale argument — there is structurally only one of each 0ms
+ ✓ lib/schema.test.ts > ATS-SEO-141: one coherent entity graph across locales > every WebPage entity built for any locale references the SAME MedicalBusiness and WebSite @id, never a locale-derived one 2ms
+ ✓ lib/schema.test.ts > ATS-SEO-141: one coherent entity graph across locales > buildMedicalBusiness()/buildOrganization()/buildPerson() are idempotent — calling them again (as every locale page does) never drifts the @id 0ms
+ ✓ lib/schema.test.ts > ATS-SEO-141: one coherent entity graph across locales > never emits availableLanguage on any built schema object 9ms
+ ✓ lib/schema.test.ts > ATS-SEO-141: one coherent entity graph across locales > every localized page.tsx that calls buildWebPage feeds it the same route.title/route.description its metadata uses 10ms
+ ✓ lib/schema.test.ts > ATS-SEO-126: accident and conditions structured-data graph > neither the Service nor the MedicalWebPage node carries aggregateRating or a Physician @type 3ms
+ ✓ lib/schema.test.ts > ATS-SEO-126: accident and conditions structured-data graph > the /conditions hub is CollectionPage, never MedicalCondition, and carries no aggregateRating 0ms
+ ✓ lib/schema.test.ts > ATS-SEO-126: accident and conditions structured-data graph > the accident page's Service and MedicalWebPage both resolve to the same single MedicalBusiness — no second practice entity 0ms
+ ✓ lib/schema.test.ts > ATS-SEO-126: accident and conditions structured-data graph > the MedicalWebPage's mainEntity resolves to the Service's own @id, connecting the two nodes 0ms
+ ✓ content/content-safety.test.ts > content safety (ATS-E4 4.17) > does not contain the forbidden string "'most major insurance'" ('unverified insurance-acceptance claim') 27ms
+ ✓ content/content-safety.test.ts > content safety (ATS-E4 4.17) > does not contain the forbidden string "'all major insurance'" ('unverified insurance-acceptance claim') 19ms
+ ✓ content/content-safety.test.ts > content safety (ATS-E4 4.17) > does not contain the forbidden string "'152 reviews'" ('unverified review count') 20ms
+ ✓ content/content-safety.test.ts > content safety (ATS-E4 4.17) > does not contain the forbidden string "'the doctor South Florida refers accid…'" ('unverified accident-patient-referral …') 26ms
+ ✓ content/content-safety.test.ts > content safety (ATS-E4 4.17) > does not contain the forbidden string "'Maria G.'" ('placeholder testimonial author') 38ms
+ ✓ lib/lead-form-schema.test.ts > phone validation > accepts a well-formed 10-digit US number in common formats 3ms
+ ✓ lib/lead-form-schema.test.ts > phone validation > accepts 11 digits only with a leading country code 1 0ms
+ ✓ lib/lead-form-schema.test.ts > phone validation > rejects too few digits 1ms
+ ✓ lib/lead-form-schema.test.ts > phone validation > rejects too many digits — doesn't just check punctuation shape 0ms
+ ✓ lib/lead-form-schema.test.ts > phone validation > rejects letters and other non-phone characters 1ms
+ ✓ lib/lead-form-schema.test.ts > phone validation > rejects a raw string over the length ceiling before it even reaches format checks 0ms
+ ✓ lib/lead-form-schema.test.ts > email validation > accepts a well-formed email, trimming surrounding whitespace 0ms
+ ✓ lib/lead-form-schema.test.ts > email validation > rejects malformed email addresses 0ms
+ ✓ lib/lead-form-schema.test.ts > email validation > rejects header-injection attempts (newlines can't survive the email format check) 0ms
+ ✓ lib/lead-form-schema.test.ts > email validation > rejects an email over the RFC practical length ceiling 0ms
+ ✓ lib/lead-form-schema.test.ts > required vs optional fields > rejects an empty required field 1ms
+ ✓ lib/lead-form-schema.test.ts > required vs optional fields > allows an empty optional field but still validates format when filled in 2ms
+ ✓ lib/lead-form-schema.test.ts > generic text fields > trims whitespace and enforces a length ceiling 1ms
+ ✓ lib/lead-form-schema.test.ts > generic text fields > caps a textarea at a much longer ceiling than a plain text field 1ms
+ ✓ lib/lead-form-schema.test.ts > zip validation > accepts 5-digit and ZIP+4 formats 1ms
+ ✓ lib/lead-form-schema.test.ts > zip validation > rejects malformed ZIP codes 1ms
+ ✓ lib/lead-form-schema.test.ts > localized validation messages > reports required fields in Spanish 4ms
+ ✓ lib/lead-form-schema.test.ts > localized validation messages > reports format errors in Spanish 5ms
+ ✓ lib/lead-form-schema.test.ts > localized validation messages > defaults to English so existing call sites are unaffected 3ms
+ ✓ lib/lead-form-schema.test.ts > localized validation messages > applies identical rules in both languages 6ms
+ ✓ lib/leads/request.test.ts > lead request contracts > normalizes contact values and strips unapproved attribution 9ms
+ ✓ lib/leads/request.test.ts > lead request contracts > defaults a missing turnstileToken to empty string and accepts one when present 4ms
+ ✓ lib/leads/request.test.ts > lead request contracts > rejects unexpected fields, missing required fields, and invalid versions 3ms
+ ✓ lib/leads/request.test.ts > lead request contracts > encrypts message and accident date outside ordinary JSON 4ms
+ ✓ lib/leads/request.test.ts > lead request contracts > uses the client UUID as an idempotency key 2ms
+ ✓ lib/leads/request.test.ts > isAllowedLeadGeo > allows a US request 1ms
+ ✓ lib/leads/request.test.ts > isAllowedLeadGeo > blocks a non-US request 0ms
+ ✓ lib/leads/request.test.ts > isAllowedLeadGeo > allows a request with no geo header (local dev, non-Vercel hosting) 0ms
+ ✓ lib/content/service-areas.test.ts > content/service-areas.ts > has no duplicate slugs 1ms
+ ✓ lib/content/service-areas.test.ts > content/service-areas.ts > every slug is well-formed 2ms
+ ✓ lib/content/service-areas.test.ts > content/service-areas.ts > has no duplicate seoTitle across entries 0ms
+ ✓ lib/content/service-areas.test.ts > content/service-areas.ts > has no duplicate metaDescription across entries 0ms
+ ✓ lib/content/service-areas.test.ts > content/service-areas.ts > no longer lists riviera-beach or homestead 1ms
+ ✓ lib/content/service-areas.test.ts > content/service-areas.ts > lists the newly added cities 1ms
+ ✓ lib/content/service-areas.test.ts > content/service-areas.ts > every relatedSlugs entry resolves to a real entry in this file 1ms
+ ✓ lib/content/service-areas.test.ts > content/service-areas.ts > blocks, key takeaways, and faqs pass the same zod schemas editorial content does 9ms
+ ✓ lib/content/service-areas.test.ts > content/service-areas.ts > passes evaluatePublicationGates except for the one disclosed, by-design blocker 8ms
+ ✓ app/api/lead/route.test.ts > POST /api/lead > returns success only after fixture persistence and deduplicates retries 15ms
+ ✓ app/api/lead/route.test.ts > POST /api/lead > rejects cross-origin, oversized, and unexpected-field requests 4ms
+ ✓ app/api/lead/route.test.ts > POST /api/lead > returns indistinguishable success for a filled honeypot without storing 2ms
+ ✓ app/api/lead/route.test.ts > POST /api/lead > rejects a non-US request loudly, without storing 0ms
+ ✓ app/api/lead/route.test.ts > POST /api/lead > allows a request with no geo header, same as local dev/non-Vercel hosting 2ms
+ ✓ app/api/lead/route.test.ts > POST /api/lead > with a Turnstile secret configured > stores the lead when Turnstile verification succeeds 2ms
+ ✓ app/api/lead/route.test.ts > POST /api/lead > with a Turnstile secret configured > rejects loudly, without storing, when Turnstile verification fails 1ms
+ ✓ content/content-safety.test.ts > content safety (ATS-E4 4.17) > does not contain the forbidden string "'PIP-covered'" ('PIP coverage guarantee') 29ms
+ ✓ content/content-safety.test.ts > content safety (ATS-E4 4.17) > does not contain the forbidden string "'Covered entirely by'" ('PIP coverage guarantee') 29ms
+ ✓ content/content-safety.test.ts > content safety (ATS-E4 4.17) > does not contain the forbidden string "'Elite spinal'" ('banned superlative') 23ms
+ ✓ content/content-safety.test.ts > content safety (ATS-E4 4.17) > does not contain the forbidden string "'medical excellence'" ('banned superlative') 33ms
+ ✓ content/hreflang-cluster-validation.test.ts > ATS-SEO-138: self-reference > every route's hreflang cluster includes an entry for each of its own non-null locales 5ms
+ ✓ content/hreflang-cluster-validation.test.ts > ATS-SEO-138: self-reference > every route's cluster is reachable starting from ANY of its own locale paths, not just English 2ms
+ ✓ content/hreflang-cluster-validation.test.ts > ATS-SEO-138: reciprocity > every non-null locale in a route returns the identical cluster (both membership and x-default) 5ms
+ ✓ content/hreflang-cluster-validation.test.ts > ATS-SEO-138: target existence > every non-null path in the static route table (localizedRoutes) is registered in its locale's RouteMeta registry 1ms
+ ✓ content/hreflang-cluster-validation.test.ts > ATS-SEO-138: target existence > every hreflang alternate this site can emit points at a path some registry (or the derived city table) actually knows about 2ms
+ ✓ content/hreflang-cluster-validation.test.ts > ATS-SEO-138: canonical target agreement > English routes self-canonicalize and agree with their own hreflang entry 1ms
+ ✓ content/hreflang-cluster-validation.test.ts > ATS-SEO-138: canonical target agreement > Spanish routes self-canonicalize and agree with their own hreflang entry 2ms
+ ✓ content/hreflang-cluster-validation.test.ts > ATS-SEO-138: canonical target agreement > Portuguese routes self-canonicalize and agree with their own hreflang entry 1ms
+ ✓ content/hreflang-cluster-validation.test.ts > ATS-SEO-138: canonical target agreement > Haitian Creole routes self-canonicalize and agree with their own hreflang entry 1ms
+ ✓ content/hreflang-cluster-validation.test.ts > ATS-SEO-138: canonical target agreement > never canonicalizes a translated route back to its English original 2ms
+ ✓ content/hreflang-cluster-validation.test.ts > ATS-SEO-138: language-code validity > every hreflang code this site can emit is a valid language tag (language-region pair, or bare ISO 639-1) 2ms
+ ✓ content/hreflang-cluster-validation.test.ts > ATS-SEO-138: language-code validity > never emits a duplicate hreflang code within one cluster 1ms
+ ✓ content/hreflang-cluster-validation.test.ts > ATS-SEO-138: staging-host leakage > siteConfig.siteUrl is the real production host over https, with no trailing slash 0ms
+ ✓ content/hreflang-cluster-validation.test.ts > ATS-SEO-138: staging-host leakage > every canonical and hreflang URL this site can emit is rooted at siteConfig.siteUrl and carries no staging host 17ms
+ ✓ content/hreflang-cluster-validation.test.ts > ATS-SEO-138: staging-host leakage > every registry's real canonical URLs are all on the production host 5ms
+ ✓ content/hreflang-cluster-validation.test.ts > ATS-SEO-138: URL shape conventions (lowercase, ASCII, no trailing slash, correct prefix) > keeps every "en" path lowercase, ASCII, and without a trailing slash 1ms
+ ✓ content/hreflang-cluster-validation.test.ts > ATS-SEO-138: URL shape conventions (lowercase, ASCII, no trailing slash, correct prefix) > keeps every "es" path lowercase, ASCII, and without a trailing slash 1ms
+ ✓ content/hreflang-cluster-validation.test.ts > ATS-SEO-138: URL shape conventions (lowercase, ASCII, no trailing slash, correct prefix) > puts every "es" route under its own locale prefix 1ms
+ ✓ content/hreflang-cluster-validation.test.ts > ATS-SEO-138: URL shape conventions (lowercase, ASCII, no trailing slash, correct prefix) > keeps every "pt" path lowercase, ASCII, and without a trailing slash 1ms
+ ✓ content/hreflang-cluster-validation.test.ts > ATS-SEO-138: URL shape conventions (lowercase, ASCII, no trailing slash, correct prefix) > puts every "pt" route under its own locale prefix 0ms
+ ✓ content/hreflang-cluster-validation.test.ts > ATS-SEO-138: URL shape conventions (lowercase, ASCII, no trailing slash, correct prefix) > keeps every "ht" path lowercase, ASCII, and without a trailing slash 1ms
+ ✓ content/hreflang-cluster-validation.test.ts > ATS-SEO-138: URL shape conventions (lowercase, ASCII, no trailing slash, correct prefix) > puts every "ht" route under its own locale prefix 0ms
+ ✓ content/content-safety.test.ts > content safety (ATS-E4 4.17) > does not contain the forbidden string "'Premium chiropractic care'" ('banned superlative') 33ms
+ ✓ content/content-safety.test.ts > content safety (ATS-E4 4.17) > does not contain the forbidden string "'Myofasial'" ('misspelling: Myofasial (should be Myo…') 27ms
+ ✓ content/content-safety.test.ts > content safety (ATS-E4 4.17) > does not contain the forbidden string "'gratson'" ('misspelling: gratson (should be Grast…') 22ms
+ ✓ content/content-safety.test.ts > content safety (ATS-E4 4.17) > does not contain the forbidden string "'Gratson'" ('misspelling: Gratson (should be Grast…') 23ms
+ ✓ content/i18n.test.ts > locale route map ↔ route registries > registers every pair's English path in content/seo.ts 1ms
+ ✓ content/i18n.test.ts > locale route map ↔ route registries > registers every pair's Spanish path in content/es/seo.ts 0ms
+ ✓ content/i18n.test.ts > locale route map ↔ route registries > pairs every route in the Spanish registry 0ms
+ ✓ content/i18n.test.ts > locale route map ↔ route registries > registers every pair's Portuguese path in content/pt/seo.ts 0ms
+ ✓ content/i18n.test.ts > locale route map ↔ route registries > pairs every route in the Portuguese registry 0ms
+ ✓ content/i18n.test.ts > locale route map ↔ route registries > registers every pair's Haitian Creole path in content/ht/seo.ts 0ms
+ ✓ content/i18n.test.ts > locale route map ↔ route registries > pairs every route in the Haitian Creole registry 0ms
+ ✓ content/i18n.test.ts > locale route map ↔ route registries > covers every English registry route, even the English-only ones 0ms
+ ✓ content/i18n.test.ts > locale route map ↔ route registries > uses unique ids and unique paths 2ms
+ ✓ content/i18n.test.ts > Spanish URL shape > puts every Spanish route under /es 1ms
+ ✓ content/i18n.test.ts > Spanish URL shape > keeps Spanish paths lowercase, ASCII, and without a trailing slash 1ms
+ ✓ content/i18n.test.ts > Spanish metadata completeness > gives every Spanish route a title, description and lastModified 1ms
+ ✓ content/i18n.test.ts > Spanish metadata completeness > keeps Spanish descriptions to a sensible length 1ms
+ ✓ content/i18n.test.ts > Spanish metadata completeness > gives every Spanish route a unique title and description 0ms
+ ✓ content/i18n.test.ts > Spanish metadata completeness > writes Spanish titles and descriptions in Spanish, not English 3ms
+ ✓ content/i18n.test.ts > Portuguese metadata completeness > gives every Portuguese route a title, description and lastModified 1ms
+ ✓ content/i18n.test.ts > Portuguese metadata completeness > keeps Portuguese descriptions to a sensible length 1ms
+ ✓ content/i18n.test.ts > Portuguese metadata completeness > gives every Portuguese route a unique title and description 0ms
+ ✓ content/i18n.test.ts > Portuguese metadata completeness > writes Portuguese titles and descriptions in Portuguese, not English or Spanish 1ms
+ ✓ content/i18n.test.ts > Haitian Creole metadata completeness > gives every Haitian Creole route a title, description and lastModified 1ms
+ ✓ content/i18n.test.ts > Haitian Creole metadata completeness > keeps Haitian Creole descriptions to a sensible length 0ms
+ ✓ content/i18n.test.ts > Haitian Creole metadata completeness > gives every Haitian Creole route a unique title and description 0ms
+ ✓ content/i18n.test.ts > Haitian Creole metadata completeness > writes Haitian Creole titles and descriptions in Kreyòl, not English, Spanish, or Portuguese 2ms
+ ✓ content/i18n.test.ts > hreflang > emits reciprocal annotations from both sides of every pair 2ms
+ ✓ content/i18n.test.ts > hreflang > points x-default at the English URL and each locale at its own 0ms
+ ✓ content/i18n.test.ts > hreflang > emits no annotations for a route with no counterpart 0ms
+ ✓ content/i18n.test.ts > hreflang > uses absolute URLs on the configured origin 1ms
+ ✓ content/i18n.test.ts > hreflang > uses valid hreflang codes — a language-region pair, or a bare ISO 639-1 code 0ms
+ ✓ content/i18n.test.ts > language switcher targets > round-trips English → Spanish → English for every pair 0ms
+ ✓ content/i18n.test.ts > language switcher targets > returns null rather than falling back to a home page 0ms
+ ✓ content/i18n.test.ts > Spanish internal link graph > points every Spanish nav, CTA and footer link at a registered Spanish route 0ms
+ ✓ content/i18n.test.ts > Spanish internal link graph > keeps the Spanish chrome inside Spanish 0ms
+ ✓ content/i18n.test.ts > Portuguese internal link graph > points every Portuguese nav, CTA and footer link at a registered Portuguese route 0ms
+ ✓ content/i18n.test.ts > Portuguese internal link graph > keeps the Portuguese chrome inside Portuguese 0ms
+ ✓ content/i18n.test.ts > Haitian Creole internal link graph > points every Haitian Creole nav, CTA and footer link at a registered Haitian Creole route 0ms
+ ✓ content/i18n.test.ts > Haitian Creole internal link graph > keeps the Haitian Creole chrome inside Haitian Creole 0ms
+ ✓ content/i18n.test.ts > publication parity > keeps both halves of every hreflang pair at the same publication status 1ms
+ ✓ content/i18n.test.ts > publication parity > never publishes a Spanish page whose English original is still draft 0ms
+ ✓ content/i18n.test.ts > publication parity > keeps both halves of every EN/PT hreflang pair at the same publication status 0ms
+ ✓ content/i18n.test.ts > publication parity > never publishes a Portuguese page whose English original is still draft 0ms
+ ✓ content/i18n.test.ts > publication parity > keeps both halves of every EN/HT hreflang pair at the same publication status 0ms
+ ✓ content/i18n.test.ts > publication parity > never publishes a Haitian Creole page whose English original is still draft 0ms
+ ✓ content/i18n.test.ts > ATS-SEO-134: locale config completeness > declares exactly the epic's required 4 locales 0ms
+ ✓ content/i18n.test.ts > ATS-SEO-134: locale config completeness > English remains the default locale and x-default target 0ms
+ ✓ content/i18n.test.ts > ATS-SEO-134: locale config completeness > has an endonym, html-lang, hreflang, and URL prefix for every locale 0ms
+ ✓ content/i18n.test.ts > ATS-SEO-134: locale config completeness > gives every locale except Haitian Creole a real og:locale, and leaves ht deliberately undefined 0ms
+ ✓ content/i18n.test.ts > ATS-SEO-134: locale config completeness > matches the parent epic's exact required locale model 0ms
+ ✓ content/i18n.test.ts > ATS-SEO-134: locale config completeness > centralizes the 4 language endonyms exactly as specified 0ms
+ ✓ content/i18n.test.ts > ATS-SEO-134: locale config completeness > preserves the existing live en-US/es-US hreflang values (no regression) 0ms
+ ✓ content/i18n.test.ts > routeHref: turns a route-table path into a real link href > turns the registered English home path ("") into "/" 0ms
+ ✓ content/i18n.test.ts > routeHref: turns a route-table path into a real link href > leaves every other real path untouched 0ms
+ ✓ content/i18n.test.ts > routeHref: turns a route-table path into a real link href > leaves null as null (no counterpart page) 0ms
+ ✓ content/i18n.test.ts > ATS-SEO-134: localeFromPath detects every locale's prefix > identifies each locale from a path under its prefix 0ms
+ ✓ content/i18n.test.ts > ATS-SEO-134: localeFromPath detects every locale's prefix > does not false-positive on an English path that merely starts with another locale's prefix letters 0ms
+ ✓ content/i18n.test.ts > ATS-SEO-134: buildAlternatesForRoute — N-way hreflang > emits all 4 locales plus x-default when every locale has a page 0ms
+ ✓ content/i18n.test.ts > ATS-SEO-134: buildAlternatesForRoute — N-way hreflang > emits only the locales that actually have a page — proves pt/ht can be added independently 0ms
+ ✓ content/i18n.test.ts > ATS-SEO-134: buildAlternatesForRoute — N-way hreflang > returns null (no indexable mixed-language annotation) when only English exists 0ms
+ ✓ content/i18n.test.ts > ATS-SEO-134: buildAlternatesForRoute — N-way hreflang > real route table: pt-BR/ht hreflang is emitted only for the routes ATS-SEO-135/136 actually built 1ms
+ ✓ content/content-safety.test.ts > content safety (ATS-E4 4.17) > contains no placeholder href="#" links 25ms
+ ✓ lib/attribution.test.ts > attribution capture > captures all whitelisted click IDs and UTMs, ignoring unknown fields 8ms
+ ✓ lib/attribution.test.ts > attribution capture > persists across reloads and a new session 1ms
+ ✓ lib/attribution.test.ts > attribution capture > expires after 90 days 2ms
+ ✓ lib/attribution.test.ts > attribution capture > new non-empty values supersede corresponding old values without blank erasure 1ms
+ ✓ lib/attribution.test.ts > attribution capture > handles malformed JSON without breaking capture 1ms
+ ✓ lib/attribution.test.ts > attribution capture > falls back safely when localStorage is unavailable 1ms
+ ✓ lib/attribution.test.ts > attribution capture > never breaks when all storage is unavailable 1ms
+ ✓ lib/attribution.test.ts > attribution capture > migrates and sanitizes the exact legacy session key ats_attribution 1ms
+ ✓ lib/attribution.test.ts > attribution capture > migrates and sanitizes the exact legacy session key ats_attribution_v2 2ms
+ ✓ lib/attribution.test.ts > sanitizeAttribution > keeps only non-empty whitelisted strings and caps their length 0ms
+ ✓ lib/attribution.test.ts > sanitizeAttribution > rejects non-object and non-string input 0ms
+ ✓ lib/content/publication-gates.test.ts > publication gates > does not block publication on missing clinician reviewer attribution 5ms
+ ✓ lib/content/publication-gates.test.ts > publication gates > blocks service-area home-visit wording without city eligibility verification 1ms
+ ✓ lib/content/publication-gates.test.ts > publication gates > requires several unique local proof points 1ms
+ ✓ lib/content/publication-gates.test.ts > publication gates > requires key takeaways and an FAQ for blog posts 1ms
+ ✓ lib/content/publication-gates.test.ts > publication gates > does not require key takeaways or FAQs for service areas 1ms
+ ✓ content/seo.test.ts > routes registry > has no duplicate paths 1ms
+ ✓ content/seo.test.ts > routes registry > gives every route a non-empty title and description 1ms
+ ✓ content/seo.test.ts > routes registry > keeps every priority within Next's valid 0-1 range 1ms
+ ✓ content/seo.test.ts > routes registry > gives every route an ISO lastModified date, not a runtime Date 2ms
+ ✓ content/seo.test.ts > routes registry > excludes /thank-you, /404, and API routes 1ms
+ ✓ content/seo.test.ts > routes registry > excludes the legacy /auto-accident route 0ms
+ ✓ content/seo.test.ts > IA-01: every route has a recorded, justified indexing decision > gives every route a non-empty justification 1ms
+ ✓ content/seo.test.ts > IA-01: every route has a recorded, justified indexing decision > gives every route a non-empty primaryQuery 0ms
+ ✓ content/seo.test.ts > IA-01: every route has a recorded, justified indexing decision > never lets two indexable routes target the same primary query 1ms
+ ✓ content/seo.test.ts > ATS-SEO-021: metadata uniqueness across published routes > never lets two published routes share a title 1ms
+ ✓ content/seo.test.ts > ATS-SEO-021: metadata uniqueness across published routes > never lets two published routes share a description 0ms
+ ✓ content/seo.test.ts > getRoute > returns the matching route 0ms
+ ✓ content/seo.test.ts > getRoute > throws for an unregistered path instead of silently returning nothing 0ms
+ ✓ content/seo.test.ts > getRouteHref > returns the path for a published route 0ms
+ ✓ content/seo.test.ts > getRouteHref > returns null for a draft route — makes linking to it impossible 0ms
+ ✓ content/seo.test.ts > getRouteHref > returns null for an unregistered path 0ms
+ ✓ content/es/service-areas.test.ts > Spanish service-area coverage > lists every English service-area community exactly once 2ms
+ ✓ content/es/service-areas.test.ts > Spanish service-area coverage > uses each community's real name and county from the English data 1ms
+ ✓ content/es/service-areas.test.ts > Spanish service-area coverage > pairs the hub and all nineteen city pages 1ms
+ ✓ content/es/service-areas.test.ts > Spanish service-area coverage > round-trips every city pair through the language switcher 1ms
+ ✓ content/es/service-areas.test.ts > Spanish service-area coverage > emits reciprocal hreflang for every city pair 2ms
+ ✓ content/es/service-areas.test.ts > the English service-area pages are near-duplicates (why there is one Spanish hub) > every entry still declares the same hand-typed similarityScore 0ms
+ ✓ content/es/service-areas.test.ts > the English service-area pages are near-duplicates (why there is one Spanish hub) > but the actual prose overlap between every pair is far above it 6ms
+ ✓ content/es/service-areas.test.ts > Spanish city pages > covers every English city exactly once 0ms
+ ✓ content/es/service-areas.test.ts > Spanish city pages > renders identical PIP, EMC and claim-denial text on every page 0ms
+ ✓ content/es/service-areas.test.ts > Spanish city pages > gives every page a unique title, description and H2 0ms
+ ✓ content/es/service-areas.test.ts > Spanish city pages > carries the same county crash figures the English pages cite 1ms
+ ✓ content/es/service-areas.test.ts > Spanish city pages > keeps every Spanish city page inside Spanish 1ms
+ ✓ app/sitemap.test.ts > sitemap > returns absolute URLs under siteConfig.siteUrl for every entry 14ms
+ ✓ app/sitemap.test.ts > sitemap > excludes utility and legacy redirect routes 5ms
+ ✓ app/sitemap.test.ts > sitemap > gives every entry a truthy lastModified 3ms
+ ✓ app/sitemap.test.ts > sitemap > includes every published English route exactly once 3ms
+ ✓ app/sitemap.test.ts > sitemap > includes every published Spanish route exactly once 2ms
+ ✓ app/sitemap.test.ts > sitemap > includes every published Portuguese route exactly once 2ms
+ ✓ app/sitemap.test.ts > sitemap > includes every published Haitian Creole route exactly once 5ms
+ ✓ app/sitemap.test.ts > sitemap > lists the static routes English-first, then Spanish, then Portuguese, then Haitian Creole 3ms
+ ✓ app/sitemap.test.ts > sitemap > lists no URL twice 3ms
+ ✓ app/sitemap.test.ts > sitemap > excludes the Spanish post-conversion page 1ms
+ ✓ app/sitemap.test.ts > sitemap > annotates each entry with the same alternates buildAlternates() returns 4ms
+ ✓ app/sitemap.test.ts > sitemap > excludes routes still pending approval 3ms
+ ✓ app/sitemap.test.ts > sitemap > never includes a draft-status route from any of the four registries 1ms
+ ✓ app/sitemap.test.ts > sitemap > never emits a staging or non-production host 18ms
+ ✓ lib/content/schemas.test.ts > content block schema > rejects raw scripts and event handlers 5ms
+ ✓ lib/content/schemas.test.ts > content block schema > does not represent H1 and rejects skipped heading levels 1ms
+ ✓ lib/content/schemas.test.ts > content block schema > requires matching accessible table columns 1ms
+ ✓ lib/content/schemas.test.ts > content block schema > calculates at least a one-minute reading time 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/about' has breadcrumbs wired in 2ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/blog' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/book-an-appointment' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/car-accident-chiropractor' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/conditions/back-pain' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/conditions/cervicogenic-headache' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/conditions/concussion' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/conditions/neck-pain' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/conditions' has breadcrumbs wired in 1ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/conditions/sciatica' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/conditions/tmj-jaw-pain' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/conditions/whiplash' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/contact-us' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/home-visit-chiropractor' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/privacy-policy' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/reviews' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/service-areas/[slug]' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/service-areas' has breadcrumbs wired in 1ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/services/chiropractic-adjustments' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/services/cupping-therapy' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/services' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/services/soft-tissue-therapy' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/services/spinal-decompression' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/es/areas-de-servicio/[slug]' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/es/areas-de-servicio' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/es/condiciones' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/es/contacto' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/es/dr-abe-nasser' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/es/quiropractico-accidentes-de-auto' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/es/resenas' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/es/servicios/ajustes-quiropracticos' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/es/servicios/descompresion-espinal' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/es/servicios' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/es/servicios/terapia-de-tejidos-blan…' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/es/servicios/terapia-de-ventosas' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/es/solicitar-cita' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/ht/dr-abe-nasser' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/ht/kiwoprate-pou-aksidan-machin' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/ht/komante-pasyan' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/ht/kondisyon-nou-trete' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/ht/kontakte-nou' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/ht/mande-yon-randevou' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/ht/sevis/ajisteman-kiwopratik' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/ht/sevis/dekonpresyon-kolon' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/ht/sevis' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/ht/sevis/terapi-tisi-mou' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/ht/sevis/terapi-vantouz' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/ht/zon-nou-sevi' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/pt/areas-de-atendimento' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/pt/avaliacoes' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/pt/condicoes' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/pt/contato' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/pt/dr-abe-nasser' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/pt/quiropratico-acidentes-de-carro' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/pt/servicos/ajustes-quiropraticos' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/pt/servicos/descompressao-da-coluna' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/pt/servicos' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/pt/servicos/terapia-de-tecidos-moles' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/pt/servicos/terapia-de-ventosas' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > '/pt/solicitar-consulta' has breadcrumbs wired in 0ms
+ ✓ app/breadcrumbs-coverage.test.ts > LINK-02: breadcrumbs render on every non-home page > keeps the nested-breadcrumb allowlist free of stale entries 9ms
+ ✓ lib/analytics.test.ts > isPhoneLink > matches tel: links 1ms
+ ✓ lib/analytics.test.ts > isPhoneLink > rejects non-tel links 0ms
+ ✓ lib/analytics.test.ts > isBookCtaLink > matches /book and /book with a query or hash 0ms
+ ✓ lib/analytics.test.ts > isBookCtaLink > matches every locale's own booking-CTA path 1ms
+ ✓ lib/analytics.test.ts > isBookCtaLink > matches a locale booking path with a query or hash 1ms
+ ✓ lib/analytics.test.ts > isBookCtaLink > rejects other paths, including /book-adjacent ones 0ms
+ ✓ lib/analytics.test.ts > tracking helpers > no-op safely without throwing when window/gtag isn't available 2ms
+ ✓ lib/analytics.test.ts > tracking helpers > locale dimension on outbound events > tags page_view with the bare locale derived from the path 1ms
+ ✓ lib/analytics.test.ts > tracking helpers > locale dimension on outbound events > tags phone_click and book_cta_click with the locale of the page the click happened on 1ms
+ ✓ lib/analytics.test.ts > tracking helpers > locale dimension on outbound events > tags English pages with locale "en", never a region-qualified code 0ms
+ ✓ lib/analytics.test.ts > classifyLeadPriority > trusts an explicit carAccident answer above everything else 0ms
+ ✓ lib/analytics.test.ts > classifyLeadPriority > classifies /book's accident reason as high priority regardless of variant 0ms
+ ✓ lib/analytics.test.ts > classifyLeadPriority > falls back to accident-specific form variants when the field is left blank 0ms
+ ✓ lib/analytics.test.ts > classifyLeadPriority > classifies everything else as standard priority 0ms
+ ✓ lib/pip-window.test.ts > calculatePipWindow > accident today → full window remaining, active 2ms
+ ✓ lib/pip-window.test.ts > calculatePipWindow > mid-window → correct days remaining, active 0ms
+ ✓ lib/pip-window.test.ts > calculatePipWindow > last active day before urgency threshold 0ms
+ ✓ lib/pip-window.test.ts > calculatePipWindow > 3 days left → urgent 0ms
+ ✓ lib/pip-window.test.ts > calculatePipWindow > 1 day left → urgent, singular copy 0ms
+ ✓ lib/pip-window.test.ts > calculatePipWindow > day 14 → last day, urgent 1ms
+ ✓ lib/pip-window.test.ts > calculatePipWindow > day 15 → expired 1ms
+ ✓ lib/pip-window.test.ts > calculatePipWindow > long past accident → expired 0ms
+ ✓ lib/pip-window.test.ts > calculatePipWindow > future date → future status 1ms
+ ✓ lib/pip-window.test.ts > calculatePipWindow > ignores time of day — late-night accident date still counts as its calendar day 0ms
+ ✓ lib/pip-window.test.ts > calculatePipWindow > counts calendar days across month boundaries 0ms
+ ✓ lib/pip-window.test.ts > parseUsDate > parses a valid mm/dd/yyyy date 1ms
+ ✓ lib/pip-window.test.ts > parseUsDate > accepts single-digit month and day 0ms
+ ✓ lib/pip-window.test.ts > parseUsDate > rejects incomplete input 0ms
+ ✓ lib/pip-window.test.ts > parseUsDate > rejects impossible dates instead of rolling them over 0ms
+ ✓ lib/pip-window.test.ts > parseUsDate > rejects non-date text 0ms
+ ✓ proxy.test.ts > proxy X-Robots-Tag > sets X-Robots-Tag: noindex, nofollow outside production 4ms
+ ✓ proxy.test.ts > proxy X-Robots-Tag > sets the header for non-page requests too (e.g. /_next/* assets) 1ms
+ ✓ proxy.test.ts > proxy X-Robots-Tag > omits the header in production 0ms
+ ✓ lib/tracking-contract.test.ts > static ATS tracking contract > components/ui/lead-form.tsx explicitly uses POST 2ms
+ ✓ lib/tracking-contract.test.ts > static ATS tracking contract > components/ui/underline-form.tsx explicitly uses POST 1ms
+ ✓ lib/tracking-contract.test.ts > static ATS tracking contract > components/sections/booking-form.tsx explicitly uses POST 0ms
+ ✓ lib/tracking-contract.test.ts > static ATS tracking contract > the thank-you page does not produce a conversion 1ms
+ ✓ lib/tracking-contract.test.ts > static ATS tracking contract > Enhanced Conversions infrastructure remains isolated from ATS forms 2ms
+ ✓ content/blog-related-links.test.ts > buildBlogRelatedPageLinks > resolves real, published links for a known category 5ms
+ ✓ content/blog-related-links.test.ts > buildBlogRelatedPageLinks > returns an empty array for a category with no mapping (no crash) 1ms
+ ✓ content/blog-related-links.test.ts > buildBlogRelatedPageLinks > returns an empty array when no categories are passed 1ms
+ ✓ content/blog-related-links.test.ts > buildBlogRelatedPageLinks > de-duplicates paths shared across multiple mapped categories 1ms
+ ✓ content/blog-related-links.test.ts > buildBlogRelatedPageLinks > honors highlightPath 0ms
+ ✓ components/ui/citation.test.tsx > CitationLink > renders a real <a> with the citation's URL as href 6ms
+ ✓ components/ui/citation.test.tsx > CitationLink > shows the visible label as the link text 0ms
+ ✓ components/ui/citation.test.tsx > CitationLink > opens in a new tab without granting the target page access to window.opener 0ms
+ ✓ components/ui/citation.test.tsx > CitationLink > does not carry a nofollow hint (this links to a primary authoritative source) 0ms
+ ✓ components/ui/citation.test.tsx > CitationLink > surfaces the source title and organization in a title tooltip 0ms
+ ✓ lib/leads/delivery.test.ts > lead delivery safety > falls back to the sandbox from-address when LEAD_FROM_EMAIL is blank, not just unset 2ms
+ ✓ lib/leads/delivery.test.ts > lead delivery safety > falls back to siteConfig's business email when LEAD_TO_EMAIL is blank, not just unset 7ms
+ ✓ lib/leads/delivery.test.ts > lead delivery safety > splits LEAD_TO_EMAIL on commas so an office notification can reach more than one inbox 0ms
+ ✓ lib/leads/delivery.test.ts > lead delivery safety > neutralizes spreadsheet formulas and control characters 0ms
+ ✓ lib/leads/delivery.test.ts > lead delivery safety > omits sensitive message/date fields from Sheets payloads 0ms
+ ✓ lib/leads/delivery.test.ts > lead delivery safety > excludes sensitive fields from the office notification email unless explicitly included 1ms
+ ✓ lib/leads/delivery.test.ts > lead delivery safety > never includes an internal dashboard/CRM link in either lead email 1ms
+ ✓ lib/leads/delivery.test.ts > lead delivery safety > varies patient-acknowledgment copy by intent without asserting specifics 0ms
+ ✓ lib/leads/delivery.test.ts > lead delivery safety > escapes HTML-significant characters in office notification field values 1ms
+ ✓ lib/leads/delivery.test.ts > lead delivery safety > sanitizes errors before audit storage 0ms
+ ✓ lib/leads/delivery.test.ts > lead delivery safety > signs a timestamped deterministic envelope and requires JSON ok true 1ms
+ ✓ content/site.test.ts > isProduction > is true only when VERCEL_ENV is exactly "production" 1ms
+ ✓ content/site.test.ts > isProduction > is false for preview deploys 0ms
+ ✓ content/site.test.ts > isProduction > is false when VERCEL_ENV is unset (local dev, CI) 0ms
+ ✓ content/site.test.ts > resolveSiteUrl > uses SITE_URL when set, regardless of environment 0ms
+ ✓ content/site.test.ts > resolveSiteUrl > falls back to the real production domain outside production when unset 0ms
+ ✓ content/site.test.ts > resolveSiteUrl > throws in production when SITE_URL is unset — never falls back silently 1ms
+ ✓ content/site.test.ts > hoursVerified / social.verified gates > is verified now that the client has confirmed current hours (2026-08-26) 0ms
+ ✓ content/site.test.ts > hoursVerified / social.verified gates > marks every current social link as unverified (all are '#' placeholders today) 0ms
+ ✓ content/site.test.ts > Conditions nav item > exists 0ms
+ ✓ content/site.test.ts > Conditions nav item > points at the real /conditions hub, not the accident page 0ms
+ ✓ content/site.test.ts > Conditions nav item > no longer shares its href with the Auto Accidents nav item 1ms
+ ✓ lib/content/state-machine.test.ts > content state machine > never grants editorial transitions to lead managers 2ms
+ ✓ lib/content/state-machine.test.ts > content state machine > permits only declared transitions 1ms
+ ✓ lib/content/state-machine.test.ts > content state machine > prevents editor publication and medical self-approval 1ms
+ ✓ lib/content/state-machine.test.ts > content state machine > allows a distinct clinician reviewer to approve 0ms
+ ✓ content/conditions-hub.test.ts > conditionsHubCards > has exactly one card per /conditions/* route 2ms
+ ✓ content/conditions-hub.test.ts > conditionsHubCards > every card links to a real /conditions/* path 1ms
+ ✓ content/conditions-hub.test.ts > conditionsHubCards > card hrefs are unique — no route listed twice 0ms
+ ✓ content/conditions-hub.test.ts > conditionsHubCards > card summaries are sourced verbatim from each condition's own hero subhead, not new copy 0ms
+ ✓ content/conditions-hub.test.ts > conditionsHubHero / conditionsHubIntro > hero H1 is not the /car-accident-chiropractor page's H1 (distinct intent) 0ms
+ ✓ content/conditions-hub.test.ts > conditionsHubHero / conditionsHubIntro > hero and intro copy are non-empty 0ms
+ ✓ lib/analytics/lead-events.test.ts > trackLeadSuccess > pushes exactly one generic event for a canonical submission UUID 5ms
+ ✓ lib/analytics/lead-events.test.ts > trackLeadSuccess > contains no priority, form, intake, or contact fields 5ms
+ ✓ lib/analytics/lead-events.test.ts > trackLeadSuccess > does not track an invalid or missing server identifier 0ms
+ ✓ lib/seo/metadata.test.ts > buildMetadata > builds a canonical URL from siteConfig.siteUrl and the given path 2ms
+ ✓ lib/seo/metadata.test.ts > buildMetadata > adds reciprocal hreflang for a route that has a counterpart in the other language 1ms
+ ✓ lib/seo/metadata.test.ts > buildMetadata > self-canonicalizes a Spanish page and points x-default at the English one 1ms
+ ✓ lib/seo/metadata.test.ts > buildMetadata > omits hreflang entirely for a route with no counterpart 1ms
+ ✓ lib/seo/metadata.test.ts > buildMetadata > sets og:locale from the page's locale 0ms
+ ✓ lib/seo/metadata.test.ts > buildMetadata > omits og:locale entirely for Haitian Creole rather than inventing an unsupported value 0ms
+ ✓ lib/seo/metadata.test.ts > buildMetadata > wraps title in { absolute } so the root layout's title.template can't double-suffix it 1ms
+ ✓ lib/seo/metadata.test.ts > buildMetadata > mirrors title/description/url into openGraph and twitter 1ms
+ ✓ lib/seo/metadata.test.ts > buildMetadata > includes an OG/Twitter image and upgrades the Twitter card when one is given 1ms
+ ✓ lib/seo/metadata.test.ts > buildMetadata > falls back to a text-only summary card when no image is given 0ms
+ ✓ lib/seo/metadata.test.ts > buildMetadata production gating > forces noindex when VERCEL_ENV is not production, even if the caller didn't ask for it 1ms
+ ✓ lib/seo/metadata.test.ts > buildMetadata production gating > clobbers permissive robots overrides in non-production 0ms
+ ✓ lib/seo/metadata.test.ts > buildMetadata production gating > respects the caller's robots value in production 0ms
+ ✓ lib/seo/metadata.test.ts > buildMetadata production gating > omits robots in production when the caller didn't pass one 31ms
+ ✓ app/robots.test.ts > robots > disallows everything when not production 2ms
+ ✓ app/robots.test.ts > robots > disallows everything when VERCEL_ENV is unset 0ms
+ ✓ app/robots.test.ts > robots > allows crawling except /api/, /admin/, and /preview/ in production 0ms
+ ✓ app/robots.test.ts > robots > does not disallow the thank-you pages in production, so crawlers can read their page-level noindex 0ms
+ ✓ app/robots.test.ts > robots > never blocks the /es subtree in production 0ms
+ ✓ app/robots.test.ts > robots > never blocks the /pt or /ht subtrees in production 0ms
+ ✓ app/robots.test.ts > robots > always references the canonical sitemap URL 0ms
+ ✓ content/accident-injuries.test.ts > accidentInjuries (default export, used on non-accident pages) > is published, so this fallback destination is safe to link to 1ms
+ ✓ content/accident-injuries.test.ts > accidentInjuries (default export, used on non-accident pages) > every card resolves to a real href — none silently fall through to undefined 0ms
+ ✓ content/accident-injuries.test.ts > accidentInjuries (default export, used on non-accident pages) > cards without a live specific destination fall back to the accident page, not the booking CTA 33ms
+ ✓ content/accident-injuries.test.ts > accidentInjuries (default export, used on non-accident pages) > not every card resolves to the exact same booking destination (no duplicate generic appointment link) 1ms
+ ✓ content/accident-injuries.test.ts > accidentInjuries (default export, used on non-accident pages) > a card falling back to the accident page carries a CTA label describing that destination, not a mismatched specific-treatment label 2ms
+ ✓ content/accident-injuries.test.ts > buildAccidentInjuries({ skipAccidentPageFallback: true }) — used on /car-accident-chiropractor itself > never links a card back to the page it's already rendered on 1ms
+ ✓ content/es/content-parity.test.ts > service lists > offers the same services on the homepage list in both languages 1ms
+ ✓ content/es/content-parity.test.ts > service lists > offers the same services in the /services grid in both languages 0ms
+ ✓ content/es/content-parity.test.ts > service lists > lists the same accident injuries in both languages 0ms
+ ✓ content/es/content-parity.test.ts > lead forms > covers at least the variants the Spanish pages render 0ms
+ ✓ content/es/content-parity.test.ts > lead forms > posts identical field names for heroEval 0ms
+ ✓ content/es/content-parity.test.ts > lead forms > posts identical field names for accidentEval 0ms
+ ✓ content/es/content-parity.test.ts > lead forms > posts identical field names for contactUs 0ms
+ ✓ content/es/content-parity.test.ts > lead forms > posts identical field names for carAccident 0ms
+ ✓ content/es/content-parity.test.ts > lead forms > posts identical field names for reviewsEval 1ms
+ ✓ content/es/content-parity.test.ts > lead forms > posts identical field names for contact 0ms
+ ✓ content/es/content-parity.test.ts > lead forms > posts identical field names for eligibility 0ms
+ ✓ content/es/content-parity.test.ts > lead forms > posts identical field names for booking 0ms
+ ✓ content/es/content-parity.test.ts > lead forms > keeps the same variant key for heroEval 0ms
+ ✓ content/es/content-parity.test.ts > lead forms > keeps the same variant key for accidentEval 1ms
+ ✓ content/es/content-parity.test.ts > lead forms > keeps the same variant key for contactUs 0ms
+ ✓ content/es/content-parity.test.ts > lead forms > keeps the same variant key for carAccident 0ms
+ ✓ content/es/content-parity.test.ts > lead forms > keeps the same variant key for reviewsEval 0ms
+ ✓ content/es/content-parity.test.ts > lead forms > keeps the same variant key for contact 0ms
+ ✓ content/es/content-parity.test.ts > lead forms > keeps the same variant key for eligibility 0ms
+ ✓ content/es/content-parity.test.ts > lead forms > keeps the same variant key for booking 0ms
+ ✓ content/es/content-parity.test.ts > lead forms > keeps identical select option values for heroEval 0ms
+ ✓ content/es/content-parity.test.ts > lead forms > keeps identical select option values for accidentEval 0ms
+ ✓ content/es/content-parity.test.ts > lead forms > keeps identical select option values for contactUs 0ms
+ ✓ content/es/content-parity.test.ts > lead forms > keeps identical select option values for carAccident 0ms
+ ✓ content/es/content-parity.test.ts > lead forms > keeps identical select option values for reviewsEval 0ms
+ ✓ content/es/content-parity.test.ts > lead forms > keeps identical select option values for contact 0ms
+ ✓ content/es/content-parity.test.ts > lead forms > keeps identical select option values for eligibility 0ms
+ ✓ content/es/content-parity.test.ts > lead forms > keeps identical select option values for booking 0ms
+ ✓ content/es/content-parity.test.ts > images stay shared across languages > uses the same service images 0ms
+ ✓ content/es/content-parity.test.ts > images stay shared across languages > uses the same accident-injury images 0ms
+ ✓ lib/lead-delivery.test.ts > lib/lead-delivery: forced failure path > (a)/(b) records a final failed delivery state on the already-durable lead, not a lost/silent one 1084ms
+ ✓ content/es/translation-freshness.test.ts > Spanish translations are current with their English source > 'services (homepage list)' has not changed since 'content/es/home.ts → esServices' was reviewed 2ms
+ ✓ content/es/translation-freshness.test.ts > Spanish translations are current with their English source > 'servicesGrid (/services grid)' has not changed since 'content/es/pages.ts → esServicesGrid' was reviewed 0ms
+ ✓ content/es/translation-freshness.test.ts > Spanish translations are current with their English source > 'accidentInjuries' has not changed since 'content/es/home.ts → esAccidentInjuri…' was reviewed 0ms
+ ✓ content/es/translation-freshness.test.ts > Spanish translations are current with their English source > 'whyChooseContent' has not changed since 'content/es/home.ts → esWhyChooseConte…' was reviewed 0ms
+ ✓ content/es/translation-freshness.test.ts > Spanish translations are current with their English source > 'doctorProfileContent' has not changed since 'content/es/pages.ts → esDoctorProfile…' was reviewed 0ms
+ ✓ content/es/translation-freshness.test.ts > Spanish translations are current with their English source > 'spineOverviewContent' has not changed since 'content/es/home.ts → esSpineOverviewC…' was reviewed 1ms
+ ✓ content/es/translation-freshness.test.ts > Spanish translations are current with their English source > 'leadFormVariants' has not changed since 'content/es/lead-forms.ts → esLeadForm…' was reviewed 0ms
+ ✓ components/seo/json-ld.test.tsx > JsonLd > renders a script[type=application/ld+json] with the serialized data 3ms
+ ✓ components/seo/json-ld.test.tsx > JsonLd > escapes '<' so a closing </script> can't be injected via string content 1ms
+ ✓ components/seo/json-ld.test.tsx > JsonLd > throws when a string field is exactly the '#' placeholder 1ms
+ ✓ components/seo/json-ld.test.tsx > JsonLd > throws when a nested field is the '#' placeholder 0ms
+ ✓ components/seo/json-ld.test.tsx > JsonLd > does not throw for a real anchor-style @id containing '#' 0ms
+ ✓ content/about-page.test.ts > aboutHero targets doctor/about intent, not the Services page's > H1 is not the Services page's H1 2ms
+ ✓ content/about-page.test.ts > aboutHero targets doctor/about intent, not the Services page's > H1 names Dr. Abe (about-page/doctor-entity intent) 0ms
+ ✓ content/about-page.test.ts > aboutHero targets doctor/about intent, not the Services page's > eyebrow is not a condition-style hook 0ms
+ ✓ content/about-page.test.ts > aboutHero targets doctor/about intent, not the Services page's > eyebrow matches the existing doctor-profile eyebrow already used elsewhere on /about 0ms
+ ✓ content/about-page.test.ts > aboutHero targets doctor/about intent, not the Services page's > subhead reflects patient-centered, doctor-focused positioning 0ms
+ ✓ content/lead-forms.test.ts > lead form field uniformity > every form collects the same core field set, all required 4ms
+ ✓ content/lead-forms.test.ts > lead form field uniformity > has no leftover single-field Name (superseded by firstName/lastName) 0ms
+ ✓ content/internal-links.test.ts > LINK-01: internal links never point to a draft or noindex route > accidentInjuries 2ms
+ ✓ content/internal-links.test.ts > LINK-01: internal links never point to a draft or noindex route > servicesGrid 1ms
+ ✓ content/internal-links.test.ts > LINK-01: internal links never point to a draft or noindex route > services (homepage list) 0ms
+ ✓ content/internal-links.test.ts > LINK-01: internal links never point to a draft or noindex route > point-to-where-it-hurts body-map regions 0ms
+ ✓ supabase/migrations/lead-migrations.test.ts > lead CRM migration security contract > creates every required normalized table with RLS 2ms
+ ✓ supabase/migrations/lead-migrations.test.ts > lead CRM migration security contract > keeps service RPCs unavailable to anon and lead_manager out of CMS policies 0ms
+ ✓ supabase/migrations/lead-migrations.test.ts > lead CRM migration security contract > uses lock-safe claims, attempt auditing, retry, and dead-letter states 0ms
+ ✓ supabase/migrations/lead-migrations.test.ts > lead CRM migration security contract > seeds exactly the eight versioned application form IDs 0ms
+ ✓ supabase/migrations/lead-migrations.test.ts > lead CRM migration security contract > keeps the DB contract's required core fields in sync with content/lead-forms.ts (202608190002) 4ms
+ ✓ next.config.test.ts > next.config redirects > marks every redirect permanent (this file has no temporary redirects to distinguish) 1ms
+ ✓ next.config.test.ts > next.config redirects > has no redirect chain (no destination is itself another redirect's source) 0ms
+ ✓ next.config.test.ts > next.config redirects > has no redirect loop (a source is never its own destination, directly or via another entry) 1ms
+ ✓ next.config.test.ts > next.config redirects > declares no redirect touching the /es, /pt, or /ht locale subtrees 0ms
+ ✓ next.config.test.ts > next.config redirects > uses only relative, same-origin destinations (no accidental cross-host redirect) 0ms
+ ✓ content/condition-service-locale-parity.test.ts > condition page locale parity > offers the same seven conditions in Spanish, Portuguese, and Haitian Creole 34ms
+ ✓ content/condition-service-locale-parity.test.ts > service page locale parity > has all four service pages' hero content in Spanish, Portuguese, and Haitian Creole 2ms
+ ✓ content/related-links.test.ts > buildRelatedLinks > resolves a known, published path to its registered label and href 2ms
+ ✓ content/related-links.test.ts > buildRelatedLinks > excludes the current page from its own related-links list (no self-links) 0ms
+ ✓ content/related-links.test.ts > buildRelatedLinks > excludes a path whose route is still draft, rather than linking to a noindex page 0ms
+ ✓ content/related-links.test.ts > buildRelatedLinks > marks the highlightPath entry as highlighted, and nothing else 0ms
+ ✓ content/related-links.test.ts > buildRelatedLinks > throws for a path that isn't a registered route at all — fails the build instead of silently dropping a typo 1ms
+ ✓ content/related-links.test.ts > buildRelatedLinks > throws for a registered, published route with no label mapped — fails the build instead of shipping a blank pill 0ms
+ ✓ content/related-links.test.ts > buildRelatedLinks > preserves the given path order 0ms
+ ✓ app/global-not-found.test.ts > app/global-not-found.tsx > forces noindex,nofollow explicitly rather than relying only on the automatic 404 meta 2ms
+ ✓ app/global-not-found.test.ts > app/global-not-found.tsx > offers a home link in every locale this site has, each with the correct hrefLang 1ms
+ ✓ app/global-not-found.test.ts > app/global-not-found.tsx > leads with English (the hreflang x-default) rather than any other locale 0ms
+ ✓ app/global-not-found.test.ts > app/global-not-found.tsx > never imports next/headers — this page must stay static, not opt into dynamic rendering just to detect a locale from the request 0ms
+ ✓ content/citations.test.ts > CITATIONS registry > is not empty 1ms
+ ✓ content/citations.test.ts > CITATIONS registry > every entry has non-empty required fields and an https source URL 0ms
+ ✓ content/citations.test.ts > CITATIONS registry > every registry key matches its citation's own id 0ms
+ ✓ content/citations.test.ts > CITATIONS registry > has no duplicate source URLs 0ms
+ ✓ lib/phone-format.test.ts > formatUsPhoneAsYouType > formats progressively as digits are typed 2ms
+ ✓ lib/phone-format.test.ts > formatUsPhoneAsYouType > strips non-digit characters from pasted input 0ms
+ ✓ lib/phone-format.test.ts > formatUsPhoneAsYouType > drops a leading country code 1 before formatting 0ms
+ ✓ lib/phone-format.test.ts > formatUsPhoneAsYouType > silently caps at 10 digits instead of producing a too-long value 0ms
+ ✓ lib/phone-format.test.ts > formatUsPhoneAsYouType > returns an empty string for empty input 0ms
+ ✓ lib/leads/turnstile.test.ts > isTurnstileSuccess > accepts a genuine success response 1ms
+ ✓ lib/leads/turnstile.test.ts > isTurnstileSuccess > rejects a failure response 0ms
+ ✓ lib/leads/turnstile.test.ts > isTurnstileSuccess > rejects malformed or unexpected shapes 0ms
+ ✓ lib/content/fixture-repository.test.ts > public fixture repository > never returns draft or in-review fixtures to public queries 1ms
+ ✓ lib/content/fixture-repository.test.ts > public fixture repository > keeps editorial fixtures available to protected previews 0ms
+ ✓ content/verified-value.test.ts > isVerified > is false for the default unverified() state 1ms
+ ✓ content/verified-value.test.ts > isVerified > is false when status is verified but value is null 0ms
+ ✓ content/verified-value.test.ts > isVerified > is false when value is set but status is needs-confirmation 0ms
+ ✓ content/verified-value.test.ts > isVerified > is true only when status is verified and value is non-null 0ms
+ ✓ content/doctor-profile.test.ts > doctorCredentials > defaults to unverified until Dr. Abe confirms his degree/education/license 1ms
+ ✓ content/doctor-profile.test.ts > doctorCredentials > has no alumniOf/hasCredential claims while unverified 0ms
+ ✓ content/route-registry-parity.test.ts > route registry ↔ filesystem parity > registers every page.tsx route, or lists it in the allowlist 1ms
+ ✓ content/route-registry-parity.test.ts > route registry ↔ filesystem parity > has a page.tsx for every registered route 0ms
+ ✓ content/route-registry-parity.test.ts > route registry ↔ filesystem parity > keeps the allowlist free of stale entries 0ms
+ ✓ app/(en)/services/page.test.ts > ServicesPage JSON-LD > emits one Service entity per servicesGrid item, keyed by servicesGrid's own slugs 2ms
+ ✓ lib/lead-delivery.test.ts > lib/lead-delivery: forced failure path > ATS-E5a: categorizes a provider 5xx as 'provider_outage', never the raw response body 1007ms
+ ✓ lib/lead-delivery.test.ts > lib/lead-delivery: forced failure path > (c) never marks the lead 'delivered' when every attempt fails 1006ms
+ ✓ lib/lead-delivery.test.ts > lib/lead-delivery: forced failure path > retries before giving up, then alerts operators referencing only the leadId 1004ms
+
+ Test Files  51 passed (51)
+      Tests  535 passed (535)
+   Start at  00:11:24
+   Duration  4.39s (transform 2.49s, setup 0ms, import 5.85s, tests 5.50s, environment 5ms)
+

@@ -1,0 +1,181 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.chirobackpain.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Services",
+        "item": "https://www.chirobackpain.com/services"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Chiropractic Adjustments",
+        "item": "https://www.chirobackpain.com/services/chiropractic-adjustments"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://www.chirobackpain.com/services#adjustments",
+    "name": "Adjustments",
+    "description": "Hands-on chiropractic adjustments using controlled pressure to improve joint motion in the neck, mid back, or lower back when appropriate.",
+    "provider": {
+      "@id": "https://www.chirobackpain.com/#business"
+    },
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "Deerfield Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Lighthouse Point"
+      },
+      {
+        "@type": "City",
+        "name": "Pompano Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Fort Lauderdale"
+      },
+      {
+        "@type": "City",
+        "name": "Hollywood"
+      },
+      {
+        "@type": "City",
+        "name": "Pembroke Pines"
+      },
+      {
+        "@type": "City",
+        "name": "Davie"
+      },
+      {
+        "@type": "City",
+        "name": "Coral Springs"
+      },
+      {
+        "@type": "City",
+        "name": "Coconut Creek"
+      },
+      {
+        "@type": "City",
+        "name": "Margate"
+      },
+      {
+        "@type": "City",
+        "name": "Sunrise"
+      },
+      {
+        "@type": "City",
+        "name": "Tamarac"
+      },
+      {
+        "@type": "City",
+        "name": "Miami"
+      },
+      {
+        "@type": "City",
+        "name": "Hialeah"
+      },
+      {
+        "@type": "City",
+        "name": "Miami Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Miami Gardens"
+      },
+      {
+        "@type": "City",
+        "name": "West Palm Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Boca Raton"
+      },
+      {
+        "@type": "City",
+        "name": "Delray Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Boynton Beach"
+      }
+    ],
+    "url": "https://www.chirobackpain.com/services#adjustments"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.chirobackpain.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Services",
+        "item": "https://www.chirobackpain.com/services"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Chiropractic Adjustments",
+        "item": "https://www.chirobackpain.com/services/chiropractic-adjustments"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does an adjustment hurt?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most patients feel pressure or a release, not pain \u2014 some soreness afterward is common, similar to starting a new stretch or exercise. We adjust our approach if anything feels off during your visit."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is an adjustment safe after a car accident?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It may be appropriate after an evaluation rules out concerns that need imaging, urgent care, or referral. The first visit starts with an exam rather than assuming an adjustment is suitable."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is an adjustment different from a massage?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A massage works the soft tissue around a joint; an adjustment targets the joint itself \u2014 restoring motion to a segment that's stopped moving properly (a fixation), which is often the real source of the pain."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How many adjustments will I need?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It depends on the condition, exam findings, and response to care. Dr. Abe reassesses progress instead of promising a fixed visit count or package upfront."
+        }
+      }
+    ]
+  }
+]

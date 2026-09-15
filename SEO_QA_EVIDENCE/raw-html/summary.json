@@ -1,0 +1,177 @@
+[
+  {
+    "page": "about",
+    "title": "Dr. Abe Nasser, D.C. | Deerfield Beach Chiropractor",
+    "canonical": "https://www.chirobackpain.com/about",
+    "h1_count": 1,
+    "tel_link_present": true,
+    "img_missing_alt": 0,
+    "raw_html_kb": 127.8,
+    "jsonld_types": ["Person", "BreadcrumbList"],
+    "jsonld_errors": []
+  },
+  {
+    "page": "blog",
+    "title": "Chiropractic &amp; Accident Recovery Resources | Align the Spine",
+    "canonical": "https://www.chirobackpain.com/blog",
+    "h1_count": 1,
+    "tel_link_present": true,
+    "img_missing_alt": 0,
+    "raw_html_kb": 54.7,
+    "jsonld_types": ["BreadcrumbList"],
+    "jsonld_errors": []
+  },
+  {
+    "page": "book-an-appointment",
+    "title": "Request a Chiropractic Appointment | Deerfield Beach, FL | Align the Spine",
+    "canonical": "https://www.chirobackpain.com/book-an-appointment",
+    "h1_count": 1,
+    "tel_link_present": true,
+    "img_missing_alt": 0,
+    "raw_html_kb": 98.8,
+    "jsonld_types": ["BreadcrumbList", "FAQPage"],
+    "jsonld_errors": []
+  },
+  {
+    "page": "car-accident-chiropractor",
+    "title": "Car Accident Chiropractor in Deerfield Beach, FL | Align the Spine",
+    "canonical": "https://www.chirobackpain.com/car-accident-chiropractor",
+    "h1_count": 1,
+    "tel_link_present": true,
+    "img_missing_alt": 0,
+    "raw_html_kb": 208.3,
+    "jsonld_types": ["BreadcrumbList", "Service", "MedicalWebPage", "BreadcrumbList", "FAQPage"],
+    "jsonld_errors": []
+  },
+  {
+    "page": "conditions-back-pain",
+    "title": "Back Pain Chiropractor in Deerfield Beach, FL | Align the Spine",
+    "canonical": "https://www.chirobackpain.com/conditions/back-pain",
+    "h1_count": 1,
+    "tel_link_present": true,
+    "img_missing_alt": 0,
+    "raw_html_kb": 254.3,
+    "jsonld_types": ["BreadcrumbList", "FAQPage"],
+    "jsonld_errors": []
+  },
+  {
+    "page": "conditions-neck-pain",
+    "title": "Neck Pain Chiropractor in Deerfield Beach, FL | Align the Spine",
+    "canonical": "https://www.chirobackpain.com/conditions/neck-pain",
+    "h1_count": 1,
+    "tel_link_present": true,
+    "img_missing_alt": 0,
+    "raw_html_kb": 250.1,
+    "jsonld_types": ["BreadcrumbList", "FAQPage"],
+    "jsonld_errors": []
+  },
+  {
+    "page": "conditions-sciatica",
+    "title": "Sciatica Chiropractor in Deerfield Beach, FL | Align the Spine",
+    "canonical": "https://www.chirobackpain.com/conditions/sciatica",
+    "h1_count": 1,
+    "tel_link_present": true,
+    "img_missing_alt": 0,
+    "raw_html_kb": 246.4,
+    "jsonld_types": ["BreadcrumbList", "BreadcrumbList", "FAQPage"],
+    "jsonld_errors": []
+  },
+  {
+    "page": "conditions-whiplash",
+    "title": "Whiplash Chiropractor in Deerfield Beach, FL | Align the Spine",
+    "canonical": "https://www.chirobackpain.com/conditions/whiplash",
+    "h1_count": 1,
+    "tel_link_present": true,
+    "img_missing_alt": 0,
+    "raw_html_kb": 252.3,
+    "jsonld_types": ["BreadcrumbList", "BreadcrumbList", "FAQPage"],
+    "jsonld_errors": []
+  },
+  {
+    "page": "home",
+    "title": "Chiropractor in Deerfield Beach, FL | Align the Spine",
+    "canonical": "https://www.chirobackpain.com",
+    "h1_count": 1,
+    "tel_link_present": true,
+    "img_missing_alt": 0,
+    "raw_html_kb": 176.3,
+    "jsonld_types": ["Organization", "WebSite", "MedicalBusiness"],
+    "jsonld_errors": []
+  },
+  {
+    "page": "reviews",
+    "title": "Patient Reviews | Deerfield Beach, FL | Align the Spine",
+    "canonical": "https://www.chirobackpain.com/reviews",
+    "h1_count": 1,
+    "tel_link_present": true,
+    "img_missing_alt": 0,
+    "raw_html_kb": 110.6,
+    "jsonld_types": ["BreadcrumbList"],
+    "jsonld_errors": []
+  },
+  {
+    "page": "service-areas-boca-raton",
+    "title": "Mobile Auto Injury Chiropractor in Boca Raton, FL",
+    "canonical": "https://www.chirobackpain.com/service-areas/boca-raton",
+    "h1_count": 1,
+    "tel_link_present": true,
+    "img_missing_alt": 0,
+    "raw_html_kb": 110.2,
+    "jsonld_types": ["BreadcrumbList", "Service", "MedicalWebPage", "FAQPage"],
+    "jsonld_errors": []
+  },
+  {
+    "page": "service-areas-miami",
+    "title": "Mobile Auto Injury Chiropractor in Miami, FL",
+    "canonical": "https://www.chirobackpain.com/service-areas/miami",
+    "h1_count": 1,
+    "tel_link_present": true,
+    "img_missing_alt": 0,
+    "raw_html_kb": 113.5,
+    "jsonld_types": ["BreadcrumbList", "Service", "MedicalWebPage", "FAQPage"],
+    "jsonld_errors": []
+  },
+  {
+    "page": "service-areas",
+    "title": "Chiropractic Service Areas Near Deerfield Beach, FL | Align the Spine",
+    "canonical": "https://www.chirobackpain.com/service-areas",
+    "h1_count": 1,
+    "tel_link_present": true,
+    "img_missing_alt": 0,
+    "raw_html_kb": 114.3,
+    "jsonld_types": ["MedicalBusiness", "BreadcrumbList"],
+    "jsonld_errors": []
+  },
+  {
+    "page": "services-chiropractic-adjustments",
+    "title": "Chiropractic Adjustments in Deerfield Beach, FL | Align the Spine",
+    "canonical": "https://www.chirobackpain.com/services/chiropractic-adjustments",
+    "h1_count": 1,
+    "tel_link_present": true,
+    "img_missing_alt": 0,
+    "raw_html_kb": 195.4,
+    "jsonld_types": ["BreadcrumbList", "Service", "BreadcrumbList", "FAQPage"],
+    "jsonld_errors": []
+  },
+  {
+    "page": "services",
+    "title": "Chiropractic Services in Deerfield Beach, FL | Align the Spine",
+    "canonical": "https://www.chirobackpain.com/services",
+    "h1_count": 1,
+    "tel_link_present": true,
+    "img_missing_alt": 0,
+    "raw_html_kb": 187.6,
+    "jsonld_types": [
+      "Service",
+      "Service",
+      "Service",
+      "Service",
+      "Service",
+      "Service",
+      "Service",
+      "Service",
+      "BreadcrumbList"
+    ],
+    "jsonld_errors": []
+  }
+]

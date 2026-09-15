@@ -1,0 +1,176 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalBusiness",
+    "@id": "https://www.chirobackpain.com/#business",
+    "name": "Align the Spine Chiropractic",
+    "url": "https://www.chirobackpain.com",
+    "telephone": "954-282-1801",
+    "email": "info@chirobackpain.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "811 SE 8th Ave, Ste 101",
+      "addressLocality": "Deerfield Beach",
+      "addressRegion": "FL",
+      "postalCode": "33441",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 26.3067873,
+      "longitude": -80.0944778
+    },
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "Deerfield Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Lighthouse Point"
+      },
+      {
+        "@type": "City",
+        "name": "Pompano Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Fort Lauderdale"
+      },
+      {
+        "@type": "City",
+        "name": "Hollywood"
+      },
+      {
+        "@type": "City",
+        "name": "Pembroke Pines"
+      },
+      {
+        "@type": "City",
+        "name": "Davie"
+      },
+      {
+        "@type": "City",
+        "name": "Coral Springs"
+      },
+      {
+        "@type": "City",
+        "name": "Coconut Creek"
+      },
+      {
+        "@type": "City",
+        "name": "Margate"
+      },
+      {
+        "@type": "City",
+        "name": "Sunrise"
+      },
+      {
+        "@type": "City",
+        "name": "Tamarac"
+      },
+      {
+        "@type": "City",
+        "name": "Miami"
+      },
+      {
+        "@type": "City",
+        "name": "Hialeah"
+      },
+      {
+        "@type": "City",
+        "name": "Miami Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Miami Gardens"
+      },
+      {
+        "@type": "City",
+        "name": "West Palm Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Boca Raton"
+      },
+      {
+        "@type": "City",
+        "name": "Delray Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Boynton Beach"
+      }
+    ],
+    "parentOrganization": {
+      "@id": "https://www.chirobackpain.com/#organization"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Monday",
+        "opens": "08:00",
+        "closes": "21:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Tuesday",
+        "opens": "08:00",
+        "closes": "21:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Wednesday",
+        "opens": "08:00",
+        "closes": "21:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Thursday",
+        "opens": "08:00",
+        "closes": "21:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Friday",
+        "opens": "08:00",
+        "closes": "21:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Saturday",
+        "opens": "08:00",
+        "closes": "21:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Sunday",
+        "opens": "08:00",
+        "closes": "21:00"
+      }
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 5,
+      "reviewCount": 164
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.chirobackpain.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Service areas",
+        "item": "https://www.chirobackpain.com/service-areas"
+      }
+    ]
+  }
+]
