@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
 import { ChevronDownIcon } from "@/components/ui/icons/chevron-down";
 import { siteConfig, type NavLink as NavLinkConfig } from "@/content/site";
@@ -32,6 +32,7 @@ const GRID_THRESHOLD = 4;
  * panel is an additional way in, not the only one. */
 export function NavbarDropdown({ link }: { link: NavLinkConfig }) {
   const pathname = usePathname();
+  const reduceMotion = Boolean(useReducedMotion());
   const [open, setOpen] = useState(false);
   const [activeHref, setActiveHref] = useState(link.menu?.[0]?.href);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -88,7 +89,7 @@ export function NavbarDropdown({ link }: { link: NavLinkConfig }) {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
-            transition={{ duration: 0.18, ease: "easeOut" }}
+            transition={reduceMotion ? { duration: 0 } : { duration: 0.18, ease: "easeOut" }}
             className={`absolute left-1/2 top-full -translate-x-1/2 pt-3 ${
               useGrid ? "w-[min(94vw,44rem)]" : "w-[min(94vw,50rem)]"
             }`}
@@ -139,7 +140,9 @@ export function NavbarDropdown({ link }: { link: NavLinkConfig }) {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        transition={
+                          reduceMotion ? { duration: 0 } : { duration: 0.2, ease: "easeOut" }
+                        }
                         className="absolute inset-0"
                       >
                         <Image

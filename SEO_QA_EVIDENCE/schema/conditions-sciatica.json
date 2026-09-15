@@ -1,0 +1,76 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.chirobackpain.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Sciatica",
+        "item": "https://www.chirobackpain.com/conditions/sciatica"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.chirobackpain.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Sciatica",
+        "item": "https://www.chirobackpain.com/conditions/sciatica"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can a car accident cause sciatica?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A car accident can aggravate the lower back and may contribute to sciatic nerve symptoms, but an exam is needed to identify likely causes. Mention the collision and symptom timing during your evaluation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is sciatica different from regular lower back pain?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Regular lower back pain stays in the lower back. Sciatica radiates \u2014 it travels down through the buttock and leg because a nerve root itself is compressed, not just the surrounding muscle or joint."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will I need surgery for a herniated disc?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Not necessarily. Many people begin with clinician-directed conservative care, but progressive weakness, severe symptoms, or certain exam findings can require prompt medical or surgical evaluation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does sciatica usually take to improve?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Timing varies with the cause and severity. A muscular flare may improve differently from symptoms involving a disc or nerve, so Dr. Abe reassesses progress and adjusts the plan as needed."
+        }
+      }
+    ]
+  }
+]

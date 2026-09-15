@@ -1,0 +1,32 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": "https://www.chirobackpain.com/about#dr-abe",
+    "name": "Dr. Abe Nasser",
+    "url": "https://www.chirobackpain.com/about",
+    "image": "https://www.chirobackpain.com/figma-exports/portrait.png",
+    "jobTitle": "Chiropractor",
+    "worksFor": {
+      "@id": "https://www.chirobackpain.com/#business"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.chirobackpain.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "About",
+        "item": "https://www.chirobackpain.com/about"
+      }
+    ]
+  }
+]

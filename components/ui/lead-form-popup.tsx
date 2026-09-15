@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useId, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 
 import { CloseIcon } from "@/components/ui/icons/close";
@@ -8,6 +8,7 @@ import { LeadForm } from "@/components/ui/lead-form";
 import { esLeadFormVariants } from "@/content/es/lead-forms";
 import { DEFAULT_LOCALE, type Locale } from "@/content/i18n";
 import { leadFormVariants, type LeadFormVariant } from "@/content/lead-forms";
+import { registerOverlayClosed, registerOverlayOpen } from "@/lib/ui/overlay-open-store";
 
 export interface LeadFormPopupProps {
   /** The trigger's own contents — callers keep their existing pill/button
@@ -40,6 +41,7 @@ export function LeadFormPopup({
   locale = DEFAULT_LOCALE,
 }: LeadFormPopupProps) {
   const [open, setOpen] = useState(false);
+  const overlayId = useId();
 
   useEffect(() => {
     if (!open) return;
@@ -49,11 +51,15 @@ export function LeadFormPopup({
       if (event.key === "Escape") setOpen(false);
     };
     window.addEventListener("keydown", onKeyDown);
+    // Lets MobileConversionBar (ATS-SEO-093) hide itself instead of
+    // stacking a second competing CTA behind this dialog.
+    registerOverlayOpen(overlayId);
     return () => {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", onKeyDown);
+      registerOverlayClosed(overlayId);
     };
-  }, [open]);
+  }, [open, overlayId]);
 
   // The Spanish presets carry the same variant keys and field names as the
   // English ones (see content/es/lead-forms.ts), so /api/lead validates a

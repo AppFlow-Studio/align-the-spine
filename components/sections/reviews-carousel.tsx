@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState, type KeyboardEvent } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
 import { ArrowButton } from "@/components/ui/arrow-button";
@@ -15,12 +15,56 @@ import { highlightReviewKeywords } from "@/lib/highlight-review-keywords";
 export interface ReviewsCarouselProps {
   reviews: Testimonial[];
   className?: string;
-  /** Language this carousel renders in. On "es" each review shows its
-   * Spanish translation (content/testimonials.ts's `quoteEs`) marked
-   * `lang="es-US"`, with a visible "traducidas del inglés" note — falling
-   * back to the untouched English original where no translation exists. */
+  /** Language this carousel renders in. On "es"/"pt"/"ht" each review shows
+   * its translation (content/testimonials.ts's `quoteEs`/`quotePt`/`quoteHt`)
+   * marked with the matching `lang` tag, falling back to the untouched
+   * English original where no translation exists. */
   locale?: Locale;
 }
+
+/** "Google review" source label under each card — ATS-SEO-070 follow-up:
+ * this was hardcoded English regardless of `locale` (the prop only ever
+ * reached resolveTestimonialQuote()), unlike the equivalent label in
+ * patient-reviews.tsx's own COPY map. */
+const GOOGLE_REVIEW_LABEL: Record<Locale, string> = {
+  en: "Google review",
+  es: "Reseña de Google",
+  pt: "Avaliação do Google",
+  ht: "Kòmantè Google",
+};
+
+/** Carousel control labels — previously hardcoded English regardless of
+ * `locale` (ATS-SEO-124 review finding), same gap GOOGLE_REVIEW_LABEL above
+ * already existed to fix for the source label. */
+const CAROUSEL_LABELS: Record<
+  Locale,
+  { previous: string; next: string; tablist: string; showReview: (n: number) => string }
+> = {
+  en: {
+    previous: "Previous review",
+    next: "Next review",
+    tablist: "Reviews",
+    showReview: (n) => `Show review ${n}`,
+  },
+  es: {
+    previous: "Reseña anterior",
+    next: "Siguiente reseña",
+    tablist: "Reseñas",
+    showReview: (n) => `Mostrar reseña ${n}`,
+  },
+  pt: {
+    previous: "Avaliação anterior",
+    next: "Próxima avaliação",
+    tablist: "Avaliações",
+    showReview: (n) => `Mostrar avaliação ${n}`,
+  },
+  ht: {
+    previous: "Kòmantè anvan",
+    next: "Kòmantè apre",
+    tablist: "Kòmantè",
+    showReview: (n) => `Montre kòmantè ${n}`,
+  },
+};
 
 const AUTO_ADVANCE_MS = 6500;
 const SWIPE_THRESHOLD_PX = 60;
@@ -51,6 +95,8 @@ function ReviewCard({
   draggable,
   onDragEnd,
   locale,
+  id,
+  labelledBy,
 }: {
   review: Testimonial;
   offset: number;
@@ -58,6 +104,11 @@ function ReviewCard({
   draggable: boolean;
   onDragEnd: (offsetX: number) => void;
   locale: Locale;
+  /** Own id + the id of the tab that selects this card — completes the
+   * tablist/tab/tabpanel relationship (ATS-SEO-124 review finding: role="tab"
+   * below had no matching tabpanel to point `aria-controls` at). */
+  id: string;
+  labelledBy: string;
 }) {
   const isCenter = offset === 0;
   const isAdjacent = Math.abs(offset) === 1;
@@ -85,6 +136,9 @@ function ReviewCard({
       dragConstraints={{ left: 0, right: 0 }}
       dragElastic={0.15}
       onDragEnd={(_event, info) => onDragEnd(info.offset.x)}
+      role="tabpanel"
+      id={id}
+      aria-labelledby={labelledBy}
       aria-hidden={!isCenter}
     >
       <QuoteIcon
@@ -105,7 +159,7 @@ function ReviewCard({
       <span className="inline-flex items-center gap-2 font-sans text-stat-label uppercase tracking-wide text-mute-300">
         {review.author}
         <GoogleIcon className="h-4 w-4" />
-        Google review
+        {GOOGLE_REVIEW_LABEL[locale]}
       </span>
     </motion.div>
   );
@@ -127,6 +181,8 @@ export function ReviewsCarousel({
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const reduceMotion = Boolean(useReducedMotion());
+  const baseId = useId();
+  const labels = CAROUSEL_LABELS[locale];
 
   useEffect(() => {
     if (reviews.length <= 1 || paused || reduceMotion) return;
@@ -140,6 +196,24 @@ export function ReviewsCarousel({
 
   function goTo(next: number) {
     setIndex((next + reviews.length) % reviews.length);
+  }
+
+  // APG tabs pattern: arrow keys move both selection and focus among tabs
+  // (automatic activation fits a carousel — there's no separate "confirm"
+  // step). Wraps at both ends, matching goTo()'s own modulo wraparound.
+  function onTabKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
+    let next: number | null = null;
+    if (event.key === "ArrowRight") next = index + 1;
+    else if (event.key === "ArrowLeft") next = index - 1;
+    else if (event.key === "Home") next = 0;
+    else if (event.key === "End") next = reviews.length - 1;
+    if (next === null) return;
+    event.preventDefault();
+    goTo(next);
+    const normalized = (next + reviews.length) % reviews.length;
+    const tabs =
+      event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('[role="tab"]');
+    tabs?.[normalized]?.focus();
   }
 
   return (
@@ -170,6 +244,8 @@ export function ReviewsCarousel({
               else if (offsetX > SWIPE_THRESHOLD_PX) goTo(index - 1);
             }}
             locale={locale}
+            id={`${baseId}-panel-${i}`}
+            labelledBy={`${baseId}-tab-${i}`}
           />
         ))}
       </div>
@@ -177,21 +253,25 @@ export function ReviewsCarousel({
       {reviews.length > 1 && (
         <div className="mt-8 flex items-center justify-center gap-6">
           <ArrowButton
-            label="Previous review"
+            label={labels.previous}
             size="sm"
             onClick={() => goTo(index - 1)}
             className="[&_svg]:rotate-180"
           />
 
-          <div className="flex items-center gap-2" role="tablist" aria-label="Reviews">
+          <div className="flex items-center gap-2" role="tablist" aria-label={labels.tablist}>
             {reviews.map((_, i) => (
               <button
                 key={i}
+                id={`${baseId}-tab-${i}`}
                 type="button"
                 role="tab"
                 aria-selected={i === index}
-                aria-label={`Show review ${i + 1}`}
+                aria-controls={`${baseId}-panel-${i}`}
+                aria-label={labels.showReview(i + 1)}
+                tabIndex={i === index ? 0 : -1}
                 onClick={() => goTo(i)}
+                onKeyDown={onTabKeyDown}
                 className={cn(
                   "h-2 rounded-full transition-all duration-300",
                   "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500",
@@ -201,7 +281,7 @@ export function ReviewsCarousel({
             ))}
           </div>
 
-          <ArrowButton label="Next review" size="sm" onClick={() => goTo(index + 1)} />
+          <ArrowButton label={labels.next} size="sm" onClick={() => goTo(index + 1)} />
         </div>
       )}
     </div>

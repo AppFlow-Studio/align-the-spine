@@ -25,9 +25,13 @@ export interface ServiceCardProps {
 /** Fallback CTA label when an item declares no `ctaLabel` of its own.
  * pt/ht reuse this site's established main booking-CTA wording (see
  * content/pt/chrome.ts's ptBookingCta and content/ht/chrome.ts's
- * htBookingCta) rather than a fresh translation. */
+ * htBookingCta) rather than a fresh translation. `en` matches
+ * siteConfig.bookingCta.label (ATS-SEO-073: was "Book now", which
+ * overstated a live-scheduling system the site doesn't have — this points
+ * at the same /book-an-appointment lead-request form as every other
+ * locale's already-honest "request" wording). */
 const DEFAULT_CTA_LABEL: Record<Locale, string> = {
-  en: "Book now",
+  en: "Request Appointment",
   es: "Solicitar cita",
   pt: "Solicitar Consulta",
   ht: "Mande Randevou",

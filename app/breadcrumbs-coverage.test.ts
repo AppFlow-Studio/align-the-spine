@@ -49,6 +49,24 @@ const NESTED_BREADCRUMB_ALLOWLIST = new Set([
   "/es/condiciones/dolor-de-cabeza-cervicogenico",
   "/es/condiciones/conmocion-cerebral",
   "/es/condiciones/dolor-de-mandibula-atm",
+  // Same situation for the seven Portuguese condition pages
+  // (components/sections/pt-condition-page.tsx) and seven Haitian Creole
+  // condition pages (components/sections/ht-condition-page.tsx) —
+  // ATS-SEO-070 follow-up.
+  "/pt/condicoes/dor-nas-costas",
+  "/pt/condicoes/dor-no-pescoco",
+  "/pt/condicoes/torcicolo-cervical",
+  "/pt/condicoes/ciatica",
+  "/pt/condicoes/dor-de-cabeca-cervicogenica",
+  "/pt/condicoes/concussao",
+  "/pt/condicoes/dor-na-mandibula-atm",
+  "/ht/kondisyon-nou-trete/doule-do",
+  "/ht/kondisyon-nou-trete/doule-kou",
+  "/ht/kondisyon-nou-trete/antos-kou",
+  "/ht/kondisyon-nou-trete/syatik",
+  "/ht/kondisyon-nou-trete/tet-fe-mal-sevikojenik",
+  "/ht/kondisyon-nou-trete/konmosyon-serebral",
+  "/ht/kondisyon-nou-trete/doule-machwa-atm",
 ]);
 
 function collectPageFiles(dir: string, routePath = ""): { route: string; file: string }[] {

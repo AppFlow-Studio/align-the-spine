@@ -3,7 +3,6 @@ import dynamic from "next/dynamic";
 
 import { LocationFooter } from "@/components/layout/location-footer";
 import { LocationIntro } from "@/components/layout/location-intro";
-import { AccidentInjuries } from "@/components/sections/accident-injuries";
 import { ContactSection } from "@/components/sections/contact-section";
 import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel";
@@ -12,6 +11,9 @@ import { PatientReviews } from "@/components/sections/patient-reviews";
 import { ServicesSection } from "@/components/sections/services-section";
 import { WhyChoose } from "@/components/sections/why-choose";
 import { PracticeJsonLd } from "@/components/seo/practice-json-ld";
+import { Button } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
+import { Section } from "@/components/ui/section";
 import { doctorProfileContent } from "@/content/doctor-profile";
 import { leadFormVariants } from "@/content/lead-forms";
 import { getRoute } from "@/content/seo";
@@ -32,9 +34,10 @@ export const metadata: Metadata = buildMetadata(getRoute(""));
 /** / (Home) page assembly (ATS-071) per the homepage-1-col artboard:
  * HeroSolidPanel → ServiceGrid/ListRow → WhyChoose/SpineOverview (static "Understanding
  * the spine" diagram — condition pages keep the interactive PointToWhereItHurts
- * hotspot version) → DoctorBio → accident-injury grid → patient reviews →
- * FAQ/CTA bands → contact LeadForm → LocationIntro/LocationFooter (shared with
- * Services/About/Book — see app/book/page.tsx).
+ * hotspot version) → DoctorBio → "Injured in a car accident?" CTA band (ATS-SEO-125 —
+ * a summary/link, not the full accident-injuries treatment /car-accident-chiropractor
+ * owns) → patient reviews → FAQ/CTA bands → contact LeadForm →
+ * LocationIntro/LocationFooter (shared with Services/About/Book — see app/book/page.tsx).
  *
  * ATS-SEO-050: H1 previously led with the brand name ("Align the Spine /
  * Deerfield Beach / Chiropractor") while the <title> tag
@@ -75,7 +78,31 @@ export default function Home() {
       <HeroReviewsCarousel testimonials={heroReviewsCarousel} />
       <ServicesSection />
       <WhyChoose content={whyChooseContent} />
-      <AccidentInjuries />
+      {/* ATS-SEO-125: this used to be a full <AccidentInjuries /> grid —
+       * the exact same heading, eyebrow, and six injury cards
+       * /car-accident-chiropractor renders in full. That page owns
+       * accident-specific intent; duplicating its whole treatment here
+       * competed with it for the same queries (see content/seo.ts's
+       * "KNOWN GAP" comment on this route, now resolved). This keeps the
+       * homepage's own required "Injured in a car accident?" path
+       * prominent — a CTA band, not the full section — and sends anyone
+       * who needs the full treatment to the page that owns it. */}
+      <Section spacing="none" className="bg-navy-900">
+        <Container className="flex flex-col gap-6 py-8 sm:flex-row sm:items-center sm:justify-between sm:py-14">
+          <div className="flex flex-col gap-2">
+            <h2 className="font-display text-h2 text-white font-normal">
+              Injured in a car accident?
+            </h2>
+            <p className="font-sans text-body-lg text-mute-300 sm:w-[65%]">
+              We evaluate whiplash, neck and back pain, and other collision injuries, with
+              documentation for PIP insurance when eligible.
+            </p>
+          </div>
+          <Button variant="teal" href="/car-accident-chiropractor" className="w-fit shrink-0">
+            See Car Accident Care
+          </Button>
+        </Container>
+      </Section>
       <SpineOverview content={spineOverviewContent} />
       <DoctorProfile variant="short" content={doctorProfileContent} />
       {/* slice(1, 4), not (0, 3): homeFeaturedTestimonial is homeReviews[0]

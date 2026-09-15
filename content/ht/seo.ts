@@ -11,13 +11,15 @@ import { siteConfig } from "@/content/site";
  * drift. content/i18n.test.ts asserts every path here is registered as the
  * `ht` half of a pair in content/i18n.ts (and vice versa).
  *
- * Scope (ATS-SEO-136): the same 9 routes ATS-SEO-135 built for
- * Portuguese — the ones actually published in both English and Spanish
- * today: home, car-accident hub, services hub, about, reviews, contact,
- * book-an-appointment, conditions hub, service-areas hub. The draft
- * condition/service pages and the 19 service-area city pages are
- * deliberately NOT built here — see docs/multilingual-seo-baseline.md's
- * page-family strategy.
+ * Scope: originally the same 9 routes ATS-SEO-135 built for Portuguese —
+ * the ones published in both English and Spanish: home, car-accident hub,
+ * services hub, about, reviews, contact, book-an-appointment, conditions
+ * hub, service-areas hub. Extended to include the seven condition pages and
+ * four service pages mirroring Spanish/Portuguese's own `status: "draft"`
+ * set (ATS-SEO-070 follow-up), now that real Haitian Creole content exists
+ * for them — see content/ht/conditions.ts and content/ht/services-pages.ts.
+ * The 19 service-area city pages remain deliberately NOT built here — see
+ * docs/multilingual-seo-baseline.md's page-family strategy.
  *
  * SEARCH-VOLUME EVIDENCE: all 6 Ahrefs seed terms for Haitian Creole
  * returned zero measurable volume/KD/CPC data — see
@@ -89,7 +91,7 @@ export const htRoutes: RouteMeta[] = [
     lastModified: "2026-09-02",
     primaryQuery: "Haitian Creole-language general-care services hub",
     justification:
-      "Owns 'sèvis kiwopratik Deerfield Beach' hub intent in Haitian Creole. Individual service pages are not built yet (English/Spanish/Portuguese originals are still draft), so nothing under it competes with it.",
+      "Owns 'sèvis kiwopratik Deerfield Beach' hub intent in Haitian Creole, and now links onward to the four real (draft) Haitian Creole service pages under it.",
   },
   {
     path: "/ht/dr-abe-nasser",
@@ -169,7 +171,7 @@ export const htRoutes: RouteMeta[] = [
     lastModified: "2026-09-02",
     primaryQuery: "Haitian Creole-language conditions overview hub",
     justification:
-      "Owns the conditions-directory intent in Haitian Creole. Individual condition pages are not built yet (English/Spanish/Portuguese originals still draft), so this hub currently links onward primarily to the accident and services pages instead.",
+      "Owns the conditions-directory intent in Haitian Creole, and now links onward to the seven real (draft) Haitian Creole condition pages under it.",
   },
   {
     path: "/ht/zon-nou-sevi",
@@ -186,6 +188,201 @@ export const htRoutes: RouteMeta[] = [
     primaryQuery: "Haitian Creole-language nearby-city service-area coverage index",
     justification:
       "Owns the service-area-coverage query in Haitian Creole, states the one-office truth plainly. No individual HT city pages exist yet — see this file's header comment.",
+  },
+  // ── Condition pages ──────────────────────────────────────────────────
+  // All seven are `status: "draft"`, mirroring their English/Spanish/
+  // Portuguese originals: real, finished pages awaiting clinician review of
+  // their medical content. Served noindex and kept out of the sitemap, but
+  // reachable and linkable from the Haitian Creole nav.
+  {
+    path: "/ht/kondisyon-nou-trete/doule-do",
+    title: `Kiwopratè pou Doulè Do nan Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    description:
+      "Evalyasyon kiwopratik pou doulè nan pati anba do a, rèd, ak doulè ki ka gaye nan ranch la oswa janm nan, ki gen ladan sentòm apre yon aksidan machin.",
+    image: {
+      src: "/figma-exports/drabe-backpain-front.png",
+      alt: "Tretman manyèl tisi mou nan pati anba do a",
+    },
+    changeFrequency: "monthly",
+    priority: 0.8,
+    lastModified: "2026-09-09",
+    status: "draft",
+    primaryQuery: "Haitian Creole-language back pain condition intent",
+    justification:
+      "Owns 'doulè do kiwopratè Deerfield Beach'. Distinct from the sciatica page, which owns radiating leg pain. Draft until the English original clears clinician review.",
+  },
+  {
+    path: "/ht/kondisyon-nou-trete/doule-kou",
+    title: `Kiwopratè pou Doulè Kou nan Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    description:
+      "Evalyasyon kiwopratik pou doulè kou, rèd, ak mobilite limite, ki gen ladan doulè ki kòmanse apre yon aksidan machin oswa yon antòs kou.",
+    image: {
+      src: "/figma-exports/dr-abe-neck.png",
+      alt: "Dr. Abe Nasser ap evalye kou yon pasyan",
+    },
+    changeFrequency: "monthly",
+    priority: 0.8,
+    lastModified: "2026-09-09",
+    status: "draft",
+    primaryQuery: "Haitian Creole-language neck pain condition intent",
+    justification:
+      "Owns 'doulè kou kiwopratè Deerfield Beach'. Distinct from the whiplash page, which owns the collision-injury framing. Draft until the English original clears review.",
+  },
+  {
+    path: "/ht/kondisyon-nou-trete/syatik",
+    title: `Kiwopratè pou Syatik nan Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    description:
+      "Evalyasyon ak tretman ki fokis sou dekonpresyon pou doulè syatik ak doulè nève ki gaye, ak vizit lakay lè sa apwopriye pou ka ou a.",
+    image: {
+      src: "/figma-exports/drabe-backpain-front.png",
+      alt: "Dr. Abe ap evalye yon pasyan pou syatik",
+    },
+    changeFrequency: "monthly",
+    priority: 0.8,
+    lastModified: "2026-09-09",
+    status: "draft",
+    primaryQuery: "Haitian Creole-language sciatica condition intent",
+    justification:
+      "Owns 'syatik kiwopratè Deerfield Beach' — radiating nerve pain, distinct from the back-pain page's localized intent. Draft until the English original clears review.",
+  },
+  {
+    path: "/ht/kondisyon-nou-trete/antos-kou",
+    title: `Kiwopratè pou Antòs Kou nan Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    description:
+      "Antòs kou se yon blesi nan kou ki koze pa yon mouvman sibitman, komen nan kolizyon dèyè. Evalyasyon rèd, mobilite limite, ak tèt fè mal.",
+    image: {
+      src: "/figma-exports/drabe-whiplash-man.png",
+      alt: "Dr. Abe ap trete yon pasyan pou antòs kou",
+    },
+    changeFrequency: "monthly",
+    priority: 0.8,
+    lastModified: "2026-09-09",
+    status: "draft",
+    primaryQuery: "Haitian Creole-language whiplash condition intent",
+    justification:
+      "Owns 'antòs kou kiwopratè' collision-injury intent, distinct from the general neck-pain page. Draft until the English original clears review.",
+  },
+  {
+    path: "/ht/kondisyon-nou-trete/tet-fe-mal-sevikojenik",
+    title: `Kiwopratè pou Tèt Fè Mal Sèvikojenik | Deerfield Beach | ${siteConfig.business.shortName}`,
+    description:
+      "Tèt fè mal sèvikojenik se yon doulè ki soti nan kou a. Evalyasyon mobilite sèvikal ak lòt faktè miskilo-eskeletik anvan yo rekòmande swen.",
+    image: {
+      src: "/figma-exports/drabe-headache.png",
+      alt: "Evalyasyon tansyon sèvikal ki gen rapò ak tèt fè mal",
+    },
+    changeFrequency: "monthly",
+    priority: 0.8,
+    lastModified: "2026-09-09",
+    status: "draft",
+    primaryQuery: "Haitian Creole-language cervicogenic headache condition intent",
+    justification:
+      "Owns 'tèt fè mal ki soti nan kou' intent in Haitian Creole, distinct from both the neck-pain and concussion pages. Draft until the English original clears review.",
+  },
+  {
+    path: "/ht/kondisyon-nou-trete/konmosyon-serebral",
+    title: `Sentòm Konmosyon Serebral Apre yon Aksidan Machin | ${siteConfig.business.shortName}`,
+    description:
+      "Yon konmosyon serebral se yon blesi serebral tramatik lejè ki bezwen evalyasyon medikal. Swen kiwopratik pa ranplase yon evalyasyon ijans oswa nerolojik.",
+    image: {
+      src: "/figma-exports/drabe-headache.png",
+      alt: "Dr. Abe ap evalye yon pasyan apre yon aksidan",
+    },
+    changeFrequency: "monthly",
+    priority: 0.8,
+    lastModified: "2026-09-09",
+    status: "draft",
+    primaryQuery: "Haitian Creole-language concussion-after-accident informational intent",
+    justification:
+      "Owns post-accident concussion symptom queries in Haitian Creole. Informational and safety-first by design — routes readers to medical evaluation rather than booking. Draft until the English original clears review.",
+  },
+  {
+    path: "/ht/kondisyon-nou-trete/doule-machwa-atm",
+    title: `Kiwopratè pou ATM ak Doulè Machwa | Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    description:
+      "Evalyasyon mouvman jwenti machwa a, tansyon miskilè ozanviwon li, ak faktè sèvikal yo anvan yo deside si swen kiwopratik apwopriye.",
+    image: {
+      src: "/figma-exports/drabe-headache.png",
+      alt: "Dr. Abe ap evalye machwa yon pasyan",
+    },
+    changeFrequency: "monthly",
+    priority: 0.7,
+    lastModified: "2026-09-09",
+    status: "draft",
+    primaryQuery: "Haitian Creole-language TMJ/jaw pain condition intent",
+    justification:
+      "Owns 'doulè machwa ATM' intent in Haitian Creole, distinct from the cervicogenic-headache page it commonly co-occurs with. Draft until the English original clears review.",
+  },
+  // ── Service pages ─────────────────────────────────────────────────────
+  // All four are `status: "draft"`, mirroring their English/Spanish/
+  // Portuguese originals: they carry clinical guidance that hasn't had a
+  // clinician's sign-off, so they're served noindex and kept out of the
+  // sitemap while remaining reachable (and linkable from the Haitian Creole
+  // nav) by direct URL.
+  {
+    path: "/ht/sevis/ajisteman-kiwopratik",
+    title: `Ajisteman Kiwopratik nan Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    description:
+      "Ajisteman kiwopratik nan Deerfield Beach: presyon kontwole pou amelyore mouvman jwenti nan kou a, mitan do a, oswa pati anba do a, apre yon evalyasyon.",
+    image: {
+      src: "/figma-exports/adjustments-hero.png",
+      alt: "Sal tretman ki prepare pou yon ajisteman kiwopratik",
+    },
+    changeFrequency: "monthly",
+    priority: 0.7,
+    lastModified: "2026-09-09",
+    status: "draft",
+    primaryQuery: "Haitian Creole-language chiropractic adjustment treatment intent",
+    justification:
+      "Owns 'ajisteman kiwopratik Deerfield Beach' treatment intent in Haitian Creole. Draft until the English original clears clinician review; hreflang alternate of /services/chiropractic-adjustments.",
+  },
+  {
+    path: "/ht/sevis/dekonpresyon-kolon",
+    title: `Dekonpresyon Kolòn nan Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    description:
+      "Dekonpresyon kolòn ki pa chirijikal nan Deerfield Beach: traksyon kontwole pou diminye presyon sou disk ak jwenti yo, lè evalyasyon an endike.",
+    image: {
+      src: "/figma-exports/spinal-decompression-hero.png",
+      alt: "Sal tretman ki prepare pou terapi dekonpresyon kolòn",
+    },
+    changeFrequency: "monthly",
+    priority: 0.7,
+    lastModified: "2026-09-09",
+    status: "draft",
+    primaryQuery: "Haitian Creole-language spinal decompression treatment intent",
+    justification:
+      "Owns 'dekonpresyon kolòn Deerfield Beach' intent in Haitian Creole, distinct from the adjustment page's. Draft until the English original clears clinician review.",
+  },
+  {
+    path: "/ht/sevis/terapi-tisi-mou",
+    title: `Masaj ak Terapi Tisi Mou | Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    description:
+      "Terapi tisi mou nan Deerfield Beach: libète myofasyal, teknik Graston, ak tisi fon pou tansyon miskilè ak doulè apre yon blesi.",
+    image: {
+      src: "/figma-exports/massage-soft-tissue-hero.png",
+      alt: "Sal tretman masaj ak terapi tisi mou",
+    },
+    changeFrequency: "monthly",
+    priority: 0.7,
+    lastModified: "2026-09-09",
+    status: "draft",
+    primaryQuery: "Haitian Creole-language soft-tissue therapy treatment intent",
+    justification:
+      "Owns 'terapi tisi mou / masaj kiwopratik' intent in Haitian Creole. Draft until the English original clears clinician review.",
+  },
+  {
+    path: "/ht/sevis/terapi-vantouz",
+    title: `Terapi Vantouz nan Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    description:
+      "Terapi vantouz nan Deerfield Beach: aspirasyon lokalize nan zòn tansyon miskilè seleksyone, itilize lè sa apwopriye ansanm ak yon evalyasyon kiwopratik.",
+    image: { src: "/figma-exports/cupping-drabe.png", alt: "Sesyon terapi vantouz" },
+    changeFrequency: "monthly",
+    priority: 0.6,
+    lastModified: "2026-09-09",
+    status: "draft",
+    primaryQuery: "Haitian Creole-language cupping therapy treatment intent",
+    justification:
+      "Owns 'terapi vantouz Deerfield Beach' intent in Haitian Creole — a single technique, distinct from the broader soft-tissue page. Draft until the English original clears clinician review.",
   },
 ];
 

@@ -56,7 +56,7 @@ export const sciaticaHowWeTreat: ConditionTreatmentItem[] = [
       alt: "Myofascial release and trigger point therapy with the Graston tool",
     },
     meta: "1 hr",
-    ctaLabel: "BOOK NOW",
+    ctaLabel: "REQUEST APPOINTMENT",
     ctaHref: siteConfig.bookingCta.href,
   },
   {
@@ -67,7 +67,7 @@ export const sciaticaHowWeTreat: ConditionTreatmentItem[] = [
       alt: "Dr. Abe performing a chiropractic adjustment",
     },
     meta: "1 hr",
-    ctaLabel: "BOOK NOW",
+    ctaLabel: "REQUEST APPOINTMENT",
     ctaHref: siteConfig.bookingCta.href,
   },
   {
@@ -78,7 +78,7 @@ export const sciaticaHowWeTreat: ConditionTreatmentItem[] = [
       alt: "Spinal traction and decompression therapy",
     },
     meta: "1 hr",
-    ctaLabel: "BOOK NOW",
+    ctaLabel: "REQUEST APPOINTMENT",
     ctaHref: siteConfig.bookingCta.href,
   },
   {

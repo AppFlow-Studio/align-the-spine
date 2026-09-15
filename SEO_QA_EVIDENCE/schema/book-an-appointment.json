@@ -1,0 +1,50 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.chirobackpain.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Book an Appointment",
+        "item": "https://www.chirobackpain.com/book-an-appointment"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Do you take walk-ins or same-day appointments?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We recommend booking ahead so we can hold time for a full exam \u2014 call the office and we'll do our best to find a time that works for you."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does PIP coverage work for my visit?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Florida PIP can cover care after an auto accident when treatment begins within 14 days. Call us and we'll walk through your coverage and what to expect before your first visit."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How far do you travel for home visits?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Home visits are offered based on your case and location. Call us and we'll let you know if you're in range."
+        }
+      }
+    ]
+  }
+]

@@ -1,3 +1,4 @@
+import { CITATIONS } from "@/content/citations";
 import type {
   ConditionAccident,
   ConditionFaq,
@@ -72,7 +73,7 @@ export const whiplashHowWeTreat: ConditionTreatmentItem[] = [
       alt: "Myofascial release and trigger point therapy with the Graston tool",
     },
     meta: "1 hr",
-    ctaLabel: "BOOK NOW",
+    ctaLabel: "REQUEST APPOINTMENT",
     ctaHref: siteConfig.bookingCta.href,
   },
   {
@@ -83,7 +84,7 @@ export const whiplashHowWeTreat: ConditionTreatmentItem[] = [
       alt: "Dr. Abe performing a chiropractic adjustment",
     },
     meta: "1 hr",
-    ctaLabel: "BOOK NOW",
+    ctaLabel: "REQUEST APPOINTMENT",
     ctaHref: siteConfig.bookingCta.href,
   },
   {
@@ -94,7 +95,7 @@ export const whiplashHowWeTreat: ConditionTreatmentItem[] = [
       alt: "Spinal traction and decompression therapy",
     },
     meta: "1 hr",
-    ctaLabel: "BOOK NOW",
+    ctaLabel: "REQUEST APPOINTMENT",
     ctaHref: siteConfig.bookingCta.href,
   },
   {
@@ -154,14 +155,14 @@ export const whiplashWarning: ConditionWarning = {
 
 export const whiplashAccident: ConditionAccident = {
   headline: "Florida gives you 14 days from the accident",
-  // ATS-SEO-055: added the statute citation for this page's central
-  // material PIP claim — the number itself (Fla. Stat. 627.736) is already
-  // used elsewhere in the codebase (content/site.ts, content/service-areas.ts's
-  // doc comments) but wasn't previously cited in any visible page copy;
-  // this ticket explicitly asks to cite material medical/PIP statements.
-  body: "Whiplash symptoms can build after the collision. Florida PIP generally requires initial services and care within 14 days of a motor vehicle accident (Fla. Stat. § 627.736); coverage depends on eligibility and policy terms.",
+  // ATS-SEO-070: statute citation is now a real, crawlable link (see
+  // CITATIONS.floridaPip14Day / CitationLink in AccidentBanner) instead of
+  // dead parenthetical text — replaces the ATS-SEO-055 version of this
+  // comment/citation, which predates the reusable citation primitive.
+  body: "Whiplash symptoms can build after the collision. Florida PIP generally requires initial services and care within 14 days of a motor vehicle accident. Coverage depends on eligibility and policy terms.",
   smallprint:
     "Coverage and payment depend on your policy, eligibility, medical necessity, and the circumstances of your claim.",
+  citations: [CITATIONS.floridaPip14Day],
 };
 
 // Plain path config — see whiplashRelatedMidPageConfig's doc comment above.
@@ -192,6 +193,14 @@ export const whiplashFaq: ConditionFaq = {
     {
       q: "Can whiplash cause headaches weeks later?",
       a: "Yes — cervicogenic headaches that trace back to the neck are one of the most common delayed whiplash symptoms, sometimes showing up well after the initial stiffness eases.",
+    },
+    // ATS-SEO-071: answers one of the ticket's candidate AEO/GEO query
+    // formats ("Can whiplash symptoms be delayed?") from content already on
+    // this page (whiplashSymptoms, whiplashFeelsLike's "Delayed onset" card)
+    // — no new claims introduced.
+    {
+      q: "Can whiplash symptoms be delayed?",
+      a: "Yes — it's common to feel fine at the scene and then develop neck stiffness, headaches, or reduced range of motion in the hours or days that follow. Feeling okay immediately after a collision doesn't rule out whiplash; an evaluation can document any delayed-onset symptoms.",
     },
     {
       q: "How does PIP coverage work for my visit?",

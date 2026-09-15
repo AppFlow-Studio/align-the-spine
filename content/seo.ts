@@ -86,17 +86,19 @@ export const routes: RouteMeta[] = [
     priority: 1,
     lastModified: "2026-08-12",
     primaryQuery: "Deerfield Beach general chiropractic intent",
-    // KNOWN GAP (flagged, not fixed by IA-01): this page and
-    // /car-accident-chiropractor currently render four identical shared
+    // ATS-SEO-125 (resolved the prior KNOWN GAP noted here): this page and
+    // /car-accident-chiropractor used to render four identical shared
     // blocks (HeroReviewsCarousel, AccidentInjuries, DoctorProfile,
     // PatientReviews — same underlying content, not just the same
-    // component) — ONPAGE-02's de-duplication has not actually landed on
-    // this branch yet, so the two pages still compete for accident-adjacent
-    // queries. IA-01's own DoD item ("reviewed against ONPAGE-02 so / and
-    // /auto-accidents decisions are consistent") is NOT satisfied until
-    // ONPAGE-02 ships.
+    // component). HeroReviewsCarousel/DoctorProfile/PatientReviews are
+    // short-form trust/proof components (per ATS-SEO-125's own allowance
+    // for shared proof components) and stay shared; AccidentInjuries was
+    // the one genuine long-form duplicate — the exact same accident-specific
+    // heading and six cards /car-accident-chiropractor owns in full. Home
+    // now gets a short "Injured in a car accident?" CTA band linking to
+    // that page instead of duplicating its content.
     justification:
-      "Intended to own broad 'chiropractor Deerfield Beach' intent while /car-accident-chiropractor owns accident-specific intent, but the two pages still share 4 content blocks — see the KNOWN GAP note above.",
+      "Owns broad 'chiropractor Deerfield Beach' intent; /car-accident-chiropractor owns accident-specific intent exclusively as of ATS-SEO-125 — the one duplicated long-form section (AccidentInjuries) was replaced here with a summary CTA band linking to that page.",
   },
   {
     path: "/services",
@@ -147,7 +149,7 @@ export const routes: RouteMeta[] = [
     lastModified: "2026-08-12",
     primaryQuery: "car accident chiropractor Deerfield Beach",
     justification:
-      "The site's dedicated accident money page (ONPAGE-03) — intended to own accident-specific intent exclusively, but ONPAGE-02's de-duplication against the homepage has not shipped yet (see the KNOWN GAP note on the \"\" route above).",
+      "The site's dedicated accident money page — owns accident-specific intent exclusively as of ATS-SEO-125, which removed the duplicate AccidentInjuries section from the homepage (see the \"\" route's note above) and left this page as the only one that renders the full accident-injuries treatment.",
   },
   // ATS-SEO-040: the crawlable discovery hub for the 7 condition routes
   // below. Not gated by clinician sign-off itself — it's a directory page
