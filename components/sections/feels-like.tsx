@@ -47,12 +47,15 @@ export function FeelsLike({ items, heading, warning, className }: FeelsLikeProps
                 <div className="w-full h-px bg-navy-900 group-hover:bg-[#58A0A0] transition-colors duration-300" />
                 <p className="font-alt text-faq-a text-ink-500">{item.desc}</p>
                 {item.learnMoreHref && (
+                  // See feels-like-band.tsx's identical comment: visible
+                  // text stays the short "Learn more" pill (aria-hidden),
+                  // a separate sr-only span carries the real per-item text.
                   <Link
                     href={item.learnMoreHref}
-                    aria-label={`Learn more about ${item.title}`}
                     className="inline-flex w-fit items-center gap-2 font-sans text-stat-label uppercase text-navy-900 group-hover:text-teal-500 hover:text-navy-700 underline decoration-transparent group-hover:decoration-navy-700 underline-offset-4 transition-colors duration-300"
                   >
-                    Learn more
+                    <span aria-hidden="true">Learn more</span>
+                    <span className="sr-only">Learn more about {item.title}</span>
                     <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
                 )}

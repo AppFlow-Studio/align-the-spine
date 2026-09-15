@@ -5,8 +5,11 @@ import { usePathname } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { getBookingCta, getChromeLabels } from "@/content/chrome";
+import { esRoutes } from "@/content/es/seo";
+import { htRoutes } from "@/content/ht/seo";
 import { DEFAULT_LOCALE, type Locale } from "@/content/i18n";
-import { isPublished, routes } from "@/content/seo";
+import { ptRoutes } from "@/content/pt/seo";
+import { isPublished, routes, type RouteMeta } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import {
   getOverlayOpenServerSnapshot,
@@ -14,30 +17,84 @@ import {
   subscribeOverlayOpen,
 } from "@/lib/ui/overlay-open-store";
 
-// ATS-SEO-093 names Home/Accident/About/service-area pages. About and
-// service-areas are English-only today, so only their EN paths are listed;
-// Home and the car-accident page exist in all four locales (matching
-// navbar.tsx's OUTLINE_CTA_ROUTES for the same two routes) so those get
-// every locale's path. Condition/service pages aren't published in any
-// locale yet — isPublished() below keeps this list correct without a
-// change once they are, in whichever locale ships first.
-const STATIC_BAR_PATHS = new Set([
-  "/",
-  "/about",
-  "/car-accident-chiropractor",
-  "/es",
-  "/es/quiropractico-accidentes-de-auto",
-  "/pt",
-  "/pt/quiropratico-acidentes-de-carro",
-  "/ht",
-  "/ht/kiwoprate-pou-aksidan-machin",
-]);
+/** Per-locale route shape ATS-SEO-093 asks for (Home/Accident/About/
+ * service-area pages, plus condition/service pages once published) — each
+ * locale spells its own slugs differently, so this can't be one shared
+ * English prefix list. `routes` is that locale's own RouteMeta[] (each
+ * with its own `status`), used both to `isPublished()`-gate condition/
+ * service pages and to resolve the About/service-areas-hub paths instead
+ * of hardcoding slugs that could drift from content/{locale}/seo.ts.
+ * `serviceAreaCityPrefix` is "" for pt/ht — ATS-SEO-135/136 built only a
+ * hub page for them, no per-city [slug] routes yet. */
+interface LocaleBarConfig {
+  routes: RouteMeta[];
+  homePath: string;
+  aboutPath: string;
+  accidentPath: string;
+  serviceAreaHubPath: string;
+  serviceAreaCityPrefix: string;
+  conditionPrefix: string;
+  servicePrefix: string;
+}
 
-function isConversionBarRoute(pathname: string): boolean {
-  if (STATIC_BAR_PATHS.has(pathname)) return true;
-  if (pathname === "/service-areas" || pathname.startsWith("/service-areas/")) return true;
-  if (pathname.startsWith("/conditions/") || pathname.startsWith("/services/")) {
-    const route = routes.find((r) => r.path === pathname);
+const BAR_CONFIG: Record<Locale, LocaleBarConfig> = {
+  en: {
+    routes,
+    homePath: "/",
+    aboutPath: "/about",
+    accidentPath: "/car-accident-chiropractor",
+    serviceAreaHubPath: "/service-areas",
+    serviceAreaCityPrefix: "/service-areas/",
+    conditionPrefix: "/conditions/",
+    servicePrefix: "/services/",
+  },
+  es: {
+    routes: esRoutes,
+    homePath: "/es",
+    aboutPath: "/es/dr-abe-nasser",
+    accidentPath: "/es/quiropractico-accidentes-de-auto",
+    serviceAreaHubPath: "/es/areas-de-servicio",
+    serviceAreaCityPrefix: "/es/areas-de-servicio/",
+    conditionPrefix: "/es/condiciones/",
+    servicePrefix: "/es/servicios/",
+  },
+  pt: {
+    routes: ptRoutes,
+    homePath: "/pt",
+    aboutPath: "/pt/dr-abe-nasser",
+    accidentPath: "/pt/quiropratico-acidentes-de-carro",
+    serviceAreaHubPath: "/pt/areas-de-atendimento",
+    serviceAreaCityPrefix: "",
+    conditionPrefix: "/pt/condicoes/",
+    servicePrefix: "/pt/servicos/",
+  },
+  ht: {
+    routes: htRoutes,
+    homePath: "/ht",
+    aboutPath: "/ht/dr-abe-nasser",
+    accidentPath: "/ht/kiwoprate-pou-aksidan-machin",
+    serviceAreaHubPath: "/ht/zon-nou-sevi",
+    serviceAreaCityPrefix: "",
+    conditionPrefix: "/ht/kondisyon-nou-trete/",
+    servicePrefix: "/ht/sevis/",
+  },
+};
+
+function isConversionBarRoute(pathname: string, locale: Locale): boolean {
+  const config = BAR_CONFIG[locale];
+  if (
+    pathname === config.homePath ||
+    pathname === config.aboutPath ||
+    pathname === config.accidentPath ||
+    pathname === config.serviceAreaHubPath
+  ) {
+    return true;
+  }
+  if (config.serviceAreaCityPrefix && pathname.startsWith(config.serviceAreaCityPrefix)) {
+    return true;
+  }
+  if (pathname.startsWith(config.conditionPrefix) || pathname.startsWith(config.servicePrefix)) {
+    const route = config.routes.find((r) => r.path === pathname);
     return route ? isPublished(route) : false;
   }
   return false;
@@ -58,7 +115,7 @@ export function MobileConversionBar({ locale = DEFAULT_LOCALE }: { locale?: Loca
     getOverlayOpenServerSnapshot,
   );
 
-  const onBarRoute = isConversionBarRoute(pathname);
+  const onBarRoute = isConversionBarRoute(pathname, locale);
 
   useEffect(() => {
     if (!onBarRoute) return;
