@@ -16,7 +16,7 @@ import { HowWeTreat } from "@/components/sections/how-we-treat";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { PointToWhereItHurts } from "@/components/sections/point-to-where-it-hurts";
 import { RelatedConditions } from "@/components/sections/related-conditions";
-import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
@@ -40,9 +40,11 @@ import {
   whiplashSymptoms,
   whiplashWarning,
 } from "@/content/whiplash-page";
+import { buildMedicalWebPage } from "@/lib/schema";
 import { buildRouteMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = buildRouteMetadata(getRoute("/conditions/whiplash"));
+const route = getRoute("/conditions/whiplash");
+export const metadata: Metadata = buildRouteMetadata(route);
 
 const whiplashTypes = [
   {
@@ -107,11 +109,17 @@ const whiplashTypes = [
 export default function WhiplashPage() {
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: "Home", path: "" },
-          { name: "Whiplash", path: "/conditions/whiplash" },
-        ]}
+      {/* BreadcrumbList comes from HeroSolidPanel's own `breadcrumbs` prop
+       * below (it renders BreadcrumbJsonLd internally) — an explicit second
+       * call here used to duplicate that block; removed, not added back. */}
+      <JsonLd
+        data={buildMedicalWebPage({
+          path: route.path,
+          name: route.title,
+          description: route.description,
+          dateModified: route.lastModified,
+          aboutTopic: "Chiropractic evaluation and treatment for whiplash",
+        })}
       />
       <HeroSolidPanel
         breadcrumbs={[

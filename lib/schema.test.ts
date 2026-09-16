@@ -568,3 +568,49 @@ describe("ATS-SEO-126: accident and conditions structured-data graph", () => {
     expect(accidentPage.mainEntity).toEqual({ "@id": accidentService["@id"] });
   });
 });
+
+/** Regression guard for the gap a Slack follow-up (2026-09-16) asked to be
+ * fixed: all 7 /conditions/* pages used to render no MedicalWebPage at all
+ * (2 had it after ATS-SEO-126; the other 5 had neither Breadcrumb nor
+ * MedicalWebPage — though the "no Breadcrumb" half turned out to be a false
+ * finding, since HeroSolidPanel renders BreadcrumbJsonLd itself). Source-scans
+ * every app/(en)/conditions/*\/page.tsx rather than importing the modules
+ * (Server Components, no jsdom setup in this repo — same convention
+ * content/route-registry-parity.test.ts and the buildWebPage scan above
+ * already use), so a future condition page that forgets this call fails
+ * the build instead of shipping silently. */
+describe("every /conditions/* page renders MedicalWebPage (2026-09-16 follow-up)", () => {
+  it("every app/(en)/conditions/*/page.tsx (excluding the hub) calls buildMedicalWebPage", () => {
+    const conditionsDir = join(__dirname, "..", "app", "(en)", "conditions");
+    const offenders: string[] = [];
+
+    for (const entry of readdirSync(conditionsDir, { withFileTypes: true })) {
+      if (!entry.isDirectory()) continue; // skips page.tsx itself (the hub)
+      const pagePath = join(conditionsDir, entry.name, "page.tsx");
+      const source = readFileSync(pagePath, "utf8");
+      if (!source.includes("buildMedicalWebPage(")) {
+        offenders.push(pagePath);
+      }
+    }
+
+    expect(offenders).toEqual([]);
+  });
+
+  it("no /conditions/* page double-renders BreadcrumbJsonLd (HeroSolidPanel's breadcrumbs prop already renders it once)", () => {
+    const conditionsDir = join(__dirname, "..", "app", "(en)", "conditions");
+    const offenders: string[] = [];
+
+    for (const entry of readdirSync(conditionsDir, { withFileTypes: true })) {
+      if (!entry.isDirectory()) continue;
+      const pagePath = join(conditionsDir, entry.name, "page.tsx");
+      const source = readFileSync(pagePath, "utf8");
+      if (
+        source.includes('import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";')
+      ) {
+        offenders.push(pagePath);
+      }
+    }
+
+    expect(offenders).toEqual([]);
+  });
+});

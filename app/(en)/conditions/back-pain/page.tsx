@@ -16,6 +16,7 @@ import { PatientReviews } from "@/components/sections/patient-reviews";
 import { PointToWhereItHurts } from "@/components/sections/point-to-where-it-hurts";
 import { RelatedConditions } from "@/components/sections/related-conditions";
 import { TypesGrid } from "@/components/sections/types-grid";
+import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
@@ -40,9 +41,11 @@ import { buildRelatedLinks } from "@/content/related-links";
 import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
+import { buildMedicalWebPage } from "@/lib/schema";
 import { buildRouteMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = buildRouteMetadata(getRoute("/conditions/back-pain"));
+const route = getRoute("/conditions/back-pain");
+export const metadata: Metadata = buildRouteMetadata(route);
 
 const backPainTypes = [
   {
@@ -133,6 +136,15 @@ const backPainTypes = [
 export default function BackPainPage() {
   return (
     <>
+      <JsonLd
+        data={buildMedicalWebPage({
+          path: route.path,
+          name: route.title,
+          description: route.description,
+          dateModified: route.lastModified,
+          aboutTopic: "Chiropractic evaluation and treatment for back pain",
+        })}
+      />
       <HeroSolidPanel
         breadcrumbs={[
           { name: "Home", path: "" },

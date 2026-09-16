@@ -15,7 +15,7 @@ import { HowWeTreat } from "@/components/sections/how-we-treat";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { PointToWhereItHurts } from "@/components/sections/point-to-where-it-hurts";
 import { RelatedConditions } from "@/components/sections/related-conditions";
-import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
@@ -39,9 +39,11 @@ import {
 import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
+import { buildMedicalWebPage } from "@/lib/schema";
 import { buildRouteMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = buildRouteMetadata(getRoute("/conditions/sciatica"));
+const route = getRoute("/conditions/sciatica");
+export const metadata: Metadata = buildRouteMetadata(route);
 
 const sciaticaTypes = [
   {
@@ -101,11 +103,17 @@ const sciaticaTypes = [
 export default function SciaticaPage() {
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: "Home", path: "" },
-          { name: "Sciatica", path: "/conditions/sciatica" },
-        ]}
+      {/* BreadcrumbList comes from HeroSolidPanel's own `breadcrumbs` prop
+       * below (it renders BreadcrumbJsonLd internally) — an explicit second
+       * call here used to duplicate that block; removed, not added back. */}
+      <JsonLd
+        data={buildMedicalWebPage({
+          path: route.path,
+          name: route.title,
+          description: route.description,
+          dateModified: route.lastModified,
+          aboutTopic: "Chiropractic evaluation and treatment for sciatica",
+        })}
       />
       <HeroSolidPanel
         breadcrumbs={[

@@ -13,6 +13,7 @@ import { HowWeTreat } from "@/components/sections/how-we-treat";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { RelatedConditions } from "@/components/sections/related-conditions";
 import { SymptomChecklist } from "@/components/sections/symptom-checklist";
+import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
@@ -41,9 +42,11 @@ import { buildRelatedLinks } from "@/content/related-links";
 import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
+import { buildMedicalWebPage } from "@/lib/schema";
 import { buildRouteMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = buildRouteMetadata(getRoute("/conditions/concussion"));
+const route = getRoute("/conditions/concussion");
+export const metadata: Metadata = buildRouteMetadata(route);
 
 /** /conditions/concussion — dedicated, hand-built page, same per-page
  * pattern as the other condition pages (ATS-137) and the /services/*
@@ -76,6 +79,16 @@ export const metadata: Metadata = buildRouteMetadata(getRoute("/conditions/concu
 export default function ConcussionPage() {
   return (
     <>
+      <JsonLd
+        data={buildMedicalWebPage({
+          path: route.path,
+          name: route.title,
+          description: route.description,
+          dateModified: route.lastModified,
+          aboutTopic:
+            "Chiropractic evaluation and treatment for concussion symptoms after a car accident",
+        })}
+      />
       <HeroSolidPanel
         breadcrumbs={[
           { name: "Home", path: "" },
