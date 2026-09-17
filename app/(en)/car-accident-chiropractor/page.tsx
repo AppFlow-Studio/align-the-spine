@@ -9,7 +9,6 @@ import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel
 import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { HowWeHelpSteps } from "@/components/sections/how-we-help-steps";
 import { PatientReviews } from "@/components/sections/patient-reviews";
-import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
@@ -87,7 +86,9 @@ const accidentService = buildTopicService({
 export default function AutoAccidentsPage() {
   return (
     <>
-      <BreadcrumbJsonLd items={breadcrumbs} />
+      {/* BreadcrumbList comes from HeroSolidPanel's own `breadcrumbs` prop
+       * below (it renders BreadcrumbJsonLd internally) — an explicit second
+       * call here used to duplicate that block; removed, not added back. */}
       <JsonLd data={accidentService} />
       <JsonLd
         data={buildMedicalWebPage({

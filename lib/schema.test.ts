@@ -596,21 +596,9 @@ describe("every /conditions/* page renders MedicalWebPage (2026-09-16 follow-up)
     expect(offenders).toEqual([]);
   });
 
-  it("no /conditions/* page double-renders BreadcrumbJsonLd (HeroSolidPanel's breadcrumbs prop already renders it once)", () => {
-    const conditionsDir = join(__dirname, "..", "app", "(en)", "conditions");
-    const offenders: string[] = [];
-
-    for (const entry of readdirSync(conditionsDir, { withFileTypes: true })) {
-      if (!entry.isDirectory()) continue;
-      const pagePath = join(conditionsDir, entry.name, "page.tsx");
-      const source = readFileSync(pagePath, "utf8");
-      if (
-        source.includes('import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";')
-      ) {
-        offenders.push(pagePath);
-      }
-    }
-
-    expect(offenders).toEqual([]);
-  });
+  // The double-BreadcrumbJsonLd check that used to live here is now
+  // content/breadcrumb-schema.test.ts's sitewide version (2026-09-17) — it
+  // turned out not to be a /conditions/*-only bug (car-accident-chiropractor
+  // and 3 /services/* pages had it too), so the narrower, duplicate check
+  // was removed rather than kept alongside the general one.
 });

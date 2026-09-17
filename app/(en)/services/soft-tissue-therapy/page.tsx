@@ -11,7 +11,6 @@ import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { RelatedConditions } from "@/components/sections/related-conditions";
 import { ServiceIntro } from "@/components/sections/service-intro";
-import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
@@ -82,13 +81,9 @@ const relatedBottom = buildRelatedLinks({
 export default function MassageSoftTissuePage() {
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: "Home", path: "" },
-          { name: "Services", path: "/services" },
-          { name: "Massage & Soft-Tissue Therapy", path: "/services/soft-tissue-therapy" },
-        ]}
-      />
+      {/* BreadcrumbList comes from HeroSolidPanel's own `breadcrumbs` prop
+       * below (it renders BreadcrumbJsonLd internally) — an explicit second
+       * call here used to duplicate that block; removed, not added back. */}
       <JsonLd data={buildService(service)} />
       <HeroSolidPanel
         breadcrumbs={[

@@ -4,7 +4,6 @@ import { LocationFooter } from "@/components/layout/location-footer";
 import { LocationIntro } from "@/components/layout/location-intro";
 import { ContactSection } from "@/components/sections/contact-section";
 import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
-import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -56,7 +55,9 @@ const collectionPage = buildCollectionPage({
 export default function ConditionsPage() {
   return (
     <>
-      <BreadcrumbJsonLd items={breadcrumbs} />
+      {/* BreadcrumbList comes from HeroSolidPanel's own `breadcrumbs` prop
+       * below (it renders BreadcrumbJsonLd internally) — an explicit second
+       * call here used to duplicate that block; removed, not added back. */}
       <JsonLd data={collectionPage} />
       <HeroSolidPanel
         breadcrumbs={breadcrumbs}
