@@ -5,8 +5,9 @@ import Link from "next/link";
 import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
 import { DEFAULT_LOCALE, type Locale } from "@/content/i18n";
 import { siteConfig } from "@/content/site";
+import { isVerified } from "@/content/verified-value";
 import { cn } from "@/lib/cn";
-import { buildMapEmbedSrc } from "@/lib/maps";
+import { buildDirectionsUrl, buildMapEmbedSrc } from "@/lib/maps";
 
 /** Larger location/contact block per ATS-013: map with a floating glass
  * address card + an hours table (today's row highlighted) + dual CTAs.
@@ -18,6 +19,10 @@ interface LocationFooterCopy {
   mapTitlePrefix: string;
   confirmHours: (phone: string) => string;
   day: Record<string, string>;
+  /** LOCAL-01: real "Get Directions" link — a patient in pain or arriving
+   * after an accident needs actual turn-by-turn navigation, not just an
+   * inline map preview. */
+  getDirections: string;
 }
 
 const ENGLISH_COPY: LocationFooterCopy = {
@@ -27,6 +32,7 @@ const ENGLISH_COPY: LocationFooterCopy = {
   mapTitlePrefix: "Map to",
   confirmHours: (phone) => `Call ${phone} to confirm today's hours.`,
   day: {},
+  getDirections: "Get Directions",
 };
 
 const COPY: Record<Locale, LocationFooterCopy> = {
@@ -37,6 +43,7 @@ const COPY: Record<Locale, LocationFooterCopy> = {
     bookCta: "Solicitar su cita",
     mapTitlePrefix: "Mapa hacia",
     confirmHours: (phone) => `Llame al ${phone} para confirmar el horario de hoy.`,
+    getDirections: "Cómo llegar",
     day: {
       Monday: "Lunes",
       Tuesday: "Martes",
@@ -53,6 +60,7 @@ const COPY: Record<Locale, LocationFooterCopy> = {
     bookCta: "Solicitar sua consulta",
     mapTitlePrefix: "Mapa até",
     confirmHours: (phone) => `Ligue para ${phone} para confirmar o horário de hoje.`,
+    getDirections: "Como chegar",
     day: {
       Monday: "Segunda-feira",
       Tuesday: "Terça-feira",
@@ -69,6 +77,7 @@ const COPY: Record<Locale, LocationFooterCopy> = {
     bookCta: "Mande Vizit Ou",
     mapTitlePrefix: "Kat pou rive nan",
     confirmHours: (phone) => `Rele ${phone} pou konfime lè jodi a.`,
+    getDirections: "Jwenn Direksyon",
     day: {
       Monday: "Lendi",
       Tuesday: "Madi",
@@ -115,6 +124,15 @@ export function LocationFooter({ locale = DEFAULT_LOCALE }: { locale?: Locale } 
               {siteConfig.business.address.city}, {siteConfig.business.address.state}{" "}
               {siteConfig.business.address.zip}
             </address>
+            <a
+              href={buildDirectionsUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-flex items-center gap-2 font-sans text-[13px] font-semibold uppercase tracking-[1.25px] text-teal-500 transition-colors hover:text-teal-500/80"
+            >
+              {copy.getDirections}
+              <ArrowRightIcon className="h-3.5 w-3.5" />
+            </a>
           </div>
         </div>
 
@@ -158,6 +176,16 @@ export function LocationFooter({ locale = DEFAULT_LOCALE }: { locale?: Locale } 
             // call-to-confirm instead of asserting unverified daily hours.
             <p className="font-alt text-footer-copy text-mute-400">
               {copy.confirmHours(siteConfig.business.phone)}
+            </p>
+          )}
+
+          {/* LOCAL-01: no client-confirmed parking guidance exists yet
+           * (siteConfig.parkingGuidance) — renders nothing rather than a
+           * guessed "free parking available" claim. Once confirmed, this
+           * starts rendering automatically with no other code change. */}
+          {isVerified(siteConfig.parkingGuidance) && (
+            <p className="pt-2 font-alt text-footer-copy text-navy-900">
+              {siteConfig.parkingGuidance.value}
             </p>
           )}
 
