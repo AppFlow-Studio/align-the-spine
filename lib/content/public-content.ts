@@ -27,6 +27,34 @@ export async function listPublicContent(options: PublicListOptions) {
   )();
 }
 
+/** Every published item of `contentType`, paging through listPublicContent
+ * until `totalPages` is exhausted instead of trusting a single
+ * hardcoded page size — the bug this fixes: app/sitemap.ts used to call
+ * listPublicContent with `pageSize: 24` and take that one page as the
+ * whole list, so a 25th published blog post or service-area record would
+ * have silently never appeared in the sitemap. Callers that only need a
+ * bounded page (e.g. a paginated /blog listing page) should keep calling
+ * listPublicContent directly — this is specifically for "give me
+ * everything," which the sitemap is the one caller that actually needs. */
+export async function listAllPublicContent(
+  contentType: ContentType,
+  // Injectable only for lib/content/public-content.test.ts, which needs to
+  // exercise the multi-page loop against a fake multi-page result without
+  // seeding 24+ real fixture/Supabase rows just to prove the loop works.
+  listFn: typeof listPublicContent = listPublicContent,
+) {
+  const pageSize = 100;
+  const first = await listFn({ contentType, page: 1, pageSize });
+  const items = [...first.items];
+
+  for (let page = 2; page <= first.totalPages; page++) {
+    const next = await listFn({ contentType, page, pageSize });
+    items.push(...next.items);
+  }
+
+  return items;
+}
+
 export async function getPublicContentBySlug(contentType: ContentType, slug: string) {
   if (process.env.NODE_ENV === "test") {
     return (await getContentRepository()).getPublicBySlug(contentType, slug);

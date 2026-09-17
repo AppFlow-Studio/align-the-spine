@@ -7,7 +7,7 @@ import { buildAlternates, type Locale } from "@/content/i18n";
 import { ptRoutes } from "@/content/pt/seo";
 import { isPublished, routes, type RouteMeta } from "@/content/seo";
 import { siteConfig } from "@/content/site";
-import { listPublicContent } from "@/lib/content/public-content";
+import { listAllPublicContent } from "@/lib/content/public-content";
 
 /** Sitemap (ATS-131): sourced entirely from the route registries, so a new
  * static or condition page doesn't also need a second, separate sitemap
@@ -78,17 +78,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   const [posts, areas] = await Promise.all([
-    listPublicContent({ contentType: "blog_post", pageSize: 24 }),
-    listPublicContent({ contentType: "service_area", pageSize: 24 }),
+    listAllPublicContent("blog_post"),
+    listAllPublicContent("service_area"),
   ]);
   const dynamicEntries: MetadataRoute.Sitemap = [
-    ...posts.items.map((item) => ({
+    ...posts.map((item) => ({
       url: `${siteConfig.siteUrl}/blog/${item.slug}`,
       lastModified: item.updatedAt,
       changeFrequency: "monthly" as const,
       priority: 0.7,
     })),
-    ...areas.items.map((item) => dynamicEntry(`/service-areas/${item.slug}`, "en", item.updatedAt)),
+    ...areas.map((item) => dynamicEntry(`/service-areas/${item.slug}`, "en", item.updatedAt)),
     // The nineteen Spanish city pages. Sourced from the committed data file
     // rather than the content repository (which holds English records
     // only), but emitted through the same helper, so both halves of each
