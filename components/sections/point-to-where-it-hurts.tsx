@@ -201,6 +201,27 @@ export function PointToWhereItHurts({ content }: PointToWhereItHurtsProps) {
           {heading}
         </SectionHeading>
 
+        {/* Crawlability fix (2026-09-17): the visible UI below only ever
+         * shows ONE destination link at a time (SelectedPanel), and only
+         * once a region has been picked — no region is selected by
+         * default. A crawler that doesn't execute the click never sees the
+         * other 5 links, so every region's real destination existed only
+         * in client-side-triggered markup, not the initial HTML. This
+         * block puts all of them in the initial HTML unconditionally.
+         * Hidden from sighted and assistive-tech users (aria-hidden +
+         * tabIndex={-1}, not just `sr-only`, since an aria-hidden subtree
+         * must not contain a focusable descendant) — the visible
+         * buttons/panel already provide the real interactive experience;
+         * this exists purely so search engines can find every destination
+         * regardless of interaction. */}
+        <nav aria-hidden="true" className="sr-only">
+          {regions.map((region) => (
+            <Link key={region.id} href={region.href ?? siteConfig.bookingCta.href} tabIndex={-1}>
+              {region.name}
+            </Link>
+          ))}
+        </nav>
+
         <div className="hidden w-full items-center justify-center gap-20 md:flex">
           <motion.div
             ref={desktopContainerRef}

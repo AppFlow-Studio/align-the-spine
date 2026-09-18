@@ -94,6 +94,9 @@ export const htServicesGrid: ServiceCardItem[] = [
       src: "/figma-exports/drabeadjust.png",
       alt: "Dr. Abe ap fè yon ajisteman kiwopratik",
     },
+    // ATS-SEO-070 follow-up: this card's own page now exists in Haitian Creole.
+    href: "/ht/sevis/ajisteman-kiwopratik",
+    ctaLabel: "Aprann plis",
   },
   {
     slug: "sports-injury",
@@ -127,6 +130,8 @@ export const htServicesGrid: ServiceCardItem[] = [
       src: "/figma-exports/drabe-traction_compression.png",
       alt: "Terapi traksyon ak dekonpresyon kolòn vètebral",
     },
+    href: "/ht/sevis/dekonpresyon-kolon",
+    ctaLabel: "Aprann plis",
   },
   {
     slug: "headache-migraine",
@@ -159,6 +164,8 @@ export const htServicesGrid: ServiceCardItem[] = [
     summary:
       "Terapi vantouz aplike yon aspirasyon lokalize sou zòn tansyon miskilè yo chwazi, e li ka enkli lè sa apwopriye pou doulè kou, do, oswa lòt tisi mou.",
     image: { src: "/figma-exports/cupping-drabe.png", alt: "Sesyon terapi vantouz" },
+    href: "/ht/sevis/terapi-vantouz",
+    ctaLabel: "Aprann plis",
   },
   {
     slug: "massage-soft-tissue",
@@ -170,6 +177,8 @@ export const htServicesGrid: ServiceCardItem[] = [
       src: "/figma-exports/drabe-soft-tissue.png",
       alt: "Terapi masaj ak tisi mou",
     },
+    href: "/ht/sevis/terapi-tisi-mou",
+    ctaLabel: "Aprann plis",
   },
 ];
 
@@ -242,12 +251,15 @@ export const htReviewsPage = {
     "Sa yo se kòmantè reyèl pasyan nan Deerfield Beach. Gade poukisa sid Florid fè konfyans nan Dr. Abe, epi kòmanse pwòp rekiperasyon ou.",
   ratingSuffix: "kòmantè senk zetwal",
   ratingTail: "e sa kontinye ogmante",
-  /** Reviews render verbatim in the language each patient wrote them — the
-   * same policy every other language's reviews page states: presenting a
-   * translation as the reviewer's own words would make it a fabricated
-   * review under Google's review policies. */
+  /** ATS-SEO-070 follow-up: reviews now show a real Haitian Creole
+   * translation (content/testimonials.ts's `quoteHt`), same policy/wording
+   * as the Spanish/Portuguese pages — this note used to say the opposite
+   * (no translated version published) back when no `quoteHt` existed;
+   * updated to match once it did, since the old wording would now be false.
+   * The English original is what each patient actually wrote; the
+   * translation is disclosed, never presented as their own wording. */
   languageNote:
-    "Kòmantè sa yo te ekri an angle pa pasyan nou yo. Tèks orijinal an angle a rete san chanjman — nou pa pibliye yon vèsyon tradui tankou si se te pwòp mo pasyan an.",
+    "Kòmantè sa yo te ekri an angle pa pasyan nou yo e yo tradui an Kreyòl Ayisyen. Tèks orijinal an angle a rete san chanjman nan vèsyon angle paj sa a.",
   formHeading: "Resevwa menm swen senk zetwal la",
   formFootnote:
     "Souvan gen randevou disponib menm jou a. Nou sèvi Deerfield Beach ak kominote ki tou pre nan sid Florid.",

@@ -344,6 +344,8 @@ export interface MedicalWebPageSchema {
   mainEntityOfPage: string;
   medicalAudience: { "@type": "MedicalAudience"; audienceType: string };
   about: { "@type": "MedicalTherapy"; name: string };
+  mainEntity?: { "@id": string };
+  isPartOf?: { "@id": string };
 }
 
 export interface MedicalWebPageInput {
@@ -358,6 +360,17 @@ export interface MedicalWebPageInput {
   /** BCP-47 tag for the page's own language. Defaults to en-US; the Spanish
    * pages pass es-US so the node doesn't claim Spanish prose is English. */
   inLanguage?: string;
+  /** @id of a Service (or other) entity this page is substantively about,
+   * e.g. buildTopicService's output for a dedicated commercial page — per
+   * ATS-SEO-126 §"mainEntity … only when semantically correct and backed by
+   * visible page content". Optional and additive: every existing caller
+   * omits it and gets byte-identical output to before this field existed. */
+  mainEntity?: string;
+  /** When true, adds `isPartOf` linking this page to the site's single
+   * WebSite entity (ATS-SEO-126). Optional and additive for the same reason
+   * as `mainEntity` — defaults to omitted so existing callers are
+   * unaffected. */
+  isPartOfWebSite?: boolean;
 }
 
 /** MedicalWebPage entity for content pages discussing chiropractic/injury
@@ -387,6 +400,44 @@ export function buildMedicalWebPage(input: MedicalWebPageInput): MedicalWebPageS
     mainEntityOfPage: url,
     medicalAudience: { "@type": "MedicalAudience", audienceType: "Patient" },
     about: { "@type": "MedicalTherapy", name: input.aboutTopic },
+    ...(input.mainEntity ? { mainEntity: { "@id": input.mainEntity } } : {}),
+    ...(input.isPartOfWebSite ? { isPartOf: { "@id": WEBSITE_ID } } : {}),
+  };
+}
+
+export interface TopicServiceInput {
+  path: string;
+  name: string;
+  description: string;
+}
+
+/** Service entity for a topic-specific commercial page whose offering isn't
+ * one of the generic /services grid entries (content/services-grid.ts,
+ * what buildService is for) — e.g. accident-specific chiropractic care on
+ * /car-accident-chiropractor (ATS-SEO-126). Keyed by the page's own URL
+ * (`#service` anchor) since, unlike a grid item, this service has its own
+ * dedicated landing page rather than a shared #{slug} fragment on
+ * /services. `name`/`description` are the caller's own route title/
+ * description — the same strings already used for <title>/meta description
+ * — per the rule that structured data must match visible/declared content. */
+export function buildTopicService(input: TopicServiceInput): ServiceSchema {
+  const url = `${siteConfig.siteUrl}${input.path}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${url}#service`,
+    name: input.name,
+    description: input.description,
+    provider: { "@id": MEDICAL_BUSINESS_ID },
+    ...(siteConfig.serviceAreasVerified
+      ? {
+          areaServed: siteConfig.serviceAreas.map((city) => ({
+            "@type": "City" as const,
+            name: city,
+          })),
+        }
+      : {}),
+    url,
   };
 }
 
@@ -460,5 +511,64 @@ export function buildWebPage(input: {
     inLanguage: input.inLanguage,
     isPartOf: { "@id": WEBSITE_ID },
     about: { "@id": MEDICAL_BUSINESS_ID },
+  };
+}
+
+export interface CollectionPageItem {
+  name: string;
+  path: string;
+}
+
+export interface CollectionPageSchema {
+  "@context": "https://schema.org";
+  "@type": "CollectionPage";
+  "@id": string;
+  url: string;
+  name: string;
+  description: string;
+  isPartOf: { "@id": string };
+  about: { "@id": string };
+  mainEntity: {
+    "@type": "ItemList";
+    itemListElement: { "@type": "ListItem"; position: number; url: string; name: string }[];
+  };
+}
+
+/** CollectionPage entity for an index/hub page that links out to several
+ * other pages (ATS-SEO-126, built for /conditions) — schema.org's own
+ * vocabulary for this shape. Deliberately NOT `MedicalCondition`: the hub
+ * itself isn't a condition, just a directory of them, and the ticket is
+ * explicit that mechanically labeling it that way would misdescribe the
+ * page. Distinct from `buildMedicalWebPage` (a single page discussing one
+ * condition/topic) and from `buildWebPage` (locale pages' generic WebPage,
+ * with no listing semantics). `items` must mirror the cards actually
+ * rendered on the page — same visible-content-match discipline
+ * buildFAQPage/buildBreadcrumbList already apply — so callers should pass
+ * the same array driving the on-page grid, not a hand-typed duplicate. */
+export function buildCollectionPage(input: {
+  path: string;
+  name: string;
+  description: string;
+  items: CollectionPageItem[];
+}): CollectionPageSchema {
+  const url = `${siteConfig.siteUrl}${input.path}`;
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${url}#webpage`,
+    url,
+    name: input.name,
+    description: input.description,
+    isPartOf: { "@id": WEBSITE_ID },
+    about: { "@id": MEDICAL_BUSINESS_ID },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: input.items.map((item, index) => ({
+        "@type": "ListItem" as const,
+        position: index + 1,
+        url: `${siteConfig.siteUrl}${item.path}`,
+        name: item.name,
+      })),
+    },
   };
 }

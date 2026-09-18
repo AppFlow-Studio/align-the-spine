@@ -57,6 +57,8 @@ export const ptChromeLabels = {
   closeMenu: "Fechar menu",
   viewAll: (label: string) => `Ver tudo: ${label}`,
   callUs: "Fale conosco hoje",
+  /** Short button label for the mobile conversion bar (ATS-SEO-093). */
+  callLabel: "Ligar",
   /** Spanish labels for content/site.ts's verified stat chips. Only the
    * label is translated — the values are verified factual claims and stay
    * as approved (see getVerifiedStats). */

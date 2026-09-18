@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { isProduction, resolveSiteUrl, siteConfig } from "@/content/site";
+import { isVerified } from "@/content/verified-value";
 
 describe("isProduction", () => {
   afterEach(() => {
@@ -56,6 +57,15 @@ describe("hoursVerified / social.verified gates", () => {
     for (const social of siteConfig.social) {
       expect(social.verified).toBe(false);
     }
+  });
+
+  // LOCAL-01 (2026-09-17): no client-confirmed parking guidance exists
+  // yet — must default to unverified rather than a guessed claim, and
+  // isVerified() must correctly refuse to render it in that state.
+  it("parkingGuidance is unverified until the client confirms real parking details", () => {
+    expect(siteConfig.parkingGuidance.status).toBe("needs-confirmation");
+    expect(siteConfig.parkingGuidance.value).toBeNull();
+    expect(isVerified(siteConfig.parkingGuidance)).toBe(false);
   });
 });
 

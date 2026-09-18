@@ -1,3 +1,4 @@
+import type { Citation } from "@/content/citations";
 import type { ComparisonRow } from "@/content/comparison-table";
 import type { VerifiedValue } from "@/content/verified-value";
 
@@ -50,6 +51,10 @@ export interface ConditionAccident {
   headline: string;
   body: string;
   smallprint: string;
+  /** ATS-SEO-070: primary-source citation(s) for the material PIP/medical
+   * claim(s) in `body`, rendered inline by AccidentBanner right after the
+   * paragraph. Omit when `body` makes no citable factual claim. */
+  citations?: Citation[];
 }
 
 export interface ConditionFaqItem {

@@ -10,6 +10,7 @@ import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel
 import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { RelatedConditions } from "@/components/sections/related-conditions";
+import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
@@ -27,9 +28,11 @@ import {
   tmjJawPainHero,
   tmjJawPainRelatedBottomConfig,
 } from "@/content/tmj-jaw-pain-page";
+import { buildMedicalWebPage } from "@/lib/schema";
 import { buildRouteMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = buildRouteMetadata(getRoute("/conditions/tmj-jaw-pain"));
+const route = getRoute("/conditions/tmj-jaw-pain");
+export const metadata: Metadata = buildRouteMetadata(route);
 
 /** /conditions/tmj-jaw-pain — dedicated, hand-built page, same per-page
  * pattern as the other condition pages (ATS-137) and the /services/*
@@ -52,6 +55,15 @@ export const metadata: Metadata = buildRouteMetadata(getRoute("/conditions/tmj-j
 export default function TmjJawPainPage() {
   return (
     <>
+      <JsonLd
+        data={buildMedicalWebPage({
+          path: route.path,
+          name: route.title,
+          description: route.description,
+          dateModified: route.lastModified,
+          aboutTopic: "Chiropractic evaluation and treatment for TMJ/jaw pain",
+        })}
+      />
       <HeroSolidPanel
         breadcrumbs={[
           { name: "Home", path: "" },

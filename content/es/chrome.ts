@@ -320,6 +320,10 @@ export const esChromeLabels = {
    * "All Servicios" on the Spanish drawer. */
   viewAll: (label: string) => `Ver todo: ${label}`,
   callUs: "Llámenos hoy",
+  /** Short button label for the mobile conversion bar (ATS-SEO-093) — a
+   * full "Llámenos hoy" doesn't fit a half-width pill next to the booking
+   * CTA. */
+  callLabel: "Llamar",
   /** Spanish labels for content/site.ts's verified stat chips. Only the
    * label is translated — the values are verified factual claims and stay
    * as approved (see getVerifiedStats). */
@@ -348,4 +352,6 @@ export const enChromeLabels = {
   closeMenu: "Close menu",
   viewAll: (label: string) => `All ${label}`,
   callUs: "Speak with us today",
+  /** Short button label for the mobile conversion bar (ATS-SEO-093). */
+  callLabel: "Call",
 };

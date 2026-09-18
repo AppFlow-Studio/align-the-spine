@@ -6,6 +6,7 @@ import { DoctorProfile } from "@/components/sections/doctor-profile";
 import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { RelatedConditions } from "@/components/sections/related-conditions";
 import { ServiceIntro } from "@/components/sections/service-intro";
+import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -18,10 +19,17 @@ import { doctorProfileContent } from "@/content/doctor-profile";
 import { leadFormVariants } from "@/content/lead-forms";
 import { buildRelatedLinks } from "@/content/related-links";
 import { getRoute } from "@/content/seo";
+import { servicesGrid } from "@/content/services-grid";
 import { siteConfig } from "@/content/site";
+import { buildService } from "@/lib/schema";
 import { buildRouteMetadata } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = buildRouteMetadata(getRoute("/services/cupping-therapy"));
+
+// Matches the sibling /services/* pages' own pattern (chiropractic-adjustments,
+// spinal-decompression, soft-tissue-therapy) — this page previously rendered
+// no Service entity at all, unlike those three.
+const service = servicesGrid.find((item) => item.slug === "cupping-therapy")!;
 
 /** /services/cupping-therapy (IA-03). Deliberately lean, not a copy of the
  * other 3 /services/* pages' full Figma-sourced template (hero →
@@ -37,6 +45,7 @@ export const metadata: Metadata = buildRouteMetadata(getRoute("/services/cupping
 export default function CuppingTherapyPage() {
   return (
     <>
+      <JsonLd data={buildService(service)} />
       <HeroSolidPanel
         breadcrumbs={[
           { name: "Home", path: "" },

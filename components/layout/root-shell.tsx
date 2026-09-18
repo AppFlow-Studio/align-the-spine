@@ -7,6 +7,7 @@ import { getChromeLabels } from "@/content/chrome";
 import { DEFAULT_LOCALE, type Locale } from "@/content/i18n";
 
 import { Footer } from "./footer";
+import { MobileConversionBar } from "./mobile-conversion-bar";
 import { Navbar } from "./navbar";
 import { TopStatsBar } from "./top-stats-bar";
 
@@ -62,7 +63,15 @@ export function RootShell({ children, locale = DEFAULT_LOCALE }: RootShellProps)
       <main id="main-content" className="flex-1">
         {children}
       </main>
+      {/* Zero-height, unstyled: MobileConversionBar (ATS-SEO-093) observes
+       * this via IntersectionObserver to know when the footer — and its own
+       * ContactSection form — has become reachable, so it can hide itself
+       * before it would overlap that footer content. Placed here rather
+       * than inside Footer so it fires just before the footer's content
+       * starts, not only once the footer is already fully in view. */}
+      <div id="mobile-conversion-bar-sentinel" aria-hidden="true" />
       <Footer locale={locale} />
+      <MobileConversionBar locale={locale} />
     </>
   );
 }

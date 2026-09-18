@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState, type KeyboardEvent } from "react";
 
 import { TopStatsBar } from "@/components/layout/top-stats-bar";
 import { StarIcon } from "@/components/ui/icons/star";
@@ -9,6 +9,16 @@ import { resolveTestimonialQuote } from "@/content/testimonials";
 import type { Testimonial } from "@/content/testimonials";
 import { cn } from "@/lib/cn";
 import { highlightReviewKeywords } from "@/lib/highlight-review-keywords";
+
+/** Tablist label/per-tab name — previously hardcoded English regardless of
+ * `locale` (ATS-SEO-124 review finding), same gap fixed in
+ * reviews-carousel.tsx's CAROUSEL_LABELS. */
+const CAROUSEL_LABELS: Record<Locale, { tablist: string; showReview: (n: number) => string }> = {
+  en: { tablist: "Featured reviews", showReview: (n) => `Show review ${n}` },
+  es: { tablist: "Reseñas destacadas", showReview: (n) => `Mostrar reseña ${n}` },
+  pt: { tablist: "Avaliações em destaque", showReview: (n) => `Mostrar avaliação ${n}` },
+  ht: { tablist: "Kòmantè enpòtan", showReview: (n) => `Montre kòmantè ${n}` },
+};
 
 export interface HeroReviewsCarouselProps {
   testimonials: Testimonial[];
@@ -37,6 +47,8 @@ export function HeroReviewsCarousel({
   // keyboard focus is anywhere in the carousel, and never starts at all for
   // prefers-reduced-motion (ATS-134).
   const [paused, setPaused] = useState(false);
+  const baseId = useId();
+  const labels = CAROUSEL_LABELS[locale];
 
   useEffect(() => {
     if (testimonials.length <= 1 || paused) return;
@@ -46,6 +58,23 @@ export function HeroReviewsCarousel({
     }, AUTO_ADVANCE_MS);
     return () => clearInterval(id);
   }, [testimonials.length, paused]);
+
+  // See reviews-carousel.tsx's identical onTabKeyDown for why (APG tabs
+  // pattern: arrow keys move both selection and focus among tabs).
+  function onTabKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
+    let next: number | null = null;
+    if (event.key === "ArrowRight") next = index + 1;
+    else if (event.key === "ArrowLeft") next = index - 1;
+    else if (event.key === "Home") next = 0;
+    else if (event.key === "End") next = testimonials.length - 1;
+    if (next === null) return;
+    event.preventDefault();
+    const normalized = (next + testimonials.length) % testimonials.length;
+    setIndex(normalized);
+    const tabs =
+      event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('[role="tab"]');
+    tabs?.[normalized]?.focus();
+  }
 
   return (
     <div
@@ -78,6 +107,10 @@ export function HeroReviewsCarousel({
                   {testimonials.map((testimonial, i) => (
                     <div
                       key={i}
+                      role="tabpanel"
+                      id={`${baseId}-panel-${i}`}
+                      aria-labelledby={`${baseId}-tab-${i}`}
+                      aria-hidden={i !== index}
                       className="flex shrink-0 flex-col gap-2 pr-4 sm:flex-row sm:items-center sm:gap-3"
                       style={{ width: `${100 / testimonials.length}%` }}
                     >
@@ -106,16 +139,20 @@ export function HeroReviewsCarousel({
                 <div
                   className="flex shrink-0 items-center justify-center gap-1.5 sm:justify-start"
                   role="tablist"
-                  aria-label="Featured reviews"
+                  aria-label={labels.tablist}
                 >
                   {testimonials.map((_, i) => (
                     <button
                       key={i}
+                      id={`${baseId}-tab-${i}`}
                       type="button"
                       role="tab"
                       aria-selected={i === index}
-                      aria-label={`Show review ${i + 1}`}
+                      aria-controls={`${baseId}-panel-${i}`}
+                      aria-label={labels.showReview(i + 1)}
+                      tabIndex={i === index ? 0 : -1}
                       onClick={() => setIndex(i)}
+                      onKeyDown={onTabKeyDown}
                       className={cn(
                         "h-1.5 w-1.5 rounded-full transition-colors",
                         "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500",

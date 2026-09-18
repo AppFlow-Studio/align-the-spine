@@ -11,6 +11,7 @@ import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel
 import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { PatientReviews } from "@/components/sections/patient-reviews";
 import { RelatedConditions } from "@/components/sections/related-conditions";
+import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
@@ -32,9 +33,11 @@ import { buildRelatedLinks } from "@/content/related-links";
 import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
+import { buildMedicalWebPage } from "@/lib/schema";
 import { buildRouteMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = buildRouteMetadata(getRoute("/conditions/cervicogenic-headache"));
+const route = getRoute("/conditions/cervicogenic-headache");
+export const metadata: Metadata = buildRouteMetadata(route);
 
 /** /conditions/cervicogenic-headache — dedicated, hand-built page, same
  * per-page pattern as the other condition pages (ATS-137) and the 3
@@ -58,6 +61,15 @@ export const metadata: Metadata = buildRouteMetadata(getRoute("/conditions/cervi
 export default function CervicogenicHeadachePage() {
   return (
     <>
+      <JsonLd
+        data={buildMedicalWebPage({
+          path: route.path,
+          name: route.title,
+          description: route.description,
+          dateModified: route.lastModified,
+          aboutTopic: "Chiropractic evaluation and treatment for cervicogenic headache",
+        })}
+      />
       <HeroSolidPanel
         breadcrumbs={[
           { name: "Home", path: "" },

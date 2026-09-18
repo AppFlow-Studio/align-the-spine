@@ -15,15 +15,38 @@ export interface ServiceListRowProps {
   locale?: Locale;
 }
 
-const COPY: Record<Locale, { contact: string; book: string; learnMore: string }> = {
-  en: { contact: "Contact us", book: "Book", learnMore: "Learn more" },
-  es: { contact: "Contáctenos al", book: "Solicitar", learnMore: "Más información" },
+const COPY: Record<
+  Locale,
+  { contact: string; book: string; learnMore: string; learnMoreAbout: (name: string) => string }
+> = {
+  en: {
+    contact: "Contact us",
+    book: "Book",
+    learnMore: "Learn more",
+    learnMoreAbout: (name) => `Learn more about ${name}`,
+  },
+  es: {
+    contact: "Contáctenos al",
+    book: "Solicitar",
+    learnMore: "Más información",
+    learnMoreAbout: (name) => `Más información sobre ${name}`,
+  },
   // "Solicitar"/"Mande", not "Reservar"/"Rezève" — matches this component's
   // own English "Book"→ES "Solicitar" precedent (ATS-E3 3.4: nothing here
   // auto-confirms a slot) and the booking-form submitLabel wording already
   // established for these locales (content/pt/lead-forms.ts, content/ht/lead-forms.ts).
-  pt: { contact: "Fale conosco pelo", book: "Solicitar", learnMore: "Saiba mais" },
-  ht: { contact: "Kontakte nou nan", book: "Mande", learnMore: "Aprann plis" },
+  pt: {
+    contact: "Fale conosco pelo",
+    book: "Solicitar",
+    learnMore: "Saiba mais",
+    learnMoreAbout: (name) => `Saiba mais sobre ${name}`,
+  },
+  ht: {
+    contact: "Kontakte nou nan",
+    book: "Mande",
+    learnMore: "Aprann plis",
+    learnMoreAbout: (name) => `Aprann plis sou ${name}`,
+  },
 };
 
 /** Services-list row per Figma (file NHwBqbGepOspY0GrCnECnj, node 96:155,
@@ -69,7 +92,30 @@ export function ServiceListRow({ item, className, locale = DEFAULT_LOCALE }: Ser
         <div className="mt-auto flex w-full items-center justify-between gap-4 self-end">
           {item.href ? (
             <Link href={item.href} className="font-sans text-card-body text-ink-500 underline">
-              {item.ctaLabel ?? copy.learnMore}
+              {/* content/services.ts and others set ctaLabel to the same
+               * literal "Learn more" per item rather than leaving it unset
+               * to fall through to `copy.learnMore` below — comparing
+               * against the generic text itself (not just truthiness)
+               * catches that case too, not only the unset one. When it's
+               * the generic label, the VISIBLE text stays the short,
+               * compact "Learn more" pill (aria-hidden, so it isn't
+               * announced) and a separate sr-only span carries the real,
+               * per-item localized phrase — a plain aria-label on the
+               * link fixed the real WCAG 2.4.4 accessible-name issue but
+               * did not clear Lighthouse's `link-text` SEO audit, which
+               * evaluates the link's own text content, not its computed
+               * accessible name (ATS-SEO-122 finding, confirmed by
+               * rerunning Lighthouse against that fix). A custom
+               * `ctaLabel` (e.g. "Whiplash Treatment") is already
+               * descriptive, so it renders as plain, announced text. */}
+              {(item.ctaLabel ?? copy.learnMore) === copy.learnMore ? (
+                <>
+                  <span aria-hidden="true">{copy.learnMore}</span>
+                  <span className="sr-only">{copy.learnMoreAbout(item.name)}</span>
+                </>
+              ) : (
+                item.ctaLabel
+              )}
             </Link>
           ) : (
             <span />

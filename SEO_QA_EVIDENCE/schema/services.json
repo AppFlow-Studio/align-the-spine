@@ -1,0 +1,764 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://www.chirobackpain.com/services#adjustments",
+    "name": "Adjustments",
+    "description": "Hands-on chiropractic adjustments using controlled pressure to improve joint motion in the neck, mid back, or lower back when appropriate.",
+    "provider": {
+      "@id": "https://www.chirobackpain.com/#business"
+    },
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "Deerfield Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Lighthouse Point"
+      },
+      {
+        "@type": "City",
+        "name": "Pompano Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Fort Lauderdale"
+      },
+      {
+        "@type": "City",
+        "name": "Hollywood"
+      },
+      {
+        "@type": "City",
+        "name": "Pembroke Pines"
+      },
+      {
+        "@type": "City",
+        "name": "Davie"
+      },
+      {
+        "@type": "City",
+        "name": "Coral Springs"
+      },
+      {
+        "@type": "City",
+        "name": "Coconut Creek"
+      },
+      {
+        "@type": "City",
+        "name": "Margate"
+      },
+      {
+        "@type": "City",
+        "name": "Sunrise"
+      },
+      {
+        "@type": "City",
+        "name": "Tamarac"
+      },
+      {
+        "@type": "City",
+        "name": "Miami"
+      },
+      {
+        "@type": "City",
+        "name": "Hialeah"
+      },
+      {
+        "@type": "City",
+        "name": "Miami Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Miami Gardens"
+      },
+      {
+        "@type": "City",
+        "name": "West Palm Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Boca Raton"
+      },
+      {
+        "@type": "City",
+        "name": "Delray Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Boynton Beach"
+      }
+    ],
+    "url": "https://www.chirobackpain.com/services#adjustments"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://www.chirobackpain.com/services#sports-injury",
+    "name": "Sports Injury",
+    "description": "Assessment and hands-on treatment for strains, sprains, and overuse injuries, with a plan built around getting you back to your sport.",
+    "provider": {
+      "@id": "https://www.chirobackpain.com/#business"
+    },
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "Deerfield Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Lighthouse Point"
+      },
+      {
+        "@type": "City",
+        "name": "Pompano Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Fort Lauderdale"
+      },
+      {
+        "@type": "City",
+        "name": "Hollywood"
+      },
+      {
+        "@type": "City",
+        "name": "Pembroke Pines"
+      },
+      {
+        "@type": "City",
+        "name": "Davie"
+      },
+      {
+        "@type": "City",
+        "name": "Coral Springs"
+      },
+      {
+        "@type": "City",
+        "name": "Coconut Creek"
+      },
+      {
+        "@type": "City",
+        "name": "Margate"
+      },
+      {
+        "@type": "City",
+        "name": "Sunrise"
+      },
+      {
+        "@type": "City",
+        "name": "Tamarac"
+      },
+      {
+        "@type": "City",
+        "name": "Miami"
+      },
+      {
+        "@type": "City",
+        "name": "Hialeah"
+      },
+      {
+        "@type": "City",
+        "name": "Miami Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Miami Gardens"
+      },
+      {
+        "@type": "City",
+        "name": "West Palm Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Boca Raton"
+      },
+      {
+        "@type": "City",
+        "name": "Delray Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Boynton Beach"
+      }
+    ],
+    "url": "https://www.chirobackpain.com/services#sports-injury"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://www.chirobackpain.com/services#posture-corrective",
+    "name": "Posture & Corrective",
+    "description": "Chiropractic evaluation and care for postural strain that can build from desk work, driving, or repetitive movement.",
+    "provider": {
+      "@id": "https://www.chirobackpain.com/#business"
+    },
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "Deerfield Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Lighthouse Point"
+      },
+      {
+        "@type": "City",
+        "name": "Pompano Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Fort Lauderdale"
+      },
+      {
+        "@type": "City",
+        "name": "Hollywood"
+      },
+      {
+        "@type": "City",
+        "name": "Pembroke Pines"
+      },
+      {
+        "@type": "City",
+        "name": "Davie"
+      },
+      {
+        "@type": "City",
+        "name": "Coral Springs"
+      },
+      {
+        "@type": "City",
+        "name": "Coconut Creek"
+      },
+      {
+        "@type": "City",
+        "name": "Margate"
+      },
+      {
+        "@type": "City",
+        "name": "Sunrise"
+      },
+      {
+        "@type": "City",
+        "name": "Tamarac"
+      },
+      {
+        "@type": "City",
+        "name": "Miami"
+      },
+      {
+        "@type": "City",
+        "name": "Hialeah"
+      },
+      {
+        "@type": "City",
+        "name": "Miami Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Miami Gardens"
+      },
+      {
+        "@type": "City",
+        "name": "West Palm Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Boca Raton"
+      },
+      {
+        "@type": "City",
+        "name": "Delray Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Boynton Beach"
+      }
+    ],
+    "url": "https://www.chirobackpain.com/services#posture-corrective"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://www.chirobackpain.com/services#spinal-decompression",
+    "name": "Spinal Decompression",
+    "description": "Controlled, traction-based spinal decompression for selected disc, joint, and radiating nerve-pain concerns after a full evaluation.",
+    "provider": {
+      "@id": "https://www.chirobackpain.com/#business"
+    },
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "Deerfield Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Lighthouse Point"
+      },
+      {
+        "@type": "City",
+        "name": "Pompano Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Fort Lauderdale"
+      },
+      {
+        "@type": "City",
+        "name": "Hollywood"
+      },
+      {
+        "@type": "City",
+        "name": "Pembroke Pines"
+      },
+      {
+        "@type": "City",
+        "name": "Davie"
+      },
+      {
+        "@type": "City",
+        "name": "Coral Springs"
+      },
+      {
+        "@type": "City",
+        "name": "Coconut Creek"
+      },
+      {
+        "@type": "City",
+        "name": "Margate"
+      },
+      {
+        "@type": "City",
+        "name": "Sunrise"
+      },
+      {
+        "@type": "City",
+        "name": "Tamarac"
+      },
+      {
+        "@type": "City",
+        "name": "Miami"
+      },
+      {
+        "@type": "City",
+        "name": "Hialeah"
+      },
+      {
+        "@type": "City",
+        "name": "Miami Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Miami Gardens"
+      },
+      {
+        "@type": "City",
+        "name": "West Palm Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Boca Raton"
+      },
+      {
+        "@type": "City",
+        "name": "Delray Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Boynton Beach"
+      }
+    ],
+    "url": "https://www.chirobackpain.com/services#spinal-decompression"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://www.chirobackpain.com/services#headache-migraine",
+    "name": "Headache & Migraine",
+    "description": "Neck-focused evaluation and chiropractic care for headaches with a possible musculoskeletal or cervical component.",
+    "provider": {
+      "@id": "https://www.chirobackpain.com/#business"
+    },
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "Deerfield Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Lighthouse Point"
+      },
+      {
+        "@type": "City",
+        "name": "Pompano Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Fort Lauderdale"
+      },
+      {
+        "@type": "City",
+        "name": "Hollywood"
+      },
+      {
+        "@type": "City",
+        "name": "Pembroke Pines"
+      },
+      {
+        "@type": "City",
+        "name": "Davie"
+      },
+      {
+        "@type": "City",
+        "name": "Coral Springs"
+      },
+      {
+        "@type": "City",
+        "name": "Coconut Creek"
+      },
+      {
+        "@type": "City",
+        "name": "Margate"
+      },
+      {
+        "@type": "City",
+        "name": "Sunrise"
+      },
+      {
+        "@type": "City",
+        "name": "Tamarac"
+      },
+      {
+        "@type": "City",
+        "name": "Miami"
+      },
+      {
+        "@type": "City",
+        "name": "Hialeah"
+      },
+      {
+        "@type": "City",
+        "name": "Miami Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Miami Gardens"
+      },
+      {
+        "@type": "City",
+        "name": "West Palm Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Boca Raton"
+      },
+      {
+        "@type": "City",
+        "name": "Delray Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Boynton Beach"
+      }
+    ],
+    "url": "https://www.chirobackpain.com/services#headache-migraine"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://www.chirobackpain.com/services#massage-soft-tissue",
+    "name": "Massage/Soft-Tissue",
+    "description": "Myofascial release and targeted soft-tissue care for muscle tension, restricted motion, and injury-related soreness.",
+    "provider": {
+      "@id": "https://www.chirobackpain.com/#business"
+    },
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "Deerfield Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Lighthouse Point"
+      },
+      {
+        "@type": "City",
+        "name": "Pompano Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Fort Lauderdale"
+      },
+      {
+        "@type": "City",
+        "name": "Hollywood"
+      },
+      {
+        "@type": "City",
+        "name": "Pembroke Pines"
+      },
+      {
+        "@type": "City",
+        "name": "Davie"
+      },
+      {
+        "@type": "City",
+        "name": "Coral Springs"
+      },
+      {
+        "@type": "City",
+        "name": "Coconut Creek"
+      },
+      {
+        "@type": "City",
+        "name": "Margate"
+      },
+      {
+        "@type": "City",
+        "name": "Sunrise"
+      },
+      {
+        "@type": "City",
+        "name": "Tamarac"
+      },
+      {
+        "@type": "City",
+        "name": "Miami"
+      },
+      {
+        "@type": "City",
+        "name": "Hialeah"
+      },
+      {
+        "@type": "City",
+        "name": "Miami Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Miami Gardens"
+      },
+      {
+        "@type": "City",
+        "name": "West Palm Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Boca Raton"
+      },
+      {
+        "@type": "City",
+        "name": "Delray Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Boynton Beach"
+      }
+    ],
+    "url": "https://www.chirobackpain.com/services#massage-soft-tissue"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://www.chirobackpain.com/services#car-accidents",
+    "name": "Car Accidents",
+    "description": "After a car accident, request a chiropractic evaluation for neck pain, back pain, stiffness, whiplash symptoms, and other musculoskeletal concerns.",
+    "provider": {
+      "@id": "https://www.chirobackpain.com/#business"
+    },
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "Deerfield Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Lighthouse Point"
+      },
+      {
+        "@type": "City",
+        "name": "Pompano Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Fort Lauderdale"
+      },
+      {
+        "@type": "City",
+        "name": "Hollywood"
+      },
+      {
+        "@type": "City",
+        "name": "Pembroke Pines"
+      },
+      {
+        "@type": "City",
+        "name": "Davie"
+      },
+      {
+        "@type": "City",
+        "name": "Coral Springs"
+      },
+      {
+        "@type": "City",
+        "name": "Coconut Creek"
+      },
+      {
+        "@type": "City",
+        "name": "Margate"
+      },
+      {
+        "@type": "City",
+        "name": "Sunrise"
+      },
+      {
+        "@type": "City",
+        "name": "Tamarac"
+      },
+      {
+        "@type": "City",
+        "name": "Miami"
+      },
+      {
+        "@type": "City",
+        "name": "Hialeah"
+      },
+      {
+        "@type": "City",
+        "name": "Miami Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Miami Gardens"
+      },
+      {
+        "@type": "City",
+        "name": "West Palm Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Boca Raton"
+      },
+      {
+        "@type": "City",
+        "name": "Delray Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Boynton Beach"
+      }
+    ],
+    "url": "https://www.chirobackpain.com/services#car-accidents"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://www.chirobackpain.com/services#cupping-therapy",
+    "name": "Cupping Therapy",
+    "description": "Cupping applies localized suction to selected areas of muscle tension and may be included when appropriate for neck, back, or other soft-tissue concerns.",
+    "provider": {
+      "@id": "https://www.chirobackpain.com/#business"
+    },
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "Deerfield Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Lighthouse Point"
+      },
+      {
+        "@type": "City",
+        "name": "Pompano Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Fort Lauderdale"
+      },
+      {
+        "@type": "City",
+        "name": "Hollywood"
+      },
+      {
+        "@type": "City",
+        "name": "Pembroke Pines"
+      },
+      {
+        "@type": "City",
+        "name": "Davie"
+      },
+      {
+        "@type": "City",
+        "name": "Coral Springs"
+      },
+      {
+        "@type": "City",
+        "name": "Coconut Creek"
+      },
+      {
+        "@type": "City",
+        "name": "Margate"
+      },
+      {
+        "@type": "City",
+        "name": "Sunrise"
+      },
+      {
+        "@type": "City",
+        "name": "Tamarac"
+      },
+      {
+        "@type": "City",
+        "name": "Miami"
+      },
+      {
+        "@type": "City",
+        "name": "Hialeah"
+      },
+      {
+        "@type": "City",
+        "name": "Miami Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Miami Gardens"
+      },
+      {
+        "@type": "City",
+        "name": "West Palm Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Boca Raton"
+      },
+      {
+        "@type": "City",
+        "name": "Delray Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Boynton Beach"
+      }
+    ],
+    "url": "https://www.chirobackpain.com/services#cupping-therapy"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.chirobackpain.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Services",
+        "item": "https://www.chirobackpain.com/services"
+      }
+    ]
+  }
+]

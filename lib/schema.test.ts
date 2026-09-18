@@ -7,12 +7,14 @@ import { isVerified } from "@/content/verified-value";
 
 import {
   buildBreadcrumbList,
+  buildCollectionPage,
   buildFAQPage,
   buildMedicalBusiness,
   buildMedicalWebPage,
   buildOrganization,
   buildPerson,
   buildService,
+  buildTopicService,
   buildWebPage,
   buildWebSite,
   DR_ABE_PERSON_ID,
@@ -225,6 +227,104 @@ describe("buildMedicalWebPage", () => {
     });
     expect(page).not.toHaveProperty("datePublished");
   });
+
+  // ATS-SEO-126: mainEntity/isPartOf are additive and optional — every
+  // pre-existing caller (service-areas, blog) omits them and must keep
+  // getting byte-identical output to before this ticket's change.
+  it("omits mainEntity and isPartOf when not requested", () => {
+    const page = buildMedicalWebPage({
+      path: "/service-areas/example",
+      name: "Example page",
+      description: "Example description.",
+      dateModified: "2026-08-18T00:00:00.000Z",
+      aboutTopic: "Example topic",
+    });
+    expect(page).not.toHaveProperty("mainEntity");
+    expect(page).not.toHaveProperty("isPartOf");
+  });
+
+  it("links mainEntity/isPartOf when the caller opts in (ATS-SEO-126)", () => {
+    const page = buildMedicalWebPage({
+      path: "/car-accident-chiropractor",
+      name: "Example page",
+      description: "Example description.",
+      dateModified: "2026-08-18T00:00:00.000Z",
+      aboutTopic: "Chiropractic care after a motor vehicle accident",
+      mainEntity: `${siteConfig.siteUrl}/car-accident-chiropractor#service`,
+      isPartOfWebSite: true,
+    });
+    expect(page.mainEntity).toEqual({
+      "@id": `${siteConfig.siteUrl}/car-accident-chiropractor#service`,
+    });
+    expect(page.isPartOf).toEqual({ "@id": WEBSITE_ID });
+  });
+});
+
+describe("buildTopicService", () => {
+  it("builds a Service entity keyed by the page's own #service anchor, provided by the practice", () => {
+    const service = buildTopicService({
+      path: "/car-accident-chiropractor",
+      name: "Car Accident Chiropractor in Deerfield Beach, FL",
+      description: "Test description.",
+    });
+    expect(service["@type"]).toBe("Service");
+    expect(service["@id"]).toBe(`${siteConfig.siteUrl}/car-accident-chiropractor#service`);
+    expect(service.provider).toEqual({ "@id": MEDICAL_BUSINESS_ID });
+    expect(service.url).toBe(`${siteConfig.siteUrl}/car-accident-chiropractor`);
+    expect(service.name).toBe("Car Accident Chiropractor in Deerfield Beach, FL");
+  });
+});
+
+describe("buildCollectionPage", () => {
+  it("uses CollectionPage, never MedicalCondition, for a hub/index page", () => {
+    const page = buildCollectionPage({
+      path: "/conditions",
+      name: "Conditions We Treat",
+      description: "Test description.",
+      items: [{ name: "Sciatica", path: "/conditions/sciatica" }],
+    });
+    expect(page["@type"]).toBe("CollectionPage");
+  });
+
+  it("links to the shared WebSite and MedicalBusiness entities", () => {
+    const page = buildCollectionPage({
+      path: "/conditions",
+      name: "Conditions We Treat",
+      description: "Test description.",
+      items: [{ name: "Sciatica", path: "/conditions/sciatica" }],
+    });
+    expect(page.isPartOf).toEqual({ "@id": WEBSITE_ID });
+    expect(page.about).toEqual({ "@id": MEDICAL_BUSINESS_ID });
+  });
+
+  it("builds a 1-indexed ItemList mirroring the passed-in items, in order", () => {
+    const page = buildCollectionPage({
+      path: "/conditions",
+      name: "Conditions We Treat",
+      description: "Test description.",
+      items: [
+        { name: "Back Pain", path: "/conditions/back-pain" },
+        { name: "Sciatica", path: "/conditions/sciatica" },
+      ],
+    });
+    expect(page.mainEntity).toEqual({
+      "@type": "ItemList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          url: `${siteConfig.siteUrl}/conditions/back-pain`,
+          name: "Back Pain",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          url: `${siteConfig.siteUrl}/conditions/sciatica`,
+          name: "Sciatica",
+        },
+      ],
+    });
+  });
 });
 
 describe("buildFAQPage", () => {
@@ -353,6 +453,17 @@ describe("ATS-SEO-141: one coherent entity graph across locales", () => {
         aboutTopic: "Example",
       }),
     );
+    assertNoAvailableLanguage(
+      buildTopicService({ path: "/car-accident-chiropractor", name: "N", description: "D" }),
+    );
+    assertNoAvailableLanguage(
+      buildCollectionPage({
+        path: "/conditions",
+        name: "N",
+        description: "D",
+        items: [{ name: "Sciatica", path: "/conditions/sciatica" }],
+      }),
+    );
   });
 
   // ATS-SEO-141: "structured data must match visible content" — every
@@ -392,4 +503,102 @@ describe("ATS-SEO-141: one coherent entity graph across locales", () => {
 
     expect(offenders).toEqual([]);
   });
+});
+
+/** ATS-SEO-126: automated assertions for the ticket's explicit prohibitions
+ * ("do not add aggregateRating/self-serving review markup", "do not add
+ * Physician as an SEO shortcut", "never duplicate the practice as multiple
+ * conflicting top-level businesses") — walked over the actual graph these
+ * two routes render, not just asserted in prose. */
+describe("ATS-SEO-126: accident and conditions structured-data graph", () => {
+  const accidentService = buildTopicService({
+    path: "/car-accident-chiropractor",
+    name: "Car Accident Chiropractor in Deerfield Beach, FL",
+    description: "Test description.",
+  });
+  const accidentPage = buildMedicalWebPage({
+    path: "/car-accident-chiropractor",
+    name: "Car Accident Chiropractor in Deerfield Beach, FL",
+    description: "Test description.",
+    dateModified: "2026-08-18T00:00:00.000Z",
+    aboutTopic: "Chiropractic care after a motor vehicle accident",
+    mainEntity: accidentService["@id"],
+    isPartOfWebSite: true,
+  });
+  const conditionsHub = buildCollectionPage({
+    path: "/conditions",
+    name: "Conditions We Treat",
+    description: "Test description.",
+    items: [{ name: "Sciatica", path: "/conditions/sciatica" }],
+  });
+
+  function assertNoProhibitedFields(value: unknown, path = "$"): void {
+    if (Array.isArray(value)) {
+      value.forEach((item, index) => assertNoProhibitedFields(item, `${path}[${index}]`));
+      return;
+    }
+    if (value && typeof value === "object") {
+      for (const [key, nested] of Object.entries(value)) {
+        expect(key, `unexpected aggregateRating at ${path}`).not.toBe("aggregateRating");
+        if (key === "@type") {
+          expect(nested, `unsupported Physician @type at ${path}`).not.toBe("Physician");
+        }
+        assertNoProhibitedFields(nested, `${path}.${key}`);
+      }
+    }
+  }
+
+  it("neither the Service nor the MedicalWebPage node carries aggregateRating or a Physician @type", () => {
+    assertNoProhibitedFields(accidentService);
+    assertNoProhibitedFields(accidentPage);
+  });
+
+  it("the /conditions hub is CollectionPage, never MedicalCondition, and carries no aggregateRating", () => {
+    assertNoProhibitedFields(conditionsHub);
+    expect(conditionsHub["@type"]).toBe("CollectionPage");
+  });
+
+  it("the accident page's Service and MedicalWebPage both resolve to the same single MedicalBusiness — no second practice entity", () => {
+    expect(accidentService.provider).toEqual({ "@id": MEDICAL_BUSINESS_ID });
+    expect(accidentPage.publisher).toEqual({ "@id": ORGANIZATION_ID });
+    expect(accidentPage.author).toEqual({ "@id": DR_ABE_PERSON_ID });
+  });
+
+  it("the MedicalWebPage's mainEntity resolves to the Service's own @id, connecting the two nodes", () => {
+    expect(accidentPage.mainEntity).toEqual({ "@id": accidentService["@id"] });
+  });
+});
+
+/** Regression guard for the gap a Slack follow-up (2026-09-16) asked to be
+ * fixed: all 7 /conditions/* pages used to render no MedicalWebPage at all
+ * (2 had it after ATS-SEO-126; the other 5 had neither Breadcrumb nor
+ * MedicalWebPage — though the "no Breadcrumb" half turned out to be a false
+ * finding, since HeroSolidPanel renders BreadcrumbJsonLd itself). Source-scans
+ * every app/(en)/conditions/*\/page.tsx rather than importing the modules
+ * (Server Components, no jsdom setup in this repo — same convention
+ * content/route-registry-parity.test.ts and the buildWebPage scan above
+ * already use), so a future condition page that forgets this call fails
+ * the build instead of shipping silently. */
+describe("every /conditions/* page renders MedicalWebPage (2026-09-16 follow-up)", () => {
+  it("every app/(en)/conditions/*/page.tsx (excluding the hub) calls buildMedicalWebPage", () => {
+    const conditionsDir = join(__dirname, "..", "app", "(en)", "conditions");
+    const offenders: string[] = [];
+
+    for (const entry of readdirSync(conditionsDir, { withFileTypes: true })) {
+      if (!entry.isDirectory()) continue; // skips page.tsx itself (the hub)
+      const pagePath = join(conditionsDir, entry.name, "page.tsx");
+      const source = readFileSync(pagePath, "utf8");
+      if (!source.includes("buildMedicalWebPage(")) {
+        offenders.push(pagePath);
+      }
+    }
+
+    expect(offenders).toEqual([]);
+  });
+
+  // The double-BreadcrumbJsonLd check that used to live here is now
+  // content/breadcrumb-schema.test.ts's sitewide version (2026-09-17) — it
+  // turned out not to be a /conditions/*-only bug (car-accident-chiropractor
+  // and 3 /services/* pages had it too), so the narrower, duplicate check
+  // was removed rather than kept alongside the general one.
 });

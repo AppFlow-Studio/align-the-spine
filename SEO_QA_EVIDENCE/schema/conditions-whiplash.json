@@ -1,0 +1,84 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.chirobackpain.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Whiplash",
+        "item": "https://www.chirobackpain.com/conditions/whiplash"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.chirobackpain.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Whiplash",
+        "item": "https://www.chirobackpain.com/conditions/whiplash"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How long does whiplash take to heal?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Mild cases often improve within a few weeks of consistent care; more significant injuries can take a few months. We reassess regularly and adjust your plan as you progress."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does a whiplash \"grade\" mean?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A whiplash grade \u2014 based on the Quebec Task Force classification, the standard grading framework \u2014 describes severity, from neck symptoms without physical signs to fracture or dislocation. A qualified clinician should assess the injury rather than relying on symptoms alone."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can whiplash cause headaches weeks later?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes \u2014 cervicogenic headaches that trace back to the neck are one of the most common delayed whiplash symptoms, sometimes showing up well after the initial stiffness eases."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can whiplash symptoms be delayed?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes \u2014 it's common to feel fine at the scene and then develop neck stiffness, headaches, or reduced range of motion in the hours or days that follow. Feeling okay immediately after a collision doesn't rule out whiplash; an evaluation can document any delayed-onset symptoms."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does PIP coverage work for my visit?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Florida PIP generally requires initial services and care within 14 days of a motor vehicle accident. Benefit limits and payment depend on your eligibility, policy, medical necessity, and claim details."
+        }
+      }
+    ]
+  }
+]

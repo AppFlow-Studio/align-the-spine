@@ -9,7 +9,6 @@ import { HeroReviewsCarousel } from "@/components/sections/hero-reviews-carousel
 import { HeroSolidPanel } from "@/components/sections/hero-solid-panel";
 import { HowWeHelpSteps } from "@/components/sections/how-we-help-steps";
 import { PatientReviews } from "@/components/sections/patient-reviews";
-import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { FaqJsonLd } from "@/components/seo/faq-json-ld";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Button } from "@/components/ui/button";
@@ -26,7 +25,7 @@ import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { heroReviewsCarousel, homeFeaturedTestimonial, homeReviews } from "@/content/testimonials";
 import { isVerified } from "@/content/verified-value";
-import { buildMedicalWebPage } from "@/lib/schema";
+import { buildMedicalWebPage, buildTopicService } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 /** Code-split (Epic 12): keep these interactive, below-the-fold sections
@@ -73,10 +72,24 @@ const breadcrumbs = [
   { name: "Car Accident Chiropractor", path: "/car-accident-chiropractor" },
 ];
 
+// ATS-SEO-126: the accident chiropractic Service this page is the dedicated
+// landing page for — provider links back to the one MedicalBusiness entity,
+// and the MedicalWebPage below points to this Service as its mainEntity, so
+// a JSON-LD consumer sees one connected page/service/practice graph instead
+// of an isolated page node.
+const accidentService = buildTopicService({
+  path: route.path,
+  name: route.title,
+  description: route.description,
+});
+
 export default function AutoAccidentsPage() {
   return (
     <>
-      <BreadcrumbJsonLd items={breadcrumbs} />
+      {/* BreadcrumbList comes from HeroSolidPanel's own `breadcrumbs` prop
+       * below (it renders BreadcrumbJsonLd internally) — an explicit second
+       * call here used to duplicate that block; removed, not added back. */}
+      <JsonLd data={accidentService} />
       <JsonLd
         data={buildMedicalWebPage({
           path: route.path,
@@ -84,6 +97,8 @@ export default function AutoAccidentsPage() {
           description: route.description,
           dateModified: route.lastModified,
           aboutTopic: "Chiropractic care after a motor vehicle accident",
+          mainEntity: accidentService["@id"],
+          isPartOfWebSite: true,
         })}
       />
       <HeroSolidPanel
@@ -92,9 +107,9 @@ export default function AutoAccidentsPage() {
         eyebrow={hero.eyebrowChip}
         title={
           <>
-            Car Accident
+            Car Accident Chiropractor
             <br />
-            Chiropractor
+            in Deerfield Beach, FL
           </>
         }
         subhead={

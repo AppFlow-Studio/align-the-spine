@@ -47,11 +47,15 @@ export function FeelsLike({ items, heading, warning, className }: FeelsLikeProps
                 <div className="w-full h-px bg-navy-900 group-hover:bg-[#58A0A0] transition-colors duration-300" />
                 <p className="font-alt text-faq-a text-ink-500">{item.desc}</p>
                 {item.learnMoreHref && (
+                  // See feels-like-band.tsx's identical comment: visible
+                  // text stays the short "Learn more" pill (aria-hidden),
+                  // a separate sr-only span carries the real per-item text.
                   <Link
                     href={item.learnMoreHref}
                     className="inline-flex w-fit items-center gap-2 font-sans text-stat-label uppercase text-navy-900 group-hover:text-teal-500 hover:text-navy-700 underline decoration-transparent group-hover:decoration-navy-700 underline-offset-4 transition-colors duration-300"
                   >
-                    Learn more
+                    <span aria-hidden="true">Learn more</span>
+                    <span className="sr-only">Learn more about {item.title}</span>
                     <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
                 )}
@@ -81,7 +85,13 @@ export function SymptomWarningCard({ warning, className }: SymptomWarningCardPro
   return (
     <div className={cn("grid grid-cols-1 gap-0 overflow-hidden lg:grid-cols-2", className)}>
       <div className="relative aspect-[4/3] w-full lg:aspect-auto">
-        <Image src={warning.image.src} alt={warning.image.alt} fill className="object-cover" />
+        <Image
+          src={warning.image.src}
+          alt={warning.image.alt}
+          fill
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          className="object-cover"
+        />
       </div>
       <div className="flex flex-col justify-center gap-6 bg-overlay-teal-12 p-8 md:p-12">
         <h3 className="font-display text-3xl text-navy-900">{warning.heading}</h3>

@@ -1,0 +1,208 @@
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.chirobackpain.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Car Accident Chiropractor",
+        "item": "https://www.chirobackpain.com/car-accident-chiropractor"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://www.chirobackpain.com/car-accident-chiropractor#service",
+    "name": "Car Accident Chiropractor in Deerfield Beach, FL | Align the Spine",
+    "description": "See Dr. Abe for a car accident chiropractic evaluation in Deerfield Beach, including care for neck pain, back pain, stiffness, and whiplash symptoms.",
+    "provider": {
+      "@id": "https://www.chirobackpain.com/#business"
+    },
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "Deerfield Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Lighthouse Point"
+      },
+      {
+        "@type": "City",
+        "name": "Pompano Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Fort Lauderdale"
+      },
+      {
+        "@type": "City",
+        "name": "Hollywood"
+      },
+      {
+        "@type": "City",
+        "name": "Pembroke Pines"
+      },
+      {
+        "@type": "City",
+        "name": "Davie"
+      },
+      {
+        "@type": "City",
+        "name": "Coral Springs"
+      },
+      {
+        "@type": "City",
+        "name": "Coconut Creek"
+      },
+      {
+        "@type": "City",
+        "name": "Margate"
+      },
+      {
+        "@type": "City",
+        "name": "Sunrise"
+      },
+      {
+        "@type": "City",
+        "name": "Tamarac"
+      },
+      {
+        "@type": "City",
+        "name": "Miami"
+      },
+      {
+        "@type": "City",
+        "name": "Hialeah"
+      },
+      {
+        "@type": "City",
+        "name": "Miami Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Miami Gardens"
+      },
+      {
+        "@type": "City",
+        "name": "West Palm Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Boca Raton"
+      },
+      {
+        "@type": "City",
+        "name": "Delray Beach"
+      },
+      {
+        "@type": "City",
+        "name": "Boynton Beach"
+      }
+    ],
+    "url": "https://www.chirobackpain.com/car-accident-chiropractor"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "@id": "https://www.chirobackpain.com/car-accident-chiropractor#webpage",
+    "url": "https://www.chirobackpain.com/car-accident-chiropractor",
+    "name": "Car Accident Chiropractor in Deerfield Beach, FL | Align the Spine",
+    "description": "See Dr. Abe for a car accident chiropractic evaluation in Deerfield Beach, including care for neck pain, back pain, stiffness, and whiplash symptoms.",
+    "inLanguage": "en-US",
+    "dateModified": "2026-08-12",
+    "author": {
+      "@id": "https://www.chirobackpain.com/about#dr-abe"
+    },
+    "publisher": {
+      "@id": "https://www.chirobackpain.com/#organization"
+    },
+    "mainEntityOfPage": "https://www.chirobackpain.com/car-accident-chiropractor",
+    "medicalAudience": {
+      "@type": "MedicalAudience",
+      "audienceType": "Patient"
+    },
+    "about": {
+      "@type": "MedicalTherapy",
+      "name": "Chiropractic care after a motor vehicle accident"
+    },
+    "mainEntity": {
+      "@id": "https://www.chirobackpain.com/car-accident-chiropractor#service"
+    },
+    "isPartOf": {
+      "@id": "https://www.chirobackpain.com/#website"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.chirobackpain.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Car Accident Chiropractor",
+        "item": "https://www.chirobackpain.com/car-accident-chiropractor"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What should I do if my neck hurts after a car accident?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "If you have numbness, tingling, or weakness in your arms or legs, a severe headache, dizziness, or confusion, or any chest, abdominal, or worsening pain, seek emergency care right away. Otherwise, get evaluated as soon as you can \u2014 some accident-related symptoms take hours or days to appear, and Florida PIP generally requires initial services and care within 14 days of the accident."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "I feel fine \u2014 do I really need to be seen?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Some accident-related symptoms can appear later. Seek urgent medical care for severe or worsening symptoms; otherwise, a timely evaluation can document concerns and determine whether treatment or referral is appropriate."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will this cost me anything out of pocket?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It depends on your coverage and the specifics of your case. Call us and we'll walk through what to expect before your first visit."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need a police report or an attorney to be seen?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No \u2014 you can come in with just your insurance information. If you do have a police report or an attorney, we're happy to coordinate documentation with them."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens after the 14-day window has passed?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can still seek appropriate medical care, but Florida PIP payment generally depends on receiving initial services and care within 14 days (Fla. Stat. \u00a7 627.736). Ask your insurer or a qualified legal professional about your specific coverage \u2014 this is general information, not legal advice."
+        }
+      }
+    ]
+  }
+]

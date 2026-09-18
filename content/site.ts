@@ -7,7 +7,13 @@ import { PinIcon } from "@/components/ui/icons/pin";
 import { RingsIcon } from "@/components/ui/icons/rings";
 import { WavesIcon } from "@/components/ui/icons/waves";
 import { ZapIcon } from "@/components/ui/icons/zap";
-import { isVerified, mapVerified, verified, type VerifiedValue } from "@/content/verified-value";
+import {
+  isVerified,
+  mapVerified,
+  unverified,
+  verified,
+  type VerifiedValue,
+} from "@/content/verified-value";
 
 export interface Address {
   line1: string;
@@ -129,6 +135,12 @@ export interface SiteConfig {
   bilingualCare: VerifiedValue<string>;
   pipHandling: VerifiedValue<string>;
   reviewsRating: VerifiedValue<ReviewsRating>;
+  /** LOCAL-01: parking guidance for patients arriving in person — same
+   * gate as the claims above. No source of truth for this exists yet
+   * (unverified/`null` by default); nothing renders it until the client
+   * confirms real parking details (lot, street, validation, accessible
+   * spaces, etc.) — never a guessed "free parking available" claim. */
+  parkingGuidance: VerifiedValue<string>;
 }
 
 const businessHours: DayHours[] = [
@@ -530,6 +542,11 @@ export const siteConfig: SiteConfig = {
     "Client-confirmed (implementation brief update #4, 2026-08-11)",
     "2026-08-11",
   ),
+  // LOCAL-01: no client-confirmed parking details exist yet (lot vs.
+  // street, validation, accessible spaces) — stays unverified rather than
+  // guessing "free parking available", same discipline as every other
+  // claim above.
+  parkingGuidance: unverified<string>(),
 };
 
 export interface DisplayStat {

@@ -31,27 +31,29 @@ export function NavbarLinks({
   // "Acidentes de Carro" from wrapping to two lines and blowing out the
   // pill's fixed height.
   return (
-    <ul
-      className={`items-center gap-2.5 rounded-40 px-6 py-2 transition-colors duration-300 xl:gap-3.5 2xl:gap-5 ${className}`}
-    >
-      {nav.map((link) => {
-        if (link.menu) return <NavbarDropdown key={link.label} link={link} />;
+    <nav aria-label="Primary">
+      <ul
+        className={`items-center gap-2.5 rounded-40 px-6 py-2 transition-colors duration-300 xl:gap-3.5 2xl:gap-5 ${className}`}
+      >
+        {nav.map((link) => {
+          if (link.menu) return <NavbarDropdown key={link.label} link={link} />;
 
-        const active = pathname === link.href;
-        return (
-          <li key={link.label}>
-            <Link
-              href={link.href}
-              aria-current={active ? "page" : undefined}
-              className={`whitespace-nowrap text-[14px] uppercase leading-6 tracking-[0.85px] text-white underline-offset-4 transition-opacity duration-300 ${
-                active ? "opacity-100 underline" : "opacity-70 hover:underline hover:opacity-100"
-              }`}
-            >
-              {link.label}
-            </Link>
-          </li>
-        );
-      })}
-    </ul>
+          const active = pathname === link.href;
+          return (
+            <li key={link.label}>
+              <Link
+                href={link.href}
+                aria-current={active ? "page" : undefined}
+                className={`whitespace-nowrap text-[14px] uppercase leading-6 tracking-[0.85px] text-white underline-offset-4 transition-opacity duration-300 ${
+                  active ? "opacity-100 underline" : "opacity-70 hover:underline hover:opacity-100"
+                }`}
+              >
+                {link.label}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
   );
 }

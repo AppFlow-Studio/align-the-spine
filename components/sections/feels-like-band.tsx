@@ -32,7 +32,13 @@ export function FeelsLikeBand({
     <Section spacing="none" className={className}>
       <div className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <Image src={background.src} alt={background.alt} fill className="object-cover" />
+          <Image
+            src={background.src}
+            alt={background.alt}
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
           {/* <div className="absolute inset-0 bg-navy-900/40" /> */}
         </div>
         <Container className="relative flex flex-col gap-10 py-16 md:py-20">
@@ -48,11 +54,18 @@ export function FeelsLikeBand({
                 </h3>
                 <p className="font-alt text-faq-a text-mute-300">{item.desc}</p>
                 {item.learnMoreHref && (
+                  // Visible text stays the short "Learn more" pill (aria-hidden,
+                  // not announced); a separate sr-only span carries the real
+                  // per-item text — an aria-label alone fixed the WCAG 2.4.4
+                  // issue but didn't clear Lighthouse's link-text SEO audit,
+                  // which checks the link's own text content, not its
+                  // accessible name (ATS-SEO-122 finding, confirmed by rerun).
                   <Link
                     href={item.learnMoreHref}
                     className="inline-flex w-fit items-center gap-2 font-sans text-stat-label uppercase text-white underline-offset-4 transition-colors group-hover:text-teal-500 group-hover:underline"
                   >
-                    Learn more
+                    <span aria-hidden="true">Learn more</span>
+                    <span className="sr-only">Learn more about {item.title}</span>
                     <ArrowRightIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
                 )}
