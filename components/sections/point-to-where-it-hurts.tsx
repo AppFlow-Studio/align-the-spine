@@ -5,13 +5,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 
+import { PainAreaMediaPanel } from "@/components/sections/pain-area-media-panel";
 import { Container } from "@/components/ui/container";
 import { ArrowRightIcon } from "@/components/ui/icons/arrow-right";
 import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
 import type { BodyRegion, PointToWhereItHurtsContent } from "@/content/point-to-where-it-hurts";
 import { siteConfig } from "@/content/site";
+import { trackPainAreaInteraction } from "@/lib/analytics";
 import { cn } from "@/lib/cn";
+
+/** Hotspots visually range 40-72px (BodyRegion.size), but every touch
+ * target must be at least 44px regardless of the visible dot — expanded via
+ * transparent padding on the button, never by growing the dot itself. */
+const MIN_TOUCH_TARGET = 44;
 
 export interface PointToWhereItHurtsProps {
   content: PointToWhereItHurtsContent;
@@ -106,7 +113,8 @@ function SelectedPanel({
     <div
       className={cn(" border-l-4 border-teal-500 bg-white p-6 text-left shadow-card", className)}
     >
-      <p className="font-sans text-[13px] font-semibold uppercase tracking-[1.25px] text-teal-500">
+      <PainAreaMediaPanel regionId={region.id} />
+      <p className="mt-4 font-sans text-[13px] font-semibold uppercase tracking-[1.25px] text-teal-500">
         Selected
       </p>
       <HeadingTag className="mt-2 font-display text-[20px] leading-[26px] font-medium text-navy-800">
@@ -140,10 +148,17 @@ export function PointToWhereItHurts({ content }: PointToWhereItHurtsProps) {
   const rovingIndex = selectedIndex === -1 ? 0 : selectedIndex;
   const reduceMotion = useReducedMotion();
 
+  // ATS-E15a §6.3.6: track that a selection happened, never which region —
+  // see trackPainAreaInteraction's own doc comment.
+  function handleSelect(id: string) {
+    setSelectedId(id);
+    trackPainAreaInteraction();
+  }
+
   const { containerRef: desktopContainerRef, handleKeyDown: desktopHandleKeyDown } =
-    useRovingRadioGroup(regions, selectedId, setSelectedId);
+    useRovingRadioGroup(regions, selectedId, handleSelect);
   const { containerRef: mobileContainerRef, handleKeyDown: mobileHandleKeyDown } =
-    useRovingRadioGroup(regions, selectedId, setSelectedId);
+    useRovingRadioGroup(regions, selectedId, handleSelect);
 
   /** Straightening intro (desktop only). The hotspots are pinned to the
    * *straightened* spine, so they can't track the body mid-motion — instead of
@@ -268,6 +283,7 @@ export function PointToWhereItHurts({ content }: PointToWhereItHurtsProps) {
             >
               {regions.map((region, index) => {
                 const isSelected = region.id === selectedId;
+                const touchTarget = Math.max(MIN_TOUCH_TARGET, region.size);
                 return (
                   <div
                     key={region.id}
@@ -280,22 +296,30 @@ export function PointToWhereItHurts({ content }: PointToWhereItHurtsProps) {
                       aria-checked={isSelected}
                       aria-label={region.name}
                       tabIndex={index === rovingIndex ? 0 : -1}
-                      onClick={() => setSelectedId(region.id)}
-                      style={{ width: region.size, height: region.size }}
+                      onClick={() => handleSelect(region.id)}
+                      style={{ width: touchTarget, height: touchTarget }}
                       className={cn(
-                        "relative rounded-full ring-1 transition-colors",
+                        "group relative flex items-center justify-center rounded-full",
                         "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500",
-                        isSelected
-                          ? "bg-[#58A0A0]/30 ring-teal-500/60"
-                          : "bg-white/25 ring-white/50 hover:bg-white/40",
                       )}
                     >
-                      {isSelected && (
-                        <span
-                          aria-hidden="true"
-                          className="absolute inset-0 rounded-full ring-2 ring-teal-500 ring-offset-2 motion-safe:animate-pulse motion-reduce:animate-none"
-                        />
-                      )}
+                      <span
+                        aria-hidden="true"
+                        style={{ width: region.size, height: region.size }}
+                        className={cn(
+                          "relative rounded-full ring-1 transition-colors",
+                          isSelected
+                            ? "bg-[#58A0A0]/30 ring-teal-500/60"
+                            : "bg-white/25 ring-white/50 group-hover:bg-white/40",
+                        )}
+                      >
+                        {isSelected && (
+                          <span
+                            aria-hidden="true"
+                            className="absolute inset-0 rounded-full ring-2 ring-teal-500 ring-offset-2 motion-safe:animate-pulse motion-reduce:animate-none"
+                          />
+                        )}
+                      </span>
                     </button>
 
                     <RegionLabel region={region} side={region.labelSide} isSelected={isSelected} />
@@ -343,7 +367,7 @@ export function PointToWhereItHurts({ content }: PointToWhereItHurtsProps) {
                   role="radio"
                   aria-checked={isSelected}
                   tabIndex={index === rovingIndex ? 0 : -1}
-                  onClick={() => setSelectedId(region.id)}
+                  onClick={() => handleSelect(region.id)}
                   className={cn(
                     "rounded-20 border-2 px-6 py-4 text-left font-sans text-body-lg transition-colors",
                     "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500",

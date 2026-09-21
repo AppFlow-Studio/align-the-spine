@@ -1,7 +1,15 @@
 import { getRouteHref } from "@/content/seo";
 
+/** The 6 selectable regions on the "point to where it hurts" diagram. A
+ * union (not `string`) so content/pain-area-media.ts's `Record<PainAreaId,
+ * PainAreaMedia>` is exhaustive at compile time — adding a region here
+ * without adding its media entry is a type error, not a silent blank panel
+ * (ATS-E15a). */
+export type PainAreaId =
+  "headaches" | "whiplash" | "shoulder-pain" | "back-pain" | "herniated-disc" | "sciatica";
+
 export interface BodyRegion {
-  id: string;
+  id: PainAreaId;
   name: string;
   description: string;
   /** Condition-route deep link, when one exists. Falls back to siteConfig.bookingCta.href. */

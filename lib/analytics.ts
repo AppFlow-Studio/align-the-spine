@@ -68,6 +68,15 @@ export function trackBookCtaClick(path: string) {
   gtag("event", "book_cta_click", { locale: localeFromPath(path) });
 }
 
+/** ATS-E15a §6.3.6: a pain area is health information and must never appear
+ * in a GA4, Google Ads, GTM, or Meta event payload. This fires with no
+ * parameters at all (not even locale) — engagement count is allowed, which
+ * region was selected is not. Callers must NOT add a region id/name
+ * argument to this function. */
+export function trackPainAreaInteraction() {
+  gtag("event", "pain_area_interaction");
+}
+
 /** Fires a GA4 page_view for the given path. gtag's automatic pageview only
  * fires once, on the initial hard load (see AnalyticsScripts' `send_page_view:
  * false`) — client-side route changes in the App Router need this called
