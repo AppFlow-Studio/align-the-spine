@@ -91,7 +91,7 @@ export const htRoutes: RouteMeta[] = [
     lastModified: "2026-09-02",
     primaryQuery: "Haitian Creole-language general-care services hub",
     justification:
-      "Owns 'sèvis kiwopratik Deerfield Beach' hub intent in Haitian Creole, and now links onward to the four real (draft) Haitian Creole service pages under it.",
+      "Owns 'sèvis kiwopratik Deerfield Beach' hub intent in Haitian Creole, and now links onward to the four real, published Haitian Creole service pages under it.",
   },
   {
     path: "/ht/dr-abe-nasser",
@@ -171,7 +171,7 @@ export const htRoutes: RouteMeta[] = [
     lastModified: "2026-09-02",
     primaryQuery: "Haitian Creole-language conditions overview hub",
     justification:
-      "Owns the conditions-directory intent in Haitian Creole, and now links onward to the seven real (draft) Haitian Creole condition pages under it.",
+      "Owns the conditions-directory intent in Haitian Creole, and now links onward to the seven real, published Haitian Creole condition pages under it.",
   },
   {
     path: "/ht/zon-nou-sevi",
@@ -190,10 +190,11 @@ export const htRoutes: RouteMeta[] = [
       "Owns the service-area-coverage query in Haitian Creole, states the one-office truth plainly. No individual HT city pages exist yet — see this file's header comment.",
   },
   // ── Condition pages ──────────────────────────────────────────────────
-  // All seven are `status: "draft"`, mirroring their English/Spanish/
-  // Portuguese originals: real, finished pages awaiting clinician review of
-  // their medical content. Served noindex and kept out of the sitemap, but
-  // reachable and linkable from the Haitian Creole nav.
+  // OVERRIDE (2026-09-21): these seven condition pages were previously
+  // `status: "draft"`, mirroring the English/Spanish/Portuguese originals'
+  // now-superseded IA-02 clinician-review gate — see content/seo.ts's
+  // file header for the full override note. Published now, same as
+  // their English/Spanish/Portuguese originals.
   {
     path: "/ht/kondisyon-nou-trete/doule-do",
     title: `Kiwopratè pou Doulè Do nan Deerfield Beach, FL | ${siteConfig.business.shortName}`,
@@ -206,10 +207,9 @@ export const htRoutes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-09-09",
-    status: "draft",
     primaryQuery: "Haitian Creole-language back pain condition intent",
     justification:
-      "Owns 'doulè do kiwopratè Deerfield Beach'. Distinct from the sciatica page, which owns radiating leg pain. Draft until the English original clears clinician review.",
+      "Owns 'doulè do kiwopratè Deerfield Beach'. Distinct from the sciatica page, which owns radiating leg pain. Published 2026-09-21 per the IA-02 gate override (see content/seo.ts's file header).",
   },
   {
     path: "/ht/kondisyon-nou-trete/doule-kou",
@@ -223,7 +223,6 @@ export const htRoutes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-09-09",
-    status: "draft",
     primaryQuery: "Haitian Creole-language neck pain condition intent",
     justification:
       "Owns 'doulè kou kiwopratè Deerfield Beach'. Distinct from the whiplash page, which owns the collision-injury framing. Draft until the English original clears review.",
@@ -240,7 +239,6 @@ export const htRoutes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-09-09",
-    status: "draft",
     primaryQuery: "Haitian Creole-language sciatica condition intent",
     justification:
       "Owns 'syatik kiwopratè Deerfield Beach' — radiating nerve pain, distinct from the back-pain page's localized intent. Draft until the English original clears review.",
@@ -257,7 +255,6 @@ export const htRoutes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-09-09",
-    status: "draft",
     primaryQuery: "Haitian Creole-language whiplash condition intent",
     justification:
       "Owns 'antòs kou kiwopratè' collision-injury intent, distinct from the general neck-pain page. Draft until the English original clears review.",
@@ -274,7 +271,6 @@ export const htRoutes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-09-09",
-    status: "draft",
     primaryQuery: "Haitian Creole-language cervicogenic headache condition intent",
     justification:
       "Owns 'tèt fè mal ki soti nan kou' intent in Haitian Creole, distinct from both the neck-pain and concussion pages. Draft until the English original clears review.",
@@ -291,7 +287,6 @@ export const htRoutes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-09-09",
-    status: "draft",
     primaryQuery: "Haitian Creole-language concussion-after-accident informational intent",
     justification:
       "Owns post-accident concussion symptom queries in Haitian Creole. Informational and safety-first by design — routes readers to medical evaluation rather than booking. Draft until the English original clears review.",
@@ -308,17 +303,16 @@ export const htRoutes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.7,
     lastModified: "2026-09-09",
-    status: "draft",
     primaryQuery: "Haitian Creole-language TMJ/jaw pain condition intent",
     justification:
       "Owns 'doulè machwa ATM' intent in Haitian Creole, distinct from the cervicogenic-headache page it commonly co-occurs with. Draft until the English original clears review.",
   },
   // ── Service pages ─────────────────────────────────────────────────────
-  // All four are `status: "draft"`, mirroring their English/Spanish/
-  // Portuguese originals: they carry clinical guidance that hasn't had a
-  // clinician's sign-off, so they're served noindex and kept out of the
-  // sitemap while remaining reachable (and linkable from the Haitian Creole
-  // nav) by direct URL.
+  // OVERRIDE (2026-09-21): these four service pages were previously
+  // `status: "draft"`, mirroring the English/Spanish/Portuguese originals'
+  // now-superseded IA-02 clinician-review gate — see content/seo.ts's
+  // file header for the full override note. Published now, same as
+  // their English/Spanish/Portuguese originals.
   {
     path: "/ht/sevis/ajisteman-kiwopratik",
     title: `Ajisteman Kiwopratik nan Deerfield Beach, FL | ${siteConfig.business.shortName}`,
@@ -331,10 +325,9 @@ export const htRoutes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.7,
     lastModified: "2026-09-09",
-    status: "draft",
     primaryQuery: "Haitian Creole-language chiropractic adjustment treatment intent",
     justification:
-      "Owns 'ajisteman kiwopratik Deerfield Beach' treatment intent in Haitian Creole. Draft until the English original clears clinician review; hreflang alternate of /services/chiropractic-adjustments.",
+      "Owns 'ajisteman kiwopratik Deerfield Beach' treatment intent in Haitian Creole. Published 2026-09-21 per the IA-02 gate override (see content/seo.ts's file header). hreflang alternate of /services/chiropractic-adjustments.",
   },
   {
     path: "/ht/sevis/dekonpresyon-kolon",
@@ -348,10 +341,9 @@ export const htRoutes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.7,
     lastModified: "2026-09-09",
-    status: "draft",
     primaryQuery: "Haitian Creole-language spinal decompression treatment intent",
     justification:
-      "Owns 'dekonpresyon kolòn Deerfield Beach' intent in Haitian Creole, distinct from the adjustment page's. Draft until the English original clears clinician review.",
+      "Owns 'dekonpresyon kolòn Deerfield Beach' intent in Haitian Creole, distinct from the adjustment page's. Published 2026-09-21 per the IA-02 gate override (see content/seo.ts's file header).",
   },
   {
     path: "/ht/sevis/terapi-tisi-mou",
@@ -365,10 +357,9 @@ export const htRoutes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.7,
     lastModified: "2026-09-09",
-    status: "draft",
     primaryQuery: "Haitian Creole-language soft-tissue therapy treatment intent",
     justification:
-      "Owns 'terapi tisi mou / masaj kiwopratik' intent in Haitian Creole. Draft until the English original clears clinician review.",
+      "Owns 'terapi tisi mou / masaj kiwopratik' intent in Haitian Creole. Published 2026-09-21 per the IA-02 gate override (see content/seo.ts's file header).",
   },
   {
     path: "/ht/sevis/terapi-vantouz",
@@ -379,10 +370,9 @@ export const htRoutes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.6,
     lastModified: "2026-09-09",
-    status: "draft",
     primaryQuery: "Haitian Creole-language cupping therapy treatment intent",
     justification:
-      "Owns 'terapi vantouz Deerfield Beach' intent in Haitian Creole — a single technique, distinct from the broader soft-tissue page. Draft until the English original clears clinician review.",
+      "Owns 'terapi vantouz Deerfield Beach' intent in Haitian Creole — a single technique, distinct from the broader soft-tissue page. Published 2026-09-21 per the IA-02 gate override (see content/seo.ts's file header).",
   },
 ];
 

@@ -93,15 +93,14 @@ export const esRoutes: RouteMeta[] = [
     lastModified: "2026-09-04",
     primaryQuery: "Spanish-language general-care services hub",
     justification:
-      "Owns 'servicios quiroprácticos Deerfield Beach' hub intent in Spanish. Individual service pages are English-only and draft today, so nothing under it competes with it.",
+      "Owns 'servicios quiroprácticos Deerfield Beach' hub intent in Spanish. The four individual Spanish service pages are published (2026-09-21, IA-02 gate override — see content/seo.ts's file header), not English-only, and don't compete with this hub.",
   },
   // ── Condition pages + hub ────────────────────────────────────────────
-  // The seven condition pages are `status: "draft"`, mirroring their
-  // English originals:
-  // real, finished pages awaiting clinician review of their medical
-  // content. Served noindex and kept out of the sitemap, but reachable
-  // and linkable from the Spanish nav — the same treatment the English
-  // nav and /conditions hub already give their own draft pages.
+  // OVERRIDE (2026-09-21): these seven condition pages were previously
+  // `status: "draft"`, mirroring the English originals' now-superseded
+  // IA-02 clinician-review gate — see content/seo.ts's file header for
+  // the full override note. Published now, same as their English
+  // originals.
   {
     path: "/es/condiciones",
     title: `Condiciones que Tratamos en Deerfield Beach, FL | ${siteConfig.business.shortName}`,
@@ -116,13 +115,13 @@ export const esRoutes: RouteMeta[] = [
     lastModified: "2026-08-26",
     // Published, matching the English /conditions hub. A directory page
     // introduces no medical claims of its own — it's built from the seven
-    // condition heroes — and the English hub made exactly this call
-    // (published hub, draft children). Leaving it draft would also mean the
-    // indexable English hub advertised an hreflang alternate pointing at a
-    // noindex page, which is worse than either state on its own.
+    // condition heroes. Its seven children are published too as of
+    // 2026-09-21 (IA-02 gate override — see content/seo.ts's file header),
+    // so this hub's hreflang alternate to the English hub no longer risks
+    // pointing at a noindex page either way.
     primaryQuery: "Spanish-language conditions directory hub",
     justification:
-      "Owns 'condiciones que trata un quiropráctico' hub intent in Spanish and is the crawlable path into the seven Spanish condition pages. Draft while its children are.",
+      "Owns 'condiciones que trata un quiropráctico' hub intent in Spanish and is the crawlable path into the seven Spanish condition pages.",
   },
   {
     path: "/es/condiciones/dolor-de-espalda",
@@ -136,10 +135,9 @@ export const esRoutes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-08-26",
-    status: "draft",
     primaryQuery: "Spanish-language back pain condition intent",
     justification:
-      "Owns 'dolor de espalda quiropráctico Deerfield Beach'. Distinct from the sciatica page, which owns radiating leg pain. Draft until the English original clears clinician review.",
+      "Owns 'dolor de espalda quiropráctico Deerfield Beach'. Distinct from the sciatica page, which owns radiating leg pain. Published 2026-09-21 per the IA-02 gate override (see content/seo.ts's file header).",
   },
   {
     path: "/es/condiciones/dolor-de-cuello",
@@ -153,7 +151,6 @@ export const esRoutes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-08-26",
-    status: "draft",
     primaryQuery: "Spanish-language neck pain condition intent",
     justification:
       "Owns 'dolor de cuello quiropráctico Deerfield Beach'. Distinct from the whiplash page, which owns the collision-injury framing. Draft until the English original clears review.",
@@ -170,7 +167,6 @@ export const esRoutes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-08-26",
-    status: "draft",
     primaryQuery: "Spanish-language sciatica condition intent",
     justification:
       "Owns 'ciática quiropráctico Deerfield Beach' — radiating nerve pain, distinct from the back-pain page's localized intent. Draft until the English original clears review.",
@@ -187,7 +183,6 @@ export const esRoutes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-08-26",
-    status: "draft",
     primaryQuery: "Spanish-language whiplash condition intent",
     justification:
       "Owns 'latigazo cervical quiropráctico' collision-injury intent, distinct from the general neck-pain page. Draft until the English original clears review.",
@@ -204,7 +199,6 @@ export const esRoutes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-08-26",
-    status: "draft",
     primaryQuery: "Spanish-language cervicogenic headache condition intent",
     justification:
       "Owns 'dolor de cabeza que viene del cuello' intent in Spanish, distinct from both the neck-pain and concussion pages. Draft until the English original clears review.",
@@ -221,7 +215,6 @@ export const esRoutes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-08-26",
-    status: "draft",
     primaryQuery: "Spanish-language concussion-after-accident informational intent",
     justification:
       "Owns post-accident concussion symptom queries in Spanish. Informational and safety-first by design — it routes readers to medical evaluation rather than to booking. Draft until the English original clears review.",
@@ -238,16 +231,16 @@ export const esRoutes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.7,
     lastModified: "2026-08-26",
-    status: "draft",
     primaryQuery: "Spanish-language TMJ/jaw pain condition intent",
     justification:
       "Owns 'dolor de mandíbula ATM' intent in Spanish, distinct from the cervicogenic-headache page it commonly co-occurs with. Draft until the English original clears review.",
   },
   // ── Service pages ────────────────────────────────────────────────────
-  // All four are `status: "draft"`, mirroring their English originals:
-  // they carry clinical guidance that hasn't had a clinician's sign-off,
-  // so they're served noindex and kept out of the sitemap while remaining
-  // reachable (and linkable from the Spanish nav) by direct URL.
+  // OVERRIDE (2026-09-21): these four service pages were previously
+  // `status: "draft"`, mirroring the English originals' now-superseded
+  // IA-02 clinician-review gate — see content/seo.ts's file header for
+  // the full override note. Published now, same as their English
+  // originals.
   {
     path: "/es/servicios/ajustes-quiropracticos",
     title: `Ajustes Quiroprácticos en Deerfield Beach, FL | ${siteConfig.business.shortName}`,
@@ -260,10 +253,9 @@ export const esRoutes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.7,
     lastModified: "2026-08-26",
-    status: "draft",
     primaryQuery: "Spanish-language chiropractic adjustment treatment intent",
     justification:
-      "Owns 'ajuste quiropráctico Deerfield Beach' treatment intent in Spanish. Draft until the English original clears clinician review; hreflang alternate of /services/chiropractic-adjustments.",
+      "Owns 'ajuste quiropráctico Deerfield Beach' treatment intent in Spanish. Published 2026-09-21 per the IA-02 gate override (see content/seo.ts's file header). hreflang alternate of /services/chiropractic-adjustments.",
   },
   {
     path: "/es/servicios/descompresion-espinal",
@@ -277,10 +269,9 @@ export const esRoutes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.7,
     lastModified: "2026-08-26",
-    status: "draft",
     primaryQuery: "Spanish-language spinal decompression treatment intent",
     justification:
-      "Owns 'descompresión espinal Deerfield Beach' intent in Spanish, distinct from the adjustment page's. Draft until the English original clears clinician review.",
+      "Owns 'descompresión espinal Deerfield Beach' intent in Spanish, distinct from the adjustment page's. Published 2026-09-21 per the IA-02 gate override (see content/seo.ts's file header).",
   },
   {
     path: "/es/servicios/terapia-de-tejidos-blandos",
@@ -294,10 +285,9 @@ export const esRoutes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.7,
     lastModified: "2026-08-26",
-    status: "draft",
     primaryQuery: "Spanish-language soft-tissue therapy treatment intent",
     justification:
-      "Owns 'terapia de tejidos blandos / masaje quiropráctico' intent in Spanish. Draft until the English original clears clinician review.",
+      "Owns 'terapia de tejidos blandos / masaje quiropráctico' intent in Spanish. Published 2026-09-21 per the IA-02 gate override (see content/seo.ts's file header).",
   },
   {
     path: "/es/servicios/terapia-de-ventosas",
@@ -308,10 +298,9 @@ export const esRoutes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.6,
     lastModified: "2026-08-26",
-    status: "draft",
     primaryQuery: "Spanish-language cupping therapy treatment intent",
     justification:
-      "Owns 'terapia de ventosas Deerfield Beach' intent in Spanish — a single technique, distinct from the broader soft-tissue page. Draft until the English original clears clinician review.",
+      "Owns 'terapia de ventosas Deerfield Beach' intent in Spanish — a single technique, distinct from the broader soft-tissue page. Published 2026-09-21 per the IA-02 gate override (see content/seo.ts's file header).",
   },
   {
     path: "/es/dr-abe-nasser",

@@ -25,10 +25,13 @@ describe("buildRelatedLinks", () => {
   });
 
   it("excludes a path whose route is still draft, rather than linking to a noindex page", () => {
-    // /conditions/sciatica is status: "draft" in content/seo.ts today.
+    // /home-visit-chiropractor is status: "draft" in content/seo.ts today
+    // (unverified service-area/availability data — a different, still-
+    // active gate from the condition pages' now-overridden IA-02
+    // clinician-review requirement, see content/seo.ts's file header).
     const links = buildRelatedLinks({
       currentPath: "/conditions/whiplash",
-      paths: ["/conditions/sciatica", "/blog"],
+      paths: ["/home-visit-chiropractor", "/blog"],
     });
     expect(links.map((l) => l.href)).toEqual(["/blog"]);
   });

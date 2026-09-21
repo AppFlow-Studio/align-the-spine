@@ -111,16 +111,27 @@ describe("sitemap", () => {
     }
   });
 
-  // ATS-E4 (4.12/4.14) / ATS-E3 (3.7): these routes are draft (noindex,
-  // out of the sitemap) until their respective approvals land — condition
-  // pages need a clinician reviewer, /home-visits needs verified
-  // service-area/availability data. /reviews flipped to published
-  // 2026-08-12 once real reviews landed (content/testimonials.ts) — see
-  // content/seo.ts. This test intentionally fails once any of the
-  // remaining routes flips to "published" without also being removed from
-  // this list, as a reminder to update the assertion deliberately rather
-  // than let it silently pass.
+  // ATS-E3 (3.7): /home-visit-chiropractor is draft (noindex, out of the
+  // sitemap) until service-area/availability data is verified — a
+  // different, still-active gate from the condition/service pages' former
+  // IA-02 clinician-review requirement, which was overridden 2026-09-21
+  // (see content/seo.ts's file header) since those 11 pages were already
+  // live in production. /reviews flipped to published 2026-08-12 once real
+  // reviews landed (content/testimonials.ts) — see content/seo.ts. This
+  // test intentionally fails if /home-visit-chiropractor flips to
+  // "published" without also being removed from this list, as a reminder
+  // to update the assertion deliberately rather than let it silently pass.
   it("excludes routes still pending approval", async () => {
+    const paths = (await sitemap()).map((entry) => entry.url.replace(siteConfig.siteUrl, ""));
+    for (const path of ["/home-visit-chiropractor"]) {
+      expect(paths).not.toContain(path);
+    }
+  });
+
+  // Companion to the test above: the 11 pages the IA-02 override
+  // (2026-09-21) published must actually be in the sitemap now, not just
+  // absent from the no-longer-applicable exclusion list.
+  it("includes the 11 condition/service pages published by the 2026-09-21 IA-02 gate override", async () => {
     const paths = (await sitemap()).map((entry) => entry.url.replace(siteConfig.siteUrl, ""));
     for (const path of [
       "/conditions/back-pain",
@@ -130,12 +141,12 @@ describe("sitemap", () => {
       "/conditions/cervicogenic-headache",
       "/conditions/concussion",
       "/conditions/tmj-jaw-pain",
-      "/home-visit-chiropractor",
       "/services/chiropractic-adjustments",
       "/services/spinal-decompression",
       "/services/soft-tissue-therapy",
+      "/services/cupping-therapy",
     ]) {
-      expect(paths).not.toContain(path);
+      expect(paths).toContain(path);
     }
   });
 

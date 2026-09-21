@@ -64,22 +64,34 @@ function copyHash(value: unknown): string {
  * and could never fail. */
 const RECORDED: { label: string; source: unknown; spanishMirror: string; hash: string }[] = [
   {
+    // Hash bumped 2026-09-21: the IA-02 gate override (content/seo.ts's
+    // file header) flipped /services/* from draft to published, so
+    // getRouteHref() now resolves each item's `href` to a real path
+    // instead of `undefined` — copyHash() walks that string too. Not a
+    // wording change: content/es/pages.ts's esServicesGrid already
+    // hardcoded these same real Spanish paths regardless of gate status,
+    // so nothing here needed updating to match.
     label: "services (homepage list)",
     source: services,
     spanishMirror: "content/es/home.ts → esServices",
-    hash: "081cb5752a7fdf65",
+    hash: "ac8e54868489e50b",
   },
   {
+    // Same href-resolution cause as "services" above, same verification —
+    // no wording drift, only href strings newly populated.
     label: "servicesGrid (/services grid)",
     source: servicesGrid,
     spanishMirror: "content/es/pages.ts → esServicesGrid",
-    hash: "7dee0dd5ecf5f9af",
+    hash: "8be9fc20fc8f0523",
   },
   {
+    // Same href-resolution cause as "services" above (accident-injuries.ts
+    // links each injury to its /conditions/* page via the same
+    // getRouteHref() pattern) — no wording drift.
     label: "accidentInjuries",
     source: accidentInjuries,
     spanishMirror: "content/es/home.ts → esAccidentInjuries",
-    hash: "8a6499cae55e9aff",
+    hash: "450bf07e4f0eba50",
   },
   {
     label: "whyChooseContent",

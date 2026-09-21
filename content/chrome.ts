@@ -1,12 +1,33 @@
 import { enChromeLabels, esBookingCta, esChromeLabels, esFooter, esNav } from "@/content/es/chrome";
 import { getEsRoute } from "@/content/es/seo";
+import { esServiceAreaCities } from "@/content/es/service-areas-cities";
 import { htBookingCta, htChromeLabels, htFooter, htNav } from "@/content/ht/chrome";
 import { getHtRoute } from "@/content/ht/seo";
 import type { Locale } from "@/content/i18n";
 import { ptBookingCta, ptChromeLabels, ptFooter, ptNav } from "@/content/pt/chrome";
 import { getPtRoute } from "@/content/pt/seo";
 import { getRoute, isPublished } from "@/content/seo";
+import { serviceAreas } from "@/content/service-areas";
 import { getVerifiedStats, siteConfig, type DisplayStat, type NavLink } from "@/content/site";
+
+/** /service-areas/[slug] (EN) and /es/areas-de-servicio/[slug] (ES) are
+ * dynamic routes generated from content/service-areas.ts /
+ * content/es/service-areas-cities.ts — they have no RouteMeta entry in
+ * content/seo.ts's `routes`/`esRoutes` at all, so getRoute()/getEsRoute()
+ * always throw for them. Checked against the real city list instead;
+ * every entry there is already publication-gated (see
+ * lib/content/static-service-area-repository.ts's GATE_RESULT), so
+ * existing in the list is equivalent to isPublished() for this purpose.
+ * Without this, isNavTargetPublished() would treat every city link as
+ * unpublished and silently fall back every one of them to the
+ * /service-areas hub — a real regression the nav/footer indexability fix
+ * (2026-09-17) introduced and this corrects the same day it was caught. */
+function isServiceAreaCityPath(path: string): boolean {
+  return (
+    serviceAreas.some((city) => path === `/service-areas/${city.slug}`) ||
+    esServiceAreaCities.some((city) => path === `/es/areas-de-servicio/${city.slug}`)
+  );
+}
 
 /** Whether `path` is a registered, published (indexable) route in `locale`
  * — the one place nav-link indexability is decided, so a link can't reach
@@ -15,6 +36,7 @@ import { getVerifiedStats, siteConfig, type DisplayStat, type NavLink } from "@/
  * config typo should never crash the navbar, and it must never resolve to
  * "safe to link" by default. */
 function isNavTargetPublished(path: string, locale: Locale): boolean {
+  if (isServiceAreaCityPath(path)) return true;
   try {
     if (locale === "es") return isPublished(getEsRoute(path));
     if (locale === "pt") return isPublished(getPtRoute(path));
