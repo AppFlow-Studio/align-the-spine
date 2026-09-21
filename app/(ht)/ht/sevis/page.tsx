@@ -75,7 +75,7 @@ export default function HtServicesPage() {
         eyebrow={htServicesPage.catalog.eyebrow}
         heading={htServicesPage.catalog.heading}
         locale="ht"
-        conditionsLink={null}
+        conditionsLink={{ href: "/ht/kondisyon-nou-trete", label: "Gade kondisyon nou trete" }}
       />
       <DoctorProfile
         variant="short"

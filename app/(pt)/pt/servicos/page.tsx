@@ -75,9 +75,7 @@ export default function PtServicesPage() {
         eyebrow={ptServicesPage.catalog.eyebrow}
         heading={ptServicesPage.catalog.heading}
         locale="pt"
-        // /conditions is English-only and its child pages are draft — a
-        // Portuguese reader following this link would land in English.
-        conditionsLink={null}
+        conditionsLink={{ href: "/pt/condicoes", label: "Ver as condições que tratamos" }}
       />
       <DoctorProfile
         variant="short"

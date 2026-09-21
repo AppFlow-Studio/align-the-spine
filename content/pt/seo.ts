@@ -79,8 +79,16 @@ export const ptRoutes: RouteMeta[] = [
   {
     path: "/pt/servicos",
     title: `Serviços Quiropráticos em Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    // "Quiropraxia" (the discipline itself — distinct from "quiroprático",
+    // the person/job title already used in the title above) added here per
+    // the validated PT-BR keyword finding (500 vol, KD1, Informational+
+    // Commercial+Local; SEO_QA_EVIDENCE/ahrefs-2026-09/synthesis-part2-and-
+    // final-labels.md's Part 3 — "quiropraxia" cluster, CHANGE RECOMMENDED,
+    // "belongs in /pt's supporting copy"). Title's own head term stays
+    // "quiroprático" — this is the supporting-copy placement the synthesis
+    // itself called for, not a title rewrite.
     description:
-      "Serviços quiropráticos em Deerfield Beach: ajustes, descompressão da coluna e terapia de tecidos moles com o Dr. Abe Nasser. Consulte qual opção é indicada para o seu caso.",
+      "Serviços de quiropraxia em Deerfield Beach: ajustes, descompressão da coluna e terapia de tecidos moles com o Dr. Abe Nasser. Consulte qual opção é indicada para o seu caso.",
     image: {
       src: "/figma-exports/dr-abe-neck.png",
       alt: "Dr. Abe Nasser avaliando o pescoço de um paciente",

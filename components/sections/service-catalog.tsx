@@ -19,8 +19,9 @@ export interface ServiceCatalogProps {
   items?: ServiceCardItem[];
   eyebrow?: string;
   heading?: string;
-  /** The "see the conditions we treat" link. Omitted on Spanish pages —
-   * /conditions is an English-only hub whose child pages are draft. */
+  /** The "see the conditions we treat" link. ES/PT/HT pages pass their own
+   * locale's conditions hub explicitly (their own now-published route, not
+   * the English one). */
   conditionsLink?: { href: string; label: string } | null;
   locale?: Locale;
 }

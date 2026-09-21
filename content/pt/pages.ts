@@ -62,8 +62,10 @@ export const ptServicesPage = {
   hero: {
     eyebrow: "Cada tratamento é definido de acordo com a sua avaliação",
     titleLines: ["Serviços quiropráticos", "em Deerfield Beach, FL"] as const,
+    // "quiropraxia" woven in here per the validated PT-BR keyword finding
+    // — see content/pt/seo.ts's /pt/servicos description comment.
     subhead:
-      "Dos ajustes de rotina ao atendimento especializado de recuperação — o mesmo doutor em cada visita, no consultório ou na sua casa quando indicado.",
+      "Da quiropraxia de rotina ao atendimento especializado de recuperação — o mesmo doutor em cada visita, no consultório ou na sua casa quando indicado.",
     callPillEyebrow: "Vamos conversar hoje",
     form: {
       heading: "Solicite sua avaliação",
@@ -78,13 +80,14 @@ export const ptServicesPage = {
   breadcrumb: "Serviços",
 };
 
-/** Portuguese rendering of content/services-grid.ts. `href`/`ctaLabel` are
- * deliberately absent on every card except the one that links to the
- * published Portuguese accident page — the same reasoning as
- * content/es/pages.ts's esServicesGrid: the other cards' English/Spanish
- * originals are `status: "draft"` and have no Portuguese page to link to
- * yet, so carrying links over would push Portuguese readers into
- * English-only draft pages. */
+/** Portuguese rendering of content/services-grid.ts. Every card with a
+ * real dedicated Portuguese page (adjustments, spinal-decompression,
+ * cupping, massage/soft-tissue, car-accidents) carries its own
+ * href/ctaLabel — see content/es/pages.ts's esServicesGrid for the
+ * equivalent Spanish reasoning. `sports-injury`, `posture-corrective`, and
+ * `headache-migraine` stay unlinked because they have no dedicated page in
+ * any language, not a draft/review gate (that gate was overridden
+ * 2026-09-21 — see content/seo.ts's file header). */
 export const ptServicesGrid: ServiceCardItem[] = [
   {
     slug: "adjustments",

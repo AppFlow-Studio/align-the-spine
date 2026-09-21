@@ -77,16 +77,14 @@ export const esServicesPage = {
   breadcrumb: "Servicios",
 };
 
-/** Spanish rendering of content/services-grid.ts.
- *
- * `href`/`ctaLabel` are deliberately absent on every card. Three of the
- * English cards link to dedicated service pages that are `status: "draft"`
- * (noindex, awaiting clinician review — content/seo.ts) and exist only in
- * English. Carrying those links over would push Spanish readers into
- * English pages the practice hasn't cleared for publication yet, and would
- * leak /es link equity into noindex URLs. The cards describe the service
- * and the page's CTAs handle the next step; the links return when the
- * underlying pages are reviewed and translated. */
+/** Spanish rendering of content/services-grid.ts. Every card with a real
+ * dedicated Spanish page (adjustments, spinal-decompression, cupping,
+ * massage/soft-tissue, car-accidents) carries its own href/ctaLabel — see
+ * each card's own comment for when that page was added. `sports-injury`,
+ * `posture-corrective`, and `headache-migraine` stay unlinked because they
+ * have no dedicated page in any language, not because of a draft/review
+ * gate (that gate was overridden 2026-09-21 — see content/seo.ts's file
+ * header — and no longer applies to any of these anyway). */
 export const esServicesGrid: ServiceCardItem[] = [
   {
     slug: "adjustments",
