@@ -62,9 +62,9 @@ export const ptRoutes: RouteMeta[] = [
   },
   {
     path: "/pt/quiropratico-acidentes-de-carro",
-    title: `Quiroprático para Acidentes de Carro | Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    title: `Quiroprático para Acidentes de Carro | Deerfield Beach, FL`,
     description:
-      "Avaliação quiroprática após acidente de carro em Deerfield Beach: dor no pescoço, dor nas costas e torcicolo cervical. Lei PIP da Flórida: 14 dias para iniciar o atendimento.",
+      "Avaliação quiroprática após acidente de carro em Deerfield Beach: pescoço, costas e torcicolo cervical. Lei PIP: 14 dias para iniciar atendimento.",
     image: {
       src: "/figma-exports/interior-corridor.png",
       alt: "Corredor de recepção da Align the Spine em Deerfield Beach",
@@ -88,7 +88,7 @@ export const ptRoutes: RouteMeta[] = [
     // "quiroprático" — this is the supporting-copy placement the synthesis
     // itself called for, not a title rewrite.
     description:
-      "Serviços de quiropraxia em Deerfield Beach: ajustes, descompressão da coluna e terapia de tecidos moles com o Dr. Abe Nasser. Consulte qual opção é indicada para o seu caso.",
+      "Serviços de quiropraxia em Deerfield Beach: ajustes, descompressão da coluna e terapia de tecidos moles com o Dr. Abe Nasser.",
     image: {
       src: "/figma-exports/dr-abe-neck.png",
       alt: "Dr. Abe Nasser avaliando o pescoço de um paciente",
@@ -120,7 +120,7 @@ export const ptRoutes: RouteMeta[] = [
     path: "/pt/avaliacoes",
     title: `Avaliações de Pacientes | Deerfield Beach, FL | ${siteConfig.business.shortName}`,
     description:
-      "Avaliações reais de pacientes da Align the Spine Chiropractic em Deerfield Beach, FL.",
+      "Avaliações reais de pacientes da Align the Spine Chiropractic em Deerfield Beach, FL, sobre consultas, ajustes e atendimento após acidentes de carro.",
     image: {
       src: "/figma-exports/interior-table.png",
       alt: "Sala de atendimento da Align the Spine Chiropractic",
@@ -153,7 +153,7 @@ export const ptRoutes: RouteMeta[] = [
     // the office calls back to confirm a time, this form does not confirm
     // one itself. The English CTA was reworded off "Book" for exactly this
     // reason; the Portuguese CTA must not reintroduce the promise.
-    title: `Solicitar Consulta com um Quiroprático | Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    title: `Solicitar Consulta com um Quiroprático | Deerfield Beach, FL`,
     description:
       "Solicite uma consulta com o Dr. Abe em Deerfield Beach. Envie seus dados e retornaremos a ligação para confirmar o horário; não é uma reserva automática.",
     image: {
@@ -187,7 +187,7 @@ export const ptRoutes: RouteMeta[] = [
     path: "/pt/areas-de-atendimento",
     title: `Áreas de Atendimento Perto de Deerfield Beach, FL | ${siteConfig.business.shortName}`,
     description:
-      "A Align the Spine Chiropractic tem um único consultório verificado em Deerfield Beach, FL. Veja como funciona o atendimento a domicílio para comunidades próximas.",
+      "A Align the Spine Chiropractic tem um único consultório em Deerfield Beach, FL. Veja como funciona o atendimento a domicílio para comunidades próximas.",
     image: {
       src: "/figma-exports/exterior-img.png",
       alt: "Fachada externa do prédio do consultório em Deerfield Beach",
@@ -207,7 +207,7 @@ export const ptRoutes: RouteMeta[] = [
   // their English/Spanish originals.
   {
     path: "/pt/condicoes/dor-nas-costas",
-    title: `Quiroprático para Dor nas Costas em Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    title: `Quiroprático para Dor nas Costas em Deerfield Beach, FL`,
     description:
       "Avaliação quiroprática para dor lombar, rigidez e dor que pode se espalhar para o quadril ou a perna, incluindo sintomas após um acidente de carro.",
     image: {
@@ -223,7 +223,7 @@ export const ptRoutes: RouteMeta[] = [
   },
   {
     path: "/pt/condicoes/dor-no-pescoco",
-    title: `Quiroprático para Dor no Pescoço em Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    title: `Quiroprático para Dor no Pescoço em Deerfield Beach, FL`,
     description:
       "Avaliação quiroprática para dor no pescoço, rigidez e mobilidade limitada, incluindo dor que começa após um acidente de carro ou torcicolo cervical.",
     image: {
@@ -255,7 +255,7 @@ export const ptRoutes: RouteMeta[] = [
   },
   {
     path: "/pt/condicoes/torcicolo-cervical",
-    title: `Quiroprático para Torcicolo Cervical em Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    title: `Quiroprático para Torcicolo Cervical em Deerfield Beach, FL`,
     description:
       "O torcicolo cervical é uma lesão no pescoço por movimento brusco, comum em colisões traseiras. Avaliação de rigidez, mobilidade limitada e dores de cabeça.",
     image: {
@@ -271,9 +271,9 @@ export const ptRoutes: RouteMeta[] = [
   },
   {
     path: "/pt/condicoes/dor-de-cabeca-cervicogenica",
-    title: `Quiroprático para Dor de Cabeça Cervicogênica | Deerfield Beach | ${siteConfig.business.shortName}`,
+    title: `Quiroprático para Dor de Cabeça Cervicogênica | Deerfield Beach`,
     description:
-      "A dor de cabeça cervicogênica é dor referida a partir do pescoço. Avaliação da mobilidade cervical e de outros fatores musculoesqueléticos antes de recomendar atendimento.",
+      "A dor de cabeça cervicogênica é dor referida a partir do pescoço. Avaliação da mobilidade cervical e outros fatores antes de recomendar atendimento.",
     image: {
       src: "/figma-exports/drabe-headache.png",
       alt: "Avaliação de tensão cervical relacionada à dor de cabeça",
@@ -289,7 +289,7 @@ export const ptRoutes: RouteMeta[] = [
     path: "/pt/condicoes/concussao",
     title: `Sintomas de Concussão Depois de um Acidente de Carro | ${siteConfig.business.shortName}`,
     description:
-      "Uma concussão é uma lesão cerebral traumática leve que precisa de avaliação médica. O atendimento quiroprático não substitui uma avaliação de emergência ou neurológica.",
+      "Uma concussão é uma lesão cerebral leve que precisa de avaliação médica; não substitui uma avaliação de emergência ou neurológica.",
     image: {
       src: "/figma-exports/drabe-headache.png",
       alt: "Dr. Abe avaliando um paciente depois de um acidente",
@@ -303,9 +303,9 @@ export const ptRoutes: RouteMeta[] = [
   },
   {
     path: "/pt/condicoes/dor-na-mandibula-atm",
-    title: `Quiroprático para ATM e Dor na Mandíbula | Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    title: `Quiroprático para ATM e Dor na Mandíbula | Deerfield Beach, FL`,
     description:
-      "Avaliação do movimento da articulação da mandíbula, da tensão muscular ao redor e dos fatores cervicais antes de decidir se o atendimento quiroprático é indicado.",
+      "Avaliação do movimento da mandíbula, da tensão muscular ao redor e dos fatores cervicais antes de decidir se o atendimento é indicado.",
     image: {
       src: "/figma-exports/drabe-headache.png",
       alt: "Dr. Abe avaliando a mandíbula de um paciente",
@@ -327,7 +327,7 @@ export const ptRoutes: RouteMeta[] = [
     path: "/pt/servicos/ajustes-quiropraticos",
     title: `Ajustes Quiropráticos em Deerfield Beach, FL | ${siteConfig.business.shortName}`,
     description:
-      "Ajustes quiropráticos em Deerfield Beach: pressão controlada para melhorar o movimento articular do pescoço, da parte média ou baixa das costas, após avaliação.",
+      "Ajustes quiropráticos em Deerfield Beach: pressão controlada para melhorar o movimento do pescoço ou das costas, após avaliação.",
     image: {
       src: "/figma-exports/adjustments-hero.png",
       alt: "Sala de tratamento preparada para um ajuste quiroprático",
@@ -357,7 +357,7 @@ export const ptRoutes: RouteMeta[] = [
   },
   {
     path: "/pt/servicos/terapia-de-tecidos-moles",
-    title: `Massagem e Terapia de Tecidos Moles | Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    title: `Massagem e Terapia de Tecidos Moles | Deerfield Beach, FL`,
     description:
       "Terapia de tecidos moles em Deerfield Beach: liberação miofascial, técnica Graston e tecido profundo para tensão muscular e dor após uma lesão.",
     image: {
@@ -375,7 +375,7 @@ export const ptRoutes: RouteMeta[] = [
     path: "/pt/servicos/terapia-de-ventosas",
     title: `Terapia de Ventosas em Deerfield Beach, FL | ${siteConfig.business.shortName}`,
     description:
-      "Terapia de ventosas em Deerfield Beach: sucção localizada em áreas selecionadas de tensão muscular, usada quando indicado junto com uma avaliação quiroprática.",
+      "Terapia de ventosas em Deerfield Beach: sucção localizada em áreas de tensão muscular, usada junto com uma avaliação quiroprática.",
     image: { src: "/figma-exports/cupping-drabe.png", alt: "Sessão de terapia de ventosas" },
     changeFrequency: "monthly",
     priority: 0.6,

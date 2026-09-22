@@ -120,7 +120,11 @@ export const routes: RouteMeta[] = [
     // ATS-E3 (3.4): renamed from "Book" — nothing on this form auto-confirms
     // a slot, it's a request that gets a callback, so "Book" overpromised.
     path: "/book-an-appointment",
-    title: `Request a Chiropractic Appointment | Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    // ATS-SEO-audit-2026-09-22: dropped the trailing "| {shortName}" brand
+    // suffix — this title alone was 74 chars, past Ahrefs' "Title too long"
+    // flag. Location + intent stay fully intact; the brand still shows via
+    // the SERP domain/favicon and Organization schema.
+    title: `Request a Chiropractic Appointment | Deerfield Beach, FL`,
     description:
       "Request a chiropractic appointment with Dr. Abe in Deerfield Beach. Ask whether an office evaluation or eligible home visit fits your needs.",
     image: {
@@ -158,7 +162,11 @@ export const routes: RouteMeta[] = [
   {
     path: "/conditions",
     title: `${conditionsHubHero.h1} | ${siteConfig.business.shortName}`,
-    description: conditionsHubHero.subhead,
+    // ATS-SEO-audit-2026-09-22: shorter than conditionsHubHero.subhead
+    // (157 chars — Ahrefs "Meta description too long"). The on-page
+    // subhead is unchanged; only the <meta name="description"> differs.
+    description:
+      "Dr. Abe Nasser evaluates and treats chiropractic conditions in Deerfield Beach, from car-accident injuries to everyday back and neck pain.",
     image: conditionsHubHero.backgroundImage,
     changeFrequency: "monthly",
     priority: 0.7,
@@ -187,7 +195,11 @@ export const routes: RouteMeta[] = [
   {
     path: "/conditions/back-pain",
     title: `${backPainHero.h1} | ${siteConfig.business.shortName}`,
-    description: backPainHero.subhead,
+    // ATS-SEO-audit-2026-09-22: shorter than backPainHero.subhead (165
+    // chars — Ahrefs "Meta description too long"). On-page subhead
+    // unchanged.
+    description:
+      "Chiropractic evaluation for lower back pain, stiffness, and pain radiating into the hip or leg, whether gradual or after a car accident.",
     image: backPainHero.backgroundImage,
     changeFrequency: "monthly",
     priority: 0.8,
@@ -223,7 +235,11 @@ export const routes: RouteMeta[] = [
   {
     path: "/conditions/whiplash",
     title: `${whiplashHero.h1} | ${siteConfig.business.shortName}`,
-    description: whiplashHero.subhead,
+    // ATS-SEO-audit-2026-09-22: shorter than whiplashHero.subhead (160
+    // chars — Ahrefs "Meta description too long"). On-page subhead
+    // unchanged.
+    description:
+      "Whiplash is a neck injury from rapid back-and-forth movement, common in rear-end collisions. Dr. Abe evaluates stiffness and related headaches.",
     image: whiplashHero.backgroundImage,
     changeFrequency: "monthly",
     priority: 0.8,
@@ -234,7 +250,10 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/conditions/cervicogenic-headache",
-    title: `${cervicogenicHeadacheHero.h1} | ${siteConfig.business.shortName}`,
+    // ATS-SEO-audit-2026-09-22: dropped the trailing "| {shortName}" brand
+    // suffix (75 chars with it — Ahrefs "Title too long"). h1 itself is
+    // unchanged, this only shortens the <title> tag.
+    title: cervicogenicHeadacheHero.h1,
     description: cervicogenicHeadacheHero.subhead,
     image: cervicogenicHeadacheHero.backgroundImage,
     changeFrequency: "monthly",
@@ -246,8 +265,16 @@ export const routes: RouteMeta[] = [
   },
   {
     path: "/conditions/concussion",
-    title: `${concussionHero.h1} | ${siteConfig.business.shortName}`,
-    description: concussionHero.subhead,
+    // ATS-SEO-audit-2026-09-22: dropped the trailing "| {shortName}" brand
+    // suffix (81 chars with it — Ahrefs "Title too long"). h1 itself is
+    // unchanged, this only shortens the <title> tag.
+    title: concussionHero.h1,
+    // ATS-SEO-audit-2026-09-22: shorter than concussionHero.subhead (156
+    // chars — Ahrefs "Meta description too long"). The safety disclaimer
+    // ("not a substitute for emergency/neurological care") is kept intact
+    // — only reworded to fit budget, never cut. On-page subhead unchanged.
+    description:
+      "A concussion is a mild traumatic brain injury needing medical evaluation. Chiropractic care isn't a substitute for emergency or neurological care.",
     image: concussionHero.backgroundImage,
     changeFrequency: "monthly",
     priority: 0.8,
@@ -283,7 +310,11 @@ export const routes: RouteMeta[] = [
   {
     path: "/services/spinal-decompression",
     title: `${spinalDecompressionHero.h1} | ${siteConfig.business.shortName}`,
-    description: spinalDecompressionHero.subhead,
+    // ATS-SEO-audit-2026-09-22: shorter than spinalDecompressionHero.subhead
+    // (157 chars — Ahrefs "Meta description too long"). On-page subhead
+    // unchanged.
+    description:
+      "Non-surgical spinal decompression uses controlled traction to reduce pressure on spinal joints and discs, when an evaluation supports it.",
     image: spinalDecompressionHero.backgroundImage,
     changeFrequency: "monthly",
     priority: 0.7,
@@ -352,7 +383,7 @@ export const routes: RouteMeta[] = [
     path: "/reviews",
     title: `Patient Reviews | Deerfield Beach, FL | ${siteConfig.business.shortName}`,
     description:
-      "Verified patient reviews for Align the Spine Chiropractic in Deerfield Beach, FL.",
+      "Verified patient reviews for Align the Spine Chiropractic in Deerfield Beach, FL, covering visits, adjustments, and car-accident evaluations with Dr. Abe.",
     image: {
       src: "/figma-exports/interior-table.png",
       alt: "Treatment room at Align the Spine Chiropractic",
@@ -406,6 +437,13 @@ export const routes: RouteMeta[] = [
     title: `Privacy Policy | ${siteConfig.business.shortName}`,
     description:
       "How Align the Spine Chiropractic collects, uses, and protects your information, including HIPAA-protected health information.",
+    // ATS-SEO-audit-2026-09-22: had no `image`, so shares had no OG/Twitter
+    // preview (Ahrefs "Open Graph tags incomplete") — same office-exterior
+    // photo /contact-us and /service-areas already reuse.
+    image: {
+      src: "/figma-exports/exterior-img.png",
+      alt: "Exterior of the Deerfield Beach office building",
+    },
     changeFrequency: "yearly",
     priority: 0.3,
     lastModified: "2026-07-31",
@@ -445,7 +483,7 @@ export const routes: RouteMeta[] = [
     path: "/service-areas",
     title: `Chiropractic Service Areas Near Deerfield Beach, FL | ${siteConfig.business.shortName}`,
     description:
-      "See the verified Deerfield Beach office and learn how nearby in-office visits differ from limited, case-and-location-confirmed car-accident/PIP home-visit eligibility.",
+      "See the verified Deerfield Beach office and how nearby in-office visits differ from limited, case-confirmed car-accident/PIP home-visit eligibility.",
     image: {
       src: "/figma-exports/exterior-img.png",
       alt: "Exterior of the Deerfield Beach office building",

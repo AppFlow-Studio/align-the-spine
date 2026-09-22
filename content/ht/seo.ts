@@ -112,7 +112,8 @@ export const htRoutes: RouteMeta[] = [
   {
     path: "/ht/komante-pasyan",
     title: `Kòmantè Pasyan yo | Deerfield Beach, FL | ${siteConfig.business.shortName}`,
-    description: "Kòmantè reyèl pasyan Align the Spine Chiropractic nan Deerfield Beach, FL.",
+    description:
+      "Kòmantè reyèl pasyan Align the Spine Chiropractic nan Deerfield Beach, FL, sou vizit, ajisteman, ak swen apre aksidan machin.",
     image: {
       src: "/figma-exports/interior-table.png",
       alt: "Sal tretman Align the Spine Chiropractic",
@@ -143,7 +144,7 @@ export const htRoutes: RouteMeta[] = [
     path: "/ht/mande-yon-randevou",
     // ATS-E3 (3.4)/ES/PT precedent: "Mande", jamè "Rezève"/"Konfime" — biwo
     // a rele tounen pou konfime yon lè; fòm sa a pa konfime youn li menm.
-    title: `Mande Randevou ak yon Kiwopratè | Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    title: `Mande Randevou ak yon Kiwopratè | Deerfield Beach, FL`,
     description:
       "Mande yon randevou ak Dr. Abe nan Deerfield Beach. Voye enfòmasyon ou epi nou rele ou tounen pou konfime lè a; se pa yon rezèvasyon otomatik.",
     image: {
@@ -261,7 +262,7 @@ export const htRoutes: RouteMeta[] = [
   },
   {
     path: "/ht/kondisyon-nou-trete/tet-fe-mal-sevikojenik",
-    title: `Kiwopratè pou Tèt Fè Mal Sèvikojenik | Deerfield Beach | ${siteConfig.business.shortName}`,
+    title: `Kiwopratè pou Tèt Fè Mal Sèvikojenik | Deerfield Beach`,
     description:
       "Tèt fè mal sèvikojenik se yon doulè ki soti nan kou a. Evalyasyon mobilite sèvikal ak lòt faktè miskilo-eskeletik anvan yo rekòmande swen.",
     image: {
@@ -293,7 +294,7 @@ export const htRoutes: RouteMeta[] = [
   },
   {
     path: "/ht/kondisyon-nou-trete/doule-machwa-atm",
-    title: `Kiwopratè pou ATM ak Doulè Machwa | Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    title: `Kiwopratè pou ATM ak Doulè Machwa | Deerfield Beach, FL`,
     description:
       "Evalyasyon mouvman jwenti machwa a, tansyon miskilè ozanviwon li, ak faktè sèvikal yo anvan yo deside si swen kiwopratik apwopriye.",
     image: {

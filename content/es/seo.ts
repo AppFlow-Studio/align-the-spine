@@ -65,9 +65,9 @@ export const esRoutes: RouteMeta[] = [
   },
   {
     path: "/es/quiropractico-accidentes-de-auto",
-    title: `Quiropráctico para Accidentes de Auto | Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    title: `Quiropráctico para Accidentes de Auto | Deerfield Beach, FL`,
     description:
-      "Evaluación quiropráctica después de un accidente de auto en Deerfield Beach: dolor de cuello, dolor de espalda y latigazo cervical. Ley PIP: 14 días para iniciar atención.",
+      "Evaluación quiropráctica tras un accidente de auto en Deerfield Beach: cuello, espalda y latigazo cervical. Ley PIP: 14 días para iniciar atención.",
     image: {
       src: "/figma-exports/interior-corridor.png",
       alt: "Pasillo de recepción de Align the Spine en Deerfield Beach",
@@ -83,7 +83,7 @@ export const esRoutes: RouteMeta[] = [
     path: "/es/servicios",
     title: `Servicios Quiroprácticos en Deerfield Beach, FL | ${siteConfig.business.shortName}`,
     description:
-      "Servicios quiroprácticos en Deerfield Beach: ajustes, descompresión espinal y terapia de tejidos blandos con el Dr. Abe Nasser. Consulte qué opción corresponde a su caso.",
+      "Servicios quiroprácticos en Deerfield Beach: ajustes, descompresión espinal y terapia de tejidos blandos con el Dr. Abe Nasser.",
     image: {
       src: "/figma-exports/dr-abe-neck.png",
       alt: "El Dr. Abe Nasser evaluando el cuello de un paciente",
@@ -105,7 +105,7 @@ export const esRoutes: RouteMeta[] = [
     path: "/es/condiciones",
     title: `Condiciones que Tratamos en Deerfield Beach, FL | ${siteConfig.business.shortName}`,
     description:
-      "El Dr. Abe Nasser evalúa y trata distintas condiciones quiroprácticas en Deerfield Beach, desde lesiones por accidente de auto hasta el dolor de espalda y de cuello cotidiano.",
+      "El Dr. Abe Nasser evalúa y trata condiciones quiroprácticas en Deerfield Beach, desde lesiones por accidente hasta dolor de espalda y cuello.",
     image: {
       src: "/figma-exports/dr-abe-neck.png",
       alt: "El Dr. Abe Nasser evaluando el cuello de un paciente",
@@ -125,9 +125,9 @@ export const esRoutes: RouteMeta[] = [
   },
   {
     path: "/es/condiciones/dolor-de-espalda",
-    title: `Quiropráctico para Dolor de Espalda en Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    title: `Quiropráctico para Dolor de Espalda en Deerfield Beach, FL`,
     description:
-      "Evaluación quiropráctica para el dolor de espalda baja, la rigidez y el dolor que puede extenderse hacia la cadera o la pierna, incluidos síntomas tras un accidente de auto.",
+      "Evaluación quiropráctica para el dolor de espalda baja, la rigidez y el dolor que se extiende a la cadera o la pierna, incluido tras un accidente de auto.",
     image: {
       src: "/figma-exports/drabe-backpain-front.png",
       alt: "Tratamiento manual de tejidos blandos en la espalda baja",
@@ -141,9 +141,9 @@ export const esRoutes: RouteMeta[] = [
   },
   {
     path: "/es/condiciones/dolor-de-cuello",
-    title: `Quiropráctico para Dolor de Cuello en Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    title: `Quiropráctico para Dolor de Cuello en Deerfield Beach, FL`,
     description:
-      "Evaluación quiropráctica para el dolor de cuello, la rigidez y la movilidad limitada, incluido el dolor que empieza después de un accidente de auto o un latigazo cervical.",
+      "Evaluación quiropráctica para el dolor de cuello, la rigidez y la movilidad limitada, incluido el dolor tras un accidente de auto o un latigazo cervical.",
     image: {
       src: "/figma-exports/dr-abe-neck.png",
       alt: "El Dr. Abe Nasser evaluando el cuello de un paciente",
@@ -159,7 +159,7 @@ export const esRoutes: RouteMeta[] = [
     path: "/es/condiciones/ciatica",
     title: `Quiropráctico para Ciática en Deerfield Beach, FL | ${siteConfig.business.shortName}`,
     description:
-      "Evaluación y tratamiento enfocado en la descompresión para el dolor ciático y el dolor nervioso irradiado, con visitas a domicilio cuando corresponde a su caso.",
+      "Evaluación y tratamiento enfocado en la descompresión para el dolor ciático y el dolor nervioso irradiado, con visitas a domicilio cuando corresponda.",
     image: {
       src: "/figma-exports/drabe-backpain-front.png",
       alt: "El Dr. Abe evaluando a un paciente por ciática",
@@ -173,9 +173,9 @@ export const esRoutes: RouteMeta[] = [
   },
   {
     path: "/es/condiciones/latigazo-cervical",
-    title: `Quiropráctico para Latigazo Cervical en Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    title: `Quiropráctico para Latigazo Cervical en Deerfield Beach, FL`,
     description:
-      "El latigazo cervical es una lesión de cuello por movimiento brusco, frecuente en colisiones por alcance. Evaluación de rigidez, movilidad limitada y dolores de cabeza.",
+      "El latigazo cervical es una lesión de cuello por movimiento brusco, frecuente en colisiones por alcance. Evaluación de rigidez y movilidad limitada.",
     image: {
       src: "/figma-exports/drabe-whiplash-man.png",
       alt: "El Dr. Abe tratando a un paciente por latigazo cervical",
@@ -189,9 +189,9 @@ export const esRoutes: RouteMeta[] = [
   },
   {
     path: "/es/condiciones/dolor-de-cabeza-cervicogenico",
-    title: `Quiropráctico para Dolor de Cabeza Cervicogénico | Deerfield Beach | ${siteConfig.business.shortName}`,
+    title: `Quiropráctico para Dolor de Cabeza Cervicogénico | Deerfield Beach`,
     description:
-      "El dolor de cabeza cervicogénico es dolor referido desde el cuello. Evaluación de la movilidad cervical y de otros factores musculoesqueléticos antes de recomendar atención.",
+      "El dolor de cabeza cervicogénico es dolor referido desde el cuello. Evaluación de la movilidad cervical y otros factores antes de recomendar atención.",
     image: {
       src: "/figma-exports/drabe-headache.png",
       alt: "Evaluación de tensión cervical relacionada con dolor de cabeza",
@@ -205,9 +205,9 @@ export const esRoutes: RouteMeta[] = [
   },
   {
     path: "/es/condiciones/conmocion-cerebral",
-    title: `Síntomas de Conmoción Cerebral Después de un Accidente de Auto | ${siteConfig.business.shortName}`,
+    title: `Síntomas de Conmoción Cerebral Después de un Accidente de Auto`,
     description:
-      "Una conmoción cerebral es una lesión cerebral traumática leve que necesita valoración médica. La atención quiropráctica no sustituye una evaluación de emergencia ni neurológica.",
+      "Una conmoción cerebral es una lesión cerebral leve que necesita valoración médica; no sustituye una evaluación de emergencia ni neurológica.",
     image: {
       src: "/figma-exports/drabe-headache.png",
       alt: "El Dr. Abe evaluando a un paciente después de un accidente",
@@ -221,9 +221,9 @@ export const esRoutes: RouteMeta[] = [
   },
   {
     path: "/es/condiciones/dolor-de-mandibula-atm",
-    title: `Quiropráctico para ATM y Dolor de Mandíbula | Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    title: `Quiropráctico para ATM y Dolor de Mandíbula | Deerfield Beach, FL`,
     description:
-      "Evaluación del movimiento de la articulación de la mandíbula, la tensión muscular de alrededor y los factores cervicales antes de decidir si la atención quiropráctica corresponde.",
+      "Evaluación del movimiento de la mandíbula, la tensión muscular alrededor y los factores cervicales antes de recomendar atención.",
     image: {
       src: "/figma-exports/drabe-headache.png",
       alt: "El Dr. Abe evaluando la mandíbula de un paciente",
@@ -245,7 +245,7 @@ export const esRoutes: RouteMeta[] = [
     path: "/es/servicios/ajustes-quiropracticos",
     title: `Ajustes Quiroprácticos en Deerfield Beach, FL | ${siteConfig.business.shortName}`,
     description:
-      "Ajustes quiroprácticos en Deerfield Beach: presión controlada para mejorar el movimiento articular del cuello, la espalda media o la espalda baja, tras una evaluación.",
+      "Ajustes quiroprácticos en Deerfield Beach: presión controlada para mejorar el movimiento del cuello o la espalda, tras una evaluación.",
     image: {
       src: "/figma-exports/adjustments-hero.png",
       alt: "Sala de tratamiento preparada para un ajuste quiropráctico",
@@ -261,7 +261,7 @@ export const esRoutes: RouteMeta[] = [
     path: "/es/servicios/descompresion-espinal",
     title: `Descompresión Espinal en Deerfield Beach, FL | ${siteConfig.business.shortName}`,
     description:
-      "Descompresión espinal no quirúrgica en Deerfield Beach: tracción controlada para reducir la presión sobre discos y articulaciones, cuando la evaluación lo indica.",
+      "Descompresión espinal no quirúrgica en Deerfield Beach: tracción controlada para reducir la presión sobre discos y articulaciones.",
     image: {
       src: "/figma-exports/spinal-decompression-hero.png",
       alt: "Sala de tratamiento preparada para terapia de descompresión espinal",
@@ -275,9 +275,9 @@ export const esRoutes: RouteMeta[] = [
   },
   {
     path: "/es/servicios/terapia-de-tejidos-blandos",
-    title: `Masaje y Terapia de Tejidos Blandos | Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    title: `Masaje y Terapia de Tejidos Blandos | Deerfield Beach, FL`,
     description:
-      "Terapia de tejidos blandos en Deerfield Beach: liberación miofascial, técnica Graston y tejido profundo para tensión muscular y dolor posterior a una lesión.",
+      "Terapia de tejidos blandos en Deerfield Beach: liberación miofascial, técnica Graston y tejido profundo para tensión muscular y dolor tras una lesión.",
     image: {
       src: "/figma-exports/massage-soft-tissue-hero.png",
       alt: "Sala de tratamiento de masaje y terapia de tejidos blandos",
@@ -293,7 +293,7 @@ export const esRoutes: RouteMeta[] = [
     path: "/es/servicios/terapia-de-ventosas",
     title: `Terapia de Ventosas en Deerfield Beach, FL | ${siteConfig.business.shortName}`,
     description:
-      "Terapia de ventosas en Deerfield Beach: succión localizada en zonas seleccionadas de tensión muscular, usada cuando corresponde junto con una evaluación quiropráctica.",
+      "Terapia de ventosas en Deerfield Beach: succión localizada en zonas de tensión muscular, usada junto con una evaluación quiropráctica.",
     image: { src: "/figma-exports/cupping-drabe.png", alt: "Sesión de terapia de ventosas" },
     changeFrequency: "monthly",
     priority: 0.6,
@@ -306,7 +306,7 @@ export const esRoutes: RouteMeta[] = [
     path: "/es/dr-abe-nasser",
     title: `Dr. Abe Nasser, D.C. | Quiropráctico en Deerfield Beach`,
     description:
-      "Conozca al Dr. Abe Nasser, el quiropráctico de Align the Spine en Deerfield Beach, su forma de evaluar a cada paciente y cómo se comunica en español e inglés.",
+      "Conozca al Dr. Abe Nasser, quiropráctico de Align the Spine en Deerfield Beach, su forma de evaluar a cada paciente y cómo se comunica en español e inglés.",
     image: {
       src: "/figma-exports/dr-abe-neck.png",
       alt: "El Dr. Abe Nasser evaluando el cuello de un paciente",
@@ -323,6 +323,12 @@ export const esRoutes: RouteMeta[] = [
     title: `Reseñas de Pacientes | ${siteConfig.business.shortName}`,
     description:
       "Reseñas verificadas de pacientes de Align the Spine Chiropractic en Deerfield Beach, FL, publicadas en el idioma en que las escribió cada paciente.",
+    // ATS-SEO-audit-2026-09-22: had no `image` (Ahrefs "Open Graph tags
+    // incomplete") — same photo/alt as the English /reviews sibling.
+    image: {
+      src: "/figma-exports/interior-table.png",
+      alt: "Sala de tratamiento en Align the Spine Chiropractic",
+    },
     changeFrequency: "monthly",
     priority: 0.6,
     lastModified: "2026-08-26",
@@ -334,7 +340,7 @@ export const esRoutes: RouteMeta[] = [
     path: "/es/areas-de-servicio",
     title: `Áreas de Servicio | Deerfield Beach, FL | ${siteConfig.business.shortName}`,
     description:
-      "Align the Spine Chiropractic atiende desde un solo consultorio en Deerfield Beach. Vea las comunidades del sur de Florida para las que se considera atención tras un accidente.",
+      "Align the Spine Chiropractic atiende desde un solo consultorio en Deerfield Beach. Vea las comunidades del sur de Florida consideradas tras un accidente.",
     image: {
       src: "/figma-exports/exterior-img.png",
       alt: "Exterior del edificio del consultorio en Deerfield Beach",
@@ -347,20 +353,33 @@ export const esRoutes: RouteMeta[] = [
     // the communities the practice will consider, and says what
     // "considered" does and doesn't mean.
     //
-    // There is deliberately no Spanish counterpart for the nineteen
-    // /service-areas/[slug] pages — see content/es/service-areas.ts for the
-    // measurements. This single hub is the whole Spanish service-area
-    // surface, which is also why it can't cannibalize anything: there is
-    // nothing else in Spanish competing for the query.
+    // ATS-SEO-audit-2026-09-22 correction: this comment previously claimed
+    // "deliberately no Spanish counterpart for the nineteen
+    // /service-areas/[slug] pages" — stale. content/es/service-areas-cities.ts
+    // (not the "content/es/service-areas.ts" this used to cite, which
+    // doesn't exist) and app/(es)/es/areas-de-servicio/[slug]/page.tsx are
+    // real: 19 Spanish city pages exist today, a single verified-facts
+    // template translated once (same discipline as the English 88.3%-
+    // similarity template) rather than 19 independent hand translations —
+    // see that file's own doc comment for why. Whoever built the Spanish
+    // city pages never came back to remove this note saying they didn't
+    // exist.
     primaryQuery: "áreas de servicio / cobertura del consultorio en español",
     justification:
-      "Owns the Spanish coverage-area explainer — one office, named communities, honest limits on home-visit eligibility. Deliberately does NOT spawn per-city Spanish pages: the English city pages average 88.3% textual similarity to each other, so translating them would build doorway inventory in a second language.",
+      "Owns the Spanish coverage-area hub intent, distinct from each of the 19 /es/areas-de-servicio/[slug] pages' own city-specific intent (see content/es/service-areas-cities.ts) — same relationship as the English /service-areas hub to its city pages.",
   },
   {
     path: "/es/contacto",
     title: `Contacto | Deerfield Beach, FL | ${siteConfig.business.shortName}`,
     description:
       "Comuníquese con Align the Spine Chiropractic en 811 SE 8th Ave, Ste 101, Deerfield Beach, FL. Llame o envíe el formulario para preguntar por una cita.",
+    // ATS-SEO-audit-2026-09-22: had no `image` (Ahrefs "Open Graph tags
+    // incomplete") — same photo/alt as the English /contact-us sibling and
+    // this file's own /es/areas-de-servicio entry.
+    image: {
+      src: "/figma-exports/exterior-img.png",
+      alt: "Exterior del edificio del consultorio en Deerfield Beach",
+    },
     changeFrequency: "monthly",
     priority: 0.6,
     lastModified: "2026-08-26",
@@ -370,7 +389,7 @@ export const esRoutes: RouteMeta[] = [
   },
   {
     path: "/es/solicitar-cita",
-    title: `Solicitar una Cita Quiropráctica | Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    title: `Solicitar una Cita Quiropráctica | Deerfield Beach, FL`,
     description:
       "Solicite una cita con el Dr. Abe en Deerfield Beach. Envíe sus datos y le devolvemos la llamada para confirmar el horario; no es una reserva automática.",
     image: {
