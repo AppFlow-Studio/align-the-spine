@@ -125,13 +125,40 @@ export interface MedicalBusinessSchema {
  * `["MedicalClinic", "LocalBusiness"]` type array. `openingHoursSpecification`
  * only renders once siteConfig.hoursVerified is true (§2.9) — every day is
  * currently the same untouched 9-7 placeholder, unconfirmed by the client.
- * `aggregateRating` only renders once siteConfig.reviewsRating is verified,
- * same gating pattern — the rating/count it publishes is the exact figure
- * already shown on /reviews and in the homepage hero's trust line, never a
- * placeholder. `parentOrganization` links this clinic entity back to the
- * brand-level Organization entity (buildOrganization) so a JSON-LD consumer
- * sees one connected graph instead of two same-named, unrelated entities. */
-export function buildMedicalBusiness(): MedicalBusinessSchema {
+ * `aggregateRating` requires BOTH gates: siteConfig.reviewsRating verified
+ * *and* the caller explicitly opting in via `includeAggregateRating`.
+ *
+ * ATS-A07: the verified-claim gate alone was not enough. Because this builder
+ * attached the rating automatically whenever the claim was verified, every
+ * caller inherited it — including the four service-area hub pages
+ * (/service-areas and its ES/PT/HT counterparts), which render no review
+ * content whatsoever. That is self-serving rating markup: Google's
+ * structured-data policy expects an aggregate rating to describe reviews the
+ * visitor can actually see on the page carrying it, and a 5.0 across 164
+ * reviews on a page showing none is the textbook pattern reviewers penalise.
+ *
+ * Opting in is therefore a per-page decision made where the page's content is
+ * known. The eight pages that do opt in (EN/ES/PT/HT home and contact, via
+ * PracticeJsonLd) each render HeroReviewsCarousel/ReviewsCarousel with the
+ * real client-supplied reviews from content/testimonials.ts.
+ *
+ * /reviews deliberately does NOT carry it — see the note in that page, where
+ * ATS-SEO-060 removed it on the grounds that marking up the rating on the page
+ * whose whole purpose is displaying that rating is the most self-serving
+ * placement of all. That decision stands; this change does not revisit it.
+ *
+ * NOT REVERIFIED: the 5.0 / 164 figure remains as client-confirmed on
+ * 2026-08-11 (siteConfig.reviewsRating). It has not been re-checked against
+ * the live Google Business Profile — GBP access is out of scope for this
+ * work. Before widening `includeAggregateRating` to any further page, confirm
+ * the figure against GBP first.
+ *
+ * `parentOrganization` links this clinic entity back to the brand-level
+ * Organization entity (buildOrganization) so a JSON-LD consumer sees one
+ * connected graph instead of two same-named, unrelated entities. */
+export function buildMedicalBusiness({
+  includeAggregateRating = false,
+}: { includeAggregateRating?: boolean } = {}): MedicalBusinessSchema {
   return {
     "@context": "https://schema.org",
     "@type": "MedicalBusiness",
@@ -172,7 +199,7 @@ export function buildMedicalBusiness(): MedicalBusinessSchema {
           })),
         }
       : {}),
-    ...(isVerified(siteConfig.reviewsRating)
+    ...(includeAggregateRating && isVerified(siteConfig.reviewsRating)
       ? {
           aggregateRating: {
             "@type": "AggregateRating" as const,

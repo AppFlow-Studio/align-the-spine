@@ -1,6 +1,7 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
 import {
+  clampPageSize,
   ContentRepositoryUnavailableError,
   type ContentRepository,
   type PublicCategorySummary,
@@ -36,7 +37,7 @@ export class SupabaseContentRepository implements ContentRepository {
 
   async listPublic(options: PublicListOptions) {
     const page = Math.max(1, options.page ?? 1);
-    const pageSize = Math.min(24, Math.max(1, options.pageSize ?? 9));
+    const pageSize = clampPageSize(options.pageSize);
     const from = (page - 1) * pageSize;
     let query = this.client
       .from("public_content_items")

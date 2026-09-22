@@ -1,5 +1,6 @@
 import type { ServiceCardItem } from "@/components/ui/service-card";
 import type { DoctorRating } from "@/content/doctor-profile";
+import { getEsRouteHref } from "@/content/es/seo";
 import type { Service } from "@/content/services";
 import { siteConfig } from "@/content/site";
 import type { SpineOverviewContent } from "@/content/spine-overview";
@@ -270,6 +271,7 @@ export const esSpineOverviewContent: SpineOverviewContent = {
         "Dolores de cabeza, rigidez de cuello y tensión en los hombros: la mayoría empieza aquí.",
       position: { x: 52, y: 22 },
       labelSide: "left",
+      href: getEsRouteHref("/es/condiciones/dolor-de-cuello") ?? undefined,
     },
     {
       id: "thoracic",
@@ -277,6 +279,7 @@ export const esSpineOverviewContent: SpineOverviewContent = {
       description: "La fuente de dolor más común. Soporta la mayor parte del peso del cuerpo.",
       position: { x: 52, y: 44 },
       labelSide: "right",
+      href: getEsRouteHref("/es/condiciones/dolor-de-espalda") ?? undefined,
     },
     {
       id: "lumbar",
@@ -285,6 +288,7 @@ export const esSpineOverviewContent: SpineOverviewContent = {
         "La mala postura, el trabajo de escritorio y el estrés comprimen esta zona todos los días.",
       position: { x: 52, y: 61 },
       labelSide: "left",
+      href: getEsRouteHref("/es/condiciones/dolor-de-espalda") ?? undefined,
     },
     {
       id: "sacral",
@@ -293,6 +297,7 @@ export const esSpineOverviewContent: SpineOverviewContent = {
         "El dolor de cadera, la ciática y las molestias nerviosas suelen tener su origen en esta zona.",
       position: { x: 52, y: 76 },
       labelSide: "right",
+      href: getEsRouteHref("/es/condiciones/ciatica") ?? undefined,
     },
   ],
 };

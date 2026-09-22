@@ -2,12 +2,29 @@ import { describe, expect, it } from "vitest";
 
 import { getFooterConfig, getNav } from "@/content/chrome";
 import { getEsRoute } from "@/content/es/seo";
+import { esServiceAreaCities } from "@/content/es/service-areas-cities";
 import { getHtRoute } from "@/content/ht/seo";
 import type { Locale } from "@/content/i18n";
 import { getPtRoute } from "@/content/pt/seo";
 import { getRoute, isPublished, type RouteMeta } from "@/content/seo";
+import { serviceAreas } from "@/content/service-areas";
 
 const LOCALES: Locale[] = ["en", "es", "pt", "ht"];
+
+// /service-areas/[slug] and /es/areas-de-servicio/[slug] are dynamic
+// routes with no RouteMeta entry at all — see content/chrome.ts's own
+// isServiceAreaCityPath() doc comment for why that's correct, not a gap.
+function isServiceAreaCityPath(path: string): boolean {
+  return (
+    serviceAreas.some((city) => path === `/service-areas/${city.slug}`) ||
+    esServiceAreaCities.some((city) => path === `/es/areas-de-servicio/${city.slug}`)
+  );
+}
+
+function isPublishedPath(path: string, locale: Locale): boolean {
+  if (isServiceAreaCityPath(path)) return true;
+  return isPublished(lookupRoute(path, locale));
+}
 
 function lookupRoute(path: string, locale: Locale): RouteMeta {
   if (locale === "es") return getEsRoute(path);
@@ -30,11 +47,11 @@ describe("getNav never links to a draft/noindex route", () => {
       const offenders: string[] = [];
 
       for (const link of nav) {
-        if (!isPublished(lookupRoute(link.href, locale))) {
+        if (!isPublishedPath(link.href, locale)) {
           offenders.push(link.href);
         }
         for (const item of link.menu ?? []) {
-          if (!isPublished(lookupRoute(item.href, locale))) {
+          if (!isPublishedPath(item.href, locale)) {
             offenders.push(item.href);
           }
         }
@@ -51,7 +68,7 @@ describe("getFooterConfig never links to a draft/noindex route", () => {
       const { links } = getFooterConfig(locale);
       const offenders = links
         .map((link) => link.href)
-        .filter((href) => !isPublished(lookupRoute(href, locale)));
+        .filter((href) => !isPublishedPath(href, locale));
 
       expect(offenders).toEqual([]);
     });

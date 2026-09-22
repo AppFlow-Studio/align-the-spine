@@ -82,9 +82,7 @@ export default function EsServicesPage() {
         eyebrow={esServicesPage.catalog.eyebrow}
         heading={esServicesPage.catalog.heading}
         locale="es"
-        // /conditions is English-only and its child pages are draft — a
-        // Spanish reader following this link would land in English.
-        conditionsLink={null}
+        conditionsLink={{ href: "/es/condiciones", label: "Ver las condiciones que tratamos" }}
       />
       <DoctorProfile
         variant="short"

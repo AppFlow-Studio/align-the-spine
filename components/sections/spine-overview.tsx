@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -102,6 +103,23 @@ function SpineClip({
   );
 }
 
+/** The region name, wrapped in a real anchor when the segment has a published
+ * destination. Kept as one helper so the desktop callout and the mobile list
+ * can't drift into linking differently — both render in the DOM at all times
+ * (only CSS decides which is visible), so whatever this returns is what a
+ * crawler sees for that region. */
+function SegmentName({ segment, children }: { segment: SpineSegment; children: React.ReactNode }) {
+  if (!segment.href) return <>{children}</>;
+  return (
+    <Link
+      href={segment.href}
+      className="underline decoration-teal-500/40 decoration-1 underline-offset-4 transition-colors hover:text-teal-500 hover:decoration-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500"
+    >
+      {children}
+    </Link>
+  );
+}
+
 /** Leader-line callout for one spine region: a short line running from the
  * marker dot out to the label, label text on the far side — mirrors
  * PointToWhereItHurts' RegionLabel, but static (no selection state) and
@@ -134,13 +152,15 @@ function SegmentCallout({ segment }: { segment: SpineSegment }) {
       />
       <div className="flex w-[260px] flex-col gap-1 text-left sm:w-[380px]">
         <p className="font-display text-card-title text-navy-800">
-          {regionName}
-          {regionDetail && (
-            <>
-              <br />
-              {regionDetail}
-            </>
-          )}
+          <SegmentName segment={segment}>
+            {regionName}
+            {regionDetail && (
+              <>
+                <br />
+                {regionDetail}
+              </>
+            )}
+          </SegmentName>
         </p>
         <p className="font-sans text-body-lg text-ink-500">{description}</p>
       </div>
@@ -225,7 +245,9 @@ export function SpineOverview({ content }: SpineOverviewProps) {
           <ul className="flex flex-col gap-6 text-left">
             {segments.map((segment) => (
               <li key={segment.id} className="border-l-2 border-teal-500 pl-5">
-                <h3 className="font-display text-card-title text-navy-800">{segment.name}</h3>
+                <h3 className="font-display text-card-title text-navy-800">
+                  <SegmentName segment={segment}>{segment.name}</SegmentName>
+                </h3>
                 <p className="mt-1 font-sans text-body-lg text-ink-500">{segment.description}</p>
               </li>
             ))}

@@ -6,6 +6,7 @@ import {
   isPhoneLink,
   trackBookCtaClick,
   trackPageView,
+  trackPainAreaInteraction,
   trackPhoneClick,
 } from "./analytics";
 
@@ -89,6 +90,30 @@ describe("tracking helpers", () => {
     it('tags English pages with locale "en", never a region-qualified code', () => {
       trackPageView("/services");
       expect(calls).toEqual([["event", "page_view", { page_path: "/services", locale: "en" }]]);
+    });
+  });
+
+  // ATS-E15a §6.3.6: a pain area is health information and must never
+  // appear in any outbound analytics payload — only a bare event name.
+  describe("trackPainAreaInteraction", () => {
+    let calls: unknown[][];
+
+    beforeEach(() => {
+      calls = [];
+      (globalThis as { window?: unknown }).window = {
+        gtag: (...args: unknown[]) => {
+          calls.push(args);
+        },
+      };
+    });
+
+    it("fires pain_area_interaction with no parameters at all — no region id, no locale", () => {
+      trackPainAreaInteraction();
+      expect(calls).toEqual([["event", "pain_area_interaction"]]);
+    });
+
+    it("takes no arguments, so a caller cannot accidentally pass a region id through it", () => {
+      expect(trackPainAreaInteraction.length).toBe(0);
     });
   });
 });

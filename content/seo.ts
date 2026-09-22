@@ -120,7 +120,11 @@ export const routes: RouteMeta[] = [
     // ATS-E3 (3.4): renamed from "Book" — nothing on this form auto-confirms
     // a slot, it's a request that gets a callback, so "Book" overpromised.
     path: "/book-an-appointment",
-    title: `Request a Chiropractic Appointment | Deerfield Beach, FL | ${siteConfig.business.shortName}`,
+    // ATS-SEO-audit-2026-09-22: dropped the trailing "| {shortName}" brand
+    // suffix — this title alone was 74 chars, past Ahrefs' "Title too long"
+    // flag. Location + intent stay fully intact; the brand still shows via
+    // the SERP domain/favicon and Organization schema.
+    title: `Request a Chiropractic Appointment | Deerfield Beach, FL`,
     description:
       "Request a chiropractic appointment with Dr. Abe in Deerfield Beach. Ask whether an office evaluation or eligible home visit fits your needs.",
     image: {
@@ -158,7 +162,11 @@ export const routes: RouteMeta[] = [
   {
     path: "/conditions",
     title: `${conditionsHubHero.h1} | ${siteConfig.business.shortName}`,
-    description: conditionsHubHero.subhead,
+    // ATS-SEO-audit-2026-09-22: shorter than conditionsHubHero.subhead
+    // (157 chars — Ahrefs "Meta description too long"). The on-page
+    // subhead is unchanged; only the <meta name="description"> differs.
+    description:
+      "Dr. Abe Nasser evaluates and treats chiropractic conditions in Deerfield Beach, from car-accident injuries to everyday back and neck pain.",
     image: conditionsHubHero.backgroundImage,
     changeFrequency: "monthly",
     priority: 0.7,
@@ -167,24 +175,38 @@ export const routes: RouteMeta[] = [
     justification:
       "Owns the conditions-directory intent — distinct from /car-accident-chiropractor (accident-specific money page), /services (treatment-modality hub), and each /conditions/[slug] page (its own condition-specific intent). Gives crawlers/users a real, linked path into the condition set instead of the 'Conditions' nav item borrowing /car-accident-chiropractor's href.",
   },
-  // ATS-E4 (4.14): all 4 condition pages below have a red-flag/warning
-  // section (confirmed present on each — RedFlagCard/ConditionWarning) but
-  // no clinician `reviewer`/`reviewerLastReviewed` sign-off yet, so all 4
-  // stay `status: "draft"` (noindex, excluded from the sitemap, still
-  // reachable by direct URL) until a clinician reviews the medical content
-  // and this file is updated with their name + review date.
+  // OVERRIDE (Bilal, 2026-09-21, confirmed in writing — Slack #all-appflow-studio):
+  // IA-02 (under ATS-SEO-E2) originally required `status: "draft"` on
+  // every condition/service page below (and the 4 /services/* pages
+  // further down) until a clinician reviewer signed off — see the
+  // superseded comment this replaces, and app/**/page.tsx's own
+  // `reviewer`/`reviewerLastReviewed` fields, which no clinician has ever
+  // populated. That requirement is now intentionally superseded by
+  // current project direction: these 11 pages are already live in
+  // production (real traffic, not a new publish), so representing them as
+  // `status: "draft"` in code was stale relative to the actual live
+  // state, not a safeguard still doing anything. Munis flagged this
+  // explicitly rather than flipping it unilaterally; Bilal confirmed the
+  // override in writing and is accepting it on the project side. All 11
+  // routes below are `published` as of this pass — `reviewer`/
+  // `reviewerLastReviewed` stay unset (still no clinician sign-off; the
+  // gate requiring one before indexation is what's removed, not a claim
+  // that review happened).
   {
     path: "/conditions/back-pain",
     title: `${backPainHero.h1} | ${siteConfig.business.shortName}`,
-    description: backPainHero.subhead,
+    // ATS-SEO-audit-2026-09-22: shorter than backPainHero.subhead (165
+    // chars — Ahrefs "Meta description too long"). On-page subhead
+    // unchanged.
+    description:
+      "Chiropractic evaluation for lower back pain, stiffness, and pain radiating into the hip or leg, whether gradual or after a car accident.",
     image: backPainHero.backgroundImage,
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-08-12",
-    status: "draft",
     primaryQuery: "back pain chiropractor Deerfield Beach",
     justification:
-      "Owns back-pain-specific patient intent (IA-02); kept draft/noindex until clinician sign-off lands — no other route targets this query.",
+      "Owns back-pain-specific patient intent (IA-02) — no other route targets this query. Ahrefs-backed (SEO_QA_EVIDENCE/ahrefs-2026-08/keyword-evidence-synthesis.md): 'back pain chiropractor' (2,000 vol, KD20, Commercial+Local) is the real national commercial term; 'back pain deerfield' (60 vol, KD0, Bartell ranks position 10) is the hyper-local Deerfield opportunity this page owns exclusively — no competing URL. Published 2026-09-21 per the IA-02 gate override (see file header).",
   },
   {
     path: "/conditions/neck-pain",
@@ -194,10 +216,9 @@ export const routes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-08-12",
-    status: "draft",
     primaryQuery: "neck pain chiropractor Deerfield Beach",
     justification:
-      "Owns neck-pain-specific patient intent (IA-02); kept draft/noindex until clinician sign-off lands — distinct from whiplash and cervicogenic headache.",
+      "Owns neck-pain-specific patient intent (IA-02) — distinct from whiplash and cervicogenic headache. Ahrefs-backed: 'chiropractor for neck pain' (600 vol, KD4, Commercial+Local, ahrefs-2026-08 synthesis) is the validated small commercial slice. Published 2026-09-21 per the IA-02 gate override (see file header).",
   },
   {
     path: "/conditions/sciatica",
@@ -207,49 +228,60 @@ export const routes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-08-12",
-    status: "draft",
     primaryQuery: "sciatica chiropractor Deerfield Beach",
     justification:
-      "Owns sciatica/radiating-leg-pain intent (IA-02); kept draft/noindex until clinician sign-off lands — no other route targets this query.",
+      "Owns sciatica/radiating-leg-pain intent (IA-02) — no other route targets this query. Ahrefs-backed: 'sciatica chiropractor' (3,400 vol, KD0, Local Pack present, a DR1 competitor ranks position 5) is the standout best commercial term found across every condition cluster researched — VALIDATED, strengthen priority (ahrefs-2026-09 synthesis). Published 2026-09-21 per the IA-02 gate override (see file header).",
   },
   {
     path: "/conditions/whiplash",
     title: `${whiplashHero.h1} | ${siteConfig.business.shortName}`,
-    description: whiplashHero.subhead,
+    // ATS-SEO-audit-2026-09-22: shorter than whiplashHero.subhead (160
+    // chars — Ahrefs "Meta description too long"). On-page subhead
+    // unchanged.
+    description:
+      "Whiplash is a neck injury from rapid back-and-forth movement, common in rear-end collisions. Dr. Abe evaluates stiffness and related headaches.",
     image: whiplashHero.backgroundImage,
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-08-12",
-    status: "draft",
     primaryQuery: "whiplash chiropractor Deerfield Beach",
     justification:
-      "Owns post-accident whiplash intent (IA-02); kept draft/noindex until clinician sign-off lands — distinct from neck pain and /car-accident-chiropractor's broader accident intent.",
+      "Owns post-accident whiplash intent (IA-02) — distinct from neck pain and /car-accident-chiropractor's broader accident intent. Ahrefs-backed: 'whiplash chiropractor' (250 vol, KD0, ahrefs-2026-08 synthesis) is the validated small commercial slice. Published 2026-09-21 per the IA-02 gate override (see file header).",
   },
   {
     path: "/conditions/cervicogenic-headache",
-    title: `${cervicogenicHeadacheHero.h1} | ${siteConfig.business.shortName}`,
+    // ATS-SEO-audit-2026-09-22: dropped the trailing "| {shortName}" brand
+    // suffix (75 chars with it — Ahrefs "Title too long"). h1 itself is
+    // unchanged, this only shortens the <title> tag.
+    title: cervicogenicHeadacheHero.h1,
     description: cervicogenicHeadacheHero.subhead,
     image: cervicogenicHeadacheHero.backgroundImage,
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-08-12",
-    status: "draft",
     primaryQuery: "cervicogenic headache chiropractor Deerfield Beach",
     justification:
-      "Owns headache-with-cervical-component intent (IA-02); kept draft/noindex until clinician sign-off lands — distinct from generic headache/migraine copy on the services hub.",
+      "Owns headache-with-cervical-component intent (IA-02) — distinct from generic headache/migraine copy on the services hub. Ahrefs-backed: 'chiropractor for headaches' (300 vol, KD2, Commercial+Local) is the real winnable term this page targets — 'cervicogenic headache' itself (40,000 vol) is purely informational, not a target. Published 2026-09-21 per the IA-02 gate override (see file header).",
   },
   {
     path: "/conditions/concussion",
-    title: `${concussionHero.h1} | ${siteConfig.business.shortName}`,
-    description: concussionHero.subhead,
+    // ATS-SEO-audit-2026-09-22: dropped the trailing "| {shortName}" brand
+    // suffix (81 chars with it — Ahrefs "Title too long"). h1 itself is
+    // unchanged, this only shortens the <title> tag.
+    title: concussionHero.h1,
+    // ATS-SEO-audit-2026-09-22: shorter than concussionHero.subhead (156
+    // chars — Ahrefs "Meta description too long"). The safety disclaimer
+    // ("not a substitute for emergency/neurological care") is kept intact
+    // — only reworded to fit budget, never cut. On-page subhead unchanged.
+    description:
+      "A concussion is a mild traumatic brain injury needing medical evaluation. Chiropractic care isn't a substitute for emergency or neurological care.",
     image: concussionHero.backgroundImage,
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-08-12",
-    status: "draft",
     primaryQuery: "concussion chiropractor Deerfield Beach",
     justification:
-      "Owns post-concussion evaluation intent (IA-02). Stays draft/noindex regardless of clinician sign-off per the ticket's explicit instruction, not just pending review.",
+      "Owns post-concussion evaluation intent (IA-02). Previously stayed draft/noindex regardless of clinician sign-off as a deliberately more conservative gate than its sibling condition pages (this is the most emergency-adjacent, YMYL-sensitive topic of the seven) — explicitly confirmed by Bilal as covered by the 2026-09-21 IA-02 gate override (see file header) rather than assuming so unilaterally. Ahrefs-backed: 'concussion chiropractor' (40 vol, KD0) is real but small, consistent with this page's already-conservative content treatment. Published 2026-09-21.",
   },
   {
     path: "/conditions/tmj-jaw-pain",
@@ -259,14 +291,10 @@ export const routes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.8,
     lastModified: "2026-08-12",
-    status: "draft",
     primaryQuery: "TMJ / jaw pain chiropractor Deerfield Beach",
     justification:
-      "Owns TMJ/jaw-pain intent (IA-02); kept draft/noindex until clinician sign-off lands — no other route targets this query.",
+      "Owns TMJ/jaw-pain intent (IA-02) — no other route targets this query. Ahrefs-backed: 'tmj chiropractor' (900 vol, KD0, Commercial+Local) is the real winnable term this page targets. Published 2026-09-21 per the IA-02 gate override (see file header).",
   },
-  // Same reviewer-gate as the condition pages above — this page includes
-  // clinical guidance ("not the right first step for a fracture,
-  // dislocation..."), so it stays draft until a clinician signs off too.
   {
     path: "/services/chiropractic-adjustments",
     title: `${adjustmentsHero.h1} | ${siteConfig.business.shortName}`,
@@ -275,30 +303,26 @@ export const routes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.7,
     lastModified: "2026-08-12",
-    status: "draft",
     primaryQuery: "chiropractic adjustments Deerfield Beach",
     justification:
-      "Owns the adjustments treatment page for the homepage's 'adjustment' service (IA-03); kept draft/noindex until clinician sign-off lands.",
+      "Owns the adjustments treatment page for the homepage's 'adjustment' service (IA-03). Ahrefs-backed: 'chiropractic adjustment' (6,700 vol, KD9, Commercial+Local) is a real, solid opportunity. Published 2026-09-21 per the IA-02 gate override (see file header).",
   },
-  // Same reviewer-gate as the condition pages above — this page includes
-  // clinical guidance about disc injuries and PIP claim timing, so it stays
-  // draft until a clinician signs off too.
   {
     path: "/services/spinal-decompression",
     title: `${spinalDecompressionHero.h1} | ${siteConfig.business.shortName}`,
-    description: spinalDecompressionHero.subhead,
+    // ATS-SEO-audit-2026-09-22: shorter than spinalDecompressionHero.subhead
+    // (157 chars — Ahrefs "Meta description too long"). On-page subhead
+    // unchanged.
+    description:
+      "Non-surgical spinal decompression uses controlled traction to reduce pressure on spinal joints and discs, when an evaluation supports it.",
     image: spinalDecompressionHero.backgroundImage,
     changeFrequency: "monthly",
     priority: 0.7,
     lastModified: "2026-08-12",
-    status: "draft",
     primaryQuery: "spinal decompression Deerfield Beach",
     justification:
-      "Owns the decompression treatment page for the homepage's 'traction-decompression' service (IA-03); kept draft/noindex until clinician sign-off lands.",
+      "Owns the decompression treatment page for the homepage's 'traction-decompression' service (IA-03). Ahrefs-backed: 'spinal decompression' (16,000 vol, KD12) is Commercial but tagged Non-local — a researching-the-treatment query, matching this page's already-in-depth explainer framing rather than a pure 'near me' lead-gen term. Published 2026-09-21 per the IA-02 gate override (see file header).",
   },
-  // Same reviewer-gate as the condition pages above — this page includes
-  // clinical guidance about soft-tissue technique selection, so it stays
-  // draft until a clinician signs off too.
   {
     path: "/services/soft-tissue-therapy",
     title: `${massageSoftTissueHero.h1} | ${siteConfig.business.shortName}`,
@@ -307,15 +331,13 @@ export const routes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.7,
     lastModified: "2026-08-12",
-    status: "draft",
     primaryQuery: "massage / soft-tissue therapy Deerfield Beach",
     justification:
-      "Owns the soft-tissue treatment page for the homepage's 'myofascial-release-trigger-point' service (IA-03); kept draft/noindex until clinician sign-off lands. Cupping owns its own page (/services/cupping-therapy) rather than sharing this one.",
+      "Owns the soft-tissue treatment page for the homepage's 'myofascial-release-trigger-point' service (IA-03). Cupping owns its own page (/services/cupping-therapy) rather than sharing this one. Published 2026-09-21 per the IA-02 gate override (see file header).",
   },
   // Lean, dedicated page — see app/services/cupping-therapy/page.tsx's doc
   // comment for why this doesn't copy the other /services/* pages' full
-  // template. Same reviewer-gate as its siblings: includes treatment
-  // guidance, so it stays draft until a clinician signs off.
+  // template.
   {
     path: "/services/cupping-therapy",
     title: `${cuppingTherapyHero.h1} | ${siteConfig.business.name}`,
@@ -324,10 +346,9 @@ export const routes: RouteMeta[] = [
     changeFrequency: "monthly",
     priority: 0.6,
     lastModified: "2026-08-17",
-    status: "draft",
     primaryQuery: "cupping therapy Deerfield Beach",
     justification:
-      "Owns the cupping treatment page for the homepage's 'cupping-therapy' service (IA-03) — split out from /services/soft-tissue-therapy so every homepage-listed service gets its own page; kept draft/noindex until clinician sign-off lands.",
+      "Owns the cupping treatment page for the homepage's 'cupping-therapy' service (IA-03) — split out from /services/soft-tissue-therapy so every homepage-listed service gets its own page. Published 2026-09-21 per the IA-02 gate override (see file header).",
   },
   // ATS-E3 (3.7): unverified service-area/availability data (see
   // content/site.ts's `serviceAreas`, ATS-E4 4.6) — stays draft
@@ -362,7 +383,7 @@ export const routes: RouteMeta[] = [
     path: "/reviews",
     title: `Patient Reviews | Deerfield Beach, FL | ${siteConfig.business.shortName}`,
     description:
-      "Verified patient reviews for Align the Spine Chiropractic in Deerfield Beach, FL.",
+      "Verified patient reviews for Align the Spine Chiropractic in Deerfield Beach, FL, covering visits, adjustments, and car-accident evaluations with Dr. Abe.",
     image: {
       src: "/figma-exports/interior-table.png",
       alt: "Treatment room at Align the Spine Chiropractic",
@@ -416,6 +437,13 @@ export const routes: RouteMeta[] = [
     title: `Privacy Policy | ${siteConfig.business.shortName}`,
     description:
       "How Align the Spine Chiropractic collects, uses, and protects your information, including HIPAA-protected health information.",
+    // ATS-SEO-audit-2026-09-22: had no `image`, so shares had no OG/Twitter
+    // preview (Ahrefs "Open Graph tags incomplete") — same office-exterior
+    // photo /contact-us and /service-areas already reuse.
+    image: {
+      src: "/figma-exports/exterior-img.png",
+      alt: "Exterior of the Deerfield Beach office building",
+    },
     changeFrequency: "yearly",
     priority: 0.3,
     lastModified: "2026-07-31",
@@ -455,7 +483,7 @@ export const routes: RouteMeta[] = [
     path: "/service-areas",
     title: `Chiropractic Service Areas Near Deerfield Beach, FL | ${siteConfig.business.shortName}`,
     description:
-      "See the verified Deerfield Beach office and learn how nearby in-office visits differ from limited, case-and-location-confirmed car-accident/PIP home-visit eligibility.",
+      "See the verified Deerfield Beach office and how nearby in-office visits differ from limited, case-confirmed car-accident/PIP home-visit eligibility.",
     image: {
       src: "/figma-exports/exterior-img.png",
       alt: "Exterior of the Deerfield Beach office building",

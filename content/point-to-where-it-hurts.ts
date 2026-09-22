@@ -1,7 +1,15 @@
 import { getRouteHref } from "@/content/seo";
 
+/** The 6 selectable regions on the "point to where it hurts" diagram. A
+ * union (not `string`) so content/pain-area-media.ts's `Record<PainAreaId,
+ * PainAreaMedia>` is exhaustive at compile time — adding a region here
+ * without adding its media entry is a type error, not a silent blank panel
+ * (ATS-E15a). */
+export type PainAreaId =
+  "headaches" | "whiplash" | "shoulder-pain" | "back-pain" | "herniated-disc" | "sciatica";
+
 export interface BodyRegion {
-  id: string;
+  id: PainAreaId;
   name: string;
   description: string;
   /** Condition-route deep link, when one exists. Falls back to siteConfig.bookingCta.href. */
@@ -55,8 +63,12 @@ export const pointToWhereItHurtsContent: PointToWhereItHurtsContent = {
       name: "Headaches",
       description:
         "Tension and cervicogenic headaches often trace back to misalignment in the upper neck.",
-      // LINK-01: falls back to the booking CTA while /conditions/cervicogenic-headache
-      // stays draft (IA-02) — getRouteHref() returns null until sign-off lands.
+      // LINK-01: resolves to the real condition page now that the IA-02
+      // clinician-review gate was superseded by project direction (2026-09-21)
+      // and /conditions/cervicogenic-headache is `status: "published"`. The
+      // getRouteHref() indirection stays deliberately — if the route is ever
+      // returned to draft this degrades to the booking CTA instead of linking
+      // at a noindex page.
       href: getRouteHref("/conditions/cervicogenic-headache") ?? undefined,
       position: { x: 52, y: 14 },
       size: 40,

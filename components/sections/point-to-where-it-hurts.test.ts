@@ -43,3 +43,34 @@ describe("PointToWhereItHurts renders every region's destination link unconditio
     expect(source).toContain("region.href ?? siteConfig.bookingCta.href");
   });
 });
+
+/** ATS-E15a: the per-region media panel and its supporting behavior. Same
+ * source-scan approach as above — no jsdom harness to mount this Client
+ * Component. */
+describe("PointToWhereItHurts pain-area media panel wiring", () => {
+  const source = readFileSync(join(__dirname, "point-to-where-it-hurts.tsx"), "utf8");
+
+  it("renders PainAreaMediaPanel for the selected region", () => {
+    expect(source).toContain("<PainAreaMediaPanel regionId={region.id} />");
+  });
+
+  it("tracks a selection without ever passing the region id/name to the tracker (ATS-E15a §6.3.6)", () => {
+    expect(source).toContain("trackPainAreaInteraction();");
+    expect(source).not.toMatch(/trackPainAreaInteraction\([^)]+\)/);
+  });
+
+  it("every selection path (desktop hotspot, mobile list, desktop/mobile keyboard roving groups) goes through the same tracked handleSelect", () => {
+    const selectCallSites = source.match(
+      /(?:onClick=\{\(\) => |useRovingRadioGroup\(regions, selectedId, )handleSelect/g,
+    );
+    expect(selectCallSites?.length).toBe(4);
+    expect(source).not.toContain("setSelectedId(region.id)");
+  });
+
+  it("expands every hotspot's touch target to at least 44px without growing the visible dot", () => {
+    expect(source).toContain("const MIN_TOUCH_TARGET = 44;");
+    expect(source).toContain("Math.max(MIN_TOUCH_TARGET, region.size)");
+    // The visible dot still sizes itself off region.size directly.
+    expect(source).toContain("style={{ width: region.size, height: region.size }}");
+  });
+});

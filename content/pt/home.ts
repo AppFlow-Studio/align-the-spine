@@ -1,5 +1,6 @@
 import type { ServiceCardItem } from "@/components/ui/service-card";
 import type { DoctorRating } from "@/content/doctor-profile";
+import { getPtRouteHref } from "@/content/pt/seo";
 import type { Service } from "@/content/services";
 import type { SpineOverviewContent } from "@/content/spine-overview";
 import { verified } from "@/content/verified-value";
@@ -233,6 +234,7 @@ export const ptSpineOverviewContent: SpineOverviewContent = {
         "Dores de cabeça, rigidez no pescoço e tensão nos ombros: a maioria começa aqui.",
       position: { x: 52, y: 22 },
       labelSide: "left",
+      href: getPtRouteHref("/pt/condicoes/dor-no-pescoco") ?? undefined,
     },
     {
       id: "thoracic",
@@ -240,6 +242,7 @@ export const ptSpineOverviewContent: SpineOverviewContent = {
       description: "A fonte de dor mais comum. Sustenta a maior parte do peso do corpo.",
       position: { x: 52, y: 44 },
       labelSide: "right",
+      href: getPtRouteHref("/pt/condicoes/dor-nas-costas") ?? undefined,
     },
     {
       id: "lumbar",
@@ -248,6 +251,7 @@ export const ptSpineOverviewContent: SpineOverviewContent = {
         "A má postura, o trabalho sentado e o estresse comprimem essa região todos os dias.",
       position: { x: 52, y: 61 },
       labelSide: "left",
+      href: getPtRouteHref("/pt/condicoes/dor-nas-costas") ?? undefined,
     },
     {
       id: "sacral",
@@ -256,6 +260,7 @@ export const ptSpineOverviewContent: SpineOverviewContent = {
         "A dor no quadril, a ciática e o desconforto nervoso costumam começar nessa região.",
       position: { x: 52, y: 76 },
       labelSide: "right",
+      href: getPtRouteHref("/pt/condicoes/ciatica") ?? undefined,
     },
   ],
 };

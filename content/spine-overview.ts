@@ -1,3 +1,5 @@
+import { getRouteHref } from "@/content/seo";
+
 export interface SpineSegment {
   id: string;
   /** Short region label, e.g. "Cervical (Neck)". */
@@ -9,6 +11,20 @@ export interface SpineSegment {
   position: { x: number; y: number };
   /** Which side of the image this region's callout label renders on. */
   labelSide: "left" | "right";
+  /** Condition-route deep link for this spine region, when a published route
+   * genuinely covers it.
+   *
+   * ATS-A03: before this existed the home page rendered no internal link to
+   * any condition page at all — the only path in was the `/conditions` hub,
+   * so the site's highest-authority page passed nothing directly to the seven
+   * pages the SEO epic exists to rank. The interactive PointToWhereItHurts
+   * diagram (which does emit crawlable per-region links) is used on the
+   * condition and accident pages, not here.
+   *
+   * Always populated through `getRouteHref()`, never a literal path, so a
+   * region whose destination is draft/noindex/unregistered renders as plain
+   * text instead of linking somewhere Googlebot shouldn't follow. */
+  href?: string;
 }
 
 export interface SpineOverviewContent {
@@ -50,6 +66,7 @@ export const spineOverviewContent: SpineOverviewContent = {
       description: "Headaches, neck stiffness, shoulder tension — most originate here.",
       position: { x: 52, y: 22 },
       labelSide: "left",
+      href: getRouteHref("/conditions/neck-pain") ?? undefined,
     },
     {
       id: "thoracic",
@@ -57,6 +74,7 @@ export const spineOverviewContent: SpineOverviewContent = {
       description: "The most common source of pain. Bears the majority of your body weight.",
       position: { x: 52, y: 44 },
       labelSide: "right",
+      href: getRouteHref("/conditions/back-pain") ?? undefined,
     },
     {
       id: "lumbar",
@@ -64,6 +82,7 @@ export const spineOverviewContent: SpineOverviewContent = {
       description: "Poor posture, desk work, and stress compress this region daily.",
       position: { x: 52, y: 61 },
       labelSide: "left",
+      href: getRouteHref("/conditions/back-pain") ?? undefined,
     },
     {
       id: "sacral",
@@ -71,6 +90,7 @@ export const spineOverviewContent: SpineOverviewContent = {
       description: "Hip pain, sciatica, and nerve issues often trace back to this area.",
       position: { x: 52, y: 76 },
       labelSide: "right",
+      href: getRouteHref("/conditions/sciatica") ?? undefined,
     },
   ],
 };

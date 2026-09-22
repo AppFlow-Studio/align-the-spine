@@ -77,12 +77,15 @@ export const htServicesPage = {
   breadcrumb: "Sèvis",
 };
 
-/** Haitian Creole rendering of content/services-grid.ts. `href`/`ctaLabel`
- * are deliberately absent on every card except the one that links to the
- * published Haitian Creole accident page — same reasoning as
- * content/es/pages.ts's esServicesGrid and content/pt/pages.ts's
- * ptServicesGrid: the other cards' English/Spanish/Portuguese originals are
- * `status: "draft"` and have no Haitian Creole page to link to yet. */
+/** Haitian Creole rendering of content/services-grid.ts. Every card with a
+ * real dedicated Haitian Creole page (adjustments, spinal-decompression,
+ * cupping, massage/soft-tissue, car-accidents) carries its own
+ * href/ctaLabel — see content/es/pages.ts's esServicesGrid and
+ * content/pt/pages.ts's ptServicesGrid for the equivalent Spanish/
+ * Portuguese reasoning. `sports-injury`, `posture-corrective`, and
+ * `headache-migraine` stay unlinked because they have no dedicated page in
+ * any language, not a draft/review gate (that gate was overridden
+ * 2026-09-21 — see content/seo.ts's file header). */
 export const htServicesGrid: ServiceCardItem[] = [
   {
     slug: "adjustments",
