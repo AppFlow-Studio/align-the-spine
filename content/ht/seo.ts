@@ -1,4 +1,4 @@
-import type { RouteMeta } from "@/content/seo";
+import { isPublished, type RouteMeta } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 
 /** Haitian Creole route registry — the `/ht` mirror of content/es/seo.ts
@@ -56,7 +56,7 @@ export const htRoutes: RouteMeta[] = [
     },
     changeFrequency: "weekly",
     priority: 1,
-    lastModified: "2026-09-02",
+    lastModified: "2026-09-22",
     primaryQuery: "Haitian Creole-language Deerfield Beach general chiropractic intent",
     justification:
       "Owns broad 'kiwopratè Deerfield Beach' intent for Haitian Creole searchers. hreflang alternate of the English, Spanish, and Portuguese home pages — each owns its own language's version of the same intent.",
@@ -384,4 +384,14 @@ export function getHtRoute(path: string): RouteMeta {
   const route = htRoutes.find((entry) => entry.path === path);
   if (!route) throw new Error(`content/ht/seo.ts: no route registered for path "${path}"`);
   return route;
+}
+
+/** Haitian Creole counterpart of content/seo.ts's getRouteHref() — returns `path` only
+ * when it is registered AND published, `null` otherwise, so a caller can
+ * never link at a draft/noindex Haitian Creole route. Same contract as the English
+ * helper; kept per-locale because each registry is its own source of truth. */
+export function getHtRouteHref(path: string): string | null {
+  const route = htRoutes.find((entry) => entry.path === path);
+  if (!route || !isPublished(route)) return null;
+  return route.path;
 }

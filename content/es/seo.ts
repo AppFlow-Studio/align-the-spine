@@ -1,4 +1,4 @@
-import type { RouteMeta } from "@/content/seo";
+import { isPublished, type RouteMeta } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 
 /** Spanish route registry — the `/es` mirror of content/seo.ts.
@@ -58,7 +58,7 @@ export const esRoutes: RouteMeta[] = [
     },
     changeFrequency: "weekly",
     priority: 1,
-    lastModified: "2026-09-04",
+    lastModified: "2026-09-22",
     primaryQuery: "Spanish-language Deerfield Beach general chiropractic intent",
     justification:
       "Owns broad 'quiropráctico Deerfield Beach' intent for Spanish searchers. Does not compete with the English home page — the two are hreflang alternates of one another, each serving a different language's version of the same intent.",
@@ -417,4 +417,14 @@ export function getEsRoute(path: string): RouteMeta {
   const route = esRoutes.find((entry) => entry.path === path);
   if (!route) throw new Error(`content/es/seo.ts: no route registered for path "${path}"`);
   return route;
+}
+
+/** Spanish counterpart of content/seo.ts's getRouteHref() — returns `path` only
+ * when it is registered AND published, `null` otherwise, so a caller can
+ * never link at a draft/noindex Spanish route. Same contract as the English
+ * helper; kept per-locale because each registry is its own source of truth. */
+export function getEsRouteHref(path: string): string | null {
+  const route = esRoutes.find((entry) => entry.path === path);
+  if (!route || !isPublished(route)) return null;
+  return route.path;
 }

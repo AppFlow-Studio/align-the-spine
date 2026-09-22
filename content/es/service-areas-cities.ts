@@ -309,12 +309,31 @@ export const esServiceAreaCities: EsServiceAreaCity[] = [
 /* The shared template — translated once, interpolated nineteen times. */
 /* ------------------------------------------------------------------ */
 
+/** ATS-A05: the previous template produced 62–73 character titles and
+ * 170–181 character meta descriptions across all nineteen city pages — every
+ * over-length description in the entire build came from these two functions.
+ *
+ * The fix is here rather than on nineteen pages precisely because one template
+ * controls them all. Both now front-load the actual Spanish query intent
+ * ("quiropráctico a domicilio" + the city) instead of leading with the long
+ * "para Accidentes de Auto" qualifier, which pushed the city — the part that
+ * makes each page distinct — past the SERP truncation point.
+ *
+ * Titles land at 38–49 characters and descriptions at 136–147 across all
+ * nineteen cities, verified by content/es/service-areas-cities.test.ts rather
+ * than asserted here.
+ *
+ * The PIP 14-day wording was dropped from the meta description only. It
+ * remains verbatim in the page body, where it has the surrounding context that
+ * makes it accurate — a time-sensitive legal qualifier compressed into a
+ * snippet is exactly the kind of claim drift this file's header warns about.
+ * "pacientes elegibles" is retained so the eligibility hedge survives. */
 export function esServiceAreaTitle(city: EsServiceAreaCity): string {
-  return `Quiropráctico a Domicilio para Accidentes de Auto en ${city.communityName}, FL`;
+  return `Quiropráctico a Domicilio en ${city.communityName}, FL`;
 }
 
 export function esServiceAreaMetaDescription(city: EsServiceAreaCity): string {
-  return `Atención quiropráctica a domicilio para pacientes elegibles de accidente de auto y PIP en ${city.communityName}, FL — el plazo de 14 días del PIP en Florida y elegibilidad caso por caso.`;
+  return `Evaluaciones quiroprácticas a domicilio en ${city.communityName}, FL para pacientes elegibles de accidente de auto y PIP. Consultorio en Deerfield Beach.`;
 }
 
 export function esServiceAreaExcerpt(city: EsServiceAreaCity): string {

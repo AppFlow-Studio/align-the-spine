@@ -1,4 +1,4 @@
-import type { RouteMeta } from "@/content/seo";
+import { isPublished, type RouteMeta } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 
 /** Brazilian Portuguese route registry — the `/pt` mirror of
@@ -55,7 +55,7 @@ export const ptRoutes: RouteMeta[] = [
     },
     changeFrequency: "weekly",
     priority: 1,
-    lastModified: "2026-09-02",
+    lastModified: "2026-09-22",
     primaryQuery: "Brazilian Portuguese-language Deerfield Beach general chiropractic intent",
     justification:
       "Owns broad 'quiroprático Deerfield Beach' intent for Brazilian Portuguese searchers. hreflang alternate of the English and Spanish home pages, not a competitor to either — each owns its own language's version of the same intent.",
@@ -254,6 +254,31 @@ export const ptRoutes: RouteMeta[] = [
       "Owns 'ciática quiroprático Deerfield Beach' — radiating nerve pain, distinct from the back-pain page's localized intent. Draft until the English original clears review.",
   },
   {
+    // ATS-A11 terminology review (2026-09-22). "Torcicolo" denotes
+    // torticollis/wryneck rather than whiplash, so this label is medically
+    // imprecise as a standalone term for the English /conditions/whiplash
+    // counterpart it is hreflang-paired with.
+    //
+    // KEPT, on evidence, rather than renamed:
+    //   * Ahrefs US volume, checked 2026-09-22 — "torcicolo cervical" 0,
+    //     "chicote cervical" 0, "lesao em chicote" no data, "torcicolo" 250
+    //     (but that one means stiff neck generally, not this injury). No
+    //     PT-BR whiplash term has measurable US demand, so the slug is not a
+    //     traffic decision and no alternative is demonstrably better.
+    //   * The page copy disambiguates it correctly in its first sentence —
+    //     "uma lesão no pescoço por movimento brusco, comum em colisões
+    //     traseiras" — which describes the whiplash mechanism, not
+    //     torticollis. A reader is not misled.
+    //   * Renaming means a slug change plus a permanent redirect, an
+    //     hreflang-cluster edit and a sitemap churn, for a page with zero
+    //     measurable search demand — risk with no offsetting benefit.
+    //
+    // OPEN FOR NATIVE REVIEW: this repo already records that PT-BR copy was
+    // machine-translated without verified native fluency
+    // (docs/multilingual-seo-baseline.md §8.2). A native PT-BR speaker should
+    // confirm the label. If they prefer "lesão em chicote", change it there
+    // and here together and add the 308 redirect — the terminology call is
+    // theirs, not this file's.
     path: "/pt/condicoes/torcicolo-cervical",
     title: `Quiroprático para Torcicolo Cervical em Deerfield Beach, FL`,
     description:
@@ -393,4 +418,14 @@ export function getPtRoute(path: string): RouteMeta {
   const route = ptRoutes.find((entry) => entry.path === path);
   if (!route) throw new Error(`content/pt/seo.ts: no route registered for path "${path}"`);
   return route;
+}
+
+/** Brazilian Portuguese counterpart of content/seo.ts's getRouteHref() — returns `path` only
+ * when it is registered AND published, `null` otherwise, so a caller can
+ * never link at a draft/noindex Brazilian Portuguese route. Same contract as the English
+ * helper; kept per-locale because each registry is its own source of truth. */
+export function getPtRouteHref(path: string): string | null {
+  const route = ptRoutes.find((entry) => entry.path === path);
+  if (!route || !isPublished(route)) return null;
+  return route.path;
 }

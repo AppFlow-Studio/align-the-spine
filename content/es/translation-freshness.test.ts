@@ -109,7 +109,12 @@ const RECORDED: { label: string; source: unknown; spanishMirror: string; hash: s
     label: "spineOverviewContent",
     source: spineOverviewContent,
     spanishMirror: "content/es/home.ts → esSpineOverviewContent",
-    hash: "c7eaef9d7d6b4dc6",
+    // Rehashed 2026-09-22 (ATS-A03). The English change was the addition of
+    // per-segment `href` destinations so the home page finally links into the
+    // condition pages; the Spanish mirror received the same treatment against
+    // its own /es/condiciones routes in the same commit, and /es lastModified
+    // was bumped. No visitor-facing copy changed on either side.
+    hash: "8f29cc28504cd052",
   },
   {
     label: "leadFormVariants",

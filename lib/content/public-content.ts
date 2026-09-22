@@ -1,7 +1,7 @@
 import { unstable_cache } from "next/cache";
 
 import { getContentRepository } from "./index";
-import type { PublicListOptions } from "./repository";
+import { MAX_PUBLIC_PAGE_SIZE, type PublicListOptions } from "./repository";
 import type { ContentType } from "./types";
 
 export async function listPublicContent(options: PublicListOptions) {
@@ -43,7 +43,12 @@ export async function listAllPublicContent(
   // seeding 24+ real fixture/Supabase rows just to prove the loop works.
   listFn: typeof listPublicContent = listPublicContent,
 ) {
-  const pageSize = 100;
+  // Page with the repositories' real ceiling, not a larger number they would
+  // silently clamp. This previously asked for 100 and was handed 24 — the loop
+  // still worked (totalPages is derived from the clamped size, so offsets stayed
+  // consistent), but the request was dead intent that read like configuration,
+  // and any future reader could reasonably assume 100 rows per round trip.
+  const pageSize = MAX_PUBLIC_PAGE_SIZE;
   const first = await listFn({ contentType, page: 1, pageSize });
   const items = [...first.items];
 

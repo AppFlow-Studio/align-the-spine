@@ -1,6 +1,11 @@
 import { serviceAreas, type ServiceAreaContent } from "@/content/service-areas";
 
-import type { ContentRepository, PublicCategorySummary, PublicListOptions } from "./repository";
+import {
+  clampPageSize,
+  type ContentRepository,
+  type PublicCategorySummary,
+  type PublicListOptions,
+} from "./repository";
 import { estimatedReadingMinutes } from "./schemas";
 import type { ContentAuthor, ContentItem, ContentSource, PublicContentItem } from "./types";
 
@@ -360,7 +365,7 @@ function toPublic(entry: ServiceAreaContent): PublicContentItem {
 export class StaticServiceAreaRepository implements ContentRepository {
   async listPublic(options: PublicListOptions) {
     const page = Math.max(1, options.page ?? 1);
-    const pageSize = Math.min(24, Math.max(1, options.pageSize ?? 9));
+    const pageSize = clampPageSize(options.pageSize);
     const query = options.query?.trim().toLowerCase();
     const filtered = serviceAreas
       .filter(

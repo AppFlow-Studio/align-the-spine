@@ -63,8 +63,12 @@ export const pointToWhereItHurtsContent: PointToWhereItHurtsContent = {
       name: "Headaches",
       description:
         "Tension and cervicogenic headaches often trace back to misalignment in the upper neck.",
-      // LINK-01: falls back to the booking CTA while /conditions/cervicogenic-headache
-      // stays draft (IA-02) — getRouteHref() returns null until sign-off lands.
+      // LINK-01: resolves to the real condition page now that the IA-02
+      // clinician-review gate was superseded by project direction (2026-09-21)
+      // and /conditions/cervicogenic-headache is `status: "published"`. The
+      // getRouteHref() indirection stays deliberately — if the route is ever
+      // returned to draft this degrades to the booking CTA instead of linking
+      // at a noindex page.
       href: getRouteHref("/conditions/cervicogenic-headache") ?? undefined,
       position: { x: 52, y: 14 },
       size: 40,

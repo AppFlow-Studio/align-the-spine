@@ -97,10 +97,16 @@ describe("buildMedicalBusiness", () => {
     expect(buildMedicalBusiness().parentOrganization).toEqual({ "@id": ORGANIZATION_ID });
   });
 
-  it("includes aggregateRating once the client-confirmed rating is verified", () => {
+  /** ATS-A07: the verified-claim gate is now necessary but no longer
+   * sufficient — the caller must also opt in, because a verified rating on a
+   * page that renders no reviews is still self-serving markup. See
+   * lib/schema-aggregate-rating.test.ts for the full opt-in contract. */
+  it("includes aggregateRating only when a verified rating is explicitly opted into", () => {
     expect(isVerified(siteConfig.reviewsRating)).toBe(true);
     if (!isVerified(siteConfig.reviewsRating)) throw new Error("unreachable");
-    expect(buildMedicalBusiness().aggregateRating).toEqual({
+
+    expect(buildMedicalBusiness().aggregateRating).toBeUndefined();
+    expect(buildMedicalBusiness({ includeAggregateRating: true }).aggregateRating).toEqual({
       "@type": "AggregateRating",
       ratingValue: siteConfig.reviewsRating.value.rating,
       reviewCount: siteConfig.reviewsRating.value.count,

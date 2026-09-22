@@ -1,5 +1,6 @@
 import type { ServiceCardItem } from "@/components/ui/service-card";
 import type { DoctorRating } from "@/content/doctor-profile";
+import { getHtRouteHref } from "@/content/ht/seo";
 import type { Service } from "@/content/services";
 import type { SpineOverviewContent } from "@/content/spine-overview";
 import { verified } from "@/content/verified-value";
@@ -229,6 +230,7 @@ export const htSpineOverviewContent: SpineOverviewContent = {
       description: "Tèt fè mal, kou rèd, ak tansyon nan zepòl: pifò kòmanse la a.",
       position: { x: 52, y: 22 },
       labelSide: "left",
+      href: getHtRouteHref("/ht/kondisyon-nou-trete/doule-kou") ?? undefined,
     },
     {
       id: "thoracic",
@@ -236,6 +238,7 @@ export const htSpineOverviewContent: SpineOverviewContent = {
       description: "Sous doulè ki pi komen an. Li sipòte pifò nan pwa kò a.",
       position: { x: 52, y: 44 },
       labelSide: "right",
+      href: getHtRouteHref("/ht/kondisyon-nou-trete/doule-do") ?? undefined,
     },
     {
       id: "lumbar",
@@ -243,6 +246,7 @@ export const htSpineOverviewContent: SpineOverviewContent = {
       description: "Move pozisyon, travay chita, ak estrès konprese zòn sa a chak jou.",
       position: { x: 52, y: 61 },
       labelSide: "left",
+      href: getHtRouteHref("/ht/kondisyon-nou-trete/doule-do") ?? undefined,
     },
     {
       id: "sacral",
@@ -250,6 +254,7 @@ export const htSpineOverviewContent: SpineOverviewContent = {
       description: "Doulè nan ranch, syatik, ak doulè nè souvan kòmanse nan zòn sa a.",
       position: { x: 52, y: 76 },
       labelSide: "right",
+      href: getHtRouteHref("/ht/kondisyon-nou-trete/syatik") ?? undefined,
     },
   ],
 };

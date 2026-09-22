@@ -1,5 +1,10 @@
 import { fixtureAssets, fixtureAuthors, fixtureContent } from "./fixtures";
-import type { ContentRepository, PublicCategorySummary, PublicListOptions } from "./repository";
+import {
+  clampPageSize,
+  type ContentRepository,
+  type PublicCategorySummary,
+  type PublicListOptions,
+} from "./repository";
 import { estimatedReadingMinutes } from "./schemas";
 import type { ContentItem, PublicContentItem } from "./types";
 
@@ -36,7 +41,7 @@ function isPublic(item: ContentItem, now = new Date()): boolean {
 export class FixtureContentRepository implements ContentRepository {
   async listPublic(options: PublicListOptions) {
     const page = Math.max(1, options.page ?? 1);
-    const pageSize = Math.min(24, Math.max(1, options.pageSize ?? 9));
+    const pageSize = clampPageSize(options.pageSize);
     const query = options.query?.trim().toLowerCase();
     const filtered = fixtureContent
       .filter((item) => item.contentType === options.contentType && isPublic(item))
