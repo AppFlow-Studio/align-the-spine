@@ -79,9 +79,15 @@ Any failure raises with a `FAIL <n><letter>` tag naming the exact behavior that 
 Without this, a post written straight to Supabase appears on the site within 60 seconds (the page
 cache TTL in `lib/content/public-content.ts`). With it, the site updates immediately.
 
-1. Enable `pg_net`: Supabase dashboard → Database → Extensions → `pg_net`.
+`pg_net` is **already enabled** on `qaaptlxxwfvxzgyzjhub`, and the exact call
+`content_notify_revalidation()` makes — `net.http_post(url => …, headers => …, body => …)` — was
+smoke-tested there inside a rolled-back transaction, so the only thing left is the secret:
+
+1. ~~Enable `pg_net`~~ — done.
 2. Generate a secret and set it in Vercel as `CONTENT_REVALIDATION_SECRET` (all environments).
-3. Point the database at the deployed endpoint:
+   Generate it yourself rather than reusing anything that has appeared in a chat or a log:
+   `openssl rand -base64 32`.
+3. Point the database at the deployed endpoint, using that same value:
 
 ```sql
 update public.content_revalidation_config set
