@@ -4,6 +4,10 @@
     {
       "path": "/api/internal/lead-delivery",
       "schedule": "0 13 * * *"
+    },
+    {
+      "path": "/api/cron/publish-scheduled",
+      "schedule": "*/15 * * * *"
     }
   ]
 }

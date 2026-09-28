@@ -150,6 +150,12 @@ export const editorialUpdateSchema = z
       .refine((value) => value === "" || value.startsWith("https://"), {
         message: "Must be a full https:// URL.",
       })
+      // next/image only optimizes the hosts in next.config.ts, and an image
+      // anywhere else throws at render rather than degrading — so it's rejected
+      // at the form instead of becoming an unpublishable post.
+      .refine((value) => value === "" || value.startsWith("https://align-the-spine.b-cdn.net/"), {
+        message: "Host the image on align-the-spine.b-cdn.net so the site can render it.",
+      })
       .optional()
       .or(z.literal("")),
     featuredImageAlt: safeText.max(200).optional().or(z.literal("")),

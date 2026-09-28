@@ -4,6 +4,22 @@ import { getContentRepository } from "./index";
 import { MAX_PUBLIC_PAGE_SIZE, type PublicListOptions } from "./repository";
 import type { ContentType } from "./types";
 
+/** Fallback lifetime for a cached public-content read.
+ *
+ * Tag invalidation is the primary mechanism and is immediate: the admin
+ * transition route and /api/internal/content-revalidate both drop these tags
+ * the moment content changes. This TTL only covers the case where neither ran —
+ * a post written straight to Supabase on a project where the pg_net
+ * revalidation webhook isn't configured
+ * (supabase/migrations/202609270003_blog_direct_upload.sql). It was an hour,
+ * which made "I inserted a row and the site doesn't show it" the expected
+ * experience for direct writers; a minute keeps that failure mode short while
+ * still absorbing crawler and burst traffic.
+ *
+ * `/blog` and `/blog/[slug]` are the whole surface this covers, and both are
+ * cheap single-query reads. */
+export const PUBLIC_CONTENT_TTL_SECONDS = 60;
+
 export async function listPublicContent(options: PublicListOptions) {
   if (process.env.NODE_ENV === "test") {
     return (await getContentRepository()).listPublic(options);
@@ -22,7 +38,7 @@ export async function listPublicContent(options: PublicListOptions) {
     ["public-content-list", cacheKey],
     {
       tags: ["content:published", `content:${options.contentType}`],
-      revalidate: 3600,
+      revalidate: PUBLIC_CONTENT_TTL_SECONDS,
     },
   )();
 }
@@ -69,7 +85,7 @@ export async function getPublicContentBySlug(contentType: ContentType, slug: str
     ["public-content-item", contentType, slug],
     {
       tags: ["content:published", `content:${contentType}`, `content:slug:${slug}`],
-      revalidate: 3600,
+      revalidate: PUBLIC_CONTENT_TTL_SECONDS,
     },
   )();
 }
@@ -81,7 +97,10 @@ export async function listPublicCategories(contentType: ContentType) {
   return unstable_cache(
     async () => (await getContentRepository()).listPublicCategories(contentType),
     ["public-content-categories", contentType],
-    { tags: ["content:published", `content:${contentType}`], revalidate: 3600 },
+    {
+      tags: ["content:published", `content:${contentType}`],
+      revalidate: PUBLIC_CONTENT_TTL_SECONDS,
+    },
   )();
 }
 
@@ -93,6 +112,6 @@ export async function listPublicContentByIds(ids: string[]) {
   return unstable_cache(
     async () => (await getContentRepository()).listPublicByIds(ids),
     ["public-content-by-ids", ...[...ids].sort()],
-    { tags: ["content:published"], revalidate: 3600 },
+    { tags: ["content:published"], revalidate: PUBLIC_CONTENT_TTL_SECONDS },
   )();
 }

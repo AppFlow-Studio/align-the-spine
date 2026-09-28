@@ -12,20 +12,43 @@ The CMS is for public editorial content only. Never enter a patient name, phone 
 ## Production login and provisioning
 
 - No public registration exists. An administrator creates the Supabase Auth user and matching active `profiles` row.
-- Roles are `admin`, `editor`, and `clinician_reviewer`.
+- Roles are `admin`, `editor`, and `clinician_reviewer`. All three can write and publish blog posts; `clinician_reviewer` no longer gates anything on the blog, and only `admin` can schedule, publish, or archive a service-area page.
 - Production admin pages re-check the authenticated user and active profile server-side. Hidden navigation and robots rules are not authorization.
 - Rotate the privileged keys disclosed in chat before configuring any environment.
 
-## Editorial workflow
+## Blog workflow (2026-09-27: no review step)
 
-1. **Create/edit draft:** supply unique title/slug, patient-helpful excerpt, direct answer, structured blocks, author, approved image/alt, taxonomies, relations, and sources.
-2. **Citations:** attach a source to the exact block/claim it supports. Record publisher, URL, source type, publication/update date, access date, geography, statistic period, classification, supported claim, and recheck date.
-3. **Submit for review:** draft → in review. The server rejects illegal transitions.
-4. **Clinical review:** a clinician reviewer checks substantive health/PIP guidance. The latest medical-content editor cannot self-approve. Approval records reviewer identity/date.
-5. **Preview:** authenticated preview is noindex/nofollow and excluded from sitemap/feed/analytics. Check mobile/tablet/desktop, headings, links, images, sources, emergency guidance, and CTA wording.
-6. **Schedule/publish:** admin only. Every hard gate must pass. Scheduling requires a future time; automatic scheduling requires the separately approved cron endpoint configuration.
-7. **Unpublish/archive:** published → archived. Public queries stop returning the item. History remains immutable.
-8. **Restore:** archived → draft. Restoration never silently republishes.
+A blog post has one author and no queue. Whoever writes it owns it from first draft to live page.
+
+1. **Write it.** **New post** on `/admin/content` takes a title, an excerpt, an optional Markdown
+   body, and a featured image; the editor page has every remaining field. Supply a unique
+   title/slug, a patient-helpful excerpt, a direct answer, structured blocks, an author, image +
+   alt text, taxonomies, relations, and sources.
+2. **Cite anything objective.** Attach a source to the exact block/claim it supports. Record
+   publisher, URL, source type, publication/update date, access date, geography, statistic period,
+   classification, supported claim, and recheck date. Any stat, statute, coverage, or diagnosis
+   wording in the body needs at least one verified source before the post can publish.
+3. **Preview** whenever you want a second look: authenticated preview is noindex/nofollow and
+   excluded from sitemap/feed/analytics. Check mobile/tablet/desktop, headings, links, images,
+   sources, emergency guidance, and CTA wording.
+4. **It publishes itself.** The database recomputes the publication checklist on every save, and the
+   moment every blocker clears, the post goes live — no submit, no approval, no admin handoff. The
+   **Publication checklist** panel and `content_publication_readiness` both name whatever is still
+   missing.
+5. **Keep editing after it is live.** A published post is still editable; saves republish it. Note
+   that an edit which breaks the checklist takes the page out of the public index until it passes
+   again.
+6. **Unpublish/archive** from the editor's **Status** panel: published → archived. Public queries
+   stop returning the item, and history stays immutable.
+7. **Restore:** archived → draft. Restoration never silently republishes; the post has to clear the
+   checklist again.
+
+Holding a finished post back is explicit: check **noindex** with a reason, or set a future
+`scheduled_for` (released automatically by the `/api/cron/publish-scheduled` cron). Nothing else
+delays a passing post.
+
+Service-area pages are the exception — they keep the older draft → review → approve → publish chain
+and their own local-evidence gate.
 
 ## Structured editor
 
@@ -50,13 +73,15 @@ Heading levels cannot skip. Tables require captions, headers, and equal cell cou
 
 Every item has an integer version. Mutations include the version the editor loaded. A mismatch returns a conflict; preserve local input, reload the latest server version, compare, and deliberately merge. Do not overwrite the newer record.
 
-The fixture demo is intentionally read-only. Autosave and mutation buttons become active only with the authenticated Supabase mutation adapter. Publication transitions use the transactional database RPC and retain work even if cache revalidation later needs retry.
+The fixture demo is intentionally read-only. Autosave, **New post**, and the status controls become active only with the authenticated Supabase mutation adapter (`CONTENT_REPOSITORY_MODE=supabase`). Publication transitions use the transactional database RPC and retain work even if cache revalidation later needs retry.
+
+Writing straight to Supabase — table editor, SQL editor, or `publish_blog_post()` — is a supported path, not a workaround: the gate and auto-publish live in the database, so a direct write behaves identically to a save from this form. See `docs/blog-cms-supabase-reference.md`.
 
 ## Troubleshooting
 
 - **Public page 404:** expected for draft, review, approved, future scheduled, archived, noindex, or failed-gate content.
 - **Preview redirects to login:** the session/profile is missing, inactive, or not provisioned.
 - **Version conflict:** another editor saved first; reload and merge.
-- **Publish blocked:** read every hard blocker. Do not lower the gate; fix evidence, review, source, uniqueness, image, or metadata issues.
+- **Post is not live:** read every blocker in the **Publication checklist** panel, or query `content_publication_readiness`. Do not lower the gate; fix the evidence, source, uniqueness, image, or metadata issue it names. The most common ones are under 350 words, no FAQ, a meta description under 70 characters, an objective claim with no verified source, and a featured image hosted somewhere other than the site's CDN.
 - **Published but stale:** check the publication event. A `failed` revalidation status is retryable; the database transaction was preserved.
 - **Database unavailable:** do not switch production to fixtures. Restore connectivity; never serve drafts as fallback.

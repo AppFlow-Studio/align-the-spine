@@ -5,18 +5,59 @@ import { ArticleCard } from "@/components/content/article-card";
 import { BlogHero } from "@/components/content/blog-hero";
 import { FeaturedArticleCard } from "@/components/content/featured-article-card";
 import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
+import { JsonLd } from "@/components/seo/json-ld";
 import { LeadFormPopup } from "@/components/ui/lead-form-popup";
 import { getRoute } from "@/content/seo";
 import { siteConfig } from "@/content/site";
 import { listPublicCategories, listPublicContent } from "@/lib/content/public-content";
+import { buildCollectionPage } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo/metadata";
 
-// ATS-SEO-021: was a hardcoded literal identical to content/seo.ts's
-// registry entry for this path — not yet drifted, but the same
-// two-sources-of-truth risk that had already caused /service-areas' title
-// and description to silently diverge. Pulls from the registry now, same
-// as every other static page.
-export const metadata: Metadata = buildMetadata(getRoute("/blog"));
+/** The hub's canonical has to describe the variant actually being served, or
+ * every page of the archive collapses onto /blog and its posts lose the one
+ * listing page that links to them.
+ *
+ * - `?page=N` and `?topic=` self-canonicalize: they are real, stable,
+ *   crawlable slices of the archive.
+ * - `?q=` does not. An on-site search result is a different page for every
+ *   visitor, has no stable content, and is exactly what Google's guidance on
+ *   "search result pages" says to keep out of the index — so it's noindex,
+ *   follow (crawl through to the posts, don't index the list).
+ *
+ * Title/description still come from content/seo.ts (ATS-SEO-021: they were
+ * once duplicated here and drifted), with the page number appended so
+ * paginated titles aren't identical.
+ */
+export async function generateMetadata({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string; topic?: string; q?: string }>;
+}): Promise<Metadata> {
+  const params = await searchParams;
+  const route = getRoute("/blog");
+  const page = Math.max(1, Number(params.page) || 1);
+  const topic = params.topic?.trim();
+  const query = new URLSearchParams();
+  if (topic) query.set("topic", topic);
+  if (page > 1) query.set("page", String(page));
+  const suffix = query.toString();
+
+  const metadata = buildMetadata({
+    ...route,
+    path: suffix ? `/blog?${suffix}` : "/blog",
+    title: page > 1 ? `${route.title} — Page ${page}` : route.title,
+    ...(params.q?.trim() ? { robots: { index: false, follow: true } } : {}),
+  });
+  return {
+    ...metadata,
+    alternates: {
+      ...metadata.alternates,
+      // Declares the Atom feed app/feed.xml already serves, so feed readers
+      // and crawlers can discover it from the hub instead of guessing the URL.
+      types: { "application/atom+xml": `${siteConfig.siteUrl}/feed.xml` },
+    },
+  };
+}
 
 export default async function BlogPage({
   searchParams,
@@ -57,6 +98,20 @@ export default async function BlogPage({
   return (
     <div className="bg-panel-100 pb-24">
       <BreadcrumbJsonLd items={breadcrumbs} />
+      {/* Mirrors the cards actually rendered below — the featured post plus
+          the grid, in the order they appear — so the ItemList matches visible
+          content on every page, topic, and search variant. */}
+      <JsonLd
+        data={buildCollectionPage({
+          path: "/blog",
+          name: getRoute("/blog").title,
+          description: getRoute("/blog").description,
+          items: [...(featured ? [featured] : []), ...gridItems].map((item) => ({
+            name: item.title,
+            path: `/blog/${item.slug}`,
+          })),
+        })}
+      />
       <BlogHero
         breadcrumbs={breadcrumbs}
         eyebrow="Patient resources"

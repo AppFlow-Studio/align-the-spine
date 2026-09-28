@@ -147,11 +147,13 @@ export interface MedicalBusinessSchema {
  * whose whole purpose is displaying that rating is the most self-serving
  * placement of all. That decision stands; this change does not revisit it.
  *
- * NOT REVERIFIED: the 5.0 / 164 figure remains as client-confirmed on
- * 2026-08-11 (siteConfig.reviewsRating). It has not been re-checked against
- * the live Google Business Profile — GBP access is out of scope for this
- * work. Before widening `includeAggregateRating` to any further page, confirm
- * the figure against GBP first.
+ * REVERIFIED 2026-09-22: the published figure is now 5.0 / 181, checked against
+ * the Birdeye aggregation of this practice's Google reviews for the matching
+ * address (see the note on siteConfig.reviewsRating). The rating held; the old
+ * count of 164 was simply stale. That source is a third-party aggregator rather
+ * than the Google Business Profile itself, so re-confirm directly against GBP
+ * when access exists — and before widening `includeAggregateRating` to any
+ * further page.
  *
  * `parentOrganization` links this clinic entity back to the brand-level
  * Organization entity (buildOrganization) so a JSON-LD consumer sees one
@@ -398,6 +400,10 @@ export interface MedicalWebPageInput {
    * as `mainEntity` — defaults to omitted so existing callers are
    * unaffected. */
   isPartOfWebSite?: boolean;
+  /** `@id` of the page's author when it isn't the practice's own clinician — a
+   * CMS blog post carries whichever author the post names. Defaults to Dr.
+   * Abe's Person entity, which is what every static caller means. */
+  authorId?: string;
 }
 
 /** MedicalWebPage entity for content pages discussing chiropractic/injury
@@ -422,7 +428,7 @@ export function buildMedicalWebPage(input: MedicalWebPageInput): MedicalWebPageS
     inLanguage: input.inLanguage ?? "en-US",
     ...(input.datePublished ? { datePublished: input.datePublished } : {}),
     dateModified: input.dateModified,
-    author: { "@id": DR_ABE_PERSON_ID },
+    author: { "@id": input.authorId ?? DR_ABE_PERSON_ID },
     publisher: { "@id": ORGANIZATION_ID },
     mainEntityOfPage: url,
     medicalAudience: { "@type": "MedicalAudience", audienceType: "Patient" },
@@ -597,5 +603,178 @@ export function buildCollectionPage(input: {
         name: item.name,
       })),
     },
+  };
+}
+
+/** Google ignores an Article `headline` longer than this, so a long title is
+ * carried in `alternativeHeadline` instead of silently costing the post its
+ * rich-result eligibility. */
+export const MAX_HEADLINE_LENGTH = 110;
+
+export interface BlogPostingImageInput {
+  url: string;
+  width: number;
+  height: number;
+  alt: string;
+}
+
+export interface BlogPostingCitationInput {
+  title: string;
+  url: string;
+  publisher: string;
+}
+
+export interface BlogPostingInput {
+  /** Route path, e.g. "/blog/what-to-do-after-a-car-accident". */
+  path: string;
+  /** The article's own H1/title, verbatim. */
+  title: string;
+  /** SEO title, used as the headline when the H1 is over the length Google
+   * accepts and the SEO title fits. */
+  seoTitle: string;
+  description: string;
+  datePublished?: string;
+  dateModified: string;
+  author: { name: string; slug: string; profileUrl: string };
+  image?: BlogPostingImageInput;
+  /** Humanized primary category, e.g. "Car accident care". */
+  section?: string;
+  /** Humanized tags. Omitted entirely when the post has none — an empty
+   * `keywords` string is worse than no field. */
+  keywords?: string[];
+  wordCount?: number;
+  readingMinutes?: number;
+  /** The sources rendered in the article's own Sources list. */
+  citations?: BlogPostingCitationInput[];
+}
+
+export interface BlogPostingSchema {
+  "@context": "https://schema.org";
+  "@type": "BlogPosting";
+  "@id": string;
+  url: string;
+  headline: string;
+  alternativeHeadline?: string;
+  description: string;
+  inLanguage: string;
+  isAccessibleForFree: true;
+  mainEntityOfPage: { "@id": string };
+  isPartOf: { "@id": string };
+  datePublished?: string;
+  dateModified: string;
+  author: { "@type": "Person"; "@id": string; name: string; url: string };
+  publisher: { "@id": string };
+  image?: {
+    "@type": "ImageObject";
+    url: string;
+    width: number;
+    height: number;
+    caption?: string;
+  };
+  articleSection?: string;
+  keywords?: string;
+  wordCount?: number;
+  timeRequired?: string;
+  citation?: { "@type": "CreativeWork"; name: string; url: string; publisher: string }[];
+  speakable: {
+    "@type": "SpeakableSpecification";
+    cssSelector: string[];
+  };
+}
+
+/** Trims to the last whole word that fits, so a shortened headline never ends
+ * mid-word. */
+function truncateAtWord(value: string, limit: number): string {
+  if (value.length <= limit) return value;
+  const clipped = value.slice(0, limit);
+  const lastSpace = clipped.lastIndexOf(" ");
+  return (lastSpace > limit * 0.6 ? clipped.slice(0, lastSpace) : clipped).trimEnd();
+}
+
+/** BlogPosting entity for a CMS-authored article.
+ *
+ * Replaces the hand-built literal that used to sit in
+ * app/(en)/blog/[slug]/page.tsx, and adds the fields that literal was missing:
+ * `@id`/`isPartOf` (so the article, its MedicalWebPage, and the /blog hub are
+ * one graph rather than three unlinked nodes), a real `ImageObject` with
+ * dimensions instead of a bare URL string, `wordCount`/`timeRequired`,
+ * `articleSection`/`keywords` from the post's own taxonomy, `citation` for the
+ * sources the article already lists on screen, and `speakable` pointing at the
+ * direct-answer box that ContentArticle renders as `#direct-answer`.
+ *
+ * Every field is derived from content actually on the page. Nothing here
+ * asserts clinical review: `reviewedBy`/`lastReviewed` stay absent for the same
+ * reason buildMedicalWebPage omits them — this site's blog posts are authored
+ * and published by their writer, and structured data must not imply a
+ * sign-off that didn't happen. */
+export function buildBlogPosting(input: BlogPostingInput): BlogPostingSchema {
+  const url = `${siteConfig.siteUrl}${input.path}`;
+  const fitsHeadline = input.title.length <= MAX_HEADLINE_LENGTH;
+  const seoTitleFits = input.seoTitle.length <= MAX_HEADLINE_LENGTH;
+  const headline = fitsHeadline
+    ? input.title
+    : seoTitleFits
+      ? input.seoTitle
+      : truncateAtWord(input.title, MAX_HEADLINE_LENGTH);
+  const keywords = input.keywords?.filter((keyword) => keyword.trim()) ?? [];
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${url}#article`,
+    url,
+    headline,
+    ...(fitsHeadline ? {} : { alternativeHeadline: input.title }),
+    description: input.description,
+    inLanguage: "en-US",
+    isAccessibleForFree: true,
+    // The MedicalWebPage rendered on this same URL, and the /blog hub's
+    // CollectionPage — both keyed with the "#webpage" anchor their builders use.
+    mainEntityOfPage: { "@id": `${url}#webpage` },
+    isPartOf: { "@id": `${siteConfig.siteUrl}/blog#webpage` },
+    ...(input.datePublished ? { datePublished: input.datePublished } : {}),
+    dateModified: input.dateModified,
+    author: {
+      "@type": "Person",
+      // The practice's own author entity is already defined on /about; any other
+      // author is keyed by their profile URL.
+      "@id":
+        input.author.slug === "dr-abe-nasser"
+          ? DR_ABE_PERSON_ID
+          : `${siteConfig.siteUrl}${input.author.profileUrl}`,
+      name: input.author.name,
+      url: `${siteConfig.siteUrl}${input.author.profileUrl}`,
+    },
+    publisher: { "@id": ORGANIZATION_ID },
+    ...(input.image
+      ? {
+          image: {
+            "@type": "ImageObject" as const,
+            // Already an absolute CDN URL — prefixing siteUrl here is the
+            // double-domain bug fixed in 2026-08-18.
+            url: input.image.url,
+            width: input.image.width,
+            height: input.image.height,
+            ...(input.image.alt ? { caption: input.image.alt } : {}),
+          },
+        }
+      : {}),
+    ...(input.section ? { articleSection: input.section } : {}),
+    ...(keywords.length ? { keywords: keywords.join(", ") } : {}),
+    ...(input.wordCount ? { wordCount: input.wordCount } : {}),
+    ...(input.readingMinutes ? { timeRequired: `PT${input.readingMinutes}M` } : {}),
+    ...(input.citations?.length
+      ? {
+          citation: input.citations.map((citation) => ({
+            "@type": "CreativeWork" as const,
+            name: citation.title,
+            url: citation.url,
+            publisher: citation.publisher,
+          })),
+        }
+      : {}),
+    // ContentArticle renders the direct answer inside a section labelled by
+    // this id, so the selector points at real, visible text.
+    speakable: { "@type": "SpeakableSpecification", cssSelector: ["#direct-answer"] },
   };
 }

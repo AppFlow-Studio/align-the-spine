@@ -144,6 +144,64 @@ describe("buildMetadata", () => {
   });
 });
 
+describe("buildMetadata article pages", () => {
+  const article = {
+    title: "What to do after a car accident",
+    description: "Description",
+    path: "/blog/what-to-do-after-a-car-accident",
+  };
+
+  it("keeps og:type=website for every non-article page", () => {
+    // Next's OpenGraph type is a discriminated union, so `type` is only
+    // reachable after widening — the assertion is on the emitted value.
+    const openGraph = buildMetadata(article).openGraph as Record<string, unknown>;
+    expect(openGraph.type).toBe("website");
+  });
+
+  it("switches to og:type=article and carries the article's own fields", () => {
+    const metadata = buildMetadata({
+      ...article,
+      article: {
+        publishedTime: "2026-09-01T12:00:00.000Z",
+        modifiedTime: "2026-09-20T12:00:00.000Z",
+        authorName: "Dr. Abe Nasser",
+        section: "Car accident care",
+        tags: ["Whiplash", "Florida PIP"],
+      },
+    });
+    expect(metadata.openGraph).toMatchObject({
+      type: "article",
+      publishedTime: "2026-09-01T12:00:00.000Z",
+      modifiedTime: "2026-09-20T12:00:00.000Z",
+      authors: ["Dr. Abe Nasser"],
+      section: "Car accident care",
+      tags: ["Whiplash", "Florida PIP"],
+    });
+  });
+
+  it("omits empty article fields rather than emitting blanks", () => {
+    const metadata = buildMetadata({ ...article, article: { tags: [] } });
+    expect(metadata.openGraph).toMatchObject({ type: "article" });
+    const openGraph = metadata.openGraph as Record<string, unknown>;
+    expect(openGraph.tags).toBeUndefined();
+    expect(openGraph.authors).toBeUndefined();
+    expect(openGraph.section).toBeUndefined();
+  });
+
+  // An article opting into a large image preview must still be forced noindex
+  // outside production — the exposure opt-in can't become a preview-deploy leak.
+  it("still forces noindex outside production for an article asking to be indexed", () => {
+    vi.stubEnv("VERCEL_ENV", "preview");
+    const metadata = buildMetadata({
+      ...article,
+      robots: { index: true, follow: true, googleBot: { "max-image-preview": "large" } },
+      article: { publishedTime: "2026-09-01T12:00:00.000Z" },
+    });
+    expect(metadata.robots).toEqual({ index: false, follow: false });
+    vi.unstubAllEnvs();
+  });
+});
+
 describe("buildMetadata production gating", () => {
   afterEach(() => {
     vi.unstubAllEnvs();
