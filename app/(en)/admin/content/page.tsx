@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { NewPostForm } from "@/components/admin/new-post-form";
 import { getEditorialContentRepository } from "@/lib/content";
 import { requireEditorialActor } from "@/lib/content/authorization";
 
@@ -39,14 +40,7 @@ export default async function AdminContentPage({
             Editorial content only—never enter patient or accident narrative data.
           </p>
         </div>
-        <button
-          type="button"
-          disabled
-          className="min-h-11 rounded-full bg-navy-900 px-6 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50"
-          title="Enabled after the authenticated mutation adapter is connected"
-        >
-          Create draft
-        </button>
+        <NewPostForm editable={process.env.CONTENT_REPOSITORY_MODE === "supabase"} />
       </div>
       <section
         aria-label="Content status summary"

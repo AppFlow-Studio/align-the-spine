@@ -15,13 +15,31 @@ describe("content state machine", () => {
       }),
     ).toThrow(/cannot change editorial content/i);
   });
+
   it("permits only declared transitions", () => {
+    expect(canTransition("draft", "published")).toBe(true);
     expect(canTransition("draft", "in_review")).toBe(true);
-    expect(canTransition("draft", "published")).toBe(false);
     expect(canTransition("archived", "published")).toBe(false);
+    expect(canTransition("published", "draft")).toBe(false);
+    // Service areas keep the original draft -> in_review -> approved chain.
+    expect(canTransition("draft", "published", "service_area")).toBe(false);
+    expect(canTransition("draft", "in_review", "service_area")).toBe(true);
   });
 
-  it("prevents editor publication and medical self-approval", () => {
+  it("lets a blog writer publish their own post with no review handoff", () => {
+    expect(() =>
+      assertTransitionAllowed({
+        from: "draft",
+        to: "published",
+        role: "editor",
+        actorId: "writer",
+        updatedBy: "writer",
+        medicalReviewRequired: true,
+      }),
+    ).not.toThrow();
+  });
+
+  it("keeps editor publication and medical self-approval blocked on service areas", () => {
     expect(() =>
       assertTransitionAllowed({
         from: "approved",
@@ -30,6 +48,7 @@ describe("content state machine", () => {
         actorId: "a",
         updatedBy: "b",
         medicalReviewRequired: true,
+        contentType: "service_area",
       }),
     ).toThrow(/admin/i);
     expect(() =>
@@ -40,11 +59,12 @@ describe("content state machine", () => {
         actorId: "a",
         updatedBy: "a",
         medicalReviewRequired: true,
+        contentType: "service_area",
       }),
     ).toThrow(/self-approved/i);
   });
 
-  it("allows a distinct clinician reviewer to approve", () => {
+  it("allows a distinct clinician reviewer to approve a service area", () => {
     expect(() =>
       assertTransitionAllowed({
         from: "in_review",
@@ -53,6 +73,7 @@ describe("content state machine", () => {
         actorId: "reviewer",
         updatedBy: "editor",
         medicalReviewRequired: true,
+        contentType: "service_area",
       }),
     ).not.toThrow();
   });

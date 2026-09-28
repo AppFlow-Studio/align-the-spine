@@ -97,7 +97,7 @@ export const fixtureSources: ContentSource[] = [
 
 const baseGate = {
   passed: false,
-  blockers: ["Development fixture: clinician/compliance approval is pending."],
+  blockers: ["Development fixture: publication gates have not been run."],
   recommendations: [],
   checkedAt: "2026-08-16T16:00:00.000Z",
 };
@@ -168,11 +168,11 @@ export const fixtureContent: ContentItem[] = [
     featuredImageAssetId: fixtureAssets[1]!.id,
     featuredImageAlt: fixtureAssets[1]!.alt,
     authorId: fixtureAuthors[1]!.id,
-    medicalReviewRequired: true,
+    medicalReviewRequired: false,
     createdAt: "2026-08-16T14:00:00.000Z",
     updatedAt: "2026-08-16T16:00:00.000Z",
     noindex: true,
-    noindexReason: "Development seed pending Dr. Abe's clinical review.",
+    noindexReason: "Development seed; not intended for the public index.",
     version: 1,
     directAnswer:
       "Prioritize safety and emergency care when needed, keep practical records, and ask qualified professionals about time-sensitive insurance or care decisions.",
@@ -251,11 +251,11 @@ export const fixtureContent: ContentItem[] = [
     featuredImageAssetId: fixtureAssets[0]!.id,
     featuredImageAlt: fixtureAssets[0]!.alt,
     authorId: fixtureAuthors[1]!.id,
-    medicalReviewRequired: true,
+    medicalReviewRequired: false,
     createdAt: "2026-08-16T14:10:00.000Z",
     updatedAt: "2026-08-16T14:10:00.000Z",
     noindex: true,
-    noindexReason: "Development seed pending clinical review.",
+    noindexReason: "Development seed; not intended for the public index.",
     version: 1,
     directAnswer:
       "Bring questions about what the evaluation includes, what findings mean, when referral is appropriate, and how progress will be assessed.",

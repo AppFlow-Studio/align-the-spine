@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
+import { ContentStatusControls } from "@/components/admin/content-status-controls";
 import { EditorialForm } from "@/components/admin/editorial-form";
 import { getEditorialContentRepository } from "@/lib/content";
 import { requireEditorialActor } from "@/lib/content/authorization";
@@ -26,8 +27,10 @@ export default async function AdminEditorPage({ params }: { params: Promise<{ id
           </Link>
           <h1 className="mt-3 font-display text-4xl text-navy-800">{item.title}</h1>
           <p className="mt-2 text-sm text-ink-500">
-            {item.status.replaceAll("_", " ")} · version {item.version} · autosave unavailable in
-            fixture demo
+            {item.status.replaceAll("_", " ")} · version {item.version} ·{" "}
+            {process.env.CONTENT_REPOSITORY_MODE === "supabase"
+              ? "autosaves as you type"
+              : "read-only fixture demo"}
           </p>
         </div>
         <div className="flex flex-wrap gap-3">
@@ -37,18 +40,20 @@ export default async function AdminEditorPage({ params }: { params: Promise<{ id
           >
             Preview
           </Link>
-          <button
-            type="button"
-            disabled
-            className="min-h-11 rounded-full bg-navy-900 px-5 font-semibold text-white disabled:opacity-50"
-          >
-            Save draft
-          </button>
         </div>
       </div>
       <div className="mt-8 grid gap-8 xl:grid-cols-[minmax(0,1fr)_360px]">
         <EditorialForm item={item} editable={process.env.CONTENT_REPOSITORY_MODE === "supabase"} />
         <aside className="space-y-6">
+          <ContentStatusControls
+            item={item}
+            editable={process.env.CONTENT_REPOSITORY_MODE === "supabase"}
+            publicUrl={
+              item.contentType === "blog_post"
+                ? `/blog/${item.slug}`
+                : `/service-areas/${item.slug}`
+            }
+          />
           <section
             className="rounded-30 bg-white p-6 shadow-comparison"
             aria-labelledby="gate-heading"

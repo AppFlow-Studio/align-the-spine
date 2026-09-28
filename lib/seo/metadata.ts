@@ -17,6 +17,18 @@ export interface BuildMetadataInput {
   /** Which language this page is rendered in. Defaults to English so every
    * existing English call site keeps working untouched. */
   locale?: Locale;
+  /** Set on article-shaped pages (the CMS blog posts) to emit
+   * `og:type=article` plus the article-specific OpenGraph fields social
+   * platforms and some crawlers read for attribution and freshness. Omitted
+   * everywhere else, which keeps every existing caller on `og:type=website`
+   * exactly as before. */
+  article?: {
+    publishedTime?: string;
+    modifiedTime?: string;
+    authorName?: string;
+    section?: string;
+    tags?: string[];
+  };
 }
 
 /** Builds the title/description/canonical/OpenGraph/Twitter metadata shared by every
@@ -35,6 +47,7 @@ export function buildMetadata({
   image,
   robots,
   locale = DEFAULT_LOCALE,
+  article,
 }: BuildMetadataInput): Metadata {
   const url = `${siteConfig.siteUrl}${path}`;
   const effectiveRobots: Metadata["robots"] = isProduction()
@@ -66,9 +79,18 @@ export function buildMetadata({
       description,
       url,
       siteName: siteConfig.business.name,
-      type: "website",
       locale: OG_LOCALE[locale],
       images: image ? [{ url: image.src, alt: image.alt }] : undefined,
+      ...(article
+        ? {
+            type: "article" as const,
+            publishedTime: article.publishedTime,
+            modifiedTime: article.modifiedTime,
+            authors: article.authorName ? [article.authorName] : undefined,
+            section: article.section,
+            tags: article.tags?.length ? article.tags : undefined,
+          }
+        : { type: "website" as const }),
     },
     twitter: {
       card: image ? "summary_large_image" : "summary",

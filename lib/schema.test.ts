@@ -6,6 +6,7 @@ import { siteConfig } from "@/content/site";
 import { isVerified } from "@/content/verified-value";
 
 import {
+  buildBlogPosting,
   buildBreadcrumbList,
   buildCollectionPage,
   buildFAQPage,
@@ -18,6 +19,7 @@ import {
   buildWebPage,
   buildWebSite,
   DR_ABE_PERSON_ID,
+  MAX_HEADLINE_LENGTH,
   MEDICAL_BUSINESS_ID,
   ORGANIZATION_ID,
   to24Hour,
@@ -585,6 +587,126 @@ describe("ATS-SEO-126: accident and conditions structured-data graph", () => {
  * content/route-registry-parity.test.ts and the buildWebPage scan above
  * already use), so a future condition page that forgets this call fails
  * the build instead of shipping silently. */
+
+describe("buildBlogPosting", () => {
+  const base = {
+    path: "/blog/what-to-do-after-a-car-accident",
+    title: "What to do after a car accident in Deerfield Beach",
+    seoTitle: "What To Do After a Car Accident in Deerfield Beach",
+    description: "Calm next steps after a crash, including red flags and documentation.",
+    datePublished: "2026-09-01T12:00:00.000Z",
+    dateModified: "2026-09-20T12:00:00.000Z",
+    author: { name: "Dr. Abe Nasser", slug: "dr-abe-nasser", profileUrl: "/about" },
+  };
+
+  it("keys the article, its page, and the hub into one graph", () => {
+    const article = buildBlogPosting(base);
+    const url = `${siteConfig.siteUrl}/blog/what-to-do-after-a-car-accident`;
+    expect(article["@id"]).toBe(`${url}#article`);
+    expect(article.url).toBe(url);
+    // The MedicalWebPage rendered on the same URL, and /blog's CollectionPage.
+    expect(article.mainEntityOfPage).toEqual({ "@id": `${url}#webpage` });
+    expect(article.isPartOf).toEqual({ "@id": `${siteConfig.siteUrl}/blog#webpage` });
+    expect(article.publisher).toEqual({ "@id": ORGANIZATION_ID });
+  });
+
+  it("points a post by the practice's own clinician at the shared Person entity", () => {
+    expect(buildBlogPosting(base).author).toEqual({
+      "@type": "Person",
+      "@id": DR_ABE_PERSON_ID,
+      name: "Dr. Abe Nasser",
+      url: `${siteConfig.siteUrl}/about`,
+    });
+  });
+
+  it("keys any other author by their own profile URL", () => {
+    const article = buildBlogPosting({
+      ...base,
+      author: { name: "Jordan Reyes", slug: "jordan-reyes", profileUrl: "/about/jordan-reyes" },
+    });
+    expect(article.author["@id"]).toBe(`${siteConfig.siteUrl}/about/jordan-reyes`);
+  });
+
+  it("passes a headline through untouched when it fits", () => {
+    const article = buildBlogPosting(base);
+    expect(article.headline).toBe(base.title);
+    expect(article.alternativeHeadline).toBeUndefined();
+  });
+
+  it("falls back to the SEO title when the H1 is too long for a headline", () => {
+    const longTitle = `${"Very long title about chiropractic care after a collision".repeat(3)}`;
+    const article = buildBlogPosting({ ...base, title: longTitle, seoTitle: "A short SEO title" });
+    expect(article.headline).toBe("A short SEO title");
+    // The real H1 is still asserted, just not as the headline.
+    expect(article.alternativeHeadline).toBe(longTitle);
+  });
+
+  it("truncates at a word boundary when neither title fits", () => {
+    const longTitle = "Chiropractic evaluation questions ".repeat(8).trim();
+    const article = buildBlogPosting({ ...base, title: longTitle, seoTitle: longTitle });
+    expect(article.headline.length).toBeLessThanOrEqual(MAX_HEADLINE_LENGTH);
+    expect(article.headline.endsWith(" ")).toBe(false);
+    expect(longTitle.startsWith(article.headline)).toBe(true);
+    expect(article.alternativeHeadline).toBe(longTitle);
+  });
+
+  it("emits a real ImageObject with dimensions, not a bare CDN string", () => {
+    const article = buildBlogPosting({
+      ...base,
+      image: { url: "https://cdn.example.com/hero.jpg", width: 1600, height: 1000, alt: "Hero" },
+    });
+    expect(article.image).toEqual({
+      "@type": "ImageObject",
+      url: "https://cdn.example.com/hero.jpg",
+      width: 1600,
+      height: 1000,
+      caption: "Hero",
+    });
+  });
+
+  it("omits optional fields rather than emitting empty ones", () => {
+    const article = buildBlogPosting({ ...base, keywords: ["  ", ""], citations: [] });
+    expect(article.keywords).toBeUndefined();
+    expect(article.citation).toBeUndefined();
+    expect(article.articleSection).toBeUndefined();
+    expect(article.image).toBeUndefined();
+    expect(article.wordCount).toBeUndefined();
+    expect(article.timeRequired).toBeUndefined();
+  });
+
+  it("carries taxonomy, length, and the sources the article lists on screen", () => {
+    const article = buildBlogPosting({
+      ...base,
+      section: "Car accident care",
+      keywords: ["Whiplash", "Florida PIP"],
+      wordCount: 900,
+      readingMinutes: 5,
+      citations: [
+        { title: "Florida Statute 627.736", url: "https://example.gov/pip", publisher: "Florida" },
+      ],
+    });
+    expect(article.articleSection).toBe("Car accident care");
+    expect(article.keywords).toBe("Whiplash, Florida PIP");
+    expect(article.wordCount).toBe(900);
+    expect(article.timeRequired).toBe("PT5M");
+    expect(article.citation).toEqual([
+      {
+        "@type": "CreativeWork",
+        name: "Florida Statute 627.736",
+        url: "https://example.gov/pip",
+        publisher: "Florida",
+      },
+    ]);
+  });
+
+  it("marks the direct-answer box speakable, and never claims a clinical review", () => {
+    const article = buildBlogPosting(base);
+    // ContentArticle renders the summary section with this id.
+    expect(article.speakable.cssSelector).toEqual(["#direct-answer"]);
+    expect(JSON.stringify(article)).not.toMatch(/reviewedBy|lastReviewed/);
+  });
+});
+
 describe("every /conditions/* page renders MedicalWebPage (2026-09-16 follow-up)", () => {
   it("every app/(en)/conditions/*/page.tsx (excluding the hub) calls buildMedicalWebPage", () => {
     const conditionsDir = join(__dirname, "..", "app", "(en)", "conditions");

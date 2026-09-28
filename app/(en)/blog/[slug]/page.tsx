@@ -6,7 +6,8 @@ import { BreadcrumbJsonLd } from "@/components/seo/breadcrumb-json-ld";
 import { JsonLd } from "@/components/seo/json-ld";
 import { siteConfig } from "@/content/site";
 import { getPublicContentBySlug, listPublicContentByIds } from "@/lib/content/public-content";
-import { buildMedicalWebPage, DR_ABE_PERSON_ID, ORGANIZATION_ID } from "@/lib/schema";
+import { countWords } from "@/lib/content/schemas";
+import { buildBlogPosting, buildMedicalWebPage, DR_ABE_PERSON_ID } from "@/lib/schema";
 import { buildMetadata } from "@/lib/seo/metadata";
 
 // Fallback social-share image for posts that don't have a featured image
@@ -18,6 +19,14 @@ const SHARED_OG_IMAGE = {
   src: "https://align-the-spine.b-cdn.net/images/WhatsApp%20Image%202026-08-17%20at%2017.38.56%20(1).jpeg",
   alt: "Align the Spine Chiropractic treatment room in Deerfield Beach, FL",
 };
+
+/** "car-accident-care" -> "Car accident care", for `articleSection` and
+ * `keywords`. The CMS stores taxonomy as slugs; these are the same strings the
+ * page already shows above the H1. */
+function humanize(slug: string): string {
+  const spaced = slug.replaceAll("-", " ");
+  return spaced.charAt(0).toUpperCase() + spaced.slice(1);
+}
 
 export async function generateMetadata({
   params,
@@ -34,6 +43,24 @@ export async function generateMetadata({
     image: item.featuredImage
       ? { src: item.featuredImage.url, alt: item.featuredImage.alt }
       : SHARED_OG_IMAGE,
+    // Articles are the one page type on this site where a full-size image
+    // preview and an uncapped snippet are worth asking for: they're what
+    // earns the large-thumbnail treatment in search and the longer pull
+    // quote in AI summaries. Every field is an explicit opt-in to more
+    // exposure, never less, and buildMetadata still forces noindex outside
+    // production regardless of what's set here.
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+    },
+    article: {
+      publishedTime: item.publishedAt,
+      modifiedTime: item.updatedAt,
+      authorName: item.author.name,
+      section: item.categorySlugs[0] ? humanize(item.categorySlugs[0]) : undefined,
+      tags: item.tagSlugs.map(humanize),
+    },
   });
 }
 
@@ -42,33 +69,44 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
   const item = await getPublicContentBySlug("blog_post", slug);
   if (!item) notFound();
   const relatedItems = await listPublicContentByIds(item.relatedContentIds);
-  const canonical = `${siteConfig.siteUrl}/blog/${item.slug}`;
-  const schema = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    mainEntityOfPage: canonical,
-    headline: item.title,
+  const authorId =
+    item.author.slug === "dr-abe-nasser"
+      ? DR_ABE_PERSON_ID
+      : `${siteConfig.siteUrl}${item.author.profileUrl}`;
+  const article = buildBlogPosting({
+    path: `/blog/${item.slug}`,
+    title: item.title,
+    seoTitle: item.seoTitle,
     description: item.metaDescription,
-    // item.featuredImage.url is already absolute (a CDN URL) — prefixing it
-    // with siteUrl here previously produced a malformed double-domain URL
-    // (confirmed real bug, fixed 2026-08-18).
-    image: item.featuredImage ? [item.featuredImage.url] : undefined,
     datePublished: item.publishedAt,
     dateModified: item.updatedAt,
     author: {
-      "@type": "Person",
-      "@id":
-        item.author.slug === "dr-abe-nasser"
-          ? DR_ABE_PERSON_ID
-          : `${siteConfig.siteUrl}${item.author.profileUrl}`,
       name: item.author.name,
+      slug: item.author.slug,
+      profileUrl: item.author.profileUrl,
     },
-    publisher: { "@id": ORGANIZATION_ID },
-    url: canonical,
-  };
+    image: item.featuredImage
+      ? {
+          url: item.featuredImage.url,
+          width: item.featuredImage.width,
+          height: item.featuredImage.height,
+          alt: item.featuredImage.alt,
+        }
+      : undefined,
+    section: item.categorySlugs[0] ? humanize(item.categorySlugs[0]) : undefined,
+    keywords: item.tagSlugs.map(humanize),
+    wordCount: countWords(item.blocks),
+    readingMinutes: item.estimatedReadingMinutes,
+    // Only the sources the article itself lists under "Sources".
+    citations: item.sources.map((source) => ({
+      title: source.title,
+      url: source.url,
+      publisher: source.publisher,
+    })),
+  });
   return (
     <>
-      <JsonLd data={schema} />
+      <JsonLd data={article} />
       <JsonLd
         data={buildMedicalWebPage({
           path: `/blog/${item.slug}`,
@@ -77,6 +115,11 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
           datePublished: item.publishedAt,
           dateModified: item.updatedAt,
           aboutTopic: item.title,
+          // Ties the page node to the article node and to the site, so a
+          // consumer reads one connected graph instead of loose entities.
+          mainEntity: article["@id"],
+          isPartOfWebSite: true,
+          authorId,
         })}
       />
       <BreadcrumbJsonLd
@@ -86,6 +129,8 @@ export default async function BlogArticlePage({ params }: { params: Promise<{ sl
           { name: item.title, path: `/blog/${item.slug}` },
         ]}
       />
+      {/* FAQPage JSON-LD for item.faqs is emitted by ContentArticle's
+          ArticleFaqSection, alongside the accordion that renders them. */}
       <ContentArticle item={item} relatedItems={relatedItems} />
     </>
   );
