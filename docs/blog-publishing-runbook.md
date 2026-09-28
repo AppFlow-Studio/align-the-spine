@@ -9,49 +9,58 @@ Project: **Align The Spine**, `qaaptlxxwfvxzgyzjhub`.
 
 ## 1. Current state of the live database
 
-Two of the four migrations are already applied (2026-09-27), through the Supabase MCP rather than
-the CLI, so their recorded versions are MCP timestamps rather than the filenames:
+**All four migrations are applied and verified (2026-09-27).** The pipeline is live: a blog post
+written through any path now publishes itself.
 
-| File                                              | Applied?                                                                                    | Recorded as                      |
-| ------------------------------------------------- | ------------------------------------------------------------------------------------------- | -------------------------------- |
-| `202609220001_content_medical_review_default.sql` | Partly — the column default only; its backfill is a no-op on this database (0 content rows) | `content_medical_review_default` |
-| `202609270001_blog_writer_self_publish.sql`       | **Yes**                                                                                     | `20260927143909`                 |
-| `202609270002_blog_gate_autopublish.sql`          | No                                                                                          | —                                |
-| `202609270003_blog_direct_upload.sql`             | No                                                                                          | —                                |
+| File                                              | Applied via                                                                  |
+| ------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `202609220001_content_medical_review_default.sql` | Supabase MCP (column default; its backfill is a no-op here — 0 content rows) |
+| `202609270001_blog_writer_self_publish.sql`       | Supabase MCP                                                                 |
+| `202609270002_blog_gate_autopublish.sql`          | SQL editor                                                                   |
+| `202609270003_blog_direct_upload.sql`             | SQL editor                                                                   |
 
-Verified live after applying 001: `transition_content` carries the `writer_owned` branch,
-`save_content_draft` accepts edits to a published post, and `content_editor_update_drafts` reads
-`content_type = 'blog_post' OR status IN ('draft','in_review')`.
+Confirmed present afterwards: 11/11 functions, 5/5 triggers, the
+`content_publication_readiness` view, the `content_revalidation_config` table, `noindex` and
+`medical_review_required` defaulting to `false`, a default on `created_by`, and both
+`default_editorial_actor()` and `default_content_author()` resolving to a real row.
 
-Every statement in all four files is idempotent (`create or replace`, `drop ... if exists`,
-`create table if not exists`, and two `update` statements that match nothing twice), so re-applying
-any of them — including via `supabase db push`, which will not recognize the two MCP-recorded
-versions — is safe and produces the same state.
+`supabase/tests/blog_autopublish_assertions.sql` then returned `assertions_passed` against this
+database, and left it with 0 content rows, 0 assets, 0 sources, and 0 publication events — the
+suite rolls everything back.
 
-## 2. Apply the remaining two migrations
+Because two migrations were applied through the MCP and two through the SQL editor, the recorded
+versions in `supabase_migrations.schema_migrations` do not match the filenames. A later
+`supabase db push` will therefore try to re-apply all four. That is safe: every statement is
+idempotent (`create or replace`, `drop ... if exists`, `create table if not exists`, and two
+`update` statements that match nothing twice).
 
-Either path works; they produce identical schema.
+## 2. Applying to another environment
 
-**Supabase SQL editor.** Paste the whole file, run, repeat for the next one. Order matters —
-`202609270003` calls functions that `202609270002` defines.
+Order matters — `202609270003` calls functions that `202609270002` defines.
 
-1. `supabase/migrations/202609270002_blog_gate_autopublish.sql`
-2. `supabase/migrations/202609270003_blog_direct_upload.sql`
+**SQL editor.** Paste each file whole and run, in filename order. Supabase will warn that the query
+"includes destructive operations"; that is its generic DDL heuristic firing on the
+`drop trigger if exists` / `drop policy if exists` statements each migration uses to replace its own
+objects.
 
-**Supabase CLI.** Not currently installed on the maintainer's machine; `npm i -g supabase` first.
+**Supabase CLI.** Not installed on the maintainer's machine; `npm i -g supabase` first.
 
 ```bash
 supabase link --project-ref qaaptlxxwfvxzgyzjhub
 supabase db push
 ```
 
-`db push` re-applies all four files. That is expected and harmless, per the idempotency note above.
-
 ## 3. Verify
 
 Run `supabase/tests/blog_autopublish_assertions.sql` in the SQL editor. It creates real posts,
 exercises every rule, and rolls the whole thing back, so it is safe to run against a database with
 live content.
+
+This suite is worth running after any change to the gate. It has already caught one real bug: every
+`blockers := blockers || '…'` append resolved to `anyarray || anyarray` and failed at runtime with
+`malformed array literal`, because an untyped string literal next to a `text[]` is ambiguous in
+Postgres. The fix is the `::text` cast on each append. Nothing in the TypeScript test suite could
+have caught that — it only exists in SQL.
 
 A single `assertions_passed` row means the pipeline works end to end:
 

@@ -129,16 +129,16 @@ declare
   featured_image_url text;
 begin
   if length(btrim(item.slug::text)) < 3 or item.slug::text !~ '^[a-z0-9]+(?:-[a-z0-9]+)*$' then
-    blockers := blockers || 'Slug is invalid.';
+    blockers := blockers || 'Slug is invalid.'::text;
   end if;
   if length(btrim(item.title)) < 12 then
-    blockers := blockers || 'Title is too short to be useful and unique.';
+    blockers := blockers || 'Title is too short to be useful and unique.'::text;
   end if;
   if length(btrim(coalesce(item.seo_title, ''))) < 12 then
-    blockers := blockers || 'SEO title is required.';
+    blockers := blockers || 'SEO title is required.'::text;
   end if;
   if length(btrim(coalesce(item.meta_description, ''))) < 70 then
-    blockers := blockers || 'Meta description must clearly summarize the page.';
+    blockers := blockers || 'Meta description must clearly summarize the page.'::text;
   end if;
 
   -- Block structure: known types, unique ids, no skipped heading levels. A
@@ -211,16 +211,16 @@ begin
   end if;
 
   if not structure_ok then
-    blockers := blockers || 'Content blocks or heading hierarchy are invalid.';
+    blockers := blockers || 'Content blocks or heading hierarchy are invalid.'::text;
   end if;
   if word_count < 350 then
-    blockers := blockers || 'Content is too thin for publication review.';
+    blockers := blockers || 'Content is too thin for publication review.'::text;
   end if;
   if item.author_id is null then
-    blockers := blockers || 'A valid author is required.';
+    blockers := blockers || 'A valid author is required.'::text;
   end if;
   if btrim(coalesce(item.direct_answer, '')) = '' then
-    blockers := blockers || 'A direct answer or key-takeaway summary is required.';
+    blockers := blockers || 'A direct answer or key-takeaway summary is required.'::text;
   end if;
 
   select count(*) into takeaway_count
@@ -235,13 +235,13 @@ begin
     -- "Key takeaways" box already renders `direct_answer`, which is required
     -- above, so a post without bullets is complete — just less scannable.
     if takeaway_count = 0 then
-      recommendations := recommendations || 'Add key-takeaway bullets so the summary box is scannable.';
+      recommendations := recommendations || 'Add key-takeaway bullets so the summary box is scannable.'::text;
     end if;
     -- FAQs stay required. They are rendered on the page and emitted as FAQPage
     -- structured data, which is a large share of this site's rich-result and
     -- AI-citation surface.
     if faq_count = 0 then
-      blockers := blockers || 'At least one FAQ is required for blog posts.';
+      blockers := blockers || 'At least one FAQ is required for blog posts.'::text;
     end if;
   end if;
 
@@ -249,7 +249,7 @@ begin
     and (item.featured_image_asset_id is null or btrim(coalesce(item.featured_image_alt, '')) = '')
   then
     blockers := blockers
-      || 'A featured image with useful alt text, or a documented decorative choice, is required.';
+      || 'A featured image with useful alt text, or a documented decorative choice, is required.'::text;
   end if;
   -- next/image only optimizes the hosts in next.config.ts's remotePatterns; a
   -- featured image anywhere else throws at render and takes the article page
@@ -261,11 +261,11 @@ begin
       and featured_image_url !~* '^https://align-the-spine\.b-cdn\.net/'
     then
       blockers := blockers
-        || 'Featured image must be hosted on align-the-spine.b-cdn.net so the site can render it.';
+        || 'Featured image must be hosted on align-the-spine.b-cdn.net so the site can render it.'::text;
     end if;
   end if;
   if item.noindex and btrim(coalesce(item.noindex_reason, '')) = '' then
-    blockers := blockers || 'Noindex requires a reason.';
+    blockers := blockers || 'Noindex requires a reason.'::text;
   end if;
 
   makes_objective_claims := item.content_blocks::text ~*
@@ -277,19 +277,19 @@ begin
   where cs.content_id = item.id;
 
   if makes_objective_claims and source_count = 0 then
-    blockers := blockers || 'Objective medical, legal, insurance, or statistical claims require sources.';
+    blockers := blockers || 'Objective medical, legal, insurance, or statistical claims require sources.'::text;
   end if;
   if unverified_count > 0 then
-    blockers := blockers || 'Every cited source must be verified before publication.';
+    blockers := blockers || 'Every cited source must be verified before publication.'::text;
   end if;
   if item.emergency_guidance_relevant and not has_emergency_callout then
-    blockers := blockers || 'Relevant emergency/red-flag guidance is missing.';
+    blockers := blockers || 'Relevant emergency/red-flag guidance is missing.'::text;
   end if;
   if item.status = 'scheduled' and (item.scheduled_for is null or item.scheduled_for <= now()) then
-    blockers := blockers || 'Scheduled content requires a future schedule time.';
+    blockers := blockers || 'Scheduled content requires a future schedule time.'::text;
   end if;
   if not exists (select 1 from public.content_relations where source_content_id = item.id) then
-    recommendations := recommendations || 'Add genuinely useful related content.';
+    recommendations := recommendations || 'Add genuinely useful related content.'::text;
   end if;
 
   return jsonb_build_object(
